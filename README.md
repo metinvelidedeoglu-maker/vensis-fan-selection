@@ -2,14 +2,16 @@
 
 Industrial fan selection application.
 
-Current version: **v5.4.4**
+## Structure
 
-## Files
-
-- `index.html` — fan selection application
-- `detail.html` — product detail page
+- `index.html` — application shell
+- `css/app.css` — interface styles
+- `js/app.js` — selection, AI and project logic
+- `data/fans-*.js` — fan catalogue chunks
+- `assets/vensis-logo.png` — VENSIS logo
 - `project.html` — separate selection project page
+- `detail.html` — detail fallback page
 
 ## Deployment
 
-Upload all three HTML files to the same web directory.
+Hostinger deploys the `main` branch to `public_html/select`.
