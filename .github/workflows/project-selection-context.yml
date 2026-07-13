@@ -1,0 +1,125 @@
+name: Add project selection context
+
+on:
+  push:
+    paths:
+      - '.github/workflows/project-selection-context.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch selector project workflow
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          index = Path('index.html')
+          html = index.read_text(encoding='utf-8')
+          old_bar = '''<div class="selection-project-bar">
+  <div>
+    <b>Selection Project</b>
+    <span id="projectItemCount">0 selected product(s)</span>
+  </div>
+  <button onclick="openProjectPage()">Open Project ↗</button>
+</div>'''
+          new_bar = '''<div class="selection-project-bar">
+  <div class="project-context-info">
+    <b>Selection Project</b>
+    <span id="activeProjectLabel">No project selected</span>
+    <span id="projectItemCount">0 selected product(s)</span>
+  </div>
+  <div class="project-context-actions">
+    <button onclick="showProjectPicker()">Select Project</button>
+    <button onclick="createProjectFromSelector()">Create Project</button>
+    <button onclick="openProjectPage()">Open Projects ↗</button>
+  </div>
+</div>
+<div id="projectPickerModal" class="project-picker-modal" onclick="closeProjectPicker(event)">
+  <div class="project-picker-card" onclick="event.stopPropagation()">
+    <div class="project-picker-head"><b>Select Project</b><button onclick="closeProjectPicker()">×</button></div>
+    <div id="projectPickerList" class="project-picker-list"></div>
+  </div>
+</div>'''
+          if old_bar not in html:
+              raise RuntimeError('Project bar not found')
+          index.write_text(html.replace(old_bar,new_bar,1),encoding='utf-8')
+
+          css = Path('css/app.css')
+          style = css.read_text(encoding='utf-8')
+          style += r'''
+.project-context-info{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.project-context-actions{display:flex;gap:8px;flex-wrap:wrap}
+.project-context-actions button{width:auto;margin:0}
+#activeProjectLabel{font-weight:700;color:#006b3c;background:#eaf5ef;padding:5px 8px;border-radius:999px}
+.project-picker-modal{display:none;position:fixed;inset:0;background:rgba(10,35,30,.48);z-index:10000;align-items:center;justify-content:center;padding:16px}
+.project-picker-modal.open{display:flex}
+.project-picker-card{width:min(620px,100%);max-height:80vh;overflow:hidden;background:#fff;border-radius:12px;box-shadow:0 18px 60px rgba(0,0,0,.25)}
+.project-picker-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#173f46;color:#fff}
+.project-picker-head button{width:34px;height:34px;padding:0;margin:0;border-radius:50%;background:#fff;color:#173f46;font-size:20px}
+.project-picker-list{padding:12px;overflow:auto;max-height:65vh}
+.project-picker-item{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid #dfe7e2;border-radius:9px;padding:12px;margin-bottom:8px;background:#fff}
+.project-picker-item.active{border:2px solid #006b3c;background:#f2faf5}
+.project-picker-item button{width:auto;margin:0;background:#006b3c;color:#fff}
+.project-picker-empty{text-align:center;padding:28px;color:#718078}
+@media(max-width:700px){.project-context-actions{display:grid;grid-template-columns:1fr 1fr;width:100%}.project-context-actions button:last-child{grid-column:1/-1}.project-picker-item{align-items:stretch;flex-direction:column}.project-picker-item button{width:100%}}
+'''
+          css.write_text(style,encoding='utf-8')
+
+          app = Path('js/app.js')
+          js = app.read_text(encoding='utf-8')
+          start = js.index("const SELECTION_PROJECT_KEY='vensis_selection_project_v1';")
+          end = js.index('function normalizeSearchText(value){', start)
+          replacement = r'''const SELECTION_PROJECT_KEY='vensis_selection_project_v1';
+const PROJECTS_KEY='vensis_projects_v2';
+const ACTIVE_PROJECT_KEY='vensis_active_project_v2';
+const PROJECT_META_KEY='vensis_selection_project_meta_v1';
+
+function loadProjects(){
+  try{const data=JSON.parse(localStorage.getItem(PROJECTS_KEY)||'[]');return Array.isArray(data)?data:[]}
+  catch(e){return []}
+}
+function saveProjects(projects){localStorage.setItem(PROJECTS_KEY,JSON.stringify(projects))}
+function todayISO(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function nextProjectNo(date,projects){const prefix='PRJ-'+date.replaceAll('-','')+'-';const used=projects.map(p=>p.meta?.projectNo||'').filter(x=>x.startsWith(prefix)).map(x=>Number(x.slice(prefix.length))||0);return prefix+String((used.length?Math.max(...used):0)+1).padStart(3,'0')}
+function activeProject(){const id=localStorage.getItem(ACTIVE_PROJECT_KEY);return loadProjects().find(p=>p.id===id)||null}
+function syncLegacyProject(project){localStorage.setItem(SELECTION_PROJECT_KEY,JSON.stringify(project?.items||[]));localStorage.setItem(PROJECT_META_KEY,JSON.stringify(project?.meta||{}))}
+function activateProject(id){const project=loadProjects().find(p=>p.id===id);if(!project)return false;localStorage.setItem(ACTIVE_PROJECT_KEY,id);syncLegacyProject(project);updateSelectionProjectCount();closeProjectPicker();return true}
+function createProjectFromSelector(){const projects=loadProjects(),date=todayISO(),project={id:'prj_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),meta:{name:'',customer:'',date,projectNo:nextProjectNo(date,projects),status:'Draft',notes:''},items:[],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};projects.unshift(project);saveProjects(projects);activateProject(project.id);alert('New project created: '+project.meta.projectNo)}
+function showProjectPicker(){const modal=document.getElementById('projectPickerModal'),list=document.getElementById('projectPickerList'),projects=loadProjects(),activeId=localStorage.getItem(ACTIVE_PROJECT_KEY);if(!modal||!list)return;list.innerHTML=projects.length?projects.map(p=>`<div class="project-picker-item ${p.id===activeId?'active':''}"><div><b>${esc(p.meta?.projectNo||'-')}</b><div>${esc(p.meta?.name||'Unnamed Project')}</div><small>${esc(p.meta?.customer||'No customer')} · ${esc(p.meta?.date||'-')} · ${(p.items||[]).reduce((s,x)=>s+(Number(x.quantity)||1),0)} product(s)</small></div><button onclick="activateProject('${p.id}')">Select</button></div>`).join(''):'<div class="project-picker-empty">No project exists yet.<br><br><button onclick="createProjectFromSelector()">Create Project</button></div>';modal.classList.add('open')}
+function closeProjectPicker(event){if(event&&event.target!==event.currentTarget)return;document.getElementById('projectPickerModal')?.classList.remove('open')}
+function loadSelectionProject(){return activeProject()?.items||[]}
+function saveSelectionProject(items){const projects=loadProjects(),id=localStorage.getItem(ACTIVE_PROJECT_KEY),index=projects.findIndex(p=>p.id===id);if(index<0)return false;projects[index].items=items;projects[index].updatedAt=new Date().toISOString();saveProjects(projects);syncLegacyProject(projects[index]);updateSelectionProjectCount();return true}
+function updateSelectionProjectCount(){const countEl=document.getElementById('projectItemCount'),label=document.getElementById('activeProjectLabel'),project=activeProject();if(label)label.textContent=project?(project.meta?.projectNo||'Active Project')+(project.meta?.name?' · '+project.meta.name:''):'No project selected';if(countEl){const total=(project?.items||[]).reduce((sum,item)=>sum+(Number(item.quantity)||1),0);countEl.textContent=total+' selected product(s)'}}
+function addToSelectionProject(resultIndex){
+  const project=activeProject();
+  if(!project){alert('Please select an existing project or create a new project first.');showProjectPicker();return}
+  const result=results[resultIndex];if(!result)return;
+  const items=[...(project.items||[])];
+  const signature=[result.key,Math.round(Number(result.qq)||0),Math.round(Number(result.pp)||0)].join('|');
+  const existing=items.find(item=>item.signature===signature);
+  if(existing)existing.quantity=(Number(existing.quantity)||1)+1;
+  else items.push({id:'item_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),signature,key:result.key,model:result.model||result.display,series:result.series||'',flow:Math.round(Number(result.qq)||0),pressure:Math.round(Number(result.pp)||0),motorPower:Number(result.kw)||0,noise:Number(result.spl)||0,unitPrice:result.price==null?null:Number(result.price),quantity:1,addedAt:new Date().toISOString()});
+  saveSelectionProject(items);
+}
+function openProjectPage(){window.location.href='project.html'}
+
+'''
+          app.write_text(js[:start]+replacement+js[end:],encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html css/app.css js/app.js
+          git commit -m "Require active project before adding selections"
+          git push
