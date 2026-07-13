@@ -64,7 +64,7 @@ jobs:
           chunks, current, size = [], [], 0
           for item in models:
               encoded = json.dumps(item, ensure_ascii=False, separators=(',', ':'))
-              if current and size + len(encoded) > 280000:
+              if current and size + len(encoded) > 180000:
                   chunks.append(current)
                   current, size = [], 0
               current.append(item)
@@ -89,28 +89,29 @@ jobs:
           )
           modular_html = re.sub(data_uri_pattern, 'assets/vensis-logo.png', modular_html)
           source.write_text(modular_html, encoding='utf-8')
-
-          readme = '''# VENSIS Fan Selection
-
-Industrial fan selection application.
-
-## Structure
-
-- `index.html` — application shell
-- `css/app.css` — interface styles
-- `js/app.js` — selection, AI and project bridge logic
-- `data/fans-*.js` — fan catalogue chunks
-- `assets/vensis-logo.png` — VENSIS logo
-- `project.html` — separate selection project page
-- `detail.html` — detail fallback page
-
-## Deployment
-
-Hostinger deploys the `main` branch to `public_html/select`.
-'''
-          (root / 'README.md').write_text(readme, encoding='utf-8')
           print(f'Modularized {len(models)} models into {len(chunks)} catalogue files.')
           PY
+
+      - name: Update README
+        run: |
+          printf '%s\n' \
+            '# VENSIS Fan Selection' \
+            '' \
+            'Industrial fan selection application.' \
+            '' \
+            '## Structure' \
+            '' \
+            '- `index.html` — application shell' \
+            '- `css/app.css` — interface styles' \
+            '- `js/app.js` — selection, AI and project logic' \
+            '- `data/fans-*.js` — fan catalogue chunks' \
+            '- `assets/vensis-logo.png` — VENSIS logo' \
+            '- `project.html` — separate selection project page' \
+            '- `detail.html` — detail fallback page' \
+            '' \
+            '## Deployment' \
+            '' \
+            'Hostinger deploys the `main` branch to `public_html/select`.' > README.md
 
       - name: Commit modular structure
         run: |
