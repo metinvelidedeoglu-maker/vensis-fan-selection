@@ -11,10 +11,6 @@
     }catch(e){return []}
   }
 
-  function saveProjects(projects){
-    localStorage.setItem(PROJECTS,JSON.stringify(projects));
-  }
-
   window.goMainPage=function(){
     localStorage.removeItem(ACTIVE);
     localStorage.removeItem(ITEMS);
@@ -35,59 +31,49 @@
     location.href='index.html';
   };
 
-  function showSaved(){
-    const state=document.getElementById('saveState');
-    if(!state)return;
-    state.textContent='✓ Saved';
-    state.style.fontWeight='700';
-    state.style.color='#d9ffe9';
-    clearTimeout(window.__vensisSavedTimer);
-    window.__vensisSavedTimer=setTimeout(()=>{
-      state.textContent='✓ Saved';
-    },1800);
-  }
-
-  function fixProjectEditor(){
+  function installSaveFeedback(){
     const page=(location.pathname.split('/').pop()||'').toLowerCase();
     if(page!=='project-edit.html')return;
+    const state=document.getElementById('saveState');
+    if(!state)return;
 
-    const projectName=document.getElementById('name');
-    const customer=document.getElementById('customer');
-    const date=document.getElementById('date');
-    const status=document.getElementById('status');
-    const notes=document.getElementById('notes');
-    if(!projectName)return;
+    state.style.minWidth='92px';
+    state.style.transition='opacity .25s ease, transform .25s ease';
+    state.style.opacity='0';
 
-    const saveExplicitly=()=>{
-      const activeId=localStorage.getItem(ACTIVE);
-      const projects=loadProjects();
-      const index=projects.findIndex(p=>p.id===activeId);
-      if(index<0)return;
-
-      projects[index].meta={
-        ...(projects[index].meta||{}),
-        name:projectName.value.trim(),
-        customer:customer?.value.trim()||'',
-        date:date?.value||'',
-        status:status?.value||'Draft',
-        notes:notes?.value||''
-      };
-      projects[index].updatedAt=new Date().toISOString();
-      saveProjects(projects);
-      localStorage.setItem(ITEMS,JSON.stringify(projects[index].items||[]));
-      localStorage.setItem(META,JSON.stringify(projects[index].meta||{}));
-      showSaved();
+    let timer;
+    const saving=()=>{
+      clearTimeout(timer);
+      state.textContent='⟳ Saving…';
+      state.style.color='#fff4c2';
+      state.style.opacity='1';
+      state.style.transform='translateY(0)';
+      timer=setTimeout(()=>{
+        state.textContent='✓ Saved';
+        state.style.color='#d9ffe9';
+        state.style.opacity='1';
+        timer=setTimeout(()=>{
+          state.style.opacity='0';
+          state.style.transform='translateY(-2px)';
+        },1300);
+      },300);
     };
 
-    [projectName,customer,date,status,notes].filter(Boolean).forEach(el=>{
-      el.addEventListener('input',saveExplicitly);
-      el.addEventListener('change',saveExplicitly);
+    ['projectName','customer','projectDate','status','notes'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el)return;
+      el.addEventListener('input',saving,{capture:true});
+      el.addEventListener('change',saving,{capture:true});
     });
-    showSaved();
+
+    state.textContent='✓ Saved';
+    state.style.color='#d9ffe9';
+    state.style.opacity='1';
+    setTimeout(()=>state.style.opacity='0',900);
   }
 
   function inject(){
-    fixProjectEditor();
+    installSaveFeedback();
     if(document.getElementById('globalNavDock'))return;
     const page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
     const dock=document.createElement('div');
