@@ -62,6 +62,7 @@ function updateSelectionProjectCount(){
   const nameEl=document.getElementById('activeProjectName');
   const countEl=document.getElementById('projectItemCount');
   const clearBtn=document.getElementById('clearActiveProjectBtn');
+  if(clearBtn)clearBtn.textContent='Exit Project';
   if(!active){
     if(nameEl)nameEl.textContent='No active project';
     if(countEl)countEl.textContent='Select or create a project before adding products.';
