@@ -855,7 +855,7 @@ function openProductTab(i){
       </div>
     </div>
   </div></div>
-  </body></html>`;
+  <script src="js/global-navigation.js"></script></body></html>`;
 
   const completedDetail=detail.replace('__LOGO__','assets/vensis-logo.png');
   const detailKey='vensis_detail_'+Date.now()+'_'+Math.random().toString(36).slice(2);
