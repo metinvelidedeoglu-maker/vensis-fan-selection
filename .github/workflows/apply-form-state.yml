@@ -1,0 +1,55 @@
+name: Apply shared form state
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-form-state.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply shared field behavior
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          css_tag='<link rel="stylesheet" href="css/form-state.css">'
+          js_tag='<script src="js/form-state.js"></script>'
+          for name in ['index.html','project.html','project-edit.html','project-report.html']:
+              p=Path(name)
+              text=p.read_text(encoding='utf-8')
+              if css_tag not in text:
+                  text=text.replace('</head>',css_tag+'</head>',1)
+              if js_tag not in text:
+                  text=text.replace('</body>',js_tag+'</body>',1)
+              p.write_text(text,encoding='utf-8')
+
+          p=Path('project-edit.html')
+          text=p.read_text(encoding='utf-8')
+          text=re.sub(r'<div id="saveState" class="save-state">.*?</div>','',text,count=1)
+          text=re.sub(r'function showSaved\(\)\{.*?\}function saveMeta', 'function showSaved(){}function saveMeta', text, count=1)
+          p.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html project.html project-edit.html project-report.html
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git commit -m "Apply shared form completion behavior"
+          git pull --rebase origin main
+          git push origin main
