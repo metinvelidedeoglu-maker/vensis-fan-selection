@@ -1,0 +1,69 @@
+name: Add project detail pages
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-project-detail-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Store full selection details and expand project report
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          app = Path('js/app.js')
+          text = app.read_text(encoding='utf-8')
+          old = """      unitPrice:result.price==null?null:Number(result.price),
+      quantity:1,
+      addedAt:new Date().toISOString()
+"""
+          new = """      unitPrice:result.price==null?null:Number(result.price),
+      quantity:1,
+      details:{
+        brand:result.brand||'',series:result.series||'',productGroupEn:result.productGroupEn||result.productGroup||'',
+        fanTypeEn:result.fanTypeEn||result.fanType||'',mountTypeEn:result.mountTypeEn||result.mountType||'',
+        rpm:Number(result.rpm)||0,amps:Number(result.amps)||0,voltage:result.voltage||'',atex:!!result.atex,
+        fire:result.fire||'',sourcePage:result.sourcePage||'',catalogNameEn:result.catalogNameEn||'',
+        tagsEn:result.tagsEn||[],catalogueInfo:result.catalogueInfo||{general:[],motor:[],applications:[]},
+        points:result.points||[],nominal:Number(result.nominal)||0,qd:Number(result.qd)||0,pd:Number(result.pd)||0
+      },
+      addedAt:new Date().toISOString()
+"""
+          if old not in text:
+              raise RuntimeError('Project item insertion point not found')
+          app.write_text(text.replace(old,new,1),encoding='utf-8')
+
+          report = Path('project-report.html')
+          html = report.read_text(encoding='utf-8')
+          html = html.replace('</style>', '.product-page{margin-top:28px;padding-top:18px;border-top:3px solid var(--g);page-break-before:always}.product-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.product-text{border:1px solid var(--l);padding:12px;margin-top:10px}.product-text h4{margin:10px 0 5px}.product-text ul{margin:5px 0;padding-left:20px;line-height:1.45}.curve{border:1px solid var(--l);padding:8px;margin-top:10px}@media(max-width:700px){.product-grid{grid-template-columns:1fr 1fr}}@media print{.product-page{page-break-before:always}}\n</style>',1)
+          html = html.replace('<div class="footer">','<div id="productPages"></div><div class="footer">',1)
+          marker = "}init();</script>"
+          extra = r'''
+function curveSvg(item){const d=item.details||{},pts=(d.points||[]).slice().sort((a,b)=>a[0]-b[0]);if(!pts.length)return '<div class="muted">No performance curve data available.</div>';const W=720,H=310,L=58,R=18,T=20,B=42,maxQ=Math.max(...pts.map(x=>x[1]))*1.08,maxP=Math.max(...pts.map(x=>x[0]))*1.08,x=q=>L+(q/maxQ)*(W-L-R),y=p=>T+(H-T-B)-(p/maxP)*(H-T-B),poly=pts.map(p=>`${x(p[1])},${y(p[0])}`).join(' ');return `<svg viewBox="0 0 ${W} ${H}" width="100%"><polyline fill="none" stroke="#173f46" stroke-width="3" points="${poly}"/><circle cx="${x(item.flow)}" cy="${y(item.pressure)}" r="6" fill="#e49a27"/><text x="${x(item.flow)+9}" y="${y(item.pressure)-8}" font-size="12">${fmt(item.flow)} m³/h @ ${fmt(item.pressure)} Pa</text><text x="${W/2-35}" y="${H-8}" font-size="12">Airflow</text><text x="12" y="${H/2}" font-size="12" transform="rotate(-90 12 ${H/2})">Pressure</text></svg>`}
+function bullets(items){return items&&items.length?`<ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<div class="muted">No catalogue text available.</div>'}
+function renderProductPages(items){productPages.innerHTML=items.map((x,i)=>{const d=x.details||{},ci=d.catalogueInfo||{general:[],motor:[],applications:[]};return `<section class="product-page"><div class="product-head"><div><div class="muted">PRODUCT ${i+1}</div><h2 style="margin:4px 0">${esc(x.model)}</h2><div class="muted">${esc(d.catalogNameEn||d.series||'')}</div></div><div style="text-align:right"><b>Qty: ${fmt(x.quantity||1)}</b><div class="muted">${esc(d.tagsEn?.join(' · ')||'')}</div></div></div><div class="product-grid"><div class="field"><span>Airflow</span><b>${fmt(x.flow)} m³/h</b></div><div class="field"><span>Static Pressure</span><b>${fmt(x.pressure)} Pa</b></div><div class="field"><span>Motor Power</span><b>${fmt(x.motorPower,2)} kW</b></div><div class="field"><span>Sound Level</span><b>${fmt(x.noise)} dB(A)</b></div><div class="field"><span>Speed</span><b>${fmt(d.rpm)} rpm</b></div><div class="field"><span>Current</span><b>${fmt(d.amps,2)} A</b></div><div class="field"><span>Voltage</span><b>${esc(d.voltage||'-')}</b></div><div class="field"><span>ATEX</span><b>${d.atex?'Yes':'No'}</b></div></div><div class="curve">${curveSvg(x)}</div><div class="product-text"><h4>General Features</h4>${bullets(ci.general)}<h4>Motor</h4>${bullets(ci.motor)}<h4>Areas of Usage</h4>${bullets(ci.applications)}<div class="muted" style="margin-top:8px">Catalogue page: ${esc(d.sourcePage||'-')}</div></div></section>`}).join('')}
+const originalInit=init;init=function(){originalInit();const id=localStorage.getItem(ACTIVE),p=load().find(x=>x.id===id);if(p)renderProductPages(p.items||[])};init();</script>'''
+          if marker not in html:
+              raise RuntimeError('Report script marker not found')
+          html = html.replace(marker,extra,1)
+          report.write_text(html,encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add js/app.js project-report.html
+          git commit -m "Include full product selection details in project PDF"
+          git push
