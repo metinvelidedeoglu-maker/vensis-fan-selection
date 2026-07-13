@@ -1,0 +1,1 @@
+input,textarea,select{transition:color .22s ease,opacity .22s ease}input.form-editing,textarea.form-editing,select.form-editing{color:#17342b;opacity:1}input.form-settled,textarea.form-settled,select.form-settled{color:#6f7d76;opacity:.82}input[readonly].form-settled,textarea[readonly].form-settled,select[disabled].form-settled{color:#7c8983;opacity:.78}
