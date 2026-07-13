@@ -11,6 +11,10 @@
     }catch(e){return []}
   }
 
+  function saveProjects(projects){
+    localStorage.setItem(PROJECTS,JSON.stringify(projects));
+  }
+
   window.goMainPage=function(){
     localStorage.removeItem(ACTIVE);
     localStorage.removeItem(ITEMS);
@@ -31,7 +35,59 @@
     location.href='index.html';
   };
 
+  function showSaved(){
+    const state=document.getElementById('saveState');
+    if(!state)return;
+    state.textContent='✓ Saved';
+    state.style.fontWeight='700';
+    state.style.color='#d9ffe9';
+    clearTimeout(window.__vensisSavedTimer);
+    window.__vensisSavedTimer=setTimeout(()=>{
+      state.textContent='✓ Saved';
+    },1800);
+  }
+
+  function fixProjectEditor(){
+    const page=(location.pathname.split('/').pop()||'').toLowerCase();
+    if(page!=='project-edit.html')return;
+
+    const projectName=document.getElementById('name');
+    const customer=document.getElementById('customer');
+    const date=document.getElementById('date');
+    const status=document.getElementById('status');
+    const notes=document.getElementById('notes');
+    if(!projectName)return;
+
+    const saveExplicitly=()=>{
+      const activeId=localStorage.getItem(ACTIVE);
+      const projects=loadProjects();
+      const index=projects.findIndex(p=>p.id===activeId);
+      if(index<0)return;
+
+      projects[index].meta={
+        ...(projects[index].meta||{}),
+        name:projectName.value.trim(),
+        customer:customer?.value.trim()||'',
+        date:date?.value||'',
+        status:status?.value||'Draft',
+        notes:notes?.value||''
+      };
+      projects[index].updatedAt=new Date().toISOString();
+      saveProjects(projects);
+      localStorage.setItem(ITEMS,JSON.stringify(projects[index].items||[]));
+      localStorage.setItem(META,JSON.stringify(projects[index].meta||{}));
+      showSaved();
+    };
+
+    [projectName,customer,date,status,notes].filter(Boolean).forEach(el=>{
+      el.addEventListener('input',saveExplicitly);
+      el.addEventListener('change',saveExplicitly);
+    });
+    showSaved();
+  }
+
   function inject(){
+    fixProjectEditor();
     if(document.getElementById('globalNavDock'))return;
     const page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
     const dock=document.createElement('div');
