@@ -5,17 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vensis Engineering Suite</title>
 <link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/project-selector.css">
 </head>
 <body>
-<div class="top"><div class="brand"><div style="display:flex;align-items:center;gap:12px"><img src="assets/vensis-logo.png" alt="Vensis" style="height:44px;max-width:220px;object-fit:contain"><div><h1 style="margin:0">Vensis Engineering Suite</h1><small>Fan Selection / Separate Project Page</small></div></div><div class="tag">VENSIS v5.4.4</div></div></div>
-
+<div class="top"><div class="brand"><div style="display:flex;align-items:center;gap:12px"><img src="assets/vensis-logo.png" alt="Vensis" style="height:44px;max-width:220px;object-fit:contain"><div><h1 style="margin:0">Vensis Engineering Suite</h1><small>Fan Selection / Separate Project Page</small></div></div><div class="tag">VENSIS v5.5.0</div></div></div>
 
 <div class="selection-project-bar">
-  <div>
-    <b>Selection Project</b>
-    <span id="projectItemCount">0 selected product(s)</span>
+  <div class="project-status-block">
+    <b>Active Project</b>
+    <strong id="activeProjectName">No active project</strong>
+    <span id="projectItemCount">Select or create a project before adding products.</span>
   </div>
-  <button onclick="openProjectPage()">Open Project ↗</button>
+  <div class="project-bar-actions">
+    <button class="project-select-btn" onclick="selectExistingProject()">Open Project</button>
+    <button class="project-create-btn" onclick="createProjectFromSelection()">+ Create Project</button>
+    <button id="clearActiveProjectBtn" class="project-clear-btn" onclick="clearActiveProject()" hidden>Clear Active Project</button>
+  </div>
 </div>
 
 <div class="layout">
@@ -127,5 +132,6 @@
 <script src="data/fans-06.js"></script>
 <script src="data/fans-07.js"></script>
 <script src="js/app.js"></script>
+<script src="js/project-selector.js"></script>
 </body>
 </html>
