@@ -1,0 +1,125 @@
+name: Modularize application
+
+on:
+  push:
+    paths:
+      - '.github/workflows/modularize.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  modularize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Split monolithic index.html
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re, json, base64
+
+          root = Path('.')
+          source = root / 'index.html'
+          text = source.read_text(encoding='utf-8')
+
+          if (root / 'js/app.js').exists():
+              print('Application is already modularized.')
+              raise SystemExit(0)
+
+          style_start = text.find('<style>')
+          style_end = text.find('</style>', style_start)
+          script_start = text.find('<script>', style_end)
+          script_end = text.rfind('</script>')
+          if min(style_start, style_end, script_start, script_end) < 0:
+              raise RuntimeError('Expected inline style/script blocks were not found.')
+
+          css = text[style_start + len('<style>'):style_end]
+          script = text[script_start + len('<script>'):script_end]
+
+          match = re.search(r'const models=(.*?);\nlet results', script, re.S)
+          if not match:
+              raise RuntimeError('Embedded fan catalogue was not found.')
+          models = json.loads(match.group(1))
+          app_start = script.find('let results', match.start())
+          app_js = 'const models=window.models||[];\n' + script[app_start:]
+
+          logo_match = re.search(r'data:image/png;base64,([A-Za-z0-9+/=]+)', text)
+          if not logo_match:
+              raise RuntimeError('Embedded logo was not found.')
+          logo_bytes = base64.b64decode(logo_match.group(1))
+          data_uri_pattern = r'data:image/png;base64,[A-Za-z0-9+/=]+'
+
+          (root / 'css').mkdir(exist_ok=True)
+          (root / 'js').mkdir(exist_ok=True)
+          (root / 'data').mkdir(exist_ok=True)
+          (root / 'assets').mkdir(exist_ok=True)
+          (root / 'css/app.css').write_text(css, encoding='utf-8')
+          (root / 'assets/vensis-logo.png').write_bytes(logo_bytes)
+          app_js = re.sub(data_uri_pattern, 'assets/vensis-logo.png', app_js)
+          (root / 'js/app.js').write_text(app_js, encoding='utf-8')
+
+          chunks, current, size = [], [], 0
+          for item in models:
+              encoded = json.dumps(item, ensure_ascii=False, separators=(',', ':'))
+              if current and size + len(encoded) > 280000:
+                  chunks.append(current)
+                  current, size = [], 0
+              current.append(item)
+              size += len(encoded) + 1
+          if current:
+              chunks.append(current)
+
+          script_tags = ['<script>window.models=[];</script>']
+          for number, chunk in enumerate(chunks, 1):
+              filename = f'fans-{number:02d}.js'
+              payload = 'window.models.push(...' + json.dumps(chunk, ensure_ascii=False, separators=(',', ':')) + ');\n'
+              (root / 'data' / filename).write_text(payload, encoding='utf-8')
+              script_tags.append(f'<script src="data/{filename}"></script>')
+          script_tags.append('<script src="js/app.js"></script>')
+
+          modular_html = (
+              text[:style_start]
+              + '<link rel="stylesheet" href="css/app.css">'
+              + text[style_end + len('</style>'):script_start]
+              + '\n'.join(script_tags)
+              + text[script_end + len('</script>'):]
+          )
+          modular_html = re.sub(data_uri_pattern, 'assets/vensis-logo.png', modular_html)
+          source.write_text(modular_html, encoding='utf-8')
+
+          readme = '''# VENSIS Fan Selection
+
+Industrial fan selection application.
+
+## Structure
+
+- `index.html` — application shell
+- `css/app.css` — interface styles
+- `js/app.js` — selection, AI and project bridge logic
+- `data/fans-*.js` — fan catalogue chunks
+- `assets/vensis-logo.png` — VENSIS logo
+- `project.html` — separate selection project page
+- `detail.html` — detail fallback page
+
+## Deployment
+
+Hostinger deploys the `main` branch to `public_html/select`.
+'''
+          (root / 'README.md').write_text(readme, encoding='utf-8')
+          print(f'Modularized {len(models)} models into {len(chunks)} catalogue files.')
+          PY
+
+      - name: Commit modular structure
+        run: |
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html README.md css js data assets
+          git commit -m "Modularize fan selection application"
+          git push
