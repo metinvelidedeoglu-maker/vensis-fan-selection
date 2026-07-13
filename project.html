@@ -6,149 +6,62 @@
 <title>VENSIS Selection Project</title>
 <style>
 :root{--green:#006b3c;--dark:#173f46;--line:#dfe7e2;--soft:#f4f7f5;--text:#17342b}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--soft);color:var(--text)}
-.top{
-  min-height:66px;padding:13px 20px;background:linear-gradient(135deg,#004f2d,#006b3c);
-  color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px
-}
-.top h1{margin:0;font-size:21px}.top small{opacity:.8}
-button{border:0;border-radius:8px;padding:10px 13px;font-weight:700;cursor:pointer}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--soft);color:var(--text)}
+.top{min-height:66px;padding:13px 20px;background:linear-gradient(135deg,#004f2d,#006b3c);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top h1{margin:0;font-size:21px}.top small{opacity:.8} button{border:0;border-radius:8px;padding:10px 13px;font-weight:700;cursor:pointer}
 .primary{background:var(--green);color:#fff}.secondary{background:#fff;color:var(--dark);border:1px solid var(--dark)}
-.wrap{max-width:1200px;margin:18px auto;padding:0 14px}
-.card{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 3px 12px rgba(10,62,38,.06);overflow:hidden}
-.card-head{padding:12px 15px;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.card-body{padding:14px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:7px}
-table{width:100%;border-collapse:collapse;min-width:880px}
-th{background:var(--green);color:#fff;padding:10px;text-align:left;font-size:12px}
-td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle}
-tbody tr:hover{background:#f0f8f3}
-.qty{
-  width:78px;padding:8px;border:1px solid #cfdcd4;border-radius:6px;font-size:14px
-}
-.icon-btn{width:34px;height:34px;padding:0;border-radius:50%;background:#eef4f1;color:#173f46;font-size:17px}
-.icon-btn.danger{color:#b42318;background:#fff0ee}
-.empty{text-align:center;padding:50px 15px;color:#718078}
-.summary{
-  display:flex;justify-content:flex-end;gap:18px;align-items:center;
-  padding:13px 4px 0;font-size:13px
-}
-.summary b{font-size:17px;color:var(--green)}
-@media(max-width:650px){
-  .top{align-items:flex-start;flex-direction:column}
-  .top button{width:100%}
-  .toolbar{display:grid;grid-template-columns:1fr 1fr}
-  .toolbar button{width:100%}
-  .wrap{margin:10px auto;padding:0 10px}
-}
+.wrap{max-width:1200px;margin:18px auto;padding:0 14px}.card{background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 3px 12px rgba(10,62,38,.06);overflow:hidden;margin-bottom:14px}
+.card-head{padding:12px 15px;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}.card-body{padding:14px}
+.meta-grid{display:grid;grid-template-columns:2fr 2fr 1fr 1.4fr;gap:10px}.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:#476158}.field input,.field textarea{width:100%;padding:10px;border:1px solid #cfdcd4;border-radius:7px;font:inherit;background:#fff}.field textarea{min-height:78px;resize:vertical}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:7px} table{width:100%;border-collapse:collapse;min-width:880px}
+th{background:var(--green);color:#fff;padding:10px;text-align:left;font-size:12px} td{padding:10px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle} tbody tr:hover{background:#f0f8f3}
+.qty{width:78px;padding:8px;border:1px solid #cfdcd4;border-radius:6px;font-size:14px}.icon-btn{width:34px;height:34px;padding:0;border-radius:50%;background:#eef4f1;color:#173f46;font-size:17px}.icon-btn.danger{color:#b42318;background:#fff0ee}
+.empty{text-align:center;padding:50px 15px;color:#718078}.summary{display:flex;justify-content:flex-end;gap:18px;align-items:center;padding:13px 4px 0;font-size:13px}.summary b{font-size:17px;color:var(--green)}
+.save-state{font-size:12px;color:#d5efe1}.notes-row{margin-top:10px}
+@media(max-width:850px){.meta-grid{grid-template-columns:1fr 1fr}} @media(max-width:650px){.top{align-items:flex-start;flex-direction:column}.top button{width:100%}.toolbar{display:grid;grid-template-columns:1fr 1fr}.toolbar button{width:100%}.wrap{margin:10px auto;padding:0 10px}.meta-grid{grid-template-columns:1fr}.summary{flex-direction:column;align-items:flex-end;gap:5px}}
 </style>
 </head>
 <body>
-<div class="top">
-  <div><h1>VENSIS Selection Project</h1><small>Selected products only — quotation is kept separate.</small></div>
-  <button class="secondary" onclick="location.href='index.html'">← Back to Selection</button>
-</div>
-
+<div class="top"><div><h1>VENSIS Selection Project</h1><small>Selected products only — quotation is kept separate.</small></div><button class="secondary" onclick="location.href='index.html'">← Back to Selection</button></div>
 <div class="wrap">
   <div class="card">
-    <div class="card-head">
-      <b>Project Product List</b>
-      <div class="toolbar">
-        <button class="secondary" onclick="duplicateSelected()">Duplicate Last</button>
-        <button class="secondary" onclick="clearProject()">Clear Project</button>
-      </div>
-    </div>
+    <div class="card-head"><b>Project Information</b><span id="saveState" class="save-state">Saved automatically</span></div>
     <div class="card-body">
-      <div id="projectContent"></div>
+      <div class="meta-grid">
+        <div class="field"><label>Project Name (optional)</label><input id="projectName" placeholder="Leave blank if not needed"></div>
+        <div class="field"><label>Customer (optional)</label><input id="customer" placeholder="Customer / company"></div>
+        <div class="field"><label>Date</label><input id="projectDate" type="date"></div>
+        <div class="field"><label>Project No.</label><input id="projectNo" readonly></div>
+      </div>
+      <div class="field notes-row"><label>Notes</label><textarea id="notes" placeholder="Project notes"></textarea></div>
     </div>
   </div>
+
+  <div class="card">
+    <div class="card-head"><b>Project Product List</b><div class="toolbar"><button class="secondary" onclick="duplicateSelected()">Duplicate Last</button><button class="secondary" onclick="clearProject()">Clear Project</button></div></div>
+    <div class="card-body"><div id="projectContent"></div></div>
+  </div>
 </div>
-
 <script>
-const KEY='vensis_selection_project_v1';
-
-function esc(v){
-  return String(v??'').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
-}
-function load(){
-  try{
-    const data=JSON.parse(localStorage.getItem(KEY)||'[]');
-    return Array.isArray(data)?data:[];
-  }catch(e){return []}
-}
-function save(items){
-  localStorage.setItem(KEY,JSON.stringify(items));
-  render();
-}
-function fmt(v,digits=0){
-  const n=Number(v);
-  if(!Number.isFinite(n))return '-';
-  return new Intl.NumberFormat('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(n);
-}
-function changeQty(id,value){
-  const items=load();
-  const item=items.find(x=>x.id===id);
-  if(!item)return;
-  item.quantity=Math.max(1,Math.round(Number(value)||1));
-  save(items);
-}
-function removeItem(id){
-  save(load().filter(x=>x.id!==id));
-}
-function duplicateItem(id){
-  const items=load();
-  const original=items.find(x=>x.id===id);
-  if(!original)return;
-  items.push({...original,id:'item_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),addedAt:new Date().toISOString()});
-  save(items);
-}
-function duplicateSelected(){
-  const items=load();
-  if(!items.length)return;
-  duplicateItem(items[items.length-1].id);
-}
-function clearProject(){
-  if(!confirm('Remove all selected products from this project?'))return;
-  save([]);
-}
-function render(){
-  const items=load();
-  const box=document.getElementById('projectContent');
-  if(!items.length){
-    box.innerHTML='<div class="empty">No selected products yet.<br>Return to Fan Selection and use the ＋ button.</div>';
-    return;
-  }
-
-  const totalQty=items.reduce((sum,x)=>sum+(Number(x.quantity)||1),0);
-  const totalPrice=items.reduce((sum,x)=>{
-    const price=Number(x.unitPrice);
-    return sum+(Number.isFinite(price)?price:0)*(Number(x.quantity)||1);
-  },0);
-
-  box.innerHTML=`<div class="table-wrap"><table>
-    <thead><tr>
-      <th>Model</th><th>Flow</th><th>Pressure</th><th>Motor Power</th>
-      <th>Noise</th><th>Qty</th><th>Price</th><th>Actions</th>
-    </tr></thead>
-    <tbody>${items.map(item=>`<tr>
-      <td><b>${esc(item.model)}</b></td>
-      <td>${fmt(item.flow)} m³/h</td>
-      <td>${fmt(item.pressure)} Pa</td>
-      <td>${fmt(item.motorPower,2)} kW</td>
-      <td>${fmt(item.noise)} dB(A)</td>
-      <td><input class="qty" type="number" min="1" step="1" value="${Number(item.quantity)||1}" onchange="changeQty('${item.id}',this.value)"></td>
-      <td>${item.unitPrice==null?'Not available':fmt(item.unitPrice,2)+' €'}</td>
-      <td>
-        <button class="icon-btn" title="Duplicate" onclick="duplicateItem('${item.id}')">⧉</button>
-        <button class="icon-btn danger" title="Remove" onclick="removeItem('${item.id}')">×</button>
-      </td>
-    </tr>`).join('')}</tbody>
-  </table></div>
-  <div class="summary"><span>Total quantity: <b>${totalQty}</b></span><span>Catalogue total: <b>${fmt(totalPrice,2)} €</b></span></div>`;
-}
-render();
+const ITEMS_KEY='vensis_selection_project_v1';
+const META_KEY='vensis_selection_project_meta_v1';
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));}
+function todayISO(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');}
+function makeProjectNo(date){const day=(date||todayISO()).replaceAll('-','');const key='vensis_project_counter_'+day;const current=Math.max(1,Number(localStorage.getItem(key))||1);localStorage.setItem(key,String(current));return 'PRJ-'+day+'-'+String(current).padStart(3,'0');}
+function loadItems(){try{const data=JSON.parse(localStorage.getItem(ITEMS_KEY)||'[]');return Array.isArray(data)?data:[]}catch(e){return []}}
+function saveItems(items){localStorage.setItem(ITEMS_KEY,JSON.stringify(items));render();markSaved();}
+function loadMeta(){try{return JSON.parse(localStorage.getItem(META_KEY)||'{}')||{}}catch(e){return {}}}
+function saveMeta(){const meta={name:projectName.value.trim(),customer:customer.value.trim(),date:projectDate.value||todayISO(),projectNo:projectNo.value,notes:notes.value};localStorage.setItem(META_KEY,JSON.stringify(meta));markSaved();}
+function markSaved(){const el=document.getElementById('saveState');el.textContent='Saved automatically';clearTimeout(window.__saveTimer);window.__saveTimer=setTimeout(()=>el.textContent='',1800);}
+function initMeta(){let meta=loadMeta();if(!meta.date)meta.date=todayISO();if(!meta.projectNo)meta.projectNo=makeProjectNo(meta.date);projectName.value=meta.name||'';customer.value=meta.customer||'';projectDate.value=meta.date;projectNo.value=meta.projectNo;notes.value=meta.notes||'';['projectName','customer','projectDate','notes'].forEach(id=>document.getElementById(id).addEventListener('input',saveMeta));projectDate.addEventListener('change',saveMeta);saveMeta();}
+function fmt(v,digits=0){const n=Number(v);if(!Number.isFinite(n))return '-';return new Intl.NumberFormat('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(n);}
+function changeQty(id,value){const items=loadItems();const item=items.find(x=>x.id===id);if(!item)return;item.quantity=Math.max(1,Math.round(Number(value)||1));saveItems(items);}
+function removeItem(id){saveItems(loadItems().filter(x=>x.id!==id));}
+function duplicateItem(id){const items=loadItems();const original=items.find(x=>x.id===id);if(!original)return;items.push({...original,id:'item_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),addedAt:new Date().toISOString()});saveItems(items);}
+function duplicateSelected(){const items=loadItems();if(items.length)duplicateItem(items[items.length-1].id);}
+function clearProject(){if(!confirm('Remove all selected products from this project?'))return;saveItems([]);}
+function render(){const items=loadItems();const box=document.getElementById('projectContent');if(!items.length){box.innerHTML='<div class="empty">No selected products yet.<br>Return to Fan Selection and use the ＋ button.</div>';return;}const totalQty=items.reduce((sum,x)=>sum+(Number(x.quantity)||1),0);const totalPrice=items.reduce((sum,x)=>{const price=Number(x.unitPrice);return sum+(Number.isFinite(price)?price:0)*(Number(x.quantity)||1)},0);box.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Model</th><th>Flow</th><th>Pressure</th><th>Motor Power</th><th>Noise</th><th>Qty</th><th>Price</th><th>Actions</th></tr></thead><tbody>${items.map(item=>`<tr><td><b>${esc(item.model)}</b></td><td>${fmt(item.flow)} m³/h</td><td>${fmt(item.pressure)} Pa</td><td>${fmt(item.motorPower,2)} kW</td><td>${fmt(item.noise)} dB(A)</td><td><input class="qty" type="number" min="1" step="1" value="${Number(item.quantity)||1}" onchange="changeQty('${item.id}',this.value)"></td><td>${item.unitPrice==null?'Not available':fmt(item.unitPrice,2)+' €'}</td><td><button class="icon-btn" title="Duplicate" onclick="duplicateItem('${item.id}')">⧉</button> <button class="icon-btn danger" title="Remove" onclick="removeItem('${item.id}')">×</button></td></tr>`).join('')}</tbody></table></div><div class="summary"><span>Total quantity: <b>${totalQty}</b></span><span>Catalogue total: <b>${fmt(totalPrice,2)} €</b></span></div>`;}
+initMeta();render();
 </script>
 </body>
 </html>
