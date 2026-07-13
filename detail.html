@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product Details</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#eef3f4;color:#173033}
+.loading{padding:30px}
+</style>
+</head>
+<body>
+<div class="loading">Loading product details...</div>
+<script>
+(function(){
+  try{
+    const key=new URLSearchParams(location.search).get('key');
+    if(!key) throw new Error('No product key received.');
+
+    const payload=localStorage.getItem(key);
+    if(!payload) throw new Error('Product detail data was not found.');
+
+    localStorage.removeItem(key);
+    document.open();
+    document.write(payload);
+    document.close();
+  }catch(err){
+    document.body.innerHTML=
+      '<div style="padding:30px;font-family:Arial">'+
+      '<h2>Product details could not be opened.</h2>'+
+      '<p>'+String(err.message||err)+'</p>'+
+      '<p><button onclick="window.close()" style="padding:10px 14px">Close</button></p>'+
+      '</div>';
+  }
+})();
+</script>
+</body>
+</html>
