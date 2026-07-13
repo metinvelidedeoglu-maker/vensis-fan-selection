@@ -1,0 +1,75 @@
+name: Add navigation shortcuts
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-navigation-shortcuts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add Home and Fan Selection shortcuts
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          def add_script(path):
+              p=Path(path)
+              text=p.read_text(encoding='utf-8')
+              if 'js/navigation.js' not in text:
+                  text=text.replace('</body>','<script src="js/navigation.js"></script></body>',1)
+              p.write_text(text,encoding='utf-8')
+
+          # Project dashboard: Home clears active project.
+          p=Path('project.html')
+          text=p.read_text(encoding='utf-8')
+          old='<button class="secondary" onclick="location.href=\'index.html\'">← Fan Selection</button>'
+          new='<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" onclick="goHomeAndClearProject()">⌂ Home</button><button class="secondary" onclick="location.href=\'index.html\'">← Fan Selection</button></div>'
+          if old in text:
+              text=text.replace(old,new,1)
+          elif 'goHomeAndClearProject()' not in text:
+              raise RuntimeError('project.html navigation marker not found')
+          p.write_text(text,encoding='utf-8')
+          add_script('project.html')
+
+          # Project editor: Home clears; Fan Selection preserves active project.
+          p=Path('project-edit.html')
+          text=p.read_text(encoding='utf-8')
+          old='<div class="top-actions"><button class="primary" onclick="location.href=\'project-report.html\'">PDF / Print</button><button class="secondary" onclick="location.href=\'project.html\'">← Projects</button></div>'
+          new='<div class="top-actions"><button class="primary" onclick="goFanSelectionWithProject()">+ Fan Selection</button><button class="primary" onclick="location.href=\'project-report.html\'">PDF / Print</button><button class="secondary" onclick="location.href=\'project.html\'">← Projects</button><button class="secondary" onclick="goHomeAndClearProject()">⌂ Home</button></div>'
+          if old in text:
+              text=text.replace(old,new,1)
+          elif 'goFanSelectionWithProject()' not in text:
+              raise RuntimeError('project-edit.html navigation marker not found')
+          p.write_text(text,encoding='utf-8')
+          add_script('project-edit.html')
+
+          # Report: Back, Fan Selection preserving project, Home clearing project.
+          p=Path('project-report.html')
+          text=p.read_text(encoding='utf-8')
+          old='<div class="toolbar"><button class="secondary" onclick="history.back()">← Back</button><button class="primary" onclick="window.print()">Create PDF / Print</button></div>'
+          new='<div class="toolbar"><button class="secondary" onclick="history.back()">← Back</button><button class="secondary" onclick="goFanSelectionWithProject()">+ Fan Selection</button><button class="secondary" onclick="goHomeAndClearProject()">⌂ Home</button><button class="primary" onclick="window.print()">Create PDF / Print</button></div>'
+          if old in text:
+              text=text.replace(old,new,1)
+          elif 'goFanSelectionWithProject()' not in text:
+              raise RuntimeError('project-report.html navigation marker not found')
+          p.write_text(text,encoding='utf-8')
+          add_script('project-report.html')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project.html project-edit.html project-report.html
+          git commit -m "Add Home and active-project fan selection shortcuts"
+          git push
