@@ -793,7 +793,7 @@ function openProductTab(i){
 
     <div class="actionbar no-print">
       <button class="primary" onclick="window.print()">🖨 Create PDF / Print</button>
-      <button class="secondary" onclick="window.close()">✕ Close Tab</button>
+      <button class="secondary" onclick="location.href='index.html'">⌂ Home</button><button class="secondary" onclick="window.close()">✕ Close Tab</button>
     </div>
 
     <div class="section">
