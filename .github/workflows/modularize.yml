@@ -9,11 +9,17 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: modularize-main
+  cancel-in-progress: true
+
 jobs:
   modularize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Split monolithic index.html
         run: |
@@ -123,4 +129,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html README.md css js data assets
           git commit -m "Modularize fan selection application"
-          git push
+          git pull --rebase origin main
+          git push origin main
