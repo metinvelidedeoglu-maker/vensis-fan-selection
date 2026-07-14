@@ -1,0 +1,75 @@
+name: Update Vitlo prices x1.6
+
+on:
+  push:
+    paths:
+      - '.github/workflows/update-vitlo-prices-1-6.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Multiply Vitlo prices by 1.6
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import json, re
+
+          marker = Path('database/vitlo-price-multiplier-1.6-applied.txt')
+          if marker.exists():
+              print('Price multiplier was already applied. No changes made.')
+              raise SystemExit(0)
+
+          changed_products = 0
+          changed_files = 0
+
+          for path in sorted(Path('data').glob('fans-*.js')):
+              text = path.read_text(encoding='utf-8').strip()
+              match = re.fullmatch(r'window\.models\.push\(\.\.\.(\[.*\])\);?', text, re.S)
+              if not match:
+                  raise RuntimeError(f'Unexpected data format: {path}')
+
+              products = json.loads(match.group(1))
+              file_changed = False
+
+              for product in products:
+                  brand = str(product.get('brand', '')).strip().lower()
+                  price = product.get('price')
+                  if brand == 'vitlo' and isinstance(price, (int, float)):
+                      product['price'] = round(float(price) * 1.6, 2)
+                      changed_products += 1
+                      file_changed = True
+
+              if file_changed:
+                  payload = 'window.models.push(...' + json.dumps(products, ensure_ascii=False, separators=(',', ':')) + ');\n'
+                  path.write_text(payload, encoding='utf-8')
+                  changed_files += 1
+
+          marker.parent.mkdir(exist_ok=True)
+          marker.write_text(
+              f'Applied once. Multiplier: 1.6\nUpdated products: {changed_products}\nUpdated files: {changed_files}\n',
+              encoding='utf-8'
+          )
+          print(f'Updated {changed_products} Vitlo product prices in {changed_files} files.')
+          PY
+
+      - name: Commit updated prices
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data database/vitlo-price-multiplier-1.6-applied.txt
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Increase all Vitlo prices by 60 percent"
+          git pull --rebase origin main
+          git push origin main
