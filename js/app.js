@@ -664,8 +664,7 @@ function render(){
       <th><button class="sort-head" onclick="setTableSort('pressure')">Pressure <span class="sort-arrow">${sortArrow('pressure')}</span></button></th>
       <th>Motor Power</th>
       <th>Noise</th>
-      <th><button class="sort-head" onclick="setTableSort('price')">Price <span class="sort-arrow">${sortArrow('price')}</span></button></th>
-      <th style="text-align:center">Project</th>
+      ${VensisAuth.isLoggedIn()?`<th><button class="sort-head" onclick="setTableSort('price')">Price <span class="sort-arrow">${sortArrow('price')}</span></button></th><th style="text-align:center">Project</th>`:''}
       <th style="text-align:center">Details</th>
     </tr></thead>
     <tbody>
@@ -675,10 +674,7 @@ function render(){
         <td>${fmt(x.pp)} Pa</td>
         <td>${fmt(x.kw,2)} kW</td>
         <td>${fmt(x.spl)} dB(A)</td>
-        <td>${x.price==null?'Not available':fmt(x.price)+' €'}</td>
-        <td style="text-align:center">
-          <button class="project-row-btn" onclick="addToSelectionProject(${index})" title="Add to project">＋</button>
-        </td>
+        ${VensisAuth.isLoggedIn()?`<td>${x.price==null?'Not available':fmt(x.price)+' €'}</td><td style="text-align:center"><button class="project-row-btn" onclick="addToSelectionProject(${index})" title="Add to project">＋</button></td>`:''}
         <td style="text-align:center">
           <button class="detail-icon-btn" onclick="openProductTab(${index})" title="Open product details">👁</button>
         </td>
@@ -741,7 +737,7 @@ function openProductTab(i){
   if(!r)return;
 
   const ci=r.catalogueInfo||{general:[],motor:[],applications:[]};
-  const priceText=r.price ? fmt(r.price)+' €' : 'Price not available';
+  const priceText=VensisAuth.isLoggedIn()?(r.price ? fmt(r.price)+' €' : 'Price not available'):'';
   const qText=fmt(r.qq)+' m³/h';
   const pText=fmt(r.pp)+' Pa';
   const tags=(r.tagsEn||[]).join(' · ')||'-';
