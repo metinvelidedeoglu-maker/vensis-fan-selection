@@ -1,0 +1,67 @@
+name: Apply temporary user login
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-user-login.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Protect user features and hide guest-only controls
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          auth_tag='<script src="js/auth.js?v=20260714-auth1"></script>'
+          for name in ['index.html','project.html','project-edit.html','project-report.html']:
+              p=Path(name)
+              text=p.read_text(encoding='utf-8')
+              if auth_tag not in text:
+                  if name=='index.html':
+                      text=text.replace('<script src="js/app.js?v=20260714-price160"></script>',auth_tag+'\n<script src="js/app.js?v=20260714-price160"></script>',1)
+                  else:
+                      text=text.replace('</body>',auth_tag+'</body>',1)
+              p.write_text(text,encoding='utf-8')
+
+          app=Path('js/app.js')
+          text=app.read_text(encoding='utf-8')
+          text=text.replace("      <th><button class=\"sort-head\" onclick=\"setTableSort('price')\">Price <span class=\"sort-arrow\">${sortArrow('price')}</span></button></th>\n      <th style=\"text-align:center\">Project</th>","      ${VensisAuth.isLoggedIn()?`<th><button class=\"sort-head\" onclick=\"setTableSort('price')\">Price <span class=\"sort-arrow\">${sortArrow('price')}</span></button></th><th style=\"text-align:center\">Project</th>`:''}",1)
+          text=text.replace("        <td>${x.price==null?'Not available':fmt(x.price)+' €'}</td>\n        <td style=\"text-align:center\">\n          <button class=\"project-row-btn\" onclick=\"addToSelectionProject(${index})\" title=\"Add to project\">＋</button>\n        </td>","        ${VensisAuth.isLoggedIn()?`<td>${x.price==null?'Not available':fmt(x.price)+' €'}</td><td style=\"text-align:center\"><button class=\"project-row-btn\" onclick=\"addToSelectionProject(${index})\" title=\"Add to project\">＋</button></td>`:''}",1)
+          text=text.replace("  const priceText=r.price ? fmt(r.price)+' €' : 'Price not available';","  const priceText=VensisAuth.isLoggedIn()?(r.price ? fmt(r.price)+' €' : 'Price not available'):'';",1)
+          text=text.replace("${detailField('Price',priceText)}","${VensisAuth.isLoggedIn()?detailField('Price',priceText):''}")
+          app.write_text(text,encoding='utf-8')
+
+          index=Path('index.html')
+          text=index.read_text(encoding='utf-8')
+          text=text.replace('<div class="selection-project-bar">','<div class="selection-project-bar user-only">',1)
+          index.write_text(text,encoding='utf-8')
+
+          css=Path('css/project-selector.css')
+          text=css.read_text(encoding='utf-8')
+          rule='.guest-user .user-only{display:none!important}.guest-user .project-row-btn{display:none!important}'
+          if rule not in text:text+='\n'+rule+'\n'
+          css.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Commit login integration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html project.html project-edit.html project-report.html js/app.js css/project-selector.css
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git commit -m "Add temporary user login restrictions"
+          git pull --rebase origin main
+          git push origin main
