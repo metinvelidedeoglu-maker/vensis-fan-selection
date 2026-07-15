@@ -1,0 +1,96 @@
+name: Add customer email fields
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-customer-email-fields.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update customer fields and email dialog
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          p=Path('project-edit.html')
+          text=p.read_text(encoding='utf-8')
+
+          text=text.replace(
+            '<div class="f"><label>Customer</label><input id="customer"></div>',
+            '<div class="f"><label>Company Name</label><input id="companyName"></div>',
+            1
+          )
+
+          old='</div><div class="grid" style="grid-template-columns:1fr 3fr;margin-top:10px"><div class="f"><label>Status</label>'
+          new='</div><div class="grid" style="grid-template-columns:1fr 1fr;margin-top:10px"><div class="f"><label>Contact Person</label><input id="contactPerson"></div><div class="f"><label>Email Address</label><input id="customerEmail" type="email"></div></div><div class="grid" style="grid-template-columns:1fr 3fr;margin-top:10px"><div class="f"><label>Status</label>'
+          if old not in text:
+              raise RuntimeError('Project form insertion point not found')
+          text=text.replace(old,new,1)
+
+          old_meta="customer:document.getElementById('customer').value.trim(),date:document.getElementById('projectDate').value"
+          new_meta="companyName:document.getElementById('companyName').value.trim(),customer:document.getElementById('companyName').value.trim(),contactPerson:document.getElementById('contactPerson').value.trim(),email:document.getElementById('customerEmail').value.trim(),date:document.getElementById('projectDate').value"
+          if old_meta not in text:
+              raise RuntimeError('saveMeta customer mapping not found')
+          text=text.replace(old_meta,new_meta,1)
+
+          old_init="document.getElementById('customer').value=p.meta?.customer||'';document.getElementById('projectDate').value"
+          new_init="document.getElementById('companyName').value=p.meta?.companyName||p.meta?.customer||'';document.getElementById('contactPerson').value=p.meta?.contactPerson||'';document.getElementById('customerEmail').value=p.meta?.email||'';document.getElementById('projectDate').value"
+          if old_init not in text:
+              raise RuntimeError('Project init customer mapping not found')
+          text=text.replace(old_init,new_init,1)
+
+          text=text.replace("['projectName','customer','projectDate','status','notes']","['projectName','companyName','contactPerson','customerEmail','projectDate','status','notes']",1)
+          p.write_text(text,encoding='utf-8')
+
+          g=Path('js/global-navigation.js')
+          text=g.read_text(encoding='utf-8')
+
+          text=text.replace(
+            '<label style="display:block;font-size:12px;font-weight:700;margin:10px 0 5px">To</label><input id="emailTo" type="email" style="width:100%;padding:10px;border:1px solid #cfdcd4;border-radius:8px">',
+            '<label style="display:block;font-size:12px;font-weight:700;margin:10px 0 5px">Company Name</label><input id="emailCompany" style="width:100%;padding:10px;border:1px solid #cfdcd4;border-radius:8px"><label style="display:block;font-size:12px;font-weight:700;margin:10px 0 5px">Contact Person</label><input id="emailContact" style="width:100%;padding:10px;border:1px solid #cfdcd4;border-radius:8px"><label style="display:block;font-size:12px;font-weight:700;margin:10px 0 5px">To</label><input id="emailTo" type="email" style="width:100%;padding:10px;border:1px solid #cfdcd4;border-radius:8px">',
+            1
+          )
+
+          old_open="document.getElementById('emailSubject').value='VENSIS Fan Selection - '+no;\n    document.getElementById('emailMessage').value='Dear Sir/Madam,\\n\\nPlease find the fan selection report for '+(meta.name||no)+'.\\n\\nBest regards,\\nVENSIS';"
+          new_open="document.getElementById('emailCompany').value=meta.companyName||meta.customer||'';\n    document.getElementById('emailContact').value=meta.contactPerson||'';\n    document.getElementById('emailTo').value=meta.email||'';\n    document.getElementById('emailSubject').value='VENSIS Fan Selection - '+no;\n    const greeting=meta.contactPerson?('Dear '+meta.contactPerson+','):'Dear Sir/Madam,';\n    document.getElementById('emailMessage').value=greeting+'\\n\\nPlease find the fan selection report for '+(meta.name||no)+'.\\n\\nBest regards,\\nVENSIS';"
+          if old_open not in text:
+              raise RuntimeError('Email dialog prefill block not found')
+          text=text.replace(old_open,new_open,1)
+
+          old_send="const to=document.getElementById('emailTo').value.trim();\n    const cc=document.getElementById('emailCc').value.trim();"
+          new_send="const company=document.getElementById('emailCompany').value.trim();\n    const contact=document.getElementById('emailContact').value.trim();\n    const to=document.getElementById('emailTo').value.trim();\n    const cc=document.getElementById('emailCc').value.trim();"
+          if old_send not in text:
+              raise RuntimeError('Email send block not found')
+          text=text.replace(old_send,new_send,1)
+
+          old_before_params="if(!to){alert('Please enter an email address.');return;}\n    const params=new URLSearchParams();"
+          new_before_params="if(!to){alert('Please enter an email address.');return;}\n    const id=localStorage.getItem(ACTIVE);\n    const projects=loadProjects();\n    const index=projects.findIndex(p=>p.id===id);\n    if(index>=0){\n      projects[index].meta={...(projects[index].meta||{}),companyName:company,customer:company,contactPerson:contact,email:to};\n      projects[index].updatedAt=new Date().toISOString();\n      localStorage.setItem(PROJECTS,JSON.stringify(projects));\n      localStorage.setItem(META,JSON.stringify(projects[index].meta));\n    }\n    const params=new URLSearchParams();"
+          if old_before_params not in text:
+              raise RuntimeError('Email persistence insertion point not found')
+          text=text.replace(old_before_params,new_before_params,1)
+
+          g.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project-edit.html js/global-navigation.js
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git commit -m "Add customer company contact and email fields"
+          git pull --rebase origin main
+          git push origin main
