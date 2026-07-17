@@ -36,6 +36,18 @@
     return loadProjects().find(p=>p.id===id)||null;
   }
 
+  function loadCatalogSeries(){
+    if(window.VensisCatalog||document.getElementById('catalogSeriesScript')){
+      window.VensisCatalog?.apply?.(document);
+      return;
+    }
+    const script=document.createElement('script');
+    script.id='catalogSeriesScript';
+    script.src='js/catalog-series.js?v=20260717-2';
+    script.onload=()=>window.VensisCatalog?.apply?.(document);
+    document.head.appendChild(script);
+  }
+
   function renamePreviewButton(){
     const page=(location.pathname.split('/').pop()||'').toLowerCase();
     if(page!=='project-edit.html')return;
@@ -158,6 +170,7 @@
   }
 
   function inject(){
+    loadCatalogSeries();
     renamePreviewButton();
     installEmailAction();
     installSaveFeedback();
