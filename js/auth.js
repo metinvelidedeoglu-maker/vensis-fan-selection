@@ -35,10 +35,10 @@
     document.body.appendChild(btn);
   }
   function loadCatalogueNames(){
-    if(window.VensisCatalog||document.querySelector('script[data-vensis-catalog]'))return;
+    if(document.querySelector('script[data-vensis-catalog-images]'))return;
     const script=document.createElement('script');
-    script.src='js/catalog-series.js?v=20260717-catalog3';
-    script.dataset.vensisCatalog='1';
+    script.src='js/catalog-series.js?v=20260717-images1';
+    script.dataset.vensisCatalogImages='1';
     script.onload=()=>window.VensisCatalog?.apply(document);
     document.head.appendChild(script);
   }
