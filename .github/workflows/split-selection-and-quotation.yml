@@ -1,0 +1,78 @@
+name: Split project selection and quotation
+
+on:
+  push:
+    paths:
+      - '.github/workflows/split-selection-and-quotation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch project pages and add quotation pages
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          # Project edit: add quotation conversion button and keep selection report price-free.
+          p=Path('project-edit.html')
+          text=p.read_text(encoding='utf-8')
+          text=text.replace(
+            '<button class="primary" onclick="location.href=\'project-report.html\'">PDF / Print</button>',
+            '<button class="primary" onclick="location.href=\'project-report.html\'">Preview</button><button class="primary" onclick="convertToQuotation()">Convert to Quotation</button>',
+            1
+          )
+          text=text.replace(
+            '<th>Qty</th><th>Price</th><th></th>',
+            '<th>Qty</th><th></th>',
+            1
+          )
+          text=text.replace(
+            "</td><td>${x.unitPrice==null?'-':fmt(x.unitPrice,2)+' €'}</td><td><button class=\"icon\"",
+            "</td><td><button class=\"icon\"",
+            1
+          )
+          text=text.replace(
+            "function del(id){saveItems(p=>p.items=p.items.filter(x=>x.id!==id));render()}init();",
+            "function del(id){saveItems(p=>p.items=p.items.filter(x=>x.id!==id));render()}function convertToQuotation(){const arr=loadProjects(),id=localStorage.getItem(ACTIVE),i=arr.findIndex(x=>x.id===id);if(i<0)return;arr[i].quotation=arr[i].quotation||{createdAt:new Date().toISOString(),validityDays:30,currency:'EUR',notes:''};arr[i].items=(arr[i].items||[]).map(x=>({...x,discount:Number(x.discount)||0,quotationUnitPrice:Number.isFinite(Number(x.quotationUnitPrice))?Number(x.quotationUnitPrice):Number(x.unitPrice)||0}));arr[i].updatedAt=new Date().toISOString();saveProjects(arr);location.href='quotation-edit.html'}init();",
+            1
+          )
+          p.write_text(text,encoding='utf-8')
+
+          # Selection report: remove commercial columns and totals from first page.
+          p=Path('project-report.html')
+          text=p.read_text(encoding='utf-8')
+          text=text.replace('<th>Qty</th><th>Unit Price</th>','<th>Qty</th>',1)
+          text=text.replace('<div class="summary"><span>Total products: <b id="productCount">0</b></span><span>Catalogue total: <b id="totalPrice">0.00 €</b></span></div>','<div class="summary"><span>Total products: <b id="productCount">0</b></span></div>',1)
+          text=text.replace("<td>${fmt(x.quantity||1)}</td><td>${x.unitPrice==null?'-':fmt(x.unitPrice,2)+' €'}</td>","<td>${fmt(x.quantity||1)}</td>",1)
+          text=text.replace("totalPrice.textContent=fmt(total,2)+' €';",'',1)
+          text=text.replace("colspan=\"8\"","colspan=\"7\"",1)
+          p.write_text(text,encoding='utf-8')
+
+          quotation_edit='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VENSIS Quotation</title><style>:root{--g:#006b3c;--d:#173f46;--l:#dfe7e2;--s:#f4f7f5;--t:#17342b}*{box-sizing:border-box}body{margin:0;font-family:Arial;background:var(--s);color:var(--t)}.top{padding:14px 20px;background:linear-gradient(135deg,#173f46,#006b3c);color:#fff;display:flex;justify-content:space-between;gap:12px;align-items:center}.top h1{margin:0;font-size:21px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}button{border:0;border-radius:8px;padding:10px 13px;font-weight:700;cursor:pointer}.primary{background:#fff;color:var(--g)}.secondary{background:#fff;color:var(--d);border:1px solid var(--d)}.wrap{max-width:1250px;margin:18px auto;padding:0 14px}.card{background:#fff;border:1px solid var(--l);border-radius:10px;overflow:hidden;margin-bottom:14px}.head{padding:12px 15px;background:var(--d);color:#fff}.body{padding:14px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.f label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.f input,.f textarea,.f select{width:100%;padding:10px;border:1px solid #cfdcd4;border-radius:7px;font:inherit}.table{overflow:auto;border:1px solid var(--l);border-radius:7px}table{width:100%;border-collapse:collapse;min-width:1080px}th{background:var(--g);color:#fff;padding:10px;text-align:left;font-size:12px}td{padding:9px;border-bottom:1px solid var(--l);font-size:13px}.num{width:105px;padding:8px}.summary{display:flex;justify-content:flex-end;gap:28px;padding-top:14px}.summary b{font-size:18px;color:var(--g)}@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}.top{align-items:flex-start;flex-direction:column}}</style></head><body><div class="top"><div><h1>VENSIS Quotation</h1><div style="font-size:12px;opacity:.85">Commercial offer</div></div><div class="top-actions"><button class="primary" onclick="location.href='quotation-report.html'">Preview Quotation</button><button class="secondary" onclick="location.href='project-edit.html'">Project Selection</button><button class="secondary" onclick="goMainPage()">⌂ Home</button></div></div><div class="wrap"><div class="card"><div class="head"><b>Quotation Information</b></div><div class="body"><div class="grid"><div class="f"><label>Quotation No.</label><input id="quotationNo"></div><div class="f"><label>Date</label><input id="quotationDate" type="date"></div><div class="f"><label>Validity (Days)</label><input id="validityDays" type="number" min="1"></div><div class="f"><label>Currency</label><select id="currency"><option>EUR</option><option>USD</option><option>TRY</option></select></div></div><div class="f" style="margin-top:10px"><label>Commercial Notes</label><textarea id="quotationNotes" style="min-height:80px"></textarea></div></div></div><div class="card"><div class="head"><b>Quotation Items</b></div><div class="body"><div id="content"></div></div></div></div><script>const PROJECTS='vensis_projects_v2',ACTIVE='vensis_active_project_v2';function load(){try{return JSON.parse(localStorage.getItem(PROJECTS)||'[]')}catch(e){return []}}function save(a){localStorage.setItem(PROJECTS,JSON.stringify(a))}function cur(){const id=localStorage.getItem(ACTIVE);return load().find(x=>x.id===id)}function fmt(v,d=2){return new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(Number(v)||0)}function persist(){const a=load(),id=localStorage.getItem(ACTIVE),i=a.findIndex(x=>x.id===id);if(i<0)return;a[i].quotation={...(a[i].quotation||{}),quotationNo:quotationNo.value.trim(),date:quotationDate.value,validityDays:Number(validityDays.value)||30,currency:currency.value,notes:quotationNotes.value};a[i].updatedAt=new Date().toISOString();save(a)}function updateItem(id,key,value){const a=load(),pid=localStorage.getItem(ACTIVE),i=a.findIndex(x=>x.id===pid);if(i<0)return;const x=a[i].items.find(x=>x.id===id);if(!x)return;x[key]=Math.max(0,Number(value)||0);a[i].updatedAt=new Date().toISOString();save(a);render()}function render(){const p=cur(),items=p?.items||[];if(!items.length){content.innerHTML='<div style="padding:35px;text-align:center">No products.</div>';return}let total=0;content.innerHTML=`<div class="table"><table><thead><tr><th>Model</th><th>Qty</th><th>List Unit</th><th>Discount %</th><th>Net Unit</th><th>Total</th></tr></thead><tbody>${items.map(x=>{const list=Number(x.quotationUnitPrice??x.unitPrice)||0,disc=Math.min(100,Math.max(0,Number(x.discount)||0)),net=list*(1-disc/100),line=net*(Number(x.quantity)||1);total+=line;return `<tr><td><b>${x.model||''}</b><div style="font-size:11px;color:#6c7f76">${fmt(x.flow,0)} m³/h · ${fmt(x.pressure,0)} Pa</div></td><td>${Number(x.quantity)||1}</td><td><input class="num" type="number" step="0.01" value="${list}" onchange="updateItem('${x.id}','quotationUnitPrice',this.value)"></td><td><input class="num" type="number" min="0" max="100" step="0.01" value="${disc}" onchange="updateItem('${x.id}','discount',this.value)"></td><td>${fmt(net)} ${p.quotation?.currency||'EUR'}</td><td><b>${fmt(line)} ${p.quotation?.currency||'EUR'}</b></td></tr>`}).join('')}</tbody></table></div><div class="summary"><span>Grand Total: <b>${fmt(total)} ${p.quotation?.currency||'EUR'}</b></span></div>`}function init(){const p=cur();if(!p){location.href='project.html';return}const q=p.quotation||{};quotationNo.value=q.quotationNo||((p.meta?.projectNo||'PRJ')+'-Q');quotationDate.value=q.date||new Date().toISOString().slice(0,10);validityDays.value=q.validityDays||30;currency.value=q.currency||'EUR';quotationNotes.value=q.notes||'';['quotationNo','quotationDate','validityDays','currency','quotationNotes'].forEach(id=>document.getElementById(id).addEventListener('change',persist));render()}init();</script><script src="js/global-navigation.js"></script><script src="js/auth.js?v=20260714-auth1"></script></body></html>'''
+          Path('quotation-edit.html').write_text(quotation_edit,encoding='utf-8')
+
+          quotation_report='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VENSIS Quotation Report</title><style>:root{--g:#006b3c;--d:#173f46;--l:#dfe7e2;--s:#f4f7f5;--t:#17342b}*{box-sizing:border-box}body{margin:0;font-family:Arial;background:var(--s);color:var(--t)}.toolbar{max-width:1050px;margin:14px auto;padding:0 14px;display:flex;justify-content:flex-end;gap:8px}.toolbar button{border:0;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:var(--g);color:#fff}.secondary{background:#fff;color:var(--d);border:1px solid var(--d)}.sheet{max-width:1050px;margin:0 auto 24px;background:#fff;border:1px solid var(--l);padding:28px}.header{display:flex;justify-content:space-between;border-bottom:4px solid var(--g);padding-bottom:14px}.logo{height:58px}.title{text-align:right}.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0}.field{border:1px solid var(--l);padding:10px;border-radius:7px}.field span{display:block;font-size:10px;color:#6c7f76}.customer{margin:18px 0;padding:14px;background:#f8fbf9;border-left:4px solid var(--g)}table{width:100%;border-collapse:collapse}th{background:var(--d);color:#fff;padding:9px;text-align:left;font-size:11px}td{padding:9px;border-bottom:1px solid var(--l);font-size:11px}.totals{margin-left:auto;margin-top:16px;width:330px}.totals div{display:flex;justify-content:space-between;padding:7px 0}.grand{border-top:2px solid var(--g);font-size:17px;color:var(--g)}.notes{margin-top:22px;border:1px solid var(--l);padding:12px;white-space:pre-wrap}.footer{margin-top:30px;border-top:1px solid var(--l);padding-top:9px;font-size:10px;color:#79877f;display:flex;justify-content:space-between}@media print{body{background:#fff}.toolbar{display:none}.sheet{max-width:none;margin:0;border:0;padding:0}@page{size:A4;margin:12mm}}</style></head><body><div class="toolbar"><button class="secondary" onclick="location.href='quotation-edit.html'">Edit Quotation</button><button class="secondary" onclick="location.href='project-edit.html'">Project Selection</button><button class="primary" onclick="window.print()">Create PDF / Print</button></div><main class="sheet"><div class="header"><img class="logo" src="assets/vensis-logo.png"><div class="title"><h1 style="margin:0">QUOTATION</h1><div id="qNo"></div></div></div><div class="meta"><div class="field"><span>Date</span><b id="qDate"></b></div><div class="field"><span>Validity</span><b id="qValidity"></b></div><div class="field"><span>Currency</span><b id="qCurrency"></b></div><div class="field"><span>Project No.</span><b id="pNo"></b></div></div><div class="customer"><b id="company"></b><div id="contact"></div><div id="email"></div></div><table><thead><tr><th>No.</th><th>Model</th><th>Qty</th><th>List Unit</th><th>Discount</th><th>Net Unit</th><th>Total</th></tr></thead><tbody id="rows"></tbody></table><div class="totals"><div class="grand"><span>Grand Total</span><b id="grand"></b></div></div><div class="notes" id="notes"></div><div class="footer"><span>VENSIS Engineering Suite</span><span id="footerNo"></span></div></main><script>const PROJECTS='vensis_projects_v2',ACTIVE='vensis_active_project_v2';function load(){try{return JSON.parse(localStorage.getItem(PROJECTS)||'[]')}catch(e){return []}}function fmt(v,d=2){return new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(Number(v)||0)}function init(){const id=localStorage.getItem(ACTIVE),p=load().find(x=>x.id===id);if(!p){document.body.innerHTML='<div style="padding:40px">No active project.</div>';return}const m=p.meta||{},q=p.quotation||{},cur=q.currency||'EUR';qNo.textContent=q.quotationNo||'';qDate.textContent=q.date||'';qValidity.textContent=(q.validityDays||30)+' days';qCurrency.textContent=cur;pNo.textContent=m.projectNo||'';company.textContent=m.companyName||m.customer||'';contact.textContent=m.contactPerson||'';email.textContent=m.email||'';footerNo.textContent=q.quotationNo||'';notes.textContent=q.notes||'Prices exclude VAT unless otherwise stated.';let total=0;rows.innerHTML=(p.items||[]).map((x,i)=>{const list=Number(x.quotationUnitPrice??x.unitPrice)||0,disc=Math.min(100,Math.max(0,Number(x.discount)||0)),net=list*(1-disc/100),line=net*(Number(x.quantity)||1);total+=line;return `<tr><td>${i+1}</td><td><b>${x.model||''}</b></td><td>${Number(x.quantity)||1}</td><td>${fmt(list)} ${cur}</td><td>${fmt(disc)}%</td><td>${fmt(net)} ${cur}</td><td><b>${fmt(line)} ${cur}</b></td></tr>`}).join('');grand.textContent=fmt(total)+' '+cur}init();</script><script src="js/auth.js?v=20260714-auth1"></script></body></html>'''
+          Path('quotation-report.html').write_text(quotation_report,encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add project-edit.html project-report.html quotation-edit.html quotation-report.html
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+            exit 0
+          fi
+          git commit -m "Split project selection and quotation flows"
+          git pull --rebase origin main
+          git push origin main
