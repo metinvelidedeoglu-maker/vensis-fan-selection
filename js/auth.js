@@ -34,6 +34,13 @@
     btn.style.cssText='position:fixed;left:14px;bottom:14px;z-index:99999;border:0;border-radius:9px;padding:10px 13px;font-weight:700;cursor:pointer;background:#006b3c;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.18)';
     document.body.appendChild(btn);
   }
+  function loadCatalogueNames(){
+    if(window.VensisCatalog||document.querySelector('script[data-vensis-catalog]'))return;
+    const script=document.createElement('script');
+    script.src='js/catalog-series.js?v=20260717-catalog1';
+    script.dataset.vensisCatalog='1';
+    document.head.appendChild(script);
+  }
   function guardPage(){
     const page=(location.pathname.split('/').pop()||'index.html').toLowerCase();
     if(PROTECTED_PAGES.has(page)&&!isLoggedIn()){
@@ -48,6 +55,7 @@
   }
   window.VensisAuth={isLoggedIn,login,logout,guardPage};
   if(!guardPage())return;
+  loadCatalogueNames();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{applyBodyState();injectLoginButton()});
   else{applyBodyState();injectLoginButton()}
 })();
