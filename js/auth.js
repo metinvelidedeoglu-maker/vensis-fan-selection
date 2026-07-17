@@ -37,8 +37,9 @@
   function loadCatalogueNames(){
     if(window.VensisCatalog||document.querySelector('script[data-vensis-catalog]'))return;
     const script=document.createElement('script');
-    script.src='js/catalog-series.js?v=20260717-catalog1';
+    script.src='js/catalog-series.js?v=20260717-catalog3';
     script.dataset.vensisCatalog='1';
+    script.onload=()=>window.VensisCatalog?.apply(document);
     document.head.appendChild(script);
   }
   function guardPage(){
