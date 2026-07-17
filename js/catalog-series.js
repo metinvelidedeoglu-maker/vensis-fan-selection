@@ -55,7 +55,7 @@
       const model=code.textContent.replace(/^\s*Model\s*:\s*/i,'').trim();
       const title=code.parentElement?.querySelector('.product-title');
       const name=getSeriesName(model);
-      if(title&&name)title.textContent=name;
+      if(title&&name&&title.textContent!==name)title.textContent=name;
     });
   }
 
@@ -77,7 +77,7 @@
       const name=getSeriesName(model);
       if(!name)return;
       const muted=head.querySelector('h2 + .muted');
-      if(muted)muted.textContent=name;
+      if(muted&&muted.textContent!==name)muted.textContent=name;
     });
   }
 
