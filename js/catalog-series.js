@@ -7,7 +7,7 @@
   };
   const KEYS=Object.keys(SERIES_NAMES).sort((a,b)=>b.length-a.length);
   function normalize(value){return String(value||'').trim().toUpperCase().replace(/\\/g,'/').replace(/\s+/g,' ')}
-  function getSeriesKey(model){const value=normalize(model);return KEYS.find(k=>value===k||value.startsWith(k+' ')||value.startsWith(k+'-')||value.startsWith(k+'/'))||''}
+  function getSeriesKey(model){const value=normalize(model);return KEYS.find(k=>value===k||value.startsWith(k+' ')||value.startsWith(k+'-')||value.startsWith(k+'/')||value.includes(' '+k+' ')||value.includes(' '+k+'-'))||''}
   function getSeriesName(model){const key=getSeriesKey(model);return key?SERIES_NAMES[key]:''}
   function getImage(model){const key=getSeriesKey(model);return key&&IMAGE_FILES[key]?'assets/products/'+IMAGE_FILES[key]:''}
   function imageStyle(large){return large?'width:190px;height:150px;object-fit:contain;border:1px solid #e2e9e5;border-radius:9px;background:#fff;padding:8px;flex:0 0 auto':'width:74px;height:74px;object-fit:contain;display:block;float:left;margin:0 12px 6px 0;border:1px solid #e2e9e5;border-radius:7px;background:#fff;padding:4px'}
@@ -35,6 +35,15 @@
     root.querySelectorAll?.('.product-head').forEach(head=>{const model=extractModel(head)||head.querySelector('h2')?.textContent?.trim();if(model)ensureProductImage(head,model,true)});
   }
   window.VensisCatalog={seriesNames:SERIES_NAMES,imageFiles:IMAGE_FILES,getSeriesKey,getSeriesName,getImage,apply};
-  function start(){apply(document);const observer=new MutationObserver(mutations=>{mutations.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)apply(n)}));apply(document)});observer.observe(document.body,{childList:true,subtree:true});let tries=0;const timer=setInterval(()=>{apply(document);if(++tries>=20)clearInterval(timer)},250)}
+  function loadQuotationEnhancer(){
+    const page=(location.pathname.split('/').pop()||'').toLowerCase();
+    if(page!=='quotation-edit.html'&&page!=='quotation-report.html')return;
+    if(document.querySelector('script[data-direct-quotation-images]'))return;
+    const script=document.createElement('script');
+    script.src='js/quotation-images.js?v='+Date.now();
+    script.dataset.directQuotationImages='1';
+    document.head.appendChild(script);
+  }
+  function start(){apply(document);loadQuotationEnhancer();const observer=new MutationObserver(mutations=>{mutations.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)apply(n)}));apply(document)});observer.observe(document.body,{childList:true,subtree:true});let tries=0;const timer=setInterval(()=>{apply(document);if(++tries>=20)clearInterval(timer)},250)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start()
 })();
