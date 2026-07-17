@@ -7,55 +7,34 @@
   };
   const KEYS=Object.keys(SERIES_NAMES).sort((a,b)=>b.length-a.length);
   function normalize(value){return String(value||'').trim().toUpperCase().replace(/\\/g,'/').replace(/\s+/g,' ')}
-  function getSeriesKey(model){const value=normalize(model);return KEYS.find(k=>value===k||value.startsWith(k+' ')||value.startsWith(k+'-'))||''}
+  function getSeriesKey(model){const value=normalize(model);return KEYS.find(k=>value===k||value.startsWith(k+' ')||value.startsWith(k+'-')||value.startsWith(k+'/'))||''}
   function getSeriesName(model){const key=getSeriesKey(model);return key?SERIES_NAMES[key]:''}
   function getImage(model){const key=getSeriesKey(model);return key&&IMAGE_FILES[key]?'assets/products/'+IMAGE_FILES[key]:''}
-  function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-  function imageStyle(large){return large?'width:190px;height:150px;object-fit:contain;border:1px solid #e2e9e5;border-radius:9px;background:#fff;padding:8px;flex:0 0 auto':'width:66px;height:66px;object-fit:contain;float:left;margin:0 11px 5px 0;border:1px solid #e2e9e5;border-radius:7px;background:#fff;padding:4px'}
+  function imageStyle(large){return large?'width:190px;height:150px;object-fit:contain;border:1px solid #e2e9e5;border-radius:9px;background:#fff;padding:8px;flex:0 0 auto':'width:74px;height:74px;object-fit:contain;display:block;float:left;margin:0 12px 6px 0;border:1px solid #e2e9e5;border-radius:7px;background:#fff;padding:4px'}
   function ensureProductImage(cell,model,large=false){
-    if(!cell||cell.querySelector(':scope > .catalog-product-image'))return;
+    if(!cell||cell.querySelector('.catalog-product-image'))return;
     const src=getImage(model);if(!src)return;
-    const img=document.createElement('img');img.className='catalog-product-image';img.src=src;img.alt=getSeriesName(model)||model;img.loading='lazy';img.style.cssText=imageStyle(large);img.onerror=()=>img.remove();cell.insertBefore(img,cell.firstChild)
+    const img=document.createElement('img');img.className='catalog-product-image';img.src=src;img.alt=getSeriesName(model)||model;img.loading='eager';img.style.cssText=imageStyle(large);img.onerror=function(){this.style.display='none'};cell.insertBefore(img,cell.firstChild)
   }
   function decorateCell(cell,model){
     if(!cell||!model)return;
     const name=getSeriesName(model);if(!name)return;
     const title=cell.querySelector('.product-title');if(title)title.textContent=name;
-    if(!title&&!cell.querySelector('.catalog-series-name')){
-      const oldBold=cell.querySelector('b');
-      if(oldBold){oldBold.textContent=model;const nameDiv=document.createElement('div');nameDiv.className='catalog-series-name';nameDiv.style.cssText='font-weight:700;margin-bottom:2px';nameDiv.textContent=name;cell.insertBefore(nameDiv,oldBold);oldBold.style.cssText='display:block;font-size:10px;color:#687b72;font-weight:400'}
-    }
     ensureProductImage(cell,model,false)
   }
-  function updateQuotationNames(root){
-    root.querySelectorAll?.('.model-code').forEach(code=>{const model=code.textContent.replace(/^\s*Model\s*:\s*/i,'').trim();decorateCell(code.closest('td')||code.parentElement,model)})
+  function extractModel(element){
+    const code=element.querySelector?.('.model-code');
+    if(code)return code.textContent.replace(/^\s*Model\s*:\s*/i,'').trim();
+    const text=element.textContent||'';
+    const match=text.match(/(?:Model\s*:\s*)?((?:TUNEL-|MOB-|BOX-|ROOF-)?(?:AXF|AXJ|RXJ|AXD|AXS|AXW|AXB|AXH|AXR|AXV|CRB|CRD|CRK|CRC|CRS|CRH|CRV|CRU|CRR|VHR|CD|CR)(?:\/ATEX|-EC)?(?:[-\s/][A-Z0-9.]+)*)/i);
+    return match?match[1].trim():''
   }
-  function updateTables(root){
-    root.querySelectorAll?.('tbody tr').forEach(row=>{
-      const cells=[...row.children];if(!cells.length)return;
-      const candidates=cells.slice(0,2);
-      let cell=null,model='';
-      for(const c of candidates){
-        const code=c.querySelector('.model-code');const bold=c.querySelector('b');const raw=(code?code.textContent.replace(/^\s*Model\s*:\s*/i,''):bold?bold.textContent:c.textContent).trim();
-        if(getSeriesKey(raw)){cell=c;model=raw;break}
-      }
-      if(cell)decorateCell(cell,model)
-    })
+  function apply(root=document){
+    root.querySelectorAll?.('.model-code').forEach(code=>decorateCell(code.closest('td')||code.parentElement,extractModel(code.parentElement||code)));
+    root.querySelectorAll?.('td').forEach(cell=>{if(cell.querySelector('.catalog-product-image'))return;const model=extractModel(cell);if(model)decorateCell(cell,model)});
+    root.querySelectorAll?.('.product-head').forEach(head=>{const model=extractModel(head)||head.querySelector('h2')?.textContent?.trim();if(model)ensureProductImage(head,model,true)});
   }
-  function updateProductPages(root){
-    root.querySelectorAll?.('.product-head').forEach(head=>{const model=head.querySelector('h2')?.textContent?.trim();const name=getSeriesName(model);if(!name)return;const muted=head.querySelector('h2 + .muted');if(muted)muted.textContent=name;head.style.alignItems='center';ensureProductImage(head,model,true)})
-  }
-  function updateDetailPage(root){
-    if(root.querySelector?.('.catalog-detail-hero'))return;
-    const headings=[...root.querySelectorAll?.('h1,h2')||[]];
-    const heading=headings.find(h=>getSeriesKey(h.textContent));if(!heading)return;
-    const model=heading.textContent.trim(),name=getSeriesName(model),src=getImage(model);if(!src)return;
-    const hero=document.createElement('div');hero.className='catalog-detail-hero';hero.style.cssText='display:flex;align-items:center;gap:22px;margin:14px 0 18px;padding:14px;border:1px solid #dfe7e2;border-radius:10px;background:#fff';
-    hero.innerHTML='<img src="'+src+'" alt="'+esc(name)+'" style="width:210px;height:170px;object-fit:contain" onerror="this.parentElement.remove()"><div><div style="font-size:20px;font-weight:700;color:#17342b">'+esc(name)+'</div><div style="margin-top:5px;color:#687b72">Model: '+esc(model)+'</div></div>';
-    heading.parentElement.insertBefore(hero,heading.nextSibling)
-  }
-  function apply(root=document){updateQuotationNames(root);updateTables(root);updateProductPages(root);updateDetailPage(root)}
   window.VensisCatalog={seriesNames:SERIES_NAMES,imageFiles:IMAGE_FILES,getSeriesKey,getSeriesName,getImage,apply};
-  const start=()=>{apply(document);new MutationObserver(()=>apply(document)).observe(document.body,{childList:true,subtree:true})};
+  function start(){apply(document);const observer=new MutationObserver(mutations=>{mutations.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)apply(n)}));apply(document)});observer.observe(document.body,{childList:true,subtree:true});let tries=0;const timer=setInterval(()=>{apply(document);if(++tries>=20)clearInterval(timer)},250)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start()
 })();
