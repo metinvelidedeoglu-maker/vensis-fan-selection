@@ -32,9 +32,12 @@
     }catch(error){console.warn('Project storage compaction failed',error)}
   }
   function injectLoginButton(){if(document.getElementById('authButton'))return;const btn=document.createElement('button');btn.id='authButton';btn.textContent=isLoggedIn()?'Çıkış Yap':'Giriş Yap';btn.onclick=()=>isLoggedIn()?logout():(location.href='login.html');btn.style.cssText='position:fixed;left:14px;bottom:14px;z-index:99999;border:0;border-radius:9px;padding:10px 13px;font-weight:700;cursor:pointer;background:#006b3c;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.18)';document.body.appendChild(btn)}
-  function loadQuotationImages(){if(document.querySelector('script[data-vensis-quotation-images]'))return;const script=document.createElement('script');script.src='js/quotation-images.js?v='+Date.now();script.dataset.vensisQuotationImages='1';document.head.appendChild(script)}
-  function loadCatalogueNames(){if(document.querySelector('script[data-vensis-catalog-images]')){window.VensisCatalog?.apply(document);loadQuotationImages();return}const script=document.createElement('script');script.src='js/catalog-series.js?v='+Date.now();script.dataset.vensisCatalogImages='1';script.onload=()=>{window.VensisCatalog?.apply(document);loadQuotationImages()};document.head.appendChild(script)}
-  function guardPage(){const page=(location.pathname.split('/').pop()||'index.html').toLowerCase();if(PROTECTED_PAGES.has(page)&&!isLoggedIn()){location.replace('login.html');return false}return true}
+  function pageName(){return (location.pathname.split('/').pop()||'index.html').toLowerCase()}
+  function loadScript(src,marker){if(document.querySelector(`script[${marker}]`))return;const script=document.createElement('script');script.src=src;script.setAttribute(marker,'1');document.head.appendChild(script)}
+  function loadQuotationImages(){if(pageName()==='quotation-report.html')return;loadScript('js/quotation-images.js?v=20260719-fix1','data-vensis-quotation-images')}
+  function loadQuotationPrintFix(){if(pageName()!=='quotation-report.html')return;loadScript('js/quotation-print-fix.js?v=20260719-fix1','data-vensis-print-fix')}
+  function loadCatalogueNames(){if(document.querySelector('script[data-vensis-catalog-images]')){window.VensisCatalog?.apply(document);loadQuotationImages();loadQuotationPrintFix();return}const script=document.createElement('script');script.src='js/catalog-series.js?v=20260719-fix1';script.dataset.vensisCatalogImages='1';script.onload=()=>{window.VensisCatalog?.apply(document);loadQuotationImages();loadQuotationPrintFix()};document.head.appendChild(script)}
+  function guardPage(){const page=pageName();if(PROTECTED_PAGES.has(page)&&!isLoggedIn()){location.replace('login.html');return false}return true}
   function applyBodyState(){document.body.classList.toggle('guest-user',!isLoggedIn());document.body.classList.toggle('logged-user',isLoggedIn())}
   window.VensisAuth={isLoggedIn,login,logout,guardPage};
   compactProjectStorage();
