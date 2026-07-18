@@ -3,26 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vensis Engineering Suite</title>
-<link rel="stylesheet" href="css/app.css?v=20260714-price160">
-<link rel="stylesheet" href="css/project-selector.css?v=20260714-price160">
-<link rel="stylesheet" href="css/form-state.css?v=20260714-price160"></head>
+<title>Vensis Fan Selection</title>
+<link rel="stylesheet" href="css/app.css?v=20260719-cleanup1">
+<link rel="stylesheet" href="css/form-state.css?v=20260719-cleanup1">
+</head>
 <body>
-<div class="top"><div class="brand"><div style="display:flex;align-items:center;gap:12px"><img src="assets/vensis-logo.png" alt="Vensis" style="height:44px;max-width:220px;object-fit:contain"><div><h1 style="margin:0">Vensis Engineering Suite</h1><small>Fan Selection / Separate Project Page</small></div></div><div class="tag">VENSIS v5.5.1</div></div></div>
-
-<div class="selection-project-bar user-only">
-  <div class="project-status-block">
-    <b>Active Project</b>
-    <strong id="activeProjectName">No active project</strong>
-    <span id="projectItemCount">Select or create a project before adding products.</span>
-  </div>
-  <div class="project-bar-actions">
-    <button class="project-select-btn" onclick="selectExistingProject()">Open Project</button>
-    <button class="project-create-btn" onclick="createProjectFromSelection()">+ Create Project</button>
-    <button id="clearActiveProjectBtn" class="project-clear-btn" onclick="clearActiveProject()" hidden>Exit Project</button>
-  </div>
-</div>
-
+<div class="top"><div class="brand"><div style="display:flex;align-items:center;gap:12px"><img src="assets/vensis-logo.png" alt="Vensis" style="height:44px;max-width:220px;object-fit:contain"><div><h1 style="margin:0">Vensis Engineering Suite</h1><small>Fan Selection</small></div></div><div class="tag">VENSIS v5.6 CLEAN</div></div></div>
 <div class="layout">
 <aside class="panel">
   <div class="ai">
@@ -36,105 +22,32 @@
       <div id="aiRecognition" class="ai-recognition"></div>
     </div>
   </div>
-
   <div class="left-stack">
-<div class="section open">
-    <div class="section-head" onclick="toggleSec(this)"><span class="icon-label"><span class="ui-icon">◎</span>Airflow / Pressure</span> <span class="chev">⌄</span></div>
-    <div class="section-body">
-      <div class="duty-block">
-        <label>Flow (m³/h)</label>
-        <input id="q" type="number" value="" placeholder="Enter airflow">
-
-        <div class="tolerance-caption">
-          <span>Airflow tolerance</span>
-          <b><span id="qminText">-10</span>% / +<span id="qmaxText">20</span>%</b>
-        </div>
-        <div class="dual-range" id="qRange">
-          <div class="dual-range-track"></div>
-          <div class="dual-range-fill" id="qRangeFill"></div>
-          <input id="qminSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="-10" oninput="syncDualTolerance('q')">
-          <input id="qmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="20" oninput="syncDualTolerance('q')">
-        </div>
-        <div class="dual-range-scale"><span>-50</span><span>0</span><span>+50</span><span>+100</span></div>
-      </div>
-
-      <div class="duty-divider"></div>
-
-      <div class="duty-block">
-        <label>Pressure (Pa)</label>
-        <input id="p" type="number" value="" placeholder="Enter pressure">
-
-        <div class="tolerance-caption">
-          <span>Pressure tolerance</span>
-          <b><span id="pminText">-10</span>% / +<span id="pmaxText">20</span>%</b>
-        </div>
-        <div class="dual-range" id="pRange">
-          <div class="dual-range-track"></div>
-          <div class="dual-range-fill" id="pRangeFill"></div>
-          <input id="pminSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="-10" oninput="syncDualTolerance('p')">
-          <input id="pmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="20" oninput="syncDualTolerance('p')">
-        </div>
-        <div class="dual-range-scale"><span>-50</span><span>0</span><span>+50</span><span>+100</span></div>
-      </div>
-
-      <div style="display:none">
-        <input id="qmin" type="number" value="-10">
-        <input id="qmax" type="number" value="20">
-        <input id="pmin" type="number" value="-10">
-        <input id="pmax" type="number" value="20">
+    <div class="section open">
+      <div class="section-head" onclick="toggleSec(this)"><span class="icon-label"><span class="ui-icon">◎</span>Airflow / Pressure</span> <span class="chev">⌄</span></div>
+      <div class="section-body">
+        <div class="duty-block"><label>Flow (m³/h)</label><input id="q" type="number" placeholder="Enter airflow"><div class="tolerance-caption"><span>Airflow tolerance</span><b><span id="qminText">-10</span>% / +<span id="qmaxText">20</span>%</b></div><div class="dual-range" id="qRange"><div class="dual-range-track"></div><div class="dual-range-fill" id="qRangeFill"></div><input id="qminSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="-10" oninput="syncDualTolerance('q')"><input id="qmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="20" oninput="syncDualTolerance('q')"></div><div class="dual-range-scale"><span>-50</span><span>0</span><span>+50</span><span>+100</span></div></div>
+        <div class="duty-divider"></div>
+        <div class="duty-block"><label>Pressure (Pa)</label><input id="p" type="number" placeholder="Enter pressure"><div class="tolerance-caption"><span>Pressure tolerance</span><b><span id="pminText">-10</span>% / +<span id="pmaxText">20</span>%</b></div><div class="dual-range" id="pRange"><div class="dual-range-track"></div><div class="dual-range-fill" id="pRangeFill"></div><input id="pminSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="-10" oninput="syncDualTolerance('p')"><input id="pmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="20" oninput="syncDualTolerance('p')"></div><div class="dual-range-scale"><span>-50</span><span>0</span><span>+50</span><span>+100</span></div></div>
+        <div style="display:none"><input id="qmin" type="number" value="-10"><input id="qmax" type="number" value="20"><input id="pmin" type="number" value="-10"><input id="pmax" type="number" value="20"></div>
       </div>
     </div>
-  </div>
-  <div class="section open product-filter-section">
-    <div class="section-head" onclick="toggleSec(this)"><span class="icon-label"><span class="ui-icon">☷</span>Product Filter</span> <span class="chev">⌄</span></div>
-    <div class="section-body product-filter-grid">
-      <details class="filter-accordion" open>
-        <summary>Product Type <span id="typeCount" class="summary-count"></span></summary>
-        <div style="padding:10px;border-top:1px solid #d8e3e5"><input id="typeSearch" type="search" placeholder="Search product type..." oninput="renderTagSeries()"></div>
-        <div id="tagList" class="list-box"></div>
-      </details>
-
-      <details class="filter-accordion" open>
-        <summary>Series <span id="seriesCount" class="summary-count"></span></summary>
-        <div style="padding:10px;border-top:1px solid #d8e3e5"><input id="seriesSearch" type="search" placeholder="Search series..." oninput="renderTagSeries()"></div>
-        <div id="seriesList" class="list-box"></div>
-      </details>
+    <div class="section open product-filter-section">
+      <div class="section-head" onclick="toggleSec(this)"><span class="icon-label"><span class="ui-icon">☷</span>Product Filter</span> <span class="chev">⌄</span></div>
+      <div class="section-body product-filter-grid">
+        <details class="filter-accordion" open><summary>Product Type <span id="typeCount" class="summary-count"></span></summary><div style="padding:10px;border-top:1px solid #d8e3e5"><input id="typeSearch" type="search" placeholder="Search product type..." oninput="renderTagSeries()"></div><div id="tagList" class="list-box"></div></details>
+        <details class="filter-accordion" open><summary>Series <span id="seriesCount" class="summary-count"></span></summary><div style="padding:10px;border-top:1px solid #d8e3e5"><input id="seriesSearch" type="search" placeholder="Search series..." oninput="renderTagSeries()"></div><div id="seriesList" class="list-box"></div></details>
+      </div>
     </div>
-  </div>
-  <div style="display:none">
-  <select id="pole"><option value=""></option></select>
-  <input id="maxkw" value="">
-  <input id="sort" value="closest">
-  <select id="fire"><option value=""></option></select>
-  <select id="atex"><option value=""></option></select>
-</div>
-<div class="actions"><button class="secondary" onclick="resetAll()" title="Clear all inputs and filters"><span class="icon-label"><span class="ui-icon">↺</span>Reset</span></button><button class="search" onclick="runSelection()" title="Run fan selection"><span class="icon-label"><span class="ui-icon">⌕</span>Find Fans</span></button></div>
+    <div style="display:none"><select id="pole"><option value=""></option></select><input id="maxkw" value=""><input id="sort" value="closest"><select id="fire"><option value=""></option></select><select id="atex"><option value=""></option></select></div>
+    <div class="actions"><button class="secondary" onclick="resetAll()"><span class="icon-label"><span class="ui-icon">↺</span>Reset</span></button><button class="search" onclick="runSelection()"><span class="icon-label"><span class="ui-icon">⌕</span>Find Fans</span></button></div>
 </aside>
-
-<main>
-  <div class="content-card">
-    <div class="headrow"><h2><span class="icon-label"><span class="ui-icon">☷</span>Matching Fans</span></h2></div>
-    <div id="range" class="range"></div>
-        <div class="table-toolbar">
-      <button id="sortClosest" class="table-sort-btn active" onclick="setTableSort('closest')">Closest Match <span id="arrowClosest">↑</span></button>
-    </div>
-    <div id="cards" class="results-table-wrap"></div>
-  </div>
-</main>
+<main><div class="content-card"><div class="headrow"><h2><span class="icon-label"><span class="ui-icon">☷</span>Matching Fans</span></h2></div><div id="range" class="range"></div><div class="table-toolbar"><button id="sortClosest" class="table-sort-btn active" onclick="setTableSort('closest')">Closest Match <span id="arrowClosest">↑</span></button></div><div id="cards" class="results-table-wrap"></div></div></main>
 </div>
-
-<script>window.models=[];</script>
-<script src="data/fans-01.js?v=20260714-price160"></script>
-<script src="data/fans-02.js?v=20260714-price160"></script>
-<script src="data/fans-03.js?v=20260714-price160"></script>
-<script src="data/fans-04.js?v=20260714-price160"></script>
-<script src="data/fans-05.js?v=20260714-price160"></script>
-<script src="data/fans-06.js?v=20260714-price160"></script>
-<script src="data/fans-07.js?v=20260714-price160"></script>
-<script src="js/product-registry.js?v=20260718-architecture1"></script>
-<script src="js/auth.js?v=20260719-fix1"></script>
-<script src="js/app.js?v=20260714-price160"></script>
-<script src="js/product-preview-image.js?v=20260719-fix1"></script>
-<script src="js/project-selector.js?v=20260718-architecture1"></script>
-<script src="js/global-navigation.js?v=20260714-price160"></script><script src="js/form-state.js?v=20260714-price160"></script></body>
-</html>
+<script>window.models=[];window.VensisAuth={isLoggedIn:()=>false};</script>
+<script src="data/fans-01.js?v=20260714-price160"></script><script src="data/fans-02.js?v=20260714-price160"></script><script src="data/fans-03.js?v=20260714-price160"></script><script src="data/fans-04.js?v=20260714-price160"></script><script src="data/fans-05.js?v=20260714-price160"></script><script src="data/fans-06.js?v=20260714-price160"></script><script src="data/fans-07.js?v=20260714-price160"></script>
+<script src="js/product-registry.js?v=20260719-cleanup1"></script>
+<script src="js/app.js?v=20260719-cleanup1"></script>
+<script src="js/product-preview-image.js?v=20260719-cleanup1"></script>
+<script src="js/form-state.js?v=20260719-cleanup1"></script>
+</body></html>
