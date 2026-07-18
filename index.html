@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vensis Fan Selection</title>
-<link rel="stylesheet" href="css/app.css?v=20260719-cleanup1">
-<link rel="stylesheet" href="css/form-state.css?v=20260719-cleanup1">
+<link rel="stylesheet" href="css/app.css?v=20260719-modular1">
+<link rel="stylesheet" href="css/form-state.css?v=20260719-modular1">
 </head>
 <body>
-<div class="top"><div class="brand"><div style="display:flex;align-items:center;gap:12px"><img src="assets/vensis-logo.png" alt="Vensis" style="height:44px;max-width:220px;object-fit:contain"><div><h1 style="margin:0">Vensis Engineering Suite</h1><small>Fan Selection</small></div></div><div class="tag">VENSIS v5.6 CLEAN</div></div></div>
+<div class="top"><div class="brand"><div style="display:flex;align-items:center;gap:12px"><img src="assets/vensis-logo.png" alt="Vensis" style="height:44px;max-width:220px;object-fit:contain"><div><h1 style="margin:0">Vensis Engineering Suite</h1><small>Fan Selection</small></div></div><div class="tag">VENSIS v5.7 MODULAR</div></div></div>
 <div class="layout">
 <aside class="panel">
   <div class="ai">
@@ -39,15 +39,20 @@
         <details class="filter-accordion" open><summary>Series <span id="seriesCount" class="summary-count"></span></summary><div style="padding:10px;border-top:1px solid #d8e3e5"><input id="seriesSearch" type="search" placeholder="Search series..." oninput="renderTagSeries()"></div><div id="seriesList" class="list-box"></div></details>
       </div>
     </div>
-    <div style="display:none"><select id="pole"><option value=""></option></select><input id="maxkw" value=""><input id="sort" value="closest"><select id="fire"><option value=""></option></select><select id="atex"><option value=""></option></select></div>
+    <div style="display:none"><select id="pole"><option value=""></option></select><input id="maxkw" value=""><input id="sort" value="closest"></div>
     <div class="actions"><button class="secondary" onclick="resetAll()"><span class="icon-label"><span class="ui-icon">↺</span>Reset</span></button><button class="search" onclick="runSelection()"><span class="icon-label"><span class="ui-icon">⌕</span>Find Fans</span></button></div>
 </aside>
 <main><div class="content-card"><div class="headrow"><h2><span class="icon-label"><span class="ui-icon">☷</span>Matching Fans</span></h2></div><div id="range" class="range"></div><div class="table-toolbar"><button id="sortClosest" class="table-sort-btn active" onclick="setTableSort('closest')">Closest Match <span id="arrowClosest">↑</span></button></div><div id="cards" class="results-table-wrap"></div></div></main>
 </div>
-<script>window.models=[];window.VensisAuth={isLoggedIn:()=>false};</script>
-<script src="data/fans-01.js?v=20260714-price160"></script><script src="data/fans-02.js?v=20260714-price160"></script><script src="data/fans-03.js?v=20260714-price160"></script><script src="data/fans-04.js?v=20260714-price160"></script><script src="data/fans-05.js?v=20260714-price160"></script><script src="data/fans-06.js?v=20260714-price160"></script><script src="data/fans-07.js?v=20260714-price160"></script>
-<script src="js/product-registry.js?v=20260719-cleanup1"></script>
-<script src="js/app.js?v=20260719-cleanup1"></script>
-<script src="js/product-preview-image.js?v=20260719-cleanup1"></script>
-<script src="js/form-state.js?v=20260719-cleanup1"></script>
+<script>window.models=[];</script>
+<script src="data/fans-01.js?v=20260719-modular1"></script><script src="data/fans-02.js?v=20260719-modular1"></script><script src="data/fans-03.js?v=20260719-modular1"></script><script src="data/fans-04.js?v=20260719-modular1"></script><script src="data/fans-05.js?v=20260719-modular1"></script><script src="data/fans-06.js?v=20260719-modular1"></script><script src="data/fans-07.js?v=20260719-modular1"></script>
+<script src="js/core/state.js?v=20260719-modular1"></script>
+<script src="js/core/utils.js?v=20260719-modular1"></script>
+<script src="products/registry.js?v=20260719-modular1"></script>
+<script src="js/core/selection-engine.js?v=20260719-modular1"></script>
+<script src="js/ui/filters.js?v=20260719-modular1"></script>
+<script src="js/ui/results.js?v=20260719-modular1"></script>
+<script src="js/ai/request-parser.js?v=20260719-modular1"></script>
+<script src="js/main.js?v=20260719-modular1"></script>
+<script src="js/form-state.js?v=20260719-modular1"></script>
 </body></html>
