@@ -1,2 +1,18 @@
 .selection-project-bar{max-width:1600px;margin:14px auto 0;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid #dfe7e2;border-radius:10px;box-shadow:0 3px 12px rgba(10,62,38,.06)}.project-status-block{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.project-status-block b{color:#006b3c}.project-status-block strong{font-size:14px}.project-status-block span{font-size:12px;color:#718078}.project-bar-actions{display:flex;gap:8px;flex-wrap:wrap}.project-bar-actions button{width:auto;margin:0;padding:9px 12px}.project-select-btn{background:#173f46;color:#fff}.project-create-btn{background:#006b3c;color:#fff}.project-clear-btn{background:#fff;color:#a52218;border:1px solid #d9a6a0}.no-active-project .project-row-btn{opacity:.45;filter:grayscale(1)}@media(max-width:760px){.selection-project-bar{margin:10px;align-items:stretch;flex-direction:column}.project-status-block{align-items:flex-start;flex-direction:column;gap:4px}.project-bar-actions{display:grid;grid-template-columns:1fr 1fr}.project-bar-actions button{width:100%}}
 .guest-user .user-only{display:none!important}.guest-user .project-row-btn{display:none!important}
+
+/* Desktop fan selection: controls on the left, results on the right */
+@media(min-width:1001px){
+.layout{max-width:1600px!important;margin:16px auto!important;padding:0 14px!important;display:grid!important;grid-template-columns:minmax(360px,430px) minmax(0,1fr)!important;gap:16px!important;align-items:start!important}
+.layout>aside.panel{grid-column:1!important;display:block!important;width:100%!important;min-width:0!important;position:sticky!important;top:92px!important;max-height:calc(100vh - 108px)!important;overflow-y:auto!important;overflow-x:hidden!important;padding-right:2px!important;scrollbar-width:thin}
+.layout>aside.panel>.ai,.layout>aside.panel>.left-stack,.layout>aside.panel>.product-filter-section,.layout>aside.panel>.actions{display:block!important;width:100%!important;margin:0 0 14px!important;grid-column:auto!important;grid-row:auto!important;height:auto!important}
+.layout>aside.panel>.left-stack{border:0!important;box-shadow:none!important;background:transparent!important;overflow:visible!important}
+.layout>aside.panel>.left-stack>.section{margin-bottom:14px!important}
+.layout>aside.panel .product-filter-grid{display:grid!important;grid-template-columns:1fr!important;gap:16px!important}
+.layout>aside.panel .list-box{max-height:230px!important}
+.layout>aside.panel>.actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;margin-top:0!important;padding:12px!important;border:1px solid var(--line)!important;border-radius:10px!important;background:#fff!important}
+.layout>aside.panel>.actions button{width:100%!important;min-width:0!important}
+.layout>main{grid-column:2!important;min-width:0!important}
+.layout>main .content-card{min-height:calc(100vh - 108px)!important}
+}
+@media(min-width:1400px){.layout{grid-template-columns:minmax(390px,460px) minmax(0,1fr)!important}}
