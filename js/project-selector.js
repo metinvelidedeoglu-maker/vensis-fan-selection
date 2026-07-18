@@ -127,9 +127,9 @@ function addToSelectionProject(resultIndex){
       performanceTable:product?.performance?.table||[],
       flow:operatingPoint.flow,
       pressure:operatingPoint.pressure,
-      motorPower:product?.technical?.motorPower??Number(result.kw)||0,
-      speed:product?.technical?.speed??Number(result.rpm)||0,
-      noise:product?.technical?.sound??Number(result.spl)||0,
+      motorPower:(product?.technical?.motorPower??Number(result.kw))||0,
+      speed:(product?.technical?.speed??Number(result.rpm))||0,
+      noise:(product?.technical?.sound??Number(result.spl))||0,
       unitPrice:product?.pricing?.listPrice??(result.price==null?null:Number(result.price))
     });
   }
