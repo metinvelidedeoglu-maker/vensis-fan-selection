@@ -9,7 +9,24 @@ function psLoadProjects(){
     return Array.isArray(data)?data:[];
   }catch(e){return []}
 }
-function psSaveProjects(projects){localStorage.setItem(VENSIS_PROJECTS_KEY,JSON.stringify(projects));}
+function psCompactItem(item){
+  if(!item||typeof item!=='object')return item;
+  const copy={...item};
+  delete copy.product;
+  delete copy.performanceTable;
+  delete copy.productDescription;
+  return copy;
+}
+function psCompactProjects(projects){
+  return (Array.isArray(projects)?projects:[]).map(project=>({
+    ...project,
+    schemaVersion:4,
+    items:(Array.isArray(project.items)?project.items:[]).map(psCompactItem)
+  }));
+}
+function psSaveProjects(projects){
+  localStorage.setItem(VENSIS_PROJECTS_KEY,JSON.stringify(psCompactProjects(projects)));
+}
 function psToday(){
   const d=new Date();
   return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
@@ -24,7 +41,7 @@ function psActiveProject(){
   return psLoadProjects().find(p=>p.id===id)||null;
 }
 function psSyncLegacy(project){
-  localStorage.setItem(VENSIS_LEGACY_ITEMS_KEY,JSON.stringify(project?.items||[]));
+  localStorage.setItem(VENSIS_LEGACY_ITEMS_KEY,JSON.stringify((project?.items||[]).map(psCompactItem)));
   localStorage.setItem(VENSIS_LEGACY_META_KEY,JSON.stringify(project?.meta||{}));
 }
 function createProjectFromSelection(){
@@ -33,7 +50,7 @@ function createProjectFromSelection(){
   const name=prompt('Project name (optional):','')||'';
   const project={
     id:'prj_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),
-    schemaVersion:3,
+    schemaVersion:4,
     meta:{name:name.trim(),customer:'',date,projectNo:psProjectNo(date,projects),status:'Draft',notes:''},
     items:[],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()
   };
@@ -57,7 +74,6 @@ function clearActiveProject(){
   localStorage.removeItem(VENSIS_LEGACY_META_KEY);
   updateSelectionProjectCount();
 }
-
 function updateSelectionProjectCount(){
   const active=psActiveProject();
   const nameEl=document.getElementById('activeProjectName');
@@ -78,7 +94,6 @@ function updateSelectionProjectCount(){
   if(clearBtn)clearBtn.hidden=false;
   document.body.classList.remove('no-active-project');
 }
-
 function addToSelectionProject(resultIndex){
   const result=results[resultIndex];
   if(!result)return;
@@ -90,9 +105,8 @@ function addToSelectionProject(resultIndex){
     updateSelectionProjectCount();
     return;
   }
-
-  const product=window.VensisProducts?.snapshot(result)||null;
-  project.schemaVersion=3;
+  const product=window.VensisProducts?.fromResult(result)||null;
+  project.schemaVersion=4;
   project.items=Array.isArray(project.items)?project.items:[];
   const operatingPoint={
     flow:Math.round(Number(result.qq)||0),
@@ -103,28 +117,22 @@ function addToSelectionProject(resultIndex){
   const productId=product?.id||result.key;
   const signature=[productId,operatingPoint.flow,operatingPoint.pressure].join('|');
   const existing=project.items.find(item=>item.signature===signature);
-
   if(existing){
     existing.quantity=(Number(existing.quantity)||1)+1;
   }else{
     project.items.push({
       id:'item_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
-      schemaVersion:2,
+      schemaVersion:3,
       signature,
       productId,
-      product,
       operatingPoint,
       quantity:1,
       addedAt:new Date().toISOString(),
-
-      // Backward-compatible fields for existing project and quotation pages.
       key:result.key,
       model:product?.model||result.model||result.display,
       series:product?.series?.code||result.series||'',
       productName:product?.series?.title||result.catalogNameEn||'',
       productImage:product?.media?.image||'',
-      productDescription:product?.description||null,
-      performanceTable:product?.performance?.table||[],
       flow:operatingPoint.flow,
       pressure:operatingPoint.pressure,
       motorPower:(product?.technical?.motorPower??Number(result.kw))||0,
@@ -134,15 +142,19 @@ function addToSelectionProject(resultIndex){
     });
   }
   project.updatedAt=new Date().toISOString();
-  psSaveProjects(projects);
-  psSyncLegacy(project);
+  try{
+    psSaveProjects(projects);
+    psSyncLegacy(project);
+  }catch(error){
+    alert('Project storage is full. Reload the page once and try again.');
+    console.error(error);
+    return;
+  }
   updateSelectionProjectCount();
 }
-
 function openProjectPage(){
   const active=psActiveProject();
   window.location.href=active?'project-edit.html':'project.html';
 }
-
 document.addEventListener('DOMContentLoaded',updateSelectionProjectCount);
 window.addEventListener('storage',updateSelectionProjectCount);
