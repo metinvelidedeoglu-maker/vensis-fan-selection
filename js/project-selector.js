@@ -33,6 +33,7 @@ function createProjectFromSelection(){
   const name=prompt('Project name (optional):','')||'';
   const project={
     id:'prj_'+Date.now()+'_'+Math.random().toString(36).slice(2,6),
+    schemaVersion:3,
     meta:{name:name.trim(),customer:'',date,projectNo:psProjectNo(date,projects),status:'Draft',notes:''},
     items:[],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()
   };
@@ -89,16 +90,47 @@ function addToSelectionProject(resultIndex){
     updateSelectionProjectCount();
     return;
   }
+
+  const product=window.VensisProducts?.snapshot(result)||null;
+  project.schemaVersion=3;
   project.items=Array.isArray(project.items)?project.items:[];
-  const signature=[result.key,Math.round(Number(result.qq)||0),Math.round(Number(result.pp)||0)].join('|');
+  const operatingPoint={
+    flow:Math.round(Number(result.qq)||0),
+    pressure:Math.round(Number(result.pp)||0),
+    airflowDeviation:Number(result.qd)||0,
+    pressureDeviation:Number(result.pd)||0
+  };
+  const productId=product?.id||result.key;
+  const signature=[productId,operatingPoint.flow,operatingPoint.pressure].join('|');
   const existing=project.items.find(item=>item.signature===signature);
-  if(existing){existing.quantity=(Number(existing.quantity)||1)+1;}
-  else{
+
+  if(existing){
+    existing.quantity=(Number(existing.quantity)||1)+1;
+  }else{
     project.items.push({
-      id:'item_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),signature,key:result.key,
-      model:result.model||result.display,series:result.series||'',flow:Math.round(Number(result.qq)||0),
-      pressure:Math.round(Number(result.pp)||0),motorPower:Number(result.kw)||0,noise:Number(result.spl)||0,
-      unitPrice:result.price==null?null:Number(result.price),quantity:1,addedAt:new Date().toISOString()
+      id:'item_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
+      schemaVersion:2,
+      signature,
+      productId,
+      product,
+      operatingPoint,
+      quantity:1,
+      addedAt:new Date().toISOString(),
+
+      // Backward-compatible fields for existing project and quotation pages.
+      key:result.key,
+      model:product?.model||result.model||result.display,
+      series:product?.series?.code||result.series||'',
+      productName:product?.series?.title||result.catalogNameEn||'',
+      productImage:product?.media?.image||'',
+      productDescription:product?.description||null,
+      performanceTable:product?.performance?.table||[],
+      flow:operatingPoint.flow,
+      pressure:operatingPoint.pressure,
+      motorPower:product?.technical?.motorPower??Number(result.kw)||0,
+      speed:product?.technical?.speed??Number(result.rpm)||0,
+      noise:product?.technical?.sound??Number(result.spl)||0,
+      unitPrice:product?.pricing?.listPrice??(result.price==null?null:Number(result.price))
     });
   }
   project.updatedAt=new Date().toISOString();
