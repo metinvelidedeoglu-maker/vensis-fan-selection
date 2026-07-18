@@ -1,0 +1,93 @@
+/* Desktop fan selection layout: filters left, matching fans right */
+@media (min-width: 1001px){
+  .layout{
+    max-width:1600px;
+    margin:16px auto;
+    padding:0 14px;
+    display:grid;
+    grid-template-columns:minmax(360px,430px) minmax(0,1fr);
+    gap:16px;
+    align-items:start;
+  }
+
+  .layout > aside.panel{
+    grid-column:1;
+    display:block;
+    width:100%;
+    min-width:0;
+    position:sticky;
+    top:92px;
+    max-height:calc(100vh - 108px);
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-right:2px;
+    scrollbar-width:thin;
+  }
+
+  .layout > aside.panel > .ai,
+  .layout > aside.panel > .left-stack,
+  .layout > aside.panel > .product-filter-section,
+  .layout > aside.panel > .actions{
+    display:block;
+    width:100%;
+    margin:0 0 14px;
+    grid-column:auto;
+    grid-row:auto;
+  }
+
+  .layout > aside.panel > .left-stack{
+    border:0;
+    box-shadow:none;
+    background:transparent;
+    overflow:visible;
+  }
+
+  .layout > aside.panel > .left-stack > .section{
+    margin-bottom:14px;
+  }
+
+  .layout > aside.panel > .product-filter-section{
+    height:auto;
+  }
+
+  .layout > aside.panel .product-filter-grid{
+    display:grid!important;
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .layout > aside.panel .list-box{
+    max-height:230px;
+  }
+
+  .layout > aside.panel > .actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:0;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+  }
+
+  .layout > aside.panel > .actions button{
+    width:100%;
+    min-width:0;
+  }
+
+  .layout > main{
+    grid-column:2;
+    min-width:0;
+  }
+
+  .layout > main .content-card{
+    min-height:calc(100vh - 108px);
+  }
+}
+
+@media (min-width: 1400px){
+  .layout{
+    grid-template-columns:minmax(390px,460px) minmax(0,1fr);
+  }
+}
