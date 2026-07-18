@@ -62,6 +62,35 @@
     });
   }
 
+  function migrateProjects(){
+    const key='vensis_projects_v2';
+    let projects;
+    try{projects=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){return 0}
+    if(!Array.isArray(projects))return 0;
+    let changed=0;
+    projects.forEach(project=>{
+      project.items=Array.isArray(project.items)?project.items:[];
+      project.items.forEach(item=>{
+        if(item?.product?.schemaVersion)return;
+        const product=resolveItem(item);
+        item.schemaVersion=2;
+        item.productId=product.id||item.key||'';
+        item.product=clone(product);
+        item.operatingPoint=item.operatingPoint||{flow:Number(item.flow)||0,pressure:Number(item.pressure)||0,airflowDeviation:0,pressureDeviation:0};
+        item.productName=item.productName||product.series?.title||'';
+        item.productImage=item.productImage||product.media?.image||'';
+        item.productDescription=item.productDescription||clone(product.description);
+        item.performanceTable=item.performanceTable?.length?item.performanceTable:clone(product.performance?.table||[]);
+        if(item.unitPrice==null)item.unitPrice=product.pricing?.listPrice??null;
+        changed++;
+      });
+      if(project.items.length)project.schemaVersion=3;
+    });
+    if(changed)localStorage.setItem(key,JSON.stringify(projects));
+    return changed;
+  }
+
   rebuild(window.models||[]);
-  window.VensisProducts={schemaVersion:1,rebuild,getByKey,fromResult,snapshot,resolveItem,seriesKey,titleFor,imageFor,count:()=>records.size};
+  window.VensisProducts={schemaVersion:1,rebuild,getByKey,fromResult,snapshot,resolveItem,migrateProjects,seriesKey,titleFor,imageFor,count:()=>records.size};
+  migrateProjects();
 })();
