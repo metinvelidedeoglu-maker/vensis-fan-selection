@@ -15,7 +15,7 @@
     const original=window.openProductTab;
     if(typeof original!=='function'||original.__vensisImageWrapped)return;
     function wrapped(index){
-      const result=window.results?.[index]||null;
+      const result=(typeof results!=='undefined'&&Array.isArray(results))?results[index]:null;
       const originalSet=localStorage.setItem.bind(localStorage);
       localStorage.setItem=function(key,value){
         if(String(key).startsWith('vensis_detail_'))value=injectImage(value,result);
