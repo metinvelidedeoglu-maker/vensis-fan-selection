@@ -12,11 +12,13 @@
     const maxkw=maxText?Number(maxText):Infinity;
     const pole=U.byId('pole')?.value||'';
     const sort=U.byId('sort')?.value||'closest';
-    const selectedTags=[...S.selectedTags];
+    const selectedManufacturers=[...S.selectedManufacturers];
+    const selectedCategories=[...S.selectedCategories];
     const out=[];
 
     for(const model of S.models){
-      if(selectedTags.length&&!selectedTags.every(tag=>(model.tags||[]).includes(tag)))continue;
+      if(selectedManufacturers.length&&!selectedManufacturers.includes(model.manufacturer))continue;
+      if(selectedCategories.length&&!selectedCategories.every(category=>(model.categories||[]).includes(category)))continue;
       if(S.selectedSeries.size&&!S.selectedSeries.has(model.series))continue;
       if(pole&&String(model.pole)!==pole)continue;
       if(Number(model.kw)>maxkw||!model.points?.length)continue;
