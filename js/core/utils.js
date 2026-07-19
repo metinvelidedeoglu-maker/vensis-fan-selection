@@ -66,11 +66,7 @@
       const flow=pchipValue(source,slopes,pressure);
       dense.push([Number(pressure.toFixed(4)),Number(Math.max(0,flow).toFixed(4))]);
     }
-    for(const point of source){
-      const index=Math.round((point[0]-minP)/(maxP-minP)*(count-1));
-      dense[index]=[point[0],point[1]];
-    }
-    return cleanPoints(dense);
+    return cleanPoints([...dense,...source]);
   }
 
   function interpolate(points,pressure){
