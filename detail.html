@@ -3,35 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Product Details</title>
+<title>Generating PDF Report</title>
 <style>
 body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#eef3f4;color:#173033}
-.loading{padding:30px}
+.loading{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:30px;text-align:center}
+.spinner{width:38px;height:38px;border:4px solid #d8e3e5;border-top-color:#087f4f;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-<div class="loading">Loading product details...</div>
+<div class="loading"><div class="spinner"></div><strong>Generating PDF report...</strong><span>Please wait.</span></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 (function(){
-  try{
-    const key=new URLSearchParams(location.search).get('key');
-    if(!key) throw new Error('No product key received.');
-    let payload=localStorage.getItem(key);
-    if(!payload) throw new Error('Product detail data was not found.');
-    localStorage.removeItem(key);
-    const catalogue='<script src="js/catalog-series.js?v=20260717-images2"><\/script>';
-    payload=/<\/body>/i.test(payload)?payload.replace(/<\/body>/i,catalogue+'</body>'):payload+catalogue;
-    document.open();
-    document.write(payload);
-    document.close();
-  }catch(err){
-    document.body.innerHTML=
-      '<div style="padding:30px;font-family:Arial">'+
-      '<h2>Product details could not be opened.</h2>'+
-      '<p>'+String(err.message||err)+'</p>'+
-      '<p><button onclick="window.close()" style="padding:10px 14px">Close</button></p>'+
-      '</div>';
+  const waitForImages=root=>Promise.all([...root.querySelectorAll('img')].map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true})})));
+  const safeName=value=>String(value||'fan-selection-report').replace(/[^a-z0-9_-]+/gi,'-').replace(/^-+|-+$/g,'')||'fan-selection-report';
+  async function generate(){
+    try{
+      const key=new URLSearchParams(location.search).get('key');
+      if(!key)throw new Error('No report key received.');
+      const payload=localStorage.getItem(key);
+      if(!payload)throw new Error('Report data was not found. Please create the report again.');
+      localStorage.removeItem(key);
+
+      const parser=new DOMParser(),doc=parser.parseFromString(payload,'text/html');
+      const styleText=[...doc.querySelectorAll('style')].map(node=>node.textContent).join('\n');
+      if(styleText){const style=document.createElement('style');style.textContent=styleText+'\nbody{background:#fff!important}.wrap{margin:0 auto!important;padding:0!important}.actions{display:none!important}.sheet{box-shadow:none!important;border:none!important;border-radius:0!important}';document.head.appendChild(style)}
+      const report=doc.querySelector('.sheet')||doc.body;
+      const host=document.createElement('div');
+      host.style.cssText='position:absolute;left:-100000px;top:0;width:794px;background:#fff;';
+      host.innerHTML=report.outerHTML;
+      document.body.appendChild(host);
+      const element=host.firstElementChild;
+      await waitForImages(element);
+      await new Promise(resolve=>setTimeout(resolve,150));
+
+      const model=element.querySelector('h1')?.textContent||'fan-selection-report';
+      const options={
+        margin:[7,7,7,7],
+        filename:safeName(model)+'-fan-selection.pdf',
+        image:{type:'jpeg',quality:0.98},
+        html2canvas:{scale:2,useCORS:true,allowTaint:false,backgroundColor:'#ffffff',logging:false},
+        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+        pagebreak:{mode:['css','legacy'],avoid:['.section','.field','.curve','img']}
+      };
+      const blob=await html2pdf().set(options).from(element).toPdf().outputPdf('blob');
+      const url=URL.createObjectURL(blob);
+      location.replace(url);
+    }catch(err){
+      document.body.innerHTML='<div style="padding:30px;font-family:Arial"><h2>PDF report could not be created.</h2><p>'+String(err.message||err)+'</p><p><button onclick="window.close()" style="padding:10px 14px">Close</button></p></div>';
+    }
   }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',generate,{once:true});else generate();
 })();
 </script>
 </body>
