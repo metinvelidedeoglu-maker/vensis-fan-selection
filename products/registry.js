@@ -10,10 +10,96 @@
   function seriesCode(value){const text=normalize(value);const found=keys.find(k=>text===k||text.startsWith(k+' ')||text.startsWith(k+'-')||text.includes(' '+k+' '));return aliases[found]||found||''}
   function normalizeModel(value,code){let model=String(value||'').trim();if(code==='AXD/MOB')model=model.replace(/^MOB-AXD(?=\s|-)/i,'AXD/MOB').replace(/^AXD-MOB(?=\s|-)/i,'AXD/MOB');return model}
   function imageFor(code){return code&&files[code]?'assets/products/'+files[code]:''}
-  function fromModel(row){
-    const code=seriesCode(row?.series||row?.model),info=row?.catalogueInfo||{},model=normalizeModel(row?.model||row?.display||'',code);
-    return {id:String(row?.key||model),model,series:{code,title:names[code]||row?.catalogNameEn||row?.series||''},media:{image:imageFor(code)},description:{general:info.general||[],motor:info.motor||[],applications:info.applications||[]},pricing:{listPrice:Number.isFinite(Number(row?.price))?Number(row.price):null,currency:'EUR'},technical:{motorPower:Number(row?.kw)||0,speed:Number(row?.rpm)||0,current:Number(row?.amps)||0,sound:Number(row?.spl)||0,voltage:row?.voltage||'',atex:Boolean(row?.atex),fireClass:row?.fire||'',sourcePage:row?.sourcePage||'',tags:row?.tagsEn||row?.tags||[]},performance:{nominalAirflow:Number(row?.nominal)||0,points:row?.points||[]}};
+
+  const seriesRecords=new Map();
+  const modelRecords=new Map();
+
+  function ensureSeries(row,code){
+    if(seriesRecords.has(code))return seriesRecords.get(code);
+    const info=row?.catalogueInfo||{};
+    const categories=[...(row?.categories||row?.tagsEn||row?.tags||[])];
+    const record={
+      id:code,
+      code,
+      manufacturer:row?.manufacturer||row?.brand||'Vitlo',
+      categories,
+      title:names[code]||row?.catalogNameEn||row?.series||code,
+      image:imageFor(code),
+      catalogue:{pdf:row?.catalogPdf||'',page:row?.sourcePage||''},
+      description:{general:info.general||[],motor:info.motor||[],applications:info.applications||[]},
+      modelIds:[]
+    };
+    seriesRecords.set(code,record);
+    return record;
   }
-  const records=new Map();(window.models||[]).forEach(m=>records.set(String(m.key),fromModel(m)));
-  window.VensisProducts={get:key=>records.get(String(key||''))||null,fromResult:r=>records.get(String(r?.key||''))||fromModel(r||{}),seriesCode,seriesName:value=>names[seriesCode(value)]||'',image:value=>imageFor(seriesCode(value)),count:()=>records.size};
+
+  function modelFromRow(row){
+    const code=seriesCode(row?.series||row?.model);
+    const model=normalizeModel(row?.model||row?.display||'',code);
+    const series=ensureSeries(row,code);
+    const id=String(row?.key||model);
+    const record={
+      id,
+      seriesId:code,
+      model,
+      display:row?.display||model,
+      pricing:{listPrice:Number.isFinite(Number(row?.price))?Number(row.price):null,currency:'EUR'},
+      motor:{power:Number(row?.kw)||0,speed:Number(row?.rpm)||0,current:Number(row?.amps)||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl)||0},
+      technical:{atex:Boolean(row?.atex),fireClass:row?.fire||'',weight:Number(row?.weight)||0,ipClass:row?.ipClass||'',insulationClass:row?.insulationClass||'',efficiencyClass:row?.efficiencyClass||''},
+      performance:{nominalAirflow:Number(row?.nominal)||0,points:row?.points||[],sourcePoints:row?.sourcePoints||row?.points||[]},
+      source:{page:row?.sourcePage||''}
+    };
+    modelRecords.set(id,record);
+    series.modelIds.push(id);
+    return record;
+  }
+
+  (window.models||[]).forEach(modelFromRow);
+
+  function flattenedModel(model){
+    const series=seriesRecords.get(model.seriesId)||{};
+    return {
+      ...model,
+      key:model.id,
+      manufacturer:series.manufacturer||'Vitlo',
+      brand:series.manufacturer||'Vitlo',
+      categories:series.categories||[],
+      tags:series.categories||[],
+      series:series.code||model.seriesId,
+      catalogueInfo:series.description||{},
+      catalogNameEn:series.title||'',
+      image:series.image||'',
+      nominal:model.performance.nominalAirflow,
+      points:model.performance.points,
+      sourcePoints:model.performance.sourcePoints,
+      price:model.pricing.listPrice,
+      kw:model.motor.power,
+      rpm:model.motor.speed,
+      amps:model.motor.current,
+      voltage:model.motor.voltage,
+      spl:model.motor.sound,
+      atex:model.technical.atex,
+      fire:model.technical.fireClass,
+      sourcePage:model.source.page
+    };
+  }
+
+  const flatModels=[...modelRecords.values()].map(flattenedModel);
+  window.models=flatModels;
+  window.VensisCatalog={
+    series:[...seriesRecords.values()],
+    models:[...modelRecords.values()],
+    getSeries:id=>seriesRecords.get(String(id||''))||null,
+    getModel:id=>modelRecords.get(String(id||''))||null,
+    modelsForSeries:id=>(seriesRecords.get(String(id||''))?.modelIds||[]).map(modelId=>modelRecords.get(modelId)).filter(Boolean)
+  };
+  window.VensisProducts={
+    get:key=>modelRecords.get(String(key||''))||null,
+    fromResult:r=>modelRecords.get(String(r?.key||r?.id||''))||null,
+    seriesCode,
+    seriesName:value=>names[seriesCode(value)]||'',
+    image:value=>imageFor(seriesCode(value)),
+    count:()=>modelRecords.size,
+    seriesCount:()=>seriesRecords.size
+  };
 })();
