@@ -48,10 +48,13 @@
       U.byId(prefix+'maxSlider').value=upper;
       syncDualTolerance(prefix);
     }
-    S.selectedTags.clear();
+    S.selectedManufacturers.clear();
+    if(S.indexes.manufacturers.includes('Vitlo'))S.selectedManufacturers.add('Vitlo');
+    else if(S.indexes.manufacturers[0])S.selectedManufacturers.add(S.indexes.manufacturers[0]);
+    S.selectedCategories.clear();
     S.selectedSeries.clear();
     S.results=[];
-    if(U.byId('typeSearch'))U.byId('typeSearch').value='';
+    if(U.byId('categorySearch'))U.byId('categorySearch').value='';
     if(U.byId('seriesSearch'))U.byId('seriesSearch').value='';
     U.byId('range').textContent='Enter flow and pressure values to begin.';
     window.VensisFilters.render();
