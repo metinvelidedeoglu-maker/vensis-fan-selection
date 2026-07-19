@@ -1,0 +1,36 @@
+name: Densify fan performance data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/densify-fan-data.mjs
+      - .github/workflows/densify-fan-data.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  densify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate 200 stored points per fan curve
+        run: node scripts/densify-fan-data.mjs
+
+      - name: Commit generated fan data
+        run: |
+          if git diff --quiet -- data; then
+            echo "No fan data changes required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/fans-*.js
+          git commit -m "Store 200 performance points per fan curve [skip ci]"
+          git push
