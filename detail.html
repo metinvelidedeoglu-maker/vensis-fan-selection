@@ -15,22 +15,15 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#eef3f4;color:#1
 (function(){
   try{
     const key=new URLSearchParams(location.search).get('key');
-    if(!key) throw new Error('No product key received.');
-    let payload=localStorage.getItem(key);
-    if(!payload) throw new Error('Product detail data was not found.');
+    if(!key)throw new Error('No product key received.');
+    const payload=localStorage.getItem(key);
+    if(!payload)throw new Error('Product detail data was not found.');
     localStorage.removeItem(key);
-    const catalogue='<script src="js/catalog-series.js?v=20260717-images2"><\/script>';
-    payload=/<\/body>/i.test(payload)?payload.replace(/<\/body>/i,catalogue+'</body>'):payload+catalogue;
     document.open();
     document.write(payload);
     document.close();
-  }catch(err){
-    document.body.innerHTML=
-      '<div style="padding:30px;font-family:Arial">'+
-      '<h2>Product details could not be opened.</h2>'+
-      '<p>'+String(err.message||err)+'</p>'+
-      '<p><button onclick="window.close()" style="padding:10px 14px">Close</button></p>'+
-      '</div>';
+  }catch(error){
+    document.body.innerHTML='<div style="padding:30px;font-family:Arial"><h2>Product details could not be opened.</h2><p>'+String(error.message||error)+'</p><p><button onclick="window.close()" style="padding:10px 14px">Close</button></p></div>';
   }
 })();
 </script>
