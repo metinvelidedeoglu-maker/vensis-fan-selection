@@ -13,27 +13,29 @@
       const price=row.price==null?'-':`€${U.format(row.price,2)}`;
       return `<tr><td><div style="display:flex;align-items:center;gap:12px"><img src="${U.escapeHtml(image)}" alt="${U.escapeHtml(product.series.title)}" style="width:72px;height:72px;object-fit:contain;flex:0 0 72px;border:1px solid #e2e9e5;border-radius:8px;background:#fff;padding:5px" onerror="this.remove()"><div><div class="model-main">${U.escapeHtml(product.model)}</div><div class="series-sub">${U.escapeHtml(product.series.title)}</div></div></div></td><td>${U.format(row.qq)} m³/h</td><td>${U.format(row.pp)} Pa</td><td>${U.format(row.kw,2)} kW</td><td>${U.format(row.spl)} dB(A)</td><td>${price}</td><td style="text-align:center"><button class="detail-icon-btn" data-preview="${index}" title="Open product details">👁</button></td></tr>`}).join('')}</tbody></table>`;
   }
-  function niceMax(value){
+  function roundedAxisMax(value){
     if(!(value>0))return 1;
-    const power=Math.pow(10,Math.floor(Math.log10(value))),scaled=value/power;
-    const nice=scaled<=1?1:scaled<=2?2:scaled<=5?5:10;
-    return nice*power;
+    const magnitude=Math.pow(10,Math.floor(Math.log10(value)));
+    return Math.ceil(value/magnitude)*magnitude;
   }
   function curveSvg(r){
     const pts=(r.points||[]).slice().sort((a,b)=>a[1]-b[1]);if(!pts.length)return '<div class="muted">No performance curve data available.</div>';
     const requiredQ=U.number('q'),requiredP=U.number('p');
-    const W=900,H=500,L=82,R=28,T=28,B=92,plotW=W-L-R,plotH=H-T-B;
-    const maxQ=niceMax(Math.max(...pts.map(v=>Number(v[1])||0),Number(r.qq)||0,requiredQ)*1.08);
-    const maxP=niceMax(Math.max(...pts.map(v=>Number(v[0])||0),Number(r.pp)||0,requiredP)*1.08);
-    const x=q=>L+(q/maxQ)*plotW,y=p=>T+plotH-(p/maxP)*plotH;
-    const poly=pts.map(v=>`${x(v[1]).toFixed(2)},${y(v[0]).toFixed(2)}`).join(' '),grid=[];
-    for(let i=0;i<=5;i++){
-      const q=maxQ*i/5,p=maxP*i/5,gx=x(q),gy=y(p);
-      grid.push(`<line x1="${gx}" y1="${T}" x2="${gx}" y2="${T+plotH}" stroke="#dbe4e7" stroke-width="1"/><text x="${gx}" y="${T+plotH+24}" text-anchor="middle" font-size="12" fill="#52666b">${U.format(q)}</text>`);
-      grid.push(`<line x1="${L}" y1="${gy}" x2="${L+plotW}" y2="${gy}" stroke="#dbe4e7" stroke-width="1"/><text x="${L-12}" y="${gy+4}" text-anchor="end" font-size="12" fill="#52666b">${U.format(p)}</text>`);
+    const W=900,H=540,L=86,R=30,T=28,B=105,plotW=W-L-R,plotH=H-T-B;
+    const fanMaxQ=Math.max(...pts.map(v=>Number(v[1])||0));
+    const fanMaxP=Math.max(...pts.map(v=>Number(v[0])||0));
+    const maxQ=roundedAxisMax(fanMaxQ),maxP=roundedAxisMax(fanMaxP);
+    const x=q=>L+(Math.max(0,Math.min(q,maxQ))/maxQ)*plotW,y=p=>T+plotH-(Math.max(0,Math.min(p,maxP))/maxP)*plotH;
+    const visiblePts=pts.filter(v=>v[1]>=0&&v[1]<=maxQ&&v[0]>=0&&v[0]<=maxP);
+    const poly=visiblePts.map(v=>`${x(v[1]).toFixed(2)},${y(v[0]).toFixed(2)}`).join(' '),grid=[];
+    for(let i=0;i<=10;i++){
+      const q=maxQ*i/10,p=maxP*i/10,gx=x(q),gy=y(p);
+      grid.push(`<line x1="${gx}" y1="${T}" x2="${gx}" y2="${T+plotH}" stroke="#dbe4e7" stroke-width="1"/><text x="${gx}" y="${T+plotH+23}" text-anchor="middle" font-size="11" fill="#52666b">${U.format(q)}</text>`);
+      grid.push(`<line x1="${L}" y1="${gy}" x2="${L+plotW}" y2="${gy}" stroke="#dbe4e7" stroke-width="1"/><text x="${L-11}" y="${gy+4}" text-anchor="end" font-size="11" fill="#52666b">${U.format(p)}</text>`);
     }
+    const selectedVisible=r.qq>=0&&r.qq<=maxQ&&r.pp>=0&&r.pp<=maxP;
+    const requiredVisible=requiredQ>0&&requiredP>0&&requiredQ<=maxQ&&requiredP<=maxP;
     const selectedX=x(r.qq),selectedY=y(r.pp),requiredX=x(requiredQ),requiredY=y(requiredP);
-    const requiredVisible=requiredQ>0&&requiredP>0;
     return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Fan performance curve">
       <rect x="0" y="0" width="${W}" height="${H}" fill="#ffffff"/>
       ${grid.join('')}
@@ -41,13 +43,10 @@
       <line x1="${L}" y1="${T}" x2="${L}" y2="${T+plotH}" stroke="#5d7378" stroke-width="1.5"/>
       <polyline fill="none" stroke="#123c43" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="${poly}"/>
       ${requiredVisible?`<line x1="${requiredX}" y1="${requiredY}" x2="${requiredX}" y2="${T+plotH}" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="7 6"/><line x1="${L}" y1="${requiredY}" x2="${requiredX}" y2="${requiredY}" stroke="#dc2626" stroke-width="1.8" stroke-dasharray="7 6"/><circle cx="${requiredX}" cy="${requiredY}" r="7" fill="#dc2626" stroke="#fff" stroke-width="2"/><text x="${Math.max(L+10,requiredX-12)}" y="${Math.max(T+18,requiredY-14)}" text-anchor="end" font-size="13" font-weight="700" fill="#dc2626">Required: ${U.format(requiredQ)} m³/h @ ${U.format(requiredP)} Pa</text>`:''}
-      <line x1="${selectedX}" y1="${selectedY}" x2="${selectedX}" y2="${T+plotH}" stroke="#0b8f55" stroke-width="1.8" stroke-dasharray="7 6"/>
-      <line x1="${L}" y1="${selectedY}" x2="${selectedX}" y2="${selectedY}" stroke="#0b8f55" stroke-width="1.8" stroke-dasharray="7 6"/>
-      <circle cx="${selectedX}" cy="${selectedY}" r="8" fill="#0b8f55" stroke="#fff" stroke-width="2"/>
-      <text x="${Math.min(L+plotW-10,selectedX+12)}" y="${Math.max(T+18,selectedY-14)}" text-anchor="start" font-size="13" font-weight="700" fill="#087f4f">Program Selected: ${U.format(r.qq)} m³/h @ ${U.format(r.pp)} Pa</text>
-      <text x="${L+plotW/2}" y="${H-38}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033">Air Flow (m³/h)</text>
+      ${selectedVisible?`<line x1="${selectedX}" y1="${selectedY}" x2="${selectedX}" y2="${T+plotH}" stroke="#0b8f55" stroke-width="1.8" stroke-dasharray="7 6"/><line x1="${L}" y1="${selectedY}" x2="${selectedX}" y2="${selectedY}" stroke="#0b8f55" stroke-width="1.8" stroke-dasharray="7 6"/><circle cx="${selectedX}" cy="${selectedY}" r="8" fill="#0b8f55" stroke="#fff" stroke-width="2"/><text x="${Math.min(L+plotW-10,selectedX+12)}" y="${Math.max(T+18,selectedY-14)}" text-anchor="start" font-size="13" font-weight="700" fill="#087f4f">Program Selected: ${U.format(r.qq)} m³/h @ ${U.format(r.pp)} Pa</text>`:''}
+      <text x="${L+plotW/2}" y="${H-48}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033">Air Flow (m³/h)</text>
       <text x="22" y="${T+plotH/2}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033" transform="rotate(-90 22 ${T+plotH/2})">Static Pressure (Pa)</text>
-      <g transform="translate(${L},${H-16})"><line x1="0" y1="0" x2="34" y2="0" stroke="#123c43" stroke-width="4"/><text x="42" y="4" font-size="12" fill="#40565b">Fan Performance Curve</text>${requiredVisible?`<circle cx="220" cy="0" r="6" fill="#dc2626"/><text x="232" y="4" font-size="12" fill="#40565b">Required Point</text>`:''}<circle cx="365" cy="0" r="6" fill="#0b8f55"/><text x="377" y="4" font-size="12" fill="#40565b">Program Selected Point</text></g>
+      <g transform="translate(${L},${H-18})"><line x1="0" y1="0" x2="34" y2="0" stroke="#123c43" stroke-width="4"/><text x="42" y="4" font-size="12" fill="#40565b">Fan Performance Curve</text>${requiredVisible?`<circle cx="220" cy="0" r="6" fill="#dc2626"/><text x="232" y="4" font-size="12" fill="#40565b">Required Point</text>`:''}${selectedVisible?`<circle cx="365" cy="0" r="6" fill="#0b8f55"/><text x="377" y="4" font-size="12" fill="#40565b">Program Selected Point</text>`:''}</g>
     </svg>`;
   }
   function bullets(items){return items?.length?`<ul>${items.map(x=>`<li>${U.escapeHtml(x)}</li>`).join('')}</ul>`:'<p class="muted">No catalogue text available.</p>'}
