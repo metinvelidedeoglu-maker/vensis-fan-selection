@@ -2,43 +2,27 @@
   const timers=new WeakMap();
   const selector='input:not([type="hidden"]), textarea, select';
 
-  function settle(el){
-    el.classList.remove('form-editing');
-    el.classList.add('form-settled');
+  function settle(element){
+    element.classList.remove('form-editing');
+    element.classList.add('form-settled');
   }
 
-  function activate(el){
-    el.classList.remove('form-settled');
-    el.classList.add('form-editing');
-    const old=timers.get(el);
-    if(old)clearTimeout(old);
-    timers.set(el,setTimeout(()=>settle(el),3000));
+  function activate(element){
+    element.classList.remove('form-settled');
+    element.classList.add('form-editing');
+    const timer=timers.get(element);
+    if(timer)clearTimeout(timer);
+    timers.set(element,setTimeout(()=>settle(element),3000));
   }
 
-  function bind(el){
-    if(el.dataset.formStateBound==='1')return;
-    el.dataset.formStateBound='1';
-    settle(el);
-    el.addEventListener('focus',()=>activate(el));
-    el.addEventListener('input',()=>activate(el));
-    el.addEventListener('change',()=>activate(el));
-    el.addEventListener('blur',()=>settle(el));
+  function bind(element){
+    settle(element);
+    element.addEventListener('focus',()=>activate(element));
+    element.addEventListener('input',()=>activate(element));
+    element.addEventListener('change',()=>activate(element));
+    element.addEventListener('blur',()=>settle(element));
   }
 
-  function scan(root=document){
-    root.querySelectorAll(selector).forEach(bind);
-  }
-
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>scan());
-  else scan();
-
-  new MutationObserver(records=>{
-    for(const record of records){
-      record.addedNodes.forEach(node=>{
-        if(node.nodeType!==1)return;
-        if(node.matches?.(selector))bind(node);
-        scan(node);
-      });
-    }
-  }).observe(document.documentElement,{childList:true,subtree:true});
+  function init(){document.querySelectorAll(selector).forEach(bind)}
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
