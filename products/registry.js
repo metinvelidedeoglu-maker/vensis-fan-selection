@@ -24,7 +24,7 @@
       manufacturer:row?.manufacturer||row?.brand||'Vitlo',
       categories,
       title:names[code]||row?.catalogNameEn||row?.series||code,
-      image:imageFor(code),
+      media:{image:imageFor(code),gallery:[]},
       catalogue:{pdf:row?.catalogPdf||'',page:row?.sourcePage||''},
       description:{general:info.general||[],motor:info.motor||[],applications:info.applications||[]},
       modelIds:[]
@@ -50,7 +50,7 @@
       source:{page:row?.sourcePage||''}
     };
     modelRecords.set(id,record);
-    series.modelIds.push(id);
+    if(!series.modelIds.includes(id))series.modelIds.push(id);
     return record;
   }
 
@@ -61,45 +61,49 @@
     return {
       ...model,
       key:model.id,
-      manufacturer:series.manufacturer||'Vitlo',
-      brand:series.manufacturer||'Vitlo',
-      categories:series.categories||[],
-      tags:series.categories||[],
-      series:series.code||model.seriesId,
-      catalogueInfo:series.description||{},
-      catalogNameEn:series.title||'',
-      image:series.image||'',
-      nominal:model.performance.nominalAirflow,
-      points:model.performance.points,
-      sourcePoints:model.performance.sourcePoints,
-      price:model.pricing.listPrice,
-      kw:model.motor.power,
-      rpm:model.motor.speed,
-      amps:model.motor.current,
-      voltage:model.motor.voltage,
-      spl:model.motor.sound,
-      atex:model.technical.atex,
-      fire:model.technical.fireClass,
+      manufacturer:series.manufacturer||'Vitlo',brand:series.manufacturer||'Vitlo',
+      categories:series.categories||[],tags:series.categories||[],series:series.code||model.seriesId,
+      catalogueInfo:series.description||{},catalogNameEn:series.title||'',image:series.media?.image||'',
+      nominal:model.performance.nominalAirflow,points:model.performance.points,sourcePoints:model.performance.sourcePoints,
+      price:model.pricing.listPrice,kw:model.motor.power,rpm:model.motor.speed,amps:model.motor.current,
+      voltage:model.motor.voltage,spl:model.motor.sound,atex:model.technical.atex,fire:model.technical.fireClass,
       sourcePage:model.source.page
+    };
+  }
+
+  function productView(model){
+    if(!model)return null;
+    const series=seriesRecords.get(model.seriesId)||{};
+    return {
+      id:model.id,
+      key:model.id,
+      model:model.model,
+      display:model.display,
+      series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vitlo',categories:series.categories||[]},
+      media:series.media||{image:'',gallery:[]},
+      catalogue:series.catalogue||{},
+      description:series.description||{general:[],motor:[],applications:[]},
+      pricing:model.pricing,
+      motor:model.motor,
+      technical:model.technical,
+      performance:model.performance,
+      source:model.source
     };
   }
 
   const flatModels=[...modelRecords.values()].map(flattenedModel);
   window.models=flatModels;
   window.VensisCatalog={
-    series:[...seriesRecords.values()],
-    models:[...modelRecords.values()],
+    series:[...seriesRecords.values()],models:[...modelRecords.values()],
     getSeries:id=>seriesRecords.get(String(id||''))||null,
     getModel:id=>modelRecords.get(String(id||''))||null,
+    product:id=>productView(modelRecords.get(String(id||''))),
     modelsForSeries:id=>(seriesRecords.get(String(id||''))?.modelIds||[]).map(modelId=>modelRecords.get(modelId)).filter(Boolean)
   };
   window.VensisProducts={
-    get:key=>modelRecords.get(String(key||''))||null,
-    fromResult:r=>modelRecords.get(String(r?.key||r?.id||''))||null,
-    seriesCode,
-    seriesName:value=>names[seriesCode(value)]||'',
-    image:value=>imageFor(seriesCode(value)),
-    count:()=>modelRecords.size,
-    seriesCount:()=>seriesRecords.size
+    get:key=>productView(modelRecords.get(String(key||''))),
+    fromResult:r=>productView(modelRecords.get(String(r?.key||r?.id||''))),
+    seriesCode,seriesName:value=>names[seriesCode(value)]||'',image:value=>imageFor(seriesCode(value)),
+    count:()=>modelRecords.size,seriesCount:()=>seriesRecords.size
   };
 })();
