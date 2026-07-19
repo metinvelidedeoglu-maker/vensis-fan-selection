@@ -1,5 +1,6 @@
 (function(){
   const S=window.VensisState,U=window.VensisUtils;
+  const positiveOrInfinity=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?n:Infinity};
   function select(){
     const q=U.number('q'),p=U.number('p');
     if(!(q>0&&p>0)){S.results=[];return []}
@@ -19,7 +20,7 @@
       }
       if(best)out.push({...model,...best});
     }
-    const sorters={closest:(a,b)=>a.score-b.score||a.kw-b.kw,economic:(a,b)=>(a.price??Infinity)-(b.price??Infinity)||a.score-b.score,quiet:(a,b)=>a.spl-b.spl||a.score-b.score,power:(a,b)=>a.kw-b.kw||a.score-b.score};
+    const sorters={closest:(a,b)=>a.score-b.score||a.kw-b.kw,economic:(a,b)=>positiveOrInfinity(a.price)-positiveOrInfinity(b.price)||a.score-b.score,quiet:(a,b)=>positiveOrInfinity(a.spl)-positiveOrInfinity(b.spl)||a.score-b.score,power:(a,b)=>a.kw-b.kw||a.score-b.score};
     out.sort(sorters[sort]||sorters.closest); S.results=out;
     return {results:out,ranges:{qL,qH,pL,pH}};
   }
