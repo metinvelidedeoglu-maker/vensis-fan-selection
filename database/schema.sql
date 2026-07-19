@@ -100,9 +100,11 @@ CREATE TABLE performance_points (
   CONSTRAINT fk_points_model FOREIGN KEY (model_id) REFERENCES models(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- All products currently present in the fan-selection application belong to Vitlo.
+-- Vensis is reserved for products that may be added later.
 INSERT INTO manufacturers (name, slug) VALUES
-('Vensis', 'vensis'),
-('Vitlo', 'vitlo')
+('Vitlo', 'vitlo'),
+('Vensis', 'vensis')
 ON DUPLICATE KEY UPDATE name=VALUES(name);
 
 INSERT INTO categories (code, name_tr, name_en, sort_order) VALUES
