@@ -25,31 +25,28 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#eef3f4;color:#1
       const payload=localStorage.getItem(key);
       if(!payload)throw new Error('Report data was not found. Please create the report again.');
       localStorage.removeItem(key);
-
       const parser=new DOMParser(),doc=parser.parseFromString(payload,'text/html');
       const styleText=[...doc.querySelectorAll('style')].map(node=>node.textContent).join('\n');
-      if(styleText){const style=document.createElement('style');style.textContent=styleText+'\nbody{background:#fff!important}.wrap{margin:0 auto!important;padding:0!important}.actions{display:none!important}.sheet{box-shadow:none!important;border:none!important;border-radius:0!important}';document.head.appendChild(style)}
+      if(styleText){const style=document.createElement('style');style.textContent=styleText+'\nbody{background:#fff!important}.sheet{box-shadow:none!important}';document.head.appendChild(style)}
       const report=doc.querySelector('.sheet')||doc.body;
       const host=document.createElement('div');
-      host.style.cssText='position:absolute;left:-100000px;top:0;width:794px;background:#fff;';
+      host.style.cssText='position:absolute;left:-100000px;top:0;width:1120px;height:760px;background:#fff;overflow:hidden;';
       host.innerHTML=report.outerHTML;
       document.body.appendChild(host);
       const element=host.firstElementChild;
       await waitForImages(element);
-      await new Promise(resolve=>setTimeout(resolve,150));
-
+      await new Promise(resolve=>setTimeout(resolve,250));
       const model=element.querySelector('h1')?.textContent||'fan-selection-report';
       const options={
-        margin:[7,7,7,7],
+        margin:0,
         filename:safeName(model)+'-fan-selection.pdf',
-        image:{type:'jpeg',quality:0.98},
-        html2canvas:{scale:2,useCORS:true,allowTaint:false,backgroundColor:'#ffffff',logging:false},
-        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
-        pagebreak:{mode:['css','legacy'],avoid:['.section','.field','.curve','img']}
+        image:{type:'png',quality:1},
+        html2canvas:{scale:2.2,useCORS:true,allowTaint:false,backgroundColor:'#ffffff',logging:false,width:1120,height:760,windowWidth:1120,windowHeight:760,scrollX:0,scrollY:0},
+        jsPDF:{unit:'mm',format:'a4',orientation:'landscape',compress:true},
+        pagebreak:{mode:['avoid-all']}
       };
       const blob=await html2pdf().set(options).from(element).toPdf().outputPdf('blob');
-      const url=URL.createObjectURL(blob);
-      location.replace(url);
+      location.replace(URL.createObjectURL(blob));
     }catch(err){
       document.body.innerHTML='<div style="padding:30px;font-family:Arial"><h2>PDF report could not be created.</h2><p>'+String(err.message||err)+'</p><p><button onclick="window.close()" style="padding:10px 14px">Close</button></p></div>';
     }
