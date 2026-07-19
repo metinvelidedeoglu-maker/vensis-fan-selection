@@ -1,54 +1,86 @@
 (function(){
   const S=window.VensisState,U=window.VensisUtils;
-  const tagNames={'Aksiyal':'Axial Fan','Radyal':'Radial Fan','Kanal Tipi':'Duct Fan','Hücreli':'Cabinet Fan','Jetfan':'Jet Fan','Tünel Tipi':'Tunnel Fan','Çatı Tipi':'Roof Fan','Duvar Tipi':'Wall-Mounted Fan','Mobil':'Mobile Fan','Salyangoz':'Centrifugal Fan','Bifurcated':'Bifurcated Fan','Kısa Kasalı':'Short-Casing Fan','Duman Tahliye':'Smoke Exhaust Fan','Exproof / ATEX':'Explosion-Proof / ATEX Fan','EC':'EC Fan','Isı Geri Kazanım':'Heat Recovery Unit','Sığınak':'Shelter Fan'};
-  const tagName=tag=>tagNames[tag]||tag;
+  const categoryNames={'Aksiyal':'Axial Fan','Radyal':'Radial Fan','Kanal Tipi':'Duct Fan','Hücreli':'Cabinet Fan','Jetfan':'Jet Fan','Tünel Tipi':'Tunnel Fan','Çatı Tipi':'Roof Fan','Duvar Tipi':'Wall-Mounted Fan','Mobil':'Mobile Fan','Salyangoz':'Centrifugal Fan','Bifurcated':'Bifurcated Fan','Kısa Kasalı':'Short-Casing Fan','Duman Tahliye':'Smoke Exhaust Fan','Exproof / ATEX':'Explosion-Proof / ATEX Fan','EC':'EC Fan','Isı Geri Kazanım':'Heat Recovery Unit','Sığınak':'Shelter Fan'};
+  const categoryName=category=>categoryNames[category]||category;
   const seriesName=series=>window.VensisProducts?.seriesName(series)||series;
-  const allTags=[...S.indexes.tags].sort((a,b)=>tagName(a).localeCompare(tagName(b),'en'));
 
-  function availableSeries(){
-    const selected=[...S.selectedTags];
-    const source=selected.length?S.models.filter(model=>selected.every(tag=>(model.tags||[]).includes(tag))).map(model=>model.series):S.indexes.series;
-    return [...new Set(source.filter(Boolean))].sort((a,b)=>seriesName(a).localeCompare(seriesName(b),'en'));
+  function modelMatchesManufacturer(model){
+    return !S.selectedManufacturers.size||S.selectedManufacturers.has(model.manufacturer);
   }
 
-  function countSeries(series){return S.indexes.seriesCounts.get(series)?.size||0}
+  function availableCategories(){
+    return [...new Set(S.models.filter(modelMatchesManufacturer).flatMap(model=>model.categories||[]))]
+      .sort((a,b)=>categoryName(a).localeCompare(categoryName(b),'en'));
+  }
+
+  function modelMatchesCategories(model){
+    return [...S.selectedCategories].every(category=>(model.categories||[]).includes(category));
+  }
+
+  function availableSeries(){
+    return [...new Set(S.models.filter(model=>modelMatchesManufacturer(model)&&modelMatchesCategories(model)).map(model=>model.series).filter(Boolean))]
+      .sort((a,b)=>seriesName(a).localeCompare(seriesName(b),'en'));
+  }
+
+  function countSeries(series){
+    return new Set(S.models.filter(model=>model.series===series&&modelMatchesManufacturer(model)&&modelMatchesCategories(model)).map(model=>model.key)).size;
+  }
+
+  function button(value,label,active,dataName,extra=''){
+    return `<button type="button" class="list-item ${active?'active':''}" data-${dataName}="${U.escapeHtml(value)}"><span class="checkmark">${active?'✓':''}</span><span>${U.escapeHtml(label)}${extra}</span></button>`;
+  }
 
   function render(){
-    const tagBox=U.byId('tagList'),seriesBox=U.byId('seriesList');
-    if(!tagBox||!seriesBox)return;
+    const manufacturerBox=U.byId('manufacturerList'),categoryBox=U.byId('categoryList'),seriesBox=U.byId('seriesList');
+    if(!manufacturerBox||!categoryBox||!seriesBox)return;
 
-    const tagQuery=U.byId('typeSearch')?.value||'';
-    const visibleTags=allTags.filter(tag=>U.smartMatch(tagName(tag),tagQuery));
-    U.byId('typeCount').textContent=`${visibleTags.length} of ${allTags.length}`;
-    tagBox.innerHTML=visibleTags.map(tag=>`<button type="button" class="list-item ${S.selectedTags.has(tag)?'active':''}" data-tag="${U.escapeHtml(tag)}"><span class="checkmark">${S.selectedTags.has(tag)?'✓':''}</span><span>${U.escapeHtml(tagName(tag))}</span></button>`).join('')||'<div class="empty">No product type found.</div>';
+    const manufacturers=[...S.indexes.manufacturers].sort((a,b)=>a.localeCompare(b,'en'));
+    manufacturerBox.innerHTML=manufacturers.map(name=>button(name,name,S.selectedManufacturers.has(name),'manufacturer')).join('');
+    U.byId('manufacturerCount').textContent=`${S.selectedManufacturers.size} selected`;
+
+    const categories=availableCategories();
+    const categoryQuery=U.byId('categorySearch')?.value||'';
+    const visibleCategories=categories.filter(category=>U.smartMatch(categoryName(category),categoryQuery));
+    categoryBox.innerHTML=visibleCategories.map(category=>button(category,categoryName(category),S.selectedCategories.has(category),'category')).join('')||'<div class="empty">No product category found.</div>';
+    U.byId('categoryCount').textContent=`${visibleCategories.length} of ${categories.length}`;
 
     const allSeries=availableSeries();
     const seriesQuery=U.byId('seriesSearch')?.value||'';
     const visibleSeries=allSeries.filter(series=>U.smartMatch(seriesName(series),seriesQuery));
+    seriesBox.innerHTML=visibleSeries.map(series=>button(series,seriesName(series),S.selectedSeries.has(series),'series',` <b style="color:#0b7f4c">(${countSeries(series)})</b>`)).join('')||'<div class="empty">No product series found.</div>';
     U.byId('seriesCount').textContent=`${visibleSeries.length} of ${allSeries.length}`;
-    seriesBox.innerHTML=visibleSeries.map(series=>`<button type="button" class="list-item ${S.selectedSeries.has(series)?'series-active':''}" data-series="${U.escapeHtml(series)}"><span class="checkmark">${S.selectedSeries.has(series)?'✓':''}</span><span>${U.escapeHtml(seriesName(series))} <b style="color:#0b7f4c">(${countSeries(series)})</b></span></button>`).join('')||'<div class="empty">No product series found.</div>';
   }
 
-  function toggleTag(tag){
-    S.selectedTags.has(tag)?S.selectedTags.delete(tag):S.selectedTags.add(tag);
-    const allowed=new Set(availableSeries());
-    for(const series of S.selectedSeries)if(!allowed.has(series))S.selectedSeries.delete(series);
-    render();
-    window.runSelection();
+  function cleanSelections(){
+    const allowedCategories=new Set(availableCategories());
+    for(const category of S.selectedCategories)if(!allowedCategories.has(category))S.selectedCategories.delete(category);
+    const allowedSeries=new Set(availableSeries());
+    for(const series of S.selectedSeries)if(!allowedSeries.has(series))S.selectedSeries.delete(series);
+  }
+
+  function toggleManufacturer(name){
+    S.selectedManufacturers.has(name)?S.selectedManufacturers.delete(name):S.selectedManufacturers.add(name);
+    cleanSelections();render();window.runSelection();
+  }
+
+  function toggleCategory(category){
+    S.selectedCategories.has(category)?S.selectedCategories.delete(category):S.selectedCategories.add(category);
+    cleanSelections();render();window.runSelection();
   }
 
   function toggleSeries(series){
     S.selectedSeries.has(series)?S.selectedSeries.delete(series):S.selectedSeries.add(series);
-    render();
-    window.runSelection();
+    render();window.runSelection();
   }
 
   document.addEventListener('click',event=>{
-    const tag=event.target.closest('[data-tag]');
-    if(tag){toggleTag(tag.dataset.tag);return}
+    const manufacturer=event.target.closest('[data-manufacturer]');
+    if(manufacturer){toggleManufacturer(manufacturer.dataset.manufacturer);return}
+    const category=event.target.closest('[data-category]');
+    if(category){toggleCategory(category.dataset.category);return}
     const series=event.target.closest('[data-series]');
     if(series)toggleSeries(series.dataset.series);
   });
 
-  window.VensisFilters={render,toggleTag,toggleSeries,tagName,seriesName};
+  window.VensisFilters={render,toggleManufacturer,toggleCategory,toggleSeries,categoryName,seriesName};
 })();
