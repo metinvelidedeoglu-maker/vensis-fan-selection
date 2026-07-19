@@ -1,47 +1,49 @@
 (function(){
-  const S=window.VensisState,U=window.VensisUtils;
-  const finiteOrInfinity=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?n:Infinity};
+  const S=window.VensisState;
+  const U=window.VensisUtils;
 
   function select(){
-    const q=U.number('q'),p=U.number('p');
-    if(!(q>0&&p>0)){S.results=[];return []}
-
-    const qL=q*(1+U.number('qmin')/100),qH=q*(1+U.number('qmax')/100);
-    const pL=p*(1+U.number('pmin')/100),pH=p*(1+U.number('pmax')/100);
-    const maxText=U.byId('maxkw')?.value.trim();
-    const maxkw=maxText?Number(maxText):Infinity;
-    const pole=U.byId('pole')?.value||'';
-    const sort=U.byId('sort')?.value||'closest';
-    const selectedManufacturers=[...S.selectedManufacturers];
-    const selectedCategories=[...S.selectedCategories];
-    const out=[];
-
-    for(const model of S.models){
-      if(selectedManufacturers.length&&!selectedManufacturers.includes(model.manufacturer))continue;
-      if(selectedCategories.length&&!selectedCategories.every(category=>(model.categories||[]).includes(category)))continue;
-      if(S.selectedSeries.size&&!S.selectedSeries.has(model.series))continue;
-      if(pole&&String(model.pole)!==pole)continue;
-      if(Number(model.kw)>maxkw||!model.points?.length)continue;
-
-      let best=null;
-      for(let pressure=Math.ceil(pL);pressure<=Math.floor(pH);pressure++){
-        const flow=U.interpolate(model.points,pressure);
-        if(flow==null||flow<qL||flow>qH)continue;
-        const qd=(flow-q)/q,pd=(pressure-p)/p,score=Math.abs(qd)+Math.abs(pd);
-        if(!best||score<best.score)best={qq:flow,pp:pressure,qd,pd,score};
-      }
-      if(best)out.push({...model,...best});
+    const airflow=U.number('q');
+    const pressure=U.number('p');
+    if(!(airflow>0&&pressure>0)){
+      S.results=[];
+      return [];
     }
 
-    const sorters={
-      closest:(a,b)=>a.score-b.score||a.kw-b.kw,
-      economic:(a,b)=>finiteOrInfinity(a.price)-finiteOrInfinity(b.price)||a.score-b.score,
-      quiet:(a,b)=>finiteOrInfinity(a.spl)-finiteOrInfinity(b.spl)||a.score-b.score,
-      power:(a,b)=>finiteOrInfinity(a.kw)-finiteOrInfinity(b.kw)||a.score-b.score
-    };
-    out.sort(sorters[sort]||sorters.closest);
-    S.results=out;
-    return {results:out,ranges:{qL,qH,pL,pH}};
+    const airflowMin=airflow*(1+U.number('qmin')/100);
+    const airflowMax=airflow*(1+U.number('qmax')/100);
+    const pressureMin=pressure*(1+U.number('pmin')/100);
+    const pressureMax=pressure*(1+U.number('pmax')/100);
+    const selectedManufacturers=S.selectedManufacturers;
+    const selectedCategories=S.selectedCategories;
+    const selectedSeries=S.selectedSeries;
+    const results=[];
+
+    for(const model of S.models){
+      if(selectedManufacturers.size&&!selectedManufacturers.has(model.manufacturer))continue;
+      if(selectedCategories.size&&![...selectedCategories].every(category=>model.categories.includes(category)))continue;
+      if(selectedSeries.size&&!selectedSeries.has(model.series))continue;
+      if(!model.points.length)continue;
+
+      let bestMatch=null;
+      for(let candidatePressure=Math.ceil(pressureMin);candidatePressure<=Math.floor(pressureMax);candidatePressure++){
+        const candidateAirflow=U.interpolate(model.points,candidatePressure);
+        if(candidateAirflow==null||candidateAirflow<airflowMin||candidateAirflow>airflowMax)continue;
+
+        const airflowDifference=(candidateAirflow-airflow)/airflow;
+        const pressureDifference=(candidatePressure-pressure)/pressure;
+        const score=Math.abs(airflowDifference)+Math.abs(pressureDifference);
+        if(!bestMatch||score<bestMatch.score){
+          bestMatch={qq:candidateAirflow,pp:candidatePressure,qd:airflowDifference,pd:pressureDifference,score};
+        }
+      }
+
+      if(bestMatch)results.push({...model,...bestMatch});
+    }
+
+    results.sort((a,b)=>a.score-b.score||a.kw-b.kw);
+    S.results=results;
+    return {results,ranges:{qL:airflowMin,qH:airflowMax,pL:pressureMin,pH:pressureMax}};
   }
 
   window.VensisSelection={select};
