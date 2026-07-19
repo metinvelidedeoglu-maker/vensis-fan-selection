@@ -35,14 +35,24 @@
 
   function card({model,series}){
     const image=series.media?.image||'';
-    return `<article class="product-card" data-model="${esc(model.id)}"><img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'"><div class="product-card-body"><h3>${esc(model.model)}</h3><div class="series">${esc(series.title||series.code||model.seriesId)}</div><div class="product-meta"><div><span>Power</span><b>${num(model.motor?.power,2)} kW</b></div><div><span>Speed</span><b>${num(model.motor?.speed)} rpm</b></div><div><span>Current</span><b>${num(model.motor?.current,2)} A</b></div><div><span>Price</span><b>${model.pricing?.listPrice>0?'€'+num(model.pricing.listPrice,2):'-'}</b></div></div></div></article>`;
+    return `<article class="product-card" data-model="${esc(model.id)}" role="link" tabindex="0" title="Open preview in a new tab"><img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'"><div class="product-card-body"><h3>${esc(model.model)}</h3><div class="series">${esc(series.title||series.code||model.seriesId)}</div><div class="product-meta"><div><span>Power</span><b>${num(model.motor?.power,2)} kW</b></div><div><span>Speed</span><b>${num(model.motor?.speed)} rpm</b></div><div><span>Current</span><b>${num(model.motor?.current,2)} A</b></div><div><span>Price</span><b>${model.pricing?.listPrice>0?'€'+num(model.pricing.listPrice,2):'-'}</b></div></div></div></article>`;
+  }
+
+  function openInNewTab(id){
+    const url=new URL(window.location.href);
+    url.search='';
+    url.searchParams.set('model',id);
+    window.open(url.toString(),'_blank','noopener');
   }
 
   function render(){
     const rows=filtered();
     document.getElementById('catalogCount').textContent=`${rows.length} product`;
     document.getElementById('catalogGrid').innerHTML=rows.map(card).join('')||'<div style="padding:20px;color:#64748b">No product matches these filters.</div>';
-    document.querySelectorAll('[data-model]').forEach(el=>el.addEventListener('click',()=>open(el.dataset.model)));
+    document.querySelectorAll('[data-model]').forEach(el=>{
+      el.addEventListener('click',()=>openInNewTab(el.dataset.model));
+      el.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openInNewTab(el.dataset.model)}});
+    });
   }
 
   function fields(model){
@@ -68,4 +78,6 @@
   document.addEventListener('keydown',event=>{if(event.key==='Escape')close()});
   window.Catalog={render,reset,open,close,backdrop};
   renderFilters();render();
+  const requestedModel=new URLSearchParams(window.location.search).get('model');
+  if(requestedModel)open(requestedModel);
 })();
