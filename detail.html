@@ -1,34 +1,38 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Generating PDF Report</title>
-<style>body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#eef3f4;color:#173033}.loading{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:30px;text-align:center}.spinner{width:38px;height:38px;border:4px solid #d8e3e5;border-top-color:#087f4f;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Product Details</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#eef3f4;color:#173033}
+.loading{padding:30px}
+</style>
 </head>
 <body>
-<div class="loading"><div class="spinner"></div><strong>Generating PDF report...</strong><span>Please wait.</span></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<div class="loading">Loading product details...</div>
 <script>
 (function(){
-const num=v=>Number(v)||0,fmt=(v,d=0)=>new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(num(v));
-const axisMax=value=>{if(!(value>0))return 1;const m=Math.pow(10,Math.floor(Math.log10(value)));return Math.ceil(value/m)*m};
-const loadImage=url=>new Promise(resolve=>{if(!url)return resolve(null);const img=new Image();img.crossOrigin='anonymous';img.onload=()=>resolve(img);img.onerror=()=>resolve(null);img.src=url});
-const imageData=img=>{try{const c=document.createElement('canvas'),s=Math.min(1,900/Math.max(img.naturalWidth,img.naturalHeight));c.width=Math.max(1,Math.round(img.naturalWidth*s));c.height=Math.max(1,Math.round(img.naturalHeight*s));c.getContext('2d').drawImage(img,0,0,c.width,c.height);return c.toDataURL('image/png')}catch{return null}};
-async function generate(){try{
-const key=new URLSearchParams(location.search).get('key');if(!key)throw new Error('No report key received.');const raw=localStorage.getItem(key);localStorage.removeItem(key);if(!raw)throw new Error('Report data was not found. Please create it again.');const data=JSON.parse(raw),{jsPDF}=window.jspdf;
-const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true}),green=[8,127,79],navy=[18,60,67],muted=[91,112,118],light=[242,247,247],line=[210,224,226],red=[220,38,38],sel=[11,143,85];
-doc.setProperties({title:`${data.model||'Fan'} - Fan Selection Report`,subject:'Fan Selection Report',author:'Vensis'});doc.setFillColor(...green);doc.rect(0,0,210,18,'F');doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(15);doc.text('VENSIS FAN SELECTION REPORT',12,11.5);doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text(new Date().toLocaleString('en-GB'),198,11.5,{align:'right'});
-const logo=await loadImage(data.logo||'assets/vensis-logo.png'),product=await loadImage(data.image),logoData=logo&&imageData(logo),productData=product&&imageData(product);if(logoData)doc.addImage(logoData,'PNG',12,22,39,11,undefined,'FAST');doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(16);doc.text(data.model||'-',58,27);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...muted);doc.text(data.series||'',58,33);doc.setDrawColor(...line);doc.line(12,37,198,37);
-doc.setFillColor(...light);doc.roundedRect(12,42,54,50,2,2,'F');if(productData)doc.addImage(productData,'PNG',17,47,44,40,undefined,'FAST');else{doc.setTextColor(...muted);doc.setFontSize(9);doc.text('Product image unavailable',39,68,{align:'center'})}
-const fields=[['Selected Air Flow',`${fmt(data.selectedQ)} m³/h`],['Selected Pressure',`${fmt(data.selectedP)} Pa`],['Motor Power',`${fmt(data.kw,2)} kW`],['Speed',`${fmt(data.rpm)} rpm`],['Noise',`${fmt(data.spl)} dB(A)`],['Voltage',data.voltage||'-'],['Price',data.price==null?'-':`€${fmt(data.price,2)}`],['Fan Type',data.fanType||'-']];fields.forEach((f,i)=>{const col=i%2,row=Math.floor(i/2),x=72+col*63,y=42+row*12;doc.setFillColor(...light);doc.roundedRect(x,y,60,10,1.5,1.5,'F');doc.setTextColor(...muted);doc.setFontSize(6.8);doc.setFont('helvetica','normal');doc.text(f[0],x+3,y+3.4);doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text(String(f[1]),x+3,y+8.2)});
-doc.setFillColor(...green);doc.rect(12,98,186,8,'F');doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(10);doc.text('FAN PERFORMANCE CURVE',16,103.5);
-const pts=(data.points||[]).map(p=>[num(p[0]),num(p[1])]).filter(p=>p[0]>=0&&p[1]>=0).sort((a,b)=>a[1]-b[1]),maxQ=axisMax(Math.max(...pts.map(p=>p[1]),1)),maxP=axisMax(Math.max(...pts.map(p=>p[0]),1)),gx=26,gy=112,gw=164,gh=91,x=q=>gx+(Math.max(0,Math.min(q,maxQ))/maxQ)*gw,y=p=>gy+gh-(Math.max(0,Math.min(p,maxP))/maxP)*gh;
-doc.setFillColor(255,255,255);doc.rect(12,106,186,111,'F');doc.setDrawColor(...line);doc.rect(12,106,186,111);doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(...muted);doc.setLineWidth(.2);for(let i=0;i<=10;i++){const xx=gx+gw*i/10,yy=gy+gh*i/10;doc.setDrawColor(...line);doc.line(xx,gy,xx,gy+gh);doc.line(gx,yy,gx+gw,yy);doc.text(fmt(maxQ*i/10),xx,gy+gh+4,{align:'center'});doc.text(fmt(maxP*(10-i)/10),gx-2,yy+1,{align:'right'})}
-doc.setDrawColor(...navy);doc.setLineWidth(.8);for(let i=1;i<pts.length;i++)doc.line(x(pts[i-1][1]),y(pts[i-1][0]),x(pts[i][1]),y(pts[i][0]));const rq=num(data.requiredQ),rp=num(data.requiredP),sq=num(data.selectedQ),sp=num(data.selectedP);if(rq>0&&rp>0&&rq<=maxQ&&rp<=maxP){doc.setDrawColor(...red);doc.setLineDashPattern([2,1],0);doc.setLineWidth(.4);doc.line(x(rq),y(rp),x(rq),gy+gh);doc.line(gx,y(rp),x(rq),y(rp));doc.setLineDashPattern([],0);doc.setFillColor(...red);doc.circle(x(rq),y(rp),1.7,'F')}if(sq>=0&&sp>=0&&sq<=maxQ&&sp<=maxP){doc.setDrawColor(...sel);doc.setLineDashPattern([2,1],0);doc.setLineWidth(.4);doc.line(x(sq),y(sp),x(sq),gy+gh);doc.line(gx,y(sp),x(sq),y(sp));doc.setLineDashPattern([],0);doc.setFillColor(...sel);doc.circle(x(sq),y(sp),1.9,'F')}
-doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('Air Flow (m³/h)',gx+gw/2,213,{align:'center'});doc.text('Static Pressure (Pa)',16,gy+gh/2,{angle:90,align:'center'});doc.setFontSize(7.2);doc.setFont('helvetica','normal');doc.setTextColor(...muted);doc.text(`Curve limit: ${fmt(maxQ)} m³/h / ${fmt(maxP)} Pa`,188,213,{align:'right'});
-doc.setFillColor(...light);doc.roundedRect(12,221,186,35,2,2,'F');doc.setTextColor(...navy);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('OPERATING POINT SUMMARY',16,227);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...red);doc.text(`Required Point: ${fmt(rq)} m³/h @ ${fmt(rp)} Pa`,16,234);doc.setTextColor(...sel);doc.text(`Program Selected Point: ${fmt(sq)} m³/h @ ${fmt(sp)} Pa`,16,240);doc.setTextColor(...muted);doc.text(`Flow deviation: ${rq?fmt((sq-rq)/rq*100,1):'-'}%`,16,247);doc.text(`Pressure deviation: ${rp?fmt((sp-rp)/rp*100,1):'-'}%`,82,247);
-doc.setDrawColor(...line);doc.line(12,265,198,265);doc.setTextColor(...muted);doc.setFontSize(7);doc.text('Performance values are based on the fan data stored in the Vensis selection database.',12,270);doc.text('Vensis Engineering Suite',198,270,{align:'right'});location.replace(URL.createObjectURL(doc.output('blob')));
-}catch(err){document.body.innerHTML='<div style="padding:30px;font-family:Arial"><h2>PDF report could not be created.</h2><p>'+String(err.message||err)+'</p><p><button onclick="window.close()" style="padding:10px 14px">Close</button></p></div>'}}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',generate,{once:true});else generate();
+  try{
+    const key=new URLSearchParams(location.search).get('key');
+    if(!key) throw new Error('No product key received.');
+    let payload=localStorage.getItem(key);
+    if(!payload) throw new Error('Product detail data was not found.');
+    localStorage.removeItem(key);
+    const catalogue='<script src="js/catalog-series.js?v=20260717-images2"><\/script>';
+    payload=/<\/body>/i.test(payload)?payload.replace(/<\/body>/i,catalogue+'</body>'):payload+catalogue;
+    document.open();
+    document.write(payload);
+    document.close();
+  }catch(err){
+    document.body.innerHTML=
+      '<div style="padding:30px;font-family:Arial">'+
+      '<h2>Product details could not be opened.</h2>'+
+      '<p>'+String(err.message||err)+'</p>'+
+      '<p><button onclick="window.close()" style="padding:10px 14px">Close</button></p>'+
+      '</div>';
+  }
 })();
 </script>
-</body></html>
+</body>
+</html>
