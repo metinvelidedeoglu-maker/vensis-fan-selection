@@ -33,6 +33,10 @@
 
   function firstText(items){return Array.isArray(items)&&items.length?items[0]:''}
 
+  function seriesUrl(id){
+    return `${location.pathname}?series=${encodeURIComponent(id)}`;
+  }
+
   function seriesCard(series){
     const count=(series.modelIds||[]).length;
     const summary=firstText(series.description?.general)||series.title||'';
@@ -53,7 +57,7 @@
     document.getElementById('catalogCount').textContent=`${rows.length} series`;
     document.getElementById('catalogGrid').innerHTML=rows.map(seriesCard).join('')||'<div class="empty-state">No series matches these filters.</div>';
     document.querySelectorAll('[data-series]').forEach(card=>{
-      const open=()=>showSeries(card.dataset.series);
+      const open=()=>location.assign(seriesUrl(card.dataset.series));
       card.addEventListener('click',open);
       card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}});
     });
@@ -119,16 +123,12 @@
         <div class="catalog-head"><div><div class="section-kicker">${esc(series.code)}</div><h2>Models</h2></div><div class="catalog-count">${models.length} models</div></div>
         <div class="models-grid">${models.map(model=>modelCard(model,series)).join('')||'<div class="empty-state">No models available.</div>'}</div>
       </section>`;
-    history.replaceState(null,'',`${location.pathname}?series=${encodeURIComponent(id)}`);
-    window.scrollTo({top:0,behavior:'smooth'});
+    document.title=`${series.code||series.title} | Vensis Product Catalog`;
+    window.scrollTo({top:0,behavior:'auto'});
   }
 
   function back(){
-    document.getElementById('detailPage').hidden=true;
-    document.getElementById('detailPage').innerHTML='';
-    document.getElementById('catalogLayout').hidden=false;
-    history.replaceState(null,'',location.pathname);
-    window.scrollTo({top:0,behavior:'smooth'});
+    location.assign(location.pathname);
   }
 
   function reset(){
@@ -137,7 +137,7 @@
   }
 
   window.Catalog={render:renderSeries,reset,showSeries,back};
-  renderFilters();renderSeries();
+  renderFilters();
   const requestedSeries=new URLSearchParams(location.search).get('series');
-  if(requestedSeries)showSeries(requestedSeries);
+  if(requestedSeries)showSeries(requestedSeries);else renderSeries();
 })();
