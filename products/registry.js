@@ -55,7 +55,16 @@
       display:row?.display||model,
       pricing:{listPrice:Number.isFinite(Number(row?.price))?Number(row.price):null,currency:'EUR'},
       motor:{power:Number(row?.kw)||0,speed:Number(row?.rpm)||0,current:Number(row?.amps)||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl)||0},
-      technical:{weight:Number(row?.weight)||0,ipClass:row?.ipClass||'',insulationClass:row?.insulationClass||'',efficiencyClass:row?.efficiencyClass||''},
+      technical:{
+        weight:Number(row?.weight)||0,
+        ipClass:row?.ipClass||'',
+        insulationClass:row?.insulationClass||'',
+        efficiencyClass:row?.efficiencyClass||'',
+        fireRating:row?.fire||'',
+        fanType:row?.fanTypeEn||row?.fanType||'',
+        mountType:row?.mountTypeEn||row?.mountType||'',
+        productGroup:row?.productGroupEn||row?.productGroup||''
+      },
       performance:{nominalAirflow:Number(row?.nominal)||0,points:row?.points||[],sourcePoints:row?.sourcePoints||row?.points||[]},
       source:{page:row?.sourcePage||''}
     };
