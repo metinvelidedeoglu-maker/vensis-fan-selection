@@ -106,7 +106,9 @@
 
   renderer.save=function(payload){
     const productModel=payload?.model?.model||payload?.product?.model||payload?.model?.display||'Vensis-Datasheet';
-    let documentHtml=renderer.html(payload);
+    let documentHtml=renderer.html(payload)
+      .replace('Print / Save PDF','Save as PDF')
+      .replace('onclick="window.print()"','onclick="window.saveVensisPdf?window.saveVensisPdf():window.print()"');
     documentHtml=documentHtml.replace('</body>',pdfRuntime(productModel)+'</body>');
     const key='vensis_detail_'+Date.now();
     localStorage.setItem(key,documentHtml);
