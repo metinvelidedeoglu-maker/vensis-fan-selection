@@ -89,15 +89,15 @@
         <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3></div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
-      <button class="model-datasheet-btn" type="button" data-model-datasheet="${esc(model.id)}">Open Datasheet / PDF</button>
+      <button class="model-datasheet-btn" type="button" data-model-datasheet="${esc(model.id)}">Save as PDF</button>
     </article>`;
   }
 
-  function openModel(id){
+  function saveModelPdf(id){
     const model=catalog.getModel?catalog.getModel(id):allModels.find(item=>String(item.id)===String(id));
     const product=catalog.product?catalog.product(id):null;
-    if(!model||!window.VensisDatasheet?.open)return;
-    window.VensisDatasheet.open({mode:'catalog',product,model});
+    if(!model||!window.VensisDatasheet?.save)return;
+    window.VensisDatasheet.save({mode:'catalog',product,model});
   }
 
   function showSeries(id){
@@ -128,7 +128,7 @@
         <div class="catalog-head"><div><div class="section-kicker">${esc(series.code)}</div><h2>Models</h2></div><div class="catalog-count">${models.length} models</div></div>
         <div class="models-grid">${models.map(model=>modelCard(model,series)).join('')||'<div class="empty-state">No models available.</div>'}</div>
       </section>`;
-    detail.querySelectorAll('[data-model-datasheet]').forEach(button=>button.addEventListener('click',()=>openModel(button.dataset.modelDatasheet)));
+    detail.querySelectorAll('[data-model-datasheet]').forEach(button=>button.addEventListener('click',()=>saveModelPdf(button.dataset.modelDatasheet)));
     document.title=`${series.code||series.title} | Vensis Product Catalog`;
     window.scrollTo({top:0,behavior:'auto'});
   }
@@ -136,7 +136,7 @@
   function back(){location.assign(location.pathname)}
   function reset(){selected.manufacturers.clear();selected.categories.clear();renderFilters();renderSeries()}
 
-  window.Catalog={render:renderSeries,reset,showSeries,openModel,back};
+  window.Catalog={render:renderSeries,reset,showSeries,saveModelPdf,back};
   renderFilters();
   const requestedSeries=new URLSearchParams(location.search).get('series');
   if(requestedSeries)showSeries(requestedSeries);else renderSeries();
