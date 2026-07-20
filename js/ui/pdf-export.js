@@ -25,7 +25,7 @@
         body.pdf-exporting .product-image{height:64mm!important}
         body.pdf-exporting .curve{height:91mm!important;padding:2mm!important}
       </style>
-      <div id="pdfPreparing"><div class="pdf-status">PDF hazırlanıyor…<small>Tek sayfa olarak Chrome PDF görüntüleyicisinde açılacak.</small></div></div>
+      <div id="pdfPreparing"><div class="pdf-status">PDF hazırlanıyor…<small>Dosya cihazınıza kaydedilecek.</small></div></div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script>
         (function(){
@@ -33,10 +33,14 @@
           const status=document.querySelector('#pdfPreparing .pdf-status');
           const waitForImages=()=>Promise.all([...document.images].map(img=>img.complete?Promise.resolve():new Promise(resolve=>{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true})})));
           const nextFrame=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+          let busy=false;
 
           async function createPdf(){
+            if(busy)return;
+            busy=true;
             try{
               if(!window.html2canvas||!window.jspdf?.jsPDF)throw new Error('PDF library could not be loaded.');
+              if(status)status.innerHTML='PDF hazırlanıyor…<small>Dosya cihazınıza kaydedilecek.</small>';
               await waitForImages();
               if(document.fonts?.ready)await document.fonts.ready;
 
@@ -74,22 +78,33 @@
 
               const blob=pdf.output('blob');
               const url=URL.createObjectURL(blob);
-              window.location.replace(url);
+              const link=document.createElement('a');
+              link.href=url;
+              link.download=filename;
+              link.style.display='none';
+              document.body.appendChild(link);
+              link.click();
+
+              if(status)status.innerHTML='PDF kaydedildi.<small>Dosyayı İndirilenler klasöründe bulabilirsiniz.</small>';
+              setTimeout(()=>{link.remove();URL.revokeObjectURL(url)},30000);
+              setTimeout(()=>window.close(),1800);
             }catch(error){
               console.error(error);
+              busy=false;
               document.body.classList.remove('pdf-exporting');
               document.getElementById('pdfPreparing').style.display='none';
-              if(status)status.innerHTML='PDF otomatik oluşturulamadı.<small>Sayfadaki Print / Save PDF düğmesini kullanabilirsiniz.</small>';
-              alert('PDF otomatik oluşturulamadı. Sayfadaki Print / Save PDF düğmesini kullanabilirsiniz.');
+              if(status)status.innerHTML='PDF otomatik kaydedilemedi.<small>Save as PDF düğmesine tekrar dokunun.</small>';
+              alert('PDF kaydedilemedi. Save as PDF düğmesine tekrar dokunun.');
             }
           }
 
+          window.saveVensisPdf=createPdf;
           window.addEventListener('load',()=>setTimeout(createPdf,180));
         })();
       </script>`;
   }
 
-  renderer.open=function(payload){
+  renderer.save=function(payload){
     const productModel=payload?.model?.model||payload?.product?.model||payload?.model?.display||'Vensis-Datasheet';
     let documentHtml=renderer.html(payload);
     documentHtml=documentHtml.replace('</body>',pdfRuntime(productModel)+'</body>');
@@ -97,4 +112,5 @@
     localStorage.setItem(key,documentHtml);
     window.open('detail.html?key='+encodeURIComponent(key),'_blank');
   };
+  renderer.open=renderer.save;
 })();
