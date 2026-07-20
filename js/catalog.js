@@ -1,95 +1,143 @@
 (function(){
   const catalog=window.VensisCatalog||{series:[],models:[]};
-  const selected={manufacturers:new Set(),categories:new Set(),series:new Set()};
+  const selected={manufacturers:new Set(),categories:new Set()};
   const esc=value=>String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const num=(value,decimals=0)=>{const n=Number(value);return Number.isFinite(n)&&n>0?n.toLocaleString('en-US',{maximumFractionDigits:decimals,minimumFractionDigits:decimals}):'-'};
-  const seriesById=new Map((catalog.series||[]).map(s=>[s.id,s]));
-  const models=(catalog.models||[]).map(model=>({model,series:seriesById.get(model.seriesId)||{}}));
   const unique=items=>[...new Set(items.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
-  const manufacturers=unique(models.map(x=>x.series.manufacturer));
-  const categories=unique(models.flatMap(x=>x.series.categories||[]));
-  const seriesIds=unique(models.map(x=>x.model.seriesId));
+  const allSeries=catalog.series||[];
+  const allModels=catalog.models||[];
+  const manufacturers=unique(allSeries.map(series=>series.manufacturer));
+  const categories=unique(allSeries.flatMap(series=>series.categories||[]));
 
-  function checkedList(id,items,set,label){
+  function checkedList(id,items,set){
     const box=document.getElementById(id);if(!box)return;
-    box.innerHTML=items.map(item=>`<label class="check-row"><input type="checkbox" value="${esc(item)}" ${set.has(item)?'checked':''}><span>${esc(label?label(item):item)}</span></label>`).join('')||'<div style="padding:6px;color:#64748b">No data</div>';
-    box.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{input.checked?set.add(input.value):set.delete(input.value);render()}));
+    box.innerHTML=items.map(item=>`<label class="check-row"><input type="checkbox" value="${esc(item)}" ${set.has(item)?'checked':''}><span>${esc(item)}</span></label>`).join('')||'<div class="empty-note">No data</div>';
+    box.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{
+      input.checked?set.add(input.value):set.delete(input.value);
+      renderSeries();
+    }));
   }
 
   function renderFilters(){
     checkedList('catalogManufacturers',manufacturers,selected.manufacturers);
     checkedList('catalogCategories',categories,selected.categories);
-    checkedList('catalogSeries',seriesIds,selected.series,id=>{const s=seriesById.get(id);return s?`${s.code} — ${s.title}`:id});
   }
 
-  function filtered(){
-    const q=(document.getElementById('catalogSearch')?.value||'').trim().toLowerCase();
-    return models.filter(({model,series})=>{
+  function filteredSeries(){
+    return allSeries.filter(series=>{
       if(selected.manufacturers.size&&!selected.manufacturers.has(series.manufacturer))return false;
       if(selected.categories.size&&![...selected.categories].every(category=>(series.categories||[]).includes(category)))return false;
-      if(selected.series.size&&!selected.series.has(model.seriesId))return false;
-      if(q&&!`${model.model} ${model.display} ${series.code} ${series.title} ${series.manufacturer}`.toLowerCase().includes(q))return false;
       return true;
     });
   }
 
-  function detailUrl(id){
-    const url=new URL(window.location.href);
-    url.search='';
-    url.searchParams.set('model',id);
-    return url.toString();
+  function firstText(items){return Array.isArray(items)&&items.length?items[0]:''}
+
+  function seriesCard(series){
+    const count=(series.modelIds||[]).length;
+    const summary=firstText(series.description?.general)||series.title||'';
+    return `<article class="series-card" data-series="${esc(series.id)}" role="link" tabindex="0">
+      <div class="series-card-image"><img src="${esc(series.media?.image||'')}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
+      <div class="series-card-body">
+        <div class="series-brand">${esc(series.manufacturer||'')}</div>
+        <h2>${esc(series.code||series.title)}</h2>
+        <div class="series-title">${esc(series.title||'')}</div>
+        ${summary&&summary!==series.title?`<p>${esc(summary)}</p>`:''}
+        <div class="series-card-footer"><b>${count} Models</b><span>View Series →</span></div>
+      </div>
+    </article>`;
   }
 
-  function card({model,series}){
-    const image=series.media?.image||'';
-    return `<article class="product-card" data-model="${esc(model.id)}" role="link" tabindex="0" title="Open product details in a new tab"><img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'"><div class="product-card-body"><h3>${esc(model.model)}</h3><div class="series">${esc(series.title||series.code||model.seriesId)}</div><div class="product-meta"><div><span>Power</span><b>${num(model.motor?.power,2)} kW</b></div><div><span>Speed</span><b>${num(model.motor?.speed)} rpm</b></div><div><span>Current</span><b>${num(model.motor?.current,2)} A</b></div><div><span>Price</span><b>${model.pricing?.listPrice>0?'€'+num(model.pricing.listPrice,2):'-'}</b></div></div></div></article>`;
-  }
-
-  function openInNewTab(id){window.open(detailUrl(id),'_blank','noopener')}
-
-  function render(){
-    const rows=filtered();
-    const count=document.getElementById('catalogCount');
-    const grid=document.getElementById('catalogGrid');
-    if(!count||!grid)return;
-    count.textContent=`${rows.length} product`;
-    grid.innerHTML=rows.map(card).join('')||'<div style="padding:20px;color:#64748b">No product matches these filters.</div>';
-    document.querySelectorAll('[data-model]').forEach(el=>{
-      el.addEventListener('click',()=>openInNewTab(el.dataset.model));
-      el.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openInNewTab(el.dataset.model)}});
+  function renderSeries(){
+    const rows=filteredSeries();
+    document.getElementById('catalogCount').textContent=`${rows.length} series`;
+    document.getElementById('catalogGrid').innerHTML=rows.map(seriesCard).join('')||'<div class="empty-state">No series matches these filters.</div>';
+    document.querySelectorAll('[data-series]').forEach(card=>{
+      const open=()=>showSeries(card.dataset.series);
+      card.addEventListener('click',open);
+      card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}});
     });
   }
 
-  function fields(model){
-    const values=[
-      ['Motor Power',`${num(model.motor?.power,2)} kW`],['Speed',`${num(model.motor?.speed)} rpm`],['Current',`${num(model.motor?.current,2)} A`],['Voltage',model.motor?.voltage||'-'],
-      ['Frequency',model.motor?.frequency||'-'],['Noise',`${num(model.motor?.sound)} dB(A)`],['Weight',`${num(model.technical?.weight,1)} kg`],['Price',model.pricing?.listPrice>0?`€${num(model.pricing.listPrice,2)}`:'-']
+  function bullets(items){
+    return Array.isArray(items)&&items.length?`<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`:'<p class="empty-note">No information available.</p>';
+  }
+
+  function modelFields(model){
+    const fields=[
+      ['Power',`${num(model.motor?.power,2)} kW`],
+      ['Speed',`${num(model.motor?.speed)} rpm`],
+      ['Current',`${num(model.motor?.current,2)} A`],
+      ['Voltage',model.motor?.voltage||'-'],
+      ['Frequency',model.motor?.frequency||'-'],
+      ['Airflow',`${num(model.performance?.nominalAirflow)} m³/h`],
+      ['Noise',`${num(model.motor?.sound)} dB(A)`],
+      ['Weight',`${num(model.technical?.weight,1)} kg`],
+      ['IP Class',model.technical?.ipClass||'-'],
+      ['Insulation',model.technical?.insulationClass||'-'],
+      ['Efficiency',model.technical?.efficiencyClass||'-'],
+      ['Price',model.pricing?.listPrice>0?`€${num(model.pricing.listPrice,2)}`:'-']
     ];
-    return values.map(([label,value])=>`<div class="detail-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
+    return fields.map(([label,value])=>`<div class="model-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
   }
 
-  function bullets(items){return items?.length?`<ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p style="color:#64748b">No information available.</p>'}
-
-  function showDetail(id){
-    const model=catalog.getModel?catalog.getModel(id):(catalog.models||[]).find(x=>x.id===id);
-    const layout=document.getElementById('catalogLayout');
-    const page=document.getElementById('detailPage');
-    if(!page)return;
-    if(layout)layout.hidden=true;
-    page.hidden=false;
-    if(!model){
-      page.innerHTML='<div class="not-found"><h1>Product not found</h1><p>The requested product is unavailable.</p><a class="detail-back" href="catalog.html">← Back to catalog</a></div>';
-      return;
-    }
-    const series=catalog.getSeries?catalog.getSeries(model.seriesId):seriesById.get(model.seriesId)||{};
-    const siblings=(catalog.modelsForSeries?catalog.modelsForSeries(model.seriesId):(catalog.models||[]).filter(x=>x.seriesId===model.seriesId));
-    document.title=`${model.model} | Vensis Product Catalog`;
-    page.innerHTML=`<a class="detail-back" href="catalog.html">← Back to catalog</a><div class="detail-hero"><img src="${esc(series.media?.image||'')}" alt="${esc(model.model)}" onerror="this.remove()"><div><div style="font-size:13px;color:#087f4f;font-weight:700">${esc(series.manufacturer||'')}</div><h1>${esc(model.model)}</h1><div>${esc(series.title||series.code||model.seriesId)}</div><div class="detail-grid">${fields(model)}</div></div></div><section class="detail-section"><h3>General Features</h3>${bullets(series.description?.general)}</section><section class="detail-section"><h3>Motor</h3>${bullets(series.description?.motor)}</section><section class="detail-section"><h3>Areas of Usage</h3>${bullets(series.description?.applications)}</section><section class="detail-section"><h3>Other Models in This Series</h3><div class="siblings">${siblings.map(item=>`<a class="${item.id===model.id?'active':''}" href="${esc(detailUrl(item.id))}">${esc(item.model)}</a>`).join('')}</div></section>`;
+  function modelCard(model,series){
+    return `<article class="model-card">
+      <div class="model-card-head">
+        <img src="${esc(series.media?.image||'')}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
+        <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3></div>
+      </div>
+      <div class="model-grid">${modelFields(model)}</div>
+    </article>`;
   }
 
-  function reset(){selected.manufacturers.clear();selected.categories.clear();selected.series.clear();const search=document.getElementById('catalogSearch');if(search)search.value='';renderFilters();render()}
+  function showSeries(id){
+    const series=catalog.getSeries?catalog.getSeries(id):allSeries.find(item=>item.id===id);if(!series)return;
+    const models=catalog.modelsForSeries?catalog.modelsForSeries(id):allModels.filter(model=>model.seriesId===id);
+    const pdf=series.catalogue?.pdf;
+    document.getElementById('catalogLayout').hidden=true;
+    const detail=document.getElementById('detailPage');
+    detail.hidden=false;
+    detail.innerHTML=`
+      <button class="detail-back" type="button" onclick="Catalog.back()">← Back to Series</button>
+      <section class="series-hero">
+        <div class="series-hero-image"><img src="${esc(series.media?.image||'')}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
+        <div class="series-hero-copy">
+          <div class="series-brand">${esc(series.manufacturer||'')}</div>
+          <h1>${esc(series.code||series.title)}</h1>
+          <h2>${esc(series.title||'')}</h2>
+          <div class="series-badges"><span>${models.length} Models</span>${(series.categories||[]).map(category=>`<span>${esc(category)}</span>`).join('')}</div>
+          ${pdf?`<a class="catalog-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">Open Product PDF</a>`:''}
+        </div>
+      </section>
+      <div class="series-info-grid">
+        <section class="detail-section"><h3>General Features</h3>${bullets(series.description?.general)}</section>
+        <section class="detail-section"><h3>Motor</h3>${bullets(series.description?.motor)}</section>
+        <section class="detail-section"><h3>Areas of Usage</h3>${bullets(series.description?.applications)}</section>
+      </div>
+      <section class="models-section">
+        <div class="catalog-head"><div><div class="section-kicker">${esc(series.code)}</div><h2>Models</h2></div><div class="catalog-count">${models.length} models</div></div>
+        <div class="models-grid">${models.map(model=>modelCard(model,series)).join('')||'<div class="empty-state">No models available.</div>'}</div>
+      </section>`;
+    history.replaceState(null,'',`${location.pathname}?series=${encodeURIComponent(id)}`);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
 
-  window.Catalog={render,reset,showDetail};
-  const requestedModel=new URLSearchParams(window.location.search).get('model');
-  if(requestedModel){showDetail(requestedModel)}else{renderFilters();render()}
+  function back(){
+    document.getElementById('detailPage').hidden=true;
+    document.getElementById('detailPage').innerHTML='';
+    document.getElementById('catalogLayout').hidden=false;
+    history.replaceState(null,'',location.pathname);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function reset(){
+    selected.manufacturers.clear();selected.categories.clear();
+    renderFilters();renderSeries();
+  }
+
+  window.Catalog={render:renderSeries,reset,showSeries,back};
+  renderFilters();renderSeries();
+  const requestedSeries=new URLSearchParams(location.search).get('series');
+  if(requestedSeries)showSeries(requestedSeries);
 })();
