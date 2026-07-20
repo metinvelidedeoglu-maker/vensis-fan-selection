@@ -32,10 +32,7 @@
   }
 
   function firstText(items){return Array.isArray(items)&&items.length?items[0]:''}
-
-  function seriesUrl(id){
-    return `${location.pathname}?series=${encodeURIComponent(id)}`;
-  }
+  function seriesUrl(id){return `${location.pathname}?series=${encodeURIComponent(id)}`}
 
   function seriesCard(series){
     const count=(series.modelIds||[]).length;
@@ -76,10 +73,10 @@
       ['Frequency',model.motor?.frequency||'-'],
       ['Airflow',`${num(model.performance?.nominalAirflow)} m³/h`],
       ['Noise',`${num(model.motor?.sound)} dB(A)`],
-      ['Weight',`${num(model.technical?.weight,1)} kg`],
+      ['Fire Rating',model.technical?.fireRating||'-'],
+      ['Fan Type',model.technical?.fanType||'-'],
+      ['Mount Type',model.technical?.mountType||'-'],
       ['IP Class',model.technical?.ipClass||'-'],
-      ['Insulation',model.technical?.insulationClass||'-'],
-      ['Efficiency',model.technical?.efficiencyClass||'-'],
       ['Price',model.pricing?.listPrice>0?`€${num(model.pricing.listPrice,2)}`:'-']
     ];
     return fields.map(([label,value])=>`<div class="model-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
@@ -92,7 +89,15 @@
         <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3></div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
+      <button class="model-datasheet-btn" type="button" data-model-datasheet="${esc(model.id)}">Open Datasheet / PDF</button>
     </article>`;
+  }
+
+  function openModel(id){
+    const model=catalog.getModel?catalog.getModel(id):allModels.find(item=>String(item.id)===String(id));
+    const product=catalog.product?catalog.product(id):null;
+    if(!model||!window.VensisDatasheet?.open)return;
+    window.VensisDatasheet.open({mode:'catalog',product,model});
   }
 
   function showSeries(id){
@@ -123,20 +128,15 @@
         <div class="catalog-head"><div><div class="section-kicker">${esc(series.code)}</div><h2>Models</h2></div><div class="catalog-count">${models.length} models</div></div>
         <div class="models-grid">${models.map(model=>modelCard(model,series)).join('')||'<div class="empty-state">No models available.</div>'}</div>
       </section>`;
+    detail.querySelectorAll('[data-model-datasheet]').forEach(button=>button.addEventListener('click',()=>openModel(button.dataset.modelDatasheet)));
     document.title=`${series.code||series.title} | Vensis Product Catalog`;
     window.scrollTo({top:0,behavior:'auto'});
   }
 
-  function back(){
-    location.assign(location.pathname);
-  }
+  function back(){location.assign(location.pathname)}
+  function reset(){selected.manufacturers.clear();selected.categories.clear();renderFilters();renderSeries()}
 
-  function reset(){
-    selected.manufacturers.clear();selected.categories.clear();
-    renderFilters();renderSeries();
-  }
-
-  window.Catalog={render:renderSeries,reset,showSeries,back};
+  window.Catalog={render:renderSeries,reset,showSeries,openModel,back};
   renderFilters();
   const requestedSeries=new URLSearchParams(location.search).get('series');
   if(requestedSeries)showSeries(requestedSeries);else renderSeries();
