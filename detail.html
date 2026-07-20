@@ -4,13 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Product Details</title>
-<style>
-body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#eef3f4;color:#173033}
-.loading{padding:30px}
-</style>
+<style>html,body{margin:0;background:#eef3f4}</style>
 </head>
 <body>
-<div class="loading">Loading product details...</div>
 <script>
 (function(){
   try{
@@ -19,7 +15,9 @@ body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#eef3f4;color:#1
     const payload=localStorage.getItem(key);
     if(!payload)throw new Error('Product detail data was not found.');
     localStorage.removeItem(key);
-    document.open();
+
+    document.body.innerHTML='';
+    document.open('text/html','replace');
     document.write(payload);
     document.close();
   }catch(error){
