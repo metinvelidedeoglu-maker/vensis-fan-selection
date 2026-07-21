@@ -55,6 +55,9 @@
       return sum;
     },{units:0,total:0,hasPrice:false});
   }
+  function setAll(selector,value){
+    document.querySelectorAll(selector).forEach(node=>{node.textContent=value});
+  }
   function render(){
     const quotation=readQuotation();
     const empty=byId('quotationEmpty');
@@ -68,9 +71,11 @@
     content.hidden=false;
     const created=new Date(quotation.createdAt||Date.now());
     const total=totals(quotation.items);
+    const quotationNumber=quotation.quotationNumber||'-';
     byId('quoteProject').textContent=quotation.project?.name||'-';
     byId('quoteReference').textContent=quotation.project?.reference||'-';
-    byId('quoteNumber').textContent=quotation.quotationNumber||'-';
+    byId('quoteNumber').textContent=quotationNumber;
+    setAll('[data-quote-number]',quotationNumber);
     byId('quoteDate').textContent=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'2-digit',year:'numeric'}).format(created);
     byId('quoteCurrency').textContent=quotation.currency||'EUR';
     byId('quotationRows').innerHTML=quotation.items.map(row).join('');
