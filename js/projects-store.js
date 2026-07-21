@@ -53,9 +53,10 @@
     if(!hasItems&&!hasMeta)return list;
     const projectId=id();
     const stamp=now();
-    const entry={id:projectId,name:legacyMeta.name||'Existing Project',reference:legacyMeta.reference||'',createdAt:stamp,updatedAt:stamp};
+    const migratedMeta={...legacyMeta,name:legacyMeta.name||'Existing Project'};
+    const entry={id:projectId,name:migratedMeta.name,reference:migratedMeta.reference||'',createdAt:stamp,updatedAt:stamp};
     writeJson(itemsKey(projectId),hasItems?legacyItems:[]);
-    writeJson(metaKey(projectId),legacyMeta);
+    writeJson(metaKey(projectId),migratedMeta);
     list=[entry];
     saveList(list);
     localStorage.setItem(ACTIVE_KEY,projectId);
