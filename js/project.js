@@ -2,6 +2,7 @@
   const KEY='vensis_project_items_v1';
   const META_KEY='vensis_project_meta_v1';
   const QUOTATION_KEY='vensis_active_quotation_v1';
+  const catalog=window.VensisCatalog||{models:[]};
   const byId=id=>document.getElementById(id);
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
   const number=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
@@ -10,8 +11,31 @@
   const point=value=>`${fmt(value?.q)} m³/h @ ${fmt(value?.p)} Pa`;
   const clampDiscount=value=>Math.min(100,Math.max(0,number(value)));
 
+  function modelForItem(item){
+    const direct=catalog.getModel?.(item?.productKey);
+    if(direct)return direct;
+    return (catalog.models||[]).find(model=>String(model.model||'')===String(item?.model||''))||null;
+  }
+  function enrichItems(items){
+    let changed=false;
+    items.forEach(item=>{
+      const model=modelForItem(item);
+      const speed=number(item.speed)||number(model?.motor?.speed);
+      const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
+      const noise=number(item.noise)||number(model?.motor?.sound);
+      if(!number(item.speed)&&speed>0){item.speed=speed;changed=true}
+      if(!String(item.voltage||'').trim()&&voltage){item.voltage=voltage;changed=true}
+      if(!number(item.noise)&&noise>0){item.noise=noise;changed=true}
+    });
+    return changed;
+  }
   function readItems(){
-    try{const value=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(value)?value:[]}catch{return []}
+    try{
+      const value=JSON.parse(localStorage.getItem(KEY)||'[]');
+      const items=Array.isArray(value)?value:[];
+      if(enrichItems(items))localStorage.setItem(KEY,JSON.stringify(items));
+      return items;
+    }catch{return []}
   }
   function writeItems(items){
     localStorage.setItem(KEY,JSON.stringify(items));
@@ -66,12 +90,15 @@
     const rate=clampDiscount(item.discountPercent);
     const netUnit=netUnitPrice(item);
     const lineTotal=netUnit*qty;
+    const voltage=String(item.voltage||'').trim();
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
     return `<tr>
       <td><div class="product-cell">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small></div></div></td>
       ${pointCells(item)}
       <td>${number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-'}</td>
       <td>${number(item.current)>0?`${fmt(item.current,2)} A`:'-'}</td>
+      <td>${number(item.speed)>0?`${fmt(item.speed)} rpm`:'-'}</td>
+      <td>${voltage?escapeHtml(voltage):'-'}</td>
       <td>${number(item.noise)>0?`${fmt(item.noise)} dB(A)`:'-'}</td>
       <td>${money(price)}</td>
       <td>${discountControl(index,rate)}</td>
