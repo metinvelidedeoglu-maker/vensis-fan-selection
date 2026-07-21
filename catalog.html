@@ -22,7 +22,7 @@ body{background:#eef3f4;color:#173033}.catalog-top{display:flex;align-items:cent
 </style>
 </head>
 <body class="app-shell app-catalog">
-<header class="catalog-top"><div class="catalog-brand"><img src="assets/vensis-logo.png" alt="Vensis"><div><b>Vensis Engineering Suite</b><div style="font-size:12px;color:#64748b">Product Catalog</div></div></div><nav class="catalog-nav"><a href="index.html">⌕ Fan Selection</a><a class="active" href="catalog.html">▦ Product Catalog</a><a href="project.html">▣ Project <span data-project-count hidden style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:#087f4f;color:#fff;font-size:11px">0</span></a></nav></header>
+<header class="catalog-top"><div class="catalog-brand"><img src="assets/vensis-logo.png" alt="Vensis"><div><b>Vensis Engineering Suite</b><div style="font-size:12px;color:#64748b">Product Catalog</div></div></div><nav class="catalog-nav"><a href="index.html">⌕ Fan Selection</a><a class="active" href="catalog.html">▦ Product Catalog</a><a href="projects.html">▣ Projects <span data-project-count hidden style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:#087f4f;color:#fff;font-size:11px">0</span></a></nav></header>
 <div id="catalogLayout" class="catalog-layout">
 <aside class="catalog-filter"><h2>Filters</h2><div class="filter-group"><label>Manufacturer</label><div id="catalogManufacturers" class="check-list"></div></div><div class="filter-group"><label>Category</label><div id="catalogCategories" class="check-list"></div></div><div class="filter-actions"><button type="button" onclick="Catalog.reset()">Reset Filters</button></div></aside>
 <main class="catalog-content"><div class="catalog-head"><h1>Series</h1><div id="catalogCount" class="catalog-count"></div></div><div id="catalogGrid" class="catalog-grid"></div></main>
@@ -33,6 +33,7 @@ body{background:#eef3f4;color:#173033}.catalog-top{display:flex;align-items:cent
 <script src="products/registry.js?v=20260720-datasheet"></script>
 <script src="js/ui/datasheet.js?v=20260720-datasheet"></script>
 <script src="js/ui/pdf-export.js?v=20260721-specification-cleanup"></script>
-<script src="js/project-nav.js?v=20260721-design-review"></script>
-<script src="js/catalog.js?v=20260721-project-electrical-details"></script>
+<script src="js/projects-store.js?v=20260721-multi-projects"></script>
+<script src="js/project-nav.js?v=20260721-multi-projects"></script>
+<script src="js/catalog.js?v=20260721-multi-projects"></script>
 </body></html>
