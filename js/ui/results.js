@@ -9,7 +9,7 @@
   function productFor(row){
     const product=C?.product?.(row?.key||row?.id)||window.VensisProducts?.fromResult?.(row);
     if(product)return product;
-    return {model:row?.model||row?.display||'',series:{title:row?.catalogNameEn||row?.series||'',manufacturer:row?.manufacturer||'Vitlo'},media:{image:row?.image||''},description:row?.catalogueInfo||{general:[],motor:[],applications:[]}};
+    return {model:row?.model||row?.display||'',series:{title:row?.catalogNameEn||row?.series||'',manufacturer:row?.manufacturer||'Vitlo'},media:{image:row?.image||''},motor:{speed:Number(row?.rpm)||0,voltage:row?.voltage||'',sound:Number(row?.spl)||0},description:row?.catalogueInfo||{general:[],motor:[],applications:[]}};
   }
   function icon(type){
     if(type==='eye')return '<svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
@@ -53,10 +53,18 @@
     const product=productFor(r),required={q:U.number('q'),p:U.number('p')},selected={q:Number(r.qq)||0,p:Number(r.pp)||0};
     const productKey=r.key||r.id||product.model||r.model||'';
     const itemKey=[productKey,required.q,required.p,selected.q,selected.p].join('|');
+    const speed=Number(r.rpm)||Number(product.motor?.speed)||0;
+    const voltage=String(r.voltage||product.motor?.voltage||'').trim();
+    const noise=Number(r.spl)||Number(product.motor?.sound)||0;
     const items=projectItems();
     const existing=items.find(item=>item.itemKey===itemKey);
-    if(existing){existing.quantity=(Number(existing.quantity)||1)+1;existing.updatedAt=new Date().toISOString()}
-    else items.push({itemKey,productKey,model:product.model||r.model||'',series:product.series?.title||r.series||'',manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,noise:Number(r.spl)||0,price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()});
+    if(existing){
+      existing.quantity=(Number(existing.quantity)||1)+1;
+      existing.speed=Number(existing.speed)||speed;
+      existing.voltage=existing.voltage||voltage;
+      existing.noise=Number(existing.noise)||noise;
+      existing.updatedAt=new Date().toISOString();
+    }else items.push({itemKey,productKey,model:product.model||r.model||'',series:product.series?.title||r.series||'',manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,noise,price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()});
     saveProjectItems(items);
     if(button){const old=button.innerHTML;button.innerHTML='✓';button.title='Added to project';setTimeout(()=>{button.innerHTML=old;button.title='Add to project'},1200)}
     showProjectToast(existing?'Project quantity increased.':'Fan added to project.');
