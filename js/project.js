@@ -22,9 +22,11 @@
       const model=modelForItem(item);
       const speed=number(item.speed)||number(model?.motor?.speed);
       const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
+      const frequency=String(item.frequency||model?.motor?.frequency||'').trim();
       const noise=number(item.noise)||number(model?.motor?.sound);
       if(!number(item.speed)&&speed>0){item.speed=speed;changed=true}
       if(!String(item.voltage||'').trim()&&voltage){item.voltage=voltage;changed=true}
+      if(!String(item.frequency||'').trim()&&frequency){item.frequency=frequency;changed=true}
       if(!number(item.noise)&&noise>0){item.noise=noise;changed=true}
     });
     return changed;
@@ -83,6 +85,12 @@
     }
     return `<td><span class="point required">${point(item.required)}</span></td><td><span class="point selected">${point(item.selected)}</span></td>`;
   }
+  function supplyText(item){
+    const voltage=String(item.voltage||'').trim();
+    const frequency=String(item.frequency||'').trim();
+    if(voltage&&frequency)return `${escapeHtml(voltage)} – ${escapeHtml(frequency)}`;
+    return voltage||frequency?escapeHtml(voltage||frequency):'-';
+  }
   function row(item,index){
     const qty=Math.max(1,number(item.quantity)||1);
     const price=number(item.price);
@@ -90,15 +98,14 @@
     const rate=clampDiscount(item.discountPercent);
     const netUnit=netUnitPrice(item);
     const lineTotal=netUnit*qty;
-    const voltage=String(item.voltage||'').trim();
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
     return `<tr>
       <td><div class="product-cell">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small></div></div></td>
       ${pointCells(item)}
+      <td>${supplyText(item)}</td>
       <td>${number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-'}</td>
-      <td>${number(item.current)>0?`${fmt(item.current,2)} A`:'-'}</td>
       <td>${number(item.speed)>0?`${fmt(item.speed)} rpm`:'-'}</td>
-      <td>${voltage?escapeHtml(voltage):'-'}</td>
+      <td>${number(item.current)>0?`${fmt(item.current,2)} A`:'-'}</td>
       <td>${number(item.noise)>0?`${fmt(item.noise)} dB(A)`:'-'}</td>
       <td>${money(price)}</td>
       <td>${discountControl(index,rate)}</td>
