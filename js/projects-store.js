@@ -21,6 +21,7 @@
     return {
       name:cleanText(source.name),
       reference:cleanText(source.reference),
+      contact:cleanText(source.contact),
       globalDiscount:Math.min(100,Math.max(0,Number(source.globalDiscount)||0))
     };
   }
@@ -30,6 +31,7 @@
       id:cleanText(source.id),
       name:cleanText(source.name),
       reference:cleanText(source.reference),
+      contact:cleanText(source.contact),
       createdAt:source.createdAt||now(),
       updatedAt:source.updatedAt||source.createdAt||now()
     };
@@ -48,13 +50,13 @@
     const legacyItems=readJson(LEGACY_ITEMS_KEY,[]);
     const legacyMeta=normalizeMeta(readJson(LEGACY_META_KEY,{}));
     const hasItems=Array.isArray(legacyItems)&&legacyItems.length>0;
-    const hasMeta=Boolean(legacyMeta.name||legacyMeta.reference||legacyMeta.globalDiscount);
+    const hasMeta=Boolean(legacyMeta.name||legacyMeta.reference||legacyMeta.contact||legacyMeta.globalDiscount);
     localStorage.setItem(MIGRATION_KEY,'1');
     if(!hasItems&&!hasMeta)return list;
     const projectId=id();
     const stamp=now();
     const migratedMeta={...legacyMeta,name:legacyMeta.name||'Existing Project'};
-    const entry={id:projectId,name:migratedMeta.name,reference:migratedMeta.reference||'',createdAt:stamp,updatedAt:stamp};
+    const entry={id:projectId,name:migratedMeta.name,reference:migratedMeta.reference||'',contact:migratedMeta.contact||'',createdAt:stamp,updatedAt:stamp};
     writeJson(itemsKey(projectId),hasItems?legacyItems:[]);
     writeJson(metaKey(projectId),migratedMeta);
     list=[entry];
@@ -83,7 +85,7 @@
     const projectId=id();
     const stamp=now();
     const meta=normalizeMeta(input);
-    const entry={id:projectId,name:meta.name||'Untitled Project',reference:meta.reference,createdAt:stamp,updatedAt:stamp};
+    const entry={id:projectId,name:meta.name||'Untitled Project',reference:meta.reference,contact:meta.contact,createdAt:stamp,updatedAt:stamp};
     const rows=rawList();
     rows.push(entry);
     saveList(rows);
@@ -129,7 +131,7 @@
     const current=readMeta(projectId);
     const meta=normalizeMeta({...current,...value});
     writeJson(metaKey(projectId),meta);
-    touch(projectId,{name:meta.name||'Untitled Project',reference:meta.reference});
+    touch(projectId,{name:meta.name||'Untitled Project',reference:meta.reference,contact:meta.contact});
     emit('vensis-project-updated',projectId);
     emit('vensis-projects-updated',projectId);
     return meta;
@@ -150,7 +152,7 @@
   function duplicate(projectId){
     const source=get(projectId);if(!source)return null;
     const meta=readMeta(source.id);
-    const copy=create({name:`${meta.name||source.name||'Project'} Copy`,reference:meta.reference,globalDiscount:meta.globalDiscount});
+    const copy=create({name:`${meta.name||source.name||'Project'} Copy`,reference:meta.reference,contact:meta.contact,globalDiscount:meta.globalDiscount});
     const items=JSON.parse(JSON.stringify(readItems(source.id)));
     writeItems(items,copy.id);
     return get(copy.id);
