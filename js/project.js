@@ -1,0 +1,122 @@
+(function(){
+  const KEY='vensis_project_items_v1';
+  const META_KEY='vensis_project_meta_v1';
+  const byId=id=>document.getElementById(id);
+  const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+  const number=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
+  const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(number(value));
+  const money=value=>number(value)>0?`€${fmt(value,2)}`:'-';
+  const point=value=>`${fmt(value?.q)} m³/h @ ${fmt(value?.p)} Pa`;
+
+  function readItems(){
+    try{const value=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(value)?value:[]}catch{return []}
+  }
+  function writeItems(items){
+    localStorage.setItem(KEY,JSON.stringify(items));
+    window.dispatchEvent(new CustomEvent('vensis-project-updated'));
+  }
+  function readMeta(){
+    try{return JSON.parse(localStorage.getItem(META_KEY)||'{}')||{}}catch{return {}}
+  }
+  function writeMeta(){
+    localStorage.setItem(META_KEY,JSON.stringify({
+      name:byId('projectName')?.value.trim()||'',
+      reference:byId('projectReference')?.value.trim()||''
+    }));
+  }
+  function totals(items){
+    return items.reduce((sum,item)=>{
+      const qty=Math.max(1,number(item.quantity)||1);
+      sum.units+=qty;
+      sum.power+=number(item.motorPower)*qty;
+      sum.current+=number(item.current)*qty;
+      sum.price+=number(item.price)*qty;
+      return sum;
+    },{units:0,power:0,current:0,price:0});
+  }
+  function quantityControl(index,quantity){
+    return `<div class="qty-control"><button type="button" data-qty-minus="${index}" aria-label="Decrease quantity">−</button><b>${quantity}</b><button type="button" data-qty-plus="${index}" aria-label="Increase quantity">+</button></div>`;
+  }
+  function row(item,index){
+    const qty=Math.max(1,number(item.quantity)||1);
+    const lineTotal=number(item.price)*qty;
+    const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
+    return `<tr>
+      <td><div class="product-cell">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small></div></div></td>
+      <td><span class="point required">${point(item.required)}</span></td>
+      <td><span class="point selected">${point(item.selected)}</span></td>
+      <td>${number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-'}</td>
+      <td>${number(item.current)>0?`${fmt(item.current,2)} A`:'-'}</td>
+      <td>${number(item.noise)>0?`${fmt(item.noise)} dB(A)`:'-'}</td>
+      <td>${money(item.price)}</td>
+      <td>${quantityControl(index,qty)}</td>
+      <td><b>${lineTotal>0?money(lineTotal):'-'}</b></td>
+      <td><button type="button" class="remove-btn" data-remove="${index}" title="Remove from project" aria-label="Remove from project">×</button></td>
+    </tr>`;
+  }
+  function render(){
+    const items=readItems();
+    const table=byId('projectTable');
+    const empty=byId('projectEmpty');
+    const content=byId('projectContent');
+    const count=byId('projectItemCount');
+    const summary=totals(items);
+    if(count)count.textContent=`${summary.units} unit${summary.units===1?'':'s'} in project`;
+    byId('sumUnits').textContent=fmt(summary.units);
+    byId('sumPower').textContent=`${fmt(summary.power,2)} kW`;
+    byId('sumCurrent').textContent=`${fmt(summary.current,2)} A`;
+    byId('sumPrice').textContent=summary.price>0?money(summary.price):'-';
+    if(!items.length){
+      empty.hidden=false;
+      content.hidden=true;
+      return;
+    }
+    empty.hidden=true;
+    content.hidden=false;
+    table.querySelector('tbody').innerHTML=items.map(row).join('');
+  }
+  function changeQuantity(index,delta){
+    const items=readItems();
+    const item=items[index];
+    if(!item)return;
+    const next=Math.max(1,(number(item.quantity)||1)+delta);
+    item.quantity=next;
+    item.updatedAt=new Date().toISOString();
+    writeItems(items);
+    render();
+  }
+  function remove(index){
+    const items=readItems();
+    if(!items[index])return;
+    items.splice(index,1);
+    writeItems(items);
+    render();
+  }
+  function clearProject(){
+    const items=readItems();
+    if(!items.length)return;
+    if(!confirm('Remove all fans from this project?'))return;
+    writeItems([]);
+    render();
+  }
+  function loadMeta(){
+    const meta=readMeta();
+    byId('projectName').value=meta.name||'';
+    byId('projectReference').value=meta.reference||'';
+  }
+  document.addEventListener('click',event=>{
+    const plus=event.target.closest('[data-qty-plus]');
+    const minus=event.target.closest('[data-qty-minus]');
+    const removeButton=event.target.closest('[data-remove]');
+    if(plus)changeQuantity(Number(plus.dataset.qtyPlus),1);
+    if(minus)changeQuantity(Number(minus.dataset.qtyMinus),-1);
+    if(removeButton)remove(Number(removeButton.dataset.remove));
+  });
+  byId('clearProject')?.addEventListener('click',clearProject);
+  byId('printProject')?.addEventListener('click',()=>window.print());
+  byId('projectName')?.addEventListener('input',writeMeta);
+  byId('projectReference')?.addEventListener('input',writeMeta);
+  window.addEventListener('storage',event=>{if(event.key===KEY)render()});
+  loadMeta();
+  render();
+})();
