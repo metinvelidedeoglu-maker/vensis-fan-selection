@@ -10,6 +10,10 @@
     const id=new URLSearchParams(location.search).get('project');
     return id&&store()?.get?.(id)?id:'';
   }
+  function activeProject(){
+    const id=store()?.activeId?.();
+    return id&&store()?.get?.(id)?id:'';
+  }
   function nextProjectName(){
     const projects=store()?.list?.()||[];
     const names=new Set(projects.map(project=>String(store().readMeta(project.id)?.name||project.name||'').trim().toLowerCase()));
@@ -72,7 +76,7 @@
     const series=seriesFor(model);
     const productText=document.getElementById('catalogProjectProduct');
     if(productText)productText.textContent=`${model.model||'Catalog product'}${series.title?` — ${series.title}`:''}`;
-    const preferred=lastChoice||requestedProject()||NEW_PROJECT;
+    const preferred=lastChoice||requestedProject()||activeProject()||NEW_PROJECT;
     renderProjects(preferred);
     const modal=document.getElementById('catalogProjectModal');
     if(modal)modal.hidden=false;
@@ -139,7 +143,7 @@
     openPicker(button.dataset.addCatalogProject,button);
   },true);
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!document.getElementById('catalogProjectModal')?.hidden)closePicker()});
-  document.addEventListener('DOMContentLoaded',()=>{if(window.Catalog)window.Catalog.addCatalogToProject=(id,button)=>openPicker(id,button)});
-  window.addEventListener('vensis-projects-updated',()=>{if(!document.getElementById('catalogProjectModal')?.hidden)renderProjects(lastChoice||requestedProject())});
+  document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{if(window.Catalog)window.Catalog.addCatalogToProject=(id,button)=>openPicker(id,button)},0));
+  window.addEventListener('vensis-projects-updated',()=>{if(!document.getElementById('catalogProjectModal')?.hidden)renderProjects(lastChoice||requestedProject()||activeProject())});
   window.VensisCatalogProjectPicker={open:openPicker,add:addCatalogProduct};
 })();
