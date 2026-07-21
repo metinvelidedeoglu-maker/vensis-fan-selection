@@ -39,7 +39,10 @@
   function projectItems(){
     try{const data=JSON.parse(localStorage.getItem(PROJECT_KEY)||'[]');return Array.isArray(data)?data:[]}catch{return []}
   }
-  function saveProjectItems(items){localStorage.setItem(PROJECT_KEY,JSON.stringify(items))}
+  function saveProjectItems(items){
+    localStorage.setItem(PROJECT_KEY,JSON.stringify(items));
+    window.dispatchEvent(new CustomEvent('vensis-project-updated'));
+  }
   function showProjectToast(text){
     let toast=document.getElementById('projectToast');
     if(!toast){toast=document.createElement('div');toast.id='projectToast';toast.style.cssText='position:fixed;right:18px;bottom:18px;z-index:9999;background:#173033;color:#fff;padding:11px 15px;border-radius:9px;font:700 13px Arial,Helvetica,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transform:translateY(8px);transition:.2s';document.body.appendChild(toast)}
