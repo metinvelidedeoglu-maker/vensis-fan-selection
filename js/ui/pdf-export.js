@@ -20,14 +20,16 @@
           .toolbar{display:none!important}
           .sheet{width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;margin:0!important;padding:9mm 10mm 12mm!important;box-shadow:none!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
           .sheet>header,.sheet>.product-title,.sheet>.hero,.sheet>.point-summary,.sheet>.section,.sheet>.bottom-grid,.sheet>.footer{flex-shrink:0!important}
-          .hero{display:grid!important;grid-template-columns:1.04fr .96fr!important;gap:7mm!important;align-items:center!important;margin-top:4mm!important}
+          .hero{display:grid!important;grid-template-columns:1.15fr .85fr!important;gap:5mm!important;align-items:center!important;margin-top:4mm!important}
           .bottom-grid{display:grid!important;grid-template-columns:1.08fr .92fr!important;gap:5mm!important;margin-top:4mm!important}
           .point-summary{display:grid!important;grid-template-columns:1fr 1fr!important;margin-top:3mm!important}
           .point-card{padding:5px 9px!important}
           .section{margin-top:4mm!important}
-          .product-image{height:60mm!important}
-          .curve{height:87mm!important;padding:2mm!important}
-          .info-box{min-height:39mm!important;padding:3.5mm!important}
+          .product-image{width:100%!important;height:68mm!important;max-height:68mm!important;object-fit:contain!important}
+          .spec-row{padding:5px 8px!important;font-size:10.5px!important}
+          .spec-head{padding:5px!important}
+          .curve{height:84mm!important;padding:2mm!important}
+          .info-box{min-height:38mm!important;padding:3.5mm!important}
           .footer{margin-top:auto!important;padding-top:2.5mm!important;padding-bottom:0!important;font-size:8px!important;line-height:1.3!important}
           .footer b{margin-top:1.5mm!important;font-size:9px!important}
         }
