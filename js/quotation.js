@@ -67,6 +67,16 @@
   function setAll(selector,value){
     document.querySelectorAll(selector).forEach(node=>{node.textContent=value});
   }
+  function ensureContactRow(){
+    if(byId('quoteContact'))return;
+    const reference=byId('quoteReference');
+    const row=reference?.closest('.meta-row');
+    if(!row)return;
+    const contactRow=document.createElement('div');
+    contactRow.className='meta-row';
+    contactRow.innerHTML='<span>Contact Person / İlgili</span><b id="quoteContact">-</b>';
+    row.insertAdjacentElement('afterend',contactRow);
+  }
   function listMarkup(items,ordered=false){
     const tag=ordered?'ol':'ul';
     const rows=(Array.isArray(items)?items:[]).filter(Boolean).map(item=>`<li>${escapeHtml(item)}</li>`).join('');
@@ -116,11 +126,13 @@
     }
     empty.hidden=true;
     content.hidden=false;
+    ensureContactRow();
     const created=new Date(quotation.createdAt||Date.now());
     const total=totals(quotation.items);
     const quotationNumber=quotation.quotationNumber||'-';
     byId('quoteProject').textContent=quotation.project?.name||'-';
     byId('quoteReference').textContent=quotation.project?.reference||'-';
+    byId('quoteContact').textContent=quotation.project?.contact||'-';
     byId('quoteNumber').textContent=quotationNumber;
     setAll('[data-quote-number]',quotationNumber);
     byId('quoteDate').textContent=new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'2-digit',year:'numeric'}).format(created);
@@ -129,6 +141,8 @@
     byId('quoteUnits').textContent=fmt(total.units);
     byId('quoteTotal').textContent=total.hasPrice?money(total.total):'-';
     renderSettings(settingsFor(quotation));
+    const back=document.querySelector('.toolbar .back');
+    if(back&&quotation.project?.id)back.href=`project.html?project=${encodeURIComponent(quotation.project.id)}`;
     document.title=`${quotation.quotationNumber||'Vensis'} Quotation`;
   }
   byId('printQuotation')?.addEventListener('click',()=>window.print());
