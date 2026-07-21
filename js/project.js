@@ -10,6 +10,7 @@
   const money=(value,showZero=false)=>{const n=number(value);return n>0||showZero?`€${fmt(n,2)}`:'-'};
   const point=value=>`${fmt(value?.q)} m³/h @ ${fmt(value?.p)} Pa`;
   const clampDiscount=value=>Math.min(100,Math.max(0,number(value)));
+  const noteTimers=new Map();
   let editingIndex=null;
 
   function modelForItem(item){
@@ -58,16 +59,14 @@
     }));
   }
   function netUnitPrice(item){
-    const price=number(item.price);
-    return price*(1-clampDiscount(item.discountPercent)/100);
+    return number(item.price)*(1-clampDiscount(item.discountPercent)/100);
   }
   function totals(items){
     return items.reduce((sum,item)=>{
       const qty=Math.max(1,number(item.quantity)||1);
       const price=number(item.price);
-      const hasPrice=price>0;
       sum.units+=qty;
-      if(hasPrice){
+      if(price>0){
         sum.hasPrice=true;
         sum.listSubtotal+=price*qty;
         sum.netTotal+=netUnitPrice(item)*qty;
@@ -95,8 +94,16 @@
     if(voltage&&frequency)return `${escapeHtml(voltage)} – ${escapeHtml(frequency)}`;
     return voltage||frequency?escapeHtml(voltage||frequency):'-';
   }
-  function rowActions(index,total){
-    return `<div class="row-actions"><button type="button" class="order-btn" data-move-up="${index}" ${index===0?'disabled':''} title="Move up" aria-label="Move product up">↑</button><button type="button" class="order-btn" data-move-down="${index}" ${index===total-1?'disabled':''} title="Move down" aria-label="Move product down">↓</button><button type="button" class="edit-btn" data-edit-product="${index}" title="Edit product or description" aria-label="Edit product or description">✎</button><button type="button" class="remove-btn" data-remove="${index}" title="Remove from project" aria-label="Remove from project">×</button></div>`;
+  function orderControls(index,total){
+    return `<div class="order-controls"><button type="button" class="order-btn" data-move-up="${index}" ${index===0?'disabled':''} title="Move up" aria-label="Move product up">↑</button><button type="button" class="order-btn" data-move-down="${index}" ${index===total-1?'disabled':''} title="Move down" aria-label="Move product down">↓</button></div>`;
+  }
+  function itemActions(item,index){
+    const edit=item.mode==='custom'?`<button type="button" class="edit-btn" data-edit-product="${index}" title="Edit custom product" aria-label="Edit custom product">✎</button>`:'';
+    return `<div class="item-actions">${edit}<button type="button" class="remove-btn" data-remove="${index}" title="Remove from project" aria-label="Remove from project">×</button></div>`;
+  }
+  function noteEditor(item,index){
+    const stableKey=String(item.itemKey||`index-${index}`);
+    return `<label class="product-note"><span>Free Note</span><textarea rows="2" data-product-note="${escapeHtml(stableKey)}" data-product-index="${index}" placeholder="Project-specific note shown in project and quotation outputs.">${escapeHtml(item.description||'')}</textarea></label>`;
   }
   function row(item,index,items){
     const qty=Math.max(1,number(item.quantity)||1);
@@ -106,9 +113,9 @@
     const netUnit=netUnitPrice(item);
     const lineTotal=netUnit*qty;
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
-    const description=String(item.description||'').trim();
     return `<tr>
-      <td><div class="product-cell">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${description?`<em>${escapeHtml(description)}</em>`:''}</div></div></td>
+      <td class="order-column">${orderControls(index,items.length)}</td>
+      <td><div class="product-cell">${image}<div class="product-info"><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${noteEditor(item,index)}</div></div></td>
       ${pointCells(item)}
       <td>${supplyText(item)}</td>
       <td>${number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-'}</td>
@@ -120,7 +127,7 @@
       <td><b>${hasPrice?money(netUnit,true):'-'}</b></td>
       <td>${quantityControl(index,qty)}</td>
       <td><b>${hasPrice?money(lineTotal,true):'-'}</b></td>
-      <td>${rowActions(index,items.length)}</td>
+      <td class="actions-column">${itemActions(item,index)}</td>
     </tr>`;
   }
   function render(){
@@ -131,16 +138,17 @@
     const count=byId('projectItemCount');
     const summary=totals(items);
     if(count)count.textContent=`${summary.units} unit${summary.units===1?'':'s'} in project`;
-    byId('sumUnits').textContent=fmt(summary.units);
-    byId('sumPrice').textContent=summary.hasPrice?money(summary.netTotal,true):'-';
+    if(byId('sumUnits'))byId('sumUnits').textContent=fmt(summary.units);
+    if(byId('sumPrice'))byId('sumPrice').textContent=summary.hasPrice?money(summary.netTotal,true):'-';
     if(!items.length){
-      empty.hidden=false;
-      content.hidden=true;
+      if(empty)empty.hidden=false;
+      if(content)content.hidden=true;
       return;
     }
-    empty.hidden=true;
-    content.hidden=false;
-    table.querySelector('tbody').innerHTML=items.map((item,index)=>row(item,index,items)).join('');
+    if(empty)empty.hidden=true;
+    if(content)content.hidden=false;
+    const tbody=table?.querySelector('tbody');
+    if(tbody)tbody.innerHTML=items.map((item,index)=>row(item,index,items)).join('');
   }
   function changeQuantity(index,delta){
     const items=readItems();
@@ -160,6 +168,34 @@
     writeItems(items);
     render();
   }
+  function findItemIndex(items,key,fallbackIndex){
+    const found=items.findIndex(item=>String(item.itemKey||'')===String(key||''));
+    return found>=0?found:Number(fallbackIndex);
+  }
+  function saveDescriptionField(field){
+    if(!field)return;
+    const key=String(field.dataset.productNote||'');
+    const timer=noteTimers.get(key);
+    if(timer)clearTimeout(timer);
+    noteTimers.delete(key);
+    const items=readItems();
+    const index=findItemIndex(items,key,field.dataset.productIndex);
+    if(!items[index])return;
+    items[index].description=String(field.value||'').trim();
+    items[index].updatedAt=new Date().toISOString();
+    writeItems(items);
+    field.classList.add('note-saved');
+    setTimeout(()=>field.classList.remove('note-saved'),700);
+  }
+  function queueDescriptionSave(field){
+    const key=String(field.dataset.productNote||field.dataset.productIndex||'');
+    const previous=noteTimers.get(key);
+    if(previous)clearTimeout(previous);
+    noteTimers.set(key,setTimeout(()=>saveDescriptionField(field),400));
+  }
+  function flushAllNotes(){
+    document.querySelectorAll('[data-product-note]').forEach(saveDescriptionField);
+  }
   function applyGlobalDiscount(){
     const input=byId('globalDiscount');
     const rate=clampDiscount(input?.value);
@@ -177,6 +213,7 @@
     return `VNS-${String(date.getFullYear()).slice(-2)}${pad(date.getMonth()+1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
   }
   function convertToQuotation(){
+    flushAllNotes();
     const items=readItems();
     if(!items.length){alert('Add at least one product before creating a quotation.');return}
     writeMeta();
@@ -203,6 +240,7 @@
     render();
   }
   function moveItem(index,delta){
+    flushAllNotes();
     const items=readItems();
     const target=index+delta;
     if(index<0||target<0||index>=items.length||target>=items.length)return;
@@ -215,14 +253,16 @@
     const items=readItems();
     if(!items.length)return;
     if(!confirm('Remove all products from this project?'))return;
+    noteTimers.forEach(clearTimeout);
+    noteTimers.clear();
     writeItems([]);
     render();
   }
   function loadMeta(){
     const meta=readMeta();
-    byId('projectName').value=meta.name||'';
-    byId('projectReference').value=meta.reference||'';
-    byId('globalDiscount').value=String(clampDiscount(meta.globalDiscount));
+    if(byId('projectName'))byId('projectName').value=meta.name||'';
+    if(byId('projectReference'))byId('projectReference').value=meta.reference||'';
+    if(byId('globalDiscount'))byId('globalDiscount').value=String(clampDiscount(meta.globalDiscount));
   }
   function formField(name){return byId(`custom-${name}`)}
   function setFormValue(name,value){const field=formField(name);if(field)field.value=value??''}
@@ -232,13 +272,14 @@
     if(note)note.textContent=disabled?'This project product is linked to the fan database. Only the free description can be changed here.':'Enter a product that is not available in the selection program.';
   }
   function openProductEditor(index=null){
+    flushAllNotes();
     const items=readItems();
     const item=index==null?null:items[index];
     editingIndex=index;
     const isExisting=Boolean(item);
     const isCustom=!item||item.mode==='custom';
-    byId('customProductTitle').textContent=isExisting?(isCustom?'Edit Custom Product':'Edit Product Description'):'Add Custom Product';
-    byId('saveCustomProduct').textContent=isExisting?'Save Changes':'Add to Project';
+    if(byId('customProductTitle'))byId('customProductTitle').textContent=isExisting?(isCustom?'Edit Custom Product':'Edit Product Description'):'Add Custom Product';
+    if(byId('saveCustomProduct'))byId('saveCustomProduct').textContent=isExisting?'Save Changes':'Add to Project';
     setCustomFieldsDisabled(!isCustom);
     setFormValue('model',item?.model||'');
     setFormValue('series',item?.series||'');
@@ -256,12 +297,13 @@
     setFormValue('quantity',Math.max(1,number(item?.quantity)||1));
     setFormValue('image',item?.image||'');
     const modal=byId('customProductModal');
-    modal.hidden=false;
+    if(modal)modal.hidden=false;
     document.body.classList.add('modal-open');
     setTimeout(()=>formField(isCustom?'model':'description')?.focus(),0);
   }
   function closeProductEditor(){
-    byId('customProductModal').hidden=true;
+    const modal=byId('customProductModal');
+    if(modal)modal.hidden=true;
     document.body.classList.remove('modal-open');
     editingIndex=null;
   }
@@ -327,10 +369,19 @@
     if(moveDown)moveItem(Number(moveDown.dataset.moveDown),1);
     if(edit)openProductEditor(Number(edit.dataset.editProduct));
   });
+  document.addEventListener('input',event=>{
+    const note=event.target.closest('[data-product-note]');
+    if(note)queueDescriptionSave(note);
+  });
   document.addEventListener('change',event=>{
     const discount=event.target.closest('[data-line-discount]');
+    const note=event.target.closest('[data-product-note]');
     if(discount)changeLineDiscount(Number(discount.dataset.lineDiscount),discount.value);
+    if(note)saveDescriptionField(note);
   });
+  document.addEventListener('click',event=>{
+    if(event.target.closest('#printProject,#convertQuotation'))flushAllNotes();
+  },true);
   byId('applyGlobalDiscount')?.addEventListener('click',applyGlobalDiscount);
   byId('convertQuotation')?.addEventListener('click',convertToQuotation);
   byId('clearProject')?.addEventListener('click',clearProject);
@@ -345,7 +396,7 @@
   byId('projectReference')?.addEventListener('input',()=>writeMeta());
   window.addEventListener('storage',event=>{if(event.key===KEY)render()});
   window.VensisQuotation={convert:convertToQuotation,key:QUOTATION_KEY};
-  window.VensisProject={render,readItems,writeItems,openProductEditor,moveItem};
+  window.VensisProject={render,readItems,writeItems,openProductEditor,moveItem,flushAllNotes};
   loadMeta();
   render();
 })();
