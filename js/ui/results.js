@@ -1,6 +1,5 @@
 (function(){
   const S=window.VensisState,U=window.VensisUtils,C=window.VensisCatalog;
-  const PROJECT_KEY='vensis_project_items_v1';
   function validPositive(value){const n=Number(value);return Number.isFinite(n)&&n>0?n:null}
   function sortValue(row,key){if(key==='flow')return Number(row.qq)||0;if(key==='pressure')return Number(row.pp)||0;if(key==='price')return validPositive(row.price)??Infinity;if(key==='noise')return validPositive(row.spl)??Infinity;return Number(row.score)||0}
   function displayPositive(value,decimals,unit){const n=validPositive(value);return n==null?'-':`${U.format(n,decimals)}${unit?' '+unit:''}`}
@@ -22,26 +21,22 @@
     const closest=U.byId('sortClosest'),closestArrow=U.byId('arrowClosest');if(closest){closest.classList.toggle('active',S.tableSortKey==='closest');closestArrow.textContent=arrow('closest')}
     box.innerHTML=`<table class="results-table"><thead><tr><th>Product</th><th><button class="sort-head" data-sort="flow">Flow <span>${arrow('flow')}</span></button></th><th><button class="sort-head" data-sort="pressure">Pressure <span>${arrow('pressure')}</span></button></th><th>Motor Power</th><th>Current</th><th><button class="sort-head" data-sort="noise">Noise <span>${arrow('noise')}</span></button></th><th><button class="sort-head" data-sort="price">Price (€) <span>${arrow('price')}</span></button></th><th style="text-align:center">Actions</th></tr></thead><tbody>${rows.map(({row,index})=>{
       const product=productFor(row),image=product.media?.image||'';
-      return `<tr><td><div style="display:flex;align-items:center;gap:12px"><img src="${U.escapeHtml(image)}" alt="${U.escapeHtml(product.series?.title||'')}" style="width:72px;height:72px;object-fit:contain;flex:0 0 72px;border:1px solid #e2e9e5;border-radius:8px;background:#fff;padding:5px" onerror="this.remove()"><div><div class="model-main">${U.escapeHtml(product.model||row.model||'')}</div><div class="series-sub">${U.escapeHtml(product.series?.title||row.series||'')}</div></div></div></td><td>${U.format(row.qq)} m³/h</td><td>${U.format(row.pp)} Pa</td><td>${displayPositive(row.kw,2,'kW')}</td><td>${displayPositive(row.amps,2,'A')}</td><td>${displayPositive(row.spl,0,'dB(A)')}</td><td>${validPositive(row.price)==null?'-':`€${U.format(row.price,2)}`}</td><td style="text-align:center"><div style="display:inline-flex;align-items:center;gap:7px"><button class="detail-icon-btn" data-view-datasheet="${index}" title="View datasheet" aria-label="View datasheet" style="width:38px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center">${icon('eye')}</button><button class="detail-icon-btn project-add-btn" data-add-project="${index}" title="Add to project" aria-label="Add to project" style="width:38px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#087f4f;color:#fff">${icon('plus')}</button></div></td></tr>`}).join('')}</tbody></table>`;
+      return `<tr><td><div style="display:flex;align-items:center;gap:12px"><img src="${U.escapeHtml(image)}" alt="${U.escapeHtml(product.series?.title||'')}" style="width:72px;height:72px;object-fit:contain;flex:0 0 72px;border:1px solid #e2e9e5;border-radius:8px;background:#fff;padding:5px" onerror="this.remove()"><div><div class="model-main">${U.escapeHtml(product.model||row.model||'')}</div><div class="series-sub">${U.escapeHtml(product.series?.title||row.series||'')}</div></div></div></td><td>${U.format(row.qq)} m³/h</td><td>${U.format(row.pp)} Pa</td><td>${displayPositive(row.kw,2,'kW')}</td><td>${displayPositive(row.amps,2,'A')}</td><td>${displayPositive(row.spl,0,'dB(A)')}</td><td>${validPositive(row.price)==null?'-':`€${U.format(row.price,2)}`}</td><td style="text-align:center"><div style="display:inline-flex;align-items:center;gap:7px"><button class="detail-icon-btn" data-view-datasheet="${index}" title="View datasheet" aria-label="View datasheet" style="width:38px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center">${icon('eye')}</button><button class="detail-icon-btn project-add-btn" data-add-project="${index}" title="Add to active project" aria-label="Add to active project" style="width:38px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#087f4f;color:#fff">${icon('plus')}</button></div></td></tr>`}).join('')}</tbody></table>`;
   }
   function viewDatasheet(index){
     const r=S.results[index];if(!r)return;
     const product=productFor(r);
     if(!window.VensisDatasheet?.save){alert('Datasheet renderer is unavailable.');return}
-    window.VensisDatasheet.save({
-      mode:'selection',
-      product,
-      model:r,
-      required:{q:U.number('q'),p:U.number('p')},
-      selected:{q:Number(r.qq)||0,p:Number(r.pp)||0}
-    });
+    window.VensisDatasheet.save({mode:'selection',product,model:r,required:{q:U.number('q'),p:U.number('p')},selected:{q:Number(r.qq)||0,p:Number(r.pp)||0}});
   }
-  function projectItems(){
-    try{const data=JSON.parse(localStorage.getItem(PROJECT_KEY)||'[]');return Array.isArray(data)?data:[]}catch{return []}
+  function projectContext(){
+    const store=window.VensisProjects;
+    if(store?.ensureActive){const projectId=store.ensureActive();return {store,projectId,items:store.readItems(projectId)}}
+    try{const data=JSON.parse(localStorage.getItem('vensis_project_items_v1')||'[]');return {store:null,projectId:'',items:Array.isArray(data)?data:[]}}catch{return {store:null,projectId:'',items:[]}}
   }
-  function saveProjectItems(items){
-    localStorage.setItem(PROJECT_KEY,JSON.stringify(items));
-    window.dispatchEvent(new CustomEvent('vensis-project-updated'));
+  function saveProjectItems(context){
+    if(context.store)context.store.writeItems(context.items,context.projectId);
+    else{localStorage.setItem('vensis_project_items_v1',JSON.stringify(context.items));window.dispatchEvent(new CustomEvent('vensis-project-updated'))}
   }
   function showProjectToast(text){
     let toast=document.getElementById('projectToast');
@@ -56,24 +51,25 @@
     const speed=Number(r.rpm)||Number(product.motor?.speed)||0;
     const voltage=String(r.voltage||product.motor?.voltage||'').trim();
     const noise=Number(r.spl)||Number(product.motor?.sound)||0;
-    const items=projectItems();
-    const existing=items.find(item=>item.itemKey===itemKey);
+    const context=projectContext();
+    const existing=context.items.find(item=>item.itemKey===itemKey);
     if(existing){
       existing.quantity=(Number(existing.quantity)||1)+1;
       existing.speed=Number(existing.speed)||speed;
       existing.voltage=existing.voltage||voltage;
       existing.noise=Number(existing.noise)||noise;
       existing.updatedAt=new Date().toISOString();
-    }else items.push({itemKey,productKey,model:product.model||r.model||'',series:product.series?.title||r.series||'',manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,noise,price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()});
-    saveProjectItems(items);
-    if(button){const old=button.innerHTML;button.innerHTML='✓';button.title='Added to project';setTimeout(()=>{button.innerHTML=old;button.title='Add to project'},1200)}
-    showProjectToast(existing?'Project quantity increased.':'Fan added to project.');
+    }else context.items.push({itemKey,mode:'selection',productKey,model:product.model||r.model||'',series:product.series?.title||r.series||'',manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,noise,price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()});
+    saveProjectItems(context);
+    if(button){const old=button.innerHTML;button.innerHTML='✓';button.title='Added to active project';setTimeout(()=>{button.innerHTML=old;button.title='Add to active project'},1200)}
+    const projectName=context.store?.readMeta(context.projectId)?.name||context.store?.get(context.projectId)?.name||'active project';
+    showProjectToast(existing?`${projectName} quantity increased.`:`Fan added to ${projectName}.`);
   }
   document.addEventListener('click',e=>{
     const sort=e.target.closest('[data-sort]');if(sort)setSort(sort.dataset.sort);
     const view=e.target.closest('[data-view-datasheet]');if(view)viewDatasheet(Number(view.dataset.viewDatasheet));
     const add=e.target.closest('[data-add-project]');if(add)addToProject(Number(add.dataset.addProject),add);
   });
-  window.VensisProjectBasket={items:projectItems,add:addToProject,key:PROJECT_KEY};
+  window.VensisProjectBasket={add:addToProject};
   window.VensisResults={render,setSort,viewDatasheet,savePdf:viewDatasheet,addToProject};
 })();
