@@ -16,12 +16,12 @@
   <section class="discount-panel"><div class="discount-copy"><span>Project Discount</span><b>Apply one discount rate to all products</b><small>An individual product discount replaces the project discount for that product. Percentages are never added together.</small></div><div class="discount-actions"><label class="percent-input"><input id="globalDiscount" type="number" min="0" max="100" step="0.1" inputmode="decimal" value="0" aria-label="Project discount percentage"><span>%</span></label><button id="applyGlobalDiscount" type="button">Apply to All</button><div id="discountStatus" class="discount-status"></div></div></section>
   <section class="summary"><div class="summary-card"><span>Total Units</span><b id="sumUnits">0</b></div><div class="summary-card"><span>Net Total</span><b id="sumPrice">-</b></div></section>
   <section id="projectEmpty" class="empty" hidden><h2>No products added yet</h2><p>Add fans from Fan Selection or Product Catalog using the + button.</p><a href="index.html">Open Fan Selection</a></section>
-  <section id="projectContent" class="table-card" hidden><div class="table-wrap"><table id="projectTable" class="project-table"><thead><tr><th>Product</th><th>Required / Source</th><th>Selected / Nominal</th><th>Motor Power</th><th>Current</th><th>RPM</th><th>Voltage</th><th>dB(A)</th><th>Unit Price</th><th>Discount</th><th>Net Unit Price</th><th>Quantity</th><th>Total</th><th></th></tr></thead><tbody></tbody></table></div></section>
+  <section id="projectContent" class="table-card" hidden><div class="table-wrap"><table id="projectTable" class="project-table"><thead><tr><th>Product</th><th>Required / Source</th><th>Selected / Nominal</th><th>V / Hz</th><th>kW</th><th>rpm</th><th>A</th><th>dB(A)</th><th>Unit Price</th><th>Discount</th><th>Net Unit Price</th><th>Quantity</th><th>Total</th><th></th></tr></thead><tbody></tbody></table></div></section>
 </main>
 <script>window.models=[];</script>
 <script src="data/fans-01.js?v=20260720-series-catalog"></script><script src="data/fans-02.js?v=20260720-series-catalog"></script><script src="data/fans-03.js?v=20260720-series-catalog"></script><script src="data/fans-04.js?v=20260720-series-catalog"></script><script src="data/fans-05.js?v=20260720-series-catalog"></script><script src="data/fans-06.js?v=20260720-series-catalog"></script><script src="data/fans-07.js?v=20260720-series-catalog"></script>
 <script src="products/registry.js?v=20260720-datasheet"></script>
 <script src="js/project-nav.js?v=20260721-project-screen"></script>
-<script src="js/project.js?v=20260721-project-electrical-details"></script>
+<script src="js/project.js?v=20260721-technical-order"></script>
 </body>
 </html>
