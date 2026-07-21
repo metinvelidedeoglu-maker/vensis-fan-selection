@@ -25,9 +25,11 @@
     const totals=projectTotals(project.id);
     const name=meta.name||project.name||'Untitled Project';
     const reference=meta.reference||project.reference||'No customer or reference entered';
+    const contact=meta.contact||project.contact||'';
     return `<article class="project-card ${project.id===activeId?'active':''}" data-project-card="${esc(project.id)}">
       <div class="card-top"><div><div class="project-kicker">Project Workspace</div><h2>${esc(name)}</h2></div>${project.id===activeId?'<span class="active-badge">Active</span>':''}</div>
       <p class="reference">${esc(reference)}</p>
+      <p class="contact">${contact?`Contact: ${esc(contact)}`:'No contact person entered'}</p>
       <div class="card-stats"><div class="card-stat"><span>Total Units</span><b>${fmt(totals.units)}</b></div><div class="card-stat"><span>Net Value</span><b>${totals.hasValue?money(totals.value):'-'}</b></div></div>
       <div class="updated">Updated ${esc(dateText(project.updatedAt))}</div>
       <div class="card-actions"><button class="open-btn" type="button" data-open-project="${esc(project.id)}">Open Project</button><button class="duplicate-btn" type="button" data-duplicate-project="${esc(project.id)}" title="Duplicate project">Duplicate</button><button class="delete-btn" type="button" data-delete-project="${esc(project.id)}" title="Delete project">Delete</button></div>
@@ -62,7 +64,7 @@
     event.preventDefault();
     const name=byId('newProjectName').value.trim();
     if(!name){byId('newProjectName').focus();return}
-    const project=store.create({name,reference:byId('newProjectReference').value.trim()});
+    const project=store.create({name,reference:byId('newProjectReference').value.trim(),contact:byId('newProjectContact').value.trim()});
     closeModal();
     location.assign(store.projectUrl(project.id));
   }
