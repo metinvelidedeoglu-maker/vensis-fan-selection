@@ -37,14 +37,20 @@
   function quantityControl(index,quantity){
     return `<div class="qty-control"><button type="button" data-qty-minus="${index}" aria-label="Decrease quantity">−</button><b>${quantity}</b><button type="button" data-qty-plus="${index}" aria-label="Increase quantity">+</button></div>`;
   }
+  function pointCells(item){
+    if(item.mode==='catalog'){
+      const nominal=number(item.nominalAirflow);
+      return `<td><span class="point" style="background:#eef3f4;color:#52666b">Catalog Item</span></td><td>${nominal>0?`<span class="point selected">${fmt(nominal)} m³/h nominal</span>`:'-'}</td>`;
+    }
+    return `<td><span class="point required">${point(item.required)}</span></td><td><span class="point selected">${point(item.selected)}</span></td>`;
+  }
   function row(item,index){
     const qty=Math.max(1,number(item.quantity)||1);
     const lineTotal=number(item.price)*qty;
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
     return `<tr>
       <td><div class="product-cell">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small></div></div></td>
-      <td><span class="point required">${point(item.required)}</span></td>
-      <td><span class="point selected">${point(item.selected)}</span></td>
+      ${pointCells(item)}
       <td>${number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-'}</td>
       <td>${number(item.current)>0?`${fmt(item.current,2)} A`:'-'}</td>
       <td>${number(item.noise)>0?`${fmt(item.noise)} dB(A)`:'-'}</td>
