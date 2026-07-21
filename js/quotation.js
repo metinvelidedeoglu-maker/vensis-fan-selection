@@ -58,6 +58,44 @@
   function setAll(selector,value){
     document.querySelectorAll(selector).forEach(node=>{node.textContent=value});
   }
+  function listMarkup(items,ordered=false){
+    const tag=ordered?'ol':'ul';
+    const rows=(Array.isArray(items)?items:[]).filter(Boolean).map(item=>`<li>${escapeHtml(item)}</li>`).join('');
+    return `<${tag}>${rows}</${tag}>`;
+  }
+  function paragraphMarkup(value){
+    return String(value||'').split(/\n\s*\n/).map(text=>text.trim()).filter(Boolean).map(text=>`<p>${escapeHtml(text).replace(/\n/g,'<br>')}</p>`).join('');
+  }
+  function settingsFor(quotation){
+    if(quotation?.settings)return quotation.settings;
+    return window.VensisQuotationSettings?.read?.()||window.VensisQuotationSettings?.defaults||{};
+  }
+  function renderSettings(settings){
+    const pages=[...document.querySelectorAll('.quote-page')];
+    const summary=settings.summary||{};
+    const scope=settings.scope||{};
+    const terms=settings.terms||{};
+
+    const cards=pages[0]?.querySelectorAll('.term-card b')||[];
+    [summary.payment,summary.exchangeRate,summary.validity,summary.deliveryPlace,summary.vat,summary.commissioning].forEach((value,index)=>{if(cards[index])cards[index].textContent=value||'-'});
+    const firstNote=pages[0]?.querySelector('.quote-note');
+    if(firstNote)firstNote.innerHTML=`<b>Teklif Notu</b>${escapeHtml(summary.quotationNote||'').replace(/\n/g,'<br>')}`;
+
+    const scopeBodies=pages[1]?.querySelectorAll('.content-block .body')||[];
+    if(scopeBodies[0])scopeBodies[0].innerHTML=paragraphMarkup(scope.included);
+    if(scopeBodies[1])scopeBodies[1].innerHTML=listMarkup(scope.exclusions);
+    if(scopeBodies[2])scopeBodies[2].innerHTML=listMarkup(scope.deliveryControl);
+    const suitability=pages[1]?.querySelector('.notice');
+    if(suitability)suitability.innerHTML=`<b>Proje uygunluğu:</b> ${escapeHtml(scope.suitability||'').replace(/\n/g,'<br>')}`;
+
+    const termBodies=pages[2]?.querySelectorAll('.content-block .body')||[];
+    [terms.priceCurrency,terms.payment,terms.delivery,terms.standard].forEach((items,index)=>{if(termBodies[index])termBodies[index].innerHTML=listMarkup(items,true)});
+    const acceptance=pages[2]?.querySelector('.notice');
+    if(acceptance)acceptance.textContent=terms.acceptance||'';
+    const signatures=pages[2]?.querySelectorAll('.signature-box')||[];
+    if(signatures[0]){const title=signatures[0].querySelector('b'),line=signatures[0].querySelector('span');if(title)title.textContent=terms.preparedTitle||'';if(line)line.textContent=terms.preparedLine||''}
+    if(signatures[1]){const title=signatures[1].querySelector('b'),line=signatures[1].querySelector('span');if(title)title.textContent=terms.customerTitle||'';if(line)line.textContent=terms.customerLine||''}
+  }
   function render(){
     const quotation=readQuotation();
     const empty=byId('quotationEmpty');
@@ -81,6 +119,7 @@
     byId('quotationRows').innerHTML=quotation.items.map(row).join('');
     byId('quoteUnits').textContent=fmt(total.units);
     byId('quoteTotal').textContent=total.hasPrice?money(total.total):'-';
+    renderSettings(settingsFor(quotation));
     document.title=`${quotation.quotationNumber||'Vensis'} Quotation`;
   }
   byId('printQuotation')?.addEventListener('click',()=>window.print());
