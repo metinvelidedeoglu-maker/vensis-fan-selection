@@ -16,6 +16,47 @@
       document.head.appendChild(style);
     }
   }
+  function projectId(){
+    const store=window.VensisProjects;
+    const requested=new URLSearchParams(location.search).get('project');
+    if(requested&&store?.get?.(requested))return requested;
+    return store?.activeId?.()||'';
+  }
+  function mountContact(){
+    if(path!=='project.html'||document.getElementById('projectContact'))return;
+    const store=window.VensisProjects;
+    const metaBox=document.querySelector('.project-meta');
+    const id=projectId();
+    if(!store?.readMeta||!metaBox||!id)return;
+    const style=document.createElement('style');
+    style.id='projectContactStyles';
+    style.textContent='.app-project .project-meta{grid-template-columns:repeat(3,minmax(0,1fr))}@media(max-width:900px){.app-project .project-meta{grid-template-columns:1fr 1fr}}@media(max-width:560px){.app-project .project-meta{grid-template-columns:1fr}}';
+    document.head.appendChild(style);
+    const label=document.createElement('label');
+    label.innerHTML='Contact Person / İlgili<input id="projectContact" type="text" placeholder="Enter contact person">';
+    metaBox.appendChild(label);
+    const input=document.getElementById('projectContact');
+    const fill=()=>{const meta=store.readMeta(id);if(document.activeElement!==input)input.value=meta.contact||''};
+    const save=()=>store.writeMeta({contact:String(input.value||'').trim()},id);
+    fill();
+    input.addEventListener('input',save);
+    document.addEventListener('click',event=>{if(event.target.closest('#convertQuotation,#printProject'))save()},true);
+    setTimeout(()=>{
+      document.getElementById('convertQuotation')?.addEventListener('click',()=>{
+        setTimeout(()=>{
+          try{
+            const quotation=JSON.parse(localStorage.getItem('vensis_active_quotation_v1')||'null');
+            if(!quotation)return;
+            quotation.project=quotation.project||{};
+            quotation.project.contact=store.readMeta(id).contact||'';
+            localStorage.setItem('vensis_active_quotation_v1',JSON.stringify(quotation));
+          }catch{}
+        },0);
+      });
+    },0);
+    window.addEventListener('storage',event=>{if(event.key===`${store.keys.metaPrefix}${id}`)fill()});
+    window.VensisProjectContact={projectId:id,save,fill};
+  }
   function count(){
     const store=window.VensisProjects;
     if(store?.list)return store.list().length;
@@ -34,8 +75,8 @@
     const store=window.VensisProjects,catalog=window.VensisCatalog;
     const model=catalog?.getModel?.(id)||(catalog?.models||[]).find(item=>String(item.id)===String(id));
     if(!store?.ensureActive||!model)return;
-    const projectId=store.ensureActive();
-    const items=store.readItems(projectId);
+    const targetId=store.ensureActive();
+    const items=store.readItems(targetId);
     const product=catalog?.product?.(id)||{};
     const series=catalog?.getSeries?.(model.seriesId)||(catalog?.series||[]).find(item=>String(item.id)===String(model.seriesId))||{};
     const productKey=model.id||model.model||id;
@@ -53,9 +94,9 @@
       existing.noise=Number(existing.noise)||noise;
       existing.updatedAt=new Date().toISOString();
     }else items.push({itemKey,mode:'catalog',productKey,model:model.model||'',series:series.title||model.seriesTitle||'',manufacturer:series.manufacturer||model.manufacturer||'Vitlo',image:product.media?.image||series.media?.image||model.image||'',nominalAirflow:Number(model.performance?.nominalAirflow)||0,required:null,selected:null,motorPower:Number(model.motor?.power)||0,current:Number(model.motor?.current)||0,speed,voltage,frequency,noise,price:Number(model.pricing?.listPrice)||0,quantity:1,addedAt:new Date().toISOString()});
-    store.writeItems(items,projectId);
+    store.writeItems(items,targetId);
     if(button){const old=button.innerHTML;button.innerHTML='✓';setTimeout(()=>{button.innerHTML=old},1100)}
-    const name=store.readMeta(projectId).name||store.get(projectId)?.name||'active project';
+    const name=store.readMeta(targetId).name||store.get(targetId)?.name||'active project';
     toast(existing?`${name} quantity increased.`:`Catalog model added to ${name}.`);
   }
   if(path==='catalog.html'){
@@ -70,11 +111,12 @@
     });
   }
   mountDesign();
+  mountContact();
   window.addEventListener('storage',event=>{
     if(!event.key||event.key==='vensis_projects_v1'||event.key.startsWith('vensis_project_items_v2:')||event.key.startsWith('vensis_project_meta_v2:'))update();
   });
   window.addEventListener('vensis-project-updated',update);
   window.addEventListener('vensis-projects-updated',update);
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update);else update();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{mountContact();update()});else update();
   window.VensisProjectNav={update,addCatalogProduct};
 })();
