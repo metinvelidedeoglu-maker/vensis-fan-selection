@@ -9,10 +9,16 @@
       .trim()||'Vensis-Datasheet';
   }
 
+  function escapeHtml(value){
+    return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+  }
+
   function printRuntime(filename){
     const title=JSON.stringify(`${safeFilename(filename)}.pdf`);
     return `
       <style>
+        .product-brand{margin-top:1.5mm;font-size:10.5px;font-weight:800;color:#087f4f;letter-spacing:.02em}
+        .product-title h2{margin-top:1mm!important}
         .pdf-footer-meta{margin-top:1.5mm;padding-top:1.5mm;border-top:1px solid #d7e3de;font-size:7.2px;letter-spacing:.03em;color:#718086;text-transform:uppercase}
         @page{size:A4 portrait;margin:0}
         @media print{
@@ -54,9 +60,15 @@
 
   renderer.save=function(payload){
     const productModel=payload?.model?.model||payload?.product?.model||payload?.model?.display||'Vensis-Datasheet';
+    const productBrand=payload?.product?.series?.manufacturer||payload?.model?.manufacturer||'Vitlo';
     let documentHtml=renderer.html(payload)
       .replace('Print / Save PDF','Save as PDF')
       .replace('onclick="window.print()"','onclick="window.saveVensisPdf()"');
+
+    documentHtml=documentHtml
+      .replace(/(<div class="product-title"><h1>[\s\S]*?<\/h1>)/,`$1<div class="product-brand">Brand: ${escapeHtml(productBrand)}</div>`)
+      .replace(/<div class="spec-row"><span>(?:Brand|Fire Rating|Fan Type|Mount Type)<\/span><b>[\s\S]*?<\/b><\/div>/g,'');
+
     documentHtml=documentHtml.replace('</body>',printRuntime(productModel)+'</body>');
     const key='vensis_detail_'+Date.now();
     localStorage.setItem(key,documentHtml);
