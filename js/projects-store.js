@@ -135,14 +135,15 @@
   }
   function remove(projectId){
     const project=get(projectId);if(!project)return false;
+    const wasActive=cleanText(localStorage.getItem(ACTIVE_KEY))===project.id;
     localStorage.removeItem(itemsKey(project.id));
     localStorage.removeItem(metaKey(project.id));
     const rows=rawList().filter(entry=>entry.id!==project.id);
     saveList(rows);
-    if(activeId()===project.id){
+    if(wasActive){
       if(rows[0])localStorage.setItem(ACTIVE_KEY,rows[0].id);else localStorage.removeItem(ACTIVE_KEY);
     }
-    emit('vensis-projects-updated',rows[0]?.id||'');
+    emit('vensis-projects-updated',wasActive?(rows[0]?.id||''):activeId());
     return true;
   }
   function duplicate(projectId){
