@@ -15,6 +15,11 @@
       style.textContent='.app-project .project-table th:nth-child(2),.app-project .project-table td:nth-child(2){left:74px}';
       document.head.appendChild(style);
     }
+    if(path==='catalog.html'&&!document.querySelector('script[src*="catalog-project-bridge.js"]')){
+      const script=document.createElement('script');
+      script.src='js/catalog-project-bridge.js?v=20260721-multi-projects';
+      document.head.appendChild(script);
+    }
   }
   function count(){
     const store=window.VensisProjects;
