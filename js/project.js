@@ -10,8 +10,10 @@
   const money=(value,showZero=false)=>{const n=number(value);return n>0||showZero?`€${fmt(n,2)}`:'-'};
   const point=value=>`${fmt(value?.q)} m³/h @ ${fmt(value?.p)} Pa`;
   const clampDiscount=value=>Math.min(100,Math.max(0,number(value)));
+  let editingIndex=null;
 
   function modelForItem(item){
+    if(item?.mode==='custom')return null;
     const direct=catalog.getModel?.(item?.productKey);
     if(direct)return direct;
     return (catalog.models||[]).find(model=>String(model.model||'')===String(item?.model||''))||null;
@@ -19,6 +21,7 @@
   function enrichItems(items){
     let changed=false;
     items.forEach(item=>{
+      if(item.mode==='custom')return;
       const model=modelForItem(item);
       const speed=number(item.speed)||number(model?.motor?.speed);
       const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
@@ -79,9 +82,10 @@
     return `<label class="line-discount"><input type="number" min="0" max="100" step="0.1" inputmode="decimal" value="${rate}" data-line-discount="${index}" aria-label="Product discount percentage"><span>%</span></label>`;
   }
   function pointCells(item){
-    if(item.mode==='catalog'){
+    if(item.mode==='catalog'||item.mode==='custom'){
       const nominal=number(item.nominalAirflow);
-      return `<td><span class="point" style="background:#eef3f4;color:#52666b">Catalog Item</span></td><td>${nominal>0?`<span class="point selected">${fmt(nominal)} m³/h nominal</span>`:'-'}</td>`;
+      const label=item.mode==='custom'?'Custom Product':'Catalog Item';
+      return `<td><span class="point" style="background:#eef3f4;color:#52666b">${label}</span></td><td>${nominal>0?`<span class="point selected">${fmt(nominal)} m³/h nominal</span>`:'-'}</td>`;
     }
     return `<td><span class="point required">${point(item.required)}</span></td><td><span class="point selected">${point(item.selected)}</span></td>`;
   }
@@ -91,7 +95,10 @@
     if(voltage&&frequency)return `${escapeHtml(voltage)} – ${escapeHtml(frequency)}`;
     return voltage||frequency?escapeHtml(voltage||frequency):'-';
   }
-  function row(item,index){
+  function rowActions(index,total){
+    return `<div class="row-actions"><button type="button" class="order-btn" data-move-up="${index}" ${index===0?'disabled':''} title="Move up" aria-label="Move product up">↑</button><button type="button" class="order-btn" data-move-down="${index}" ${index===total-1?'disabled':''} title="Move down" aria-label="Move product down">↓</button><button type="button" class="edit-btn" data-edit-product="${index}" title="Edit product or description" aria-label="Edit product or description">✎</button><button type="button" class="remove-btn" data-remove="${index}" title="Remove from project" aria-label="Remove from project">×</button></div>`;
+  }
+  function row(item,index,items){
     const qty=Math.max(1,number(item.quantity)||1);
     const price=number(item.price);
     const hasPrice=price>0;
@@ -99,8 +106,9 @@
     const netUnit=netUnitPrice(item);
     const lineTotal=netUnit*qty;
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
+    const description=String(item.description||'').trim();
     return `<tr>
-      <td><div class="product-cell">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small></div></div></td>
+      <td><div class="product-cell">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${description?`<em>${escapeHtml(description)}</em>`:''}</div></div></td>
       ${pointCells(item)}
       <td>${supplyText(item)}</td>
       <td>${number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-'}</td>
@@ -112,7 +120,7 @@
       <td><b>${hasPrice?money(netUnit,true):'-'}</b></td>
       <td>${quantityControl(index,qty)}</td>
       <td><b>${hasPrice?money(lineTotal,true):'-'}</b></td>
-      <td><button type="button" class="remove-btn" data-remove="${index}" title="Remove from project" aria-label="Remove from project">×</button></td>
+      <td>${rowActions(index,items.length)}</td>
     </tr>`;
   }
   function render(){
@@ -132,7 +140,7 @@
     }
     empty.hidden=true;
     content.hidden=false;
-    table.querySelector('tbody').innerHTML=items.map(row).join('');
+    table.querySelector('tbody').innerHTML=items.map((item,index)=>row(item,index,items)).join('');
   }
   function changeQuantity(index,delta){
     const items=readItems();
@@ -194,6 +202,15 @@
     writeItems(items);
     render();
   }
+  function moveItem(index,delta){
+    const items=readItems();
+    const target=index+delta;
+    if(index<0||target<0||index>=items.length||target>=items.length)return;
+    const [item]=items.splice(index,1);
+    items.splice(target,0,item);
+    writeItems(items);
+    render();
+  }
   function clearProject(){
     const items=readItems();
     if(!items.length)return;
@@ -207,13 +224,108 @@
     byId('projectReference').value=meta.reference||'';
     byId('globalDiscount').value=String(clampDiscount(meta.globalDiscount));
   }
+  function formField(name){return byId(`custom-${name}`)}
+  function setFormValue(name,value){const field=formField(name);if(field)field.value=value??''}
+  function setCustomFieldsDisabled(disabled){
+    document.querySelectorAll('[data-custom-core]').forEach(field=>{field.disabled=disabled});
+    const note=byId('customProductModeNote');
+    if(note)note.textContent=disabled?'This project product is linked to the fan database. Only the free description can be changed here.':'Enter a product that is not available in the selection program.';
+  }
+  function openProductEditor(index=null){
+    const items=readItems();
+    const item=index==null?null:items[index];
+    editingIndex=index;
+    const isExisting=Boolean(item);
+    const isCustom=!item||item.mode==='custom';
+    byId('customProductTitle').textContent=isExisting?(isCustom?'Edit Custom Product':'Edit Product Description'):'Add Custom Product';
+    byId('saveCustomProduct').textContent=isExisting?'Save Changes':'Add to Project';
+    setCustomFieldsDisabled(!isCustom);
+    setFormValue('model',item?.model||'');
+    setFormValue('series',item?.series||'');
+    setFormValue('manufacturer',item?.manufacturer||'Vitlo');
+    setFormValue('description',item?.description||'');
+    setFormValue('nominalAirflow',number(item?.nominalAirflow)||'');
+    setFormValue('voltage',item?.voltage||'');
+    setFormValue('frequency',item?.frequency||'50 Hz');
+    setFormValue('motorPower',number(item?.motorPower)||'');
+    setFormValue('speed',number(item?.speed)||'');
+    setFormValue('current',number(item?.current)||'');
+    setFormValue('noise',number(item?.noise)||'');
+    setFormValue('price',number(item?.price)||'');
+    setFormValue('discountPercent',clampDiscount(item?.discountPercent));
+    setFormValue('quantity',Math.max(1,number(item?.quantity)||1));
+    setFormValue('image',item?.image||'');
+    const modal=byId('customProductModal');
+    modal.hidden=false;
+    document.body.classList.add('modal-open');
+    setTimeout(()=>formField(isCustom?'model':'description')?.focus(),0);
+  }
+  function closeProductEditor(){
+    byId('customProductModal').hidden=true;
+    document.body.classList.remove('modal-open');
+    editingIndex=null;
+  }
+  function saveProductEditor(event){
+    event.preventDefault();
+    const items=readItems();
+    const existing=editingIndex==null?null:items[editingIndex];
+    if(existing&&existing.mode!=='custom'){
+      existing.description=String(formField('description')?.value||'').trim();
+      existing.updatedAt=new Date().toISOString();
+      writeItems(items);
+      closeProductEditor();
+      render();
+      return;
+    }
+    const model=String(formField('model')?.value||'').trim();
+    if(!model){formField('model')?.focus();return}
+    const now=new Date().toISOString();
+    const item=existing||{
+      itemKey:`custom|${Date.now()}|${Math.random().toString(36).slice(2,8)}`,
+      mode:'custom',
+      productKey:'',
+      required:null,
+      selected:null,
+      addedAt:now
+    };
+    Object.assign(item,{
+      mode:'custom',
+      model,
+      series:String(formField('series')?.value||'').trim(),
+      manufacturer:String(formField('manufacturer')?.value||'').trim()||'Vitlo',
+      description:String(formField('description')?.value||'').trim(),
+      nominalAirflow:number(formField('nominalAirflow')?.value),
+      voltage:String(formField('voltage')?.value||'').trim(),
+      frequency:String(formField('frequency')?.value||'').trim(),
+      motorPower:number(formField('motorPower')?.value),
+      speed:number(formField('speed')?.value),
+      current:number(formField('current')?.value),
+      noise:number(formField('noise')?.value),
+      price:Math.max(0,number(formField('price')?.value)),
+      discountPercent:clampDiscount(formField('discountPercent')?.value),
+      quantity:Math.max(1,number(formField('quantity')?.value)||1),
+      image:String(formField('image')?.value||'').trim(),
+      updatedAt:now
+    });
+    if(existing)items[editingIndex]=item;else items.push(item);
+    writeItems(items);
+    closeProductEditor();
+    render();
+  }
+
   document.addEventListener('click',event=>{
     const plus=event.target.closest('[data-qty-plus]');
     const minus=event.target.closest('[data-qty-minus]');
     const removeButton=event.target.closest('[data-remove]');
+    const moveUp=event.target.closest('[data-move-up]');
+    const moveDown=event.target.closest('[data-move-down]');
+    const edit=event.target.closest('[data-edit-product]');
     if(plus)changeQuantity(Number(plus.dataset.qtyPlus),1);
     if(minus)changeQuantity(Number(minus.dataset.qtyMinus),-1);
     if(removeButton)remove(Number(removeButton.dataset.remove));
+    if(moveUp)moveItem(Number(moveUp.dataset.moveUp),-1);
+    if(moveDown)moveItem(Number(moveDown.dataset.moveDown),1);
+    if(edit)openProductEditor(Number(edit.dataset.editProduct));
   });
   document.addEventListener('change',event=>{
     const discount=event.target.closest('[data-line-discount]');
@@ -223,10 +335,17 @@
   byId('convertQuotation')?.addEventListener('click',convertToQuotation);
   byId('clearProject')?.addEventListener('click',clearProject);
   byId('printProject')?.addEventListener('click',()=>window.print());
+  byId('addCustomProduct')?.addEventListener('click',()=>openProductEditor());
+  byId('customProductForm')?.addEventListener('submit',saveProductEditor);
+  byId('cancelCustomProduct')?.addEventListener('click',closeProductEditor);
+  byId('closeCustomProduct')?.addEventListener('click',closeProductEditor);
+  byId('customProductModal')?.addEventListener('click',event=>{if(event.target===byId('customProductModal'))closeProductEditor()});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!byId('customProductModal')?.hidden)closeProductEditor()});
   byId('projectName')?.addEventListener('input',()=>writeMeta());
   byId('projectReference')?.addEventListener('input',()=>writeMeta());
   window.addEventListener('storage',event=>{if(event.key===KEY)render()});
   window.VensisQuotation={convert:convertToQuotation,key:QUOTATION_KEY};
+  window.VensisProject={render,readItems,writeItems,openProductEditor,moveItem};
   loadMeta();
   render();
 })();
