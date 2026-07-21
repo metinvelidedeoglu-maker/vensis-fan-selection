@@ -65,6 +65,9 @@
       event.preventDefault();event.stopImmediatePropagation();
       addCatalogProduct(button.dataset.addCatalogProject,button);
     },true);
+    document.addEventListener('DOMContentLoaded',()=>{
+      if(window.Catalog)window.Catalog.addCatalogToProject=addCatalogProduct;
+    });
   }
   mountDesign();
   window.addEventListener('storage',event=>{
@@ -73,5 +76,5 @@
   window.addEventListener('vensis-project-updated',update);
   window.addEventListener('vensis-projects-updated',update);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update);else update();
-  window.VensisProjectNav={update};
+  window.VensisProjectNav={update,addCatalogProduct};
 })();
