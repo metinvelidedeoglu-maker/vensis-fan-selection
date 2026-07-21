@@ -13,6 +13,7 @@
     try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}
   }
   function modelFor(item){
+    if(item?.mode==='custom')return null;
     const direct=catalog.getModel?.(item?.productKey);
     if(direct)return direct;
     return (catalog.models||[]).find(model=>String(model.model||'')===String(item?.model||''))||null;
@@ -21,7 +22,7 @@
     return number(item.price)*(1-clampDiscount(item.discountPercent)/100);
   }
   function dutyMarkup(item){
-    if(item.mode==='catalog'){
+    if(item.mode==='catalog'||item.mode==='custom'){
       const nominal=number(item.nominalAirflow);
       return nominal>0?`<span class="technical">${fmt(nominal)} m³/h nominal</span>`:'-';
     }
@@ -35,7 +36,8 @@
   }
   function productMarkup(item){
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Product')}" onerror="this.style.display='none'">`:'';
-    return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small></div></div>`;
+    const description=String(item.description||'').trim();
+    return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${description?`<em style="display:block;margin-top:4px;color:#64748b;font-size:8px;font-style:normal;line-height:1.35;max-width:190px">${escapeHtml(description)}</em>`:''}</div></div>`;
   }
   function row(item){
     const model=modelFor(item);
