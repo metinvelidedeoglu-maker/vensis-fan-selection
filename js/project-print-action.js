@@ -16,6 +16,7 @@
       series:item.series||'',
       manufacturer:item.manufacturer||'Vitlo',
       image:item.image||'',
+      description:item.description||'',
       nominalAirflow:Number(item.nominalAirflow)||0,
       required:item.required||null,
       selected:item.selected||null,
@@ -41,7 +42,7 @@
       reference:document.getElementById('projectReference')?.value.trim()||savedMeta.reference||''
     };
     localStorage.setItem(PRINT_KEY,JSON.stringify({
-      version:1,
+      version:2,
       createdAt:new Date().toISOString(),
       project:meta,
       items:items.map(technicalItem)
