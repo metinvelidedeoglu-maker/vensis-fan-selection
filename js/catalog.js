@@ -125,10 +125,18 @@
     const series=catalog.getSeries?catalog.getSeries(model.seriesId):allSeries.find(item=>item.id===model.seriesId)||{};
     const productKey=model.id||model.model||id;
     const itemKey=`catalog|${productKey}`;
+    const speed=Number(model.motor?.speed)||0;
+    const voltage=String(model.motor?.voltage||'').trim();
+    const noise=Number(model.motor?.sound)||0;
     const items=projectItems();
     const existing=items.find(item=>item.itemKey===itemKey);
-    if(existing){existing.quantity=(Number(existing.quantity)||1)+1;existing.updatedAt=new Date().toISOString()}
-    else items.push({
+    if(existing){
+      existing.quantity=(Number(existing.quantity)||1)+1;
+      existing.speed=Number(existing.speed)||speed;
+      existing.voltage=existing.voltage||voltage;
+      existing.noise=Number(existing.noise)||noise;
+      existing.updatedAt=new Date().toISOString();
+    }else items.push({
       itemKey,
       mode:'catalog',
       productKey,
@@ -141,7 +149,9 @@
       selected:null,
       motorPower:Number(model.motor?.power)||0,
       current:Number(model.motor?.current)||0,
-      noise:Number(model.motor?.sound)||0,
+      speed,
+      voltage,
+      noise,
       price:Number(model.pricing?.listPrice)||0,
       quantity:1,
       addedAt:new Date().toISOString()
