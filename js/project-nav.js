@@ -38,24 +38,21 @@
     const input=document.getElementById('projectContact');
     const fill=()=>{const meta=store.readMeta(id);if(document.activeElement!==input)input.value=meta.contact||''};
     const save=()=>store.writeMeta({contact:String(input.value||'').trim()},id);
+    const patchQuotation=()=>{
+      try{
+        const quotation=JSON.parse(localStorage.getItem('vensis_active_quotation_v1')||'null');
+        if(!quotation)return;
+        quotation.project=quotation.project||{};
+        quotation.project.contact=store.readMeta(id).contact||'';
+        localStorage.setItem('vensis_active_quotation_v1',JSON.stringify(quotation));
+      }catch{}
+    };
     fill();
     input.addEventListener('input',save);
     document.addEventListener('click',event=>{if(event.target.closest('#convertQuotation,#printProject'))save()},true);
-    setTimeout(()=>{
-      document.getElementById('convertQuotation')?.addEventListener('click',()=>{
-        setTimeout(()=>{
-          try{
-            const quotation=JSON.parse(localStorage.getItem('vensis_active_quotation_v1')||'null');
-            if(!quotation)return;
-            quotation.project=quotation.project||{};
-            quotation.project.contact=store.readMeta(id).contact||'';
-            localStorage.setItem('vensis_active_quotation_v1',JSON.stringify(quotation));
-          }catch{}
-        },0);
-      });
-    },0);
+    setTimeout(()=>document.getElementById('convertQuotation')?.addEventListener('click',patchQuotation),0);
     window.addEventListener('storage',event=>{if(event.key===`${store.keys.metaPrefix}${id}`)fill()});
-    window.VensisProjectContact={projectId:id,save,fill};
+    window.VensisProjectContact={projectId:id,save,fill,patchQuotation};
   }
   function count(){
     const store=window.VensisProjects;
