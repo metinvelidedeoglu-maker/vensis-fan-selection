@@ -27,6 +27,7 @@
 
   function openProjectPrint(){
     window.VensisProject?.flushAllNotes?.();
+    window.VensisProjectContact?.save?.();
     const projectId=window.VensisProject?.projectId||store?.activeId?.();
     const items=store?.readItems?.(projectId)||[];
     if(!Array.isArray(items)||!items.length){alert('Add at least one product before printing the project.');return}
@@ -34,9 +35,10 @@
     const meta={
       id:projectId||'',
       name:document.getElementById('projectName')?.value.trim()||savedMeta.name||'',
-      reference:document.getElementById('projectReference')?.value.trim()||savedMeta.reference||''
+      reference:document.getElementById('projectReference')?.value.trim()||savedMeta.reference||'',
+      contact:document.getElementById('projectContact')?.value.trim()||savedMeta.contact||''
     };
-    localStorage.setItem(PRINT_KEY,JSON.stringify({version:3,createdAt:new Date().toISOString(),project:meta,items:items.map(technicalItem)}));
+    localStorage.setItem(PRINT_KEY,JSON.stringify({version:4,createdAt:new Date().toISOString(),project:meta,items:items.map(technicalItem)}));
     window.open('project-print.html?print=1','_blank');
   }
 
