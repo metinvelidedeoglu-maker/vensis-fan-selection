@@ -1,4 +1,11 @@
 (function(){
+  document.body.classList.add('app-shell','app-quotation');
+  if(!document.querySelector('link[href*="css/ui-polish.css"]')){
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href='css/ui-polish.css?v=20260721-design-review';
+    document.head.appendChild(link);
+  }
   const KEY='vensis_active_quotation_v1';
   const catalog=window.VensisCatalog||{models:[]};
   const byId=id=>document.getElementById(id);
