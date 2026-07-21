@@ -10,6 +10,12 @@
       link.href='css/ui-polish.css?v=20260721-design-review';
       document.head.appendChild(link);
     }
+    if(pageClass==='app-project'&&!document.getElementById('vensisProjectStickyFix')){
+      const style=document.createElement('style');
+      style.id='vensisProjectStickyFix';
+      style.textContent='.app-project .project-table th:nth-child(2),.app-project .project-table td:nth-child(2){left:74px}';
+      document.head.appendChild(style);
+    }
   }
   function items(){
     try{const value=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(value)?value:[]}catch{return []}
