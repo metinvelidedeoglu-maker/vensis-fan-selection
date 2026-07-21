@@ -22,6 +22,7 @@
   }
 
   function modelFor(item){
+    if(item.mode==='custom')return null;
     const direct=catalog.getModel?.(item.productKey);
     if(direct)return direct;
     return (catalog.models||[]).find(model=>String(model.model||'')===String(item.model||''))||null;
@@ -58,11 +59,13 @@
   }
 
   function sourceText(item){
-    return item.mode==='catalog'?'Catalog Item':point(item.required);
+    if(item.mode==='catalog')return 'Catalog Item';
+    if(item.mode==='custom')return 'Custom Product';
+    return point(item.required);
   }
 
   function selectedText(item){
-    if(item.mode==='catalog')return num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h nominal`:'-';
+    if(item.mode==='catalog'||item.mode==='custom')return num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h nominal`:'-';
     return point(item.selected);
   }
 
@@ -70,8 +73,9 @@
     const model=modelFor(item);
     const motor=resolvedMotor(item,model);
     const image=item.image||catalog.product?.(model?.id)?.media?.image||'';
+    const description=String(item.description||'').trim();
     return `<tr>
-      <td><div class="project-product">${image?`<img src="${esc(image)}" alt="${esc(item.model||'Fan')}" onerror="this.style.display='none'">`:''}<div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small></div></div></td>
+      <td><div class="project-product">${image?`<img src="${esc(image)}" alt="${esc(item.model||'Fan')}" onerror="this.style.display='none'">`:''}<div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${description?`<em style="display:block;margin-top:3px;color:#64748b;font-size:7px;font-style:normal;line-height:1.3">${esc(description)}</em>`:''}</div></div></td>
       <td class="technical-point">${esc(sourceText(item))}</td>
       <td class="technical-point">${esc(selectedText(item))}</td>
       <td>${supplyText(item,model)}</td>
@@ -90,7 +94,7 @@
       <header class="project-header"><img src="assets/vensis-logo.png" alt="Vensis"><div class="project-title"><h1>PROJECT TECHNICAL DOCUMENT</h1><p>Project list and product datasheets</p></div></header>
       <section class="project-meta"><div class="meta-card"><span>Project Name</span><b>${esc(data.project?.name||'-')}</b></div><div class="meta-card"><span>Customer / Reference</span><b>${esc(data.project?.reference||'-')}</b></div><div class="meta-card"><span>Date / Total Units</span><b>${esc(date)} &nbsp;•&nbsp; ${fmt(units)} units</b></div></section>
       <section class="project-table-wrap"><table class="project-table"><thead><tr><th>Product</th><th>Required / Source</th><th>Selected / Nominal</th><th>V / Hz</th><th>kW</th><th>rpm</th><th>A</th><th>dB(A)</th><th>Qty</th></tr></thead><tbody>${data.items.map(overviewRow).join('')}</tbody></table></section>
-      <section class="project-note"><b>Technical Project Output</b>This document intentionally excludes unit prices, discounts and commercial totals. A separate product datasheet is included for every project line below.</section>
+      <section class="project-note"><b>Technical Project Output</b>This document intentionally excludes unit prices, discounts and commercial totals. A product datasheet or custom technical sheet is included for every project line below.</section>
       <footer class="project-footer">Vensis Engineering Suite &nbsp;•&nbsp; Technical Project Print &nbsp;•&nbsp; www.vensis.com.tr</footer>
     </section>`;
   }
@@ -113,6 +117,16 @@
       required:item.mode==='catalog'?null:item.required,
       selected:item.mode==='catalog'?null:item.selected
     };
+  }
+
+  function addDescriptionNote(doc,sheet,item){
+    const description=String(item.description||'').trim();
+    if(!description)return;
+    const note=doc.createElement('div');
+    note.style.cssText='margin-top:3mm;padding:3mm 4mm;border-left:3px solid #087f4f;background:#f5faf7;border-radius:0 6px 6px 0;color:#29484d;font-size:9.5px;line-height:1.4';
+    note.innerHTML=`<b style="display:block;color:#087f4f;margin-bottom:2px;text-transform:uppercase;font-size:8.5px">Project Description</b>${esc(description).replace(/\n/g,'<br>')}`;
+    const hero=sheet.querySelector('.hero');
+    if(hero)hero.insertAdjacentElement('afterend',note);
   }
 
   function cleanDatasheet(item,index,total){
@@ -149,6 +163,7 @@
       }
       specBox.insertBefore(pointSummary,specBox.children[1]||null);
     }
+    addDescriptionNote(doc,sheet,item);
     const footer=sheet.querySelector('.footer');
     if(footer){
       const meta=doc.createElement('div');
@@ -157,6 +172,24 @@
       footer.appendChild(meta);
     }
     return `<section class="sheet datasheet-page">${sheet.innerHTML}</section>`;
+  }
+
+  function specRow(label,value){
+    return `<div class="spec-row"><span>${esc(label)}</span><b>${esc(value||'-')}</b></div>`;
+  }
+
+  function customDatasheet(item,index,total){
+    const motor=resolvedMotor(item,null);
+    const description=String(item.description||'').trim();
+    const image=String(item.image||'').trim();
+    return `<section class="sheet datasheet-page">
+      <header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">CUSTOM PRODUCT TECHNICAL SHEET</div></header>
+      <div class="product-title"><h1>${esc(item.model||'Custom Product')}</h1><div class="product-brand">Brand: ${esc(item.manufacturer||'Vitlo')}</div><h2>${esc(item.series||'Project-defined product')}</h2></div>
+      <section class="hero">${image?`<img class="product-image" src="${esc(image)}" alt="${esc(item.model||'Custom Product')}" onerror="this.style.visibility='hidden'">`:`<div class="product-image" style="display:flex;align-items:center;justify-content:center;border:1px dashed #b8c9cc;border-radius:8px;color:#64748b;font-size:12px">No product image</div>`}<div class="spec-box"><div class="spec-head">PROJECT SPECIFICATIONS</div>${specRow('Selected / Nominal Airflow',num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h`:'-')}${specRow('Voltage / Frequency',motor.voltage||motor.frequency?`${motor.voltage}${motor.voltage&&motor.frequency?' – ':''}${motor.frequency}`:'-')}${specRow('Motor Power',motor.power>0?`${fmt(motor.power,2)} kW`:'-')}${specRow('Speed',motor.speed>0?`${fmt(motor.speed)} rpm`:'-')}${specRow('Current',motor.current>0?`${fmt(motor.current,2)} A`:'-')}${specRow('Sound Level',motor.sound>0?`${fmt(motor.sound)} dB(A)`:'-')}${specRow('Quantity',String(Math.max(1,num(item.quantity)||1)))}</div></section>
+      <section class="info-box" style="margin-top:7mm;min-height:74mm"><h3>Project Description</h3>${description?`<p style="margin:0;color:#29484d;font-size:11px;line-height:1.65;white-space:pre-wrap">${esc(description)}</p>`:'<p class="muted">No additional project description was entered.</p>'}</section>
+      <section class="info-box" style="margin-top:5mm;min-height:38mm"><h3>Document Note</h3><p style="margin:0;color:#52666b;font-size:10px;line-height:1.55">This custom product was entered manually in the project and is not linked to a verified selection-program performance curve. Technical suitability and manufacturer data should be confirmed before order.</p></section>
+      <footer class="footer">Custom product data is based on project-entered information and should be verified before order.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Project Technical Document&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="pdf-footer-meta">Custom Product Appendix &nbsp;•&nbsp; Page ${index+2} / ${total+1}</div></footer>
+    </section>`;
   }
 
   function waitForImages(){
@@ -174,7 +207,7 @@
       root.innerHTML='<section class="empty"><h2>No project products found</h2><p>Return to the project and add products before printing.</p></section>';
       return;
     }
-    root.innerHTML=overview(data)+data.items.map((item,index)=>cleanDatasheet(item,index,data.items.length)).join('');
+    root.innerHTML=overview(data)+data.items.map((item,index)=>item.mode==='custom'?customDatasheet(item,index,data.items.length):cleanDatasheet(item,index,data.items.length)).join('');
     document.title=`${data.project?.name||'Vensis Project'} - Technical Project.pdf`;
     if(new URLSearchParams(location.search).get('print')==='1'){
       waitForImages().then(()=>setTimeout(()=>window.print(),250));
