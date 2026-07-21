@@ -19,17 +19,21 @@
       <style>
         .product-brand{margin-top:1.5mm;font-size:10.5px;font-weight:800;color:#087f4f;letter-spacing:.02em}
         .product-title h2{margin-top:1mm!important}
+        .spec-box>.point-summary{display:block!important;margin:0!important;gap:0!important;border-bottom:1px solid #d7e3de;background:#fbfdfc}
+        .spec-box>.point-summary .point-card{display:grid!important;grid-template-columns:1fr auto!important;align-items:center!important;gap:8px!important;border:0!important;border-radius:0!important;padding:5px 8px!important;background:transparent!important}
+        .spec-box>.point-summary .point-card+.point-card{border-top:1px solid #e3ebe7!important}
+        .spec-box>.point-summary .point-card span{margin:0!important;font-size:9.6px!important;line-height:1.15!important}
+        .spec-box>.point-summary .point-card b{font-size:10.3px!important;white-space:nowrap!important}
+        .spec-box>.point-summary .point-card.combined{color:#173033!important}
         .pdf-footer-meta{margin-top:1.5mm;padding-top:1.5mm;border-top:1px solid #d7e3de;font-size:7.2px;letter-spacing:.03em;color:#718086;text-transform:uppercase}
         @page{size:A4 portrait;margin:0}
         @media print{
           html,body{width:210mm!important;height:297mm!important;margin:0!important;padding:0!important;background:#fff!important;overflow:hidden!important}
           .toolbar{display:none!important}
           .sheet{width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;margin:0!important;padding:9mm 10mm 12mm!important;box-shadow:none!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
-          .sheet>header,.sheet>.product-title,.sheet>.hero,.sheet>.point-summary,.sheet>.section,.sheet>.bottom-grid,.sheet>.footer{flex-shrink:0!important}
+          .sheet>header,.sheet>.product-title,.sheet>.hero,.sheet>.section,.sheet>.bottom-grid,.sheet>.footer{flex-shrink:0!important}
           .hero{display:grid!important;grid-template-columns:1.15fr .85fr!important;gap:5mm!important;align-items:center!important;margin-top:4mm!important}
           .bottom-grid{display:grid!important;grid-template-columns:1.08fr .92fr!important;gap:5mm!important;margin-top:4mm!important}
-          .point-summary{display:grid!important;grid-template-columns:1fr 1fr!important;margin-top:3mm!important}
-          .point-card{padding:5px 9px!important}
           .section{margin-top:4mm!important}
           .product-image{width:100%!important;height:68mm!important;max-height:68mm!important;object-fit:contain!important}
           .spec-row{padding:5px 8px!important;font-size:10.5px!important}
@@ -43,6 +47,22 @@
       <script>
         (function(){
           const filename=${title};
+          const pointSummary=document.querySelector('.point-summary');
+          const specBox=document.querySelector('.spec-box');
+          if(pointSummary&&specBox){
+            const cards=Array.from(pointSummary.querySelectorAll('.point-card'));
+            if(cards.length===2){
+              const firstValue=(cards[0].querySelector('b')||{}).textContent||'';
+              const secondValue=(cards[1].querySelector('b')||{}).textContent||'';
+              if(firstValue.trim()===secondValue.trim()){
+                const label=cards[0].querySelector('span');
+                if(label)label.textContent='Required / Program Selected Point';
+                cards[0].classList.add('combined');
+                cards[1].remove();
+              }
+            }
+            specBox.insertBefore(pointSummary,specBox.children[1]||null);
+          }
           const footer=document.querySelector('.footer');
           if(footer&&!footer.querySelector('.pdf-footer-meta')){
             const meta=document.createElement('div');
@@ -55,7 +75,7 @@
             requestAnimationFrame(()=>setTimeout(()=>window.print(),80));
           };
         })();
-      </script>`;
+      <\/script>`;
   }
 
   renderer.save=function(payload){
