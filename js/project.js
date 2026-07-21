@@ -1,6 +1,7 @@
 (function(){
   const KEY='vensis_project_items_v1';
   const META_KEY='vensis_project_meta_v1';
+  const QUOTATION_KEY='vensis_active_quotation_v1';
   const byId=id=>document.getElementById(id);
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
   const number=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
@@ -34,11 +35,16 @@
   function totals(items){
     return items.reduce((sum,item)=>{
       const qty=Math.max(1,number(item.quantity)||1);
-      const hasPrice=number(item.price)>0;
+      const price=number(item.price);
+      const hasPrice=price>0;
       sum.units+=qty;
-      if(hasPrice){sum.hasPrice=true;sum.price+=netUnitPrice(item)*qty}
+      if(hasPrice){
+        sum.hasPrice=true;
+        sum.listSubtotal+=price*qty;
+        sum.netTotal+=netUnitPrice(item)*qty;
+      }
       return sum;
-    },{units:0,price:0,hasPrice:false});
+    },{units:0,listSubtotal:0,netTotal:0,hasPrice:false});
   }
   function quantityControl(index,quantity){
     return `<div class="qty-control"><button type="button" data-qty-minus="${index}" aria-label="Decrease quantity">−</button><b>${quantity}</b><button type="button" data-qty-plus="${index}" aria-label="Increase quantity">+</button></div>`;
@@ -84,7 +90,7 @@
     const summary=totals(items);
     if(count)count.textContent=`${summary.units} unit${summary.units===1?'':'s'} in project`;
     byId('sumUnits').textContent=fmt(summary.units);
-    byId('sumPrice').textContent=summary.hasPrice?money(summary.price,true):'-';
+    byId('sumPrice').textContent=summary.hasPrice?money(summary.netTotal,true):'-';
     if(!items.length){
       empty.hidden=false;
       content.hidden=true;
@@ -124,6 +130,29 @@
     if(status)status.textContent=`${fmt(rate,rate%1?1:0)}% applied to every product.`;
     render();
   }
+  function quoteNumber(date){
+    const pad=value=>String(value).padStart(2,'0');
+    return `VNS-${String(date.getFullYear()).slice(-2)}${pad(date.getMonth()+1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
+  }
+  function convertToQuotation(){
+    const items=readItems();
+    if(!items.length){alert('Add at least one product before creating a quotation.');return}
+    writeMeta();
+    const meta=readMeta();
+    const now=new Date();
+    const snapshot={
+      version:1,
+      quotationNumber:quoteNumber(now),
+      createdAt:now.toISOString(),
+      currency:'EUR',
+      project:{name:meta.name||'',reference:meta.reference||''},
+      globalDiscount:clampDiscount(meta.globalDiscount),
+      items:JSON.parse(JSON.stringify(items)),
+      totals:totals(items)
+    };
+    localStorage.setItem(QUOTATION_KEY,JSON.stringify(snapshot));
+    window.open('quotation.html','_blank');
+  }
   function remove(index){
     const items=readItems();
     if(!items[index])return;
@@ -157,11 +186,13 @@
     if(discount)changeLineDiscount(Number(discount.dataset.lineDiscount),discount.value);
   });
   byId('applyGlobalDiscount')?.addEventListener('click',applyGlobalDiscount);
+  byId('convertQuotation')?.addEventListener('click',convertToQuotation);
   byId('clearProject')?.addEventListener('click',clearProject);
   byId('printProject')?.addEventListener('click',()=>window.print());
   byId('projectName')?.addEventListener('input',()=>writeMeta());
   byId('projectReference')?.addEventListener('input',()=>writeMeta());
   window.addEventListener('storage',event=>{if(event.key===KEY)render()});
+  window.VensisQuotation={convert:convertToQuotation,key:QUOTATION_KEY};
   loadMeta();
   render();
 })();
