@@ -1,11 +1,6 @@
 (function(){
-  const ITEMS_KEY='vensis_project_items_v1';
-  const META_KEY='vensis_project_meta_v1';
   const PRINT_KEY='vensis_project_print_snapshot_v1';
-
-  function readJson(key,fallback){
-    try{return JSON.parse(localStorage.getItem(key)||'')||fallback}catch{return fallback}
-  }
+  const store=window.VensisProjects;
 
   function technicalItem(item){
     return {
@@ -31,22 +26,17 @@
   }
 
   function openProjectPrint(){
-    const items=readJson(ITEMS_KEY,[]);
-    if(!Array.isArray(items)||!items.length){
-      alert('Add at least one product before printing the project.');
-      return;
-    }
-    const savedMeta=readJson(META_KEY,{});
+    window.VensisProject?.flushAllNotes?.();
+    const projectId=window.VensisProject?.projectId||store?.activeId?.();
+    const items=store?.readItems?.(projectId)||[];
+    if(!Array.isArray(items)||!items.length){alert('Add at least one product before printing the project.');return}
+    const savedMeta=store?.readMeta?.(projectId)||{};
     const meta={
+      id:projectId||'',
       name:document.getElementById('projectName')?.value.trim()||savedMeta.name||'',
       reference:document.getElementById('projectReference')?.value.trim()||savedMeta.reference||''
     };
-    localStorage.setItem(PRINT_KEY,JSON.stringify({
-      version:2,
-      createdAt:new Date().toISOString(),
-      project:meta,
-      items:items.map(technicalItem)
-    }));
+    localStorage.setItem(PRINT_KEY,JSON.stringify({version:3,createdAt:new Date().toISOString(),project:meta,items:items.map(technicalItem)}));
     window.open('project-print.html?print=1','_blank');
   }
 
