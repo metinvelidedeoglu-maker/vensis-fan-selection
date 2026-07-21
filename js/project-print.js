@@ -18,7 +18,7 @@
     if(stored&&Array.isArray(stored.items))return stored;
     const items=readJson(ITEMS_KEY,[]);
     const meta=readJson(META_KEY,{});
-    return {createdAt:new Date().toISOString(),project:{name:meta.name||'',reference:meta.reference||''},items:Array.isArray(items)?items:[]};
+    return {createdAt:new Date().toISOString(),project:{name:meta.name||'',reference:meta.reference||'',contact:meta.contact||''},items:Array.isArray(items)?items:[]};
   }
 
   function modelFor(item){
@@ -91,8 +91,8 @@
     const units=data.items.reduce((sum,item)=>sum+Math.max(1,num(item.quantity)||1),0);
     const date=new Intl.DateTimeFormat('tr-TR',{dateStyle:'medium',timeStyle:'short'}).format(new Date(data.createdAt||Date.now()));
     return `<section class="project-overview">
-      <header class="project-header"><img src="assets/vensis-logo.png" alt="Vensis"><div class="project-title"><h1>PROJECT TECHNICAL DOCUMENT</h1><p>Project list and product datasheets</p></div></header>
-      <section class="project-meta"><div class="meta-card"><span>Project Name</span><b>${esc(data.project?.name||'-')}</b></div><div class="meta-card"><span>Customer / Reference</span><b>${esc(data.project?.reference||'-')}</b></div><div class="meta-card"><span>Date / Total Units</span><b>${esc(date)} &nbsp;•&nbsp; ${fmt(units)} units</b></div></section>
+      <header class="project-header"><img src="assets/vensis-logo.png" alt="Vensis"><div class="project-title"><h1>PROJECT TECHNICAL DOCUMENT</h1><p>Project list and product datasheets &nbsp;•&nbsp; ${esc(date)} &nbsp;•&nbsp; ${fmt(units)} units</p></div></header>
+      <section class="project-meta"><div class="meta-card"><span>Project Name</span><b>${esc(data.project?.name||'-')}</b></div><div class="meta-card"><span>Customer / Reference</span><b>${esc(data.project?.reference||'-')}</b></div><div class="meta-card"><span>Contact Person / İlgili</span><b>${esc(data.project?.contact||'-')}</b></div></section>
       <section class="project-table-wrap"><table class="project-table"><thead><tr><th>Product</th><th>Required / Source</th><th>Selected / Nominal</th><th>V / Hz</th><th>kW</th><th>rpm</th><th>A</th><th>dB(A)</th><th>Qty</th></tr></thead><tbody>${data.items.map(overviewRow).join('')}</tbody></table></section>
       <section class="project-note"><b>Technical Project Output</b>This document intentionally excludes unit prices, discounts and commercial totals. A product datasheet or custom technical sheet is included for every project line below.</section>
       <footer class="project-footer">Vensis Engineering Suite &nbsp;•&nbsp; Technical Project Print &nbsp;•&nbsp; www.vensis.com.tr</footer>
