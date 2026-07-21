@@ -28,11 +28,9 @@
     return items.reduce((sum,item)=>{
       const qty=Math.max(1,number(item.quantity)||1);
       sum.units+=qty;
-      sum.power+=number(item.motorPower)*qty;
-      sum.current+=number(item.current)*qty;
       sum.price+=number(item.price)*qty;
       return sum;
-    },{units:0,power:0,current:0,price:0});
+    },{units:0,price:0});
   }
   function quantityControl(index,quantity){
     return `<div class="qty-control"><button type="button" data-qty-minus="${index}" aria-label="Decrease quantity">−</button><b>${quantity}</b><button type="button" data-qty-plus="${index}" aria-label="Increase quantity">+</button></div>`;
@@ -69,8 +67,6 @@
     const summary=totals(items);
     if(count)count.textContent=`${summary.units} unit${summary.units===1?'':'s'} in project`;
     byId('sumUnits').textContent=fmt(summary.units);
-    byId('sumPower').textContent=`${fmt(summary.power,2)} kW`;
-    byId('sumCurrent').textContent=`${fmt(summary.current,2)} A`;
     byId('sumPrice').textContent=summary.price>0?money(summary.price):'-';
     if(!items.length){
       empty.hidden=false;
