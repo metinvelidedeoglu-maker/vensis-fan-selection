@@ -32,7 +32,10 @@ resolved values are automatically written with `0600` permissions to
 Hostinger Git deployments. `VENSIS_EDIT_CONFIG` can still select another external
 path. Login attempts, sessions, CSRF tokens and edits are enforced server-side. Each
 accepted edit creates a GitHub commit. Edit Mode is
-available in Product Catalog and covers every value displayed on a model card: model
+available in Product Catalog. Series Edit covers the visible series code and name,
+brand, categories, General Information, Motor Information, Applications and a new
+JPEG, PNG or WebP series image (maximum 3 MB). Model Edit covers every value
+displayed on a model card: model
 name, power, speed, current, voltage, frequency, nominal airflow, noise, fire rating,
 fan type, mount type, IP class and price. The internal model key and fan performance
-curves are not editable through this API.
+curves, as well as the internal series key, are not editable through this API.
