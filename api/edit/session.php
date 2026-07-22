@@ -10,8 +10,8 @@ $authenticated = $configured && edit_session_authenticated($config);
 edit_json([
     'ok' => true,
     'configured' => $configured,
+    'persistentConfigReady' => (bool) ($config['_persistent_config_ready'] ?? false),
     'authenticated' => $authenticated,
     'csrf' => $authenticated ? edit_csrf_token() : null,
     'expiresIn' => $authenticated ? $config['session_ttl'] : 0,
 ]);
-
