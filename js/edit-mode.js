@@ -2,7 +2,7 @@
   'use strict';
 
   const API_BASE='api/edit';
-  const state={configured:false,authenticated:false,csrf:'',pendingModelKey:'',busy:false};
+  const state={configured:false,persistentConfigReady:false,authenticated:false,csrf:'',pendingModelKey:'',busy:false};
   const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const numberValue=value=>Number.isFinite(Number(value))?Number(value):0;
   let launcher,overlay,dialog,toastTimer;
@@ -73,6 +73,7 @@
 
   function setSession(payload){
     state.configured=Boolean(payload?.configured??true);
+    state.persistentConfigReady=Boolean(payload?.persistentConfigReady);
     state.authenticated=Boolean(payload?.authenticated);
     state.csrf=state.authenticated?String(payload?.csrf||''):'';
     document.body.classList.toggle('vensis-edit-authenticated',state.authenticated);
@@ -168,7 +169,8 @@
   }
 
   function showSessionPanel(){
-    showModal(`${head('Catalog Edit Mode active','All values shown on catalog model cards can be changed.')}<div class="vensis-edit-body"><div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Changes are committed to GitHub and then deployed by Hostinger.</small></div></div><p class="vensis-edit-note">Open a product series and use the pencil button on the model card. The internal model key and performance curve remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`,true);
+    const storageWarning=state.persistentConfigReady?'':'<div class="vensis-edit-message is-error">Server settings are not yet stored outside the deployment folder. Re-save config.local.php before making a catalog change.</div>';
+    showModal(`${head('Catalog Edit Mode active','All values shown on catalog model cards can be changed.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Changes are committed to GitHub and then deployed by Hostinger.</small></div></div><p class="vensis-edit-note">Open a product series and use the pencil button on the model card. The internal model key and performance curve remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`,true);
     dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
     dialog.querySelector('#vensisEditLogout')?.addEventListener('click',logout);
   }
