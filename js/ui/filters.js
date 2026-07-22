@@ -3,6 +3,7 @@
   const categoryNames={'Aksiyal':'Axial Fan','Radyal':'Radial Fan','Kanal Tipi':'Duct Fan','Hücreli':'Cabinet Fan','Jetfan':'Jet Fan','Tünel Tipi':'Tunnel Fan','Çatı Tipi':'Roof Fan','Duvar Tipi':'Wall-Mounted Fan','Mobil':'Mobile Fan','Salyangoz':'Centrifugal Fan','Bifurcated':'Bifurcated Fan','Kısa Kasalı':'Short-Casing Fan','Duman Tahliye':'Smoke Exhaust Fan','Exproof / ATEX':'Explosion-Proof / ATEX Fan','EC':'EC Fan','Isı Geri Kazanım':'Heat Recovery Unit','Sığınak':'Shelter Fan'};
   const categoryName=category=>categoryNames[category]||category;
   const seriesName=series=>window.VensisProducts?.seriesName(series)||series;
+  const seriesCode=series=>window.VensisProducts?.seriesCode(series)||String(series||'').trim();
 
   function modelMatchesManufacturer(model){
     return !S.selectedManufacturers.size||S.selectedManufacturers.has(model.manufacturer);
@@ -19,7 +20,7 @@
 
   function availableSeries(){
     return [...new Set(S.models.filter(model=>modelMatchesManufacturer(model)&&modelMatchesCategories(model)).map(model=>model.series).filter(Boolean))]
-      .sort((a,b)=>seriesName(a).localeCompare(seriesName(b),'en'));
+      .sort((a,b)=>seriesCode(a).localeCompare(seriesCode(b),'en')||seriesName(a).localeCompare(seriesName(b),'en'));
   }
 
   function countSeries(series){
@@ -28,6 +29,14 @@
 
   function button(value,label,active,dataName,extra=''){
     return `<button type="button" class="list-item ${active?'active':''}" data-${dataName}="${U.escapeHtml(value)}"><span class="checkmark">${active?'✓':''}</span><span>${U.escapeHtml(label)}${extra}</span></button>`;
+  }
+
+  function seriesButton(series){
+    const active=S.selectedSeries.has(series);
+    const code=seriesCode(series)||series;
+    const name=seriesName(series)||series;
+    const count=countSeries(series);
+    return `<button type="button" class="list-item series-filter-item ${active?'active':''}" data-series="${U.escapeHtml(series)}"><span class="checkmark">${active?'✓':''}</span><span class="series-item-copy"><b class="series-code">${U.escapeHtml(code)}</b><span class="series-label" title="${U.escapeHtml(name)}">${U.escapeHtml(name)}</span><small class="series-model-count">${count} models</small></span></button>`;
   }
 
   function render(){
@@ -46,8 +55,8 @@
 
     const allSeries=availableSeries();
     const seriesQuery=U.byId('seriesSearch')?.value||'';
-    const visibleSeries=allSeries.filter(series=>U.smartMatch(seriesName(series),seriesQuery));
-    seriesBox.innerHTML=visibleSeries.map(series=>button(series,seriesName(series),S.selectedSeries.has(series),'series',` <b style="color:#0b7f4c">(${countSeries(series)})</b>`)).join('')||'<div class="empty">No product series found.</div>';
+    const visibleSeries=allSeries.filter(series=>U.smartMatch(`${seriesCode(series)} ${seriesName(series)}`,seriesQuery));
+    seriesBox.innerHTML=visibleSeries.map(seriesButton).join('')||'<div class="empty">No product series found.</div>';
     U.byId('seriesCount').textContent=`${visibleSeries.length} of ${allSeries.length}`;
   }
 
@@ -82,5 +91,5 @@
     if(series)toggleSeries(series.dataset.series);
   });
 
-  window.VensisFilters={render,toggleManufacturer,toggleCategory,toggleSeries,categoryName,seriesName};
+  window.VensisFilters={render,toggleManufacturer,toggleCategory,toggleSeries,categoryName,seriesName,seriesCode};
 })();
