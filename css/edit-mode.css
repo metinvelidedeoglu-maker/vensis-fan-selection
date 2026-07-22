@@ -98,6 +98,17 @@ body.vensis-edit-authenticated .model-card-actions{grid-template-columns:minmax(
 .vensis-edit-field input:focus{border-color:#087f4f;box-shadow:0 0 0 3px rgba(8,127,79,.12)}
 .vensis-edit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
 .vensis-edit-grid .vensis-edit-field.is-wide{grid-column:1/-1}
+.vensis-edit-section-title{
+  margin:3px 0 12px;
+  padding-bottom:7px;
+  border-bottom:1px solid #dce7e2;
+  color:#087f4f;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.vensis-edit-section-title:not(:first-of-type){margin-top:4px}
 .vensis-edit-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;margin-top:6px}
 .vensis-edit-actions button,.vensis-edit-actions a{
   min-height:42px;
@@ -167,4 +178,3 @@ body.vensis-edit-authenticated .model-card-actions{grid-template-columns:minmax(
   .vensis-edit-actions{flex-wrap:wrap}
   .vensis-edit-actions button,.vensis-edit-actions a{flex:1}
 }
-
