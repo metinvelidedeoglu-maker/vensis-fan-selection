@@ -90,9 +90,10 @@
         <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3></div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
-      <div style="display:grid;grid-template-columns:1fr 48px;gap:8px;margin-top:13px">
+      <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px;gap:8px;margin-top:13px">
         <button class="model-datasheet-btn" style="margin-top:0" type="button" data-model-datasheet="${esc(model.id)}">Save as PDF</button>
         <button class="model-datasheet-btn" style="margin-top:0;font-size:22px;padding:0" type="button" data-add-catalog-project="${esc(model.id)}" title="Add to project" aria-label="Add to project">+</button>
+        <button class="model-datasheet-btn vensis-model-edit" style="margin-top:0;font-size:20px;padding:0;background:#173f46" type="button" data-edit-model="${esc(model.id)}" title="Edit model" aria-label="Edit model">✎</button>
       </div>
     </article>`;
   }

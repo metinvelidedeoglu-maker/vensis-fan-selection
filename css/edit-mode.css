@@ -1,0 +1,170 @@
+.vensis-edit-launcher{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:9000;
+  width:48px;
+  height:48px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.4);
+  border-radius:50%;
+  background:#173f46;
+  color:#fff;
+  box-shadow:0 10px 28px rgba(23,48,51,.28);
+  cursor:pointer;
+  transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
+}
+.vensis-edit-launcher:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(23,48,51,.34)}
+.vensis-edit-launcher.is-active{background:#087f4f}
+.vensis-edit-launcher.is-active::after{
+  content:"";
+  position:absolute;
+  right:1px;
+  top:1px;
+  width:11px;
+  height:11px;
+  border:2px solid #fff;
+  border-radius:50%;
+  background:#38c982;
+}
+.vensis-model-edit{display:none!important}
+body.vensis-edit-authenticated .vensis-model-edit{display:inline-flex!important}
+body.vensis-edit-authenticated .model-card-actions{grid-template-columns:minmax(0,1fr) 48px 48px!important}
+.vensis-edit-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(10,28,30,.58);
+  backdrop-filter:blur(4px);
+}
+.vensis-edit-overlay[hidden]{display:none!important}
+.vensis-edit-dialog{
+  width:min(720px,100%);
+  max-height:min(88vh,860px);
+  overflow:auto;
+  border:1px solid #d6e2de;
+  border-radius:16px;
+  background:#fff;
+  color:#17342b;
+  box-shadow:0 26px 70px rgba(8,31,32,.32);
+  font-family:Arial,Helvetica,sans-serif;
+}
+.vensis-edit-dialog.is-narrow{width:min(450px,100%)}
+.vensis-edit-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding:20px 22px 17px;
+  border-bottom:1px solid #e1e9e5;
+  background:linear-gradient(135deg,#f7fbf9,#edf7f2);
+}
+.vensis-edit-kicker{display:block;color:#087f4f;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.07em}
+.vensis-edit-head h2{margin:4px 0 0;font-size:23px;color:#173f46}
+.vensis-edit-head p{margin:7px 0 0;color:#64748b;font-size:13px;line-height:1.45}
+.vensis-edit-close{
+  width:35px;
+  height:35px;
+  flex:0 0 35px;
+  border:0;
+  border-radius:9px;
+  background:#e5eeea;
+  color:#29484d;
+  font-size:24px;
+  line-height:1;
+  cursor:pointer;
+}
+.vensis-edit-body{padding:21px 22px 23px}
+.vensis-edit-field{display:block;margin-bottom:15px}
+.vensis-edit-field span{display:block;margin-bottom:6px;color:#52666b;font-size:12px;font-weight:800}
+.vensis-edit-field input{
+  width:100%;
+  min-height:44px;
+  box-sizing:border-box;
+  border:1px solid #c9d7d1;
+  border-radius:9px;
+  padding:10px 12px;
+  background:#fff;
+  color:#17342b;
+  font:inherit;
+  outline:none;
+}
+.vensis-edit-field input:focus{border-color:#087f4f;box-shadow:0 0 0 3px rgba(8,127,79,.12)}
+.vensis-edit-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.vensis-edit-grid .vensis-edit-field.is-wide{grid-column:1/-1}
+.vensis-edit-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;margin-top:6px}
+.vensis-edit-actions button,.vensis-edit-actions a{
+  min-height:42px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  border-radius:9px;
+  padding:10px 15px;
+  text-decoration:none;
+  font:800 13px Arial,Helvetica,sans-serif;
+  cursor:pointer;
+}
+.vensis-edit-secondary{background:#e8efec;color:#29484d}
+.vensis-edit-primary{background:#087f4f;color:#fff}
+.vensis-edit-danger{background:#fff0ef;color:#a92d27}
+.vensis-edit-actions button:disabled{opacity:.55;cursor:wait}
+.vensis-edit-message{
+  min-height:20px;
+  margin:0 0 13px;
+  border-radius:8px;
+  color:#64748b;
+  font-size:13px;
+  line-height:1.4;
+}
+.vensis-edit-message.is-error{padding:10px 11px;background:#fff0ef;color:#a92d27}
+.vensis-edit-message.is-success{padding:10px 11px;background:#edf8f3;color:#087f4f}
+.vensis-edit-status{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:14px;
+  border:1px solid #d5e5dd;
+  border-radius:11px;
+  background:#f5fbf8;
+}
+.vensis-edit-status-dot{width:12px;height:12px;flex:0 0 12px;margin-top:3px;border-radius:50%;background:#38c982;box-shadow:0 0 0 4px rgba(56,201,130,.14)}
+.vensis-edit-status b{display:block;color:#173f46}
+.vensis-edit-status small{display:block;margin-top:4px;color:#64748b;line-height:1.45}
+.vensis-edit-note{margin:15px 0 0;color:#64748b;font-size:12px;line-height:1.5}
+.vensis-edit-toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  z-index:11000;
+  max-width:min(520px,calc(100% - 32px));
+  transform:translate(-50%,12px);
+  padding:11px 15px;
+  border-radius:10px;
+  background:#173033;
+  color:#fff;
+  box-shadow:0 12px 32px rgba(0,0,0,.24);
+  opacity:0;
+  pointer-events:none;
+  font:700 13px Arial,Helvetica,sans-serif;
+  transition:.2s ease;
+}
+.vensis-edit-toast.is-visible{opacity:1;transform:translate(-50%,0)}
+.vensis-edit-commit{word-break:break-all}
+@media(max-width:620px){
+  .vensis-edit-launcher{right:13px;bottom:13px}
+  .vensis-edit-overlay{padding:10px;align-items:flex-end}
+  .vensis-edit-dialog{max-height:92vh;border-radius:15px 15px 0 0}
+  .vensis-edit-head,.vensis-edit-body{padding-left:16px;padding-right:16px}
+  .vensis-edit-grid{grid-template-columns:1fr}
+  .vensis-edit-grid .vensis-edit-field.is-wide{grid-column:auto}
+  .vensis-edit-actions{flex-wrap:wrap}
+  .vensis-edit-actions button,.vensis-edit-actions a{flex:1}
+}
+

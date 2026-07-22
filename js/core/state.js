@@ -22,6 +22,7 @@
       seriesTitle:series.title||series.code||model.seriesId,
       image:series.media?.image||'',
       price:model.pricing?.listPrice,
+      pole:Number(model.pole)||0,
       kw:Number(model.motor?.power)||0,
       rpm:Number(model.motor?.speed)||0,
       amps:Number(model.motor?.current)||0,
