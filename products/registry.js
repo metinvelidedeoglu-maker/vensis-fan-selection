@@ -8,6 +8,7 @@
   Object.assign(files,{'TUNEL-AXF':'TUNEL-AXF.webp','MOB-AXD/ATEX':'MOB-AXD-ATEX.webp','BOX-AXF':'BOX-AXF.webp','ROOF-AXF':'ROOF-AXF.webp','AXD/MOB':'MOB-AXD.webp'});
   const keys=[...new Set([...Object.keys(names),...Object.keys(aliases)])].sort((a,b)=>b.length-a.length);
   const rawModels=Array.isArray(window.models)?window.models:[];
+  const seriesOverrides=window.VensisSeriesOverrides&&typeof window.VensisSeriesOverrides==='object'?window.VensisSeriesOverrides:{};
   const seriesRecords=new Map();
   const modelRecords=new Map();
 
@@ -27,16 +28,24 @@
   function ensureSeries(row,code){
     if(seriesRecords.has(code))return seriesRecords.get(code);
     const info=row?.catalogueInfo||{};
-    const categories=[...(row?.categories||row?.tagsEn||row?.tags||[])];
+    const override=seriesOverrides[code]&&typeof seriesOverrides[code]==='object'?seriesOverrides[code]:{};
+    const descriptionOverride=override.description&&typeof override.description==='object'?override.description:{};
+    const categories=Array.isArray(override.categories)
+      ? [...override.categories]
+      : [...(row?.categories||row?.tagsEn||row?.tags||[])];
     const record={
       id:code,
-      code,
-      manufacturer:row?.manufacturer||row?.brand||'Vitlo',
+      code:override.code||code,
+      manufacturer:override.manufacturer||row?.manufacturer||row?.brand||'Vitlo',
       categories,
-      title:names[code]||row?.catalogNameEn||row?.series||code,
-      media:{image:imageFor(code),gallery:[]},
+      title:override.title||names[code]||row?.catalogNameEn||row?.series||code,
+      media:{image:override.image||imageFor(code),gallery:[]},
       catalogue:{pdf:row?.catalogPdf||'',page:row?.sourcePage||''},
-      description:{general:info.general||[],motor:info.motor||[],applications:info.applications||[]},
+      description:{
+        general:Array.isArray(descriptionOverride.general)?descriptionOverride.general:(info.general||[]),
+        motor:Array.isArray(descriptionOverride.motor)?descriptionOverride.motor:(info.motor||[]),
+        applications:Array.isArray(descriptionOverride.applications)?descriptionOverride.applications:(info.applications||[])
+      },
       modelIds:[]
     };
     seriesRecords.set(code,record);
@@ -100,8 +109,8 @@
     get:key=>productView(modelRecords.get(String(key||''))),
     fromResult:result=>productView(modelRecords.get(String(result?.key||result?.id||''))),
     seriesCode,
-    seriesName:value=>names[seriesCode(value)]||'',
-    image:value=>imageFor(seriesCode(value)),
+    seriesName:value=>seriesRecords.get(seriesCode(value))?.title||'',
+    image:value=>seriesRecords.get(seriesCode(value))?.media?.image||'',
     count:()=>modelRecords.size,
     seriesCount:()=>seriesRecords.size
   };
