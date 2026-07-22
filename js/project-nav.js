@@ -1,5 +1,6 @@
 (function(){
   const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  let latestCloudState={state:'checking',message:'Checking cloud storage…',authenticated:false};
   function mountDesign(){
     const pageClass=path==='project.html'||path==='projects.html'?'app-project':path==='catalog.html'?'app-catalog':'app-selection';
     document.body.classList.add('app-shell',pageClass);
@@ -52,6 +53,7 @@
     document.addEventListener('click',event=>{if(event.target.closest('#convertQuotation,#printProject'))save()},true);
     setTimeout(()=>document.getElementById('convertQuotation')?.addEventListener('click',patchQuotation),0);
     window.addEventListener('storage',event=>{if(event.key===`${store.keys.metaPrefix}${id}`)fill()});
+    window.addEventListener('vensis-project-cloud-applied',fill);
     window.VensisProjectContact={projectId:id,save,fill,patchQuotation};
   }
   function count(){
@@ -62,6 +64,35 @@
   function update(){
     const total=count();
     document.querySelectorAll('[data-project-count]').forEach(node=>{node.textContent=String(total);node.hidden=total<1});
+  }
+  function cloudLabel(state){
+    if(state.state==='synced')return '☁ Cloud synced';
+    if(state.state==='syncing'||state.state==='checking')return '☁ Syncing…';
+    if(state.state==='error')return '⚠ Sync error';
+    return '☁ Browser only';
+  }
+  function mountCloudStatus(){
+    if(document.getElementById('vensisProjectCloudStatus'))return;
+    const nav=document.querySelector('.app-nav,.catalog-nav,.nav');if(!nav)return;
+    if(!document.getElementById('vensisProjectCloudStatusStyles')){
+      const style=document.createElement('style');style.id='vensisProjectCloudStatusStyles';
+      style.textContent='.project-cloud-status{min-height:36px;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;border:1px solid #cbdad4;border-radius:9px;padding:8px 10px;background:#fff;color:#52666b;font:800 11px Arial,Helvetica,sans-serif;cursor:pointer}.project-cloud-status.is-synced{border-color:#aad3bf;background:#edf8f3;color:#087f4f}.project-cloud-status.is-syncing{background:#f5f8f7;color:#52666b}.project-cloud-status.is-error{border-color:#efc4c1;background:#fff1f0;color:#b8322c}';
+      document.head.appendChild(style);
+    }
+    const button=document.createElement('button');button.id='vensisProjectCloudStatus';button.type='button';button.className='project-cloud-status';
+    button.addEventListener('click',()=>{
+      if(latestCloudState.authenticated)window.VensisProjects?.sync?.();
+      else window.VensisEditMode?.open?.();
+    });
+    nav.appendChild(button);updateCloudStatus(latestCloudState);
+  }
+  function updateCloudStatus(value){
+    latestCloudState=value&&typeof value==='object'?value:window.VensisProjects?.cloudState?.()||latestCloudState;
+    const button=document.getElementById('vensisProjectCloudStatus');if(!button)return;
+    button.textContent=cloudLabel(latestCloudState);
+    button.title=latestCloudState.message||'Project cloud status';
+    button.setAttribute('aria-label',button.title);
+    button.className=`project-cloud-status is-${latestCloudState.state||'local'}`;
   }
   function toast(text){
     let node=document.getElementById('catalogProjectToast');
@@ -114,6 +145,7 @@
   });
   window.addEventListener('vensis-project-updated',update);
   window.addEventListener('vensis-projects-updated',update);
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{mountContact();update()});else update();
-  window.VensisProjectNav={update,addCatalogProduct};
+  window.addEventListener('vensis-project-cloud-status',event=>{mountCloudStatus();updateCloudStatus(event.detail)});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{mountContact();mountCloudStatus();updateCloudStatus();update()});else{mountCloudStatus();updateCloudStatus();update()}
+  window.VensisProjectNav={update,updateCloudStatus,addCatalogProduct};
 })();
