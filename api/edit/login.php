@@ -41,7 +41,7 @@ edit_audit($config, 'login_success');
 edit_json([
     'ok' => true,
     'authenticated' => true,
+    'persistentConfigReady' => (bool) ($config['_persistent_config_ready'] ?? false),
     'csrf' => $_SESSION['edit_csrf'],
     'expiresIn' => $config['session_ttl'],
 ]);
-
