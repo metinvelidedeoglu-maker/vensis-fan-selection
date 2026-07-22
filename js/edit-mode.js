@@ -2,7 +2,7 @@
   'use strict';
 
   const API_BASE='api/edit';
-  const state={configured:false,persistentConfigReady:false,authenticated:false,csrf:'',pendingModelKey:'',busy:false};
+  const state={configured:false,persistentConfigReady:false,authenticated:false,csrf:'',pendingModelKey:'',pendingSeriesKey:'',busy:false};
   const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const numberValue=value=>Number.isFinite(Number(value))?Number(value):0;
   let launcher,overlay,dialog,toastTimer;
@@ -64,10 +64,18 @@
     document.body.append(launcher,overlay,toast);
     document.addEventListener('click',event=>{
       const editButton=event.target.closest('[data-edit-model]');
-      if(!editButton)return;
-      event.preventDefault();
-      event.stopPropagation();
-      openModelEditor(editButton.dataset.editModel||'');
+      if(editButton){
+        event.preventDefault();
+        event.stopPropagation();
+        openModelEditor(editButton.dataset.editModel||'');
+        return;
+      }
+      const seriesButton=event.target.closest('[data-edit-series]');
+      if(seriesButton){
+        event.preventDefault();
+        event.stopPropagation();
+        openSeriesEditor(seriesButton.dataset.editSeries||'');
+      }
     });
   }
 
@@ -151,11 +159,14 @@
     try{
       const payload=await request('login.php',{method:'POST',body:{password}});
       setSession({...payload,configured:true});
-      const pending=state.pendingModelKey;
+      const pendingModel=state.pendingModelKey;
+      const pendingSeries=state.pendingSeriesKey;
       state.pendingModelKey='';
+      state.pendingSeriesKey='';
       closeModal();
       showToast('Secure Edit Mode opened.');
-      if(pending)setTimeout(()=>openModelEditor(pending),50);
+      if(pendingSeries)setTimeout(()=>openSeriesEditor(pendingSeries),50);
+      else if(pendingModel)setTimeout(()=>openModelEditor(pendingModel),50);
     }catch(error){
       state.busy=false;
       submit.disabled=false;
@@ -170,7 +181,7 @@
 
   function showSessionPanel(){
     const storageWarning=state.persistentConfigReady?'':'<div class="vensis-edit-message is-error">Server settings are not yet stored outside the deployment folder. Re-save config.local.php before making a catalog change.</div>';
-    showModal(`${head('Catalog Edit Mode active','All values shown on catalog model cards can be changed.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Changes are committed to GitHub and then deployed by Hostinger.</small></div></div><p class="vensis-edit-note">Open a product series and use the pencil button on the model card. The internal model key and performance curve remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`,true);
+    showModal(`${head('Catalog Edit Mode active','Series information, images and every model-card value can be changed.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Changes are committed to GitHub and then deployed by Hostinger.</small></div></div><p class="vensis-edit-note">Use Edit Series for brand, category, name, information and image. Use the pencil on a model card for model values. Internal keys and performance curves remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`,true);
     dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
     dialog.querySelector('#vensisEditLogout')?.addEventListener('click',logout);
   }
@@ -203,9 +214,133 @@
 
   function field(label,name,value,options={}){
     const attributes=options.type==='text'
-      ? `type="text" maxlength="120"${options.required?' required':''}`
+      ? `type="text" maxlength="${options.maxLength||120}"${options.required?' required':''}`
       : `type="number" min="${options.min??0}" max="${options.max??10000000}" step="${options.step||'any'}"`;
     return `<label class="vensis-edit-field${options.wide?' is-wide':''}"><span>${esc(label)}</span><input name="${esc(name)}" ${attributes} value="${esc(value)}"></label>`;
+  }
+
+  function textareaField(label,name,items,help=''){
+    const value=Array.isArray(items)?items.join('\n'):String(items||'');
+    return `<label class="vensis-edit-field is-wide"><span>${esc(label)}</span><textarea name="${esc(name)}" rows="5" maxlength="24000">${esc(value)}</textarea>${help?`<small>${esc(help)}</small>`:''}</label>`;
+  }
+
+  function seriesRecord(key){
+    return window.VensisCatalog?.getSeries?.(key)||window.VensisCatalog?.series?.find?.(item=>String(item.id)===String(key))||null;
+  }
+
+  function listValue(value,splitCommas=false){
+    const separator=splitCommas?/[,\n]+/:/\n+/;
+    return [...new Set(String(value||'').split(separator).map(item=>item.trim()).filter(Boolean))];
+  }
+
+  function sameList(left,right){return JSON.stringify(left)===JSON.stringify(right)}
+
+  function readFileDataUrl(file){
+    return new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=()=>resolve(String(reader.result||''));
+      reader.onerror=()=>reject(new Error('The selected image could not be read.'));
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function validateSeriesImage(file){
+    if(!file)return '';
+    if(!['image/jpeg','image/png','image/webp'].includes(file.type))return 'Choose a JPEG, PNG or WebP image.';
+    if(file.size>3*1024*1024)return 'The image must be smaller than 3 MB.';
+    return '';
+  }
+
+  function openSeriesEditor(key){
+    if(!key)return;
+    if(!state.configured){openLauncher();return}
+    if(!state.authenticated){state.pendingSeriesKey=key;showLogin();return}
+    const series=seriesRecord(key);
+    if(!series){showToast('Series could not be opened for editing.');return}
+    const description=series.description||{};
+    const categories=Array.isArray(series.categories)?series.categories:[];
+    showModal(`${head(series.code||series.title||'Product series','Edit the catalog identity, information and image for this series.')}<form id="vensisSeriesEditForm" class="vensis-edit-body"><input type="hidden" name="seriesKey" value="${esc(key)}"><div id="vensisSeriesEditMessage" class="vensis-edit-message"></div><div class="vensis-edit-section-title">Series Identity</div><div class="vensis-edit-grid">${field('Brand','manufacturer',series.manufacturer||'',{type:'text',required:true,maxLength:180})}${field('Visible Series Code','code',series.code||'',{type:'text',required:true,maxLength:180})}${field('Series Name','title',series.title||'',{type:'text',wide:true,required:true,maxLength:180})}${textareaField('Categories','categories',categories,'Enter one category per line. Commas are also accepted.')}</div><div class="vensis-edit-section-title">Series Image</div><div class="vensis-series-image-editor"><div class="vensis-series-image-preview"><img id="vensisSeriesImagePreview" src="${esc(series.media?.image||'')}" alt="${esc(series.code||series.title||'Series')}"></div><label class="vensis-edit-upload"><span>Choose a new image</span><input id="vensisSeriesImage" type="file" accept="image/jpeg,image/png,image/webp"><small>JPEG, PNG or WebP; maximum 3 MB. Leave empty to keep the current image.</small></label></div><div class="vensis-edit-section-title">Series Information</div><div class="vensis-edit-grid">${textareaField('General Information','general',description.general,'Enter one item per line.')}${textareaField('Motor Information','motor',description.motor,'Enter one item per line.')}${textareaField('Applications','applications',description.applications,'Enter one item per line.')}</div><p class="vensis-edit-note">The internal series key, model links and fan performance curves are protected.</p><div class="vensis-edit-actions"><button class="vensis-edit-secondary" type="button" data-edit-close>Cancel</button><button class="vensis-edit-primary" type="submit">Save to GitHub</button></div></form>`);
+    dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
+    const form=dialog.querySelector('#vensisSeriesEditForm');
+    const input=form?.querySelector('#vensisSeriesImage');
+    input?.addEventListener('change',async()=>{
+      const message=form.querySelector('#vensisSeriesEditMessage');
+      const file=input.files?.[0];
+      const error=validateSeriesImage(file);
+      if(error){input.value='';message.className='vensis-edit-message is-error';message.textContent=error;return}
+      if(!file)return;
+      try{
+        const dataUrl=await readFileDataUrl(file);
+        form.querySelector('#vensisSeriesImagePreview').src=dataUrl;
+        message.className='vensis-edit-message is-success';
+        message.textContent='New image selected. It will be uploaded when you save.';
+      }catch(readError){
+        input.value='';
+        message.className='vensis-edit-message is-error';
+        message.textContent=readError.message;
+      }
+    });
+    form?.addEventListener('submit',saveSeries);
+  }
+
+  async function saveSeries(event){
+    event.preventDefault();
+    if(state.busy)return;
+    const form=event.currentTarget;
+    const message=form.querySelector('#vensisSeriesEditMessage');
+    const submit=form.querySelector('[type="submit"]');
+    const seriesKey=form.querySelector('[name="seriesKey"]')?.value||'';
+    const changes={};
+    for(const name of ['manufacturer','code','title']){
+      const input=form.querySelector(`[name="${name}"]`);
+      const value=input.value.trim();
+      if(!value){message.className='vensis-edit-message is-error';message.textContent=`${input.previousElementSibling?.textContent||name} cannot be empty.`;input.focus();return}
+      if(value!==input.defaultValue.trim())changes[name]=value;
+    }
+    const listFields={categories:true,general:false,motor:false,applications:false};
+    for(const [name,splitCommas] of Object.entries(listFields)){
+      const input=form.querySelector(`[name="${name}"]`);
+      const current=listValue(input.value,splitCommas);
+      const initial=listValue(input.defaultValue,splitCommas);
+      if(!sameList(current,initial))changes[name]=current;
+    }
+    const file=form.querySelector('#vensisSeriesImage')?.files?.[0]||null;
+    const fileError=validateSeriesImage(file);
+    if(fileError){message.className='vensis-edit-message is-error';message.textContent=fileError;return}
+    if(!Object.keys(changes).length&&!file){message.className='vensis-edit-message is-success';message.textContent='No values changed.';return}
+
+    state.busy=true;
+    submit.disabled=true;
+    submit.textContent=file?'Uploading…':'Committing…';
+    message.className='vensis-edit-message';
+    message.textContent=file?'Uploading the image and series information…':'';
+    try{
+      const image=file?{dataUrl:await readFileDataUrl(file),fileName:file.name}:null;
+      const payload=await request('save-series.php',{method:'POST',body:{seriesKey,changes,image},csrf:true});
+      state.busy=false;
+      if(payload.unchanged){
+        message.className='vensis-edit-message is-success';
+        message.textContent='No values changed.';
+        submit.disabled=false;
+        submit.textContent='Save to GitHub';
+        return;
+      }
+      const shortSha=String(payload.commitSha||'').slice(0,7);
+      showModal(`${head('Series change committed','Hostinger will deploy the new GitHub commit automatically.')}<div class="vensis-edit-body"><div class="vensis-edit-message is-success">${esc(payload.series||'Product series')} was updated successfully.</div>${payload.commitUrl?`<p class="vensis-edit-note vensis-edit-commit">Commit: <a href="${esc(payload.commitUrl)}" target="_blank" rel="noopener">${esc(shortSha||'Open on GitHub')}</a></p>`:''}<p class="vensis-edit-note">Reload the page after deployment to see the new series information and image.</p><div class="vensis-edit-actions"><button class="vensis-edit-primary" type="button" data-edit-close>Done</button></div></div>`,true);
+      dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
+    }catch(error){
+      state.busy=false;
+      submit.disabled=false;
+      submit.textContent='Save to GitHub';
+      if(error.status===401){
+        setSession({configured:state.configured,authenticated:false});
+        state.pendingSeriesKey=seriesKey;
+        showLogin(error.message);
+        return;
+      }
+      message.className='vensis-edit-message is-error';
+      message.textContent=error.message;
+    }
   }
 
   function openModelEditor(key){
@@ -282,5 +417,5 @@
   }
 
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
-  window.VensisEditMode={open:openLauncher,edit:openModelEditor,refresh:refreshSession};
+  window.VensisEditMode={open:openLauncher,edit:openModelEditor,editSeries:openSeriesEditor,refresh:refreshSession};
 })();
