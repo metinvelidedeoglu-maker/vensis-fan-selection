@@ -45,6 +45,63 @@ function edit_env(string $name): string
     return is_string($value) ? trim($value) : '';
 }
 
+function edit_persistent_config_path(): string
+{
+    $outsidePublicHtml = '';
+    $candidates = [(string) ($_SERVER['DOCUMENT_ROOT'] ?? ''), __DIR__];
+    foreach ($candidates as $candidate) {
+        $normalized = str_replace('\\', '/', rtrim($candidate, '/\\'));
+        $marker = '/public_html';
+        $position = strrpos($normalized, $marker);
+        $afterMarker = $position === false ? '' : substr($normalized, $position + strlen($marker), 1);
+        if ($position !== false && ($afterMarker === '' || $afterMarker === '/')) {
+            $outsidePublicHtml = substr($normalized, 0, $position);
+            break;
+        }
+    }
+    if ($outsidePublicHtml === '') {
+        $base = realpath(__DIR__);
+        $base = is_string($base) ? $base : __DIR__;
+        $outsidePublicHtml = dirname($base, 4);
+    }
+    if ($outsidePublicHtml === '' || $outsidePublicHtml === '.' || $outsidePublicHtml === DIRECTORY_SEPARATOR) {
+        return '';
+    }
+    return $outsidePublicHtml . DIRECTORY_SEPARATOR . '.vensis-edit' . DIRECTORY_SEPARATOR . 'config.php';
+}
+
+function edit_load_config_file(string $path): array
+{
+    $loaded = require $path;
+    if (!is_array($loaded)) {
+        throw new EditApiException('Edit configuration is invalid.', 500);
+    }
+    return $loaded;
+}
+
+function edit_persist_config(array $values, string $path): bool
+{
+    if ($path === '') {
+        return false;
+    }
+    $directory = dirname($path);
+    if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
+        return false;
+    }
+    @chmod($directory, 0700);
+    $temporary = @tempnam($directory, '.config-');
+    if (!is_string($temporary)) {
+        return false;
+    }
+    $source = "<?php\ndeclare(strict_types=1);\n\nreturn " . var_export($values, true) . ";\n";
+    $written = @file_put_contents($temporary, $source, LOCK_EX);
+    if ($written === false || !@chmod($temporary, 0600) || !@rename($temporary, $path)) {
+        @unlink($temporary);
+        return false;
+    }
+    return true;
+}
+
 function edit_config(): array
 {
     static $config;
@@ -70,17 +127,25 @@ function edit_config(): array
         ],
     ];
 
-    $configPath = edit_env('VENSIS_EDIT_CONFIG');
+    $explicitConfigPath = edit_env('VENSIS_EDIT_CONFIG');
+    $legacyConfigPath = __DIR__ . '/config.local.php';
+    $persistentConfigPath = edit_persistent_config_path();
+    $configPath = $explicitConfigPath;
     if ($configPath === '') {
-        $configPath = __DIR__ . '/config.local.php';
+        $configPath = is_file($legacyConfigPath)
+            ? $legacyConfigPath
+            : $persistentConfigPath;
     }
     $local = [];
-    if (is_file($configPath)) {
-        $loaded = require $configPath;
-        if (!is_array($loaded)) {
-            throw new EditApiException('Edit configuration is invalid.', 500);
+    $persistentReady = false;
+    if ($configPath !== '' && is_file($configPath)) {
+        $local = edit_load_config_file($configPath);
+        $persistentReady = $configPath === $persistentConfigPath || $explicitConfigPath !== '';
+        if ($configPath === $legacyConfigPath && $persistentConfigPath !== '') {
+            $shouldMigrate = !is_file($persistentConfigPath)
+                || (int) @filemtime($legacyConfigPath) > (int) @filemtime($persistentConfigPath);
+            $persistentReady = !$shouldMigrate || edit_persist_config($local, $persistentConfigPath);
         }
-        $local = $loaded;
     }
 
     $config = array_replace($defaults, $local);
@@ -96,12 +161,16 @@ function edit_config(): array
             $config[$key] = $value;
         }
     }
+    if ($environment['password_hash'] !== '' && $environment['github_token'] !== '') {
+        $persistentReady = true;
+    }
 
     $config['session_ttl'] = max(300, min(86400, (int) $config['session_ttl']));
     $config['session_absolute_ttl'] = max($config['session_ttl'], min(604800, (int) $config['session_absolute_ttl']));
     $config['login_max_attempts'] = max(3, min(20, (int) $config['login_max_attempts']));
     $config['login_window_seconds'] = max(60, min(86400, (int) $config['login_window_seconds']));
     $config['login_block_seconds'] = max(60, min(86400, (int) $config['login_block_seconds']));
+    $config['_persistent_config_ready'] = $persistentReady;
     return $config;
 }
 
@@ -118,6 +187,13 @@ function edit_require_configured(array $config): void
 {
     if (!edit_is_configured($config)) {
         throw new EditApiException('Edit Mode has not been configured on the server.', 503);
+    }
+}
+
+function edit_require_persistent_config(array $config): void
+{
+    if (empty($config['_persistent_config_ready'])) {
+        throw new EditApiException('Server settings are not stored outside the deployment folder yet.', 503);
     }
 }
 
