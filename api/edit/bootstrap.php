@@ -125,6 +125,7 @@ function edit_config(): array
             'data/fans-01.js', 'data/fans-02.js', 'data/fans-03.js', 'data/fans-04.js',
             'data/fans-05.js', 'data/fans-06.js', 'data/fans-07.js',
         ],
+        'series_overrides_file' => 'data/series-overrides.js',
     ];
 
     $explicitConfigPath = edit_env('VENSIS_EDIT_CONFIG');
@@ -205,14 +206,14 @@ function edit_require_method(string $method): void
     }
 }
 
-function edit_request_json(): array
+function edit_request_json(int $maximumBytes = 65536): array
 {
     $contentType = strtolower((string) ($_SERVER['CONTENT_TYPE'] ?? ''));
     if (strpos($contentType, 'application/json') !== 0) {
         throw new EditApiException('JSON content type is required.', 415);
     }
     $raw = file_get_contents('php://input');
-    if ($raw === false || strlen($raw) > 65536) {
+    if ($raw === false || strlen($raw) > $maximumBytes) {
         throw new EditApiException('Request body is invalid.', 413);
     }
     try {
@@ -470,7 +471,7 @@ function edit_github_request(array $config, string $method, string $path, ?array
     }
     if (!is_array($decoded) || $status < 200 || $status >= 300) {
         $publicStatus = in_array($status, [409, 422], true) ? 409 : 502;
-        throw new EditApiException($publicStatus === 409 ? 'The model changed on GitHub. Reload the page and try again.' : 'GitHub could not save the change.', $publicStatus);
+        throw new EditApiException($publicStatus === 409 ? 'The catalog data changed on GitHub. Reload the page and try again.' : 'GitHub could not save the change.', $publicStatus);
     }
     return $decoded;
 }
@@ -491,6 +492,51 @@ function edit_github_file(array $config, string $path): array
         throw new EditApiException('GitHub file content is unavailable.', 502);
     }
     return ['content' => $content, 'sha' => (string) $result['sha']];
+}
+
+function edit_github_write_file(
+    array $config,
+    string $path,
+    string $content,
+    string $message,
+    ?string $sha = null
+): array {
+    $repository = edit_encode_path((string) $config['github_repository']);
+    $file = edit_encode_path($path);
+    $payload = [
+        'message' => substr($message, 0, 240),
+        'content' => base64_encode($content),
+        'branch' => (string) $config['github_branch'],
+    ];
+    if (is_string($sha) && $sha !== '') {
+        $payload['sha'] = $sha;
+    }
+    return edit_github_request($config, 'PUT', "/repos/{$repository}/contents/{$file}", $payload);
+}
+
+function edit_parse_series_overrides(string $source): array
+{
+    if (!preg_match('/^\s*window\.VensisSeriesOverrides\s*=\s*(\{.*\})\s*;\s*$/s', $source, $matches)) {
+        throw new EditApiException('Series override file format is not recognized.', 500);
+    }
+    try {
+        $overrides = json_decode($matches[1], true, 64, JSON_THROW_ON_ERROR);
+    } catch (JsonException) {
+        throw new EditApiException('Series override file contains invalid data.', 500);
+    }
+    if (!is_array($overrides)) {
+        throw new EditApiException('Series override file contains invalid records.', 500);
+    }
+    return $overrides;
+}
+
+function edit_serialize_series_overrides(array $overrides): string
+{
+    ksort($overrides, SORT_NATURAL | SORT_FLAG_CASE);
+    return 'window.VensisSeriesOverrides=' . json_encode(
+        $overrides,
+        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR
+    ) . ';' . PHP_EOL;
 }
 
 function edit_parse_models(string $source): array
@@ -630,6 +676,205 @@ function edit_commit_model(array $config, string $modelKey, array $changes): arr
         'path' => $relativePath,
         'fields' => $changedFields,
         'model' => $modelName,
+        'commitSha' => (string) ($result['commit']['sha'] ?? ''),
+        'commitUrl' => (string) ($result['commit']['html_url'] ?? ''),
+    ];
+}
+
+function edit_series_exists(array $config, string $seriesKey): bool
+{
+    $root = dirname(__DIR__, 2);
+    foreach ($config['data_files'] as $relativePath) {
+        $path = $root . '/' . $relativePath;
+        $source = is_file($path) ? file_get_contents($path) : false;
+        if (!is_string($source)) {
+            continue;
+        }
+        foreach (edit_parse_models($source) as $model) {
+            if (is_array($model) && hash_equals((string) ($model['series'] ?? ''), $seriesKey)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function edit_normalize_series_list(mixed $value, string $field, int $maximumItems, int $maximumLength): array
+{
+    $isList = is_array($value) && ($value === [] || array_keys($value) === range(0, count($value) - 1));
+    if (!$isList || count($value) > $maximumItems) {
+        throw new EditApiException("Invalid value for {$field}.", 422);
+    }
+    $normalized = [];
+    foreach ($value as $item) {
+        if (!is_string($item)) {
+            throw new EditApiException("Invalid value for {$field}.", 422);
+        }
+        $item = trim($item);
+        if ($item === '') {
+            continue;
+        }
+        if (strlen($item) > $maximumLength || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', $item)) {
+            throw new EditApiException("Invalid value for {$field}.", 422);
+        }
+        if (!in_array($item, $normalized, true)) {
+            $normalized[] = $item;
+        }
+    }
+    return $normalized;
+}
+
+function edit_normalize_series_changes(array $changes): array
+{
+    $stringFields = ['code', 'manufacturer', 'title'];
+    $listFields = [
+        'categories' => [24, 120],
+        'general' => [80, 1200],
+        'motor' => [80, 1200],
+        'applications' => [80, 1200],
+    ];
+    $normalized = [];
+    foreach ($changes as $field => $value) {
+        if (in_array($field, $stringFields, true)) {
+            if (!is_string($value)) {
+                throw new EditApiException("Invalid value for {$field}.", 422);
+            }
+            $value = trim($value);
+            if ($value === '' || strlen($value) > 180 || preg_match('/[\x00-\x1F]/', $value)) {
+                throw new EditApiException("Invalid value for {$field}.", 422);
+            }
+            $normalized[$field] = $value;
+            continue;
+        }
+        if (isset($listFields[$field])) {
+            [$maximumItems, $maximumLength] = $listFields[$field];
+            $normalized[$field] = edit_normalize_series_list($value, $field, $maximumItems, $maximumLength);
+            continue;
+        }
+        throw new EditApiException("Field {$field} cannot be edited.", 422);
+    }
+    return $normalized;
+}
+
+function edit_normalize_series_image(mixed $value): ?array
+{
+    if ($value === null) {
+        return null;
+    }
+    if (!is_array($value) || !is_string($value['dataUrl'] ?? null)) {
+        throw new EditApiException('Series image is invalid.', 422);
+    }
+    $dataUrl = $value['dataUrl'];
+    $separator = strpos($dataUrl, ',');
+    if ($separator === false || $separator > 80) {
+        throw new EditApiException('Series image is invalid.', 422);
+    }
+    $header = substr($dataUrl, 0, $separator);
+    $encoded = substr($dataUrl, $separator + 1);
+    if (!preg_match('/^data:image\/(jpeg|png|webp);base64$/i', $header, $matches)) {
+        throw new EditApiException('Only JPEG, PNG or WebP images can be uploaded.', 422);
+    }
+    $bytes = base64_decode($encoded, true);
+    if (!is_string($bytes) || $bytes === '' || strlen($bytes) > 3 * 1024 * 1024) {
+        throw new EditApiException('Series image must be smaller than 3 MB.', 422);
+    }
+    $info = @getimagesizefromstring($bytes);
+    $mime = strtolower((string) ($info['mime'] ?? ''));
+    $extensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+    $width = (int) ($info[0] ?? 0);
+    $height = (int) ($info[1] ?? 0);
+    if (!isset($extensions[$mime]) || $width < 1 || $height < 1 || $width > 6000 || $height > 6000 || $width * $height > 36000000) {
+        throw new EditApiException('Series image dimensions or format are invalid.', 422);
+    }
+    return [
+        'bytes' => $bytes,
+        'extension' => $extensions[$mime],
+        'mime' => $mime,
+        'width' => $width,
+        'height' => $height,
+    ];
+}
+
+function edit_apply_series_changes(array &$record, array $changes, ?string $imagePath): array
+{
+    $changed = [];
+    foreach (['code', 'manufacturer', 'title', 'categories'] as $field) {
+        if (!array_key_exists($field, $changes)) {
+            continue;
+        }
+        if (($record[$field] ?? null) !== $changes[$field]) {
+            $record[$field] = $changes[$field];
+            $changed[] = $field;
+        }
+    }
+    foreach (['general', 'motor', 'applications'] as $field) {
+        if (!array_key_exists($field, $changes)) {
+            continue;
+        }
+        if (!isset($record['description']) || !is_array($record['description'])) {
+            $record['description'] = [];
+        }
+        if (($record['description'][$field] ?? null) !== $changes[$field]) {
+            $record['description'][$field] = $changes[$field];
+            $changed[] = $field;
+        }
+    }
+    if ($imagePath !== null && ($record['image'] ?? null) !== $imagePath) {
+        $record['image'] = $imagePath;
+        $changed[] = 'image';
+    }
+    return $changed;
+}
+
+function edit_commit_series(array $config, string $seriesKey, array $changes, ?array $image): array
+{
+    if (!edit_series_exists($config, $seriesKey)) {
+        throw new EditApiException('Series was not found.', 404);
+    }
+
+    $relativePath = (string) $config['series_overrides_file'];
+    $remote = edit_github_file($config, $relativePath);
+    $overrides = edit_parse_series_overrides($remote['content']);
+    $record = $overrides[$seriesKey] ?? [];
+    if (!is_array($record)) {
+        throw new EditApiException('Series override record is invalid.', 500);
+    }
+
+    $imagePath = null;
+    $imageCommitSha = '';
+    if ($image !== null) {
+        $slug = strtolower((string) preg_replace('/[^A-Za-z0-9]+/', '-', $seriesKey));
+        $slug = trim($slug, '-') ?: 'series';
+        $imagePath = 'assets/products/custom/' . $slug . '-' . gmdate('Ymd-His') . '-' . bin2hex(random_bytes(4)) . '.' . $image['extension'];
+        $imageResult = edit_github_write_file(
+            $config,
+            $imagePath,
+            $image['bytes'],
+            'Upload catalog image for ' . substr($seriesKey, 0, 80)
+        );
+        $imageCommitSha = (string) ($imageResult['commit']['sha'] ?? '');
+    }
+
+    $changedFields = edit_apply_series_changes($record, $changes, $imagePath);
+    if ($changedFields === []) {
+        return ['unchanged' => true, 'path' => $relativePath, 'fields' => [], 'series' => $seriesKey];
+    }
+    $overrides[$seriesKey] = $record;
+    $label = trim((string) ($record['code'] ?? $record['title'] ?? $seriesKey));
+    $result = edit_github_write_file(
+        $config,
+        $relativePath,
+        edit_serialize_series_overrides($overrides),
+        'Edit series ' . substr($label, 0, 80) . ': ' . implode(', ', $changedFields),
+        $remote['sha']
+    );
+    return [
+        'unchanged' => false,
+        'path' => $relativePath,
+        'fields' => $changedFields,
+        'series' => $label,
+        'imagePath' => $imagePath,
+        'imageCommitSha' => $imageCommitSha,
         'commitSha' => (string) ($result['commit']['sha'] ?? ''),
         'commitUrl' => (string) ($result['commit']['html_url'] ?? ''),
     ];
