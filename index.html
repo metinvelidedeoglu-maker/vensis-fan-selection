@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vensis Fan Selection</title>
-<link rel="stylesheet" href="css/app.css?v=20260719-v9cleanup">
+<link rel="stylesheet" href="css/app.css?v=20260722-series-codes">
 <link rel="stylesheet" href="css/form-state.css?v=20260719-v9cleanup">
 <link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
 </head>
@@ -26,7 +26,7 @@
     <div class="section-body product-filter-grid">
       <details class="filter-accordion" open><summary>Manufacturer <span id="manufacturerCount" class="summary-count"></span></summary><div id="manufacturerList" class="list-box"></div></details>
       <details class="filter-accordion" open><summary>Category <span id="categoryCount" class="summary-count"></span></summary><div class="filter-search"><input id="categorySearch" type="search" placeholder="Search category..." oninput="renderTagSeries()"></div><div id="categoryList" class="list-box"></div></details>
-      <details class="filter-accordion" open><summary>Series <span id="seriesCount" class="summary-count"></span></summary><div class="filter-search"><input id="seriesSearch" type="search" placeholder="Search series..." oninput="renderTagSeries()"></div><div id="seriesList" class="list-box"></div></details>
+      <details class="filter-accordion" open><summary>Series <span id="seriesCount" class="summary-count"></span></summary><div class="filter-search"><input id="seriesSearch" type="search" placeholder="Search series or product code..." oninput="renderTagSeries()"></div><div id="seriesList" class="list-box"></div></details>
     </div>
   </div>
   <div class="actions"><button class="secondary" onclick="resetAll()"><span class="icon-label"><span class="ui-icon">↺</span>Reset</span></button><button class="search" onclick="runSelection()"><span class="icon-label"><span class="ui-icon">⌕</span>Find Fans</span></button></div>
@@ -39,7 +39,7 @@
 <script src="js/core/utils.js?v=20260719-v9cleanup"></script>
 <script src="js/core/state.js?v=20260720-datasheet"></script>
 <script src="js/core/selection-engine.js?v=20260719-v9cleanup"></script>
-<script src="js/ui/filters.js?v=20260719-v9cleanup"></script>
+<script src="js/ui/filters.js?v=20260722-series-codes"></script>
 <script src="js/ui/datasheet.js?v=20260720-datasheet"></script>
 <script src="js/ui/pdf-export.js?v=20260721-compact-selection-points"></script>
 <script src="js/projects-store.js?v=20260721-multi-projects"></script>
