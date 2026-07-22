@@ -215,6 +215,10 @@
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!byId('customProductModal')?.hidden)closeProductEditor()});
   byId('projectName')?.addEventListener('input',()=>writeMeta());byId('projectReference')?.addEventListener('input',()=>writeMeta());
   window.addEventListener('storage',event=>{if(!event.key||event.key===`${store.keys.itemsPrefix}${PROJECT_ID}`||event.key===`${store.keys.metaPrefix}${PROJECT_ID}`){loadMeta();render()}});
+  window.addEventListener('vensis-project-cloud-applied',()=>{
+    if(!store.get(PROJECT_ID)){location.replace('projects.html');return}
+    loadMeta();render();
+  });
   window.VensisQuotation={convert:convertToQuotation,key:QUOTATION_KEY};
   window.VensisProject={projectId:PROJECT_ID,render,readItems,writeItems,readMeta,writeMeta,openProductEditor,moveItem,flushAllNotes};
   loadMeta();render();
