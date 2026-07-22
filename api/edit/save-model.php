@@ -8,6 +8,7 @@ $config = edit_config();
 edit_require_configured($config);
 edit_require_session($config);
 edit_require_csrf();
+edit_require_persistent_config($config);
 
 $data = edit_request_json();
 $modelKey = $data['modelKey'] ?? null;
@@ -37,4 +38,3 @@ edit_json([
     'commitSha' => $result['commitSha'] ?? null,
     'commitUrl' => $result['commitUrl'] ?? null,
 ]);
-

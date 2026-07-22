@@ -2,6 +2,8 @@
 declare(strict_types=1);
 
 return [
+    // When this legacy file is loaded, Edit Mode automatically writes a protected
+    // static copy outside public_html so Hostinger deployments cannot delete it.
     // Generate with: php -r "echo password_hash('YOUR_PASSWORD', PASSWORD_DEFAULT), PHP_EOL;"
     'password_hash' => 'PASTE_PASSWORD_HASH_HERE',
 
@@ -19,4 +21,3 @@ return [
     // Prefer a directory outside public_html when Hostinger provides one.
     // 'runtime_dir' => '/home/USERNAME/.vensis-edit',
 ];
-
