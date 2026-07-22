@@ -6,6 +6,7 @@
   const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const numberValue=value=>Number.isFinite(Number(value))?Number(value):0;
   let launcher,overlay,dialog,toastTimer;
+  const isCatalogPage=()=>document.body.classList.contains('app-catalog');
 
   async function request(path,options={}){
     const headers={Accept:'application/json',...(options.headers||{})};
@@ -37,15 +38,15 @@
   }
 
   function mount(){
-    if(!document.body.classList.contains('app-catalog'))return;
+    if(!document.body.classList.contains('app-shell'))return;
     if(document.getElementById('vensisEditLauncher'))return;
     launcher=document.createElement('button');
     launcher.id='vensisEditLauncher';
     launcher.className='vensis-edit-launcher';
     launcher.type='button';
-    launcher.title='Open secure Edit Mode';
-    launcher.setAttribute('aria-label','Open secure Edit Mode');
-    launcher.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m4 16-.8 4.8L8 20l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m13.8 7.8 3 3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
+    launcher.title=isCatalogPage()?'Open secure Edit Mode':'Open secure Project Cloud';
+    launcher.setAttribute('aria-label',launcher.title);
+    launcher.innerHTML=isCatalogPage()?'<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m4 16-.8 4.8L8 20l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m13.8 7.8 3 3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>':'<svg viewBox="0 0 24 24" width="23" height="23" aria-hidden="true"><path d="M7.2 18.5h10.1a4.2 4.2 0 0 0 .7-8.3A6.1 6.1 0 0 0 6.4 8.8a4.9 4.9 0 0 0 .8 9.7Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m9.2 13 2.1 2.1 4-4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     launcher.addEventListener('click',openLauncher);
 
     overlay=document.createElement('div');
@@ -87,9 +88,12 @@
     document.body.classList.toggle('vensis-edit-authenticated',state.authenticated);
     launcher?.classList.toggle('is-active',state.authenticated);
     if(launcher){
-      launcher.title=state.authenticated?'Edit Mode is active':'Open secure Edit Mode';
+      launcher.title=state.authenticated?(isCatalogPage()?'Edit Mode and Project Cloud are active':'Project Cloud is active'):(isCatalogPage()?'Open secure Edit Mode':'Open secure Project Cloud');
       launcher.setAttribute('aria-label',launcher.title);
     }
+    window.dispatchEvent(new CustomEvent('vensis-edit-session-changed',{detail:{
+      configured:state.configured,persistentConfigReady:state.persistentConfigReady,authenticated:state.authenticated
+    }}));
   }
 
   function showToast(message){
@@ -117,7 +121,7 @@
   }
 
   function head(title,subtitle){
-    return `<header class="vensis-edit-head"><div><span class="vensis-edit-kicker">Secure Edit Mode</span><h2 id="vensisEditTitle">${esc(title)}</h2>${subtitle?`<p>${esc(subtitle)}</p>`:''}</div><button class="vensis-edit-close" type="button" data-edit-close aria-label="Close">×</button></header>`;
+    return `<header class="vensis-edit-head"><div><span class="vensis-edit-kicker">${isCatalogPage()?'Secure Edit Mode':'Secure Project Cloud'}</span><h2 id="vensisEditTitle">${esc(title)}</h2>${subtitle?`<p>${esc(subtitle)}</p>`:''}</div><button class="vensis-edit-close" type="button" data-edit-close aria-label="Close">×</button></header>`;
   }
 
   async function refreshSession(){
@@ -131,7 +135,7 @@
 
   function openLauncher(){
     if(!state.configured){
-      showModal(`${head('Setup required','The secure server settings have not been completed yet.')}<div class="vensis-edit-body"><div class="vensis-edit-message is-error">Edit Mode is installed but not configured on Hostinger.</div><p class="vensis-edit-note">The password hash and GitHub access token must be stored only in the server configuration.</p><div class="vensis-edit-actions"><button class="vensis-edit-secondary" type="button" data-edit-close>Close</button></div></div>`,true);
+      showModal(`${head('Setup required','The secure server settings have not been completed yet.')}<div class="vensis-edit-body"><div class="vensis-edit-message is-error">The secure workspace is installed but not configured on Hostinger.</div><p class="vensis-edit-note">The password hash and GitHub access token must be stored only in the server configuration.</p><div class="vensis-edit-actions"><button class="vensis-edit-secondary" type="button" data-edit-close>Close</button></div></div>`,true);
       dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
       return;
     }
@@ -140,7 +144,7 @@
   }
 
   function showLogin(message=''){
-    showModal(`${head('Sign in','Enter the Edit Mode password. It is verified only on the server.')}<form id="vensisEditLogin" class="vensis-edit-body"><div id="vensisEditLoginMessage" class="vensis-edit-message${message?' is-error':''}">${esc(message)}</div><label class="vensis-edit-field"><span>Password</span><input id="vensisEditPassword" type="password" autocomplete="current-password" maxlength="1024" required></label><div class="vensis-edit-actions"><button class="vensis-edit-secondary" type="button" data-edit-close>Cancel</button><button class="vensis-edit-primary" type="submit">Open Edit Mode</button></div></form>`,true);
+    showModal(`${head('Sign in','Enter the secure workspace password. It is verified only on the server.')}<form id="vensisEditLogin" class="vensis-edit-body"><div id="vensisEditLoginMessage" class="vensis-edit-message${message?' is-error':''}">${esc(message)}</div><label class="vensis-edit-field"><span>Password</span><input id="vensisEditPassword" type="password" autocomplete="current-password" maxlength="1024" required></label><div class="vensis-edit-actions"><button class="vensis-edit-secondary" type="button" data-edit-close>Cancel</button><button class="vensis-edit-primary" type="submit">Open Secure Workspace</button></div></form>`,true);
     dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
     dialog.querySelector('#vensisEditLogin')?.addEventListener('submit',submitLogin);
   }
@@ -164,13 +168,13 @@
       state.pendingModelKey='';
       state.pendingSeriesKey='';
       closeModal();
-      showToast('Secure Edit Mode opened.');
+      showToast(isCatalogPage()?'Secure Edit Mode opened.':'Project Cloud opened. Syncing projects…');
       if(pendingSeries)setTimeout(()=>openSeriesEditor(pendingSeries),50);
       else if(pendingModel)setTimeout(()=>openModelEditor(pendingModel),50);
     }catch(error){
       state.busy=false;
       submit.disabled=false;
-      submit.textContent='Open Edit Mode';
+      submit.textContent='Open Secure Workspace';
       if(message){
         message.className='vensis-edit-message is-error';
         message.textContent=error.retryAfter?`${error.message} (${Math.ceil(error.retryAfter/60)} min)`:error.message;
@@ -180,8 +184,11 @@
   }
 
   function showSessionPanel(){
-    const storageWarning=state.persistentConfigReady?'':'<div class="vensis-edit-message is-error">Server settings are not yet stored outside the deployment folder. Re-save config.local.php before making a catalog change.</div>';
-    showModal(`${head('Catalog Edit Mode active','Series information, images and every model-card value can be changed.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Changes are committed to GitHub and then deployed by Hostinger.</small></div></div><p class="vensis-edit-note">Use Edit Series for brand, category, name, information and image. Use the pencil on a model card for model values. Internal keys and performance curves remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`,true);
+    const storageWarning=state.persistentConfigReady?'':'<div class="vensis-edit-message is-error">Server settings are not yet stored outside the deployment folder. Re-save config.local.php before saving changes.</div>';
+    const content=isCatalogPage()
+      ? `${head('Catalog Edit Mode active','Series information, images and every model-card value can be changed.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Catalog changes are committed to GitHub. Projects are synchronized to protected Hostinger storage.</small></div></div><p class="vensis-edit-note">Use Edit Series for series information and the pencil on a model card for model values. Internal keys and performance curves remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`
+      : `${head('Project Cloud active','Projects are synchronized securely across your devices.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>${esc(window.VensisProjects?.cloudState?.().message||'Projects are stored outside public_html on Hostinger.')}</small></div></div><p class="vensis-edit-note">Browser copies remain available for speed. The protected Hostinger copy restores them on another signed-in device.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue</button></div></div>`;
+    showModal(content,true);
     dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
     dialog.querySelector('#vensisEditLogout')?.addEventListener('click',logout);
   }
@@ -192,9 +199,9 @@
     const button=dialog.querySelector('#vensisEditLogout');
     if(button){button.disabled=true;button.textContent='Signing out…'}
     try{await request('logout.php',{method:'POST',body:{},csrf:true})}catch{}
-    setSession({configured:state.configured,authenticated:false});
+    setSession({configured:state.configured,persistentConfigReady:state.persistentConfigReady,authenticated:false});
     closeModal();
-    showToast('Edit Mode closed.');
+    showToast(isCatalogPage()?'Edit Mode closed.':'Project Cloud signed out. Browser copies remain available.');
   }
 
   function modelRecord(key){
@@ -333,7 +340,7 @@
       submit.disabled=false;
       submit.textContent='Save to GitHub';
       if(error.status===401){
-        setSession({configured:state.configured,authenticated:false});
+        setSession({configured:state.configured,persistentConfigReady:state.persistentConfigReady,authenticated:false});
         state.pendingSeriesKey=seriesKey;
         showLogin(error.message);
         return;
@@ -402,7 +409,7 @@
       submit.disabled=false;
       submit.textContent='Save to GitHub';
       if(error.status===401){
-        setSession({configured:state.configured,authenticated:false});
+        setSession({configured:state.configured,persistentConfigReady:state.persistentConfigReady,authenticated:false});
         state.pendingModelKey=modelKey;
         showLogin(error.message);
         return;
