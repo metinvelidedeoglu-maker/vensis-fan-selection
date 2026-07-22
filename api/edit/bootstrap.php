@@ -463,9 +463,9 @@ function edit_normalize_changes(array $changes): array
         'rpm' => [0.0, 100000.0, true],
         'amps' => [0.0, 1000000.0, false],
         'spl' => [0.0, 200.0, false],
-        'pole' => [0.0, 24.0, true],
+        'nominal' => [0.0, 10000000.0, true],
     ];
-    $strings = ['voltage', 'fire', 'fanTypeEn', 'mountTypeEn', 'productGroupEn'];
+    $strings = ['model', 'voltage', 'frequency', 'fire', 'fanTypeEn', 'mountTypeEn', 'ipClass'];
     $normalized = [];
     foreach ($changes as $field => $value) {
         if (isset($numeric[$field])) {
@@ -487,6 +487,9 @@ function edit_normalize_changes(array $changes): array
             $value = trim($value);
             if (strlen($value) > 120 || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', $value)) {
                 throw new EditApiException("Invalid value for {$field}.", 422);
+            }
+            if ($field === 'model' && $value === '') {
+                throw new EditApiException('Model name cannot be empty.', 422);
             }
             $normalized[$field] = $value;
             continue;
