@@ -37,6 +37,7 @@
   }
 
   function mount(){
+    if(!document.body.classList.contains('app-catalog'))return;
     if(document.getElementById('vensisEditLauncher'))return;
     launcher=document.createElement('button');
     launcher.id='vensisEditLauncher';
@@ -167,7 +168,7 @@
   }
 
   function showSessionPanel(){
-    showModal(`${head('Edit Mode active','Only allowed fan fields can be changed.')}<div class="vensis-edit-body"><div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Changes are committed to GitHub and then deployed by Hostinger.</small></div></div><p class="vensis-edit-note">Use the pencil button next to a fan model. Model identity and performance curves are protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`,true);
+    showModal(`${head('Catalog Edit Mode active','All values shown on catalog model cards can be changed.')}<div class="vensis-edit-body"><div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Changes are committed to GitHub and then deployed by Hostinger.</small></div></div><p class="vensis-edit-note">Open a product series and use the pencil button on the model card. The internal model key and performance curve remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`,true);
     dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
     dialog.querySelector('#vensisEditLogout')?.addEventListener('click',logout);
   }
@@ -192,15 +193,15 @@
       id:row.id||row.key,
       model:row.model||'',
       pricing:{listPrice:row.price},
-      motor:{power:row.kw,speed:row.rpm,current:row.amps,voltage:row.voltage,sound:row.spl},
-      technical:{fireRating:row.fireRating||row.fire,fanType:row.fanType,mountType:row.mountType,productGroup:row.productGroup},
-      source:{pole:row.pole}
+      motor:{power:row.kw,speed:row.rpm,current:row.amps,voltage:row.voltage,frequency:row.frequency,sound:row.spl},
+      technical:{fireRating:row.fireRating||row.fire,fanType:row.fanType,mountType:row.mountType,ipClass:row.ipClass},
+      performance:{nominalAirflow:row.nominal}
     };
   }
 
   function field(label,name,value,options={}){
     const attributes=options.type==='text'
-      ? 'type="text" maxlength="120"'
+      ? `type="text" maxlength="120"${options.required?' required':''}`
       : `type="number" min="${options.min??0}" max="${options.max??10000000}" step="${options.step||'any'}"`;
     return `<label class="vensis-edit-field${options.wide?' is-wide':''}"><span>${esc(label)}</span><input name="${esc(name)}" ${attributes} value="${esc(value)}"></label>`;
   }
@@ -212,7 +213,8 @@
     const model=modelRecord(key);
     if(!model){showToast('Model could not be opened for editing.');return}
     const motor=model.motor||{},technical=model.technical||{},pricing=model.pricing||{};
-    showModal(`${head(model.model||'Fan model','Protected fields such as model identity and fan curve are not editable.')}<form id="vensisModelEditForm" class="vensis-edit-body"><input type="hidden" name="modelKey" value="${esc(key)}"><div id="vensisModelEditMessage" class="vensis-edit-message"></div><div class="vensis-edit-grid">${field('List Price (€)','price',numberValue(pricing.listPrice),{step:'0.01'})}${field('Motor Power (kW)','kw',numberValue(motor.power),{step:'0.01'})}${field('Speed (rpm)','rpm',numberValue(motor.speed),{step:'1',max:100000})}${field('Current (A)','amps',numberValue(motor.current),{step:'0.01',max:1000000})}${field('Sound Level dB(A)','spl',numberValue(motor.sound),{step:'1',max:200})}${field('Pole','pole',numberValue(model.pole??model.source?.pole),{step:'1',max:24})}${field('Voltage','voltage',motor.voltage||'',{type:'text'})}${field('Fire Rating','fire',technical.fireRating||'',{type:'text'})}${field('Fan Type','fanTypeEn',technical.fanType||'',{type:'text',wide:true})}${field('Mount Type','mountTypeEn',technical.mountType||'',{type:'text',wide:true})}${field('Product Group','productGroupEn',technical.productGroup||'',{type:'text',wide:true})}</div><div class="vensis-edit-actions"><button class="vensis-edit-secondary" type="button" data-edit-close>Cancel</button><button class="vensis-edit-primary" type="submit">Save to GitHub</button></div></form>`);
+    const performance=model.performance||{};
+    showModal(`${head(model.model||'Fan model','Edit every value displayed on this catalog model card.')}<form id="vensisModelEditForm" class="vensis-edit-body"><input type="hidden" name="modelKey" value="${esc(key)}"><div id="vensisModelEditMessage" class="vensis-edit-message"></div><div class="vensis-edit-section-title">Model</div><div class="vensis-edit-grid">${field('Model Name','model',model.model||'',{type:'text',wide:true,required:true})}</div><div class="vensis-edit-section-title">Catalog Values</div><div class="vensis-edit-grid">${field('Power (kW)','kw',numberValue(motor.power),{step:'0.01',max:100000})}${field('Speed (rpm)','rpm',numberValue(motor.speed),{step:'1',max:100000})}${field('Current (A)','amps',numberValue(motor.current),{step:'0.01',max:1000000})}${field('Voltage','voltage',motor.voltage||'',{type:'text'})}${field('Frequency','frequency',motor.frequency||'',{type:'text'})}${field('Airflow (m³/h)','nominal',numberValue(performance.nominalAirflow),{step:'1',max:10000000})}${field('Noise dB(A)','spl',numberValue(motor.sound),{step:'1',max:200})}${field('Fire Rating','fire',technical.fireRating||'',{type:'text'})}${field('Fan Type','fanTypeEn',technical.fanType||'',{type:'text'})}${field('Mount Type','mountTypeEn',technical.mountType||'',{type:'text'})}${field('IP Class','ipClass',technical.ipClass||'',{type:'text'})}${field('Price (€)','price',numberValue(pricing.listPrice),{step:'0.01'})}</div><p class="vensis-edit-note">The internal model key and performance curve are protected.</p><div class="vensis-edit-actions"><button class="vensis-edit-secondary" type="button" data-edit-close>Cancel</button><button class="vensis-edit-primary" type="submit">Save to GitHub</button></div></form>`);
     dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
     dialog.querySelector('#vensisModelEditForm')?.addEventListener('submit',saveModel);
   }
@@ -225,7 +227,7 @@
     const submit=form.querySelector('[type="submit"]');
     const values=Object.fromEntries(new FormData(form).entries());
     const modelKey=values.modelKey;
-    const numericFields=new Set(['price','kw','rpm','amps','spl','pole']);
+    const numericFields=new Set(['price','kw','rpm','amps','spl','nominal']);
     const changes={};
     for(const input of form.querySelectorAll('input[name]:not([name="modelKey"])')){
       if(input.value===input.defaultValue)continue;
