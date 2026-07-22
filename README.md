@@ -39,3 +39,14 @@ displayed on a model card: model
 name, power, speed, current, voltage, frequency, nominal airflow, noise, fire rating,
 fan type, mount type, IP class and price. The internal model key and fan performance
 curves, as well as the internal series key, are not editable through this API.
+
+## Project Cloud
+
+Projects keep a fast browser copy and synchronize through the same authenticated
+server session used by Edit Mode. The canonical server records are stored with
+`0600` permissions in `.vensis-edit/projects-v1.json` outside `public_html`, so Git
+deployments and browser-data cleanup do not remove them. Existing browser projects
+are merged into the cloud on the first authenticated sync. Per-project timestamps
+and deletion tombstones prevent an older device from overwriting newer edits or
+restoring a deleted project. Project API writes require the authenticated session,
+same-origin validation and a CSRF token.
