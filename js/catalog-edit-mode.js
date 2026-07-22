@@ -147,7 +147,7 @@
 
   const lines=value=>(Array.isArray(value)?value:[]).join('\n');
   const pointLines=value=>(Array.isArray(value)?value:[]).map(point=>`${Number(point.q)||0}, ${Number(point.p)||0}`).join('\n');
-  const field=(label,name,value,type='text',classes='')=>`<label class="${classes}">${esc(label)}<input name="${esc(name)}" type="${esc(type)}" value="${esc(value??'')}"></label>`;
+  const field=(label,name,value,type='text',classes='')=>`<label class="${classes}">${esc(label)}<input name="${esc(name)}" type="${esc(type)}" value="${esc(value??'')}"${type==='number'?' step="any" inputmode="decimal"':''}></label>`;
   const area=(label,name,value,classes='catalog-editor-wide',help='')=>`<label class="${classes}">${esc(label)}<textarea name="${esc(name)}">${esc(value??'')}</textarea>${help?`<small class="catalog-editor-help">${esc(help)}</small>`:''}</label>`;
 
   function editSeries(id){
@@ -256,7 +256,7 @@
 
   function observe(){
     const observer=new MutationObserver(()=>setTimeout(decorate,0));
-    ['catalogGrid','detailPage'].forEach(id=>{const node=document.getElementById(id);if(node)observer.observe(node,{childList:true,subtree:true})});
+    ['catalogGrid','detailPage'].forEach(id=>{const node=document.getElementById(id);if(node)observer.observe(node,{childList:true,subtree:false})});
   }
   function start(){mountShell();observe();setTimeout(decorate,0)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
