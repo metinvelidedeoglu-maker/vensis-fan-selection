@@ -53,6 +53,7 @@
       seriesId:code,
       model,
       display:row?.display||model,
+      pole:Number(row?.pole)||0,
       pricing:{listPrice:Number.isFinite(Number(row?.price))?Number(row.price):null,currency:'EUR'},
       motor:{power:Number(row?.kw)||0,speed:Number(row?.rpm)||0,current:Number(row?.amps)||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl)||0},
       technical:{
