@@ -26,10 +26,12 @@ Edit Mode never stores the password or GitHub token in browser code. Copy
 2. A fine-grained GitHub token limited to this repository with `Contents: Read and write`.
 3. The repository and deployment branch, if they differ from the defaults.
 
-`config.local.php` is ignored by Git and blocked by `.htaccess`. Prefer setting
-`VENSIS_EDIT_CONFIG` to a config file outside `public_html` when the hosting plan
-supports environment variables. Login attempts, sessions, CSRF tokens and edits
-are enforced server-side. Each accepted edit creates a GitHub commit. Edit Mode is
+`config.local.php` is ignored by Git and blocked by `.htaccess`. On first load, its
+resolved values are automatically written with `0600` permissions to
+`.vensis-edit/config.php` outside `public_html`; that persistent copy survives
+Hostinger Git deployments. `VENSIS_EDIT_CONFIG` can still select another external
+path. Login attempts, sessions, CSRF tokens and edits are enforced server-side. Each
+accepted edit creates a GitHub commit. Edit Mode is
 available in Product Catalog and covers every value displayed on a model card: model
 name, power, speed, current, voltage, frequency, nominal airflow, noise, fire rating,
 fan type, mount type, IP class and price. The internal model key and fan performance
