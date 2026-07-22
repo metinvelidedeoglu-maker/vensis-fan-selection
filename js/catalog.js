@@ -46,6 +46,7 @@
         <div class="series-title">${esc(series.title||'')}</div>
         ${summary&&summary!==series.title?`<p>${esc(summary)}</p>`:''}
         <div class="series-card-footer"><b>${count} Models</b><span>View Series →</span></div>
+        <button class="vensis-series-edit" type="button" data-edit-series="${esc(series.id)}" title="Edit series information" aria-label="Edit ${esc(series.code||series.title)} series information">✎ Edit Series</button>
       </div>
     </article>`;
   }
@@ -56,8 +57,8 @@
     document.getElementById('catalogGrid').innerHTML=rows.map(seriesCard).join('')||'<div class="empty-state">No series matches these filters.</div>';
     document.querySelectorAll('[data-series]').forEach(card=>{
       const open=()=>location.assign(seriesUrl(card.dataset.series));
-      card.addEventListener('click',open);
-      card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}});
+      card.addEventListener('click',event=>{if(event.target.closest('[data-edit-series]'))return;open()});
+      card.addEventListener('keydown',event=>{if(event.target.closest('[data-edit-series]'))return;if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}});
     });
   }
 
@@ -178,7 +179,10 @@
           <h1>${esc(series.code||series.title)}</h1>
           <h2>${esc(series.title||'')}</h2>
           <div class="series-badges"><span>${models.length} Models</span>${(series.categories||[]).map(category=>`<span>${esc(category)}</span>`).join('')}</div>
-          ${pdf?`<a class="catalog-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">Open Product PDF</a>`:''}
+          <div class="series-hero-actions">
+            ${pdf?`<a class="catalog-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">Open Product PDF</a>`:''}
+            <button class="vensis-series-edit" type="button" data-edit-series="${esc(series.id)}">✎ Edit Series</button>
+          </div>
         </div>
       </section>
       <div class="series-info-grid">
