@@ -20,6 +20,7 @@
     const results=[];
 
     for(const model of S.models){
+      if(model.catalogOnly)continue;
       if(selectedManufacturers.size&&!selectedManufacturers.has(model.manufacturer))continue;
       if(selectedCategories.size&&![...selectedCategories].every(category=>model.categories.includes(category)))continue;
       if(selectedSeries.size&&!selectedSeries.has(model.series))continue;

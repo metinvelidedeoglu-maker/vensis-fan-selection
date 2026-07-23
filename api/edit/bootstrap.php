@@ -577,6 +577,24 @@ function edit_locate_model_file(array $config, string $modelKey): string
     throw new EditApiException('Model was not found.', 404);
 }
 
+function edit_locate_series_file(array $config, string $seriesKey): string
+{
+    $root = dirname(__DIR__, 2);
+    foreach ($config['data_files'] as $relativePath) {
+        $path = $root . '/' . $relativePath;
+        $source = is_file($path) ? file_get_contents($path) : false;
+        if (!is_string($source)) {
+            continue;
+        }
+        foreach (edit_parse_models($source) as $model) {
+            if (is_array($model) && hash_equals((string) ($model['series'] ?? ''), $seriesKey)) {
+                return $relativePath;
+            }
+        }
+    }
+    throw new EditApiException('Series was not found.', 404);
+}
+
 function edit_normalize_changes(array $changes): array
 {
     $numeric = [
@@ -607,7 +625,7 @@ function edit_normalize_changes(array $changes): array
                 throw new EditApiException("Invalid value for {$field}.", 422);
             }
             $value = trim($value);
-            if (strlen($value) > 120 || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', $value)) {
+            if (strlen($value) > 120 || preg_match('/[\x00-\x1F\x7F]/', $value)) {
                 throw new EditApiException("Invalid value for {$field}.", 422);
             }
             if ($field === 'model' && $value === '') {
@@ -676,6 +694,97 @@ function edit_commit_model(array $config, string $modelKey, array $changes): arr
         'path' => $relativePath,
         'fields' => $changedFields,
         'model' => $modelName,
+        'commitSha' => (string) ($result['commit']['sha'] ?? ''),
+        'commitUrl' => (string) ($result['commit']['html_url'] ?? ''),
+    ];
+}
+
+function edit_commit_new_model(array $config, string $seriesKey, array $values): array
+{
+    $relativePath = edit_locate_series_file($config, $seriesKey);
+    $remote = edit_github_file($config, $relativePath);
+    $models = edit_parse_models($remote['content']);
+    $template = null;
+    foreach ($models as $model) {
+        if (is_array($model) && hash_equals((string) ($model['series'] ?? ''), $seriesKey)) {
+            $template = $model;
+            break;
+        }
+    }
+    if (!is_array($template)) {
+        throw new EditApiException('Series was not found in the current GitHub version. Reload the page and try again.', 409);
+    }
+
+    $modelName = trim((string) ($values['model'] ?? ''));
+    $nominal = (int) ($values['nominal'] ?? 0);
+    foreach ($models as $model) {
+        if (!is_array($model) || !hash_equals((string) ($model['series'] ?? ''), $seriesKey)) {
+            continue;
+        }
+        if (strcasecmp(trim((string) ($model['model'] ?? '')), $modelName) === 0
+            && abs((float) ($model['nominal'] ?? 0) - $nominal) < 0.0000001) {
+            throw new EditApiException('A product with the same model name and airflow already exists in this series.', 409);
+        }
+    }
+
+    try {
+        $randomKey = bin2hex(random_bytes(8));
+    } catch (Throwable) {
+        throw new EditApiException('A secure product key could not be generated.', 500);
+    }
+    $key = 'manual|' . $seriesKey . '|' . gmdate('YmdHis') . '|' . $randomKey;
+    $display = $modelName . ($nominal > 0 ? ' (' . $nominal . ' m³/h)' : '');
+    $fanType = (string) ($values['fanTypeEn'] ?? '');
+    $mountType = (string) ($values['mountTypeEn'] ?? '');
+    $fanTypeEn = $fanType !== '' ? $fanType : (string) ($template['fanTypeEn'] ?? $template['fanType'] ?? '');
+    $mountTypeEn = $mountType !== '' ? $mountType : (string) ($template['mountTypeEn'] ?? $template['mountType'] ?? '');
+
+    $newModel = [
+        'key' => $key,
+        'display' => $display,
+        'model' => $modelName,
+        'brand' => (string) ($template['brand'] ?? 'Vitlo'),
+        'series' => $seriesKey,
+        'fanType' => (string) ($template['fanType'] ?? $fanTypeEn),
+        'mountType' => (string) ($template['mountType'] ?? $mountTypeEn),
+        'productGroup' => (string) ($template['productGroup'] ?? ''),
+        'atex' => (bool) ($template['atex'] ?? false),
+        'nominal' => $nominal,
+        'kw' => (float) ($values['kw'] ?? 0),
+        'rpm' => (int) ($values['rpm'] ?? 0),
+        'amps' => (float) ($values['amps'] ?? 0),
+        'spl' => (float) ($values['spl'] ?? 0),
+        'price' => (float) ($values['price'] ?? 0),
+        'pole' => null,
+        'fire' => (string) ($values['fire'] ?? ''),
+        'voltage' => (string) ($values['voltage'] ?? ''),
+        'frequency' => (string) ($values['frequency'] ?? ''),
+        'ipClass' => (string) ($values['ipClass'] ?? ''),
+        'points' => [],
+        'sourcePage' => null,
+        'tags' => is_array($template['tags'] ?? null) ? $template['tags'] : [],
+        'catalogNameEn' => (string) ($template['catalogNameEn'] ?? $seriesKey),
+        'tagsEn' => is_array($template['tagsEn'] ?? null) ? $template['tagsEn'] : [],
+        'fanTypeEn' => $fanTypeEn,
+        'mountTypeEn' => $mountTypeEn,
+        'productGroupEn' => (string) ($template['productGroupEn'] ?? ''),
+        'catalogOnly' => true,
+        'sourcePoints' => [],
+    ];
+    $models[] = $newModel;
+
+    $result = edit_github_write_file(
+        $config,
+        $relativePath,
+        edit_serialize_models($models),
+        'Add catalog product ' . substr($modelName, 0, 100),
+        $remote['sha']
+    );
+    return [
+        'path' => $relativePath,
+        'modelKey' => $key,
+        'model' => $modelName,
+        'series' => $seriesKey,
         'commitSha' => (string) ($result['commit']['sha'] ?? ''),
         'commitUrl' => (string) ($result['commit']['html_url'] ?? ''),
     ];

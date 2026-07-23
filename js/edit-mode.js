@@ -2,7 +2,7 @@
   'use strict';
 
   const API_BASE='api/edit';
-  const state={configured:false,persistentConfigReady:false,authenticated:false,csrf:'',pendingModelKey:'',pendingSeriesKey:'',busy:false};
+  const state={configured:false,persistentConfigReady:false,authenticated:false,csrf:'',pendingModelKey:'',pendingSeriesKey:'',pendingNewSeriesKey:'',busy:false};
   const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const numberValue=value=>Number.isFinite(Number(value))?Number(value):0;
   let launcher,overlay,dialog,toastTimer;
@@ -64,6 +64,13 @@
     toast.setAttribute('role','status');
     document.body.append(launcher,overlay,toast);
     document.addEventListener('click',event=>{
+      const addButton=event.target.closest('[data-add-model]');
+      if(addButton){
+        event.preventDefault();
+        event.stopPropagation();
+        openAddModel(addButton.dataset.addModel||'');
+        return;
+      }
       const editButton=event.target.closest('[data-edit-model]');
       if(editButton){
         event.preventDefault();
@@ -165,11 +172,14 @@
       setSession({...payload,configured:true});
       const pendingModel=state.pendingModelKey;
       const pendingSeries=state.pendingSeriesKey;
+      const pendingNewSeries=state.pendingNewSeriesKey;
       state.pendingModelKey='';
       state.pendingSeriesKey='';
+      state.pendingNewSeriesKey='';
       closeModal();
       showToast(isCatalogPage()?'Secure Edit Mode opened.':'Project Cloud opened. Syncing projects…');
-      if(pendingSeries)setTimeout(()=>openSeriesEditor(pendingSeries),50);
+      if(pendingNewSeries)setTimeout(()=>openAddModel(pendingNewSeries==='__choose__'?'':pendingNewSeries),50);
+      else if(pendingSeries)setTimeout(()=>openSeriesEditor(pendingSeries),50);
       else if(pendingModel)setTimeout(()=>openModelEditor(pendingModel),50);
     }catch(error){
       state.busy=false;
@@ -186,11 +196,12 @@
   function showSessionPanel(){
     const storageWarning=state.persistentConfigReady?'':'<div class="vensis-edit-message is-error">Server settings are not yet stored outside the deployment folder. Re-save config.local.php before saving changes.</div>';
     const content=isCatalogPage()
-      ? `${head('Catalog Edit Mode active','Series information, images and every model-card value can be changed.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Catalog changes are committed to GitHub. Projects are synchronized to protected Hostinger storage.</small></div></div><p class="vensis-edit-note">Use Edit Series for series information and the pencil on a model card for model values. Internal keys and performance curves remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`
+      ? `${head('Catalog Edit Mode active','Series information, images and every model-card value can be changed.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>Catalog changes are committed to GitHub. Projects are synchronized to protected Hostinger storage.</small></div></div><p class="vensis-edit-note">Use Add Product for a new catalog model, Edit Series for series information, and the pencil on a model card for model values. Internal keys and performance curves remain protected.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button id="vensisAddProduct" class="vensis-edit-secondary" type="button">Add Product</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue editing</button></div></div>`
       : `${head('Project Cloud active','Projects are synchronized securely across your devices.')}<div class="vensis-edit-body">${storageWarning}<div class="vensis-edit-status"><span class="vensis-edit-status-dot"></span><div><b>Secure session is open</b><small>${esc(window.VensisProjects?.cloudState?.().message||'Projects are stored outside public_html on Hostinger.')}</small></div></div><p class="vensis-edit-note">Browser copies remain available for speed. The protected Hostinger copy restores them on another signed-in device.</p><div class="vensis-edit-actions"><button id="vensisEditLogout" class="vensis-edit-danger" type="button">Sign out</button><button class="vensis-edit-primary" type="button" data-edit-close>Continue</button></div></div>`;
     showModal(content,true);
     dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
     dialog.querySelector('#vensisEditLogout')?.addEventListener('click',logout);
+    dialog.querySelector('#vensisAddProduct')?.addEventListener('click',()=>openAddModel(''));
   }
 
   async function logout(){
@@ -224,6 +235,11 @@
       ? `type="text" maxlength="${options.maxLength||120}"${options.required?' required':''}`
       : `type="number" min="${options.min??0}" max="${options.max??10000000}" step="${options.step||'any'}"`;
     return `<label class="vensis-edit-field${options.wide?' is-wide':''}"><span>${esc(label)}</span><input name="${esc(name)}" ${attributes} value="${esc(value)}"></label>`;
+  }
+
+  function selectField(label,name,items,selectedValue){
+    const options=items.map(item=>`<option value="${esc(item.value)}"${String(item.value)===String(selectedValue)?' selected':''}>${esc(item.label)}</option>`).join('');
+    return `<label class="vensis-edit-field is-wide"><span>${esc(label)}</span><select name="${esc(name)}" required>${options}</select></label>`;
   }
 
   function textareaField(label,name,items,help=''){
@@ -350,6 +366,93 @@
     }
   }
 
+  function newModelDefaults(seriesKey){
+    const model=window.VensisCatalog?.modelsForSeries?.(seriesKey)?.[0]||null;
+    return {
+      voltage:model?.motor?.voltage||'',
+      frequency:model?.motor?.frequency||'',
+      fire:model?.technical?.fireRating||'',
+      fanTypeEn:model?.technical?.fanType||'',
+      mountTypeEn:model?.technical?.mountType||'',
+      ipClass:model?.technical?.ipClass||''
+    };
+  }
+
+  function applyNewModelDefaults(form,seriesKey){
+    const defaults=newModelDefaults(seriesKey);
+    for(const [name,value] of Object.entries(defaults)){
+      const input=form.querySelector(`[name="${name}"]`);
+      if(input)input.value=value;
+    }
+  }
+
+  function openAddModel(seriesKey=''){
+    if(!isCatalogPage())return;
+    if(!state.configured){openLauncher();return}
+    if(!state.authenticated){state.pendingNewSeriesKey=seriesKey||'__choose__';showLogin();return}
+    const seriesItems=[...(window.VensisCatalog?.series||[])].sort((a,b)=>String(a.code||a.title||'').localeCompare(String(b.code||b.title||'')));
+    if(!seriesItems.length){showToast('No catalog series is available.');return}
+    const selected=seriesItems.some(item=>String(item.id)===String(seriesKey))?String(seriesKey):String(seriesItems[0].id);
+    const defaults=newModelDefaults(selected);
+    const options=seriesItems.map(item=>({value:item.id,label:`${item.code||item.id} — ${item.title||'Product series'}`}));
+    showModal(`${head('Add Product Manually','Choose an existing series and enter the catalog values.')}<form id="vensisAddModelForm" class="vensis-edit-body"><div id="vensisAddModelMessage" class="vensis-edit-message"></div><div class="vensis-edit-section-title">Product Location</div><div class="vensis-edit-grid">${selectField('Series','seriesKey',options,selected)}${field('Model Name','model','',{type:'text',wide:true,required:true,maxLength:120})}</div><div class="vensis-edit-section-title">Catalog Values</div><div class="vensis-edit-grid">${field('Power (kW)','kw',0,{step:'0.01',max:100000})}${field('Speed (rpm)','rpm',0,{step:'1',max:100000})}${field('Current (A)','amps',0,{step:'0.01',max:1000000})}${field('Voltage','voltage',defaults.voltage,{type:'text'})}${field('Frequency','frequency',defaults.frequency,{type:'text'})}${field('Airflow (m³/h)','nominal',0,{step:'1',max:10000000})}${field('Noise dB(A)','spl',0,{step:'1',max:200})}${field('Fire Rating','fire',defaults.fire,{type:'text'})}${field('Fan Type','fanTypeEn',defaults.fanTypeEn,{type:'text'})}${field('Mount Type','mountTypeEn',defaults.mountTypeEn,{type:'text'})}${field('IP Class','ipClass',defaults.ipClass,{type:'text'})}${field('Price (€)','price',0,{step:'0.01'})}</div><div class="vensis-edit-message is-success vensis-edit-catalog-only"><b>Catalog product</b><br>This product will appear in Product Catalog and can be added to projects. Because no performance curve is entered here, it will not appear in Fan Selection results.</div><div class="vensis-edit-actions"><button class="vensis-edit-secondary" type="button" data-edit-close>Cancel</button><button class="vensis-edit-primary" type="submit">Add to GitHub</button></div></form>`);
+    dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
+    const form=dialog.querySelector('#vensisAddModelForm');
+    form?.querySelector('[name="seriesKey"]')?.addEventListener('change',event=>applyNewModelDefaults(form,event.currentTarget.value));
+    form?.addEventListener('submit',saveNewModel);
+  }
+
+  async function saveNewModel(event){
+    event.preventDefault();
+    if(state.busy)return;
+    const form=event.currentTarget;
+    const message=form.querySelector('#vensisAddModelMessage');
+    const submit=form.querySelector('[type="submit"]');
+    const data=Object.fromEntries(new FormData(form).entries());
+    const seriesKey=String(data.seriesKey||'');
+    const model=String(data.model||'').trim();
+    if(!seriesKey){message.className='vensis-edit-message is-error';message.textContent='Choose a series.';return}
+    if(!model){message.className='vensis-edit-message is-error';message.textContent='Model Name cannot be empty.';form.querySelector('[name="model"]')?.focus();return}
+    const numericFields=['kw','rpm','amps','nominal','spl','price'];
+    const values={model};
+    for(const name of numericFields){
+      const input=form.querySelector(`[name="${name}"]`);
+      if(input.value.trim()===''||!Number.isFinite(Number(input.value))){
+        message.className='vensis-edit-message is-error';
+        message.textContent=`${input.previousElementSibling?.textContent||name} must be a number.`;
+        input.focus();
+        return;
+      }
+      values[name]=Number(input.value);
+    }
+    for(const name of ['voltage','frequency','fire','fanTypeEn','mountTypeEn','ipClass'])values[name]=String(data[name]||'').trim();
+
+    state.busy=true;
+    submit.disabled=true;
+    submit.textContent='Adding…';
+    message.className='vensis-edit-message';
+    message.textContent='Creating the product and committing it to GitHub…';
+    try{
+      const payload=await request('add-model.php',{method:'POST',body:{seriesKey,values},csrf:true});
+      state.busy=false;
+      const shortSha=String(payload.commitSha||'').slice(0,7);
+      showModal(`${head('Product added','Hostinger will deploy the new GitHub commit automatically.')}<div class="vensis-edit-body"><div class="vensis-edit-message is-success">${esc(payload.model||'New product')} was added to ${esc(seriesRecord(seriesKey)?.code||seriesKey)}.</div>${payload.commitUrl?`<p class="vensis-edit-note vensis-edit-commit">Commit: <a href="${esc(payload.commitUrl)}" target="_blank" rel="noopener">${esc(shortSha||'Open on GitHub')}</a></p>`:''}<p class="vensis-edit-note">Reload the catalog after deployment to see the new product.</p><div class="vensis-edit-actions"><button class="vensis-edit-primary" type="button" data-edit-close>Done</button></div></div>`,true);
+      dialog.querySelectorAll('[data-edit-close]').forEach(button=>button.addEventListener('click',closeModal));
+    }catch(error){
+      state.busy=false;
+      submit.disabled=false;
+      submit.textContent='Add to GitHub';
+      if(error.status===401){
+        setSession({configured:state.configured,persistentConfigReady:state.persistentConfigReady,authenticated:false});
+        state.pendingNewSeriesKey=seriesKey||'__choose__';
+        showLogin(error.message);
+        return;
+      }
+      message.className='vensis-edit-message is-error';
+      message.textContent=error.message;
+    }
+  }
+
   function openModelEditor(key){
     if(!key)return;
     if(!state.configured){openLauncher();return}
@@ -424,5 +527,5 @@
   }
 
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
-  window.VensisEditMode={open:openLauncher,edit:openModelEditor,editSeries:openSeriesEditor,refresh:refreshSession};
+  window.VensisEditMode={open:openLauncher,add:openAddModel,edit:openModelEditor,editSeries:openSeriesEditor,refresh:refreshSession};
 })();
