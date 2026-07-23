@@ -16,7 +16,22 @@ body{margin:0;background:#e9eff0;color:#173033;font-family:Arial,Helvetica,sans-
 .section-body{margin-top:8mm}.content-block{border:1px solid #d6e1dd;border-radius:10px;overflow:hidden;margin-bottom:6mm}.content-block h2{margin:0;background:#edf6f1;color:#087f4f;padding:8px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.045em}.content-block .body{padding:4mm 5mm;color:#3d555a;font-size:10px;line-height:1.55}.content-block p{margin:0 0 3mm}.content-block p:last-child{margin-bottom:0}.content-block ul,.content-block ol{margin:0;padding-left:19px}.content-block li{margin-bottom:2.5mm}.notice{border-left:4px solid #087f4f;background:#f5faf7;padding:4mm 5mm;border-radius:0 8px 8px 0;color:#29484d;font-size:10px;line-height:1.55}.conditions-grid{display:grid;grid-template-columns:1fr 1fr;gap:5mm}.signature-area{display:grid;grid-template-columns:1fr 1fr;gap:8mm;margin-top:10mm}.signature-box{border:1px solid #bfcfcb;border-radius:8px;min-height:39mm;padding:4mm}.signature-box b{display:block;color:#087f4f;text-transform:uppercase;font-size:9px}.signature-box span{display:block;margin-top:18mm;border-top:1px solid #bfcfcb;padding-top:2mm;color:#64748b;font-size:8.5px}.footer{margin-top:auto;padding-top:3mm;border-top:2px solid #087f4f;text-align:center;color:#64748b;font-size:8px}.empty{width:210mm;min-height:297mm;margin:0 auto;background:#fff;padding:40mm 15mm;text-align:center}.empty h2{color:#087f4f}
 @page{size:A4 portrait;margin:0}
 @media(max-width:850px){.quote-page,.empty{width:100%;min-height:0;padding:18px;margin:0 0 12px}.meta-grid,.commercial-summary,.conditions-grid,.signature-area{grid-template-columns:1fr}.quote-table-wrap{overflow:auto}.quote-table{min-width:850px}.toolbar{width:calc(100% - 24px)}.term-card{grid-template-columns:110px 1fr}}
-@media print{body{background:#fff}.toolbar{display:none}.quote-page{width:210mm;min-height:297mm;margin:0;padding:10mm 9mm;box-shadow:none;break-after:page}.quote-page:last-child{break-after:auto}.quote-table thead{display:table-header-group}.quote-table tr{break-inside:avoid}.quote-table-wrap{overflow:visible}.content-block,.notice,.signature-area{break-inside:avoid}.footer{break-inside:avoid}.empty{display:none}}
+@media print{
+html,body{width:210mm;min-width:210mm;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.toolbar{display:none}
+.quote-page{width:210mm;min-width:210mm;min-height:297mm;margin:0;padding:10mm 9mm;box-shadow:none;break-after:page;page-break-after:always}
+.quote-page:last-child{break-after:auto;page-break-after:auto}
+.meta-grid{grid-template-columns:1.15fr .85fr}
+.commercial-summary,.conditions-grid,.signature-area{grid-template-columns:1fr 1fr}
+.term-card{grid-template-columns:35mm 1fr}
+.quote-table{width:100%;min-width:0}
+.quote-table thead{display:table-header-group}
+.quote-table tr{break-inside:avoid}
+.quote-table-wrap{overflow:visible}
+.content-block,.notice,.signature-area{break-inside:avoid}
+.footer{break-inside:avoid}
+.empty{display:none}
+}
 </style>
 <link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
 </head>
