@@ -62,6 +62,7 @@
       seriesId:code,
       model,
       display:row?.display||model,
+      catalogOnly:Boolean(row?.catalogOnly),
       pole:Number(row?.pole)||0,
       pricing:{listPrice:Number.isFinite(Number(row?.price))?Number(row.price):null,currency:'EUR'},
       motor:{power:Number(row?.kw)||0,speed:Number(row?.rpm)||0,current:Number(row?.amps)||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl)||0},
@@ -90,6 +91,7 @@
     const series=seriesRecords.get(model.seriesId)||{};
     return {
       id:model.id,key:model.id,model:model.model,display:model.display,
+      catalogOnly:Boolean(model.catalogOnly),
       series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vitlo',categories:series.categories||[]},
       media:series.media||{image:'',gallery:[]},catalogue:series.catalogue||{},
       description:series.description||{general:[],motor:[],applications:[]},

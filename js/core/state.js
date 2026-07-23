@@ -16,6 +16,7 @@
       key:model.id,
       model:model.model,
       display:model.display||model.model,
+      catalogOnly:Boolean(model.catalogOnly),
       manufacturer:series.manufacturer||'Vitlo',
       categories:[...(series.categories||[])],
       series:series.code||model.seriesId,

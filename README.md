@@ -39,6 +39,11 @@ displayed on a model card: model
 name, power, speed, current, voltage, frequency, nominal airflow, noise, fire rating,
 fan type, mount type, IP class and price. The internal model key and fan performance
 curves, as well as the internal series key, are not editable through this API.
+Add Product creates a new model manually inside an existing series with the same
+catalog-card fields. The server generates its internal key, commits it to the
+series data file and marks it as catalog-only. It remains available in Product
+Catalog and Projects but is excluded from Fan Selection until a verified
+performance curve is added through a separate data-import workflow.
 
 ## Project Cloud
 
