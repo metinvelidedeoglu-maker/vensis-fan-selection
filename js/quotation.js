@@ -44,7 +44,7 @@
   function productMarkup(item){
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Product')}" onerror="this.style.display='none'">`:'';
     const description=String(item.description||'').trim();
-    return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${description?`<em style="display:block;margin-top:4px;color:#64748b;font-size:8px;font-style:normal;line-height:1.35;max-width:190px">${escapeHtml(description)}</em>`:''}</div></div>`;
+    return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${description?`<em class="product-description">${escapeHtml(description)}</em>`:''}</div></div>`;
   }
   function row(item){
     const model=modelFor(item);

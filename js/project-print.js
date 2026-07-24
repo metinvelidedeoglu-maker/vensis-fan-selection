@@ -75,7 +75,7 @@
     const image=item.image||catalog.product?.(model?.id)?.media?.image||'';
     const description=String(item.description||'').trim();
     return `<tr>
-      <td><div class="project-product">${image?`<img src="${esc(image)}" alt="${esc(item.model||'Fan')}" onerror="this.style.display='none'">`:''}<div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${description?`<em style="display:block;margin-top:3px;color:#64748b;font-size:7px;font-style:normal;line-height:1.3">${esc(description)}</em>`:''}</div></div></td>
+      <td><div class="project-product">${image?`<img src="${esc(image)}" alt="${esc(item.model||'Fan')}" onerror="this.style.display='none'">`:''}<div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div></td>
       <td class="technical-point">${esc(sourceText(item))}</td>
       <td class="technical-point">${esc(selectedText(item))}</td>
       <td>${supplyText(item,model)}</td>
