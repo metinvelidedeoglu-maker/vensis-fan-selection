@@ -96,7 +96,10 @@
     const terms=settings.terms||{};
 
     const cards=pages[0]?.querySelectorAll('.term-card b')||[];
-    [summary.payment,summary.exchangeRate,summary.validity,summary.deliveryPlace,summary.vat,summary.commissioning].forEach((value,index)=>{if(cards[index])cards[index].textContent=value||'-'});
+    const deliveryTime=summary.deliveryTime===undefined
+      ? window.VensisQuotationSettings?.defaults?.summary?.deliveryTime
+      : summary.deliveryTime;
+    [summary.payment,summary.exchangeRate,summary.validity,deliveryTime,summary.deliveryPlace,summary.vat,summary.commissioning].forEach((value,index)=>{if(cards[index])cards[index].textContent=value||'-'});
     const firstNote=pages[0]?.querySelector('.quote-note');
     if(firstNote)firstNote.innerHTML=`<b>Teklif Notu</b>${escapeHtml(summary.quotationNote||'').replace(/\n/g,'<br>')}`;
 
