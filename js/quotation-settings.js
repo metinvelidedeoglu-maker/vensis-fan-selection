@@ -6,6 +6,7 @@
       payment:'Siparişte peşin',
       exchangeRate:'Fatura tarihindeki Türkiye Vakıflar Bankası Euro satış kuru esas alınacaktır.',
       validity:'7 gün',
+      deliveryTime:'8 hafta',
       deliveryPlace:'AVENS depo teslim',
       vat:'Fiyatlarımıza KDV dahil değildir.',
       commissioning:'Devreye alma hizmeti teklif fiyatına dahil değildir.',
@@ -96,6 +97,7 @@
             <label>Payment<input data-setting="summary.payment" type="text"></label>
             <label>Exchange Rate<textarea data-setting="summary.exchangeRate" rows="3"></textarea></label>
             <label>Validity<input data-setting="summary.validity" type="text"></label>
+            <label>Delivery Time<input data-setting="summary.deliveryTime" type="text"></label>
             <label>Delivery Place<input data-setting="summary.deliveryPlace" type="text"></label>
             <label>VAT<textarea data-setting="summary.vat" rows="2"></textarea></label>
             <label>Commissioning<textarea data-setting="summary.commissioning" rows="2"></textarea></label>
