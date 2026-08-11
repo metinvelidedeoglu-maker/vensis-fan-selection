@@ -17,17 +17,17 @@
       exclusions:[
         'Cihaz ve ekipmanların sahada montaj işçiliği.',
         'Ana elektrik beslemesi, güç ve MCC panoları ile her türlü kablolama işi.',
-        'Fan montajı için gerekli somun, cıvata, dübel, konsol ve ankraj malzemelerinin temini.',
+        'Ürünlerin montajı için gerekli bağlantı, sabitleme, konsol ve ankraj malzemelerinin temini.',
         'Nakliye, vinç, indirme ve saha içi taşıma hizmetleri; teklifte ayrıca belirtilmedikçe.',
         'Teklif tablosunda açıkça belirtilmeyen aksesuar, otomasyon elemanı ve cihazlar.',
-        'Devreye alma, saha testi, balans kontrolü ve otomasyon bağlantıları.'
+        'Devreye alma, saha testi ve otomasyon bağlantıları; teklifte ayrıca belirtilmedikçe.'
       ],
       deliveryControl:[
         'Teslim süreleri iş günü olarak değerlendirilir; cumartesi, pazar ve resmî tatiller süreye dahil değildir.',
         'Ürünler teslim alınırken ambalaj, hasar ve eksik adet açısından kontrol edilmelidir.',
         'Teslim sonrasında oluşabilecek depolama, taşıma ve montaj kaynaklı hasarlar müşteri sorumluluğundadır.'
       ],
-      suitability:'Ürün seçimi, tarafımıza iletilen bilgi ve çalışma noktalarına göre hazırlanmıştır. Nihai sistem uygunluğu, yerleşim, kanal dirençleri, elektrik altyapısı ve montaj koşulları müşteri veya proje müellifi tarafından doğrulanmalıdır.'
+      suitability:'Ürün seçimi, tarafımıza iletilen proje bilgileri ve çalışma şartlarına göre hazırlanmıştır. Nihai sistem uygunluğu, yerleşim, elektrik altyapısı, çevre şartları ve montaj koşulları müşteri veya proje müellifi tarafından doğrulanmalıdır.'
     },
     terms:{
       priceCurrency:[
@@ -47,7 +47,7 @@
         'Mücbir sebepler, tedarik zinciri kesintileri ve resmî makam kararlarından kaynaklanan gecikmeler ayrıca değerlendirilir.'
       ],
       standard:[
-        'Bu teklif, Vitlo standart satış, teslimat ve teknik kullanım koşullarına tabidir.',
+        'Bu teklif, Vensis satış koşulları ile ilgili üreticinin teknik kullanım koşullarına tabidir.',
         'Ürünler kataloglarda belirtilen çalışma, montaj ve bakım sınırları içerisinde kullanılmalıdır.',
         'Üretici, teknik zorunluluk halinde eşdeğer performansı koruyacak ürün geliştirmeleri yapma hakkını saklı tutar.'
       ],
@@ -69,11 +69,28 @@
     }
     return custom===undefined||custom===null?base:custom;
   }
+  function migrateLegacy(value){
+    const migrated=clone(value||{});
+    if(Array.isArray(migrated.scope?.exclusions)){
+      migrated.scope.exclusions=migrated.scope.exclusions.map(item=>{
+        if(item==='Fan montajı için gerekli somun, cıvata, dübel, konsol ve ankraj malzemelerinin temini.')return DEFAULTS.scope.exclusions[2];
+        if(item==='Devreye alma, saha testi, balans kontrolü ve otomasyon bağlantıları.')return DEFAULTS.scope.exclusions[5];
+        return item;
+      });
+    }
+    if(migrated.scope?.suitability==='Ürün seçimi, tarafımıza iletilen bilgi ve çalışma noktalarına göre hazırlanmıştır. Nihai sistem uygunluğu, yerleşim, kanal dirençleri, elektrik altyapısı ve montaj koşulları müşteri veya proje müellifi tarafından doğrulanmalıdır.'){
+      migrated.scope.suitability=DEFAULTS.scope.suitability;
+    }
+    if(Array.isArray(migrated.terms?.standard)){
+      migrated.terms.standard=migrated.terms.standard.map(item=>item==='Bu teklif, Vitlo standart satış, teslimat ve teknik kullanım koşullarına tabidir.'?DEFAULTS.terms.standard[0]:item);
+    }
+    return migrated;
+  }
   function read(){
-    try{return merge(DEFAULTS,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch{return clone(DEFAULTS)}
+    try{return merge(DEFAULTS,migrateLegacy(JSON.parse(localStorage.getItem(KEY)||'{}')))}catch{return clone(DEFAULTS)}
   }
   function write(value){
-    const normalized=merge(DEFAULTS,value||{});
+    const normalized=merge(DEFAULTS,migrateLegacy(value||{}));
     localStorage.setItem(KEY,JSON.stringify(normalized));
     window.dispatchEvent(new CustomEvent('vensis-quotation-settings-updated',{detail:normalized}));
     return normalized;
