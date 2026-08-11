@@ -55,3 +55,20 @@ are merged into the cloud on the first authenticated sync. Per-project timestamp
 and deletion tombstones prevent an older device from overwriting newer edits or
 restoring a deleted project. Project API writes require the authenticated session,
 same-origin validation and a CSRF token.
+
+## Vitlo Catalogue Data
+
+Vitlo performance curves are stored as verified catalogue points in
+`sourcePoints`; browser interpolation is limited to the first and last verified
+pressure values. To audit or rebuild the data from the 2022 catalogue:
+
+```bash
+python scripts/reimport-vitlo-catalog.py --catalog /path/to/vitlo-catalog.pdf
+python scripts/reimport-vitlo-catalog.py --catalog /path/to/vitlo-catalog.pdf --write
+node --test tests/vitlo-catalog-data.test.mjs
+```
+
+The importer reads each PDF column by position, preserves internal product keys
+and prices, and removes only recognized dimension-table artifacts. Only verified
+catalogue points are stored; PCHIP interpolation runs in the browser without
+extrapolating beyond catalogue limits.
