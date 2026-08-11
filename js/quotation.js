@@ -28,36 +28,33 @@
   function netUnit(item){
     return number(item.price)*(1-clampDiscount(item.discountPercent)/100);
   }
+  function dutyMarkup(item){
+    if(item.mode==='catalog'||item.mode==='custom'){
+      const nominal=number(item.nominalAirflow);
+      return nominal>0?`<span class="technical">${fmt(nominal)} m³/h nominal</span>`:'-';
+    }
+    return `<span class="technical">${point(item.selected||{})}</span>`;
+  }
+  function supplyMarkup(item,model){
+    const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
+    const frequency=String(item.frequency||model?.motor?.frequency||'').trim();
+    if(voltage&&frequency)return `<span class="technical">${escapeHtml(voltage)} – ${escapeHtml(frequency)}</span>`;
+    return voltage||frequency?`<span class="technical">${escapeHtml(voltage||frequency)}</span>`:'-';
+  }
   function productMarkup(item){
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Product')}" onerror="this.style.display='none'">`:'';
     const description=String(item.description||'').trim();
     return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${description?`<em class="product-description">${escapeHtml(description)}</em>`:''}</div></div>`;
-  }
-  function technicalDetailsMarkup(item,model){
-    const resolved=window.VensisTechnicalDetails?.forItem?.(item,model,catalog);
-    if(resolved){
-      const details=(resolved.details||[]).map(detail=>`<div class="technical-detail"><span>${escapeHtml(detail.label)}</span><b>${escapeHtml(detail.value)}</b></div>`).join('');
-      return `<div class="technical-details"><em>${escapeHtml(resolved.typeLabel||'Technical Details')}</em>${details||'<span class="technical-empty">No technical details entered.</span>'}</div>`;
-    }
-    const fallback=[];
-    if(item.mode==='selection')fallback.push(['Selected Point',point(item.selected||{})]);
-    else if(number(item.nominalAirflow)>0)fallback.push(['Airflow',`${fmt(item.nominalAirflow)} m³/h`]);
-    const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
-    const frequency=String(item.frequency||model?.motor?.frequency||'').trim();
-    if(voltage||frequency)fallback.push(['Supply',voltage&&frequency?`${voltage} – ${frequency}`:voltage||frequency]);
-    const power=number(item.motorPower)||number(model?.motor?.power);
-    const speed=number(item.speed)||number(model?.motor?.speed);
-    if(power>0)fallback.push(['Motor Power',`${fmt(power,2)} kW`]);
-    if(speed>0)fallback.push(['Speed',`${fmt(speed)} rpm`]);
-    return `<div class="technical-details">${fallback.map(([label,value])=>`<div class="technical-detail"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div>`).join('')||'-'}</div>`;
   }
   function row(item){
     const model=modelFor(item);
     const qty=Math.max(1,number(item.quantity)||1);
     const net=netUnit(item);
     const total=net*qty;
+    const power=number(item.motorPower)||number(model?.motor?.power);
+    const speed=number(item.speed)||number(model?.motor?.speed);
     const hasPrice=number(item.price)>0;
-    return `<tr><td>${productMarkup(item)}</td><td>${technicalDetailsMarkup(item,model)}</td><td class="num unit-price">${hasPrice?money(net):'-'}</td><td class="num">${fmt(qty)}</td><td class="num"><b>${hasPrice?money(total):'-'}</b></td></tr>`;
+    return `<tr><td>${productMarkup(item)}</td><td>${dutyMarkup(item)}</td><td>${supplyMarkup(item,model)}</td><td class="num technical">${power>0?`${fmt(power,2)} kW`:'-'}</td><td class="num technical">${speed>0?`${fmt(speed)} rpm`:'-'}</td><td class="num unit-price">${hasPrice?money(net):'-'}</td><td class="num">${fmt(qty)}</td><td class="num"><b>${hasPrice?money(total):'-'}</b></td></tr>`;
   }
   function totals(items){
     return items.reduce((sum,item)=>{
