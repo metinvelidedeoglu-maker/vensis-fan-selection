@@ -186,28 +186,12 @@
   }
   function formField(name){return byId(`custom-${name}`)}
   function setFormValue(name,value){const field=formField(name);if(field)field.value=value??''}
-  function resolvedProductType(item){
-    if(!item)return 'other';
-    const explicit=window.VensisTechnicalDetails?.normalizeType?.(item.productType);
-    if(explicit)return explicit;
-    const model=modelForItem(item);
-    const series=model&&catalog.getSeries?.(model.seriesId);
-    return window.VensisTechnicalDetails?.detectType?.(item,model,series)||'other';
-  }
-  function technicalDetailsText(value){
-    const details=window.VensisTechnicalDetails?.parseDetails?.(value)||[];
-    return details.map(detail=>`${detail.label}: ${detail.value}`).join('\n');
-  }
-  function syncProductTypeFields(){
-    const selected=window.VensisTechnicalDetails?.normalizeType?.(formField('productType')?.value)||'other';
-    document.querySelectorAll('[data-custom-product-fields]').forEach(section=>{section.hidden=section.dataset.customProductFields!==selected});
-  }
-  function setCustomFieldsDisabled(disabled){document.querySelectorAll('[data-custom-core]').forEach(field=>{field.disabled=disabled});const note=byId('customProductModeNote');if(note)note.textContent=disabled?'This project product is linked to the product catalog. Only the free description can be changed here.':'Enter a product that is not available in the selection program.'}
+  function setCustomFieldsDisabled(disabled){document.querySelectorAll('[data-custom-core]').forEach(field=>{field.disabled=disabled});const note=byId('customProductModeNote');if(note)note.textContent=disabled?'This project product is linked to the fan database. Only the free description can be changed here.':'Enter a product that is not available in the selection program.'}
   function openProductEditor(index=null){
     flushAllNotes();const items=readItems();const item=index==null?null:items[index];editingIndex=index;const isExisting=Boolean(item);const isCustom=!item||item.mode==='custom';
     if(byId('customProductTitle'))byId('customProductTitle').textContent=isExisting?(isCustom?'Edit Custom Product':'Edit Product Description'):'Add Custom Product';
     if(byId('saveCustomProduct'))byId('saveCustomProduct').textContent=isExisting?'Save Changes':'Add to Project';setCustomFieldsDisabled(!isCustom);
-    setFormValue('model',item?.model||'');setFormValue('series',item?.series||'');setFormValue('manufacturer',item?.manufacturer||'');setFormValue('productType',item?resolvedProductType(item):'other');setFormValue('description',item?.description||'');setFormValue('voltage',item?.voltage||'');setFormValue('frequency',item?.frequency||'50 Hz');setFormValue('ipClass',item?.ipClass||'');setFormValue('explosionProtection',item?.explosionProtection||'');setFormValue('nominalAirflow',number(item?.nominalAirflow)||'');setFormValue('staticPressure',number(item?.staticPressure)||'');setFormValue('motorPower',number(item?.motorPower)||'');setFormValue('speed',number(item?.speed)||'');setFormValue('current',number(item?.current)||'');setFormValue('noise',number(item?.noise)||'');setFormValue('lightingPower',item?.lightingPower||item?.powerW||'');setFormValue('luminousFlux',item?.luminousFlux||item?.lumens||'');setFormValue('colorTemperature',item?.colorTemperature||item?.cct||'');setFormValue('cri',item?.cri||'');setFormValue('beamAngle',item?.beamAngle||'');setFormValue('technicalDetails',technicalDetailsText(item?.technicalDetails||item?.specifications||''));setFormValue('price',number(item?.price)||'');setFormValue('discountPercent',clampDiscount(item?.discountPercent));setFormValue('quantity',Math.max(1,number(item?.quantity)||1));setFormValue('image',item?.image||'');syncProductTypeFields();
+    setFormValue('model',item?.model||'');setFormValue('series',item?.series||'');setFormValue('manufacturer',item?.manufacturer||'Vitlo');setFormValue('description',item?.description||'');setFormValue('nominalAirflow',number(item?.nominalAirflow)||'');setFormValue('voltage',item?.voltage||'');setFormValue('frequency',item?.frequency||'50 Hz');setFormValue('motorPower',number(item?.motorPower)||'');setFormValue('speed',number(item?.speed)||'');setFormValue('current',number(item?.current)||'');setFormValue('noise',number(item?.noise)||'');setFormValue('price',number(item?.price)||'');setFormValue('discountPercent',clampDiscount(item?.discountPercent));setFormValue('quantity',Math.max(1,number(item?.quantity)||1));setFormValue('image',item?.image||'');
     const modal=byId('customProductModal');if(modal)modal.hidden=false;document.body.classList.add('modal-open');setTimeout(()=>formField(isCustom?'model':'description')?.focus(),0);
   }
   function closeProductEditor(){const modal=byId('customProductModal');if(modal)modal.hidden=true;document.body.classList.remove('modal-open');editingIndex=null}
@@ -216,7 +200,7 @@
     if(existing&&existing.mode!=='custom'){existing.description=String(formField('description')?.value||'').trim();existing.updatedAt=new Date().toISOString();writeItems(items);closeProductEditor();render();return}
     const model=String(formField('model')?.value||'').trim();if(!model){formField('model')?.focus();return}
     const stamp=new Date().toISOString();const item=existing||{itemKey:`custom|${Date.now()}|${Math.random().toString(36).slice(2,8)}`,mode:'custom',productKey:'',required:null,selected:null,addedAt:stamp};
-    Object.assign(item,{mode:'custom',model,series:String(formField('series')?.value||'').trim(),manufacturer:String(formField('manufacturer')?.value||'').trim(),productType:window.VensisTechnicalDetails?.normalizeType?.(formField('productType')?.value)||'other',description:String(formField('description')?.value||'').trim(),voltage:String(formField('voltage')?.value||'').trim(),frequency:String(formField('frequency')?.value||'').trim(),ipClass:String(formField('ipClass')?.value||'').trim(),explosionProtection:String(formField('explosionProtection')?.value||'').trim(),nominalAirflow:number(formField('nominalAirflow')?.value),staticPressure:number(formField('staticPressure')?.value),motorPower:number(formField('motorPower')?.value),speed:number(formField('speed')?.value),current:number(formField('current')?.value),noise:number(formField('noise')?.value),lightingPower:String(formField('lightingPower')?.value||'').trim(),luminousFlux:String(formField('luminousFlux')?.value||'').trim(),colorTemperature:String(formField('colorTemperature')?.value||'').trim(),cri:String(formField('cri')?.value||'').trim(),beamAngle:String(formField('beamAngle')?.value||'').trim(),technicalDetails:String(formField('technicalDetails')?.value||'').trim(),price:Math.max(0,number(formField('price')?.value)),discountPercent:clampDiscount(formField('discountPercent')?.value),quantity:Math.max(1,number(formField('quantity')?.value)||1),image:String(formField('image')?.value||'').trim(),updatedAt:stamp});
+    Object.assign(item,{mode:'custom',model,series:String(formField('series')?.value||'').trim(),manufacturer:String(formField('manufacturer')?.value||'').trim()||'Vitlo',description:String(formField('description')?.value||'').trim(),nominalAirflow:number(formField('nominalAirflow')?.value),voltage:String(formField('voltage')?.value||'').trim(),frequency:String(formField('frequency')?.value||'').trim(),motorPower:number(formField('motorPower')?.value),speed:number(formField('speed')?.value),current:number(formField('current')?.value),noise:number(formField('noise')?.value),price:Math.max(0,number(formField('price')?.value)),discountPercent:clampDiscount(formField('discountPercent')?.value),quantity:Math.max(1,number(formField('quantity')?.value)||1),image:String(formField('image')?.value||'').trim(),updatedAt:stamp});
     if(existing)items[editingIndex]=item;else items.push(item);writeItems(items);closeProductEditor();render();
   }
 
@@ -228,7 +212,6 @@
   document.addEventListener('change',event=>{const discount=event.target.closest('[data-line-discount]');const note=event.target.closest('[data-product-note]');if(discount)changeLineDiscount(Number(discount.dataset.lineDiscount),discount.value);if(note)saveDescriptionField(note)});
   document.addEventListener('click',event=>{if(event.target.closest('#printProject,#convertQuotation'))flushAllNotes()},true);
   byId('applyGlobalDiscount')?.addEventListener('click',applyGlobalDiscount);byId('convertQuotation')?.addEventListener('click',convertToQuotation);byId('clearProject')?.addEventListener('click',clearProject);byId('printProject')?.addEventListener('click',()=>window.print());byId('addCustomProduct')?.addEventListener('click',()=>openProductEditor());byId('customProductForm')?.addEventListener('submit',saveProductEditor);byId('cancelCustomProduct')?.addEventListener('click',closeProductEditor);byId('closeCustomProduct')?.addEventListener('click',closeProductEditor);byId('customProductModal')?.addEventListener('click',event=>{if(event.target===byId('customProductModal'))closeProductEditor()});
-  formField('productType')?.addEventListener('change',syncProductTypeFields);
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!byId('customProductModal')?.hidden)closeProductEditor()});
   byId('projectName')?.addEventListener('input',()=>writeMeta());byId('projectReference')?.addEventListener('input',()=>writeMeta());
   window.addEventListener('storage',event=>{if(!event.key||event.key===`${store.keys.itemsPrefix}${PROJECT_ID}`||event.key===`${store.keys.metaPrefix}${PROJECT_ID}`){loadMeta();render()}});
