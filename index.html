@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vensis Fan Selection</title>
-<link rel="stylesheet" href="css/app.css?v=20260722-series-codes">
+<link rel="stylesheet" href="css/app.css?v=20260812-desktop-filter-stack">
 <link rel="stylesheet" href="css/form-state.css?v=20260719-v9cleanup">
 <link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
 <link rel="stylesheet" href="css/edit-mode.css?v=20260723-project-cloud">
@@ -25,9 +25,9 @@
   <div class="section open product-filter-section">
     <div class="section-head" onclick="toggleSec(this)"><span class="icon-label"><span class="ui-icon">☷</span>Product Filter</span><span class="chev">⌄</span></div>
     <div class="section-body product-filter-grid">
-      <details class="filter-accordion" open><summary>Category <span id="categoryCount" class="summary-count"></span></summary><div class="filter-search"><input id="categorySearch" type="search" placeholder="Search category..." oninput="renderTagSeries()"></div><div id="categoryList" class="list-box"></div></details>
-      <details class="filter-accordion" open><summary>Brand <span id="manufacturerCount" class="summary-count"></span></summary><div id="manufacturerList" class="list-box"></div></details>
-      <details class="filter-accordion" open><summary>Model <span id="seriesCount" class="summary-count"></span></summary><div class="filter-search"><input id="seriesSearch" type="search" placeholder="Search model or product code..." oninput="renderTagSeries()"></div><div id="seriesList" class="list-box"></div></details>
+      <details class="filter-accordion filter-category" open><summary>Category <span id="categoryCount" class="summary-count"></span></summary><div class="filter-search"><input id="categorySearch" type="search" placeholder="Search category..." oninput="renderTagSeries()"></div><div id="categoryList" class="list-box"></div></details>
+      <details class="filter-accordion filter-brand" open><summary>Brand <span id="manufacturerCount" class="summary-count"></span></summary><div id="manufacturerList" class="list-box"></div></details>
+      <details class="filter-accordion filter-model" open><summary>Model <span id="seriesCount" class="summary-count"></span></summary><div class="filter-search"><input id="seriesSearch" type="search" placeholder="Search model or product code..." oninput="renderTagSeries()"></div><div id="seriesList" class="list-box"></div></details>
     </div>
   </div>
   <div class="actions"><button class="secondary" onclick="resetAll()"><span class="icon-label"><span class="ui-icon">↺</span>Reset</span></button><button class="search" onclick="runSelection()"><span class="icon-label"><span class="ui-icon">⌕</span>Find Fans</span></button></div>
