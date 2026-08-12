@@ -66,7 +66,7 @@
     const month=byId('projectMonth')?.value||'';
     const visible=listUtils.filterAndSort(projects,{query,month});
     const active=store.activeId();
-    const aggregate=projects.reduce((sum,project)=>{
+    const aggregate=visible.reduce((sum,project)=>{
       const totals=projectTotals(project.id);
       sum.units+=totals.units;
       if(totals.hasValue){sum.hasValue=true;sum.value+=totals.value}
@@ -74,7 +74,7 @@
     },{units:0,value:0,hasValue:false});
     const hasProjects=projects.length>0;
     const isFiltered=Boolean(query.trim()||month);
-    byId('projectCount').textContent=fmt(projects.length);
+    byId('projectCount').textContent=fmt(visible.length);
     byId('totalUnits').textContent=fmt(aggregate.units);
     byId('combinedValue').textContent=aggregate.hasValue?money(aggregate.value):'-';
     byId('projectsToolbar').hidden=!hasProjects;

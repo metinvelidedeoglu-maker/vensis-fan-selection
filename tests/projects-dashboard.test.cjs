@@ -46,10 +46,16 @@ test('dashboard search and month controls filter rendered cards',()=>{
   elements.projectSearch.listeners.input();
   assert.match(elements.projectsGrid.innerHTML,/Hangar Projesi/);
   assert.doesNotMatch(elements.projectsGrid.innerHTML,/Aydınlatma|Eski Proje/);
+  assert.equal(elements.projectCount.textContent,'1');
+  assert.equal(elements.totalUnits.textContent,'2');
+  assert.equal(elements.combinedValue.textContent,'€180,00');
 
   elements.projectSearch.value='';
   elements.projectMonth.value='2026-07';
   elements.projectMonth.listeners.change();
   assert.match(elements.projectsGrid.innerHTML,/Aydınlatma/);
   assert.doesNotMatch(elements.projectsGrid.innerHTML,/Hangar Projesi|Eski Proje/);
+  assert.equal(elements.projectCount.textContent,'1');
+  assert.equal(elements.totalUnits.textContent,'2');
+  assert.equal(elements.combinedValue.textContent,'€180,00');
 });
