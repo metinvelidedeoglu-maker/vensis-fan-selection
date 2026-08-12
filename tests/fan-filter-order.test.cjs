@@ -16,7 +16,7 @@ test('fan filters are ordered as category, brand and model',()=>{
   assert.match(html,/class="filter-accordion filter-category"/);
   assert.match(html,/class="filter-accordion filter-brand"/);
   assert.match(html,/class="filter-accordion filter-model"/);
-  assert.match(html,/css\/app\.css\?v=20260812-panel-bottom-alignment/);
+  assert.match(html,/css\/app\.css\?v=20260812-responsive-tolerance/);
 });
 
 test('desktop layout stacks brand and model in the right column',()=>{

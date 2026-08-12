@@ -1,19 +1,34 @@
 (function(){
   const U=window.VensisUtils,S=window.VensisState;
+  const MOBILE_TOLERANCE_QUERY='(max-width: 1000px)';
+  const TOLERANCE_MIN=-50;
+  const TOLERANCE_MAX=100;
+  const TOLERANCE_DESKTOP_STEP=1;
+  const TOLERANCE_MOBILE_STEP=10;
 
   function toggleSec(element){element.parentElement.classList.toggle('open')}
 
-  function syncDualTolerance(prefix){
+  function toleranceStep(){
+    return window.matchMedia?.(MOBILE_TOLERANCE_QUERY).matches?TOLERANCE_MOBILE_STEP:TOLERANCE_DESKTOP_STEP;
+  }
+
+  function snapTolerance(value,step){
+    const snapped=TOLERANCE_MIN+Math.round((Number(value)-TOLERANCE_MIN)/step)*step;
+    return Math.max(TOLERANCE_MIN,Math.min(TOLERANCE_MAX,snapped));
+  }
+
+  function syncDualTolerance(prefix,changedSide){
     const min=U.byId(prefix+'minSlider'),max=U.byId(prefix+'maxSlider');
     if(!min||!max)return;
-    let lower=Math.round(Number(min.value)/5)*5;
-    let upper=Math.round(Number(max.value)/5)*5;
-    if(lower>upper-5){
-      if(document.activeElement===min)lower=upper-5;
-      else upper=lower+5;
+    const step=Math.max(1,Number(min.step)||toleranceStep());
+    let lower=snapTolerance(min.value,step);
+    let upper=snapTolerance(max.value,step);
+    if(lower>upper-step){
+      if(changedSide==='min'||(!changedSide&&document.activeElement===min))lower=upper-step;
+      else upper=lower+step;
     }
-    lower=Math.max(-50,Math.min(95,lower));
-    upper=Math.max(-45,Math.min(100,upper));
+    lower=Math.max(TOLERANCE_MIN,Math.min(TOLERANCE_MAX-step,lower));
+    upper=Math.max(TOLERANCE_MIN+step,Math.min(TOLERANCE_MAX,upper));
     min.value=lower;
     max.value=upper;
     U.byId(prefix+'min').value=lower;
@@ -26,6 +41,50 @@
       fill.style.left=percent(lower)+'%';
       fill.style.right=(100-percent(upper))+'%';
     }
+  }
+
+  function setToleranceFromClick(event){
+    const source=event.target;
+    if(source&&typeof source.closest==='function'&&source.closest('.dual-range-input'))return;
+    const control=event.currentTarget;
+    const prefix=control?.dataset?.tolerancePrefix;
+    const range=control?.querySelector?.('.dual-range');
+    const min=prefix&&U.byId(prefix+'minSlider'),max=prefix&&U.byId(prefix+'maxSlider');
+    if(!range||!min||!max)return;
+    const rect=range.getBoundingClientRect();
+    if(!rect.width||!Number.isFinite(event.clientX))return;
+    const step=Math.max(1,Number(min.step)||toleranceStep());
+    const scaleLabel=source&&typeof source.closest==='function'?source.closest('[data-tolerance-value]'):null;
+    const explicitValue=Number(scaleLabel?.dataset?.toleranceValue);
+    const ratio=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width));
+    const clickedValue=scaleLabel&&Number.isFinite(explicitValue)?explicitValue:TOLERANCE_MIN+ratio*(TOLERANCE_MAX-TOLERANCE_MIN);
+    const target=snapTolerance(clickedValue,step);
+    const lower=Number(min.value),upper=Number(max.value);
+    const changedSide=target<=lower?'min':target>=upper?'max':Math.abs(target-lower)<Math.abs(target-upper)?'min':'max';
+    const slider=changedSide==='min'?min:max;
+    slider.value=target;
+    syncDualTolerance(prefix,changedSide);
+    if(typeof slider.focus==='function')slider.focus({preventScroll:true});
+    event.preventDefault?.();
+  }
+
+  function applyToleranceMode(){
+    const step=toleranceStep();
+    for(const prefix of ['q','p']){
+      const min=U.byId(prefix+'minSlider'),max=U.byId(prefix+'maxSlider');
+      if(!min||!max)continue;
+      min.step=step;
+      max.step=step;
+      syncDualTolerance(prefix);
+    }
+  }
+
+  function initToleranceControls(){
+    document.querySelectorAll?.('.tolerance-control').forEach(control=>control.addEventListener('click',setToleranceFromClick));
+    const media=window.matchMedia?.(MOBILE_TOLERANCE_QUERY);
+    if(media?.addEventListener)media.addEventListener('change',applyToleranceMode);
+    else media?.addListener?.(applyToleranceMode);
+    applyToleranceMode();
   }
 
   function runSelection(){
@@ -71,8 +130,7 @@
   });
 
   function init(){
-    syncDualTolerance('q');
-    syncDualTolerance('p');
+    initToleranceControls();
     window.VensisFilters.render();
     window.VensisResults.render();
   }
