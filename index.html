@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vensis Fan Selection</title>
-<link rel="stylesheet" href="css/app.css?v=20260812-panel-bottom-alignment">
+<link rel="stylesheet" href="css/app.css?v=20260812-responsive-tolerance">
 <link rel="stylesheet" href="css/form-state.css?v=20260719-v9cleanup">
 <link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
 <link rel="stylesheet" href="css/edit-mode.css?v=20260723-project-cloud">
@@ -16,9 +16,9 @@
   <div class="section open duty-section">
     <div class="section-head" onclick="toggleSec(this)"><span class="icon-label"><span class="ui-icon">◎</span>Airflow / Pressure</span><span class="chev">⌄</span></div>
     <div class="section-body">
-      <div class="duty-block"><label>Flow (m³/h)</label><input id="q" type="number" placeholder="Enter airflow"><div class="tolerance-caption"><span>Airflow tolerance</span><b><span id="qminText">-10</span>% / +<span id="qmaxText">20</span>%</b></div><div class="dual-range"><div class="dual-range-track"></div><div class="dual-range-fill" id="qRangeFill"></div><input id="qminSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="-10" oninput="syncDualTolerance('q')"><input id="qmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="20" oninput="syncDualTolerance('q')"></div><div class="dual-range-scale"><span>-50</span><span>0</span><span>+50</span><span>+100</span></div></div>
+      <div class="duty-block"><label>Flow (m³/h)</label><input id="q" type="number" placeholder="Enter airflow"><div class="tolerance-caption"><span>Airflow tolerance</span><b><span id="qminText">-10</span>% / +<span id="qmaxText">20</span>%</b></div><div class="tolerance-control" data-tolerance-prefix="q"><div class="dual-range"><div class="dual-range-track"></div><div class="dual-range-fill" id="qRangeFill"></div><input id="qminSlider" class="dual-range-input" type="range" min="-50" max="100" step="1" value="-10" aria-label="Minimum airflow tolerance" oninput="syncDualTolerance('q','min')"><input id="qmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="1" value="20" aria-label="Maximum airflow tolerance" oninput="syncDualTolerance('q','max')"></div><div class="dual-range-scale" aria-hidden="true"><span data-tolerance-value="-50">-50</span><span data-tolerance-value="0">0</span><span data-tolerance-value="50">+50</span><span data-tolerance-value="100">+100</span></div></div></div>
       <div class="duty-divider"></div>
-      <div class="duty-block"><label>Pressure (Pa)</label><input id="p" type="number" placeholder="Enter pressure"><div class="tolerance-caption"><span>Pressure tolerance</span><b><span id="pminText">-10</span>% / +<span id="pmaxText">20</span>%</b></div><div class="dual-range"><div class="dual-range-track"></div><div class="dual-range-fill" id="pRangeFill"></div><input id="pminSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="-10" oninput="syncDualTolerance('p')"><input id="pmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="5" value="20" oninput="syncDualTolerance('p')"></div><div class="dual-range-scale"><span>-50</span><span>0</span><span>+50</span><span>+100</span></div></div>
+      <div class="duty-block"><label>Pressure (Pa)</label><input id="p" type="number" placeholder="Enter pressure"><div class="tolerance-caption"><span>Pressure tolerance</span><b><span id="pminText">-10</span>% / +<span id="pmaxText">20</span>%</b></div><div class="tolerance-control" data-tolerance-prefix="p"><div class="dual-range"><div class="dual-range-track"></div><div class="dual-range-fill" id="pRangeFill"></div><input id="pminSlider" class="dual-range-input" type="range" min="-50" max="100" step="1" value="-10" aria-label="Minimum pressure tolerance" oninput="syncDualTolerance('p','min')"><input id="pmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="1" value="20" aria-label="Maximum pressure tolerance" oninput="syncDualTolerance('p','max')"></div><div class="dual-range-scale" aria-hidden="true"><span data-tolerance-value="-50">-50</span><span data-tolerance-value="0">0</span><span data-tolerance-value="50">+50</span><span data-tolerance-value="100">+100</span></div></div></div>
       <div hidden><input id="qmin" type="number" value="-10"><input id="qmax" type="number" value="20"><input id="pmin" type="number" value="-10"><input id="pmax" type="number" value="20"></div>
     </div>
   </div>
@@ -48,7 +48,7 @@
 <script src="js/project-nav.js?v=20260723-project-cloud"></script>
 <script src="js/ui/results.js?v=20260722-catalog-edit-only"></script>
 <script src="js/selection-project-target.js?v=20260721-project-target"></script>
-<script src="js/main.js?v=20260719-v9cleanup"></script>
+<script src="js/main.js?v=20260812-responsive-tolerance"></script>
 <script src="js/form-state.js?v=20260719-v9cleanup"></script>
 <script src="js/edit-mode.js?v=20260723-project-cloud"></script>
 </body></html>
