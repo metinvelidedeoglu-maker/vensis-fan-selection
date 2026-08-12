@@ -123,7 +123,7 @@ function edit_config(): array
         'runtime_dir' => sys_get_temp_dir() . '/vensis-edit-runtime',
         'data_files' => [
             'data/fans-01.js', 'data/fans-02.js', 'data/fans-03.js', 'data/fans-04.js',
-            'data/fans-05.js', 'data/fans-06.js', 'data/fans-07.js',
+            'data/fans-05.js', 'data/fans-06.js', 'data/fans-07.js', 'data/fans-08.js',
         ],
         'series_overrides_file' => 'data/series-overrides.js',
     ];

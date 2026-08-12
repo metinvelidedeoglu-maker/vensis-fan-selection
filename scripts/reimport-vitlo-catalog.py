@@ -80,6 +80,16 @@ EXPECTED_PDF_BACKED_ROWS = 619
 EXPECTED_CURRENT_CURVES = 580
 EXPECTED_ROOF_ROWS = 48
 PRESERVED_WITHOUT_COORDINATE_ROWS = {"AXJ"}
+PRESERVED_USER_MODELS = {
+    "AXW/ATEX 35-2T-0.37",
+    "AXW/ATEX 35-2T-0.55",
+    "AXW/ATEX 35-2T-0.75",
+    "AXW/ATEX 40-2T-1",
+    "AXW/ATEX 40-2T-1.5",
+    "AXW/ATEX 45-2T-2",
+    "AXW/ATEX 50-2T-3",
+    "AXW/ATEX 56-2T-4",
+}
 AUDITED_NOT_IMPORTED = {"ROOF-AXF"}
 
 
@@ -428,6 +438,8 @@ def apply_catalog(
         aligned_rows = current_rows[: len(catalog_rows)]
         extra_rows = current_rows[len(catalog_rows) :]
         for extra in extra_rows:
+            if str(extra.get("model") or "") in PRESERVED_USER_MODELS:
+                continue
             if not dimension_artifact(extra):
                 raise RuntimeError(
                     f"Refusing to remove unrecognized extra row: {series} / {extra.get('model')}"
