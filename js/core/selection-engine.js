@@ -191,9 +191,10 @@
       if(selectedManufacturers.size&&!selectedManufacturers.has(model.manufacturer))continue;
       if(selectedCategories.size&&![...selectedCategories].every(category=>model.categories.includes(category)))continue;
       if(selectedSeries.size&&!selectedSeries.has(model.series))continue;
-      if(!model.points.length)continue;
+      const points=S.pointsFor?S.pointsFor(model):(model.points||model.sourcePoints||[]);
+      if(!points.length)continue;
 
-      const bestMatch=operatingPoint(model.points,airflow,pressure,{
+      const bestMatch=operatingPoint(points,airflow,pressure,{
         airflowMin,
         airflowMax,
         pressureMin,

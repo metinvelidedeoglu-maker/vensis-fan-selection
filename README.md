@@ -70,5 +70,7 @@ node --test tests/vitlo-catalog-data.test.mjs
 
 The importer reads each PDF column by position, preserves internal product keys
 and prices, and removes only recognized dimension-table artifacts. Only verified
-catalogue points are stored; PCHIP interpolation runs in the browser without
-extrapolating beyond catalogue limits.
+catalogue points are stored; PCHIP interpolation runs on demand in the browser
+without extrapolating beyond catalogue limits. Selection models are interpolated
+only after they pass the active product filters and are cached for that page
+session. Catalog datasheets interpolate and cache only the opened model.

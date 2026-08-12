@@ -127,13 +127,49 @@ test('selection uses corrected pressure columns and never extrapolates',()=>{
   const state=context.window.VensisState;
   state.selectedSeries=new Set(['AXW/ATEX']);
   const target=state.models.find(model=>model.model==='AXW/ATEX 63-4T-3');
-  assert.ok(target.points.length>target.sourcePoints.length,'runtime interpolation was not created');
+  const untouched=state.models.find(model=>model.model==='AXD 35-4T-0.18');
+  assert.equal(target.points,null,'runtime interpolation happened during page initialization');
+  assert.equal(untouched.points,null,'an unrelated curve was initialized eagerly');
 
   let selected=context.window.VensisSelection.select().results;
+  assert.ok(target.points.length>target.sourcePoints.length,'runtime interpolation was not created on demand');
+  assert.equal(untouched.points,null,'a model outside the active filters was interpolated');
+  const cachedPoints=target.points;
+  context.window.VensisSelection.select();
+  assert.equal(target.points,cachedPoints,'runtime interpolation was not cached');
   assert.ok(selected.some(model=>model.model==='AXW/ATEX 63-4T-3'));
 
   values.q=13500;
   values.p=300;
   selected=context.window.VensisSelection.select().results;
   assert.equal(selected.some(model=>model.model==='AXW/ATEX 63-4T-3'),false);
+});
+
+test('catalog datasheets interpolate and cache only the requested curve',()=>{
+  const document={getElementById:()=>null};
+  const context={window:{},document,console,Intl};
+  context.window.document=document;
+  vm.createContext(context);
+  vm.runInContext(fs.readFileSync(path.join(root,'js/core/utils.js'),'utf8'),context,{filename:'js/core/utils.js'});
+
+  const original=context.window.VensisUtils.densifyPoints;
+  let interpolationCount=0;
+  context.window.VensisUtils.densifyPoints=(...args)=>{
+    interpolationCount++;
+    return original(...args);
+  };
+  vm.runInContext(fs.readFileSync(path.join(root,'js/ui/datasheet.js'),'utf8'),context,{filename:'js/ui/datasheet.js'});
+  assert.equal(interpolationCount,0,'datasheet curves were initialized before use');
+
+  const sourcePoints=[[0,2860],[25,2600],[50,2300],[75,2000],[100,1500]];
+  const payload={
+    mode:'catalog',
+    model:{model:'AXW/ATEX 35-4T-0.18',performance:{nominalAirflow:2860,points:[],sourcePoints}},
+    product:{series:{title:'AXW/ATEX',manufacturer:'Vitlo'},description:{general:[],motor:[],applications:[]}}
+  };
+  const first=context.window.VensisDatasheet.html(payload);
+  assert.equal(interpolationCount,1,'requested catalog curve was not interpolated');
+  assert.match(first,/Fan Performance Curve/);
+  context.window.VensisDatasheet.html(payload);
+  assert.equal(interpolationCount,1,'requested catalog curve was not cached');
 });

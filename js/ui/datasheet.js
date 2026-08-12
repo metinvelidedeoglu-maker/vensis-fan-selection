@@ -2,6 +2,22 @@
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
   const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(Number(value)||0);
   const positive=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?n:null};
+  const densePointCache=new WeakMap();
+
+  function populatedPoints(...values){
+    return values.find(value=>Array.isArray(value)&&value.length)||[];
+  }
+
+  function curvePoints(points,sourcePoints){
+    const existing=populatedPoints(points);
+    if(existing.length)return existing;
+    const source=populatedPoints(sourcePoints);
+    if(source.length<3||!window.VensisUtils?.densifyPoints)return source;
+    if(densePointCache.has(source))return densePointCache.get(source);
+    const dense=window.VensisUtils.densifyPoints(source,201);
+    densePointCache.set(source,dense);
+    return dense;
+  }
 
   function normalizePoints(points){
     const map=new Map();
@@ -82,6 +98,8 @@
     const motor=model.motor||product.motor||{};
     const technical=model.technical||product.technical||{};
     const performance=model.performance||product.performance||{};
+    const runtimePoints=populatedPoints(model.points,performance.points);
+    const sourcePoints=populatedPoints(performance.sourcePoints,model.sourcePoints,runtimePoints);
     return {
       mode:payload.mode||'catalog',
       model:model.model||product.model||model.display||'',
@@ -90,7 +108,7 @@
       image:product.media?.image||model.image||'',
       motor:{power:motor.power??model.kw,speed:motor.speed??model.rpm,current:motor.current??model.amps,voltage:motor.voltage??model.voltage,sound:motor.sound??model.spl},
       technical:{fireRating:technical.fireRating||model.fireRating||'',fanType:technical.fanType||model.fanType||'',mountType:technical.mountType||model.mountType||'',ipClass:technical.ipClass||model.ipClass||''},
-      performance:{nominalAirflow:performance.nominalAirflow??model.nominal,points:performance.points||model.points||[],sourcePoints:performance.sourcePoints||model.sourcePoints||performance.points||model.points||[]},
+      performance:{nominalAirflow:performance.nominalAirflow??model.nominal,points:curvePoints(runtimePoints,sourcePoints),sourcePoints},
       description:product.description||{general:[],motor:[],applications:[]},
       required:payload.required||null,
       selected:payload.selected||null

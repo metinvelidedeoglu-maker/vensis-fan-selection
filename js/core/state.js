@@ -41,8 +41,16 @@
       nominal:Number(model.performance?.nominalAirflow)||0,
       sourcePage:model.source?.page||'',
       sourcePoints,
-      points:U?.densifyPoints?U.densifyPoints(sourcePoints,201):sourcePoints
+      points:null
     };
+  }
+
+  function pointsFor(model){
+    if(!model)return [];
+    if(Array.isArray(model.points))return model.points;
+    const source=Array.isArray(model.sourcePoints)?model.sourcePoints:[];
+    model.points=U?.densifyPoints?U.densifyPoints(source,201):source;
+    return model.points;
   }
 
   const models=catalog.models.map(toSelectionModel);
@@ -58,6 +66,7 @@
 
   window.VensisState={
     models,
+    pointsFor,
     indexes:{manufacturers,categories,series,seriesCounts},
     results:[],
     selectedManufacturers:new Set(manufacturers.includes('Vitlo')?['Vitlo']:manufacturers.slice(0,1)),
