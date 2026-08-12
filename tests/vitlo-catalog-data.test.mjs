@@ -21,9 +21,9 @@ function loadModels(){
 const models=loadModels();
 
 test('catalog contains only verified Vitlo product rows',()=>{
-  assert.equal(models.length,623);
+  assert.equal(models.length,631);
   const expectedCounts={
-    AXF:48,'BOX-AXF':48,'AXW/ATEX':24,'AXD/ATEX':42,'MOB-AXD/ATEX':9,
+    AXF:48,'BOX-AXF':48,'AXW/ATEX':32,'AXD/ATEX':42,'MOB-AXD/ATEX':9,
     'AXR/ATEX':24,'CRH/ATEX':8,'CRD/ATEX':8,'CRS/ATEX':8,AXD:56,
     'AXD/MOB':10,AXS:56,AXW:24,AXB:17,AXH:56,CD:6,CRB:9,CRD:8,
     CRK:8,CRC:9,CRS:8,CR:9,CRH:8,CRV:8,CRU:9,AXR:24,AXV:24,
@@ -51,7 +51,42 @@ test('only verified catalogue points are stored',()=>{
       assert.ok(source[index][1]<=source[index-1][1],`${model.model} airflow order`);
     }
   }
-  assert.equal(rawCurveCount,580);
+  assert.equal(rawCurveCount,588);
+});
+
+test('AXW/ATEX includes the supplied two-pole models',()=>{
+  const expected=[
+    ['AXW/ATEX 35-2T-0.37',4000,0.25,2770,0.7,78,1316,[[100,3400],[150,3000],[200,2550],[250,2000],[300,1200]]],
+    ['AXW/ATEX 35-2T-0.55',4600,0.37,2770,1.2,80,1352,[[100,4000],[150,3600],[200,3100],[250,2500],[300,1600]]],
+    ['AXW/ATEX 35-2T-0.75',5000,0.55,2770,1.45,82,1387,[[100,4700],[150,4450],[200,4150],[250,3830],[300,3500],[350,3000]]],
+    ['AXW/ATEX 40-2T-1',6500,0.75,2880,1.76,85,1529,[[100,6000],[150,5750],[200,5500],[250,5200],[300,4840],[350,4370],[400,3850]]],
+    ['AXW/ATEX 40-2T-1.5',7820,1.1,2870,2.52,85,1636,[[100,7370],[150,7050],[200,6770],[250,6400],[300,6000],[350,5500],[400,5150],[500,3500]]],
+    ['AXW/ATEX 45-2T-2',11000,1.5,2870,3.13,88,1888,[[100,10300],[150,9900],[200,9500],[250,9120],[300,8670],[350,8170],[400,7600],[500,5850]]],
+    ['AXW/ATEX 50-2T-3',14000,2.2,2875,4.45,86,2062,[[100,13000],[150,12700],[200,12300],[250,11700],[300,11200],[350,10700],[400,10000],[500,8540],[600,6130]]],
+    ['AXW/ATEX 56-2T-4',17600,3,2900,5.77,95,2456,[[100,16600],[150,16200],[200,15700],[250,15200],[300,14600],[350,14000],[400,13400],[500,11800],[600,9500],[700,6700]]],
+  ];
+
+  for(const [name,nominal,kw,rpm,amps,spl,price,sourcePoints] of expected){
+    const model=models.find(row=>row.model===name);
+    assert.ok(model,`${name} is missing`);
+    assert.equal(model.series,'AXW/ATEX');
+    assert.equal(model.brand,'Vitlo');
+    assert.equal(model.atex,true);
+    assert.equal(model.pole,2);
+    assert.equal(model.voltage,'400V-50Hz');
+    assert.equal(model.sourcePage,15);
+    assert.deepEqual(
+      [model.nominal,model.kw,model.rpm,model.amps,model.spl,model.price,model.sourcePoints],
+      [nominal,kw,rpm,amps,spl,price,sourcePoints]
+    );
+  }
+});
+
+test('all product entry points load the supplied AXW/ATEX data chunk',()=>{
+  for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
+    const html=fs.readFileSync(path.join(root,file),'utf8');
+    assert.match(html,/data\/fans-08\.js\?v=20260812-axw-atex-2t/,file);
+  }
 });
 
 test('known multi-table pressure headers match the catalogue',()=>{
