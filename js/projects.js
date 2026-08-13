@@ -1,6 +1,7 @@
 (function(){
   const store=window.VensisProjects;
   const listUtils=window.VensisProjectListUtils;
+  const orderUtils=window.VensisOrderUtils;
   const byId=id=>document.getElementById(id);
   const esc=value=>String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const num=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
@@ -35,14 +36,16 @@
       ...project,
       name:meta.name||project.name||'Untitled Project',
       reference:meta.reference||project.reference||'',
-      contact:meta.contact||project.contact||''
+      contact:meta.contact||project.contact||'',
+      status:meta.status||project.status||'draft'
     };
   }
+  function statusLabel(status){return orderUtils?.projectStatusLabel?.(status)||({draft:'Taslak',quoted:'Teklif Verildi',won:'Kazanıldı',ordered:'Sipariş Verildi',lost:'Kaybedildi'}[status]||'Taslak')}
   function card(project,activeId){
     const totals=projectTotals(project.id);
     const reference=project.reference||'No customer or reference entered';
     return `<article class="project-card ${project.id===activeId?'active':''}" data-project-card="${esc(project.id)}">
-      <div class="card-top"><div><div class="project-kicker">Project Workspace</div><h2>${esc(project.name)}</h2></div>${project.id===activeId?'<span class="active-badge">Active</span>':''}</div>
+      <div class="card-top"><div><div class="project-kicker">Project Workspace</div><h2>${esc(project.name)}</h2></div><div class="card-badges"><span class="status-badge" data-status="${esc(project.status)}">${esc(statusLabel(project.status))}</span>${project.id===activeId?'<span class="active-badge">Active</span>':''}</div></div>
       <div class="project-identifiers"><div class="project-identifier"><span>Project Code</span><b>${esc(listUtils.projectCode(project))}</b></div><div class="project-identifier"><span>Project Date</span><b>${esc(dateText(project.createdAt||project.updatedAt))}</b></div></div>
       <p class="reference">${esc(reference)}</p>
       <p class="contact">${project.contact?`Contact: ${esc(project.contact)}`:'No contact person entered'}</p>

@@ -59,9 +59,10 @@
     if(heading)heading.textContent=name||'Project Workspace';
     document.title=`${name||'Project Workspace'} | Vensis`;
   }
-  function writeMeta(globalDiscount){
+  function writeMeta(globalDiscount,patch={}){
     const current=readMeta();
     const meta=store.writeMeta({
+      ...patch,
       name:byId('projectName')?.value.trim()||'',
       reference:byId('projectReference')?.value.trim()||'',
       globalDiscount:globalDiscount==null?clampDiscount(current.globalDiscount):clampDiscount(globalDiscount)
@@ -171,8 +172,8 @@
   function quoteNumber(date){const pad=value=>String(value).padStart(2,'0');return `VNS-${String(date.getFullYear()).slice(-2)}${pad(date.getMonth()+1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`}
   function convertToQuotation(){
     flushAllNotes();const items=readItems();if(!items.length){alert('Add at least one product before creating a quotation.');return}
-    const meta=writeMeta();const now=new Date();
-    const snapshot={version:2,quotationNumber:quoteNumber(now),createdAt:now.toISOString(),currency:'EUR',project:{id:PROJECT_ID,name:meta.name||'',reference:meta.reference||''},globalDiscount:clampDiscount(meta.globalDiscount),items:JSON.parse(JSON.stringify(items)),totals:totals(items)};
+    const now=new Date();const quotationNumber=quoteNumber(now);const currentStatus=readMeta().status;const status=['won','ordered'].includes(currentStatus)?currentStatus:'quoted';const meta=writeMeta(undefined,{status,lastQuotationNumber:quotationNumber});
+    const snapshot={version:2,quotationNumber,createdAt:now.toISOString(),currency:'EUR',project:{id:PROJECT_ID,name:meta.name||'',reference:meta.reference||'',contact:meta.contact||''},globalDiscount:clampDiscount(meta.globalDiscount),items:JSON.parse(JSON.stringify(items)),totals:totals(items)};
     localStorage.setItem(QUOTATION_KEY,JSON.stringify(snapshot));window.open('quotation.html','_blank');
   }
   function remove(index){const items=readItems();if(!items[index])return;items.splice(index,1);writeItems(items);render()}
@@ -210,7 +211,7 @@
   });
   document.addEventListener('input',event=>{const note=event.target.closest('[data-product-note]');if(note)queueDescriptionSave(note)});
   document.addEventListener('change',event=>{const discount=event.target.closest('[data-line-discount]');const note=event.target.closest('[data-product-note]');if(discount)changeLineDiscount(Number(discount.dataset.lineDiscount),discount.value);if(note)saveDescriptionField(note)});
-  document.addEventListener('click',event=>{if(event.target.closest('#printProject,#convertQuotation'))flushAllNotes()},true);
+  document.addEventListener('click',event=>{if(event.target.closest('#printProject,#convertQuotation,#createOrder'))flushAllNotes()},true);
   byId('applyGlobalDiscount')?.addEventListener('click',applyGlobalDiscount);byId('convertQuotation')?.addEventListener('click',convertToQuotation);byId('clearProject')?.addEventListener('click',clearProject);byId('printProject')?.addEventListener('click',()=>window.print());byId('addCustomProduct')?.addEventListener('click',()=>openProductEditor());byId('customProductForm')?.addEventListener('submit',saveProductEditor);byId('cancelCustomProduct')?.addEventListener('click',closeProductEditor);byId('closeCustomProduct')?.addEventListener('click',closeProductEditor);byId('customProductModal')?.addEventListener('click',event=>{if(event.target===byId('customProductModal'))closeProductEditor()});
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!byId('customProductModal')?.hidden)closeProductEditor()});
   byId('projectName')?.addEventListener('input',()=>writeMeta());byId('projectReference')?.addEventListener('input',()=>writeMeta());

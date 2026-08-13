@@ -238,6 +238,124 @@ function project_item(array $source): array
     return $result;
 }
 
+function project_status(mixed $value): string
+{
+    $status = project_text($value, 'status', 24);
+    if (!in_array($status, ['draft', 'quoted', 'won', 'ordered', 'lost'], true)) {
+        throw new EditApiException('Project status is invalid.', 422);
+    }
+    return $status;
+}
+
+function project_order_id(mixed $value): string
+{
+    if (!is_string($value)) {
+        throw new EditApiException('Order ID is invalid.', 422);
+    }
+    $value = trim($value);
+    if (preg_match('/^ord_[A-Za-z0-9_-]{6,120}$/', $value) !== 1) {
+        throw new EditApiException('Order ID is invalid.', 422);
+    }
+    return $value;
+}
+
+function project_order_date(mixed $value, string $fallback): string
+{
+    $date = project_text(($value === null || $value === '') ? $fallback : $value, 'orderDate', 10);
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $date, $parts) !== 1
+        || !checkdate((int) $parts[2], (int) $parts[3], (int) $parts[1])) {
+        throw new EditApiException('Order date is invalid.', 422);
+    }
+    return $date;
+}
+
+function project_order_boolean(mixed $value, string $field): bool
+{
+    if (!is_bool($value)) {
+        throw new EditApiException("Order field {$field} is invalid.", 422);
+    }
+    return $value;
+}
+
+function project_order_item(array $source): array
+{
+    $item = project_item($source);
+    $fields = [
+        'itemKey', 'mode', 'productKey', 'model', 'series', 'manufacturer', 'description',
+        'nominalAirflow', 'required', 'selected', 'voltage', 'frequency', 'motorPower',
+        'current', 'speed', 'quantity',
+    ];
+    $result = array_intersect_key($item, array_flip($fields));
+    $result['included'] = array_key_exists('included', $source)
+        ? project_order_boolean($source['included'], 'included')
+        : true;
+    return $result;
+}
+
+function project_order(array $source, array $fallbackProject): array
+{
+    $createdAt = project_timestamp($source['createdAt'] ?? null, 'order.createdAt', gmdate('c'));
+    $updatedAt = project_timestamp($source['updatedAt'] ?? null, 'order.updatedAt', $createdAt);
+    $status = project_text($source['status'] ?? 'draft', 'order.status', 24);
+    if (!in_array($status, ['draft', 'sent'], true)) {
+        throw new EditApiException('Order status is invalid.', 422);
+    }
+    $recipientType = project_text($source['recipientType'] ?? 'manufacturer', 'recipientType', 24);
+    if (!in_array($recipientType, ['manufacturer', 'distributor'], true)) {
+        throw new EditApiException('Order recipient type is invalid.', 422);
+    }
+
+    $projectSource = is_array($source['project'] ?? null) ? $source['project'] : [];
+    $nestedProjectId = project_id($projectSource['id'] ?? $fallbackProject['id']);
+    if ($nestedProjectId !== $fallbackProject['id']) {
+        throw new EditApiException('Order project is invalid.', 422);
+    }
+
+    $itemsSource = $source['items'] ?? [];
+    if (!is_array($itemsSource) || count($itemsSource) > 500) {
+        throw new EditApiException('Order items are invalid.', 422);
+    }
+    $items = [];
+    foreach ($itemsSource as $item) {
+        if (!is_array($item)) {
+            throw new EditApiException('Order item is invalid.', 422);
+        }
+        $items[] = project_order_item($item);
+    }
+
+    $sentAt = '';
+    if (($source['sentAt'] ?? '') !== '') {
+        $sentAt = project_timestamp($source['sentAt'], 'order.sentAt');
+    }
+
+    return [
+        'id' => project_order_id($source['id'] ?? null),
+        'orderNumber' => project_text($source['orderNumber'] ?? '', 'orderNumber', 160),
+        'sourceQuotationNumber' => project_text($source['sourceQuotationNumber'] ?? '', 'sourceQuotationNumber', 160),
+        'status' => $status,
+        'orderDate' => project_order_date($source['orderDate'] ?? null, substr($createdAt, 0, 10)),
+        'createdAt' => $createdAt,
+        'updatedAt' => $updatedAt,
+        'sentAt' => $sentAt,
+        'orderingCompany' => project_text($source['orderingCompany'] ?? '', 'orderingCompany', 240),
+        'recipientType' => $recipientType,
+        'supplier' => project_text($source['supplier'] ?? '', 'supplier', 240),
+        'supplierContact' => project_text($source['supplierContact'] ?? '', 'supplierContact', 240),
+        'supplierEmail' => project_text($source['supplierEmail'] ?? '', 'supplierEmail', 320),
+        'deliveryTime' => project_text($source['deliveryTime'] ?? '', 'deliveryTime', 500),
+        'deliveryPlace' => project_text($source['deliveryPlace'] ?? '', 'deliveryPlace', 500),
+        'paymentTerms' => project_text($source['paymentTerms'] ?? '', 'paymentTerms', 500),
+        'note' => project_text($source['note'] ?? '', 'note', 5000, true),
+        'project' => [
+            'id' => $nestedProjectId,
+            'name' => project_text($projectSource['name'] ?? $fallbackProject['name'], 'order.project.name', 240),
+            'reference' => project_text($projectSource['reference'] ?? $fallbackProject['reference'], 'order.project.reference', 500),
+            'contact' => project_text($projectSource['contact'] ?? $fallbackProject['contact'], 'order.project.contact', 240),
+        ],
+        'items' => $items,
+    ];
+}
+
 function project_record(mixed $value): array
 {
     if (!is_array($value)) {
@@ -251,6 +369,8 @@ function project_record(mixed $value): array
     $reference = project_text($metaSource['reference'] ?? $value['reference'] ?? '', 'reference', 500);
     $contact = project_text($metaSource['contact'] ?? $value['contact'] ?? '', 'contact', 240);
     $globalDiscount = project_number($metaSource['globalDiscount'] ?? 0, 'globalDiscount', 0, 100);
+    $status = project_status($metaSource['status'] ?? $value['status'] ?? 'draft');
+    $lastQuotationNumber = project_text($metaSource['lastQuotationNumber'] ?? '', 'lastQuotationNumber', 160);
     $itemsSource = $value['items'] ?? [];
     if (!is_array($itemsSource) || count($itemsSource) > 500) {
         throw new EditApiException('Project items are invalid.', 422);
@@ -262,11 +382,24 @@ function project_record(mixed $value): array
         }
         $items[] = project_item($item);
     }
+    $ordersSource = $metaSource['orders'] ?? [];
+    if (!is_array($ordersSource) || count($ordersSource) > 100) {
+        throw new EditApiException('Project orders are invalid.', 422);
+    }
+    $orders = [];
+    $fallbackProject = ['id' => $id, 'name' => $name, 'reference' => $reference, 'contact' => $contact];
+    foreach ($ordersSource as $order) {
+        if (!is_array($order)) {
+            throw new EditApiException('Project order is invalid.', 422);
+        }
+        $orders[] = project_order($order, $fallbackProject);
+    }
     return [
         'id' => $id,
         'name' => $name !== '' ? $name : 'Untitled Project',
         'reference' => $reference,
         'contact' => $contact,
+        'status' => $status,
         'createdAt' => $createdAt,
         'updatedAt' => $updatedAt,
         'meta' => [
@@ -274,6 +407,9 @@ function project_record(mixed $value): array
             'reference' => $reference,
             'contact' => $contact,
             'globalDiscount' => $globalDiscount,
+            'status' => $status,
+            'lastQuotationNumber' => $lastQuotationNumber,
+            'orders' => $orders,
         ],
         'items' => $items,
     ];
@@ -287,4 +423,3 @@ function project_public_state(array $state): array
         'updatedAt' => (string) ($state['updatedAt'] ?? ''),
     ];
 }
-

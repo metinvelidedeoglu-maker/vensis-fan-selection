@@ -22,13 +22,48 @@
   function itemsKey(projectId){return `${ITEM_PREFIX}${projectId}`}
   function metaKey(projectId){return `${META_PREFIX}${projectId}`}
   function cleanText(value){return String(value??'').trim()}
+  function cleanStatus(value){return ['draft','quoted','won','ordered','lost'].includes(value)?value:'draft'}
+  function cleanPoint(value){
+    if(!value||typeof value!=='object')return null;
+    return {q:Math.max(0,Number(value.q)||0),p:Math.max(0,Number(value.p)||0)};
+  }
+  function normalizeOrderItem(value,index){
+    const source=value&&typeof value==='object'?value:{};
+    return {
+      itemKey:cleanText(source.itemKey)||`line-${index+1}`,
+      mode:['selection','catalog','custom'].includes(source.mode)?source.mode:'selection',
+      productKey:cleanText(source.productKey),model:cleanText(source.model),series:cleanText(source.series),
+      manufacturer:cleanText(source.manufacturer)||'Vitlo',description:cleanText(source.description),
+      nominalAirflow:Math.max(0,Number(source.nominalAirflow)||0),required:cleanPoint(source.required),selected:cleanPoint(source.selected),
+      voltage:cleanText(source.voltage),frequency:cleanText(source.frequency),motorPower:Math.max(0,Number(source.motorPower)||0),
+      current:Math.max(0,Number(source.current)||0),speed:Math.max(0,Number(source.speed)||0),
+      quantity:Math.max(1,Math.round(Number(source.quantity)||1)),included:source.included!==false
+    };
+  }
+  function normalizeOrder(value){
+    const source=value&&typeof value==='object'?value:{};
+    const project=source.project&&typeof source.project==='object'?source.project:{};
+    return {
+      id:cleanText(source.id),orderNumber:cleanText(source.orderNumber),sourceQuotationNumber:cleanText(source.sourceQuotationNumber),
+      status:source.status==='sent'?'sent':'draft',orderDate:cleanText(source.orderDate),createdAt:source.createdAt||now(),
+      updatedAt:source.updatedAt||source.createdAt||now(),sentAt:source.sentAt||'',orderingCompany:cleanText(source.orderingCompany)||'Vensis Havalandırma Ltd. Şti.',
+      recipientType:source.recipientType==='distributor'?'distributor':'manufacturer',supplier:cleanText(source.supplier),
+      supplierContact:cleanText(source.supplierContact),supplierEmail:cleanText(source.supplierEmail),deliveryTime:cleanText(source.deliveryTime),
+      deliveryPlace:cleanText(source.deliveryPlace),paymentTerms:cleanText(source.paymentTerms),note:cleanText(source.note),
+      project:{id:cleanText(project.id),name:cleanText(project.name),reference:cleanText(project.reference),contact:cleanText(project.contact)},
+      items:(Array.isArray(source.items)?source.items:[]).slice(0,500).map(normalizeOrderItem)
+    };
+  }
   function normalizeMeta(value){
     const source=value&&typeof value==='object'?value:{};
     return {
       name:cleanText(source.name),
       reference:cleanText(source.reference),
       contact:cleanText(source.contact),
-      globalDiscount:Math.min(100,Math.max(0,Number(source.globalDiscount)||0))
+      globalDiscount:Math.min(100,Math.max(0,Number(source.globalDiscount)||0)),
+      status:cleanStatus(source.status),
+      lastQuotationNumber:cleanText(source.lastQuotationNumber),
+      orders:(Array.isArray(source.orders)?source.orders:[]).filter(order=>order&&typeof order==='object').slice(0,100).map(normalizeOrder)
     };
   }
   function normalizeEntry(value){
@@ -38,6 +73,7 @@
       name:cleanText(source.name),
       reference:cleanText(source.reference),
       contact:cleanText(source.contact),
+      status:cleanStatus(source.status),
       createdAt:source.createdAt||now(),
       updatedAt:source.updatedAt||source.createdAt||now()
     };
@@ -119,6 +155,7 @@
       name:meta.name||entry.name||'Untitled Project',
       reference:meta.reference||entry.reference||'',
       contact:meta.contact||entry.contact||'',
+      status:meta.status||entry.status||'draft',
       meta,
       items:JSON.parse(JSON.stringify(readItems(projectId)))
     };
@@ -316,7 +353,7 @@
     const projectId=id();
     const stamp=now();
     const meta=normalizeMeta(input);
-    const entry={id:projectId,name:meta.name||'Untitled Project',reference:meta.reference,contact:meta.contact,createdAt:stamp,updatedAt:stamp};
+    const entry={id:projectId,name:meta.name||'Untitled Project',reference:meta.reference,contact:meta.contact,status:meta.status,createdAt:stamp,updatedAt:stamp};
     const rows=rawList();rows.push(entry);saveList(rows);
     writeJson(itemsKey(projectId),[]);writeJson(metaKey(projectId),meta);
     const tombstones=readTombstones();delete tombstones[projectId];saveTombstones(tombstones);
@@ -345,7 +382,7 @@
     if(!projectId)projectId=ensureActive();
     const current=readMeta(projectId);const meta=normalizeMeta({...current,...value});
     writeJson(metaKey(projectId),meta);
-    touch(projectId,{name:meta.name||'Untitled Project',reference:meta.reference,contact:meta.contact});
+    touch(projectId,{name:meta.name||'Untitled Project',reference:meta.reference,contact:meta.contact,status:meta.status});
     emit('vensis-project-updated',projectId);emit('vensis-projects-updated',projectId);
     scheduleSave(projectId);
     return meta;
