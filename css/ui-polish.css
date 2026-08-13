@@ -193,7 +193,7 @@ body.app-shell select:focus{border-color:var(--ui-green)!important;box-shadow:0 
 .app-catalog .model-datasheet-btn{border-radius:10px;box-shadow:0 6px 16px rgba(8,127,79,.16)}
 
 /* Project workspace */
-.app-project .page{max-width:1500px;margin:26px auto;padding:0 22px 42px}
+.app-project .page{max-width:1680px;margin:26px auto;padding:0 22px 42px}
 .app-project .page-head{margin-bottom:18px;align-items:center}
 .app-project .page-head h1{font-size:32px;letter-spacing:-.045em}
 .app-project .page-head p{font-weight:600}
@@ -257,15 +257,20 @@ body.app-shell select:focus{border-color:var(--ui-green)!important;box-shadow:0 
 .app-project .custom-product-footer b{font-size:16px}
 .app-project .custom-product-footer .custom-btn{border-radius:10px;background:var(--ui-green)!important;box-shadow:0 6px 16px rgba(8,127,79,.17)}
 .app-project .quotation-settings{border-radius:var(--ui-radius-lg)!important;border-color:var(--ui-line)!important;box-shadow:var(--ui-shadow)!important}
+.app-project .project-editor .project-meta,
+.app-project .project-editor .discount-panel{border:0!important;border-radius:0!important;box-shadow:none;background:#fff!important}
+.app-project .project-editor .project-meta{padding:16px 18px 0}
+.app-project .project-editor .discount-panel{padding:17px 18px}
+.app-project .project-editor .quotation-settings{border-radius:10px!important;box-shadow:none!important}
 .app-project .custom-dialog{border-radius:18px;box-shadow:var(--ui-shadow-lg)}
 
-/* Quotation screen preview only */
+/* Quotation editor and document preview */
 .app-quotation{background:linear-gradient(180deg,#edf2f1,#e8eeec)}
 .app-quotation .toolbar{
   position:sticky;
   top:10px;
   z-index:60;
-  width:min(210mm,calc(100% - 24px));
+  width:min(1680px,calc(100% - 24px));
   margin:10px auto 14px;
   padding:9px;
   border:1px solid rgba(201,215,212,.9);
