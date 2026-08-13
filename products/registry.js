@@ -1,6 +1,6 @@
 (function(){
   const names={
-    'TUNEL-AXF':'Tunnel Type Axial Fan','MOB-AXD/ATEX':'Axial Mobile Ex-proof Fan','BOX-AXF':'Axial Cell Type Smoke Extract Fans','ROOF-AXF':'Axial Roof Type Smoke Extract Fans','AXD/ATEX':'Axial Duct Type Ex-proof Fan','AXW/ATEX':'Axial Wall Type Ex-proof Fans','AXR/ATEX':'Axial Roof Type Ex-proof Fan','CRH/ATEX':'Centrifugal Roof Type Ex-proof Fan','CRD/ATEX':'Centrifugal Duct Type Ex-proof Fan','CRS/ATEX':'Centrifugal Single Inlet Ex-proof Fan','AXD/MOB':'Mobile Axial Fan','CRU-EC':'Vertical Outlet Centrifugal Roof Type Fan','CRB-EC':'Centrifugal Rectangular Duct Type Fan','CRC-EC':'Centrifugal Cell Type Fan','CR-EC':'Horizontal Outlet Centrifugal Roof Type Fan','AXF':'Axial Duct Type Smoke Extract Fans','AXJ':'Axial Jet Fan','RXJ':'Radial Jet Fans','AXD':'Axial Duct Type Fan','AXS':'Axial Short Case Fan','AXW':'Axial Wall Type Fan','AXB':'Bifurcated Axial Duct Type Fan','AXH':'Axial Cell Type Fans','AXR':'Horizontal Outlet Axial Roof Type Fan','AXV':'Vertical Outlet Axial Roof Type Fan','CRB':'Centrifugal Rectangular Duct Type Fan','CRD':'Centrifugal Rectangular Duct Type Fan','CRK':'Centrifugal Single Inlet Cell Type Fan','CRC':'Centrifugal Cell Type Fan','CRS':'Centrifugal Single Inlet Fan','CRH':'Horizontal Outlet Centrifugal Roof Type Fan','CRV':'Vertical Outlet Centrifugal Roof Type Fan','CRU':'Vertical Outlet Centrifugal Roof Type Fan','CRR':'Duct Type Shelter Fan','VHR':'Heat Recovery Units','CD':'Centrifugal Duct Type Fan','CR':'Horizontal Outlet Centrifugal Roof Fan'
+    'LINEO QUIET ES':'LINEO QUIET ES Low-Noise In-Line EC Mixed-Flow Fans','LINEO QUIET':'LINEO QUIET Low-Noise In-Line Mixed-Flow Fans','LINEO ES':'LINEO ES In-Line EC Mixed-Flow Fans','LINEO':'LINEO In-Line Mixed-Flow Fans','TUNEL-AXF':'Tunnel Type Axial Fan','MOB-AXD/ATEX':'Axial Mobile Ex-proof Fan','BOX-AXF':'Axial Cell Type Smoke Extract Fans','ROOF-AXF':'Axial Roof Type Smoke Extract Fans','AXD/ATEX':'Axial Duct Type Ex-proof Fan','AXW/ATEX':'Axial Wall Type Ex-proof Fans','AXR/ATEX':'Axial Roof Type Ex-proof Fan','CRH/ATEX':'Centrifugal Roof Type Ex-proof Fan','CRD/ATEX':'Centrifugal Duct Type Ex-proof Fan','CRS/ATEX':'Centrifugal Single Inlet Ex-proof Fan','AXD/MOB':'Mobile Axial Fan','CRU-EC':'Vertical Outlet Centrifugal Roof Type Fan','CRB-EC':'Centrifugal Rectangular Duct Type Fan','CRC-EC':'Centrifugal Cell Type Fan','CR-EC':'Horizontal Outlet Centrifugal Roof Type Fan','AXF':'Axial Duct Type Smoke Extract Fans','AXJ':'Axial Jet Fan','RXJ':'Radial Jet Fans','AXD':'Axial Duct Type Fan','AXS':'Axial Short Case Fan','AXW':'Axial Wall Type Fan','AXB':'Bifurcated Axial Duct Type Fan','AXH':'Axial Cell Type Fans','AXR':'Horizontal Outlet Axial Roof Type Fan','AXV':'Vertical Outlet Axial Roof Type Fan','CRB':'Centrifugal Rectangular Duct Type Fan','CRD':'Centrifugal Rectangular Duct Type Fan','CRK':'Centrifugal Single Inlet Cell Type Fan','CRC':'Centrifugal Cell Type Fan','CRS':'Centrifugal Single Inlet Fan','CRH':'Horizontal Outlet Centrifugal Roof Type Fan','CRV':'Vertical Outlet Centrifugal Roof Type Fan','CRU':'Vertical Outlet Centrifugal Roof Type Fan','CRR':'Duct Type Shelter Fan','VHR':'Heat Recovery Units','CD':'Centrifugal Duct Type Fan','CR':'Horizontal Outlet Centrifugal Roof Fan'
   };
   const aliases={'MOB-AXD':'AXD/MOB','AXD-MOB':'AXD/MOB','AXD/MOB':'AXD/MOB'};
   const files={};
@@ -24,6 +24,47 @@
     return model;
   }
   function imageFor(code){return code&&files[code]?'assets/products/'+files[code]:''}
+  function finite(value){const number=Number(value);return Number.isFinite(number)?number:0}
+  function normalizedPoints(points){
+    const unique=new Set();
+    const result=[];
+    for(const point of points||[]){
+      const pressure=Array.isArray(point)?Number(point[0]):Number(point?.p_pa??point?.pressure??point?.p);
+      const airflow=Array.isArray(point)?Number(point[1]):Number(point?.q_m3h??point?.airflow??point?.q);
+      const key=`${pressure}|${airflow}`;
+      if(Number.isFinite(pressure)&&Number.isFinite(airflow)&&!unique.has(key)){
+        unique.add(key);
+        result.push([pressure,airflow]);
+      }
+    }
+    return result.sort((a,b)=>a[0]-b[0]||b[1]-a[1]);
+  }
+  function normalizedCurves(row){
+    const raw=row?.performanceCurves??row?.curves;
+    const curves=Array.isArray(raw)
+      ? raw
+      : raw&&typeof raw==='object'
+        ? Object.entries(raw).map(([control,curve])=>({control,...curve}))
+        : [];
+    return curves.map((curve,index)=>({
+      control:String(curve?.control||curve?.label||`Curve ${index+1}`),
+      sourcePage:curve?.sourcePage??curve?.source_page??row?.sourcePage??'',
+      interpolation:String(curve?.interpolation||row?.curveInterpolation||'').toLowerCase(),
+      precomputed:Boolean(curve?.precomputed),
+      sourcePoints:normalizedPoints(curve?.sourcePoints||curve?.points||[])
+    })).filter(curve=>curve.sourcePoints.length);
+  }
+  function normalizedOperatingPoints(row){
+    const source=Array.isArray(row?.operatingPoints)?row.operatingPoints:Array.isArray(row?.operating_points)?row.operating_points:[];
+    return source.map(point=>({
+      control:String(point?.control||''),
+      power:finite(point?.powerKw??point?.power_kw??finite(point?.powerW??point?.power_w)/1000),
+      speed:finite(point?.rpm??point?.speed),
+      current:finite(point?.currentA??point?.current_a??point?.current),
+      nominalAirflow:finite(point?.maxAirflowM3h??point?.max_airflow_m3h??point?.nominalAirflow),
+      maxPressure:finite(point?.maxPressurePa??point?.max_pressure_pa??point?.maxPressure)
+    }));
+  }
 
   function ensureSeries(row,code){
     if(seriesRecords.has(code))return seriesRecords.get(code);
@@ -39,7 +80,7 @@
       manufacturer:override.manufacturer||row?.manufacturer||row?.brand||'Vitlo',
       categories,
       title:override.title||names[code]||row?.catalogNameEn||row?.series||code,
-      media:{image:override.image||imageFor(code),gallery:[]},
+      media:{image:override.image||row?.image||row?.imagePath||row?.image_path||imageFor(code),gallery:[]},
       catalogue:{pdf:row?.catalogPdf||'',page:row?.sourcePage||''},
       description:{
         general:Array.isArray(descriptionOverride.general)?descriptionOverride.general:(info.general||[]),
@@ -57,6 +98,13 @@
     const model=normalizeModel(row?.model||row?.display||'',code);
     const series=ensureSeries(row,code);
     const id=String(row?.key||model);
+    const curves=normalizedCurves(row);
+    const operatingPoints=normalizedOperatingPoints(row);
+    const primaryCurve=curves.at(-1)||null;
+    const primaryOperating=operatingPoints.find(point=>point.control===primaryCurve?.control)||operatingPoints.at(-1)||null;
+    const sourcePoints=normalizedPoints(row?.sourcePoints||row?.points||primaryCurve?.sourcePoints||[]);
+    const rowPoints=normalizedPoints(row?.points||[]);
+    const readyPoints=primaryCurve?.precomputed?sourcePoints:rowPoints;
     const record={
       id,
       seriesId:code,
@@ -65,7 +113,8 @@
       catalogOnly:Boolean(row?.catalogOnly),
       pole:Number(row?.pole)||0,
       pricing:{listPrice:Number.isFinite(Number(row?.price))?Number(row.price):null,currency:'EUR'},
-      motor:{power:Number(row?.kw)||0,speed:Number(row?.rpm)||0,current:Number(row?.amps)||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl)||0},
+      media:{image:row?.image||row?.imagePath||row?.image_path||series.media?.image||'',gallery:[]},
+      motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl)||0},
       technical:{
         weight:Number(row?.weight)||0,
         ipClass:row?.ipClass||'',
@@ -74,10 +123,27 @@
         fireRating:row?.fire||'',
         fanType:row?.fanTypeEn||row?.fanType||'',
         mountType:row?.mountTypeEn||row?.mountType||'',
-        productGroup:row?.productGroupEn||row?.productGroup||''
+        productGroup:row?.productGroupEn||row?.productGroup||'',
+        productCode:row?.productCode||row?.code||'',
+        nominalDuctMm:Number(row?.nominalDuctMm??row?.nominal_duct_mm)||0,
+        maxAmbientC:Number(row?.maxAmbientC??row?.max_ambient_c)||0,
+        dimensions:row?.dimensions||row?.dimensions_mm||{},
+        motorType:row?.motorType||row?.motor_type||'',
+        quietCasing:Boolean(row?.quietCasing??row?.quiet_casing),
+        timerVariant:Boolean(row?.timerVariant??row?.timer_variant)
       },
-      performance:{nominalAirflow:Number(row?.nominal)||0,points:row?.points||[],sourcePoints:row?.sourcePoints||row?.points||[]},
-      source:{page:row?.sourcePage||''}
+      performance:{
+        nominalAirflow:Number(row?.nominal)||primaryOperating?.nominalAirflow||0,
+        points:readyPoints,
+        sourcePoints,
+        curves,
+        control:primaryCurve?.control||'',
+        controls:curves.map(curve=>curve.control),
+        operatingPoints,
+        interpolation:primaryCurve?.interpolation||row?.curveInterpolation||'',
+        precomputed:Boolean(primaryCurve?.precomputed)
+      },
+      source:{page:row?.sourcePage||primaryCurve?.sourcePage||'',catalogue:row?.sourceCatalogue||row?.source_catalogue||''}
     };
     modelRecords.set(id,record);
     if(!series.modelIds.includes(id))series.modelIds.push(id);
@@ -93,7 +159,7 @@
       id:model.id,key:model.id,model:model.model,display:model.display,
       catalogOnly:Boolean(model.catalogOnly),
       series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vitlo',categories:series.categories||[]},
-      media:series.media||{image:'',gallery:[]},catalogue:series.catalogue||{},
+      media:model.media?.image?model.media:(series.media||{image:'',gallery:[]}),catalogue:series.catalogue||{},
       description:series.description||{general:[],motor:[],applications:[]},
       pricing:model.pricing,motor:model.motor,technical:model.technical,performance:model.performance,source:model.source
     };
@@ -109,7 +175,7 @@
   };
   window.VensisProducts={
     get:key=>productView(modelRecords.get(String(key||''))),
-    fromResult:result=>productView(modelRecords.get(String(result?.key||result?.id||''))),
+    fromResult:result=>productView(modelRecords.get(String(result?.productKey||result?.key||result?.id||''))),
     seriesCode,
     seriesName:value=>seriesRecords.get(seriesCode(value))?.title||'',
     image:value=>seriesRecords.get(seriesCode(value))?.media?.image||'',

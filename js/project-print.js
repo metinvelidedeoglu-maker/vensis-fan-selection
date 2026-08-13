@@ -41,6 +41,33 @@
     };
   }
 
+  function modelAtControl(item,model){
+    const control=String(item.control||'').trim();
+    if(!model||!control)return model;
+    const curve=(model.performance?.curves||[]).find(row=>String(row.control)===control);
+    if(!curve)return model;
+    const operating=(model.performance?.operatingPoints||[]).find(row=>String(row.control)===control)||null;
+    const sourcePoints=curve.sourcePoints||[];
+    return {
+      ...model,
+      motor:{
+        ...model.motor,
+        power:num(item.motorPower)||num(operating?.power)||num(model.motor?.power),
+        speed:num(item.speed)||num(operating?.speed)||num(model.motor?.speed),
+        current:num(item.current)||num(operating?.current)||num(model.motor?.current)
+      },
+      performance:{
+        ...model.performance,
+        control,
+        nominalAirflow:num(operating?.nominalAirflow)||num(model.performance?.nominalAirflow),
+        sourcePoints,
+        points:curve.precomputed?sourcePoints:[],
+        interpolation:curve.interpolation||model.performance?.interpolation||'',
+        precomputed:Boolean(curve.precomputed)
+      }
+    };
+  }
+
   function resolvedMotor(item,model){
     return {
       power:num(item.motorPower)||num(model?.motor?.power),
@@ -100,8 +127,9 @@
   }
 
   function payloadFor(item){
-    const model=modelFor(item);
-    const product=productFor(item,model);
+    const baseModel=modelFor(item);
+    const product=productFor(item,baseModel);
+    const model=modelAtControl(item,baseModel);
     const fallbackModel=model||{
       model:item.model||'',
       manufacturer:item.manufacturer||'Vitlo',

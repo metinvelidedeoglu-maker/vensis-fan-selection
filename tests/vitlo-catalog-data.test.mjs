@@ -19,9 +19,10 @@ function loadModels(){
 }
 
 const models=loadModels();
+const vitloModels=models.filter(model=>model.brand==='Vitlo');
 
 test('catalog contains only verified Vitlo product rows',()=>{
-  assert.equal(models.length,631);
+  assert.equal(vitloModels.length,631);
   const expectedCounts={
     AXF:48,'BOX-AXF':48,'AXW/ATEX':32,'AXD/ATEX':42,'MOB-AXD/ATEX':9,
     'AXR/ATEX':24,'CRH/ATEX':8,'CRD/ATEX':8,'CRS/ATEX':8,AXD:56,
@@ -31,14 +32,14 @@ test('catalog contains only verified Vitlo product rows',()=>{
     'CRB-EC':6,'CRC-EC':6
   };
   const actualCounts={};
-  for(const model of models)actualCounts[model.series]=(actualCounts[model.series]||0)+1;
+  for(const model of vitloModels)actualCounts[model.series]=(actualCounts[model.series]||0)+1;
   assert.deepEqual(actualCounts,expectedCounts);
-  assert.equal(models.some(model=>Number(model.kw)===0),false);
+  assert.equal(vitloModels.some(model=>Number(model.kw)===0),false);
 });
 
 test('only verified catalogue points are stored',()=>{
   let rawCurveCount=0;
-  for(const model of models){
+  for(const model of vitloModels){
     const source=model.sourcePoints||[];
     assert.equal(Object.hasOwn(model,'points'),false,`${model.model} stores generated points`);
     if(!source.length){

@@ -74,3 +74,19 @@ catalogue points are stored; PCHIP interpolation runs on demand in the browser
 without extrapolating beyond catalogue limits. Selection models are interpolated
 only after they pass the active product filters and are cached for that page
 session. Catalog datasheets interpolate and cache only the opened model.
+
+## Vortice LINEO Catalogue Data
+
+The LINEO catalogue is stored in `data/fans-09.js` as 45 products across LINEO,
+LINEO ES, LINEO QUIET and LINEO QUIET ES. Their 136 vector-derived curves contain
+2,855 ready-to-use points. EC controls remain separate as 4V, 6V, 8V and 10V;
+AC speeds remain separate as min, mid and max. These points use linear
+interpolation and are never regenerated or extrapolated at runtime. The 21
+catalogue product images are stored in `assets/products/lineo/`.
+
+To rebuild this data from an extracted transfer package:
+
+```bash
+node scripts/import-lineo-package.mjs /path/to/extracted/lineo-package
+node --test tests/lineo-catalog-data.test.mjs
+```
