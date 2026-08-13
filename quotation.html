@@ -7,7 +7,8 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#e9eff0;color:#173033;font-family:Arial,Helvetica,sans-serif}
-.toolbar{width:min(210mm,calc(100% - 24px));margin:12px auto;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}.toolbar a,.toolbar button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:8px;padding:10px 14px;text-decoration:none;font-weight:800;cursor:pointer}.back{background:#dfe8e9;color:#29484d}.print{background:#087f4f;color:#fff}.order{background:#b57913;color:#fff}
+.toolbar{width:min(1680px,calc(100% - 24px));margin:12px auto;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}.toolbar a,.toolbar button{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:8px;padding:10px 14px;text-decoration:none;font-weight:800;cursor:pointer}.back{background:#dfe8e9;color:#29484d}.print{background:#087f4f;color:#fff}.order{background:#b57913;color:#fff}
+.quotation-workspace{max-width:1680px;margin:0 auto 30px;padding:0 12px;display:grid;grid-template-columns:390px minmax(0,1fr);gap:16px;align-items:start}.quotation-workspace[hidden]{display:none}.quotation-preview{min-width:0;overflow:auto;padding-bottom:18px}.quotation-editor{position:sticky;top:82px;max-height:calc(100vh - 94px);overflow:auto;background:#fff;border:1px solid #d6e1dd;border-radius:15px;box-shadow:0 5px 20px rgba(23,48,51,.08)}.quotation-editor-head{padding:17px 18px;border-bottom:1px solid #e1e9e6;background:linear-gradient(135deg,#f8fbfa,#edf7f2)}.quotation-editor-head span{display:block;color:#087f4f;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.07em}.quotation-editor-head h1{margin:4px 0 0;font-size:21px}.quotation-editor-head p{margin:5px 0 0;color:#64748b;font-size:11px;line-height:1.4}.quotation-editor-form{padding:0}.editor-section{padding:15px 18px;border-top:1px solid #e1e9e6}.quotation-editor-head+.quotation-editor-form .editor-section:first-child{border-top:0}.editor-section h2{margin:0 0 10px;color:#087f4f;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.editor-grid label,.editor-setting-panel label,.quote-item-editor label{display:block;color:#52666b;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}.editor-grid label.wide,.editor-setting-panel label.wide,.quote-item-editor label.wide{grid-column:1/-1}.editor-grid input,.editor-grid select,.editor-setting-panel input,.editor-setting-panel textarea,.quote-item-editor input,.quote-item-editor textarea{display:block;width:100%;margin-top:5px;border:1px solid #c9d6d3;border-radius:8px;padding:9px 10px;background:#fbfdfc;color:#173033;font:650 12px/1.4 Arial,Helvetica,sans-serif}.editor-setting-panel textarea,.quote-item-editor textarea{resize:vertical}.editor-grid input:focus,.editor-grid select:focus,.editor-setting-panel input:focus,.editor-setting-panel textarea:focus,.quote-item-editor input:focus,.quote-item-editor textarea:focus{outline:3px solid rgba(8,127,79,.12);border-color:#087f4f}.quote-item-editors{display:grid;gap:8px}.quote-item-editor{padding:10px;border:1px solid #dce5e2;border-radius:9px;background:#fbfdfc}.quote-item-editor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}.quote-item-editor-head strong,.quote-item-editor-head span{display:block}.quote-item-editor-head strong{font-size:11px}.quote-item-editor-head span{margin-top:2px;color:#64748b;font-size:9px}.quote-item-editor-head b{color:#087f4f;font-size:9px}.quote-item-editor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.quote-item-editor label.wide{margin-top:8px}.editor-tabs{display:flex;gap:5px;padding:11px 18px;border-top:1px solid #e1e9e6;border-bottom:1px solid #e1e9e6;overflow:auto}.editor-tabs button{border:0;border-radius:8px;padding:8px 10px;background:#edf3f3;color:#52666b;font-size:10px;font-weight:900;white-space:nowrap;cursor:pointer}.editor-tabs button.active{background:#087f4f;color:#fff}.editor-setting-panel{display:grid;grid-template-columns:1fr;gap:10px;padding:15px 18px}.editor-setting-panel[hidden]{display:none}.editor-setting-panel label small{display:block;margin-top:3px;color:#8a989c;font-size:8px;font-weight:700;text-transform:none;letter-spacing:0}.quotation-editor-actions{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:14px 18px;border-top:1px solid #e1e9e6;background:#f8fbfa}.quotation-editor-status{color:#64748b;font-size:10px;font-weight:700;line-height:1.35}.quotation-editor-status.dirty{color:#b57913}.quotation-editor-status.saved{color:#087f4f}.quotation-editor-save{border:0;border-radius:9px;padding:10px 13px;background:#087f4f;color:#fff;font-weight:900;cursor:pointer}
 .quote-page{width:210mm;min-height:297mm;margin:0 auto 24px;background:#fff;padding:12mm 11mm 10mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column}.quote-header,.section-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;border-bottom:3px solid #087f4f;padding-bottom:6mm}.quote-header img,.section-header img{height:18mm;max-width:78mm;object-fit:contain}.quote-title,.section-title{text-align:right}.quote-title h1,.section-title h1{margin:0;color:#087f4f;font-size:27px;letter-spacing:.06em}.quote-title p,.section-title p{margin:5px 0 0;color:#64748b;font-size:10px;font-weight:800;text-transform:uppercase}.page-ref{margin-top:5px;color:#52666b;font-size:9px;font-weight:700}
 .meta-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:7mm;margin-top:7mm}.meta-card{border:1px solid #d6e1dd;border-radius:9px;overflow:hidden}.meta-head{background:#edf6f1;color:#087f4f;padding:7px 10px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.meta-row{display:grid;grid-template-columns:110px 1fr;gap:10px;padding:8px 10px;border-top:1px solid #e1e9e6;font-size:11px}.meta-row span{color:#64748b;font-weight:700}.meta-row b{text-align:right;overflow-wrap:anywhere}
 .quote-table-wrap{margin-top:8mm;border:1px solid #d6e1dd;border-radius:9px;overflow:hidden}.quote-table{width:100%;border-collapse:collapse}.quote-table th{background:#edf6f1;color:#087f4f;padding:8px 6px;text-align:left;font-size:8px;text-transform:uppercase;letter-spacing:.035em;white-space:nowrap}.quote-table td{padding:9px 6px;border-top:1px solid #e1e9e6;font-size:9px;vertical-align:middle}.quote-table th.num,.quote-table td.num{text-align:right}.product{display:flex;align-items:center;gap:8px;min-width:160px}.product>div{min-width:0;flex:1}.product img{width:38px;height:38px;object-fit:contain;border:1px solid #e1e9e6;border-radius:6px;padding:3px;flex:0 0 38px}.product strong,.product span,.product small{display:block}.product strong{font-size:10.5px}.product span{margin-top:2px;color:#52666b}.product small{margin-top:2px;color:#087f4f;font-weight:800}.product-description{display:block;margin-top:4px;color:#64748b;font-size:8px;font-style:normal;line-height:1.35;max-width:190px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word}.technical{white-space:nowrap;font-weight:700}.unit-price{font-weight:800;color:#087f4f}
@@ -15,10 +16,13 @@ body{margin:0;background:#e9eff0;color:#173033;font-family:Arial,Helvetica,sans-
 .commercial-summary{display:grid;grid-template-columns:1fr 1fr;gap:3mm;margin-top:7mm}.term-card{display:grid;grid-template-columns:35mm 1fr;gap:4mm;align-items:start;border:1px solid #d6e1dd;border-radius:7px;padding:7px 9px;font-size:9.5px}.term-card:last-child:nth-child(odd){grid-column:1/-1}.term-card span{color:#087f4f;font-weight:900;text-transform:uppercase;font-size:8.5px}.term-card b{font-weight:700;line-height:1.4}.quote-note{margin-top:6mm;padding:4mm;border:1px solid #d6e1dd;border-radius:8px;color:#52666b;font-size:9.5px;line-height:1.45}.quote-note b{display:block;color:#087f4f;margin-bottom:4px;text-transform:uppercase;font-size:9px;letter-spacing:.04em}
 .section-body{margin-top:8mm}.content-block{border:1px solid #d6e1dd;border-radius:10px;overflow:hidden;margin-bottom:6mm}.content-block h2{margin:0;background:#edf6f1;color:#087f4f;padding:8px 11px;font-size:11px;text-transform:uppercase;letter-spacing:.045em}.content-block .body{padding:4mm 5mm;color:#3d555a;font-size:10px;line-height:1.55}.content-block p{margin:0 0 3mm}.content-block p:last-child{margin-bottom:0}.content-block ul,.content-block ol{margin:0;padding-left:19px}.content-block li{margin-bottom:2.5mm}.notice{border-left:4px solid #087f4f;background:#f5faf7;padding:4mm 5mm;border-radius:0 8px 8px 0;color:#29484d;font-size:10px;line-height:1.55}.conditions-grid{display:grid;grid-template-columns:1fr 1fr;gap:5mm}.signature-area{display:grid;grid-template-columns:1fr 1fr;gap:8mm;margin-top:10mm}.signature-box{border:1px solid #bfcfcb;border-radius:8px;min-height:39mm;padding:4mm}.signature-box b{display:block;color:#087f4f;text-transform:uppercase;font-size:9px}.signature-box span{display:block;margin-top:18mm;border-top:1px solid #bfcfcb;padding-top:2mm;color:#64748b;font-size:8.5px}.footer{margin-top:auto;padding-top:3mm;border-top:2px solid #087f4f;text-align:center;color:#64748b;font-size:8px}.empty{width:210mm;min-height:297mm;margin:0 auto;background:#fff;padding:40mm 15mm;text-align:center}.empty h2{color:#087f4f}
 @page{size:A4 portrait;margin:0}
+@media(max-width:1100px){.quotation-workspace{grid-template-columns:1fr}.quotation-editor{position:static;max-height:none}}
 @media(max-width:850px){.quote-page,.empty{width:100%;min-height:0;padding:18px;margin:0 0 12px}.meta-grid,.commercial-summary,.conditions-grid,.signature-area{grid-template-columns:1fr}.quote-table-wrap{overflow:auto}.quote-table{min-width:850px}.toolbar{width:calc(100% - 24px)}.term-card{grid-template-columns:110px 1fr}}
+@media(max-width:560px){.quotation-workspace{padding:0 8px}.editor-grid{grid-template-columns:1fr}.editor-grid label.wide{grid-column:auto}.quotation-editor-actions{grid-template-columns:1fr}.quotation-editor-save{width:100%}}
 @media print{
 html,body{width:210mm;min-width:210mm;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.toolbar{display:none}
+.toolbar,.quotation-editor{display:none!important}
+.quotation-workspace{display:block;max-width:none;margin:0;padding:0}.quotation-preview{overflow:visible;padding:0}
 .quote-page{width:210mm;min-width:210mm;min-height:297mm;margin:0;padding:10mm 9mm;box-shadow:none;break-after:page;page-break-after:always}
 .quote-page:last-child{break-after:auto;page-break-after:auto}
 .meta-grid{grid-template-columns:1.15fr .85fr}
@@ -33,12 +37,56 @@ html,body{width:210mm;min-width:210mm;background:#fff;-webkit-print-color-adjust
 .empty{display:none}
 }
 </style>
-<link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
+<link rel="stylesheet" href="css/ui-polish.css?v=20260813-document-editors">
 </head>
 <body class="app-shell app-quotation">
 <div class="toolbar"><a class="back" href="project.html">← Back to Project</a><button id="createOrderFromQuotation" class="order" type="button">Siparişe Dönüştür</button><button id="printQuotation" class="print" type="button">Print Quotation</button></div>
 <section id="quotationEmpty" class="empty" hidden><h2>No quotation found</h2><p>Return to the project and choose Print Quotation.</p></section>
-<main id="quotationContent" hidden>
+<main id="quotationWorkspace" class="quotation-workspace" hidden>
+  <aside id="quotationEditor" class="quotation-editor">
+    <header class="quotation-editor-head"><span>Teklif Editörü</span><h1 id="quotationEditorTitle">Teklif</h1><p>Teklif bilgilerini, ürün fiyatlarını ve ticari şartları düzenleyin.</p></header>
+    <form id="quotationEditorForm" class="quotation-editor-form">
+      <section class="editor-section"><h2>Teklif ve Proje Bilgileri</h2><div class="editor-grid">
+        <label>Teklif No<input id="editQuotationNumber" type="text" required></label>
+        <label>Teklif Tarihi<input id="editQuotationDate" type="date" required></label>
+        <label>Para Birimi<select id="editQuotationCurrency"><option value="EUR">EUR</option><option value="USD">USD</option><option value="TRY">TRY</option></select></label>
+        <label>Proje Adı<input id="editQuotationProject" type="text"></label>
+        <label class="wide">Müşteri / Referans<input id="editQuotationReference" type="text"></label>
+        <label class="wide">İlgili Kişi<input id="editQuotationContact" type="text"></label>
+      </div></section>
+      <section class="editor-section"><h2>Teklif Kalemleri</h2><div id="quotationItemEditors" class="quote-item-editors"></div></section>
+      <div class="editor-tabs" role="tablist"><button class="active" type="button" data-quotation-editor-tab="summary">Ticari Özet</button><button type="button" data-quotation-editor-tab="scope">Kapsam</button><button type="button" data-quotation-editor-tab="terms">Şartlar</button></div>
+      <section class="editor-setting-panel" data-quotation-editor-panel="summary">
+        <label>Ödeme<input data-quote-setting="summary.payment" type="text"></label>
+        <label>Kur<textarea data-quote-setting="summary.exchangeRate" rows="3"></textarea></label>
+        <label>Opsiyon<input data-quote-setting="summary.validity" type="text"></label>
+        <label>Teslim Süresi<input data-quote-setting="summary.deliveryTime" type="text"></label>
+        <label>Teslim Yeri<input data-quote-setting="summary.deliveryPlace" type="text"></label>
+        <label>KDV<textarea data-quote-setting="summary.vat" rows="2"></textarea></label>
+        <label>Devreye Alma<textarea data-quote-setting="summary.commissioning" rows="2"></textarea></label>
+        <label>Teklif Notu<textarea data-quote-setting="summary.quotationNote" rows="5"></textarea></label>
+      </section>
+      <section class="editor-setting-panel" data-quotation-editor-panel="scope" hidden>
+        <label>Teklif Kapsamı<textarea data-quote-setting="scope.included" rows="7"></textarea></label>
+        <label>Teklif Harici İşler<small>Her satıra bir madde</small><textarea data-quote-setting="scope.exclusions" data-quote-setting-type="list" rows="9"></textarea></label>
+        <label>Teslimat ve Kontrol<small>Her satıra bir madde</small><textarea data-quote-setting="scope.deliveryControl" data-quote-setting-type="list" rows="8"></textarea></label>
+        <label>Proje Uygunluğu Notu<textarea data-quote-setting="scope.suitability" rows="5"></textarea></label>
+      </section>
+      <section class="editor-setting-panel" data-quotation-editor-panel="terms" hidden>
+        <label>Fiyat ve Kur<small>Her satıra bir madde</small><textarea data-quote-setting="terms.priceCurrency" data-quote-setting-type="list" rows="8"></textarea></label>
+        <label>Ödeme Şartları<small>Her satıra bir madde</small><textarea data-quote-setting="terms.payment" data-quote-setting-type="list" rows="8"></textarea></label>
+        <label>Teslim Şartları<small>Her satıra bir madde</small><textarea data-quote-setting="terms.delivery" data-quote-setting-type="list" rows="8"></textarea></label>
+        <label>Standart Koşullar<small>Her satıra bir madde</small><textarea data-quote-setting="terms.standard" data-quote-setting-type="list" rows="8"></textarea></label>
+        <label>Kabul Notu<textarea data-quote-setting="terms.acceptance" rows="5"></textarea></label>
+        <label>Hazırlayan Başlığı<input data-quote-setting="terms.preparedTitle" type="text"></label>
+        <label>Hazırlayan İmza Satırı<input data-quote-setting="terms.preparedLine" type="text"></label>
+        <label>Müşteri Onay Başlığı<input data-quote-setting="terms.customerTitle" type="text"></label>
+        <label>Müşteri İmza Satırı<input data-quote-setting="terms.customerLine" type="text"></label>
+      </section>
+      <footer class="quotation-editor-actions"><div id="quotationEditorStatus" class="quotation-editor-status" aria-live="polite">Ürün ve proje bilgileri kaydedildiğinde projeye de aktarılır.</div><button id="saveQuotationEditor" class="quotation-editor-save" type="submit">Teklifi Kaydet</button></footer>
+    </form>
+  </aside>
+  <div id="quotationContent" class="quotation-preview">
   <section class="quote-page">
     <header class="quote-header"><img src="assets/vensis-logo.png" alt="Vensis"><div class="quote-title"><h1>QUOTATION</h1><p>Commercial Offer</p></div></header>
     <section class="meta-grid">
@@ -85,13 +133,14 @@ html,body{width:210mm;min-width:210mm;background:#fff;-webkit-print-color-adjust
     </div>
     <footer class="footer">Vensis Engineering Suite &nbsp;•&nbsp; Commercial Terms &nbsp;•&nbsp; Page 3 / 3</footer>
   </section>
+  </div>
 </main>
 <script>window.models=[];</script>
 <script src="data/fans-01.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-02.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-03.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-04.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-05.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-06.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-07.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-08.js?v=20260812-axw-atex-2t"></script>
 <script src="data/series-overrides.js?v=20260723-series-edit"></script>
 <script src="products/registry.js?v=20260723-manual-product"></script>
 <script src="js/quotation-settings.js?v=20260728-delivery-time"></script>
-<script src="js/quotation.js?v=20260728-delivery-time"></script>
+<script src="js/quotation.js?v=20260813-document-editors"></script>
 <script src="js/order-utils.js?v=20260813-purchase-order"></script>
 <script src="js/projects-store.js?v=20260813-purchase-order"></script>
 <script src="js/orders.js?v=20260813-purchase-order"></script>

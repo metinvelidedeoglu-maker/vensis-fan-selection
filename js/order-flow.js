@@ -24,6 +24,7 @@
     renderProjectStatus();
   }
   function createFromQuotation(){
+    window.VensisQuotationEditor?.save?.({silent:true});
     const quotation=currentQuotation();
     const projectId=quotation?.project?.id;
     if(!quotation||!projectId||!store.get(projectId)){alert('Siparişe dönüştürülecek proje bulunamadı.');return}
@@ -38,6 +39,8 @@
     const status=store.readMeta(projectId).status;
     badge.textContent=utils.projectStatusLabel(status);
     badge.dataset.status=utils.projectStatus(status);
+    const select=document.getElementById('projectStatus');
+    if(select&&document.activeElement!==select)select.value=utils.projectStatus(status);
   }
 
   document.getElementById('createOrder')?.addEventListener('click',createFromProject);
