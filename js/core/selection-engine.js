@@ -3,13 +3,18 @@
   const U=window.VensisUtils;
 
   function curvePoints(points){
-    const unique=new Map();
+    const unique=new Set();
+    const result=[];
     for(const point of points||[]){
       const pressure=Number(point?.[0]);
       const airflow=Number(point?.[1]);
-      if(Number.isFinite(pressure)&&Number.isFinite(airflow))unique.set(pressure,airflow);
+      const key=`${pressure}|${airflow}`;
+      if(Number.isFinite(pressure)&&Number.isFinite(airflow)&&!unique.has(key)){
+        unique.add(key);
+        result.push([pressure,airflow]);
+      }
     }
-    return [...unique.entries()].sort((a,b)=>a[0]-b[0]);
+    return result.sort((a,b)=>a[0]-b[0]||b[1]-a[1]);
   }
 
   function restrictInterval(interval,startValue,endValue,minimum,maximum){

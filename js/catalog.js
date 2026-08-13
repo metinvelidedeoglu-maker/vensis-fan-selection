@@ -67,13 +67,19 @@
   }
 
   function modelFields(model){
+    const controls=(model.performance?.controls||[]).filter(Boolean);
+    const primaryOperating=(model.performance?.operatingPoints||[]).at(-1)||null;
     const fields=[
+      ...(model.technical?.productCode?[['Product Code',model.technical.productCode]]:[]),
+      ...(controls.length?[['Control Levels',controls.join(' / ')]]:[]),
+      ...(model.technical?.nominalDuctMm>0?[['Duct Ø',`${num(model.technical.nominalDuctMm)} mm`]]:[]),
       ['Power',`${num(model.motor?.power,2)} kW`],
       ['Speed',`${num(model.motor?.speed)} rpm`],
       ['Current',`${num(model.motor?.current,2)} A`],
       ['Voltage',model.motor?.voltage||'-'],
       ['Frequency',model.motor?.frequency||'-'],
       ['Airflow',`${num(model.performance?.nominalAirflow)} m³/h`],
+      ...(primaryOperating?.maxPressure>0?[['Max Pressure',`${num(primaryOperating.maxPressure)} Pa`]]:[]),
       ['Noise',`${num(model.motor?.sound)} dB(A)`],
       ['Fire Rating',model.technical?.fireRating||'-'],
       ['Fan Type',model.technical?.fanType||'-'],
@@ -84,14 +90,22 @@
     return fields.map(([label,value])=>`<div class="model-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
   }
 
+  function operatingPointsTable(model){
+    const points=model.performance?.operatingPoints||[];
+    if(points.length<2)return '';
+    return `<div class="model-operating-points"><div class="model-operating-title">Catalog Operating Points</div><div class="model-operating-scroll"><table><thead><tr><th>Control</th><th>kW</th><th>rpm</th><th>A</th><th>m³/h</th><th>Pa</th></tr></thead><tbody>${points.map(point=>`<tr><td><b>${esc(point.control||'-')}</b></td><td>${num(point.power,3)}</td><td>${num(point.speed)}</td><td>${num(point.current,2)}</td><td>${num(point.nominalAirflow)}</td><td>${num(point.maxPressure)}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+
   function modelCard(model,series){
+    const image=model.media?.image||series.media?.image||'';
     return `<article class="model-card">
       <div class="model-card-head">
-        <img src="${esc(series.media?.image||'')}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
+        <img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
         <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?'<span class="model-catalog-only">Catalog only</span>':''}</div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
-      <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px;gap:8px;margin-top:13px">
+      ${operatingPointsTable(model)}
+      <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px 48px;gap:8px;margin-top:13px">
         <button class="model-datasheet-btn" style="margin-top:0" type="button" data-model-datasheet="${esc(model.id)}">Save as PDF</button>
         <button class="model-datasheet-btn" style="margin-top:0;font-size:22px;padding:0" type="button" data-add-catalog-project="${esc(model.id)}" title="Add to project" aria-label="Add to project">+</button>
         <button class="model-datasheet-btn vensis-model-edit" style="margin-top:0;font-size:20px;padding:0;background:#173f46" type="button" data-edit-model="${esc(model.id)}" title="Edit model" aria-label="Edit model">✎</button>
