@@ -1,0 +1,11 @@
+{
+  "package_name": "vortice-roof-fans-vensis-selection",
+  "package_version": "1.0.0",
+  "created_date": "2026-08-13",
+  "source_catalogues": ["vortice_slimroof.pdf", "vortice_heatmaster.pdf"],
+  "expected_products": 31,
+  "expected_series": 2,
+  "curve_point_method": "sampled from original PDF vector paths",
+  "curve_interpolation": "linear",
+  "extrapolation": false
+}

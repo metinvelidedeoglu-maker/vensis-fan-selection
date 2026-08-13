@@ -1,0 +1,128 @@
+{
+  "product_count": 26,
+  "series_counts": {
+    "CA MD": 9,
+    "CA MD EXTRA EU": 8,
+    "CA MD E RF": 9
+  },
+  "products_with_curves": 26,
+  "total_curves": 66,
+  "total_curve_points": 1386,
+  "warnings": [
+    "Catalogue dimension table says 'CA 125 MD E W'; normalized to CA 125 MD E RF using the technical table and curve title."
+  ],
+  "catalogue_curve_table_deviations_over_5pct": [
+    {
+      "model": "CA 150 MD E",
+      "control": "med",
+      "graph_endpoint_m3h": 414.2,
+      "table_max_airflow_m3h": 350,
+      "difference_pct": 18.3
+    },
+    {
+      "model": "CA 150 MD E",
+      "control": "min",
+      "graph_endpoint_m3h": 303.8,
+      "table_max_airflow_m3h": 230,
+      "difference_pct": 32.1
+    },
+    {
+      "model": "CA 250 MD E",
+      "control": "max",
+      "graph_endpoint_m3h": 957.4,
+      "table_max_airflow_m3h": 1010,
+      "difference_pct": 5.2
+    },
+    {
+      "model": "CA 250 MD E",
+      "control": "med",
+      "graph_endpoint_m3h": 763.2,
+      "table_max_airflow_m3h": 805,
+      "difference_pct": 5.2
+    },
+    {
+      "model": "CA 250 MD E",
+      "control": "min",
+      "graph_endpoint_m3h": 511.4,
+      "table_max_airflow_m3h": 540,
+      "difference_pct": 5.3
+    },
+    {
+      "model": "CA 315 MD E",
+      "control": "max",
+      "graph_endpoint_m3h": 961.7,
+      "table_max_airflow_m3h": 1015,
+      "difference_pct": 5.3
+    },
+    {
+      "model": "CA 315 MD E",
+      "control": "med",
+      "graph_endpoint_m3h": 786.1,
+      "table_max_airflow_m3h": 830,
+      "difference_pct": 5.3
+    },
+    {
+      "model": "CA 315 MD E",
+      "control": "min",
+      "graph_endpoint_m3h": 539.6,
+      "table_max_airflow_m3h": 570,
+      "difference_pct": 5.3
+    },
+    {
+      "model": "CA 315 MD SE",
+      "control": "max",
+      "graph_endpoint_m3h": 1446.3,
+      "table_max_airflow_m3h": 1550,
+      "difference_pct": 6.7
+    },
+    {
+      "model": "CA 100 MD EXTRA EU",
+      "control": "max",
+      "graph_endpoint_m3h": 321.7,
+      "table_max_airflow_m3h": 340,
+      "difference_pct": 5.4
+    },
+    {
+      "model": "CA 100 MD EXTRA EU",
+      "control": "min",
+      "graph_endpoint_m3h": 208.2,
+      "table_max_airflow_m3h": 220,
+      "difference_pct": 5.4
+    },
+    {
+      "model": "CA 150 MD EXTRA EU",
+      "control": "max",
+      "graph_endpoint_m3h": 633.5,
+      "table_max_airflow_m3h": 770,
+      "difference_pct": 17.7
+    },
+    {
+      "model": "CA 150 MD EXTRA EU",
+      "control": "min",
+      "graph_endpoint_m3h": 461.7,
+      "table_max_airflow_m3h": 570,
+      "difference_pct": 19.0
+    },
+    {
+      "model": "CA 160 M EXTRA EU",
+      "control": "max",
+      "graph_endpoint_m3h": 787.6,
+      "table_max_airflow_m3h": 840,
+      "difference_pct": 6.2
+    },
+    {
+      "model": "CA 160 M EXTRA EU",
+      "control": "min",
+      "graph_endpoint_m3h": 607.9,
+      "table_max_airflow_m3h": 640,
+      "difference_pct": 5.0
+    },
+    {
+      "model": "CA 315 MD SE RF",
+      "control": "max",
+      "graph_endpoint_m3h": 1155.4,
+      "table_max_airflow_m3h": 1220,
+      "difference_pct": 5.3
+    }
+  ]
+}

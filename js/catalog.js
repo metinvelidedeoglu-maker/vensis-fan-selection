@@ -66,13 +66,33 @@
     return Array.isArray(items)&&items.length?`<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`:'<p class="empty-note">No information available.</p>';
   }
 
+  function hazardousAreaSummary(atex){
+    if(!atex||typeof atex!=='object')return '';
+    const zones=[atex.gas_zone,atex.dust_zone].filter(value=>value!=null).join(' / ');
+    const groups=[atex.gas_group,atex.dust_group].filter(Boolean).join(' / ');
+    const temperatures=[atex.temperature_class,atex.max_surface_temperature_c?`T${atex.max_surface_temperature_c}°C`:null].filter(Boolean).join(' / ');
+    const epl=[String(atex.gas_marking||'').match(/\b(Gb|Gc|Ga)\b/)?.[1],String(atex.dust_marking||'').match(/\b(Db|Dc|Da)\b/)?.[1]].filter(Boolean).join(' / ');
+    return [zones?`Zone ${zones}`:'',groups,temperatures,epl?`EPL ${epl}`:'',atex.special_conditions_X?'X special conditions':''].filter(Boolean).join(' · ');
+  }
+
   function modelFields(model){
-    const controls=(model.performance?.controls||[]).filter(Boolean);
+    const rawControls=(model.performance?.controls||[]).filter(Boolean);
+    const controls=rawControls.length===1&&String(rawControls[0]).toLowerCase()==='nominal'?[]:rawControls;
     const primaryOperating=(model.performance?.operatingPoints||[]).at(-1)||null;
+    const technical=model.technical||{};
+    const atex=technical.atex;
+    const temperatureMinimum=Number(technical.operatingTemperatureMinC);
+    const temperatureMaximum=Number(technical.operatingTemperatureMaxC);
+    const temperatureRange=Number.isFinite(temperatureMinimum)&&Number.isFinite(temperatureMaximum)&&(temperatureMinimum!==0||temperatureMaximum!==0)
+      ? `${temperatureMinimum.toLocaleString('en-US')} to ${temperatureMaximum>0?'+':''}${temperatureMaximum.toLocaleString('en-US')} °C`
+      : '';
     const fields=[
-      ...(model.technical?.productCode?[['Product Code',model.technical.productCode]]:[]),
+      ...(technical.productCode?[['Product Code',technical.productCode]]:[]),
+      ...(technical.availabilityRegion?[['Availability',technical.availabilityRegion]]:[]),
       ...(controls.length?[['Control Levels',controls.join(' / ')]]:[]),
-      ...(model.technical?.nominalDuctMm>0?[['Duct Ø',`${num(model.technical.nominalDuctMm)} mm`]]:[]),
+      ...(technical.nominalDuctMm>0?[['Duct Ø',`${num(technical.nominalDuctMm)} mm`]]:[]),
+      ...(technical.phase?[['Phase',technical.phase]]:[]),
+      ...(technical.poles>0?[['Poles',String(technical.poles)]]:[]),
       ['Power',`${num(model.motor?.power,2)} kW`],
       ['Speed',`${num(model.motor?.speed)} rpm`],
       ['Current',`${num(model.motor?.current,2)} A`],
@@ -81,10 +101,23 @@
       ['Airflow',`${num(model.performance?.nominalAirflow)} m³/h`],
       ...(primaryOperating?.maxPressure>0?[['Max Pressure',`${num(primaryOperating.maxPressure)} Pa`]]:[]),
       ['Noise',`${num(model.motor?.sound)} dB(A)`],
-      ['Fire Rating',model.technical?.fireRating||'-'],
-      ['Fan Type',model.technical?.fanType||'-'],
-      ['Mount Type',model.technical?.mountType||'-'],
-      ['IP Class',model.technical?.ipClass||'-'],
+      ['Fire Rating',technical.fireRating||'-'],
+      ...(technical.continuousAirTemperatureC>0?[['Continuous Air Limit',`${num(technical.continuousAirTemperatureC)} °C`]]:[]),
+      ...(temperatureRange?[['Operating Temperature',temperatureRange]]:[]),
+      ...(technical.approximateContinuousAirTemperatureC>0?[['Approx. Air Temperature',`${num(technical.approximateContinuousAirTemperatureC)} °C`]]:[]),
+      ...(technical.inletDiameterMm>0?[['Inlet Ø',`${num(technical.inletDiameterMm)} mm`]]:[]),
+      ...(atex?.gas_marking?[['ATEX Gas Marking',atex.gas_marking]]:[]),
+      ...(atex?.dust_marking?[['ATEX Dust Marking',atex.dust_marking]]:[]),
+      ...(atex?[['Hazardous Area',hazardousAreaSummary(atex)]]:[]),
+      ...(technical.speedControllerIncluded?[['Speed Controller',technical.speedControllerIncluded]]:[]),
+      ...(technical.timerVariant?[['Timer','Yes']]:[]),
+      ...(technical.humiditySensor?[['Humidity Sensor','Yes']]:[]),
+      ...(technical.presenceSensor?[['Presence Sensor','Yes']]:[]),
+      ...(technical.longLife?[['Long-Life Motor','Yes']]:[]),
+      ...(technical.reversible?[['Reversible','Yes']]:[]),
+      ['Fan Type',technical.fanType||'-'],
+      ['Mount Type',technical.mountType||'-'],
+      ['IP Class',technical.ipClass||'-'],
       ['Price',model.pricing?.listPrice>0?`€${num(model.pricing.listPrice,2)}`:'-']
     ];
     return fields.map(([label,value])=>`<div class="model-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
@@ -93,17 +126,20 @@
   function operatingPointsTable(model){
     const points=model.performance?.operatingPoints||[];
     if(points.length<2)return '';
-    return `<div class="model-operating-points"><div class="model-operating-title">Catalog Operating Points</div><div class="model-operating-scroll"><table><thead><tr><th>Control</th><th>kW</th><th>rpm</th><th>A</th><th>m³/h</th><th>Pa</th></tr></thead><tbody>${points.map(point=>`<tr><td><b>${esc(point.control||'-')}</b></td><td>${num(point.power,3)}</td><td>${num(point.speed)}</td><td>${num(point.current,2)}</td><td>${num(point.nominalAirflow)}</td><td>${num(point.maxPressure)}</td></tr>`).join('')}</tbody></table></div></div>`;
+    return `<div class="model-operating-points"><div class="model-operating-title">Catalog Operating Points</div><div class="model-operating-scroll"><table><thead><tr><th>Control</th><th>kW</th><th>rpm</th><th>A</th><th>m³/h</th><th>Pa</th><th>dB(A)</th></tr></thead><tbody>${points.map(point=>`<tr><td><b>${esc(point.control||'-')}</b></td><td>${num(point.power,3)}</td><td>${num(point.speed)}</td><td>${num(point.current,2)}</td><td>${num(point.nominalAirflow)}</td><td>${num(point.maxPressure)}</td><td>${num(point.sound,1)}</td></tr>`).join('')}</tbody></table></div></div>`;
   }
 
   function modelCard(model,series){
     const image=model.media?.image||series.media?.image||'';
+    const dimensionImage=model.media?.dimensionImage||'';
     return `<article class="model-card">
       <div class="model-card-head">
         <img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
         <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?'<span class="model-catalog-only">Catalog only</span>':''}</div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
+      ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> ${esc(model.technical.safetyWarning)}</div>`:''}
+      ${dimensionImage?`<details class="model-dimension"><summary>Dimension Drawing</summary><img src="${esc(dimensionImage)}" alt="${esc(model.model)} dimension drawing" loading="lazy" onerror="this.closest('details').hidden=true"></details>`:''}
       ${operatingPointsTable(model)}
       <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px 48px;gap:8px;margin-top:13px">
         <button class="model-datasheet-btn" style="margin-top:0" type="button" data-model-datasheet="${esc(model.id)}">Save as PDF</button>
@@ -151,6 +187,8 @@
       existing.speed=Number(existing.speed)||speed;
       existing.voltage=existing.voltage||voltage;
       existing.noise=Number(existing.noise)||noise;
+      existing.hazardousArea=existing.hazardousArea||model.technical?.atex||null;
+      existing.safetyWarning=existing.safetyWarning||model.technical?.safetyWarning||'';
       existing.updatedAt=new Date().toISOString();
     }else items.push({
       itemKey,
@@ -168,6 +206,8 @@
       speed,
       voltage,
       noise,
+      hazardousArea:model.technical?.atex||null,
+      safetyWarning:model.technical?.safetyWarning||'',
       price:Number(model.pricing?.listPrice)||0,
       quantity:1,
       addedAt:new Date().toISOString()

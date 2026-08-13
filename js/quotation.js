@@ -58,7 +58,8 @@
   function productMarkup(item){
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Product')}" onerror="this.style.display='none'">`:'';
     const description=String(item.description||'').trim();
-    return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${description?`<em class="product-description">${escapeHtml(description)}</em>`:''}</div></div>`;
+    const safety=String(item.safetyWarning||'').trim();
+    return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:9.5px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${description?`<em class="product-description">${escapeHtml(description)}</em>`:''}</div></div>`;
   }
   function row(item,currency){
     const model=modelFor(item);

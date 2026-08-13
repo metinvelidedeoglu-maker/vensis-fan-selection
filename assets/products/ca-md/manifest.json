@@ -1,0 +1,17 @@
+{
+  "package_name": "vortice-ca-md-vensis-fan-selection",
+  "package_version": "1.0.0",
+  "created_date": "2026-08-13",
+  "source_catalogues": [
+    "vortice_ca_md.pdf",
+    "vortice_ca_md_e_rf.pdf"
+  ],
+  "expected_products": 26,
+  "expected_series": 3,
+  "expected_curves": 66,
+  "expected_product_images": 2,
+  "expected_dimension_images": 2,
+  "curve_point_method": "sampled from original PDF vector paths",
+  "curve_interpolation": "linear",
+  "extrapolation": false
+}

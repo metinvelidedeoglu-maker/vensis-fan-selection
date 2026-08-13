@@ -1,0 +1,13 @@
+{
+  "product_count": 15,
+  "series_counts": {
+    "E-ATEX": 14,
+    "TIRACAMINO": 1
+  },
+  "products_with_curves": 15,
+  "total_curves": 15,
+  "total_curve_points": 305,
+  "warnings": [
+    "E-ATEX curve shapes are normalized from catalogue endpoints for import; verify against rendered catalogue graphs during integration. Tiracamino curve is digitized from its catalogue chart."
+  ]
+}

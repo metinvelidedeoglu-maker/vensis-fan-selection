@@ -39,10 +39,14 @@
       const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
       const frequency=String(item.frequency||model?.motor?.frequency||'').trim();
       const noise=number(item.noise)||number(model?.motor?.sound);
+      const hazardousArea=item.hazardousArea||model?.technical?.atex||null;
+      const safetyWarning=String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
       if(!number(item.speed)&&speed>0){item.speed=speed;changed=true}
       if(!String(item.voltage||'').trim()&&voltage){item.voltage=voltage;changed=true}
       if(!String(item.frequency||'').trim()&&frequency){item.frequency=frequency;changed=true}
       if(!number(item.noise)&&noise>0){item.noise=noise;changed=true}
+      if(!item.hazardousArea&&hazardousArea){item.hazardousArea=hazardousArea;changed=true}
+      if(!String(item.safetyWarning||'').trim()&&safetyWarning){item.safetyWarning=safetyWarning;changed=true}
     });
     return changed;
   }
@@ -119,9 +123,10 @@
     const netUnit=netUnitPrice(item);
     const lineTotal=netUnit*qty;
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
+    const safety=String(item.safetyWarning||'').trim();
     return `<tr>
       <td class="order-column">${orderControls(index,items.length)}</td>
-      <td><div class="product-cell">${image}<div class="product-info"><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${noteEditor(item,index)}</div></div></td>
+      <td><div class="product-cell">${image}<div class="product-info"><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:10px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${noteEditor(item,index)}</div></div></td>
       ${pointCells(item)}
       <td>${supplyText(item)}</td>
       <td>${number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-'}</td>

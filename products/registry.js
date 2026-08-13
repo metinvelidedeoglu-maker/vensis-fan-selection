@@ -1,5 +1,12 @@
 (function(){
   const names={
+    'HEATMASTER F400':'HEATMASTER F400 Smoke-Extract Centrifugal Roof Fans','SLIMROOF ES':'SLIMROOF ES EC Centrifugal Roof Fans','E-ATEX':'E-ATEX Explosion-Protected Axial Plate Fans','TIRACAMINO':'Tiracamino Chimney-Top Extract Fan',
+    'VORT QBK SAL-KC EVO':'VORT QBK SAL-KC EVO Cabinet Centrifugal Fans',
+    'VORT QUADRO EVO':'VORT QUADRO EVO Residential Centrifugal Extract Fans','VORT QUADRO I':'VORT QUADRO I Flush-Mounted Centrifugal Duct Fans','VORT QUADRO':'VORT QUADRO Centrifugal Duct Fans',
+    'VORTICE VARIO I':'VORTICE VARIO I Flush-Mounted Axial Fans','VORTICE VARIO':'VORTICE VARIO Wall / Window Axial Fans',
+    'PUNTO EVO FLEXO':'PUNTO EVO FLEXO Wall Axial Fans','PUNTO EVO GOLD':'PUNTO EVO GOLD Decorative Wall Axial Fans','PUNTO EVO ES':'PUNTO EVO ES EC Energy-Saving Wall Axial Fans','PUNTO EVO':'PUNTO EVO Two-Speed Wall Axial Fans',
+    'PUNTO GHOST':'PUNTO GHOST Axial Duct Fans','PUNTO FOUR':'PUNTO FOUR Wall Axial Fans','PUNTO FILO':'PUNTO FILO Low-Profile Wall Axial Fans','PUNTO':'PUNTO Wall / Window Axial Fans',
+    'CA MD EXTRA EU':'CA MD Extra EU In-Line Mixed-Flow Duct Fans','CA MD E RF':'CA MD E RF Roof-Mounted Mixed-Flow Exhaust Fans','CA MD':'CA MD In-Line Mixed-Flow Duct Fans',
     'LINEO QUIET ES':'LINEO QUIET ES Low-Noise In-Line EC Mixed-Flow Fans','LINEO QUIET':'LINEO QUIET Low-Noise In-Line Mixed-Flow Fans','LINEO ES':'LINEO ES In-Line EC Mixed-Flow Fans','LINEO':'LINEO In-Line Mixed-Flow Fans','TUNEL-AXF':'Tunnel Type Axial Fan','MOB-AXD/ATEX':'Axial Mobile Ex-proof Fan','BOX-AXF':'Axial Cell Type Smoke Extract Fans','ROOF-AXF':'Axial Roof Type Smoke Extract Fans','AXD/ATEX':'Axial Duct Type Ex-proof Fan','AXW/ATEX':'Axial Wall Type Ex-proof Fans','AXR/ATEX':'Axial Roof Type Ex-proof Fan','CRH/ATEX':'Centrifugal Roof Type Ex-proof Fan','CRD/ATEX':'Centrifugal Duct Type Ex-proof Fan','CRS/ATEX':'Centrifugal Single Inlet Ex-proof Fan','AXD/MOB':'Mobile Axial Fan','CRU-EC':'Vertical Outlet Centrifugal Roof Type Fan','CRB-EC':'Centrifugal Rectangular Duct Type Fan','CRC-EC':'Centrifugal Cell Type Fan','CR-EC':'Horizontal Outlet Centrifugal Roof Type Fan','AXF':'Axial Duct Type Smoke Extract Fans','AXJ':'Axial Jet Fan','RXJ':'Radial Jet Fans','AXD':'Axial Duct Type Fan','AXS':'Axial Short Case Fan','AXW':'Axial Wall Type Fan','AXB':'Bifurcated Axial Duct Type Fan','AXH':'Axial Cell Type Fans','AXR':'Horizontal Outlet Axial Roof Type Fan','AXV':'Vertical Outlet Axial Roof Type Fan','CRB':'Centrifugal Rectangular Duct Type Fan','CRD':'Centrifugal Rectangular Duct Type Fan','CRK':'Centrifugal Single Inlet Cell Type Fan','CRC':'Centrifugal Cell Type Fan','CRS':'Centrifugal Single Inlet Fan','CRH':'Horizontal Outlet Centrifugal Roof Type Fan','CRV':'Vertical Outlet Centrifugal Roof Type Fan','CRU':'Vertical Outlet Centrifugal Roof Type Fan','CRR':'Duct Type Shelter Fan','VHR':'Heat Recovery Units','CD':'Centrifugal Duct Type Fan','CR':'Horizontal Outlet Centrifugal Roof Fan'
   };
   const aliases={'MOB-AXD':'AXD/MOB','AXD-MOB':'AXD/MOB','AXD/MOB':'AXD/MOB'};
@@ -26,18 +33,21 @@
   function imageFor(code){return code&&files[code]?'assets/products/'+files[code]:''}
   function finite(value){const number=Number(value);return Number.isFinite(number)?number:0}
   function normalizedPoints(points){
-    const unique=new Set();
     const result=[];
+    let previousKey='';
     for(const point of points||[]){
       const pressure=Array.isArray(point)?Number(point[0]):Number(point?.p_pa??point?.pressure??point?.p);
       const airflow=Array.isArray(point)?Number(point[1]):Number(point?.q_m3h??point?.airflow??point?.q);
       const key=`${pressure}|${airflow}`;
-      if(Number.isFinite(pressure)&&Number.isFinite(airflow)&&!unique.has(key)){
-        unique.add(key);
+      if(Number.isFinite(pressure)&&Number.isFinite(airflow)&&key!==previousKey){
         result.push([pressure,airflow]);
+        previousKey=key;
       }
     }
-    return result.sort((a,b)=>a[0]-b[0]||b[1]-a[1]);
+    // Preserve catalogue path order. Real fan curves can contain a stall-region
+    // pressure rise or return to an earlier coordinate. Only consecutive duplicate
+    // vertices are redundant; global de-duplication would break a closed path.
+    return result;
   }
   function normalizedCurves(row){
     const raw=row?.performanceCurves??row?.curves;
@@ -62,7 +72,10 @@
       speed:finite(point?.rpm??point?.speed),
       current:finite(point?.currentA??point?.current_a??point?.current),
       nominalAirflow:finite(point?.maxAirflowM3h??point?.max_airflow_m3h??point?.nominalAirflow),
-      maxPressure:finite(point?.maxPressurePa??point?.max_pressure_pa??point?.maxPressure)
+      maxPressure:finite(point?.maxPressurePa??point?.max_pressure_pa??point?.maxPressure),
+      sound:point?.soundPressureDbA3m==null&&point?.sound_pressure_db_a_3m==null&&point?.sound==null
+        ? null
+        : finite(point?.soundPressureDbA3m??point?.sound_pressure_db_a_3m??point?.sound)
     }));
   }
 
@@ -113,8 +126,8 @@
       catalogOnly:Boolean(row?.catalogOnly),
       pole:Number(row?.pole)||0,
       pricing:{listPrice:Number.isFinite(Number(row?.price))?Number(row.price):null,currency:'EUR'},
-      media:{image:row?.image||row?.imagePath||row?.image_path||series.media?.image||'',gallery:[]},
-      motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl)||0},
+      media:{image:row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||'',gallery:[]},
+      motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl??primaryOperating?.sound)||0},
       technical:{
         weight:Number(row?.weight)||0,
         ipClass:row?.ipClass||'',
@@ -130,7 +143,26 @@
         dimensions:row?.dimensions||row?.dimensions_mm||{},
         motorType:row?.motorType||row?.motor_type||'',
         quietCasing:Boolean(row?.quietCasing??row?.quiet_casing),
-        timerVariant:Boolean(row?.timerVariant??row?.timer_variant)
+        timerVariant:Boolean(row?.timerVariant??row?.timer_variant),
+        humiditySensor:Boolean(row?.humiditySensor??row?.humidity_sensor),
+        presenceSensor:Boolean(row?.presenceSensor??row?.presence_sensor),
+        longLife:Boolean(row?.longLife??row?.long_life),
+        reversible:Boolean(row?.reversible),
+        availabilityRegion:row?.availabilityRegion||row?.availability_region||'',
+        operatingTemperatureMinC:finite(row?.operatingTemperatureMinC??row?.operating_temperature_c?.min),
+        operatingTemperatureMaxC:finite(row?.operatingTemperatureMaxC??row?.operating_temperature_c?.max),
+        continuousAirTemperatureC:finite(row?.continuousAirTemperatureC??row?.air_temperature_continuous_c),
+        smokeTemperatureC:finite(row?.smokeTemperatureC??row?.smoke_temperature_c),
+        smokeDurationMinutes:finite(row?.smokeDurationMinutes??row?.smoke_duration_minutes),
+        approximateContinuousAirTemperatureC:finite(row?.approximateContinuousAirTemperatureC??row?.approx_continuous_air_temperature_c),
+        impellerMm:row?.impellerMm||row?.impeller_mm||'',
+        phase:row?.phase||'',
+        poles:finite(row?.poles),
+        inletDiameterMm:finite(row?.inletDiameterMm??row?.inlet_diameter_mm),
+        speedControllerIncluded:row?.speedControllerIncluded||row?.speed_controller_included||'',
+        gasFireCompatible:row?.gasFireCompatible??row?.gas_fire_compatible??null,
+        atex:row?.atex&&typeof row.atex==='object'?row.atex:null,
+        safetyWarning:row?.safetyWarning||row?.safety_warning||''
       },
       performance:{
         nominalAirflow:Number(row?.nominal)||primaryOperating?.nominalAirflow||0,

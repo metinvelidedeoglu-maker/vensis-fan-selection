@@ -124,7 +124,8 @@ function edit_config(): array
         'data_files' => [
             'data/fans-01.js', 'data/fans-02.js', 'data/fans-03.js', 'data/fans-04.js',
             'data/fans-05.js', 'data/fans-06.js', 'data/fans-07.js', 'data/fans-08.js',
-            'data/fans-09.js',
+            'data/fans-09.js', 'data/fans-10.js', 'data/fans-11.js', 'data/fans-12.js',
+            'data/fans-13.js', 'data/fans-14.js',
         ],
         'series_overrides_file' => 'data/series-overrides.js',
     ];

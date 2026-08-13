@@ -1,0 +1,10 @@
+{
+  "package_name": "vortice-eatex-tiracamino-vensis-selection",
+  "package_version": "1.0.0",
+  "created_date": "2026-08-13",
+  "expected_products": 15,
+  "expected_series": 2,
+  "expected_curves": 15,
+  "curve_interpolation": "linear",
+  "extrapolation": false
+}

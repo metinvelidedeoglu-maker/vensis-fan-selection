@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "product_count": 21,
+  "series_counts": {
+    "VORT QBK SAL-KC EVO": 21
+  },
+  "products_with_curves": 21,
+  "total_curves": 28,
+  "total_curve_points": 866,
+  "code_range": "43151-43171",
+  "issues": [],
+  "notes": [
+    "Performance curves digitized from vector paths in catalogue pages 10-13.",
+    "Use linear interpolation only; extrapolation is disabled."
+  ]
+}

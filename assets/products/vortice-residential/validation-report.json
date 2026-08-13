@@ -1,0 +1,34 @@
+{
+  "product_count": 172,
+  "series_count": 13,
+  "series_counts": {
+    "PUNTO": 49,
+    "PUNTO FILO": 21,
+    "PUNTO FOUR": 6,
+    "PUNTO GHOST": 11,
+    "PUNTO EVO FLEXO": 6,
+    "PUNTO EVO": 10,
+    "PUNTO EVO ES": 2,
+    "PUNTO EVO GOLD": 8,
+    "VORTICE VARIO": 10,
+    "VORTICE VARIO I": 6,
+    "VORT QUADRO": 11,
+    "VORT QUADRO I": 9,
+    "VORT QUADRO EVO": 23
+  },
+  "products_with_curves": 172,
+  "total_curves": 228,
+  "total_curve_points": 4788,
+  "excluded_ranges": [
+    "ARIETT",
+    "ARIETT HABITAT",
+    "ARIETT I",
+    "VORT PRESS",
+    "VORT PRESS HABITAT",
+    "VORT PRESS I"
+  ],
+  "warnings": [
+    "Curve shapes are normalized from catalogue operating endpoints; preserve this flag and verify against source graph pages before production selection release.",
+    "PUNTO 12V combinations share fan product codes and differ by included GA12V/GA12V T controller; composite names preserve the distinction."
+  ]
+}

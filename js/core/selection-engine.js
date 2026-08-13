@@ -3,18 +3,20 @@
   const U=window.VensisUtils;
 
   function curvePoints(points){
-    const unique=new Set();
     const result=[];
+    let previousKey='';
     for(const point of points||[]){
       const pressure=Number(point?.[0]);
       const airflow=Number(point?.[1]);
       const key=`${pressure}|${airflow}`;
-      if(Number.isFinite(pressure)&&Number.isFinite(airflow)&&!unique.has(key)){
-        unique.add(key);
+      if(Number.isFinite(pressure)&&Number.isFinite(airflow)&&key!==previousKey){
         result.push([pressure,airflow]);
+        previousKey=key;
       }
     }
-    return result.sort((a,b)=>a[0]-b[0]||b[1]-a[1]);
+    // Preserve the supplied polyline order; catalogue curves are not always
+    // single-valued around their stall region and can revisit a coordinate.
+    return result;
   }
 
   function restrictInterval(interval,startValue,endValue,minimum,maximum){

@@ -90,3 +90,106 @@ To rebuild this data from an extracted transfer package:
 node scripts/import-lineo-package.mjs /path/to/extracted/lineo-package
 node --test tests/lineo-catalog-data.test.mjs
 ```
+
+## Vortice CA MD Catalogue Data
+
+The CA MD catalogue is stored in `data/fans-10.js` as 26 products across CA MD,
+CA MD EXTRA EU and CA MD E RF. Their 66 vector-derived curves contain 1,386
+ready-to-use points. Min, med and max controls remain separate, use linear
+interpolation and are never regenerated or extrapolated at runtime. Extra EU
+products retain their availability region instead of being merged with current
+models. Product and dimension images are stored in `assets/products/ca-md/`,
+together with the package manifest and validation report.
+
+To rebuild this data from an extracted transfer package:
+
+```bash
+node scripts/import-ca-md-package.mjs /path/to/extracted/ca-md-package
+node --test tests/ca-md-catalog-data.test.mjs
+```
+
+## Vortice Roof Fan Catalogue Data
+
+The roof-fan catalogue is stored in `data/fans-11.js` as 31 products across
+SLIMROOF ES and HEATMASTER F400. Their 64 vector-derived curves contain 1,334
+ready-to-use points. SLIMROOF voltage controls and HEATMASTER high/low-speed
+curves remain separate, use linear interpolation and are never extrapolated.
+HEATMASTER records retain the 80 °C continuous-air limit separately from the
+F400 (400 °C / 120 min) emergency smoke duty. Product and dimension images are
+stored in `assets/products/roof-fans/` with the package validation files.
+
+To rebuild this data from an extracted transfer package:
+
+```bash
+node scripts/import-roof-fans-package.mjs /path/to/extracted/roof-fans-package
+node --test tests/roof-fans-catalog-data.test.mjs
+```
+
+## Vortice E-ATEX and Tiracamino Catalogue Data
+
+The E-ATEX and Tiracamino catalogue is stored in `data/fans-12.js` as 15
+products: 14 E-ATEX axial plate fans and one Tiracamino chimney-top extractor.
+The 15 linear curves contain 1,194 ready-to-use points. The 14 E-ATEX curves
+contain 1,183 points extracted from the original catalogue's vector performance
+paths on pages 10–12; they replace the transfer package's endpoint-normalized
+approximations. The catalogue's transposed E 506 T / E 606 T graph headings and
+conflicting 40331–40333 graph codes are resolved using the technical-table
+airflow, pressure and power data. E-ATEX records retain the gas and dust
+markings, Zone 1/21 classification, IIB/IIIC groups, T3/T125 °C, EPL Gb/Db and X
+special-condition warning. Tiracamino retains the explicit warning that it is
+not suitable for gas fires. Product, dimension and validation assets are stored
+in `assets/products/eatex-tiracamino/`.
+
+To rebuild this data from an extracted transfer package:
+
+```bash
+python3 scripts/extract-eatex-vector-curves.py /path/to/original-eatex.pdf \
+  /path/to/extracted/eatex-tiracamino-package/eatex_tiracamino_products.json \
+  assets/products/eatex-tiracamino/verified-vector-curves.json
+node scripts/import-eatex-tiracamino-package.mjs /path/to/extracted/eatex-tiracamino-package
+node --test tests/eatex-tiracamino-catalog-data.test.mjs
+```
+
+## Vortice Selected Residential Catalogue Data
+
+The selected residential catalogue is stored in `data/fans-13.js` as 172 unique
+configurations across 13 explicitly requested PUNTO, VORTICE VARIO and VORT
+QUADRO series. The 243 linear curves contain 23,643 ready-to-use vector points.
+They replace the transfer package's 228 endpoint-normalized approximations. The
+original catalogue graphs also restore 15 omitted intermediate-speed selections
+for VORT QUADRO and VORT QUADRO I. Stall regions and vector tips keep their
+original polyline order; curves are neither regenerated nor extrapolated at
+runtime. Shared PUNTO codes 11203 and 11223 remain separate controller
+configurations. Product, dimension and verification assets are stored in
+`assets/products/vortice-residential/`.
+
+To rebuild the verified vectors and application data:
+
+```bash
+python3 scripts/extract-residential-vector-curves.py /path/to/original-residential.pdf \
+  /path/to/extracted/residential-package/residential_selected_products.json \
+  assets/products/vortice-residential/verified-vector-curves.json
+node scripts/import-residential-package.mjs /path/to/extracted/residential-package
+node --test tests/residential-catalog-data.test.mjs
+```
+
+## Vortice QBK SAL-KC EVO Catalogue Data
+
+The VORT QBK SAL-KC EVO catalogue is stored in `data/fans-14.js` as 21 products,
+codes 43151–43171. Its 28 single- and dual-pole curves contain 2,216 verified
+vector points. The transfer package reported 866 points as valid, but used
+incorrect graph-axis origins; every curve was therefore re-extracted from the
+original catalogue grids on pages 10–13. Dual-pole products retain separate
+8-pole and 4-pole selections, use linear interpolation and are never
+extrapolated. Product, dimension and verification assets are stored in
+`assets/products/qbk-sal-kc-evo/`.
+
+To rebuild the verified vectors and application data:
+
+```bash
+python3 scripts/extract-qbk-vector-curves.py /path/to/original-qbk.pdf \
+  /path/to/extracted/qbk-package/qbk_sal_kc_evo_products.json \
+  assets/products/qbk-sal-kc-evo/verified-vector-curves.json
+node scripts/import-qbk-package.mjs /path/to/extracted/qbk-package
+node --test tests/qbk-catalog-data.test.mjs
+```

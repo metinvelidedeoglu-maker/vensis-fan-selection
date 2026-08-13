@@ -101,8 +101,9 @@
     const motor=resolvedMotor(item,model);
     const image=item.image||catalog.product?.(model?.id)?.media?.image||'';
     const description=String(item.description||'').trim();
+    const safety=String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
     return `<tr>
-      <td><div class="project-product">${image?`<img src="${esc(image)}" alt="${esc(item.model||'Fan')}" onerror="this.style.display='none'">`:''}<div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div></td>
+      <td><div class="project-product">${image?`<img src="${esc(image)}" alt="${esc(item.model||'Fan')}" onerror="this.style.display='none'">`:''}<div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div></td>
       <td class="technical-point">${esc(sourceText(item))}</td>
       <td class="technical-point">${esc(selectedText(item))}</td>
       <td>${supplyText(item,model)}</td>

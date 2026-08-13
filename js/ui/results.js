@@ -16,6 +16,11 @@
     return '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
   }
   function escapeText(value){return U.escapeHtml(String(value??''))}
+  function hazardousAreaSummary(atex){
+    if(!atex||typeof atex!=='object')return '';
+    const zones=[atex.gas_zone,atex.dust_zone].filter(value=>value!=null).join('/');
+    return [atex.gas_marking,atex.dust_marking,zones?`Zone ${zones}`:'',atex.special_conditions_X?'X special conditions':''].filter(Boolean).join(' · ');
+  }
   function destinationSelect(){return document.getElementById('projectDestinationSelect')}
   function nextProjectName(store){
     const names=new Set(store.list().map(project=>String(store.readMeta(project.id)?.name||project.name||'').trim().toLowerCase()));
@@ -89,8 +94,12 @@
     const closest=U.byId('sortClosest'),closestArrow=U.byId('arrowClosest');if(closest){closest.classList.toggle('active',S.tableSortKey==='closest');closestArrow.textContent=arrow('closest')}
     box.innerHTML=`<table class="results-table"><thead><tr><th>Product</th><th><button class="sort-head" data-sort="flow">Flow <span>${arrow('flow')}</span></button></th><th><button class="sort-head" data-sort="pressure">Pressure <span>${arrow('pressure')}</span></button></th><th>Motor Power</th><th>Current</th><th><button class="sort-head" data-sort="noise">Noise <span>${arrow('noise')}</span></button></th><th><button class="sort-head" data-sort="price">Price (€) <span>${arrow('price')}</span></button></th><th style="text-align:center">Actions</th></tr></thead><tbody>${rows.map(({row,index})=>{
       const product=productFor(row),image=product.media?.image||'';
-	      const control=row.control?` · Control: ${row.control}`:'';
-	      return `<tr><td><div style="display:flex;align-items:center;gap:12px"><img src="${U.escapeHtml(image)}" alt="${U.escapeHtml(product.series?.title||'')}" style="width:72px;height:72px;object-fit:contain;flex:0 0 72px;border:1px solid #e2e9e5;border-radius:8px;background:#fff;padding:5px" onerror="this.remove()"><div><div class="model-main">${U.escapeHtml(product.model||row.model||'')}</div><div class="series-sub">${U.escapeHtml((product.series?.title||row.series||'')+control)}</div></div></div></td><td>${U.format(row.qq)} m³/h</td><td>${U.format(row.pp)} Pa</td><td>${displayPositive(row.kw,2,'kW')}</td><td>${displayPositive(row.amps,2,'A')}</td><td>${displayPositive(row.spl,0,'dB(A)')}</td><td>${validPositive(row.price)==null?'-':`€${U.format(row.price,2)}`}</td><td style="text-align:center"><div style="display:inline-flex;align-items:center;gap:7px"><button class="detail-icon-btn" data-view-datasheet="${index}" title="View datasheet" aria-label="View datasheet" style="width:38px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center">${icon('eye')}</button><button class="detail-icon-btn project-add-btn" data-add-project="${index}" title="Add to selected project" aria-label="Add to selected project" style="width:38px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#087f4f;color:#fff">${icon('plus')}</button></div></td></tr>`}).join('')}</tbody></table>`;
+      const visibleControl=row.control&&String(row.control).toLowerCase()!=='nominal'?String(row.control):'';
+      const control=visibleControl?` · Control: ${visibleControl}`:'';
+      const hazardous=hazardousAreaSummary(row.hazardousArea||product.technical?.atex);
+      const safety=row.safetyWarning||product.technical?.safetyWarning||'';
+      const notices=`${hazardous?`<div style="margin-top:5px;color:#7a4b00;font-size:10.5px;font-weight:750;line-height:1.35">ATEX: ${U.escapeHtml(hazardous)}</div>`:''}${safety?`<div style="margin-top:3px;color:#9a3412;font-size:10.5px;font-weight:750;line-height:1.35">${U.escapeHtml(safety)}</div>`:''}`;
+	      return `<tr><td><div style="display:flex;align-items:center;gap:12px"><img src="${U.escapeHtml(image)}" alt="${U.escapeHtml(product.series?.title||'')}" style="width:72px;height:72px;object-fit:contain;flex:0 0 72px;border:1px solid #e2e9e5;border-radius:8px;background:#fff;padding:5px" onerror="this.remove()"><div><div class="model-main">${U.escapeHtml(product.model||row.model||'')}</div><div class="series-sub">${U.escapeHtml((product.series?.title||row.series||'')+control)}</div>${notices}</div></div></td><td>${U.format(row.qq)} m³/h</td><td>${U.format(row.pp)} Pa</td><td>${displayPositive(row.kw,2,'kW')}</td><td>${displayPositive(row.amps,2,'A')}</td><td>${displayPositive(row.spl,0,'dB(A)')}</td><td>${validPositive(row.price)==null?'-':`€${U.format(row.price,2)}`}</td><td style="text-align:center"><div style="display:inline-flex;align-items:center;gap:7px"><button class="detail-icon-btn" data-view-datasheet="${index}" title="View datasheet" aria-label="View datasheet" style="width:38px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center">${icon('eye')}</button><button class="detail-icon-btn project-add-btn" data-add-project="${index}" title="Add to selected project" aria-label="Add to selected project" style="width:38px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#087f4f;color:#fff">${icon('plus')}</button></div></td></tr>`}).join('')}</tbody></table>`;
   }
   function viewDatasheet(index){
     const r=S.results[index];if(!r)return;
@@ -126,6 +135,7 @@
     const product=productFor(r),required={q:U.number('q'),p:U.number('p')},selected={q:Number(r.qq)||0,p:Number(r.pp)||0};
     const productKey=r.productKey||r.key||r.id||product.model||r.model||'';
     const control=String(r.control||'').trim();
+    const visibleControl=control&&control.toLowerCase()!=='nominal'?control:'';
     const itemKey=[productKey,control,required.q,required.p,selected.q,selected.p].join('|');
     const speed=Number(r.rpm)||Number(product.motor?.speed)||0;
     const voltage=String(r.voltage||product.motor?.voltage||'').trim();
@@ -137,10 +147,12 @@
       existing.speed=Number(existing.speed)||speed;
       existing.voltage=existing.voltage||voltage;
       existing.noise=Number(existing.noise)||noise;
+      existing.hazardousArea=existing.hazardousArea||r.hazardousArea||product.technical?.atex||null;
+      existing.safetyWarning=existing.safetyWarning||r.safetyWarning||product.technical?.safetyWarning||'';
       existing.updatedAt=new Date().toISOString();
     }else{
       const seriesTitle=product.series?.title||r.series||'';
-      context.items.push({itemKey,mode:'selection',productKey,control,model:product.model||r.model||'',series:control?`${seriesTitle} · Control: ${control}`:seriesTitle,manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,frequency:String(r.frequency||product.motor?.frequency||''),noise,price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()});
+      context.items.push({itemKey,mode:'selection',productKey,control,model:product.model||r.model||'',series:visibleControl?`${seriesTitle} · Control: ${visibleControl}`:seriesTitle,manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,frequency:String(r.frequency||product.motor?.frequency||''),noise,hazardousArea:r.hazardousArea||product.technical?.atex||null,safetyWarning:r.safetyWarning||product.technical?.safetyWarning||'',price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()});
     }
     saveProjectItems(context);
     if(button){const old=button.innerHTML;button.innerHTML='✓';button.title='Added to selected project';setTimeout(()=>{button.innerHTML=old;button.title='Add to selected project'},1200)}

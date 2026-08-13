@@ -91,12 +91,12 @@ test('catalog keeps 45 LINEO products while selection exposes 136 control curves
   const catalog=context.window.VensisCatalog;
   const state=context.window.VensisState;
   const lineoCatalog=catalog.models.filter(model=>model.seriesId.startsWith('LINEO'));
-  const lineoSelection=state.models.filter(model=>model.manufacturer==='Vortice');
+  const lineoSelection=state.models.filter(model=>model.manufacturer==='Vortice'&&model.series.startsWith('LINEO'));
 
-  assert.equal(catalog.models.length,676);
+  assert.equal(catalog.models.length,941);
   assert.equal(lineoCatalog.length,45);
   assert.equal(lineoSelection.length,136);
-  assert.equal(state.models.length,767);
+  assert.equal(state.models.length,1183);
   assert.deepEqual(
     Object.fromEntries([...state.indexes.seriesCounts].filter(([series])=>series.startsWith('LINEO')).map(([series,ids])=>[series,ids.size])),
     {'LINEO QUIET ES':7,'LINEO QUIET':12,LINEO:18,'LINEO ES':8}
@@ -165,7 +165,7 @@ test('every product entry point loads the LINEO data and current adapters',()=>{
   for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-09\.js\?v=20260813-lineo/,file);
-    assert.match(html,/products\/registry\.js\?v=20260813-lineo/,file);
+    assert.match(html,/products\/registry\.js\?v=20260813-vortice-batch/,file);
   }
   const selection=fs.readFileSync(path.join(root,'index.html'),'utf8');
   assert.match(selection,/js\/core\/selection-engine\.js\?v=20260813-lineo/);

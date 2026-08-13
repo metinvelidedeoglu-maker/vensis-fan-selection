@@ -1,0 +1,11 @@
+{
+  "package": "vortice_qbk_sal_kc_evo_selection_package",
+  "version": "1.0.0",
+  "source_catalogue": "Doc_Pubblicita_Vort_QBK_SAL-KC_EVO_190829(1).pdf",
+  "series": ["VORT QBK SAL-KC EVO"],
+  "product_count": 21,
+  "primary_data": "qbk_sal_kc_evo_products.json",
+  "index": "products.csv",
+  "validation": "validation_report.json",
+  "assets": ["images/qbk_sal_kc_evo.png", "images/qbk_sal_kc_evo_dimensions.png"]
+}

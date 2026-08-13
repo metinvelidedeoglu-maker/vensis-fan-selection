@@ -1,0 +1,13 @@
+{
+  "package_name": "vortice-selected-residential-vensis-selection",
+  "package_version": "1.0.0",
+  "created_date": "2026-08-13",
+  "source_catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+  "expected_products": 172,
+  "expected_series": 13,
+  "expected_curves": 228,
+  "expected_curve_points": 4788,
+  "curve_interpolation": "linear",
+  "extrapolation": false,
+  "scope": "only user-requested ranges"
+}
