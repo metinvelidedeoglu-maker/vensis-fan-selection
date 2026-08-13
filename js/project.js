@@ -57,6 +57,10 @@
     const name=String(meta?.name||'').trim();
     const heading=byId('projectWorkspaceHeading');
     if(heading)heading.textContent=name||'Project Workspace';
+    const status=String(meta?.status||'draft');
+    const badge=byId('projectStatusBadge');
+    const label=window.VensisOrderUtils?.projectStatusLabel?.(status)||({draft:'Taslak',quoted:'Teklif Verildi',won:'Kazanıldı',ordered:'Sipariş Verildi',lost:'Kaybedildi'}[status]||'Taslak');
+    if(badge){badge.textContent=label;badge.dataset.status=status}
     document.title=`${name||'Project Workspace'} | Vensis`;
   }
   function writeMeta(globalDiscount,patch={}){
@@ -65,6 +69,8 @@
       ...patch,
       name:byId('projectName')?.value.trim()||'',
       reference:byId('projectReference')?.value.trim()||'',
+      contact:byId('projectContact')?.value.trim()||'',
+      status:patch.status===undefined?(byId('projectStatus')?.value||current.status):patch.status,
       globalDiscount:globalDiscount==null?clampDiscount(current.globalDiscount):clampDiscount(globalDiscount)
     },PROJECT_ID);
     updateWorkspaceTitle(meta);
@@ -183,8 +189,13 @@
     noteTimers.forEach(clearTimeout);noteTimers.clear();writeItems([]);render();
   }
   function loadMeta(){
-    const meta=readMeta();if(byId('projectName'))byId('projectName').value=meta.name||'';if(byId('projectReference'))byId('projectReference').value=meta.reference||'';if(byId('globalDiscount'))byId('globalDiscount').value=String(clampDiscount(meta.globalDiscount));updateWorkspaceTitle(meta);
+    const meta=readMeta();if(byId('projectName'))byId('projectName').value=meta.name||'';if(byId('projectReference'))byId('projectReference').value=meta.reference||'';if(byId('projectContact'))byId('projectContact').value=meta.contact||'';if(byId('projectStatus'))byId('projectStatus').value=meta.status||'draft';if(byId('globalDiscount'))byId('globalDiscount').value=String(clampDiscount(meta.globalDiscount));updateWorkspaceTitle(meta);
   }
+  function showEditorSaved(message='Proje kaydedildi.'){
+    const status=byId('projectEditorStatus');if(!status)return;
+    status.textContent=message;status.classList.add('saved');clearTimeout(showEditorSaved.timer);showEditorSaved.timer=setTimeout(()=>{status.textContent='Değişiklikler otomatik kaydedilir.';status.classList.remove('saved')},1800);
+  }
+  function saveProjectMeta(){writeMeta();showEditorSaved()}
   function formField(name){return byId(`custom-${name}`)}
   function setFormValue(name,value){const field=formField(name);if(field)field.value=value??''}
   function setCustomFieldsDisabled(disabled){document.querySelectorAll('[data-custom-core]').forEach(field=>{field.disabled=disabled});const note=byId('customProductModeNote');if(note)note.textContent=disabled?'This project product is linked to the fan database. Only the free description can be changed here.':'Enter a product that is not available in the selection program.'}
@@ -212,9 +223,9 @@
   document.addEventListener('input',event=>{const note=event.target.closest('[data-product-note]');if(note)queueDescriptionSave(note)});
   document.addEventListener('change',event=>{const discount=event.target.closest('[data-line-discount]');const note=event.target.closest('[data-product-note]');if(discount)changeLineDiscount(Number(discount.dataset.lineDiscount),discount.value);if(note)saveDescriptionField(note)});
   document.addEventListener('click',event=>{if(event.target.closest('#printProject,#convertQuotation,#createOrder'))flushAllNotes()},true);
-  byId('applyGlobalDiscount')?.addEventListener('click',applyGlobalDiscount);byId('convertQuotation')?.addEventListener('click',convertToQuotation);byId('clearProject')?.addEventListener('click',clearProject);byId('printProject')?.addEventListener('click',()=>window.print());byId('addCustomProduct')?.addEventListener('click',()=>openProductEditor());byId('customProductForm')?.addEventListener('submit',saveProductEditor);byId('cancelCustomProduct')?.addEventListener('click',closeProductEditor);byId('closeCustomProduct')?.addEventListener('click',closeProductEditor);byId('customProductModal')?.addEventListener('click',event=>{if(event.target===byId('customProductModal'))closeProductEditor()});
+  byId('applyGlobalDiscount')?.addEventListener('click',()=>{applyGlobalDiscount();showEditorSaved('İskonto kaydedildi.')});byId('saveProjectMeta')?.addEventListener('click',saveProjectMeta);byId('convertQuotation')?.addEventListener('click',convertToQuotation);byId('clearProject')?.addEventListener('click',clearProject);byId('printProject')?.addEventListener('click',()=>window.print());byId('addCustomProduct')?.addEventListener('click',()=>openProductEditor());byId('customProductForm')?.addEventListener('submit',saveProductEditor);byId('cancelCustomProduct')?.addEventListener('click',closeProductEditor);byId('closeCustomProduct')?.addEventListener('click',closeProductEditor);byId('customProductModal')?.addEventListener('click',event=>{if(event.target===byId('customProductModal'))closeProductEditor()});
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!byId('customProductModal')?.hidden)closeProductEditor()});
-  byId('projectName')?.addEventListener('input',()=>writeMeta());byId('projectReference')?.addEventListener('input',()=>writeMeta());
+  byId('projectName')?.addEventListener('input',()=>writeMeta());byId('projectReference')?.addEventListener('input',()=>writeMeta());byId('projectContact')?.addEventListener('input',()=>writeMeta());byId('projectStatus')?.addEventListener('change',()=>{writeMeta();showEditorSaved('Proje durumu kaydedildi.')});
   window.addEventListener('storage',event=>{if(!event.key||event.key===`${store.keys.itemsPrefix}${PROJECT_ID}`||event.key===`${store.keys.metaPrefix}${PROJECT_ID}`){loadMeta();render()}});
   window.addEventListener('vensis-project-cloud-applied',()=>{
     if(!store.get(PROJECT_ID)){location.replace('projects.html');return}
