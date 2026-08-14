@@ -13,6 +13,10 @@ const selectedSeries=[
   'VORT QUADRO','VORT QUADRO I','VORT QUADRO EVO'
 ];
 const excludedSeries=['ARIETT','ARIETT HABITAT','ARIETT I','VORT PRESS','VORT PRESS HABITAT','VORT PRESS I'];
+const refreshedImageSeries=new Set([
+  'PUNTO','PUNTO FILO','PUNTO FOUR','PUNTO GHOST','PUNTO EVO FLEXO','PUNTO EVO',
+  'PUNTO EVO GOLD','VORTICE VARIO','VORTICE VARIO I','VORT QUADRO','VORT QUADRO I'
+]);
 
 function parseDataFile(name){
   const text=fs.readFileSync(path.join(root,'data',name),'utf8');
@@ -211,6 +215,17 @@ test('residential feature flags and images reach product details',()=>{
   assert.equal(byCode('12612').technical.reversible,true);
   assert.match(byCode('11201').media.dimensionImage,/punto_dimensions\.png$/);
 
+  const refreshedImages={
+    11202:'punto_20260814.png',11124:'punto_filo_20260814.png',11145:'punto_four_20260814.png',
+    11102:'punto_ghost_20260814.png',11314:'punto_evo_flexo_20260814.png',
+    11260:'punto_evo_20260814.png',11306:'punto_evo_gold_20260814.png',
+    12412:'vortice_vario_20260814.png',12416:'vortice_vario_i_20260814.png',
+    11936:'vort_quadro_20260814.png',12020:'vort_quadro_i_20260814.png'
+  };
+  for(const [code,image] of Object.entries(refreshedImages)){
+    assert.equal(path.basename(byCode(code).media.image),image,code);
+  }
+
   const catalogSource=fs.readFileSync(path.join(root,'js','catalog.js'),'utf8');
   for(const label of ['Timer','Humidity Sensor','Presence Sensor','Long-Life Motor','Reversible']){
     assert.match(catalogSource,new RegExp(label));
@@ -223,7 +238,7 @@ test('residential feature flags and images reach product details',()=>{
       'PUNTO EVO GOLD':'punto_evo_gold','VORTICE VARIO':'vortice_vario','VORTICE VARIO I':'vortice_vario_i',
       'VORT QUADRO':'vort_quadro','VORT QUADRO I':'vort_quadro_i','VORT QUADRO EVO':'vort_quadro_evo'
     }[series];
-    return [`${stem}.png`,`${stem}_dimensions.png`];
+    return [`${stem}${refreshedImageSeries.has(series)?'_20260814':''}.png`,`${stem}_dimensions.png`];
   }).sort();
   const images=fs.readdirSync(residentialDirectory).filter(name=>name.endsWith('.png')).sort();
   assert.deepEqual(images,expectedImages);
@@ -240,7 +255,7 @@ test('residential feature flags and images reach product details',()=>{
 test('every product entry point and editor bootstrap load the residential data chunk',()=>{
   for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
-    assert.match(html,/data\/fans-13\.js\?v=20260813-vortice-batch/,file);
+    assert.match(html,/data\/fans-13\.js\?v=20260814-vortice-images/,file);
     assert.match(html,/products\/registry\.js\?v=20260814-vortice-prices/,file);
   }
   const bootstrap=fs.readFileSync(path.join(root,'api','edit','bootstrap.php'),'utf8');

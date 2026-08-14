@@ -167,7 +167,7 @@ test('every product entry point loads both new Vortice data chunks',()=>{
   for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-11\.js\?v=20260813-vortice-batch/,file);
-    assert.match(html,/data\/fans-12\.js\?v=20260813-vortice-batch/,file);
+    assert.match(html,/data\/fans-12\.js\?v=20260814-vortice-images/,file);
     assert.match(html,/products\/registry\.js\?v=20260814-vortice-prices/,file);
   }
   const bootstrap=fs.readFileSync(path.join(root,'api','edit','bootstrap.php'),'utf8');

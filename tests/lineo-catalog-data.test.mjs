@@ -84,6 +84,10 @@ test('all 21 supplied LINEO catalogue images are present and assigned per model'
     rows.find(row=>row.model==='LINEO 100')?.image,
     rows.find(row=>row.model==='LINEO 315')?.image
   );
+  assert.equal(
+    rows.find(row=>row.productCode==='17146')?.image,
+    'assets/products/lineo/lineo_150_20260814.png'
+  );
 });
 
 test('catalog keeps 45 LINEO products while selection exposes 136 control curves',()=>{
@@ -164,7 +168,7 @@ test('LINEO datasheet shows control levels without creating new curve points',()
 test('every product entry point loads the LINEO data and current adapters',()=>{
   for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
-    assert.match(html,/data\/fans-09\.js\?v=20260813-lineo/,file);
+    assert.match(html,/data\/fans-09\.js\?v=20260814-vortice-images/,file);
     assert.match(html,/products\/registry\.js\?v=20260814-vortice-prices/,file);
   }
   const selection=fs.readFileSync(path.join(root,'index.html'),'utf8');

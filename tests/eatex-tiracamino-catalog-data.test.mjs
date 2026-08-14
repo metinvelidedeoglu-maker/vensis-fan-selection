@@ -73,8 +73,12 @@ test('E-ATEX and Tiracamino package retains every model and selection point',()=
 test('E-ATEX vectors resolve the normalized-package warning and catalogue heading conflict',()=>{
   const directory=path.join(root,'assets','products','eatex-tiracamino');
   const images=fs.readdirSync(directory).filter(name=>name.endsWith('.png')).sort();
-  assert.deepEqual(images,['eatex.png','eatex_dimensions.png','tiracamino.png','tiracamino_dimensions.png']);
+  assert.deepEqual(images,['eatex.png','eatex_dimensions.png','tiracamino_20260814.png','tiracamino_dimensions.png']);
   for(const image of images)assert.ok(fs.statSync(path.join(directory,image)).size>100000,image);
+  assert.equal(
+    rows.find(row=>row.productCode==='15000')?.image,
+    'assets/products/eatex-tiracamino/tiracamino_20260814.png'
+  );
   const validation=JSON.parse(fs.readFileSync(path.join(directory,'validation-report.json'),'utf8'));
   assert.equal(validation.product_count,15);
   assert.equal(validation.warnings.length,1);
