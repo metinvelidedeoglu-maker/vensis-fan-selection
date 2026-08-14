@@ -188,13 +188,19 @@
     quotation.date=String(byId('editQuotationDate')?.value||'').trim();
     quotation.currency=String(byId('editQuotationCurrency')?.value||'EUR').toUpperCase();
     quotation.project={...(quotation.project||{}),name:String(byId('editQuotationProject')?.value||'').trim(),reference:String(byId('editQuotationReference')?.value||'').trim(),contact:String(byId('editQuotationContact')?.value||'').trim()};
-    quotation.items=(Array.isArray(quotation.items)?quotation.items:[]).map((item,index)=>({
-      ...item,
-      quantity:Math.max(1,Math.round(number(document.querySelector(`[data-quote-item-quantity="${index}"]`)?.value)||1)),
-      price:Math.max(0,number(document.querySelector(`[data-quote-item-price="${index}"]`)?.value)),
-      discountPercent:clampDiscount(document.querySelector(`[data-quote-item-discount="${index}"]`)?.value),
-      description:String(document.querySelector(`[data-quote-item-description="${index}"]`)?.value||'').trim()
-    }));
+    quotation.items=(Array.isArray(quotation.items)?quotation.items:[]).map((item,index)=>{
+      const price=Math.max(0,number(document.querySelector(`[data-quote-item-price="${index}"]`)?.value));
+      const priceChanged=price!==Math.max(0,number(item.price));
+      return {
+        ...item,
+        quantity:Math.max(1,Math.round(number(document.querySelector(`[data-quote-item-quantity="${index}"]`)?.value)||1)),
+        price,
+        priceSource:priceChanged?'manual':item.priceSource,
+        priceCurrency:priceChanged?quotation.currency:item.priceCurrency,
+        discountPercent:clampDiscount(document.querySelector(`[data-quote-item-discount="${index}"]`)?.value),
+        description:String(document.querySelector(`[data-quote-item-description="${index}"]`)?.value||'').trim()
+      };
+    });
     quotation.settings=collectSettings(quotation);
     quotation.totals=totals(quotation.items);
     quotation.updatedAt=new Date().toISOString();
@@ -210,7 +216,7 @@
     const updated=projectItems.map((item,index)=>{
       const quoteItem=item.itemKey?(quotation.items||[]).find(candidate=>candidate.itemKey===item.itemKey):(quotation.items||[])[index];
       if(!quoteItem)return item;
-      return {...item,quantity:Math.max(1,Math.round(number(quoteItem.quantity)||1)),price:Math.max(0,number(quoteItem.price)),discountPercent:clampDiscount(quoteItem.discountPercent),description:String(quoteItem.description||'').trim(),updatedAt:new Date().toISOString()};
+      return {...item,quantity:Math.max(1,Math.round(number(quoteItem.quantity)||1)),price:Math.max(0,number(quoteItem.price)),priceSource:String(quoteItem.priceSource||item.priceSource||''),priceCurrency:String(quoteItem.priceCurrency||item.priceCurrency||''),discountPercent:clampDiscount(quoteItem.discountPercent),description:String(quoteItem.description||'').trim(),updatedAt:new Date().toISOString()};
     });
     store.writeItems(updated,projectId);
     return true;
@@ -248,6 +254,12 @@
       empty.hidden=false;
       workspace.hidden=true;
       return;
+    }
+    if(window.VensisPricing?.enrichItems?.(activeQuotation.items)){
+      activeQuotation.totals=totals(activeQuotation.items);
+      activeQuotation.updatedAt=new Date().toISOString();
+      writeQuotation(activeQuotation);
+      syncProject(activeQuotation);
     }
     empty.hidden=true;
     workspace.hidden=false;

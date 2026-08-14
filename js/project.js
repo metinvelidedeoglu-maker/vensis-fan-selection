@@ -31,7 +31,7 @@
     return (catalog.models||[]).find(model=>String(model.model||'')===String(item?.model||''))||null;
   }
   function enrichItems(items){
-    let changed=false;
+    let changed=Boolean(window.VensisPricing?.enrichItems?.(items));
     items.forEach(item=>{
       if(item.mode==='custom')return;
       const model=modelForItem(item);

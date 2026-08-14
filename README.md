@@ -75,6 +75,29 @@ without extrapolating beyond catalogue limits. Selection models are interpolated
 only after they pass the active product filters and are cached for that page
 session. Catalog datasheets interpolate and cache only the opened model.
 
+## Vortice 2026.1 Price List
+
+The audited Vortice list prices are stored in
+`data/vortice-prices-2026-1.js`. They come from `Vensis Fiyat Listesi
+2026.pdf` (SHA-256
+`e914684a173ff6aa174f31b342b69c123c6985781fbe1d4fd492b887b4b716e2`)
+and are kept in EUR. Of the 310 Vortice catalog products, 153 have an exact
+product-code match on the correct product-family page. The remaining 157 stay
+unpriced; prices are never inferred from a similar model name. Page scoping is
+required because the PDF reuses some codes in unrelated ranges, including
+43151 for both QBK and TORRETTE TR-A ATEX.
+
+To reproduce the price data from the source PDF:
+
+```bash
+python3 scripts/extract-vortice-price-list.py "/path/to/Vensis Fiyat Listesi 2026.pdf"
+node --test tests/vortice-prices-2026-1.test.mjs
+```
+
+An explicit price saved through Edit Mode takes precedence over the imported
+list. The imported value otherwise flows through catalog, selection, project
+and quotation records; supplier order documents continue to exclude prices.
+
 ## Vortice LINEO Catalogue Data
 
 The LINEO catalogue is stored in `data/fans-09.js` as 45 products across LINEO,

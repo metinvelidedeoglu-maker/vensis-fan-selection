@@ -202,6 +202,7 @@ function project_item(array $source): array
         'productKey' => [240, false], 'model' => [240, false], 'series' => [240, false],
         'manufacturer' => [180, false], 'image' => [4096, false], 'voltage' => [120, false],
         'frequency' => [120, false], 'description' => [5000, true],
+        'priceSource' => [180, false], 'priceCurrency' => [12, false],
     ];
     foreach ($strings as $field => [$maximumLength, $allowLines]) {
         if (array_key_exists($field, $source)) {

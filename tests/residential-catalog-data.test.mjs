@@ -30,7 +30,7 @@ function applicationHarness(){
   for(const file of fs.readdirSync(path.join(root,'data')).filter(name=>/^fans-\d+\.js$/.test(name)).sort()){
     vm.runInContext(fs.readFileSync(path.join(root,'data',file),'utf8'),context,{filename:file});
   }
-  for(const file of ['data/series-overrides.js','products/registry.js','js/core/utils.js']){
+  for(const file of ['data/series-overrides.js','data/vortice-prices-2026-1.js','products/registry.js','js/core/utils.js']){
     vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context,{filename:file});
   }
   const originalDensify=context.window.VensisUtils.densifyPoints;
@@ -241,7 +241,7 @@ test('every product entry point and editor bootstrap load the residential data c
   for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-13\.js\?v=20260813-vortice-batch/,file);
-    assert.match(html,/products\/registry\.js\?v=20260813-vortice-batch/,file);
+    assert.match(html,/products\/registry\.js\?v=20260814-vortice-prices/,file);
   }
   const bootstrap=fs.readFileSync(path.join(root,'api','edit','bootstrap.php'),'utf8');
   assert.match(bootstrap,/'data\/fans-13\.js'/);

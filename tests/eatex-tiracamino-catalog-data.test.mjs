@@ -23,7 +23,7 @@ function applicationHarness(){
   for(const file of fs.readdirSync(path.join(root,'data')).filter(name=>/^fans-\d+\.js$/.test(name)).sort()){
     vm.runInContext(fs.readFileSync(path.join(root,'data',file),'utf8'),context,{filename:file});
   }
-  for(const file of ['data/series-overrides.js','products/registry.js','js/core/utils.js']){
+  for(const file of ['data/series-overrides.js','data/vortice-prices-2026-1.js','products/registry.js','js/core/utils.js']){
     vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context,{filename:file});
   }
   const originalDensify=context.window.VensisUtils.densifyPoints;
@@ -224,7 +224,7 @@ test('new technical adapters use the shared deployment cache version',()=>{
   const catalog=fs.readFileSync(path.join(root,'catalog.html'),'utf8');
   assert.match(catalog,/js\/catalog\.js\?v=20260813-vortice-batch/);
   assert.match(catalog,/js\/ui\/datasheet\.js\?v=20260813-vortice-batch/);
-  assert.match(fs.readFileSync(path.join(root,'project.html'),'utf8'),/js\/project\.js\?v=20260813-vortice-batch/);
-  assert.match(fs.readFileSync(path.join(root,'quotation.html'),'utf8'),/js\/quotation\.js\?v=20260813-vortice-batch/);
+  assert.match(fs.readFileSync(path.join(root,'project.html'),'utf8'),/js\/project\.js\?v=20260814-vortice-prices/);
+  assert.match(fs.readFileSync(path.join(root,'quotation.html'),'utf8'),/js\/quotation\.js\?v=20260814-vortice-prices/);
   assert.match(fs.readFileSync(path.join(root,'project-print.html'),'utf8'),/js\/project-print\.js\?v=20260813-vortice-batch/);
 });

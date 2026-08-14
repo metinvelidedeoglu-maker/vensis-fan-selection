@@ -16,6 +16,14 @@
   const keys=[...new Set([...Object.keys(names),...Object.keys(aliases)])].sort((a,b)=>b.length-a.length);
   const rawModels=Array.isArray(window.models)?window.models:[];
   const seriesOverrides=window.VensisSeriesOverrides&&typeof window.VensisSeriesOverrides==='object'?window.VensisSeriesOverrides:{};
+  const vorticePriceList=window.VensisVorticePriceList2026_1&&typeof window.VensisVorticePriceList2026_1==='object'
+    ? window.VensisVorticePriceList2026_1
+    : null;
+  const vorticePrices=new Map();
+  for(const entry of vorticePriceList?.entries||[]){
+    const key=String(entry?.productKey||'');
+    if(key&&!vorticePrices.has(key))vorticePrices.set(key,entry);
+  }
   const seriesRecords=new Map();
   const modelRecords=new Map();
 
@@ -32,6 +40,24 @@
   }
   function imageFor(code){return code&&files[code]?'assets/products/'+files[code]:''}
   function finite(value){const number=Number(value);return Number.isFinite(number)?number:0}
+  function pricingFor(row){
+    if(Object.prototype.hasOwnProperty.call(row||{},'price')){
+      const explicit=Number(row.price);
+      return {listPrice:Number.isFinite(explicit)?explicit:null,currency:'EUR'};
+    }
+    const entry=vorticePrices.get(String(row?.key||''));
+    const exactMatch=entry
+      &&String(row?.brand||row?.manufacturer||'').toUpperCase()==='VORTICE'
+      &&String(entry.series||'')===String(row?.series||'')
+      &&String(entry.productCode||'')===String(row?.productCode||'');
+    const listPrice=exactMatch?Number(entry.listPrice):NaN;
+    return {
+      listPrice:Number.isFinite(listPrice)?listPrice:null,
+      currency:String(vorticePriceList?.currency||'EUR'),
+      catalogue:exactMatch?String(vorticePriceList?.catalog||''):'',
+      sourcePage:exactMatch?Number(entry.sourcePage)||null:null
+    };
+  }
   function normalizedPoints(points){
     const result=[];
     let previousKey='';
@@ -125,7 +151,7 @@
       display:row?.display||model,
       catalogOnly:Boolean(row?.catalogOnly),
       pole:Number(row?.pole)||0,
-      pricing:{listPrice:Number.isFinite(Number(row?.price))?Number(row.price):null,currency:'EUR'},
+      pricing:pricingFor(row),
       media:{image:row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||'',gallery:[]},
       motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl??primaryOperating?.sound)||0},
       technical:{
