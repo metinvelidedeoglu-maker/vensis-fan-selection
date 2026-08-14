@@ -256,7 +256,7 @@ test('every product entry point and editor bootstrap load the residential data c
   for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-13\.js\?v=20260814-vortice-images/,file);
-    assert.match(html,/products\/registry\.js\?v=20260814-vortice-prices/,file);
+    assert.match(html,/products\/registry\.js\?v=20260814-lineo-model-image/,file);
   }
   const bootstrap=fs.readFileSync(path.join(root,'api','edit','bootstrap.php'),'utf8');
   assert.match(bootstrap,/'data\/fans-13\.js'/);

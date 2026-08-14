@@ -136,6 +136,7 @@
     const code=seriesCode(row?.series||row?.model);
     const model=normalizeModel(row?.model||row?.display||'',code);
     const series=ensureSeries(row,code);
+    const override=seriesOverrides[code]&&typeof seriesOverrides[code]==='object'?seriesOverrides[code]:{};
     const id=String(row?.key||model);
     const curves=normalizedCurves(row);
     const operatingPoints=normalizedOperatingPoints(row);
@@ -152,7 +153,7 @@
       catalogOnly:Boolean(row?.catalogOnly),
       pole:Number(row?.pole)||0,
       pricing:pricingFor(row),
-      media:{image:row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||'',gallery:[]},
+      media:{image:override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||'',gallery:[]},
       motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl??primaryOperating?.sound)||0},
       technical:{
         weight:Number(row?.weight)||0,

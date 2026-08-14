@@ -8,5 +8,13 @@ window.VensisSeriesOverrides={
                 "deneme"
             ]
         }
+    },
+    "LINEO": {
+        "image": "assets/products/lineo/lineo_150_20260814.png",
+        "useSeriesImageForModels": true
+    },
+    "LINEO ES": {
+        "image": "assets/products/lineo/lineo_150_20260814.png",
+        "useSeriesImageForModels": true
     }
 };

@@ -168,7 +168,7 @@ test('every product entry point loads prices before the versioned registry',()=>
   for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     const priceIndex=html.indexOf('data/vortice-prices-2026-1.js?v=20260814-vortice-prices');
-    const registryIndex=html.indexOf('products/registry.js?v=20260814-vortice-prices');
+    const registryIndex=html.indexOf('products/registry.js?v=20260814-lineo-model-image');
     assert.ok(priceIndex>=0,file);
     assert.ok(registryIndex>priceIndex,file);
   }
@@ -177,7 +177,7 @@ test('every product entry point loads prices before the versioned registry',()=>
 test('project and quotation hydrate prices after the registry and preserve price provenance in cloud storage',()=>{
   for(const [file,entry] of [['project.html','js/project.js?v=20260814-vortice-prices'],['quotation.html','js/quotation.js?v=20260814-vortice-prices']]){
     const html=fs.readFileSync(path.join(root,file),'utf8');
-    const registryIndex=html.indexOf('products/registry.js?v=20260814-vortice-prices');
+    const registryIndex=html.indexOf('products/registry.js?v=20260814-lineo-model-image');
     const pricingIndex=html.indexOf('js/pricing.js?v=20260814-vortice-prices');
     const entryIndex=html.indexOf(entry);
     assert.ok(pricingIndex>registryIndex,file);

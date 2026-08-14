@@ -191,7 +191,7 @@ test('every product entry point loads CA MD data and current adapters',()=>{
   for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-10\.js\?v=20260813-ca-md/,file);
-    assert.match(html,/products\/registry\.js\?v=20260814-vortice-prices/,file);
+    assert.match(html,/products\/registry\.js\?v=20260814-lineo-model-image/,file);
   }
   const selection=fs.readFileSync(path.join(root,'index.html'),'utf8');
   assert.match(selection,/js\/core\/state\.js\?v=20260813-vortice-batch/);
