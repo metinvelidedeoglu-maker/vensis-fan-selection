@@ -21,10 +21,10 @@ function workflow(){
   return {api:context.window.VensisOrders,projectId,meta:()=>meta,writes};
 }
 
-test('creating and sending an order advances the project workflow',()=>{
+test('creating an order draft keeps the project status until the order is sent',()=>{
   const {api,projectId,meta}=workflow();
   const order=api.create(projectId,{now:new Date(2026,7,13,10,0,0)});
-  assert.equal(meta().status,'won');
+  assert.equal(meta().status,'quoted');
   assert.equal(meta().orders.length,1);
   assert.equal(Object.hasOwn(meta().orders[0].items[0],'price'),false);
 
@@ -70,4 +70,5 @@ test('purchase order entry points, form fields and cloud schema are wired',()=>{
   assert.match(backend,/function project_order\(/);
   assert.match(backend,/'orders' => \$orders/);
   assert.match(backend,/'status' => \$status/);
+  for(const html of [project,quotation,order])assert.match(html,/js\/orders\.js\?v=20260814-order-status/);
 });

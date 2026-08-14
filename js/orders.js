@@ -25,7 +25,7 @@
       now:options.now
     });
     const currentStatus=store.readMeta(projectId).status;
-    writeOrders(projectId,[order,...existing],currentStatus==='ordered'?'ordered':'won');
+    writeOrders(projectId,[order,...existing],currentStatus);
     return order;
   }
   function createOrReuse(projectId,options={}){
