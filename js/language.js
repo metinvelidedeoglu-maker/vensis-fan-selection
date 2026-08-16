@@ -1,0 +1,369 @@
+(function(){
+  'use strict';
+
+  const STORAGE_KEY='vensis_language_v1';
+  const DEFAULT_LANGUAGE='en';
+
+  const translations={
+    'Fan Selection':'Fan Seçimi',
+    'Open Fan Selection':'Fan Seçimini Aç',
+    'Product Catalog':'Ürün Kataloğu',
+    'Open Product Catalog':'Ürün Kataloğunu Aç',
+    'Projects':'Projeler',
+    'Open Projects':'Projeleri Aç',
+    'Selection Workspace':'Seçim Çalışma Alanı',
+    'Airflow / Pressure':'Debi / Basınç',
+    'Flow (m³/h)':'Debi (m³/h)',
+    'Airflow':'Debi',
+    'Enter airflow':'Debi girin',
+    'Airflow tolerance':'Debi toleransı',
+    'Minimum airflow tolerance':'Minimum debi toleransı',
+    'Maximum airflow tolerance':'Maksimum debi toleransı',
+    'Pressure (Pa)':'Basınç (Pa)',
+    'Pressure':'Basınç',
+    'Enter pressure':'Basınç girin',
+    'Pressure tolerance':'Basınç toleransı',
+    'Minimum pressure tolerance':'Minimum basınç toleransı',
+    'Maximum pressure tolerance':'Maksimum basınç toleransı',
+    'Product Filter':'Ürün Filtresi',
+    'Category':'Kategori',
+    'Search category...':'Kategori ara...',
+    'Brand':'Marka',
+    'Model':'Model',
+    'Search model or product code...':'Model veya ürün kodu ara...',
+    'Reset':'Sıfırla',
+    'Find Fans':'Fanları Bul',
+    'Matching Fans':'Uygun Fanlar',
+    'Enter flow and pressure values to begin.':'Başlamak için debi ve basınç değerlerini girin.',
+    'Closest Match':'En Yakın Eşleşme',
+    'Filters':'Filtreler',
+    'Manufacturer':'Üretici',
+    'Reset Filters':'Filtreleri Sıfırla',
+    'Series':'Seri',
+    'Add Product':'Ürün Ekle',
+    'Specifications':'Teknik Özellikler',
+    'Specification':'Teknik Özellik',
+    'Performance':'Performans',
+    'Dimensions':'Ölçüler',
+    'Dimension':'Ölçü',
+    'Operating Points':'Çalışma Noktaları',
+    'Operating Point':'Çalışma Noktası',
+    'Datasheet':'Teknik Föy',
+    'Technical Datasheet':'Teknik Föy',
+    'Back to Catalog':'Kataloğa Dön',
+    'Create, select and manage project workspaces.':'Proje çalışma alanlarını oluşturun, seçin ve yönetin.',
+    '+ New Project':'+ Yeni Proje',
+    'New Project':'Yeni Proje',
+    'Total Projects':'Toplam Proje',
+    'Total Units':'Toplam Adet',
+    'Combined Net Value':'Toplam Net Tutar',
+    'Search':'Ara',
+    'Search project or company':'Proje veya firma ara',
+    'Project Month':'Proje Ayı',
+    'All months':'Tüm aylar',
+    'Showing all projects':'Tüm projeler gösteriliyor',
+    'No projects yet':'Henüz proje yok',
+    'Create your first project to start adding products.':'Ürün eklemeye başlamak için ilk projenizi oluşturun.',
+    'Create Project':'Proje Oluştur',
+    'No matching projects':'Eşleşen proje yok',
+    'Try another project name, company or month.':'Başka bir proje adı, firma veya ay deneyin.',
+    'Clear Filters':'Filtreleri Temizle',
+    'Create a separate workspace for products, pricing and quotation settings.':'Ürünler, fiyatlandırma ve teklif ayarları için ayrı bir çalışma alanı oluşturun.',
+    'Project Name':'Proje Adı',
+    'Enter project name':'Proje adını girin',
+    'Customer / Reference':'Müşteri / Referans',
+    'Enter customer or reference':'Müşteri veya referans girin',
+    'Contact Person / İlgili':'İlgili Kişi',
+    'Contact Person':'İlgili Kişi',
+    'Enter contact person':'İlgili kişiyi girin',
+    'Cancel':'İptal',
+    'Draft':'Taslak',
+    'Quoted':'Teklif Verildi',
+    'Won':'Kazanıldı',
+    'Ordered':'Sipariş Verildi',
+    'Lost':'Kaybedildi',
+    'Cloud synced':'Bulut senkronize',
+    'Syncing…':'Senkronize ediliyor…',
+    'Sync error':'Senkronizasyon hatası',
+    'Browser only':'Yalnızca tarayıcı',
+    'Project cloud status':'Proje bulut durumu',
+    'Checking cloud storage…':'Bulut depolama kontrol ediliyor…',
+    'Saving projects to cloud…':'Projeler buluta kaydediliyor…',
+    'Syncing browser projects with cloud…':'Tarayıcı projeleri bulutla senkronize ediliyor…',
+    'Cloud connection failed; projects remain in this browser.':'Bulut bağlantısı kurulamadı; projeler bu tarayıcıda kalacak.',
+    'Browser only — sign in to sync.':'Yalnızca tarayıcı — senkronizasyon için giriş yapın.',
+    'Cloud synced':'Bulut senkronize',
+    'Sync failed; your projects are still safe in this browser.':'Senkronizasyon başarısız; projeleriniz bu tarayıcıda güvende.',
+    'Back to Projects':'Projelere Dön',
+    'Project Workspace':'Proje Çalışma Alanı',
+    'Project Details':'Proje Bilgileri',
+    'Project Status':'Proje Durumu',
+    'Status':'Durum',
+    'Save':'Kaydet',
+    'Saved':'Kaydedildi',
+    'Saving…':'Kaydediliyor…',
+    'Quotation':'Teklif',
+    'Create Quotation':'Teklif Oluştur',
+    'Commercial Quotation':'Ticari Teklif',
+    'Print / PDF':'Yazdır / PDF',
+    'PDF / Print':'PDF / Yazdır',
+    'Preview':'Önizleme',
+    'Order Form':'Sipariş Formu',
+    'Clear Project':'Projeyi Temizle',
+    'Quantity':'Adet',
+    'Qty':'Adet',
+    'Unit Price':'Birim Fiyat',
+    'List Price':'Liste Fiyatı',
+    'Total':'Toplam',
+    'Net Total':'Net Toplam',
+    'Discount':'İskonto',
+    'Global Discount':'Genel İskonto',
+    'Product':'Ürün',
+    'Selected / Nominal':'Seçilen / Nominal',
+    'Selected':'Seçilen',
+    'Required':'İstenen',
+    'Power':'Güç',
+    'Motor Power':'Motor Gücü',
+    'Speed':'Devir',
+    'Noise':'Ses',
+    'Voltage':'Gerilim',
+    'Frequency':'Frekans',
+    'Current':'Akım',
+    'Remove':'Kaldır',
+    'Edit':'Düzenle',
+    'Add Custom Product':'Özel Ürün Ekle',
+    'Quotation Total':'Teklif Toplamı',
+    'Quotation Scope':'Teklif Kapsamı',
+    'Commercial Terms':'Ticari Şartlar',
+    'Page 1 / 3':'Sayfa 1 / 3',
+    'Page 2 / 3':'Sayfa 2 / 3',
+    'Page 3 / 3':'Sayfa 3 / 3',
+    'Main Page':'Ana Sayfa',
+    'Send by Email':'E-posta ile Gönder',
+    'Send Project Report':'Proje Raporunu Gönder',
+    'Company Name':'Firma Adı',
+    'To':'Kime',
+    'Subject':'Konu',
+    'Message':'Mesaj',
+    'Your email application will open with these details.':'E-posta uygulamanız bu bilgilerle açılacaktır.',
+    'Please enter an email address.':'Lütfen bir e-posta adresi girin.',
+    'Order Management':'Sipariş Yönetimi',
+    'Back to Project':'Projeye Dön',
+    '+ New Order':'+ Yeni Sipariş',
+    'New Order':'Yeni Sipariş',
+    'Order Form Editor':'Sipariş Formu Editörü',
+    'Edit company, delivery conditions and products to be ordered.':'Firma, teslim koşulları ve siparişe girecek ürünleri düzenleyin.',
+    'Order No':'Sipariş No',
+    'Order Date':'Sipariş Tarihi',
+    'Ordering Company':'Sipariş Veren',
+    'Recipient Type':'Alıcı Türü',
+    'Supplier':'Tedarikçi',
+    'Company':'Firma',
+    'Contact':'Yetkili',
+    'Email':'E-posta',
+    'Delivery Time':'Teslim Süresi',
+    'Delivery Place':'Teslim Yeri',
+    'Payment Terms':'Ödeme Şekli',
+    'Order Note':'Sipariş Notu',
+    'Order Items':'Sipariş Kalemleri',
+    'Save Draft':'Taslağı Kaydet',
+    'Order Sent':'Sipariş Verildi',
+    'Purchase Order':'Sipariş Formu',
+    'Order Information':'Sipariş Bilgileri',
+    'Source Quotation':'Kaynak Teklif',
+    'Supplier / Project':'Tedarikçi / Proje',
+    'Project':'Proje',
+    'Line':'Sıra',
+    'Product / Model / Technical Description':'Ürün / Model / Teknik Açıklama',
+    'Electrical / Motor':'Elektrik / Motor',
+    'Total Quantity':'Toplam Adet',
+    'Ordered By':'Siparişi Veren',
+    'Received By':'Siparişi Alan',
+    'No order form found':'Sipariş formu bulunamadı',
+    'Return to the project and recreate the order form.':'Projeye dönüp sipariş formunu yeniden oluşturun.',
+    'Notes':'Notlar',
+    'Note':'Not',
+    'Description':'Açıklama',
+    'Technical Description':'Teknik Açıklama',
+    'Model Code':'Model Kodu',
+    'Product Code':'Ürün Kodu',
+    'Project No':'Proje No',
+    'Quotation No':'Teklif No',
+    'Reference':'Referans',
+    'Customer':'Müşteri',
+    'Date':'Tarih',
+    'Close':'Kapat',
+    'Product details could not be opened.':'Ürün detayları açılamadı.',
+    'No product key received.':'Ürün anahtarı alınamadı.',
+    'Product detail data was not found.':'Ürün detay verisi bulunamadı.'
+  };
+
+  const reverse=Object.create(null);
+  Object.keys(translations).forEach(key=>{ if(!reverse[translations[key]])reverse[translations[key]]=key; });
+
+  const ignoredParents=new Set(['SCRIPT','STYLE','NOSCRIPT','TEXTAREA','OPTION','CODE','PRE']);
+  const attributes=['placeholder','title','aria-label'];
+  let currentLanguage=readLanguage();
+  let observer=null;
+  let applying=false;
+
+  function readLanguage(){
+    try{
+      const saved=localStorage.getItem(STORAGE_KEY);
+      return saved==='tr'||saved==='en'?saved:DEFAULT_LANGUAGE;
+    }catch{return DEFAULT_LANGUAGE}
+  }
+
+  function canonical(value){
+    const clean=String(value||'').trim();
+    if(!clean)return clean;
+    if(Object.prototype.hasOwnProperty.call(translations,clean))return clean;
+    if(Object.prototype.hasOwnProperty.call(reverse,clean))return reverse[clean];
+    return clean;
+  }
+
+  function translateExact(value,lang=currentLanguage){
+    const source=canonical(value);
+    if(lang==='tr'&&Object.prototype.hasOwnProperty.call(translations,source))return translations[source];
+    return source;
+  }
+
+  function translatePattern(value,lang=currentLanguage){
+    const text=String(value||'').trim();
+    if(!text)return text;
+    const exact=translateExact(text,lang);
+    if(exact!==text||translations[text]||reverse[text])return exact;
+
+    const patterns=[
+      [/^(\d+) matching fans?$/i,lang==='tr'?m=>`${m[1]} uygun fan`:m=>`${m[1]} matching fans`],
+      [/^Showing (\d+) of (\d+) projects$/i,lang==='tr'?m=>`${m[1]} / ${m[2]} proje gösteriliyor`:m=>`Showing ${m[1]} of ${m[2]} projects`],
+      [/^(\d+) products?$/i,lang==='tr'?m=>`${m[1]} ürün`:m=>`${m[1]} products`],
+      [/^(\d+) models?$/i,lang==='tr'?m=>`${m[1]} model`:m=>`${m[1]} models`],
+      [/^Page (\d+) \/ (\d+)$/i,lang==='tr'?m=>`Sayfa ${m[1]} / ${m[2]}`:m=>`Page ${m[1]} / ${m[2]}`]
+    ];
+    for(const [regex,fn] of patterns){const match=text.match(regex);if(match)return fn(match)}
+    return text;
+  }
+
+  function replaceTrimmed(original,replacement){
+    const text=String(original||'');
+    const start=text.match(/^\s*/)?.[0]||'';
+    const end=text.match(/\s*$/)?.[0]||'';
+    return start+replacement+end;
+  }
+
+  function translateTextNode(node){
+    if(!node||node.nodeType!==Node.TEXT_NODE||ignoredParents.has(node.parentElement?.tagName))return;
+    const clean=String(node.nodeValue||'').trim();
+    if(!clean)return;
+    const next=translatePattern(clean,currentLanguage);
+    if(next!==clean)node.nodeValue=replaceTrimmed(node.nodeValue,next);
+  }
+
+  function translateAttributes(element){
+    if(!element||element.nodeType!==Node.ELEMENT_NODE)return;
+    attributes.forEach(name=>{
+      if(!element.hasAttribute(name))return;
+      const value=element.getAttribute(name)||'';
+      const next=translatePattern(value,currentLanguage);
+      if(next!==value)element.setAttribute(name,next);
+    });
+  }
+
+  function apply(root=document){
+    if(applying)return;
+    applying=true;
+    try{
+      document.documentElement.lang=currentLanguage;
+      if(root.nodeType===Node.TEXT_NODE){translateTextNode(root);return}
+      if(root.nodeType===Node.ELEMENT_NODE)translateAttributes(root);
+      const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);
+      let node;
+      while((node=walker.nextNode())){
+        if(node.nodeType===Node.TEXT_NODE)translateTextNode(node);
+        else translateAttributes(node);
+      }
+      updateSelector();
+    }finally{applying=false}
+  }
+
+  function setLanguage(lang){
+    if(lang!=='en'&&lang!=='tr')return;
+    currentLanguage=lang;
+    try{localStorage.setItem(STORAGE_KEY,lang)}catch{}
+    apply(document.body||document);
+    window.dispatchEvent(new CustomEvent('vensis-language-changed',{detail:{language:lang}}));
+  }
+
+  function selectorTarget(){
+    return document.querySelector('.app-nav,.catalog-nav,.nav,.toolbar');
+  }
+
+  function mountSelector(){
+    if(document.getElementById('vensisLanguageSwitch')){updateSelector();return}
+    const target=selectorTarget();
+    if(!target)return;
+    if(!document.getElementById('vensisLanguageStyles')){
+      const style=document.createElement('style');
+      style.id='vensisLanguageStyles';
+      style.textContent='.vensis-language-switch{display:inline-flex;align-items:center;gap:2px;min-height:36px;padding:3px;border:1px solid #cbdad4;border-radius:9px;background:#fff;white-space:nowrap}.vensis-language-switch button{min-width:36px!important;min-height:28px!important;border:0!important;border-radius:6px!important;padding:5px 8px!important;background:transparent!important;color:#52666b!important;font:800 11px Arial,Helvetica,sans-serif!important;cursor:pointer!important;box-shadow:none!important}.vensis-language-switch button.active{background:#087f4f!important;color:#fff!important}.vensis-language-switch button:focus-visible{outline:2px solid #087f4f;outline-offset:1px}@media print{.vensis-language-switch{display:none!important}}';
+      document.head.appendChild(style);
+    }
+    const wrap=document.createElement('div');
+    wrap.id='vensisLanguageSwitch';
+    wrap.className='vensis-language-switch';
+    wrap.setAttribute('aria-label','Language / Dil');
+    wrap.innerHTML='<button type="button" data-lang="en" aria-label="English">EN</button><button type="button" data-lang="tr" aria-label="Türkçe">TR</button>';
+    wrap.addEventListener('click',event=>{
+      const button=event.target.closest('[data-lang]');
+      if(button)setLanguage(button.dataset.lang);
+    });
+    target.appendChild(wrap);
+    updateSelector();
+  }
+
+  function updateSelector(){
+    const wrap=document.getElementById('vensisLanguageSwitch');
+    if(!wrap)return;
+    wrap.querySelectorAll('[data-lang]').forEach(button=>{
+      const active=button.dataset.lang===currentLanguage;
+      button.classList.toggle('active',active);
+      button.setAttribute('aria-pressed',String(active));
+    });
+  }
+
+  function observe(){
+    if(observer||!document.body)return;
+    observer=new MutationObserver(mutations=>{
+      if(applying)return;
+      let shouldMount=false;
+      mutations.forEach(mutation=>{
+        if(mutation.type==='characterData')translateTextNode(mutation.target);
+        mutation.addedNodes.forEach(node=>{
+          if(node.nodeType===Node.TEXT_NODE)translateTextNode(node);
+          else if(node.nodeType===Node.ELEMENT_NODE){apply(node);shouldMount=true}
+        });
+        if(mutation.type==='attributes'&&mutation.target)translateAttributes(mutation.target);
+      });
+      if(shouldMount&&!document.getElementById('vensisLanguageSwitch'))mountSelector();
+    });
+    observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:attributes});
+  }
+
+  function init(){
+    apply(document.body||document);
+    mountSelector();
+    observe();
+  }
+
+  window.VensisI18n={
+    setLanguage,
+    getLanguage:()=>currentLanguage,
+    t:(value,lang=currentLanguage)=>translatePattern(value,lang),
+    apply,
+    translations
+  };
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
