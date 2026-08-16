@@ -6,14 +6,19 @@
 
   const translations={
     'Fan Selection':'Fan Seçimi',
+    '⌕ Fan Selection':'⌕ Fan Seçimi',
     'Open Fan Selection':'Fan Seçimini Aç',
     'Product Catalog':'Ürün Kataloğu',
+    '▦ Product Catalog':'▦ Ürün Kataloğu',
     'Open Product Catalog':'Ürün Kataloğunu Aç',
     'Projects':'Projeler',
+    '▣ Projects':'▣ Projeler',
     'Open Projects':'Projeleri Aç',
+    'View Projects':'Projeleri Gör',
     'Selection Workspace':'Seçim Çalışma Alanı',
     'Airflow / Pressure':'Debi / Basınç',
     'Flow (m³/h)':'Debi (m³/h)',
+    'Flow':'Debi',
     'Airflow':'Debi',
     'Enter airflow':'Debi girin',
     'Airflow tolerance':'Debi toleransı',
@@ -35,11 +40,13 @@
     'Find Fans':'Fanları Bul',
     'Matching Fans':'Uygun Fanlar',
     'Enter flow and pressure values to begin.':'Başlamak için debi ve basınç değerlerini girin.',
+    'No matching fan found for these conditions.':'Bu koşullara uygun fan bulunamadı.',
     'Closest Match':'En Yakın Eşleşme',
     'Filters':'Filtreler',
     'Manufacturer':'Üretici',
     'Reset Filters':'Filtreleri Sıfırla',
     'Series':'Seri',
+    '＋ Add Product':'＋ Ürün Ekle',
     'Add Product':'Ürün Ekle',
     'Specifications':'Teknik Özellikler',
     'Specification':'Teknik Özellik',
@@ -50,10 +57,20 @@
     'Operating Point':'Çalışma Noktası',
     'Datasheet':'Teknik Föy',
     'Technical Datasheet':'Teknik Föy',
+    'View datasheet':'Teknik föyü görüntüle',
     'Back to Catalog':'Kataloğa Dön',
+    'Project Destination':'Proje Hedefi',
+    'Add selected fans to a project':'Seçilen fanları bir projeye ekleyin',
+    'Select project destination':'Proje hedefini seçin',
+    'A new project will be created when you add the first fan.':'İlk fanı eklediğinizde yeni bir proje oluşturulacaktır.',
+    'Selected Project':'Seçilen Proje',
+    'Open Project':'Projeyi Aç',
+    'Add to selected project':'Seçilen projeye ekle',
+    'Datasheet renderer is unavailable.':'Teknik föy görüntüleyici kullanılamıyor.',
     'Create, select and manage project workspaces.':'Proje çalışma alanlarını oluşturun, seçin ve yönetin.',
     '+ New Project':'+ Yeni Proje',
     'New Project':'Yeni Proje',
+    'Untitled Project':'Adsız Proje',
     'Total Projects':'Toplam Proje',
     'Total Units':'Toplam Adet',
     'Combined Net Value':'Toplam Net Tutar',
@@ -83,17 +100,22 @@
     'Ordered':'Sipariş Verildi',
     'Lost':'Kaybedildi',
     'Cloud synced':'Bulut senkronize',
+    '☁ Cloud synced':'☁ Bulut senkronize',
     'Syncing…':'Senkronize ediliyor…',
+    '☁ Syncing…':'☁ Senkronize ediliyor…',
     'Sync error':'Senkronizasyon hatası',
+    '⚠ Sync error':'⚠ Senkronizasyon hatası',
     'Browser only':'Yalnızca tarayıcı',
+    '☁ Browser only':'☁ Yalnızca tarayıcı',
     'Project cloud status':'Proje bulut durumu',
     'Checking cloud storage…':'Bulut depolama kontrol ediliyor…',
     'Saving projects to cloud…':'Projeler buluta kaydediliyor…',
     'Syncing browser projects with cloud…':'Tarayıcı projeleri bulutla senkronize ediliyor…',
     'Cloud connection failed; projects remain in this browser.':'Bulut bağlantısı kurulamadı; projeler bu tarayıcıda kalacak.',
     'Browser only — sign in to sync.':'Yalnızca tarayıcı — senkronizasyon için giriş yapın.',
-    'Cloud synced':'Bulut senkronize',
     'Sync failed; your projects are still safe in this browser.':'Senkronizasyon başarısız; projeleriniz bu tarayıcıda güvende.',
+    'All Projects':'Tüm Projeler',
+    '← All Projects':'← Tüm Projeler',
     'Back to Projects':'Projelere Dön',
     'Project Workspace':'Proje Çalışma Alanı',
     'Project Details':'Proje Bilgileri',
@@ -102,6 +124,8 @@
     'Save':'Kaydet',
     'Saved':'Kaydedildi',
     'Saving…':'Kaydediliyor…',
+    'Print Project':'Projeyi Yazdır',
+    'Print Quotation':'Teklifi Yazdır',
     'Quotation':'Teklif',
     'Create Quotation':'Teklif Oluştur',
     'Commercial Quotation':'Ticari Teklif',
@@ -110,34 +134,67 @@
     'Preview':'Önizleme',
     'Order Form':'Sipariş Formu',
     'Clear Project':'Projeyi Temizle',
+    'Project Discount':'Proje İskontosu',
+    'Apply one discount rate to all products':'Tüm ürünlere tek iskonto oranı uygulayın',
+    'An individual product discount replaces the project discount for that product. Percentages are never added together.':'Ürüne özel iskonto varsa proje iskontosunun yerine geçer. İskonto oranları birbiriyle toplanmaz.',
+    'Project discount percentage':'Proje iskonto yüzdesi',
+    'Apply to All':'Tümüne Uygula',
     'Quantity':'Adet',
     'Qty':'Adet',
     'Unit Price':'Birim Fiyat',
     'List Price':'Liste Fiyatı',
+    'List Price (€)':'Liste Fiyatı (€)',
+    'Price (€)':'Fiyat (€)',
     'Total':'Toplam',
     'Net Total':'Net Toplam',
     'Discount':'İskonto',
     'Global Discount':'Genel İskonto',
+    'Net Unit Price':'Net Birim Fiyat',
     'Product':'Ürün',
+    'Product / Free Note':'Ürün / Serbest Not',
+    'Product / Model':'Ürün / Model',
     'Selected / Nominal':'Seçilen / Nominal',
-    'Selected':'Seçilen',
+    'Selected / Nominal Airflow (m³/h)':'Seçilen / Nominal Debi (m³/h)',
     'Required':'İstenen',
+    'Required / Source':'İstenen / Kaynak',
     'Power':'Güç',
     'Motor Power':'Motor Gücü',
+    'Motor Power (kW)':'Motor Gücü (kW)',
     'Speed':'Devir',
+    'Speed (rpm)':'Devir (rpm)',
     'Noise':'Ses',
+    'Noise dB(A)':'Ses dB(A)',
     'Voltage':'Gerilim',
     'Frequency':'Frekans',
     'Current':'Akım',
+    'Current (A)':'Akım (A)',
+    'Order':'Sıra',
+    'Actions':'İşlemler',
     'Remove':'Kaldır',
     'Edit':'Düzenle',
+    'No products added yet':'Henüz ürün eklenmedi',
+    'Add fans from Fan Selection, Product Catalog or the custom product form below.':'Fan Seçimi, Ürün Kataloğu veya aşağıdaki özel ürün formundan ürün ekleyin.',
+    'Manual Project Item':'Manuel Proje Kalemi',
+    'Add a product outside the selection database':'Seçim veritabanı dışından ürün ekleyin',
+    'The product will be added at the bottom of the current project list.':'Ürün mevcut proje listesinin sonuna eklenecektir.',
+    'Project Product Editor':'Proje Ürün Editörü',
     'Add Custom Product':'Özel Ürün Ekle',
+    'Enter a product that is not available in the selection program.':'Seçim programında bulunmayan bir ürünü girin.',
+    'Series / Type':'Seri / Tip',
+    'Free Description':'Serbest Açıklama',
+    'Add a project-specific description, option, material, accessory or note.':'Projeye özel açıklama, opsiyon, malzeme, aksesuar veya not ekleyin.',
+    'Image URL (optional)':'Görsel URL (opsiyonel)',
+    'Add to Project':'Projeye Ekle',
     'Quotation Total':'Teklif Toplamı',
     'Quotation Scope':'Teklif Kapsamı',
     'Commercial Terms':'Ticari Şartlar',
     'Page 1 / 3':'Sayfa 1 / 3',
     'Page 2 / 3':'Sayfa 2 / 3',
     'Page 3 / 3':'Sayfa 3 / 3',
+    'Back to Project':'Projeye Dön',
+    '← Back to Project':'← Projeye Dön',
+    'No quotation found':'Teklif bulunamadı',
+    'Return to the project and choose Print Quotation.':'Projeye dönüp Teklifi Yazdır seçeneğini kullanın.',
     'Main Page':'Ana Sayfa',
     'Send by Email':'E-posta ile Gönder',
     'Send Project Report':'Proje Raporunu Gönder',
@@ -148,9 +205,8 @@
     'Your email application will open with these details.':'E-posta uygulamanız bu bilgilerle açılacaktır.',
     'Please enter an email address.':'Lütfen bir e-posta adresi girin.',
     'Order Management':'Sipariş Yönetimi',
-    'Back to Project':'Projeye Dön',
-    '+ New Order':'+ Yeni Sipariş',
     'New Order':'Yeni Sipariş',
+    '+ New Order':'+ Yeni Sipariş',
     'Order Form Editor':'Sipariş Formu Editörü',
     'Edit company, delivery conditions and products to be ordered.':'Firma, teslim koşulları ve siparişe girecek ürünleri düzenleyin.',
     'Order No':'Sipariş No',
@@ -199,9 +255,9 @@
   };
 
   const reverse=Object.create(null);
-  Object.keys(translations).forEach(key=>{ if(!reverse[translations[key]])reverse[translations[key]]=key; });
+  Object.keys(translations).forEach(key=>{if(!reverse[translations[key]])reverse[translations[key]]=key});
 
-  const ignoredParents=new Set(['SCRIPT','STYLE','NOSCRIPT','TEXTAREA','OPTION','CODE','PRE']);
+  const ignoredParents=new Set(['SCRIPT','STYLE','NOSCRIPT','TEXTAREA','CODE','PRE']);
   const attributes=['placeholder','title','aria-label'];
   let currentLanguage=readLanguage();
   let observer=null;
@@ -228,20 +284,74 @@
     return source;
   }
 
+  const dynamicPairs=[
+    {
+      en:/^(\d+) matching fans?$/i,
+      tr:/^(\d+) uygun fan$/i,
+      enOut:m=>`${m[1]} matching fans`,
+      trOut:m=>`${m[1]} uygun fan`
+    },
+    {
+      en:/^Showing (\d+) of (\d+) projects$/i,
+      tr:/^(\d+) \/ (\d+) proje gösteriliyor$/i,
+      enOut:m=>`Showing ${m[1]} of ${m[2]} projects`,
+      trOut:m=>`${m[1]} / ${m[2]} proje gösteriliyor`
+    },
+    {
+      en:/^(\d+) products?$/i,
+      tr:/^(\d+) ürün$/i,
+      enOut:m=>`${m[1]} products`,
+      trOut:m=>`${m[1]} ürün`
+    },
+    {
+      en:/^(\d+) models?$/i,
+      tr:/^(\d+) model$/i,
+      enOut:m=>`${m[1]} models`,
+      trOut:m=>`${m[1]} model`
+    },
+    {
+      en:/^Page (\d+) \/ (\d+)$/i,
+      tr:/^Sayfa (\d+) \/ (\d+)$/i,
+      enOut:m=>`Page ${m[1]} / ${m[2]}`,
+      trOut:m=>`Sayfa ${m[1]} / ${m[2]}`
+    },
+    {
+      en:/^(\d+) units in project$/i,
+      tr:/^Projede (\d+) adet$/i,
+      enOut:m=>`${m[1]} units in project`,
+      trOut:m=>`Projede ${m[1]} adet`
+    },
+    {
+      en:/^Selected fans will be added to (.+)\.$/i,
+      tr:/^Seçilen fanlar (.+) projesine eklenecek\.$/i,
+      enOut:m=>`Selected fans will be added to ${m[1]}.`,
+      trOut:m=>`Seçilen fanlar ${m[1]} projesine eklenecek.`
+    },
+    {
+      en:/^(.+) quantity increased\.$/i,
+      tr:/^(.+) adedi artırıldı\.$/i,
+      enOut:m=>`${m[1]} quantity increased.`,
+      trOut:m=>`${m[1]} adedi artırıldı.`
+    },
+    {
+      en:/^Catalog model added to (.+)\.$/i,
+      tr:/^Katalog modeli (.+) projesine eklendi\.$/i,
+      enOut:m=>`Catalog model added to ${m[1]}.`,
+      trOut:m=>`Katalog modeli ${m[1]} projesine eklendi.`
+    }
+  ];
+
   function translatePattern(value,lang=currentLanguage){
     const text=String(value||'').trim();
     if(!text)return text;
     const exact=translateExact(text,lang);
-    if(exact!==text||translations[text]||reverse[text])return exact;
-
-    const patterns=[
-      [/^(\d+) matching fans?$/i,lang==='tr'?m=>`${m[1]} uygun fan`:m=>`${m[1]} matching fans`],
-      [/^Showing (\d+) of (\d+) projects$/i,lang==='tr'?m=>`${m[1]} / ${m[2]} proje gösteriliyor`:m=>`Showing ${m[1]} of ${m[2]} projects`],
-      [/^(\d+) products?$/i,lang==='tr'?m=>`${m[1]} ürün`:m=>`${m[1]} products`],
-      [/^(\d+) models?$/i,lang==='tr'?m=>`${m[1]} model`:m=>`${m[1]} models`],
-      [/^Page (\d+) \/ (\d+)$/i,lang==='tr'?m=>`Sayfa ${m[1]} / ${m[2]}`:m=>`Page ${m[1]} / ${m[2]}`]
-    ];
-    for(const [regex,fn] of patterns){const match=text.match(regex);if(match)return fn(match)}
+    if(exact!==text||Object.prototype.hasOwnProperty.call(translations,text)||Object.prototype.hasOwnProperty.call(reverse,text))return exact;
+    for(const pair of dynamicPairs){
+      let match=text.match(pair.en);
+      if(match)return lang==='tr'?pair.trOut(match):pair.enOut(match);
+      match=text.match(pair.tr);
+      if(match)return lang==='tr'?pair.trOut(match):pair.enOut(match);
+    }
     return text;
   }
 
