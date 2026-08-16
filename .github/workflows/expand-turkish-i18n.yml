@@ -1,0 +1,299 @@
+name: Expand Turkish application coverage
+
+on:
+  push:
+    paths:
+      - '.github/workflows/expand-turkish-i18n.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Expand Turkish translations and runtime coverage
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          path=Path('js/language.js')
+          text=path.read_text(encoding='utf-8')
+
+          extra=r'''  Object.assign(translations,{
+            'Enter valid flow and pressure values to begin.':'Başlamak için geçerli debi ve basınç değerleri girin.',
+            'Flow range:':'Debi aralığı:',
+            'Pressure range:':'Basınç aralığı:',
+            'Max Pressure':'Maks. Basınç',
+            'Price':'Fiyat',
+            'Add to project':'Projeye ekle',
+            'Edit model':'Modeli düzenle',
+            'Edit series information':'Seri bilgilerini düzenle',
+            'Open Product PDF':'Ürün PDF’ini Aç',
+            'Series Information':'Seri Bilgileri',
+            'No information available.':'Bilgi bulunmuyor.',
+            'Catalog Item':'Katalog Ürünü',
+            'Catalog product':'Katalog ürünü',
+            'Catalog Only':'Yalnızca Katalog',
+            'Project quantity increased.':'Projedeki adet artırıldı.',
+            'Catalog model added to project.':'Katalog modeli projeye eklendi.',
+            'Speed Controller':'Hız Kontrol Cihazı',
+            'Long-Life Motor':'Uzun Ömürlü Motor',
+            'Fan Type':'Fan Tipi',
+            'Mount Type':'Montaj Tipi',
+            'Fire Rating':'Yangın Dayanımı',
+            'Sound Level':'Ses Seviyesi',
+            'Static Pressure':'Statik Basınç',
+            'Static Pressure (Pa)':'Statik Basınç (Pa)',
+            'Air Flow (m³/h)':'Debi (m³/h)',
+            'Selected Airflow':'Seçilen Debi',
+            'Nominal Airflow':'Nominal Debi',
+            'Voltage / Frequency':'Gerilim / Frekans',
+            'Control':'Kontrol',
+            'Controls':'Kontrol Seçenekleri',
+            'IP Class':'IP Sınıfı',
+            'Phase':'Faz',
+            'Availability Region':'Kullanılabilirlik Bölgesi',
+            'General Features':'Genel Özellikler',
+            'General Information':'Genel Bilgiler',
+            'Motor Information':'Motor Bilgileri',
+            'Areas of Usage':'Kullanım Alanları',
+            'Applications':'Uygulamalar',
+            'Motor':'Motor',
+            'Decrease quantity':'Adedi azalt',
+            'Increase quantity':'Adedi artır',
+            'Move up':'Yukarı taşı',
+            'Move down':'Aşağı taşı',
+            'Move product up':'Ürünü yukarı taşı',
+            'Move product down':'Ürünü aşağı taşı',
+            'Edit custom product':'Özel ürünü düzenle',
+            'Remove from project':'Projeden kaldır',
+            'Free Note':'Serbest Not',
+            'Project-specific note shown in project and quotation outputs.':'Proje ve teklif çıktılarında gösterilecek projeye özel not.',
+            'Add at least one product before creating a quotation.':'Teklif oluşturmadan önce en az bir ürün ekleyin.',
+            'Add at least one product before printing the project.':'Projeyi yazdırmadan önce en az bir ürün ekleyin.',
+            'Remove all products from this project?':'Bu projedeki tüm ürünler kaldırılsın mı?',
+            'This project product is linked to the fan database. Only the free description can be changed here.':'Bu proje ürünü fan veritabanına bağlıdır. Burada yalnızca serbest açıklama değiştirilebilir.',
+            'Edit Custom Product':'Özel Ürünü Düzenle',
+            'Edit Product Description':'Ürün Açıklamasını Düzenle',
+            'Save Changes':'Değişiklikleri Kaydet',
+            'No customer or reference entered':'Müşteri veya referans girilmedi',
+            'No contact person entered':'İlgili kişi girilmedi',
+            'Duplicate project':'Projeyi çoğalt',
+            'Delete project':'Projeyi sil',
+            'Existing Project':'Mevcut Proje',
+            'Please open a project first.':'Lütfen önce bir proje açın.',
+            'No active project selected. Please open a project first.':'Aktif proje seçilmedi. Lütfen önce bir proje açın.',
+            'Quotation Settings':'Teklif Ayarları',
+            'Close quotation settings':'Teklif ayarlarını kapat',
+            'Quotation settings saved.':'Teklif ayarları kaydedildi.',
+            'Restore all quotation texts to the default values?':'Tüm teklif metinleri varsayılan değerlere döndürülsün mü?',
+            'Default quotation settings restored.':'Varsayılan teklif ayarları geri yüklendi.',
+            'No performance curve data available.':'Performans eğrisi verisi bulunmuyor.',
+            'Fan Performance Curve':'Fan Performans Eğrisi',
+            'Fan performance curve':'Fan performans eğrisi',
+            'Required Point':'İstenen Nokta',
+            'Program Selected':'Programın Seçtiği',
+            'Program Selected Point':'Programın Seçtiği Nokta',
+            'Required / Program Selected Point':'İstenen / Programın Seçtiği Nokta',
+            'Technical Product Datasheet':'Teknik Ürün Föyü',
+            'Print / Save PDF':'Yazdır / PDF Kaydet',
+            'Save as PDF':'PDF Olarak Kaydet',
+            'Brand':'Marka',
+            'Technical Project Output':'Teknik Proje Çıktısı',
+            'PROJECT TECHNICAL DOCUMENT':'PROJE TEKNİK DOKÜMANI',
+            'Project list and product datasheets':'Proje listesi ve ürün teknik föyleri',
+            'CUSTOM PRODUCT TECHNICAL SHEET':'ÖZEL ÜRÜN TEKNİK FÖYÜ',
+            'PROJECT SPECIFICATIONS':'PROJE TEKNİK ÖZELLİKLERİ',
+            'Project Description':'Proje Açıklaması',
+            'Document Note':'Doküman Notu',
+            'Project-defined product':'Projede tanımlanan ürün',
+            'No product image':'Ürün görseli yok',
+            'No additional project description was entered.':'Ek proje açıklaması girilmedi.',
+            'No project products found':'Projede ürün bulunamadı',
+            'Return to the project and add products before printing.':'Projeye dönüp yazdırmadan önce ürün ekleyin.',
+            'Custom Product':'Özel Ürün',
+            'Custom product data is based on project-entered information and should be verified before order.':'Özel ürün verileri projeye girilen bilgilere dayanır ve siparişten önce doğrulanmalıdır.',
+            'This custom product was entered manually in the project and is not linked to a verified selection-program performance curve. Technical suitability and manufacturer data should be confirmed before order.':'Bu özel ürün projeye manuel olarak girilmiştir ve doğrulanmış bir seçim programı performans eğrisine bağlı değildir. Teknik uygunluk ve üretici verileri siparişten önce doğrulanmalıdır.',
+            'Document generated by Vensis Engineering Suite':'Doküman Vensis Engineering Suite tarafından oluşturulmuştur',
+            'Project Datasheet Appendix':'Proje Teknik Föy Eki',
+            'Custom Product Appendix':'Özel Ürün Eki',
+            'Product Datasheet':'Ürün Teknik Föyü',
+            'Project Technical Document':'Proje Teknik Dokümanı',
+            'Technical Project Print':'Teknik Proje Çıktısı',
+            'Product series':'Ürün Serisi',
+            'Catalog Values':'Katalog Değerleri',
+            'Setup required':'Kurulum gerekli',
+            'The secure server settings have not been completed yet.':'Güvenli sunucu ayarları henüz tamamlanmadı.',
+            'Enter the secure workspace password. It is verified only on the server.':'Güvenli çalışma alanı parolasını girin. Parola yalnızca sunucuda doğrulanır.',
+            'Open Secure Workspace':'Güvenli Çalışma Alanını Aç',
+            'Open secure Edit Mode':'Güvenli Düzenleme Modunu Aç',
+            'Open secure Project Cloud':'Güvenli Proje Bulutunu Aç',
+            'Edit Mode and Project Cloud are active':'Düzenleme Modu ve Proje Bulutu aktif',
+            'Project Cloud is active':'Proje Bulutu aktif',
+            'Secure Edit Mode opened.':'Güvenli Düzenleme Modu açıldı.',
+            'Project Cloud opened. Syncing projects…':'Proje Bulutu açıldı. Projeler senkronize ediliyor…',
+            'Catalog Edit Mode active':'Katalog Düzenleme Modu aktif',
+            'Project Cloud active':'Proje Bulutu aktif',
+            'Edit Mode closed.':'Düzenleme Modu kapatıldı.',
+            'Project Cloud signed out. Browser copies remain available.':'Proje Bulutu oturumu kapatıldı. Tarayıcıdaki kopyalar kullanılabilir durumda.',
+            'Edit service could not be reached.':'Düzenleme servisine ulaşılamadı.',
+            'Edit request failed.':'Düzenleme isteği başarısız oldu.',
+            'Server settings are not yet stored outside the deployment folder. Re-save config.local.php before saving changes.':'Sunucu ayarları henüz dağıtım klasörü dışında saklanmıyor. Değişiklikleri kaydetmeden önce config.local.php dosyasını yeniden kaydedin.',
+            'Series information, images and every model-card value can be changed.':'Seri bilgileri, görseller ve model kartındaki tüm değerler değiştirilebilir.',
+            'The selected image could not be read.':'Seçilen görsel okunamadı.',
+            'Choose a JPEG, PNG or WebP image.':'JPEG, PNG veya WebP görsel seçin.',
+            'The image must be smaller than 3 MB.':'Görsel 3 MB’dan küçük olmalıdır.',
+            'Series could not be opened for editing.':'Seri düzenleme için açılamadı.',
+            'Edit the catalog identity, information and image for this series.':'Bu serinin katalog kimliğini, bilgilerini ve görselini düzenleyin.',
+            'Enter one category per line. Commas are also accepted.':'Her satıra bir kategori girin. Virgülle ayırma da kullanılabilir.',
+            'Enter one item per line.':'Her satıra bir öğe girin.',
+            'New image selected. It will be uploaded when you save.':'Yeni görsel seçildi. Kaydettiğinizde yüklenecek.',
+            'No values changed.':'Herhangi bir değer değiştirilmedi.',
+            'Uploading the image and series information…':'Görsel ve seri bilgileri yükleniyor…',
+            'Save to GitHub':'GitHub’a Kaydet',
+            'Series change committed':'Seri değişikliği kaydedildi',
+            'Hostinger will deploy the new GitHub commit automatically.':'Hostinger yeni GitHub kaydını otomatik olarak canlıya alacaktır.',
+            'Open on GitHub':'GitHub’da Aç',
+            'No catalog series is available.':'Katalog serisi bulunmuyor.',
+            'Add Product Manually':'Manuel Ürün Ekle',
+            'Choose an existing series and enter the catalog values.':'Mevcut bir seri seçip katalog değerlerini girin.',
+            'Model Name':'Model Adı',
+            'Choose a series.':'Bir seri seçin.',
+            'Model Name cannot be empty.':'Model adı boş bırakılamaz.',
+            'Creating the product and committing it to GitHub…':'Ürün oluşturuluyor ve GitHub’a kaydediliyor…',
+            'Product added':'Ürün eklendi',
+            'New product':'Yeni ürün',
+            'Add to GitHub':'GitHub’a Ekle',
+            'Model could not be opened for editing.':'Model düzenleme için açılamadı.',
+            'Fan model':'Fan modeli',
+            'Edit every value displayed on this catalog model card.':'Bu katalog model kartında görüntülenen tüm değerleri düzenleyin.',
+            'Series change committed':'Seri değişikliği kaydedildi',
+            'Axial Fan':'Aksiyel Fan',
+            'Radial Fan':'Radyal Fan',
+            'Duct Fan':'Kanal Tipi Fan',
+            'Cabinet Fan':'Hücreli Fan',
+            'Jet Fan':'Jet Fan',
+            'Tunnel Fan':'Tünel Fanı',
+            'Roof Fan':'Çatı Fanı',
+            'Wall-Mounted Fan':'Duvar Tipi Fan',
+            'Mobile Fan':'Mobil Fan',
+            'Centrifugal Fan':'Santrifüj Fan',
+            'Bifurcated Fan':'Bifurkasyonlu Fan',
+            'Short-Casing Fan':'Kısa Kasalı Fan',
+            'Smoke Exhaust Fan':'Duman Tahliye Fanı',
+            'Explosion-Proof / ATEX Fan':'Ex-proof / ATEX Fan',
+            'Shelter Fan':'Sığınak Fanı',
+            'Tunnel Type Axial Fan':'Tünel Tipi Aksiyel Fan',
+            'Axial Mobile Ex-proof Fan':'Aksiyel Mobil Ex-proof Fan',
+            'Axial Duct Type Ex-proof Fan':'Aksiyel Kanal Tipi Ex-proof Fan',
+            'Axial Roof Type Ex-proof Fan':'Aksiyel Çatı Tipi Ex-proof Fan',
+            'Centrifugal Roof Type Ex-proof Fan':'Santrifüj Çatı Tipi Ex-proof Fan',
+            'Centrifugal Duct Type Ex-proof Fan':'Santrifüj Kanal Tipi Ex-proof Fan',
+            'Centrifugal Single Inlet Ex-proof Fan':'Santrifüj Tek Emişli Ex-proof Fan',
+            'Axial Mobile Fan':'Aksiyel Mobil Fan',
+            'Vertical Outlet Centrifugal Roof Type Fan':'Dikey Atışlı Santrifüj Çatı Fanı',
+            'Centrifugal Rectangular Duct Type Fan':'Santrifüj Dikdörtgen Kanal Tipi Fan',
+            'Centrifugal Cell Type Fan':'Santrifüj Hücreli Fan',
+            'Horizontal Outlet Centrifugal Roof Type Fan':'Yatay Atışlı Santrifüj Çatı Fanı',
+            'Axial Jet Fan':'Aksiyel Jet Fan',
+            'Axial Duct Type Fan':'Aksiyel Kanal Tipi Fan',
+            'Axial Short Case Fan':'Aksiyel Kısa Kasalı Fan',
+            'Axial Wall Type Fan':'Aksiyel Duvar Tipi Fan',
+            'Bifurcated Axial Duct Type Fan':'Bifurkasyonlu Aksiyel Kanal Tipi Fan',
+            'Horizontal Outlet Axial Roof Type Fan':'Yatay Atışlı Aksiyel Çatı Fanı',
+            'Vertical Outlet Axial Roof Type Fan':'Dikey Atışlı Aksiyel Çatı Fanı',
+            'Centrifugal Single Inlet Cell Type Fan':'Santrifüj Tek Emişli Hücreli Fan',
+            'Centrifugal Single Inlet Fan':'Santrifüj Tek Emişli Fan',
+            'Duct Type Shelter Fan':'Kanal Tipi Sığınak Fanı',
+            'VensisCatalog is empty or unavailable.':'VensisCatalog boş veya kullanılamıyor.'
+          });
+
+'''
+          marker='  const reverse=Object.create(null);'
+          if 'Expand Turkish application coverage' not in text:
+              if marker not in text:
+                  raise RuntimeError('reverse marker not found')
+              text=text.replace(marker,"  // Expand Turkish application coverage\n"+extra+marker,1)
+
+          dynamic=r'''  dynamicPairs.push(
+            {en:/^(\d+) selected$/i,tr:/^(\d+) seçili$/i,enOut:m=>`${m[1]} selected`,trOut:m=>`${m[1]} seçili`},
+            {en:/^(\d+) series$/i,tr:/^(\d+) seri$/i,enOut:m=>`${m[1]} series`,trOut:m=>`${m[1]} seri`},
+            {en:/^Showing all (\d+) projects$/i,tr:/^Toplam (\d+) proje gösteriliyor$/i,enOut:m=>`Showing all ${m[1]} projects`,trOut:m=>`Toplam ${m[1]} proje gösteriliyor`},
+            {en:/^Contact: (.+)$/i,tr:/^İlgili: (.+)$/i,enOut:m=>`Contact: ${m[1]}`,trOut:m=>`İlgili: ${m[1]}`},
+            {en:/^New Project (\d+)$/i,tr:/^Yeni Proje (\d+)$/i,enOut:m=>`New Project ${m[1]}`,trOut:m=>`Yeni Proje ${m[1]}`},
+            {en:/^(.+)% applied to every product\.$/i,tr:/^Tüm ürünlere (.+)% uygulandı\.$/i,enOut:m=>`${m[1]}% applied to every product.`,trOut:m=>`Tüm ürünlere ${m[1]}% uygulandı.`},
+            {en:/^Fan added to (.+)\.$/i,tr:/^Fan (.+) projesine eklendi\.$/i,enOut:m=>`Fan added to ${m[1]}.`,trOut:m=>`Fan ${m[1]} projesine eklendi.`},
+            {en:/^Brand: (.+)$/i,tr:/^Marka: (.+)$/i,enOut:m=>`Brand: ${m[1]}`,trOut:m=>`Marka: ${m[1]}`},
+            {en:/^Delete "(.+)" and all of its project products\?$/i,tr:/^"(.+)" projesi ve içindeki tüm ürünler silinsin mi\?$/i,enOut:m=>`Delete "${m[1]}" and all of its project products?`,trOut:m=>`"${m[1]}" projesi ve içindeki tüm ürünler silinsin mi?`},
+            {en:/^Project Datasheet Appendix\s*•\s*Page (\d+) \/ (\d+)$/i,tr:/^Proje Teknik Föy Eki\s*•\s*Sayfa (\d+) \/ (\d+)$/i,enOut:m=>`Project Datasheet Appendix • Page ${m[1]} / ${m[2]}`,trOut:m=>`Proje Teknik Föy Eki • Sayfa ${m[1]} / ${m[2]}`},
+            {en:/^Custom Product Appendix\s*•\s*Page (\d+) \/ (\d+)$/i,tr:/^Özel Ürün Eki\s*•\s*Sayfa (\d+) \/ (\d+)$/i,enOut:m=>`Custom Product Appendix • Page ${m[1]} / ${m[2]}`,trOut:m=>`Özel Ürün Eki • Sayfa ${m[1]} / ${m[2]}`}
+          );
+
+'''
+          dyn_marker='  function translatePattern(value,lang=currentLanguage){'
+          if 'dynamicPairs.push(' not in text:
+              if dyn_marker not in text:
+                  raise RuntimeError('translatePattern marker not found')
+              text=text.replace(dyn_marker,dynamic+dyn_marker,1)
+
+          dialog=r'''  function installDialogTranslation(){
+            if(window.__vensisI18nDialogsInstalled)return;
+            window.__vensisI18nDialogsInstalled=true;
+            const nativeAlert=window.alert.bind(window);
+            const nativeConfirm=window.confirm.bind(window);
+            const nativePrompt=window.prompt.bind(window);
+            window.alert=value=>nativeAlert(translatePattern(String(value??''),currentLanguage));
+            window.confirm=value=>nativeConfirm(translatePattern(String(value??''),currentLanguage));
+            window.prompt=(value,defaultValue)=>nativePrompt(translatePattern(String(value??''),currentLanguage),defaultValue);
+          }
+
+'''
+          selector_marker='  function selectorTarget(){'
+          if 'function installDialogTranslation()' not in text:
+              if selector_marker not in text:
+                  raise RuntimeError('selector marker not found')
+              text=text.replace(selector_marker,dialog+selector_marker,1)
+
+          text=text.replace('apply(document.body||document);','apply(document);')
+          text=text.replace('if(observer||!document.body)return;','if(observer||!document.documentElement)return;')
+          text=text.replace('observer.observe(document.body,{','observer.observe(document.documentElement,{')
+          text=text.replace("  function init(){\n    apply(document);", "  function init(){\n    installDialogTranslation();\n    apply(document);")
+          path.write_text(text,encoding='utf-8')
+
+          # Force browsers to fetch the expanded language bundle and its loaders.
+          for p in [Path('js/project-nav.js'),Path('js/order-utils.js'),Path('detail.html'),Path('project-print.html')]:
+              if p.exists():
+                  s=p.read_text(encoding='utf-8')
+                  s=s.replace('js/language.js?v=20260816-tr','js/language.js?v=20260816-tr2')
+                  p.write_text(s,encoding='utf-8')
+          for p in Path('.').glob('*.html'):
+              s=p.read_text(encoding='utf-8')
+              s=s.replace('js/project-nav.js?v=20260816-language','js/project-nav.js?v=20260816-language2')
+              s=s.replace('js/order-utils.js?v=20260816-language','js/order-utils.js?v=20260816-language2')
+              p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Verify JavaScript and diff
+        run: |
+          node --check js/language.js
+          node --check js/project-nav.js
+          node --check js/order-utils.js
+          git diff --check
+
+      - name: Commit expanded Turkish coverage
+        run: |
+          if git diff --quiet; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add js/language.js js/project-nav.js js/order-utils.js detail.html project-print.html '*.html'
+          git commit -m "Expand Turkish language coverage across app"
+          git push
