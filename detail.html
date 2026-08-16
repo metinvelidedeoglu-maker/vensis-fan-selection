@@ -16,12 +16,17 @@
     if(!payload)throw new Error('Product detail data was not found.');
     localStorage.removeItem(key);
 
+    const languageScript='<script src="js/language.js?v=20260816-tr"><\\/script>';
+    const localizedPayload=payload.includes('</body>')?payload.replace('</body>',languageScript+'</body>'):payload+languageScript;
     document.body.innerHTML='';
     document.open('text/html','replace');
-    document.write(payload);
+    document.write(localizedPayload);
     document.close();
   }catch(error){
     document.body.innerHTML='<div style="padding:30px;font-family:Arial"><h2>Product details could not be opened.</h2><p>'+String(error.message||error)+'</p><p><button onclick="window.close()" style="padding:10px 14px">Close</button></p></div>';
+    const script=document.createElement('script');
+    script.src='js/language.js?v=20260816-tr';
+    document.head.appendChild(script);
   }
 })();
 </script>
