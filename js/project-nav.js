@@ -1,5 +1,14 @@
 (function(){
   const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  const LANGUAGE_SCRIPT_ID='vensisLanguageScript';
+  function loadLanguageSupport(){
+    if(window.VensisI18n||document.getElementById(LANGUAGE_SCRIPT_ID))return;
+    const script=document.createElement('script');
+    script.id=LANGUAGE_SCRIPT_ID;
+    script.src='js/language.js?v=20260816-tr';
+    document.head.appendChild(script);
+  }
+  loadLanguageSupport();
   let latestCloudState={state:'checking',message:'Checking cloud storage…',authenticated:false};
   function mountDesign(){
     const pageClass=path==='project.html'||path==='projects.html'?'app-project':path==='catalog.html'?'app-catalog':'app-selection';
