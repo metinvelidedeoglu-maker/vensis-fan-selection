@@ -16,7 +16,7 @@
     if(!payload)throw new Error('Product detail data was not found.');
     localStorage.removeItem(key);
 
-    const languageScript='<script src="js/language.js?v=20260816-tr"><\\/script>';
+    const languageScript='<script src="js/language.js?v=20260816-tr"><\/script>';
     const localizedPayload=payload.includes('</body>')?payload.replace('</body>',languageScript+'</body>'):payload+languageScript;
     document.body.innerHTML='';
     document.open('text/html','replace');
