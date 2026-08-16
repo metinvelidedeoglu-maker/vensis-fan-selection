@@ -5,7 +5,7 @@
     if(window.VensisI18n||document.getElementById(LANGUAGE_SCRIPT_ID))return;
     const script=document.createElement('script');
     script.id=LANGUAGE_SCRIPT_ID;
-    script.src='js/language.js?v=20260816-tr';
+    script.src='js/language.js?v=20260816-tr2';
     document.head.appendChild(script);
   }
   loadLanguageSupport();

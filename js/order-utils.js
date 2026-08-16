@@ -1,7 +1,7 @@
 if(typeof document!=='undefined'&&typeof window!=='undefined'&&!window.VensisI18n&&!document.getElementById('vensisLanguageScript')){
   const languageScript=document.createElement('script');
   languageScript.id='vensisLanguageScript';
-  languageScript.src='js/language.js?v=20260816-tr';
+  languageScript.src='js/language.js?v=20260816-tr2';
   document.head.appendChild(languageScript);
 }
 
