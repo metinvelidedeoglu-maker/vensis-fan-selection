@@ -1,0 +1,34 @@
+name: Force CRS ATEX deployment
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/force-crs-atex-deploy.yml']
+permissions:
+  contents: write
+jobs:
+  deploy-refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Refresh CRS ATEX asset references
+        shell: python
+        run: |
+          from pathlib import Path
+          for name in ('index.html','catalog.html'):
+              p=Path(name)
+              s=p.read_text(encoding='utf-8')
+              old='data/fans-15.js?v=20260824-crs-atex'
+              new='data/fans-15.js?v=20260824-crs-atex-v2'
+              if old not in s and new not in s:
+                  raise SystemExit(f'CRS ATEX script reference missing in {name}')
+              p.write_text(s.replace(old,new),encoding='utf-8')
+          Path('.github/workflows/force-crs-atex-deploy.yml').unlink()
+      - name: Commit refresh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html catalog.html .github/workflows/force-crs-atex-deploy.yml
+          git commit -m "Refresh CRS ATEX deployment cache"
+          git push
