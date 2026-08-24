@@ -1,0 +1,171 @@
+name: Sync working Select package
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/sync-working-select.yml']
+permissions:
+  contents: write
+jobs:
+  sync-working-select:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Match working Select package
+        shell: python
+        run: |
+          from pathlib import Path
+          import json, copy, re, shutil
+
+          root = Path('.')
+          fan_file = root / 'data/fans-15.js'
+          raw = fan_file.read_text(encoding='utf-8').strip()
+          prefix = 'window.models.push(...'
+          if not raw.startswith(prefix) or not raw.endswith(');'):
+              raise SystemExit('Unexpected fans-15.js wrapper')
+          models = json.loads(raw[len(prefix):-2])
+
+          max_flow = {
+              'CRS40-2T-5.5': 9400,
+              'CRS45-2T-10': 13600,
+              'CRS50-2T-15': 16600,
+              'CRS56-2T-20': 18500,
+              'CRS80-4T-25': 38200,
+          }
+          model_suffix = {
+              'CRS40-2T-5.5': '40-2T-5.5',
+              'CRS45-2T-10': '45-2T-10',
+              'CRS50-2T-15': '50-2T-15',
+              'CRS56-2T-20': '56-2T-20',
+              'CRS80-4T-25': '80-4T-25',
+          }
+          pdfs = {
+              'CRS40-2T-5.5': 'assets/catalogs/crs-atex/CRS ATEX 40-2T-5.5 II 2G EX-db IIC T4(1).pdf',
+              'CRS45-2T-10': 'assets/catalogs/crs-atex/CRS ATEX 45-2T-10.pdf',
+              'CRS50-2T-15': 'assets/catalogs/crs-atex/CRS ATEX 50-2T-15.pdf',
+              'CRS56-2T-20': 'assets/catalogs/crs-atex/CRS ATEX 56-2T-20 II 2G EEX-D IIC T4.pdf',
+              'CRS80-4T-25': 'assets/catalogs/crs-atex/CRS-ATEX 80-4T-25 II 2G EX-db IIC T4 Gb(1).pdf',
+          }
+          prices = {'CRS40-2T-5.5': 4300, 'CRS80-4T-25': 10700}
+          crs_general = [
+              'It can be produced up to 50.000m3/h capacity.',
+              'It has radial backward curved blades with maximum efficiency.',
+              'The fan casing is produced from hard steel and it is coated electrostatic powder coating as standart.',
+              'It is resistant to factors such as rainwater and snow. It is suitable to work in outdoor conditions.',
+              'The motor is out of airflow and it can operate at 120°C continuously.',
+              'It is suitable for operation in temperature range -20°C/+120°C.',
+              'IP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.',
+              'It is 400V-50Hz as standard and it is suitable for use with frequency converter.'
+          ]
+          crs_apps = [
+              'General area ventilation',
+              'Industrial kitchen hood exhaust systems',
+              'Production processes with intense oil and high temperature'
+          ]
+
+          base = []
+          seen = set()
+          for m in models:
+              code = m.get('productCode')
+              if code in max_flow and code not in seen:
+                  base.append(copy.deepcopy(m))
+                  seen.add(code)
+          if set(max_flow) != seen:
+              raise SystemExit(f'Missing CRS/ATEX base models: {set(max_flow)-seen}')
+
+          out = []
+          for m in base:
+              code = m['productCode']
+              suffix = model_suffix[code]
+              flow = max_flow[code]
+
+              a = copy.deepcopy(m)
+              a['key'] = f'VITLO-CRS-ATEX|CRS/ATEX {suffix}'
+              a['configurationId'] = f'CRS/ATEX {suffix}'
+              a['display'] = f'CRS/ATEX {suffix} ({flow} m³/h)'
+              a['model'] = f'CRS/ATEX {suffix}'
+              a['family'] = 'CRS/ATEX'
+              a['series'] = 'CRS/ATEX'
+              a['fanType'] = 'Radyal'
+              a['mountType'] = 'Salyangoz'
+              a['productGroup'] = 'Ex-proof fan'
+              a['fanTypeEn'] = 'Radial'
+              a['mountTypeEn'] = 'Centrifugal'
+              a['productGroupEn'] = 'Explosion-Proof Fan'
+              a['categories'] = ['Explosion-Proof / ATEX Fan','Radial Fan','Centrifugal Fan']
+              a['tagsEn'] = ['Explosion-Proof / ATEX Fan','Radial Fan','Centrifugal Fan']
+              a['catalogNameEn'] = 'CRS/ATEX Single-Inlet Centrifugal Explosion-Proof Fans'
+              a['nominal'] = flow
+              a.pop('maxPressure', None)
+              a['atex'] = True
+              a['tags'] = ['Exproof / ATEX','Radyal','Salyangoz']
+              a['pole'] = a.get('poles')
+              a['catalogPdf'] = pdfs[code]
+              if a.get('operatingPoints'):
+                  a['operatingPoints'][0]['maxAirflowM3h'] = flow
+                  a['operatingPoints'][0].pop('maxPressurePa', None)
+              if code in prices:
+                  a['price'] = prices[code]
+              else:
+                  a.pop('price', None)
+              out.append(a)
+
+              c = copy.deepcopy(a)
+              c['key'] = f'VITLO-CRS|CRS {suffix}'
+              c['configurationId'] = f'CRS {suffix}'
+              c['display'] = f'CRS {suffix} ({flow} m³/h)'
+              c['model'] = f'CRS {suffix}'
+              c['family'] = 'CRS'
+              c['series'] = 'CRS'
+              c['productGroup'] = 'Radyal fan'
+              c['productGroupEn'] = 'Radial Fan'
+              c['categories'] = ['Radial Fan','Centrifugal Fan']
+              c['tagsEn'] = ['Radial Fan','Centrifugal Fan']
+              c['catalogNameEn'] = 'CRS Single-Inlet Centrifugal Fans'
+              c.pop('atexProtection', None)
+              c.pop('price', None)
+              c['atex'] = False
+              c['tags'] = ['Radyal','Salyangoz']
+              c['catalogueInfo'] = {'general': crs_general, 'motor': [], 'applications': crs_apps}
+              c['sourceNote'] = 'Performance/model values copied from the supplied CRS/ATEX datasheet at the user’s request; no separate CRS datasheet was supplied.'
+              out.append(c)
+
+          fan_file.write_text(prefix + json.dumps(out, ensure_ascii=False, separators=(',',':')) + ');\n', encoding='utf-8')
+
+          target_ref = '<script src="data/fans-15.js?v=20260824-crs-dual-r2"></script>'
+          override_ref = '<script src="data/series-overrides.js?v=20260824-crs-dual-r1"></script>'
+          for name in ('index.html','catalog.html','project.html','project-print.html','quotation.html'):
+              p = root / name
+              s = p.read_text(encoding='utf-8')
+              if re.search(r'<script src="data/fans-15\.js\?v=[^"]+"></script>', s):
+                  s = re.sub(r'<script src="data/fans-15\.js\?v=[^"]+"></script>', target_ref, s)
+              else:
+                  anchor = re.search(r'(<script src="data/fans-14\.js\?v=[^"]+"></script>)', s)
+                  if not anchor:
+                      raise SystemExit(f'fans-14 anchor missing in {name}')
+                  s = s[:anchor.end()] + '\n' + target_ref + s[anchor.end():]
+              s = re.sub(r'<script src="data/series-overrides\.js\?v=[^"]+"></script>', override_ref, s)
+              p.write_text(s, encoding='utf-8')
+
+          Path('CRS-ATEX-IMPORT-NOTE.txt').write_text(
+              'CRS and CRS/ATEX models were synchronized from the supplied CRS/ATEX datasheets.\n'
+              'CRS copies intentionally reuse the requested CRS/ATEX performance/model values.\n'
+              'CRS/ATEX 40-2T-5.5 price: 4300 EUR.\n'
+              'CRS/ATEX 80-4T-25 price: 10700 EUR.\n',
+              encoding='utf-8'
+          )
+
+          workflows = Path('.github/workflows')
+          if workflows.exists():
+              shutil.rmtree(workflows)
+          gitignore = Path('.gitignore')
+          if gitignore.exists():
+              gitignore.unlink()
+      - name: Commit synchronized working package
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Sync GitHub to working Select package"
+          git push
