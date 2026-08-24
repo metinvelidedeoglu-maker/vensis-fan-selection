@@ -1,0 +1,4 @@
+CRS and CRS/ATEX models were synchronized from the supplied CRS/ATEX datasheets.
+CRS copies intentionally reuse the requested CRS/ATEX performance/model values.
+CRS/ATEX 40-2T-5.5 price: 4300 EUR.
+CRS/ATEX 80-4T-25 price: 10700 EUR.
