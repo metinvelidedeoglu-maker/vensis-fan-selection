@@ -1,0 +1,72 @@
+name: Apply CRS ATEX price patch r4
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/apply-crs-price-r4.yml']
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply CRS ATEX prices and cache bust
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          patch = r'''(function(){
+            'use strict';
+
+            const prices = {
+              'CRS40-2T-5.5': 4300,
+              'CRS80-4T-25': 10700
+            };
+
+            const models = window.VensisCatalog && Array.isArray(window.VensisCatalog.models)
+              ? window.VensisCatalog.models
+              : [];
+
+            for (const model of models) {
+              if (String(model.seriesId || '') !== 'CRS/ATEX') continue;
+
+              const productCode = String(model.technical?.productCode || '').trim();
+              if (!Object.prototype.hasOwnProperty.call(prices, productCode)) continue;
+
+              model.pricing = {
+                ...(model.pricing || {}),
+                listPrice: prices[productCode],
+                currency: 'EUR',
+                catalogue: 'CRS/ATEX manual price 2026-08-24'
+              };
+            }
+          })();
+          '''
+
+          Path('data/crs-atex-prices-r4.js').write_text(patch, encoding='utf-8')
+
+          targets = ['index.html','catalog.html','project.html','project-print.html','quotation.html']
+          registry = '<script src="products/registry.js?v=20260814-lineo-model-image"></script>'
+          price_script = '<script src="data/crs-atex-prices-r4.js?v=20260824-r4"></script>'
+
+          for name in targets:
+              p = Path(name)
+              text = p.read_text(encoding='utf-8')
+              text = re.sub(r'data/fans-15\.js\?v=[^"\']+', 'data/fans-15.js?v=20260824-crs-price-r4', text)
+              text = re.sub(r'\n?<script src="data/crs-atex-prices-r4\.js\?v=[^"]+"></script>', '', text)
+              if registry not in text:
+                  raise SystemExit(f'registry reference missing in {name}')
+              text = text.replace(registry, registry + '\n' + price_script, 1)
+              p.write_text(text, encoding='utf-8')
+
+          Path('.github/workflows/apply-crs-price-r4.yml').unlink()
+      - name: Commit r4 price patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/crs-atex-prices-r4.js index.html catalog.html project.html project-print.html quotation.html .github/workflows/apply-crs-price-r4.yml
+          git commit -m "Apply CRS ATEX prices and cache bust r4"
+          git push
