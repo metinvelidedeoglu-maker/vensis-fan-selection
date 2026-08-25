@@ -17,16 +17,21 @@
     localStorage.removeItem(key);
 
     const languageScript='<script src="js/language.js?v=20260816-tr2"><\/script>';
-    const localizedPayload=payload.includes('</body>')?payload.replace('</body>',languageScript+'</body>'):payload+languageScript;
+    const sidebarScript='<script src="js/suite-sidebar.js?v=20260825-sidebar-r2"><\/script>';
+    const extras=languageScript+sidebarScript;
+    const localizedPayload=payload.includes('</body>')?payload.replace('</body>',extras+'</body>'):payload+extras;
     document.body.innerHTML='';
     document.open('text/html','replace');
     document.write(localizedPayload);
     document.close();
   }catch(error){
     document.body.innerHTML='<div style="padding:30px;font-family:Arial"><h2>Product details could not be opened.</h2><p>'+String(error.message||error)+'</p><p><button onclick="window.close()" style="padding:10px 14px">Close</button></p></div>';
-    const script=document.createElement('script');
-    script.src='js/language.js?v=20260816-tr2';
-    document.head.appendChild(script);
+    const language=document.createElement('script');
+    language.src='js/language.js?v=20260816-tr2';
+    document.head.appendChild(language);
+    const sidebar=document.createElement('script');
+    sidebar.src='js/suite-sidebar.js?v=20260825-sidebar-r2';
+    document.head.appendChild(sidebar);
   }
 })();
 </script>
