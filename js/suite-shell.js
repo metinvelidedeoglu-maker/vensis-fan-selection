@@ -1,9 +1,10 @@
 (function(){
   'use strict';
-  const BUILD='20260825-r4';
+  const BUILD='20260825-r9';
   window.VENSIS_BUILD=BUILD;
   const path=(location.pathname||'').toLowerCase();
   const inElectrical=path.includes('/electrical/');
+  const inFanCatalog=path.endsWith('/catalog.html');
   const base=inElectrical?'../':'';
   const isActive=(needle)=> path.endsWith(needle);
   const countProjects=()=>{
@@ -32,16 +33,25 @@
     `;
     document.head.appendChild(s);
   }
+  function applyCatalogTitles(){
+    if(inFanCatalog){
+      document.title='Vensis Fan Katalog';
+      const h1=document.querySelector('.catalog-content .catalog-head h1');
+      if(h1) h1.textContent='Fan Katalog';
+    }
+    if(inElectrical) document.title='Vensis Elektrik Katalog';
+  }
   function mount(){
     style();
+    applyCatalogTitles();
     const total=countProjects();
     const lang=currentLang();
     const shell=document.createElement('header');
     shell.className='vensis-suite-shell';
     shell.innerHTML=`<div class="vensis-suite-shell-inner">
       <a class="${isActive('/index.html')&&!inElectrical?'active':''}" href="${base}index.html">⌕ Fan Selection</a>
-      <a class="${inElectrical?'active':''}" href="${base}electrical/index.html">⚡ Electrical Selection</a>
-      <a class="${isActive('/catalog.html')?'active':''}" href="${base}catalog.html">▦ Product Catalog</a>
+      <a class="${inElectrical?'active':''}" href="${base}electrical/index.html">⚡ Elektrik Katalog</a>
+      <a class="${inFanCatalog?'active':''}" href="${base}catalog.html">▦ Fan Katalog</a>
       <a class="${isActive('/projects.html')||isActive('/project.html')?'active':''}" href="${base}projects.html">▣ Projects${total?` ${total}`:''}</a>
       <a class="${isActive('/customers.html')?'active':''}" href="${base}customers.html">♙ Müşteriler</a>
       <span class="suite-tag">Selection Workspace</span>
