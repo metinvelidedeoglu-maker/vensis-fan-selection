@@ -1,8 +1,8 @@
 (function(){
-  if(!window.VensisSuiteShell&&!document.getElementById('vensisSuiteShellScript')){
+  if(!document.getElementById('vensisSideMenu')&&!document.getElementById('vensisSuiteSidebarScript')){
     const script=document.createElement('script');
-    script.id='vensisSuiteShellScript';
-    script.src='js/suite-shell.js?v=20260825-sidebar-r2-'+Date.now();
+    script.id='vensisSuiteSidebarScript';
+    script.src='js/suite-sidebar.js?v=20260825-sidebar-r2-'+Date.now();
     script.async=false;
     document.head.appendChild(script);
   }
