@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260825-r12';
+  const BUILD='20260825-sidebar-r1';
   const stamp=Date.now();
 
   function load(src,id,onload){
@@ -21,7 +21,7 @@
     return s;
   }
 
-  // Header is authoritative. Project/language helpers start only after it is mounted.
+  // Existing page headers stay untouched. The shared suite navigation is a left sidebar.
   load('js/suite-shell.js','vensisSuiteShellScript',()=>{
     load('js/project-nav-core.js','vensisProjectNavCoreScript');
   });
