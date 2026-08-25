@@ -1,4 +1,14 @@
 (function(){
+  if(!window.VensisSuiteShell&&!document.getElementById('vensisSuiteShellScript')){
+    const script=document.createElement('script');
+    script.id='vensisSuiteShellScript';
+    script.src='js/suite-shell.js?v=20260825-sidebar-r2-'+Date.now();
+    script.async=false;
+    document.head.appendChild(script);
+  }
+})();
+
+(function(){
   const store=window.VensisProjects;
   const U=window.VensisOrderUtils;
   if(!store||!U)return;
