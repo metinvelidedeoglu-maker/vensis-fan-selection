@@ -17,8 +17,7 @@
     localStorage.removeItem(key);
 
     const languageScript='<script src="js/language.js?v=20260825-all-pages-r1"><\/script>';
-    const sidebarScript='<script src="js/suite-sidebar.js?v=20260825-language-r1"><\/script>';
-    const extras=languageScript+sidebarScript;
+    const extras=languageScript;
     const localizedPayload=payload.includes('</body>')?payload.replace('</body>',extras+'</body>'):payload+extras;
     document.body.innerHTML='';
     document.open('text/html','replace');
@@ -29,9 +28,6 @@
     const language=document.createElement('script');
     language.src='js/language.js?v=20260825-all-pages-r1';
     document.head.appendChild(language);
-    const sidebar=document.createElement('script');
-    sidebar.src='js/suite-sidebar.js?v=20260825-language-r1';
-    document.head.appendChild(sidebar);
   }
 })();
 </script>

@@ -33,12 +33,14 @@ test('customer cloud endpoints require the secure session and CSRF on writes',()
 
 test('technical datasheets no longer render an Applications box or test label',()=>{
   const datasheet=read('js/ui/datasheet.js');
+  const detail=read('detail.html');
   const projectPrint=read('project-print.html');
   const fanData=read('data/fans-01.js');
   const overrides=read('data/series-overrides.js');
 
   assert.doesNotMatch(datasheet,/<h3>Applications<\/h3>/);
   assert.match(datasheet,/<h3>General Features<\/h3>/);
+  assert.doesNotMatch(detail,/suite-sidebar\.js/);
   assert.match(projectPrint,/\.bottom-grid\{display:block/);
   assert.doesNotMatch(fanData,/deneme/i);
   assert.doesNotMatch(overrides,/deneme/i);
