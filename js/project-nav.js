@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260825-sidebar-r1';
+  const BUILD='20260825-sidebar-r2';
   const stamp=Date.now();
 
   function load(src,id,onload){
@@ -21,7 +21,7 @@
     return s;
   }
 
-  // Existing page headers stay untouched. The shared suite navigation is a left sidebar.
+  // Keep the fixed suite header as-is, then mount the persistent left navigation.
   load('js/suite-shell.js','vensisSuiteShellScript',()=>{
     load('js/project-nav-core.js','vensisProjectNavCoreScript');
   });
