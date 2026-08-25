@@ -18,4 +18,4 @@ function base(){let c=$('category').value,s=$('subcategory').value;return P.filt
 function build(){let c=$('category').value,b=base();$('filters').innerHTML=(K[c]||[]).map(k=>`<label>${L[k]||k}<select data-k="${k}"><option value="">Tümü</option>${u(b.map(x=>x[k])).map(v=>`<option>${v}</option>`).join('')}</select></label>`).join('');render()}
 function render(){let r=base();document.querySelectorAll('#filters select').forEach(s=>{if(s.value)r=r.filter(x=>String(x[s.dataset.k])===s.value)});let ks=STANDARD;$('head').innerHTML='<tr>'+ks.map(k=>`<th>${L[k]||k}</th>`).join('')+'</tr>';$('body').innerHTML=r.map(x=>'<tr>'+ks.map(k=>`<td>${x[k]||'-'}</td>`).join('')+'</tr>').join('');$('count').textContent=`(${r.length})`}
 $('category').innerHTML=u(P.map(x=>x.category)).map(x=>`<option>${x}</option>`).join('');$('category').onchange=subs;$('subcategory').onchange=build;$('filters').onchange=render;$('show').onclick=render;$('reset').onclick=()=>subs();subs();
-</script></body></html>
+</script><script src="../js/suite-shell.js?v=20260825-r4"></script></body></html>
