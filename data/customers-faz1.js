@@ -1,0 +1,1 @@
+(function(){const names=window.VENSIS_FAZ1_CUSTOMER_NAMES||[];window.VENSIS_FAZ1_CUSTOMERS=names.map((name,index)=>({id:'faz1-'+String(index+1).padStart(3,'0'),companyName:name,taxOffice:'',taxNo:'',contact:'',phone:'',email:'',address:'',history:[]}));})();
