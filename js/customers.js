@@ -1,113 +1,98 @@
 (function(){
+  'use strict';
+
   const store=window.VensisCustomers;
-  const $=s=>document.querySelector(s);
-  const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-  let active=null;
+  const $=selector=>document.querySelector(selector);
+  const esc=value=>String(value??'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+  const t=value=>window.VensisI18n?.t?.(value)||value;
+  let active='';
 
   function filtered(){
-    const q=($('#customerSearch')?.value||'').trim().toLocaleLowerCase('tr-TR');
-    return store.list().filter(c=>!q||[c.companyName,c.taxNo,c.contact,c.phone,c.email].some(v=>String(v||'').toLocaleLowerCase('tr-TR').includes(q)));
+    const query=($('#customerSearch')?.value||'').trim().toLocaleLowerCase('tr-TR');
+    return store.list().filter(customer=>!query||[customer.companyName,customer.taxNo,customer.contact,customer.phone,customer.email]
+      .some(value=>String(value||'').toLocaleLowerCase('tr-TR').includes(query)));
   }
-
   function ensureStatus(){
-    let el=$('#customerSaveStatus');
-    if(!el){
-      el=document.createElement('span');
-      el.id='customerSaveStatus';
-      el.style.marginLeft='10px';
-      el.style.fontWeight='700';
-      el.style.fontSize='13px';
-      $('#saveCustomer')?.insertAdjacentElement('afterend',el);
+    let element=$('#customerSaveStatus');
+    if(!element){
+      element=document.createElement('span');
+      element.id='customerSaveStatus';
+      $('#saveCustomer')?.insertAdjacentElement('afterend',element);
     }
-    return el;
+    return element;
   }
-
   function status(message,ok=true){
-    const el=ensureStatus();
-    if(!el)return;
-    el.textContent=message;
-    el.style.color=ok?'#087f4f':'#b8322c';
+    const element=ensureStatus();
+    if(!element)return;
+    element.textContent=t(message);
+    element.className=ok?'is-success':'is-error';
     clearTimeout(status.timer);
-    status.timer=setTimeout(()=>{el.textContent='';},2500);
+    status.timer=setTimeout(()=>{element.textContent=''},2500);
   }
-
   function render(){
-    const list=filtered();
-    $('#customerCount').textContent=store.list().length;
-    $('#customerShown').textContent=list.length;
-    $('#customerList').innerHTML=list.map(c=>`<button class="customer-row" data-id="${esc(c.id)}"><b>${esc(c.companyName)}</b><span>${esc(c.contact||c.taxNo||'Bilgi eklenmedi')}</span></button>`).join('');
-    document.querySelectorAll('.customer-row').forEach(b=>b.onclick=()=>open(b.dataset.id));
+    const rows=filtered();
+    const all=store.list();
+    $('#customerCount').textContent=all.length;
+    $('#customerShown').textContent=rows.length;
+    $('#customerList').innerHTML=rows.length
+      ? rows.map(customer=>`<button class="customer-row" data-id="${esc(customer.id)}"><b>${esc(customer.companyName)}</b><span>${esc(customer.contact||customer.taxNo||t('Not provided'))}</span></button>`).join('')
+      : `<div class="customer-empty"><b>${esc(t('No customers in this browser yet'))}</b><span>${esc(t('Sign in to restore cloud customers, or add a new customer locally.'))}</span></div>`;
+    document.querySelectorAll('.customer-row').forEach(button=>button.addEventListener('click',()=>open(button.dataset.id)));
   }
-
-  function open(id){
-    active=id;
-    const c=store.get(id);
-    if(!c)return;
+  function open(customerId){
+    const customer=store.get(customerId);
+    if(!customer)return;
+    active=customerId;
     $('#customerPanel').hidden=false;
-    $('#companyName').value=c.companyName||'';
-    $('#taxOffice').value=c.taxOffice||'';
-    $('#taxNo').value=c.taxNo||'';
-    $('#contact').value=c.contact||'';
-    $('#phone').value=c.phone||'';
-    $('#email').value=c.email||'';
-    $('#address').value=c.address||'';
-    const projects=(window.VensisProjects?.list?.()||[]).filter(p=>{
-      const m=window.VensisProjects.readMeta?.(p.id)||{};
-      return (m.reference||p.reference||'')===c.companyName;
+    ['companyName','taxOffice','taxNo','contact','phone','email','address'].forEach(field=>{$(`#${field}`).value=customer[field]||''});
+    const projects=(window.VensisProjects?.list?.()||[]).filter(project=>{
+      const meta=window.VensisProjects.readMeta?.(project.id)||{};
+      return (meta.reference||project.reference||'')===customer.companyName;
     });
-    $('#history').innerHTML=projects.length?projects.map(p=>`<div class="history-item"><b>${esc((window.VensisProjects.readMeta?.(p.id)||{}).name||p.name||'Proje')}</b><span>${esc((window.VensisProjects.readMeta?.(p.id)||{}).status||'draft')}</span></div>`).join(''):'<div class="history-empty">Henüz bağlı teklif veya sipariş yok.</div>';
+    $('#history').innerHTML=projects.length
+      ? projects.map(project=>`<div class="history-item"><b>${esc((window.VensisProjects.readMeta?.(project.id)||{}).name||project.name||t('Project'))}</b><span>${esc((window.VensisProjects.readMeta?.(project.id)||{}).status||'draft')}</span></div>`).join('')
+      : `<div class="history-empty">${esc(t('No linked quotations or orders yet.'))}</div>`;
   }
-
   function formData(){
-    return {
-      companyName:$('#companyName').value.trim(),
-      taxOffice:$('#taxOffice').value.trim(),
-      taxNo:$('#taxNo').value.trim(),
-      contact:$('#contact').value.trim(),
-      phone:$('#phone').value.trim(),
-      email:$('#email').value.trim(),
-      address:$('#address').value.trim()
-    };
+    return Object.fromEntries(['companyName','taxOffice','taxNo','contact','phone','email','address'].map(field=>[field,$(`#${field}`).value.trim()]));
   }
-
   function save(){
     try{
       const data=formData();
-      if(!data.companyName){
-        status('Firma adı gerekli.',false);
-        $('#companyName').focus();
-        return;
-      }
-      let current=active?store.get(active):null;
+      if(!data.companyName){status('Company name is required.',false);$('#companyName').focus();return}
+      const current=active?store.get(active):null;
       const saved=store.upsert({...current,...data,id:current?.id});
       active=saved.id;
-      render();
-      open(active);
-      status('Kaydedildi');
-    }catch(err){
-      console.error('Customer save failed',err);
-      status('Kayıt başarısız.',false);
-    }
+      render();open(active);status('Saved');
+    }catch(error){console.error('Customer save failed',error);status('Save failed.',false)}
   }
-
   function add(){
     try{
-      const c=store.upsert({companyName:'Yeni Müşteri'});
-      active=c.id;
-      render();
-      open(c.id);
-      $('#companyName').focus();
-      $('#companyName').select();
-      status('Yeni müşteri kartı açıldı');
-    }catch(err){
-      console.error('Customer create failed',err);
-      status('Yeni müşteri oluşturulamadı.',false);
-    }
+      const customer=store.upsert({companyName:'New Customer'});
+      active=customer.id;
+      render();open(customer.id);
+      $('#companyName').focus();$('#companyName').select();
+      status('New customer card opened.');
+    }catch(error){console.error('Customer create failed',error);status('Customer could not be created.',false)}
+  }
+  function cloudStatus(event){
+    const state=event?.detail||store.cloudState?.()||{};
+    const element=$('#customerStorageStatus');
+    if(!element)return;
+    element.textContent=t(state.message||'Browser only — sign in to sync.');
+    element.dataset.state=state.state||'local';
   }
 
   $('#customerSearch')?.addEventListener('input',render);
   $('#saveCustomer')?.addEventListener('click',save);
   $('#newCustomer')?.addEventListener('click',add);
+  window.addEventListener('vensis-customers-updated',()=>{
+    render();
+    if(active&&store.get(active))open(active);
+    else if(store.list()[0])open(store.list()[0].id);
+  });
+  window.addEventListener('vensis-customer-cloud-status',cloudStatus);
   render();
+  cloudStatus();
   if(store.list()[0])open(store.list()[0].id);
 })();

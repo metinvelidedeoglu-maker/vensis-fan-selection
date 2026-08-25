@@ -197,7 +197,7 @@ test('every product entry point loads CA MD data and current adapters',()=>{
   assert.match(selection,/js\/core\/state\.js\?v=20260813-vortice-batch/);
   const catalog=fs.readFileSync(path.join(root,'catalog.html'),'utf8');
   assert.match(catalog,/js\/catalog\.js\?v=20260813-vortice-batch/);
-  assert.match(catalog,/js\/ui\/datasheet\.js\?v=20260813-vortice-batch/);
+  assert.match(catalog,/js\/ui\/datasheet\.js\?v=20260825-no-applications-r1/);
   const bootstrap=fs.readFileSync(path.join(root,'api','edit','bootstrap.php'),'utf8');
   assert.match(bootstrap,/'data\/fans-10\.js'/);
 });

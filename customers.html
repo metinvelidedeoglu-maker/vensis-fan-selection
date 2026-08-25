@@ -1,1 +1,84 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vensis Müşteriler</title><style>body{font-family:Arial;margin:0;background:#f6f8f7;color:#173033}.top,.page{max-width:1400px;margin:auto;padding:18px}.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{padding:9px 12px;background:#e8efed;color:#234;text-decoration:none;border-radius:8px}.nav a.active,.btn{background:#087f4f;color:#fff}.layout{display:grid;grid-template-columns:380px 1fr;gap:16px}.card{background:#fff;border:1px solid #dbe5e2;border-radius:12px;padding:16px}.search,input,textarea{width:100%;box-sizing:border-box;padding:10px;margin:6px 0 12px;border:1px solid #cbd8d5;border-radius:8px}.list{max-height:65vh;overflow:auto}.customer-row{width:100%;text-align:left;background:#fff;border:1px solid #e1e9e7;border-radius:8px;padding:10px;margin-bottom:6px}.btn{border:0;border-radius:8px;padding:10px 14px;font-weight:700}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wide{grid-column:1/-1}@media(max-width:850px){.layout,.grid{grid-template-columns:1fr}.wide{grid-column:auto}}</style></head><body><header class="top"><h2>Vensis Engineering Suite</h2><nav class="nav"><a href="index.html">Fan Selection</a><a href="electrical/index.html">Electrical Selection</a><a href="catalog.html">Product Catalog</a><a href="projects.html">Projects</a><a class="active" href="customers.html">Müşteriler</a></nav></header><main class="page"><div style="display:flex;justify-content:space-between;align-items:center"><div><h1>Müşteriler</h1><p>Faz1 Finans başlangıç müşteri listesi</p></div><button id="newCustomer" class="btn">+ Yeni Müşteri</button></div><div class="layout"><section class="card"><div>Toplam <b id="customerCount">0</b> · Gösterilen <b id="customerShown">0</b></div><input id="customerSearch" class="search" type="search" placeholder="Firma, yetkili, VKN ara"><div id="customerList" class="list"></div></section><section id="customerPanel" class="card"><div class="grid"><label class="wide">Firma adı<input id="companyName"></label><label>Vergi dairesi<input id="taxOffice"></label><label>Vergi no<input id="taxNo"></label><label>Yetkili kişi<input id="contact"></label><label>Telefon<input id="phone"></label><label class="wide">E-posta<input id="email"></label><label class="wide">Adres<textarea id="address"></textarea></label></div><button id="saveCustomer" class="btn">Kaydet</button><h3>Geçmiş Teklifler ve Siparişler</h3><div id="history"></div></section></div></main><script src="data/customers-faz1-1.js?v=20260825-r4"></script><script src="data/customers-faz1-2.js?v=20260825-r4"></script><script src="data/customers-faz1-3.js?v=20260825-r4"></script><script src="data/customers-faz1-4.js?v=20260825-r4"></script><script src="data/customers-faz1.js?v=20260825-r4"></script><script src="js/customers-store.js?v=20260825-r4"></script><script src="js/projects-store.js?v=20260825-r4"></script><script src="js/customers.js?v=20260825-r4"></script><script src="js/suite-shell.js?v=20260825-sidebar-r2"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vensis Customers</title>
+  <link rel="stylesheet" href="css/edit-mode.css?v=20260825-customer-cloud-r1">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#f2f6f5;color:#173033;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+    .page{max-width:1400px;margin:auto;padding:30px 18px 44px}
+    .page-head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:18px}
+    .page-head h1{margin:0;font-size:34px;letter-spacing:-.04em}
+    .page-head p{margin:7px 0 0;color:#64748b;font-weight:600}
+    .btn{border:0;border-radius:10px;padding:11px 15px;background:#087f4f;color:#fff;font-weight:800;cursor:pointer;box-shadow:0 6px 16px rgba(8,127,79,.18)}
+    .storage-status{margin-bottom:14px;padding:10px 13px;border:1px solid #d8e3e0;border-radius:10px;background:#fff;color:#52666b;font-size:12px;font-weight:750}
+    .storage-status[data-state="synced"]{border-color:#b8d8c8;background:#edf7f2;color:#087f4f}
+    .storage-status[data-state="error"]{border-color:#efc4c0;background:#fff4f2;color:#b8322c}
+    .layout{display:grid;grid-template-columns:380px minmax(0,1fr);gap:16px}
+    .card{min-width:0;background:#fff;border:1px solid #dbe5e2;border-radius:15px;padding:16px;box-shadow:0 3px 12px rgba(23,48,51,.05)}
+    .list-summary{margin-bottom:10px;color:#52666b;font-size:13px}
+    input,textarea{width:100%;box-sizing:border-box;padding:10px 11px;margin:6px 0 12px;border:1px solid #cbd8d5;border-radius:9px;background:#fbfdfc;color:#173033;font:600 14px inherit}
+    input:focus,textarea:focus{outline:3px solid rgba(8,127,79,.12);border-color:#087f4f}
+    textarea{min-height:86px;resize:vertical}
+    .list{max-height:65vh;overflow:auto;padding-right:3px}
+    .customer-row{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e1e9e7;border-radius:9px;padding:11px;margin-bottom:7px;cursor:pointer}
+    .customer-row:hover{border-color:#87bda2;background:#f7fbf9}
+    .customer-row b,.customer-row span{display:block}
+    .customer-row b{font-size:13px;line-height:1.25}
+    .customer-row span{margin-top:4px;color:#64748b;font-size:11px}
+    .customer-empty{padding:30px 14px;text-align:center;color:#64748b}
+    .customer-empty b,.customer-empty span{display:block}
+    .customer-empty b{color:#355259}
+    .customer-empty span{margin-top:7px;font-size:12px;line-height:1.45}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .grid label{color:#52666b;font-size:12px;font-weight:750}
+    .wide{grid-column:1/-1}
+    #customerSaveStatus{display:inline-block;margin-left:10px;font-size:13px;font-weight:800}
+    #customerSaveStatus.is-success{color:#087f4f}
+    #customerSaveStatus.is-error{color:#b8322c}
+    .history-title{margin:22px 0 10px}
+    .history-item{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #e4ebe8}
+    .history-empty{color:#64748b}
+    @media(max-width:850px){.layout,.grid{grid-template-columns:1fr}.wide{grid-column:auto}.page-head{align-items:flex-start;flex-direction:column}.page-head .btn{width:100%}.list{max-height:42vh}}
+  </style>
+</head>
+<body class="app-shell app-customers">
+  <main class="page">
+    <div class="page-head">
+      <div><h1>Customers</h1><p>Customer records and related project history</p></div>
+      <button id="newCustomer" class="btn" type="button">+ New Customer</button>
+    </div>
+    <div id="customerStorageStatus" class="storage-status" data-state="checking">Checking customer cloud…</div>
+    <div class="layout">
+      <section class="card">
+        <div class="list-summary">Total <b id="customerCount">0</b> · Showing <b id="customerShown">0</b></div>
+        <input id="customerSearch" type="search" autocomplete="off" placeholder="Search company, contact or tax number">
+        <div id="customerList" class="list"></div>
+      </section>
+      <section id="customerPanel" class="card" hidden>
+        <div class="grid">
+          <label class="wide">Company Name<input id="companyName"></label>
+          <label>Tax Office<input id="taxOffice"></label>
+          <label>Tax Number<input id="taxNo"></label>
+          <label>Contact Person<input id="contact"></label>
+          <label>Phone<input id="phone"></label>
+          <label class="wide">Email<input id="email" type="email"></label>
+          <label class="wide">Address<textarea id="address"></textarea></label>
+        </div>
+        <button id="saveCustomer" class="btn" type="button">Save</button>
+        <h3 class="history-title">Past Quotations and Orders</h3>
+        <div id="history"></div>
+      </section>
+    </div>
+  </main>
+  <script src="js/language.js?v=20260825-all-pages-r1"></script>
+  <script src="js/customers-store.js?v=20260825-customer-cloud-r1"></script>
+  <script src="js/projects-store.js?v=20260813-purchase-order"></script>
+  <script src="js/suite-shell.js?v=20260825-language-r1"></script>
+  <script src="js/project-nav.js?v=20260825-sidebar-r3"></script>
+  <script src="js/customers.js?v=20260825-customer-cloud-r1"></script>
+  <script src="js/edit-mode.js?v=20260825-customer-cloud-r1"></script>
+</body>
+</html>

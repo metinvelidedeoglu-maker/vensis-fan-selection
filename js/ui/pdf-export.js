@@ -33,7 +33,7 @@
           .sheet{width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;margin:0!important;padding:9mm 10mm 12mm!important;box-shadow:none!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
           .sheet>header,.sheet>.product-title,.sheet>.hero,.sheet>.section,.sheet>.bottom-grid,.sheet>.footer{flex-shrink:0!important}
           .hero{display:grid!important;grid-template-columns:1.15fr .85fr!important;gap:5mm!important;align-items:center!important;margin-top:4mm!important}
-          .bottom-grid{display:grid!important;grid-template-columns:1.08fr .92fr!important;gap:5mm!important;margin-top:4mm!important}
+          .bottom-grid{display:block!important;margin-top:4mm!important}
           .section{margin-top:4mm!important}
           .product-image{width:100%!important;height:68mm!important;max-height:68mm!important;object-fit:contain!important}
           .spec-row{padding:5px 8px!important;font-size:10.5px!important}

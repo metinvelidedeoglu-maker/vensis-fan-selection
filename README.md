@@ -56,6 +56,16 @@ and deletion tombstones prevent an older device from overwriting newer edits or
 restoring a deleted project. Project API writes require the authenticated session,
 same-origin validation and a CSRF token.
 
+## Customer Cloud
+
+Customers follow the same access model as projects. Without the secure workspace
+password, records stay only in that browser. After sign-in, browser records merge
+with the protected Hostinger copy stored as `.vensis-edit/customers-v1.json`
+outside `public_html`. The initial Faz1 company-name seed is available only to the
+authenticated customer API; it is no longer shipped as a public browser script.
+Customer API reads and writes require the authenticated session, same-origin
+validation and CSRF protection for writes.
+
 ## Vitlo Catalogue Data
 
 Vitlo performance curves are stored as verified catalogue points in

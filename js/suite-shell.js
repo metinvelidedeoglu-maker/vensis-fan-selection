@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20260825-header-r1';
+  const BUILD='20260825-language-r1';
   window.VENSIS_BUILD=BUILD;
 
   const path=(location.pathname||'').toLowerCase();
@@ -18,7 +18,17 @@
 
   const isProjectPage=()=>/\/(projects|project|quotation|order|project-print)\.html$/.test(path);
   const isCatalogPage=()=>path.endsWith('/catalog-hub.html')||path.endsWith('/catalog.html')||inElectrical;
-  const isFanSelection=()=>path.endsWith('/index.html')&&!inElectrical;
+  const isFanSelection=()=>!inElectrical&&(path==='/'||path.endsWith('/index.html'));
+  const tr=value=>window.VensisI18n?.t?.(value)||value;
+
+  function updateCloudStatus(detail={}){
+    const element=document.querySelector('.vensis-suite-shell .suite-cloud');
+    if(!element)return;
+    const state=detail.state||'local';
+    const fallback=state==='synced'?'Cloud synced':state==='syncing'?'Syncing…':state==='error'?'Sync error':'Browser only';
+    element.textContent=`${state==='error'?'⚠':'☁'} ${tr(detail.message||fallback)}`;
+    element.dataset.state=state;
+  }
 
   function installStyles(){
     if(document.getElementById('vensisSuiteShellStyle'))return;
@@ -33,7 +43,9 @@
       .vensis-suite-title{font:800 13px Arial,Helvetica,sans-serif;color:#173033;margin-right:8px;flex:0 0 auto}
       .vensis-suite-shell a,.vensis-suite-shell button,.vensis-suite-shell .suite-cloud{display:inline-flex!important;align-items:center;justify-content:center;min-height:36px;padding:8px 11px;border-radius:9px;border:1px solid #d7e1e3;background:#eef3f2;color:#29484d;text-decoration:none;font:800 12px Arial,Helvetica,sans-serif;cursor:pointer;white-space:nowrap;flex:0 0 auto}
       .vensis-suite-shell a.active{background:#087f4f!important;color:#fff!important;border-color:#087f4f!important}
-      .vensis-suite-shell .suite-cloud{background:#fff!important;color:#087f4f!important;cursor:default}
+      .vensis-suite-shell .suite-cloud{background:#fff!important;color:#52666b!important;cursor:default}
+      .vensis-suite-shell .suite-cloud[data-state="synced"]{color:#087f4f!important}
+      .vensis-suite-shell .suite-cloud[data-state="error"]{color:#b8322c!important}
       .vensis-suite-shell .suite-lang.active{background:#087f4f!important;color:#fff!important;border-color:#087f4f!important}
       body{padding-top:var(--vensis-header-h)!important;scroll-padding-top:calc(var(--vensis-header-h) + 8px)!important}
       @media(max-width:760px){
@@ -59,16 +71,17 @@
     shell.innerHTML=`<div class="vensis-suite-shell-inner">
       <img class="vensis-suite-logo" src="${base}assets/vensis-logo.png" alt="Vensis">
       <span class="vensis-suite-title">Vensis Engineering Suite</span>
-      <a class="${isProjectPage()?'active':''}" href="${base}projects.html">Projeler</a>
-      <a class="${isActive('/customers.html')?'active':''}" href="${base}customers.html">Müşteriler</a>
-      <a class="${isCatalogPage()?'active':''}" href="${base}catalog-hub.html">Ürün Kataloğu</a>
+      <a class="${isProjectPage()?'active':''}" href="${base}projects.html">${tr('Projects')}</a>
+      <a class="${isActive('/customers.html')?'active':''}" href="${base}customers.html">${tr('Customers')}</a>
+      <a class="${isCatalogPage()?'active':''}" href="${base}catalog-hub.html">${tr('Product Catalog')}</a>
       <a class="${isFanSelection()?'active':''}" href="${base}index.html">Fan Selection</a>
-      <span class="suite-cloud">☁ Bulut senkronize</span>
+      <span class="suite-cloud" data-state="local">☁ ${tr('Browser only')}</span>
       <button class="suite-lang ${lang==='en'?'active':''}" data-lang="en" type="button">EN</button>
       <button class="suite-lang ${lang==='tr'?'active':''}" data-lang="tr" type="button">TR</button>
     </div>`;
     document.body.prepend(shell);
     shell.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
+    updateCloudStatus(window.VensisProjects?.cloudState?.()||window.VensisCustomers?.cloudState?.()||{});
     return shell;
   }
 
@@ -84,6 +97,12 @@
   }
 
   window.VensisSuiteShell={mount,build:BUILD};
+  window.addEventListener('vensis-project-cloud-status',event=>updateCloudStatus(event.detail));
+  window.addEventListener('vensis-customer-cloud-status',event=>updateCloudStatus(event.detail));
+  window.addEventListener('vensis-edit-session-changed',event=>{
+    if(event.detail?.authenticated)updateCloudStatus({state:'syncing',message:'Syncing…'});
+    else updateCloudStatus({state:'local',message:'Browser only'});
+  });
   if(document.body)mount();
   else document.addEventListener('DOMContentLoaded',mount,{once:true});
 })();

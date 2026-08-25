@@ -2,7 +2,7 @@
   'use strict';
   if(document.getElementById('vensisSideMenu'))return;
 
-  const BUILD='20260825-sidebar-r2';
+  const BUILD='20260825-language-r1';
   const path=(location.pathname||'').toLowerCase();
   const inElectrical=path.includes('/electrical/');
   const base=inElectrical?'../':'';
@@ -13,6 +13,17 @@
   const isCatalogHub=()=>path.endsWith('/catalog-hub.html');
   const isFanCatalog=()=>path.endsWith('/catalog.html');
   const isElectricalCatalog=()=>inElectrical;
+  const label=(en,tr)=>currentLang()==='tr'?tr:en;
+
+  async function refreshCloudStatus(){
+    const element=document.querySelector('.vensis-side-cloud');
+    if(!element)return;
+    try{
+      const response=await fetch(`${base}api/edit/session.php`,{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
+      const payload=await response.json();
+      element.textContent=payload?.authenticated?`☁ ${label('Cloud synced','Bulut senkronize')}`:`☁ ${label('Browser only','Yalnızca tarayıcı')}`;
+    }catch{element.textContent=`⚠ ${label('Sync error','Senkronizasyon hatası')}`}
+  }
 
   function installStyles(){
     if(document.getElementById('vensisStandaloneSidebarStyle'))return;
@@ -41,8 +52,8 @@
     const lang=currentLang();
     const menu=document.createElement('aside');
     menu.id='vensisSideMenu';menu.className='vensis-side-menu';menu.dataset.vensisBuild=BUILD;
-    menu.innerHTML=`<div class="vensis-side-menu-head">Menü</div><nav class="vensis-side-menu-nav" aria-label="Vensis ana menü"><a class="${isProjectPage()?'active':''}" href="${base}projects.html">Projeler</a><a class="${isCustomerPage()?'active':''}" href="${base}customers.html">Müşteriler</a><div class="vensis-side-menu-group"><a class="vensis-side-menu-group-title ${isCatalogHub()||isFanCatalog()||isElectricalCatalog()?'active':''}" href="${base}catalog-hub.html">Ürün Kataloğu <span>›</span></a><div class="vensis-side-menu-sub"><a class="${isFanCatalog()?'active':''}" href="${base}catalog.html">HAVALANDIRMA</a><a class="${isElectricalCatalog()?'active':''}" href="${base}electrical/index.html">ELEKTRİK</a></div></div></nav><div class="vensis-side-menu-foot"><div class="vensis-side-cloud">☁ Bulut senkronize</div><div class="vensis-side-lang"><button class="${lang==='en'?'active':''}" type="button" data-side-lang="en">EN</button><button class="${lang==='tr'?'active':''}" type="button" data-side-lang="tr">TR</button></div></div>`;
-    document.body.appendChild(menu);document.body.classList.add('vensis-side-menu-ready');menu.querySelectorAll('[data-side-lang]').forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.sideLang)));headerBottom();requestAnimationFrame(headerBottom);setTimeout(headerBottom,200);
+    menu.innerHTML=`<div class="vensis-side-menu-head">${label('Menu','Menü')}</div><nav class="vensis-side-menu-nav" aria-label="Vensis"><a class="${isProjectPage()?'active':''}" href="${base}projects.html">${label('Projects','Projeler')}</a><a class="${isCustomerPage()?'active':''}" href="${base}customers.html">${label('Customers','Müşteriler')}</a><div class="vensis-side-menu-group"><a class="vensis-side-menu-group-title ${isCatalogHub()||isFanCatalog()||isElectricalCatalog()?'active':''}" href="${base}catalog-hub.html">${label('Product Catalog','Ürün Kataloğu')} <span>›</span></a><div class="vensis-side-menu-sub"><a class="${isFanCatalog()?'active':''}" href="${base}catalog.html">${label('VENTILATION','HAVALANDIRMA')}</a><a class="${isElectricalCatalog()?'active':''}" href="${base}electrical/index.html">${label('ELECTRICAL','ELEKTRİK')}</a></div></div></nav><div class="vensis-side-menu-foot"><div class="vensis-side-cloud">☁ ${label('Browser only','Yalnızca tarayıcı')}</div><div class="vensis-side-lang"><button class="${lang==='en'?'active':''}" type="button" data-side-lang="en">EN</button><button class="${lang==='tr'?'active':''}" type="button" data-side-lang="tr">TR</button></div></div>`;
+    document.body.appendChild(menu);document.body.classList.add('vensis-side-menu-ready');menu.querySelectorAll('[data-side-lang]').forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.sideLang)));headerBottom();requestAnimationFrame(headerBottom);setTimeout(headerBottom,200);refreshCloudStatus();
   }
 
   window.addEventListener('resize',headerBottom);

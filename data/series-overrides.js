@@ -4,8 +4,7 @@ window.VensisSeriesOverrides={
             "applications": [
                 "General area ventilation",
                 "Car park smoke extraction systems",
-                "Used for fresh air, exhaust",
-                "deneme"
+                "Used for fresh air, exhaust"
             ]
         }
     },
