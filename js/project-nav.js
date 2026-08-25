@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260825-sidebar-r2';
+  const BUILD='20260825-sidebar-r3';
   const stamp=Date.now();
 
   function load(src,id,onload){
@@ -21,8 +21,17 @@
     return s;
   }
 
-  // Keep the fixed suite header as-is, then mount the persistent left navigation.
-  load('js/suite-shell.js','vensisSuiteShellScript',()=>{
-    load('js/project-nav-core.js','vensisProjectNavCoreScript');
-  });
+  function mountSidebar(){
+    if(window.VensisSuiteShell?.mount){
+      window.VensisSuiteShell.mount();
+      load('js/project-nav-core.js','vensisProjectNavCoreScript');
+      return;
+    }
+    load('js/suite-shell.js','vensisSuiteShellScript',()=>{
+      window.VensisSuiteShell?.mount?.();
+      load('js/project-nav-core.js','vensisProjectNavCoreScript');
+    });
+  }
+
+  mountSidebar();
 })();
