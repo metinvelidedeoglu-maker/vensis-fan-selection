@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260825-sidebar-r3';
+  const BUILD='20260825-header-r1';
   const stamp=Date.now();
 
   function load(src,id,onload){
@@ -21,7 +21,7 @@
     return s;
   }
 
-  function mountSidebar(){
+  function mountShell(){
     if(window.VensisSuiteShell?.mount){
       window.VensisSuiteShell.mount();
       load('js/project-nav-core.js','vensisProjectNavCoreScript');
@@ -33,5 +33,5 @@
     });
   }
 
-  mountSidebar();
+  mountShell();
 })();
