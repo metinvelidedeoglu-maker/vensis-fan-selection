@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260825-r10';
+  const BUILD='20260825-r11';
   window.VENSIS_BUILD=BUILD;
   const path=(location.pathname||'').toLowerCase();
   const inElectrical=path.includes('/electrical/');
@@ -13,16 +13,17 @@
     const s=document.createElement('style');
     s.id='vensisSuiteShellStyle';
     s.textContent=`
-      .vensis-suite-shell{position:sticky!important;top:0;z-index:9999;background:#fff;border-bottom:1px solid #d7e1e3;box-shadow:0 2px 10px rgba(23,48,51,.05)}
-      .vensis-suite-shell-inner{max-width:1600px;margin:auto;padding:10px 16px;display:flex;align-items:center;gap:8px;overflow-x:auto;white-space:nowrap}
-      .vensis-suite-logo{height:34px;max-width:150px;object-fit:contain;margin-right:2px}
-      .vensis-suite-title{font:800 13px Arial,Helvetica,sans-serif;color:#173033;margin-right:8px}
-      .vensis-suite-shell a,.vensis-suite-shell button,.vensis-suite-shell .suite-cloud{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 11px;border-radius:9px;border:1px solid #d7e1e3;background:#eef3f2;color:#29484d;text-decoration:none;font:800 12px Arial,Helvetica,sans-serif;cursor:pointer;white-space:nowrap}
+      :root{--vensis-header-h:58px}
+      .vensis-suite-shell{position:fixed!important;left:0;right:0;top:0;width:100%;z-index:2147483647!important;background:#fff;border-bottom:1px solid #d7e1e3;box-shadow:0 2px 10px rgba(23,48,51,.08)}
+      .vensis-suite-shell-inner{max-width:1600px;margin:auto;padding:10px 16px;display:flex;align-items:center;gap:8px;overflow-x:auto;white-space:nowrap;min-height:var(--vensis-header-h)}
+      .vensis-suite-logo{height:34px;max-width:150px;object-fit:contain;margin-right:2px;flex:0 0 auto}
+      .vensis-suite-title{font:800 13px Arial,Helvetica,sans-serif;color:#173033;margin-right:8px;flex:0 0 auto}
+      .vensis-suite-shell a,.vensis-suite-shell button,.vensis-suite-shell .suite-cloud{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 11px;border-radius:9px;border:1px solid #d7e1e3;background:#eef3f2;color:#29484d;text-decoration:none;font:800 12px Arial,Helvetica,sans-serif;cursor:pointer;white-space:nowrap;flex:0 0 auto}
       .vensis-suite-shell a.active{background:#087f4f;color:#fff;border-color:#087f4f}
       .vensis-suite-shell .suite-cloud{background:#fff;color:#087f4f;cursor:default}
       .vensis-suite-shell .suite-lang.active{background:#087f4f;color:#fff;border-color:#087f4f}
-      body{scroll-padding-top:64px}
-      @media(max-width:760px){.vensis-suite-shell-inner{padding:8px 10px}.vensis-suite-logo{height:30px}.vensis-suite-title{font-size:12px}.vensis-suite-shell a,.vensis-suite-shell button,.vensis-suite-shell .suite-cloud{min-height:34px;padding:7px 9px;font-size:11px}}
+      body{padding-top:var(--vensis-header-h)!important;scroll-padding-top:calc(var(--vensis-header-h) + 8px)!important}
+      @media(max-width:760px){:root{--vensis-header-h:54px}.vensis-suite-shell-inner{padding:8px 10px}.vensis-suite-logo{height:30px}.vensis-suite-title{font-size:12px}.vensis-suite-shell a,.vensis-suite-shell button,.vensis-suite-shell .suite-cloud{min-height:34px;padding:7px 9px;font-size:11px}}
     `;
     document.head.appendChild(s);
   }
