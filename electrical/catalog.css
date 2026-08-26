@@ -16,7 +16,7 @@ body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans
 .catalog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .catalog-head h1,.catalog-head h2{margin:0}
 .catalog-count{color:#64748b;font-size:13px}
-.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.catalog-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .series-card{border:1px solid #d8e3e5;border-radius:14px;background:#fff;overflow:hidden;cursor:pointer;transition:.18s transform,.18s box-shadow,.18s border-color}
 .series-card:hover,.series-card:focus{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,48,51,.12);border-color:#087f4f;outline:none}
 .series-card-image{height:210px;background:linear-gradient(180deg,#f9fbfb,#eef5f3);display:flex;align-items:center;justify-content:center}
@@ -54,5 +54,6 @@ body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans
 .model-card-footer b{color:#087f4f;font-size:15px}
 .empty-state{padding:30px;color:#64748b;text-align:center;grid-column:1/-1}
 [hidden]{display:none!important}
-@media(max-width:950px){.catalog-layout{grid-template-columns:1fr}.catalog-filter{position:static}.series-hero{grid-template-columns:1fr}.series-hero-image{height:250px}}
+@media(max-width:1250px){.catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:950px){.catalog-layout{grid-template-columns:1fr}.catalog-filter{position:static}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.series-hero{grid-template-columns:1fr}.series-hero-image{height:250px}}
 @media(max-width:620px){.catalog-layout{padding:10px;gap:12px}.catalog-filter,.catalog-content{padding:14px}.check-list{max-height:none;overflow:visible;padding:4px}.check-row{min-height:42px;padding:9px 10px}.catalog-grid,.models-grid{grid-template-columns:1fr}.model-grid{grid-template-columns:repeat(2,1fr)}.detail-page{width:calc(100% - 20px);padding:14px}.series-hero-copy h1{font-size:34px}}
