@@ -93,7 +93,7 @@ test('electrical series use the supplied product images in cards and details',()
   const script=read('electrical/catalog.js');
   const images=[...data.matchAll(/image:'(assets\/products\/[^']+\.webp)'/g)].map(match=>match[1]);
 
-  assert.equal(images.length,11);
+  assert.equal(images.length,12);
   for(const image of images)assert.ok(fs.existsSync(path.join(root,'electrical',image)),image);
   assert.match(script,/product\.image\?`<img/);
   assert.match(script,/model-card-head/);
