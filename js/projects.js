@@ -1,6 +1,7 @@
 (function(){
   const store=window.VensisProjects;
   const customerStore=window.VensisCustomers;
+  const pendingProject=window.VensisPendingProject;
   const listUtils=window.VensisProjectListUtils;
   const orderUtils=window.VensisOrderUtils;
   const byId=id=>document.getElementById(id);
@@ -11,6 +12,7 @@
   const t=value=>window.VensisI18n?.t?.(value)||value;
   const customerFields=['newProjectName','newProjectReference','newProjectContact','newProjectPhone','newProjectEmail'];
   let matchedCustomerId='';
+  let duplicateSourceId='';
 
   function projectTotals(projectId){
     return store.readItems(projectId).reduce((sum,item)=>{
@@ -147,17 +149,55 @@
     fieldIds.forEach(id=>byId(id)?.classList?.add('is-invalid'));
     byId(fieldIds[0])?.focus();
   }
-  function openModal(){
+  function renderPendingNotice(){
+    const notice=byId('pendingProductNotice');if(!notice)return;
+    const count=pendingProject?.read?.()?.items?.length||0;
+    notice.hidden=!count;
+    notice.textContent=count?`${count} ${t(count===1?'product will be added after the project is created.':'products will be added after the project is created.')}`:'';
+  }
+  function setModalCopy(isDuplicate){
+    byId('newProjectTitle').textContent=t(isDuplicate?'Duplicate Project':'New Project');
+    byId('newProjectDescription').textContent=t(isDuplicate?'Complete customer details before duplicating this project.':'Create a project and connect it to a complete customer record.');
+    byId('submitProject').textContent=t(isDuplicate?'Save Customer & Duplicate Project':'Save Customer & Create Project');
+  }
+  function openModal(sourceId=''){
+    duplicateSourceId=typeof sourceId==='string'?sourceId:'';
+    if(duplicateSourceId)pendingProject?.clear?.();
     byId('projectModal').hidden=false;
     document.body.style.overflow='hidden';
     byId('projectForm').reset();
     matchedCustomerId='';
-    clearProjectError();renderCustomerOptions();showCustomerMatch();
+    clearProjectError();renderCustomerOptions();setModalCopy(Boolean(duplicateSourceId));renderPendingNotice();
+    if(duplicateSourceId){
+      const source=store.get(duplicateSourceId);
+      const meta=source?store.readMeta(duplicateSourceId):{};
+      byId('newProjectName').value=`${meta.name||source?.name||t('Project')} ${t('Copy')}`;
+      byId('newProjectReference').value=meta.reference||source?.reference||'';
+      fillSelectedCustomer();
+      if(!selectedCustomer())byId('newProjectContact').value=meta.contact||source?.contact||'';
+      showCustomerMatch();
+    }else showCustomerMatch();
     setTimeout(()=>byId('newProjectName').focus(),0);
   }
   function closeModal(){
     byId('projectModal').hidden=true;
     document.body.style.overflow='';
+    duplicateSourceId='';
+  }
+  function applyPendingItems(projectId){
+    const pending=pendingProject?.read?.();
+    if(!pending?.items?.length)return 0;
+    const items=store.readItems(projectId);
+    const stamp=new Date().toISOString();
+    pending.items.forEach(item=>{
+      const key=String(item.itemKey||'');
+      const existing=key?items.find(candidate=>String(candidate.itemKey||'')===key):null;
+      if(existing){existing.quantity=Math.max(1,Number(existing.quantity)||1)+Math.max(1,Number(item.quantity)||1);existing.updatedAt=stamp}
+      else items.push({...item,quantity:Math.max(1,Number(item.quantity)||1),addedAt:item.addedAt||stamp,updatedAt:stamp});
+    });
+    store.writeItems(items,projectId);
+    pendingProject.clear();
+    return pending.items.length;
   }
   function createProject(event){
     event.preventDefault();
@@ -175,7 +215,11 @@
     if(!customerStore?.upsert){projectError('Customer records are unavailable. Please try again.');return}
     const existing=customerStore.findByName?.(companyName);
     const customer=customerStore.upsert({...existing,companyName,contact,phone,email,id:existing?.id});
-    const project=store.create({name,reference:customer.companyName,contact:customer.contact});
+    const isDuplicate=Boolean(duplicateSourceId);
+    const project=isDuplicate?store.duplicate(duplicateSourceId):store.create({name,reference:customer.companyName,contact:customer.contact});
+    if(!project){projectError('Project could not be created. Please try again.');return}
+    if(isDuplicate)store.writeMeta({name,reference:customer.companyName,contact:customer.contact},project.id);
+    else applyPendingItems(project.id);
     closeModal();
     location.assign(store.projectUrl(project.id));
   }
@@ -188,8 +232,7 @@
     render();
   }
   function duplicateProject(projectId){
-    const copy=store.duplicate(projectId);
-    if(copy)location.assign(store.projectUrl(copy.id));
+    if(store.get(projectId))openModal(projectId);
   }
 
   document.addEventListener('click',event=>{
@@ -203,8 +246,8 @@
   byId('projectSearch')?.addEventListener('input',render);
   byId('projectMonth')?.addEventListener('change',render);
   byId('clearProjectFilters')?.addEventListener('click',clearFilters);
-  byId('newProject')?.addEventListener('click',openModal);
-  byId('emptyNewProject')?.addEventListener('click',openModal);
+  byId('newProject')?.addEventListener('click',()=>openModal());
+  byId('emptyNewProject')?.addEventListener('click',()=>openModal());
   byId('cancelProject')?.addEventListener('click',closeModal);
   byId('newProjectReference')?.addEventListener('input',fillSelectedCustomer);
   ['newProjectName','newProjectContact','newProjectPhone','newProjectEmail'].forEach(id=>byId(id)?.addEventListener('input',()=>{clearProjectError();showCustomerMatch()}));
@@ -215,4 +258,5 @@
   window.addEventListener('vensis-projects-updated',render);
   window.addEventListener('vensis-customers-updated',()=>{renderCustomerOptions();if(!byId('projectModal')?.hidden)showCustomerMatch()});
   render();
+  if(new URLSearchParams(location.search).get('new')==='1')openModal();
 })();

@@ -14,14 +14,6 @@
     const id=store()?.activeId?.();
     return id&&store()?.get?.(id)?id:'';
   }
-  function nextProjectName(){
-    const projects=store()?.list?.()||[];
-    const names=new Set(projects.map(project=>String(store().readMeta(project.id)?.name||project.name||'').trim().toLowerCase()));
-    if(!names.has('new project'))return 'New Project';
-    let number=2;
-    while(names.has(`new project ${number}`))number+=1;
-    return `New Project ${number}`;
-  }
   function modelById(id){
     const data=catalog();
     return data.getModel?.(id)||(data.models||[]).find(item=>String(item.id)===String(id));
@@ -62,7 +54,7 @@
     if(!list)return;
     const projects=store()?.list?.()||[];
     const selected=preferred&&projects.some(project=>project.id===preferred)?preferred:NEW_PROJECT;
-    const newChoice=choice(NEW_PROJECT,'New Project','Create a separate project for this product',0,selected===NEW_PROJECT);
+    const newChoice=choice(NEW_PROJECT,'New Project','Complete project and customer details first',0,selected===NEW_PROJECT);
     const existing=projects.map(project=>{
       const meta=store().readMeta(project.id);
       return choice(project.id,meta.name||project.name||'Untitled Project',meta.reference||project.reference||'',totals(project.id),selected===project.id);
@@ -105,28 +97,28 @@
     if(!node){node=document.createElement('div');node.id='catalogProjectToast';node.style.cssText='position:fixed;right:18px;bottom:18px;z-index:9999;background:#173033;color:#fff;padding:11px 15px;border-radius:9px;font:700 13px Arial,Helvetica,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transform:translateY(8px);transition:.2s';document.body.appendChild(node)}
     node.textContent=text;node.style.opacity='1';node.style.transform='translateY(0)';clearTimeout(node._timer);node._timer=setTimeout(()=>{node.style.opacity='0';node.style.transform='translateY(8px)'},1900);
   }
-  function addCatalogProduct(modelId,button,projectId){
+  function catalogProjectItem(modelId){
     const data=catalog();
-    const model=modelById(modelId);if(!model||!store()?.get?.(projectId))return;
-    store().setActive(projectId);
-    const items=store().readItems(projectId);
+    const model=modelById(modelId);if(!model)return null;
     const product=data.product?.(modelId)||{};
     const series=seriesFor(model);
     const productKey=model.id||model.model||modelId;
-    const itemKey=`catalog|${productKey}`;
-    const existing=items.find(item=>item.itemKey===itemKey);
-    const speed=Number(model.motor?.speed)||0;
-    const voltage=String(model.motor?.voltage||'').trim();
-    const frequency=String(model.motor?.frequency||'').trim();
-    const noise=Number(model.motor?.sound)||0;
+    return {itemKey:`catalog|${productKey}`,mode:'catalog',productType:'fan',productKey,model:model.model||'',series:series.title||model.seriesTitle||'',manufacturer:series.manufacturer||model.manufacturer||'Vitlo',image:product.media?.image||series.media?.image||model.image||'',nominalAirflow:Number(model.performance?.nominalAirflow)||0,required:null,selected:null,motorPower:Number(model.motor?.power)||0,current:Number(model.motor?.current)||0,speed:Number(model.motor?.speed)||0,voltage:String(model.motor?.voltage||'').trim(),frequency:String(model.motor?.frequency||'').trim(),noise:Number(model.motor?.sound)||0,price:Number(model.pricing?.listPrice)||0,quantity:1,addedAt:new Date().toISOString()};
+  }
+  function addCatalogProduct(modelId,button,projectId){
+    const model=modelById(modelId);if(!model||!store()?.get?.(projectId))return;
+    store().setActive(projectId);
+    const items=store().readItems(projectId);
+    const candidate=catalogProjectItem(modelId);if(!candidate)return;
+    const existing=items.find(item=>item.itemKey===candidate.itemKey);
     if(existing){
       existing.quantity=(Number(existing.quantity)||1)+1;
-      existing.speed=Number(existing.speed)||speed;
-      existing.voltage=existing.voltage||voltage;
-      existing.frequency=existing.frequency||frequency;
-      existing.noise=Number(existing.noise)||noise;
+      existing.speed=Number(existing.speed)||candidate.speed;
+      existing.voltage=existing.voltage||candidate.voltage;
+      existing.frequency=existing.frequency||candidate.frequency;
+      existing.noise=Number(existing.noise)||candidate.noise;
       existing.updatedAt=new Date().toISOString();
-    }else items.push({itemKey,mode:'catalog',productType:'fan',productKey,model:model.model||'',series:series.title||model.seriesTitle||'',manufacturer:series.manufacturer||model.manufacturer||'Vitlo',image:product.media?.image||series.media?.image||model.image||'',nominalAirflow:Number(model.performance?.nominalAirflow)||0,required:null,selected:null,motorPower:Number(model.motor?.power)||0,current:Number(model.motor?.current)||0,speed,voltage,frequency,noise,price:Number(model.pricing?.listPrice)||0,quantity:1,addedAt:new Date().toISOString()});
+    }else items.push(candidate);
     store().writeItems(items,projectId);
     if(button){const old=button.innerHTML;button.innerHTML='✓';setTimeout(()=>{button.innerHTML=old},1100)}
     const name=store().readMeta(projectId).name||store().get(projectId)?.name||'selected project';
@@ -151,14 +143,16 @@
   function confirmSelection(){
     if(!pending)return;
     const selected=document.querySelector('input[name="catalogProjectChoice"]:checked')?.value||NEW_PROJECT;
-    let projectId=selected;
+    const current=pending;
     if(selected===NEW_PROJECT){
-      const project=store()?.create?.({name:nextProjectName()});
-      projectId=project?.id||'';
+      const item=current.item||catalogProjectItem(current.modelId);
+      closePicker();
+      window.VensisPendingProject?.open?.([item],item?.productType==='electrical'?'electrical-catalog':'fan-catalog');
+      return;
     }
+    const projectId=selected;
     if(!projectId)return;
     lastChoice=projectId;
-    const current=pending;
     closePicker();
     if(current.item)addItemToProject(current.item,current.button,projectId);
     else addCatalogProduct(current.modelId,current.button,projectId);
