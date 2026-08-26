@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 from pathlib import Path
 
@@ -442,11 +443,20 @@ def main() -> None:
     parser.add_argument("--text-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--curves", type=Path)
+    parser.add_argument("--chunks", type=int, default=3)
     args = parser.parse_args()
     rows = build(args.text_dir, args.curves)
-    payload = json.dumps(rows, ensure_ascii=False, separators=(",", ":"))
-    args.output.write_text(f"window.models.push(...{payload});\n", encoding="utf-8")
-    print(json.dumps({"series": len(SERIES), "models": len(rows), "output": str(args.output)}, ensure_ascii=False))
+    chunk_count = max(1, min(args.chunks, len(rows)))
+    chunk_size = math.ceil(len(rows) / chunk_count)
+    outputs = []
+    for index in range(chunk_count):
+        chunk = rows[index * chunk_size:(index + 1) * chunk_size]
+        suffix = "" if index == 0 else f"-{index + 1}"
+        output = args.output.with_name(f"{args.output.stem}{suffix}{args.output.suffix}")
+        payload = json.dumps(chunk, ensure_ascii=False, separators=(",", ":"))
+        output.write_text(f"window.models.push(...{payload});\n", encoding="utf-8")
+        outputs.append(str(output))
+    print(json.dumps({"series": len(SERIES), "models": len(rows), "outputs": outputs}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

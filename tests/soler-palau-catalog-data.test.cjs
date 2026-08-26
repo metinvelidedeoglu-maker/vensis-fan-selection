@@ -8,7 +8,9 @@ const root=path.resolve(__dirname,'..');
 
 function loadCatalog(){
   const context=vm.createContext({window:{models:[]},console});
-  vm.runInContext(fs.readFileSync(path.join(root,'data/soler-palau-catalog.js'),'utf8'),context,{filename:'soler-palau-catalog.js'});
+  for(const file of ['soler-palau-catalog.js','soler-palau-catalog-2.js','soler-palau-catalog-3.js']){
+    vm.runInContext(fs.readFileSync(path.join(root,'data',file),'utf8'),context,{filename:file});
+  }
   const imported=context.window.models;
   vm.runInContext(fs.readFileSync(path.join(root,'products/registry.js'),'utf8'),context,{filename:'registry.js'});
   return {catalog:context.window.VensisCatalog,imported};
@@ -79,10 +81,12 @@ test('catalog, selection and document pages load the Soler & Palau dataset befor
   for(const file of ['catalog.html','fan-selection.html','project.html','project-print.html','quotation.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     const dataIndex=html.indexOf('data/soler-palau-catalog.js');
+    const data2Index=html.indexOf('data/soler-palau-catalog-2.js');
+    const data3Index=html.indexOf('data/soler-palau-catalog-3.js');
     const registryIndex=html.indexOf('products/registry.js');
     assert.ok(dataIndex>=0,`${file} does not load the Soler & Palau catalog`);
-    assert.ok(registryIndex>dataIndex,`${file} loads registry before the Soler & Palau catalog`);
-    assert.match(html,/data\/soler-palau-catalog\.js\?v=20260826-soler-palau-r3/,`${file} does not bust the S&P data cache`);
+    assert.ok(data2Index>dataIndex&&data3Index>data2Index&&registryIndex>data3Index,`${file} loads registry before every Soler & Palau catalog chunk`);
+    assert.equal((html.match(/data\/soler-palau-catalog(?:-[23])?\.js\?v=20260826-soler-palau-r3/g)||[]).length,3,`${file} does not bust every S&P data cache`);
     assert.match(html,/products\/registry\.js\?v=20260826-soler-palau-r4/,`${file} does not bust the registry cache`);
   }
 });
@@ -114,6 +118,8 @@ test('verified Soler & Palau curves participate in fan selection',()=>{
   });
   for(const file of [
     'data/soler-palau-catalog.js',
+    'data/soler-palau-catalog-2.js',
+    'data/soler-palau-catalog-3.js',
     'products/registry.js',
     'js/core/utils.js',
     'js/core/state.js',
