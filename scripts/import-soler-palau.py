@@ -288,6 +288,50 @@ def parse_number(value: str) -> float:
 
 def simple_values(source_file: str, model: str, text: str) -> dict:
     """Parse only table layouts with stable, checked column orders."""
+    if source_file == "IRB-IRT":
+        normalized_model = tidy_model(model)
+        for raw in text.splitlines():
+            clean = " ".join(raw.split())
+            normalized_line = tidy_model(clean)
+            if not normalized_line.startswith(f"{normalized_model} "):
+                continue
+            tokens = normalized_line[len(normalized_model):].strip().split()
+            is_three_phase = normalized_model.startswith("IRT/")
+            if len(tokens) != (12 if is_three_phase else 11) or not re.fullmatch(r"\d+x\d+", tokens[0]):
+                continue
+            width, height = (parse_number(value) for value in tokens[0].split("x"))
+            temperature = re.fullmatch(r"(-\d+)/(\d+)", tokens[6 if is_three_phase else 5])
+            if not temperature:
+                continue
+            airflow_index = 5 if is_three_phase else 4
+            temperature_index = airflow_index + 1
+            sound_index = temperature_index + 1
+            result = {
+                "dimensions": {"ductWidthMm": width, "ductHeightMm": height},
+                "rpm": parse_number(tokens[1]),
+                "powerW": parse_number(tokens[2]),
+                "kw": parse_number(tokens[2]) / 1000,
+                "amps": parse_number(tokens[3]),
+                "nominal": parse_number(tokens[airflow_index]),
+                "operatingTemperatureMinC": int(temperature.group(1)),
+                "operatingTemperatureMaxC": int(temperature.group(2)),
+                "soundInletDbA1_5m": parse_number(tokens[sound_index]),
+                "soundRadiatedDbA1_5m": parse_number(tokens[sound_index + 1]),
+                "soundOutletDbA1_5m": parse_number(tokens[sound_index + 2]),
+                "spl": parse_number(tokens[sound_index + 1]),
+                "weight": parse_number(tokens[sound_index + 3]),
+                "speedControllerIncluded": tokens[sound_index + 4].upper(),
+                "phase": "Three-phase" if is_three_phase else "Single-phase",
+                "voltage": "230/400 V" if is_three_phase else "230 V",
+                "frequency": "50 Hz",
+                "poles": int(re.search(r"/(\d)-", normalized_model).group(1)),
+            }
+            if is_three_phase:
+                result["current230A"] = parse_number(tokens[3])
+                result["current400A"] = parse_number(tokens[4])
+            return result
+        return {}
+
     expected_counts = {
         "cab": 11, "edm": 10, "hcm": 7, "jetline": 11,
         "silen-tub": 7, "silent-decor-design": 7,

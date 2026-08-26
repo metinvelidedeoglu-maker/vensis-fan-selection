@@ -86,12 +86,16 @@
     const temperatureRange=Number.isFinite(temperatureMinimum)&&Number.isFinite(temperatureMaximum)&&(temperatureMinimum!==0||temperatureMaximum!==0)
       ? `${temperatureMinimum.toLocaleString('en-US')} to ${temperatureMaximum>0?'+':''}${temperatureMaximum.toLocaleString('en-US')} °C`
       : '';
+    const ductWidth=Number(technical.dimensions?.ductWidthMm);
+    const ductHeight=Number(technical.dimensions?.ductHeightMm);
+    const ductConnection=ductWidth>0&&ductHeight>0?`${num(ductWidth)} × ${num(ductHeight)} mm`:'';
     const fields=[
       ...(technical.productCode?[['Product Code',technical.productCode]]:[]),
       ...(technical.availabilityRegion?[['Availability',technical.availabilityRegion]]:[]),
       ...(controls.length?[['Control Levels',controls.join(' / ')]]:[]),
       ...(model.performance?.sourcePoints?.length?[['Performance Curve','Available · selection ready']]:[]),
       ...(technical.nominalDuctMm>0?[['Duct Ø',`${num(technical.nominalDuctMm)} mm`]]:[]),
+      ...(ductConnection?[['Duct Connection',ductConnection]]:[]),
       ...(technical.phase?[['Phase',technical.phase]]:[]),
       ...(technical.poles>0?[['Poles',String(technical.poles)]]:[]),
       ['Power',`${num(model.motor?.power,2)} kW`],
@@ -102,6 +106,10 @@
       ['Airflow',`${num(model.performance?.nominalAirflow)} m³/h`],
       ...(primaryOperating?.maxPressure>0?[['Max Pressure',`${num(primaryOperating.maxPressure)} Pa`]]:[]),
       ['Noise',`${num(model.motor?.sound)} dB(A)`],
+      ...(technical.soundInletDbA1_5m>0?[['Noise · Inlet',`${num(technical.soundInletDbA1_5m)} dB(A) at 1.5 m`]]:[]),
+      ...(technical.soundRadiatedDbA1_5m>0?[['Noise · Radiated',`${num(technical.soundRadiatedDbA1_5m)} dB(A) at 1.5 m`]]:[]),
+      ...(technical.soundOutletDbA1_5m>0?[['Noise · Outlet',`${num(technical.soundOutletDbA1_5m)} dB(A) at 1.5 m`]]:[]),
+      ...(technical.weight>0?[['Weight',`${num(technical.weight)} kg`]]:[]),
       ['Fire Rating',technical.fireRating||'-'],
       ...(technical.continuousAirTemperatureC>0?[['Continuous Air Limit',`${num(technical.continuousAirTemperatureC)} °C`]]:[]),
       ...(temperatureRange?[['Operating Temperature',temperatureRange]]:[]),
