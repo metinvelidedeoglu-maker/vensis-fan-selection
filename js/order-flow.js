@@ -2,11 +2,12 @@
   const store=window.VensisProjects;
   const orders=window.VensisOrders;
   const utils=window.VensisOrderUtils;
+  const quotationKey=window.VensisAccess?.storageKey?.('vensis_active_quotation_v1')||'vensis_active_quotation_v1';
   if(!store||!orders||!utils)return;
 
   function openWindow(projectId,order){window.open(orders.url(projectId,order.id),'_blank')}
   function currentQuotation(){
-    try{return JSON.parse(localStorage.getItem('vensis_active_quotation_v1')||'null')}catch{return null}
+    try{return JSON.parse(localStorage.getItem(quotationKey)||'null')}catch{return null}
   }
   function createFromProject(){
     window.VensisProject?.flushAllNotes?.();

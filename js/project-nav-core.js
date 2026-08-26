@@ -10,6 +10,7 @@
   }
   loadLanguageSupport();
   let latestCloudState={state:'checking',message:'Checking cloud storage…',authenticated:false};
+  const storageKey=key=>window.VensisAccess?.storageKey?.(key)||key;
   function mountDesign(){
     const pageClass=path==='project.html'||path==='projects.html'?'app-project':path==='catalog.html'?'app-catalog':'app-selection';
     document.body.classList.add('app-shell',pageClass);
@@ -50,11 +51,11 @@
     const save=()=>store.writeMeta({contact:String(input.value||'').trim()},id);
     const patchQuotation=()=>{
       try{
-        const quotation=JSON.parse(localStorage.getItem('vensis_active_quotation_v1')||'null');
+        const quotation=JSON.parse(localStorage.getItem(storageKey('vensis_active_quotation_v1'))||'null');
         if(!quotation)return;
         quotation.project=quotation.project||{};
         quotation.project.contact=store.readMeta(id).contact||'';
-        localStorage.setItem('vensis_active_quotation_v1',JSON.stringify(quotation));
+        localStorage.setItem(storageKey('vensis_active_quotation_v1'),JSON.stringify(quotation));
       }catch{}
     };
     fill();
@@ -68,7 +69,7 @@
   function count(){
     const store=window.VensisProjects;
     if(store?.list)return store.list().length;
-    try{const value=JSON.parse(localStorage.getItem('vensis_projects_v1')||'[]');return Array.isArray(value)?value.length:0}catch{return 0}
+    try{const value=JSON.parse(localStorage.getItem(storageKey('vensis_projects_v1'))||'[]');return Array.isArray(value)?value.length:0}catch{return 0}
   }
   function update(){
     const total=count();
@@ -91,7 +92,7 @@
     const button=document.createElement('button');button.id='vensisProjectCloudStatus';button.type='button';button.className='project-cloud-status';
     button.addEventListener('click',()=>{
       if(latestCloudState.authenticated)window.VensisProjects?.sync?.();
-      else window.VensisEditMode?.open?.();
+      else window.dispatchEvent(new CustomEvent('vensis-open-access-panel'));
     });
     nav.appendChild(button);updateCloudStatus(latestCloudState);
   }

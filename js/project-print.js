@@ -1,7 +1,8 @@
 (function(){
-  const PRINT_KEY='vensis_project_print_snapshot_v1';
-  const ITEMS_KEY='vensis_project_items_v1';
-  const META_KEY='vensis_project_meta_v1';
+  const storageKey=key=>window.VensisAccess?.storageKey?.(key)||key;
+  const PRINT_KEY=storageKey('vensis_project_print_snapshot_v1');
+  const ITEMS_KEY=storageKey('vensis_project_items_v1');
+  const META_KEY=storageKey('vensis_project_meta_v1');
   const catalog=window.VensisCatalog||{models:[]};
   const root=document.getElementById('projectPrintRoot');
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));

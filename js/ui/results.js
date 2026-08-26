@@ -119,11 +119,12 @@
       }else store.setActive(projectId);
       return {store,projectId,items:store.readItems(projectId)};
     }
-    try{const data=JSON.parse(localStorage.getItem('vensis_project_items_v1')||'[]');return {store:null,projectId:'',items:Array.isArray(data)?data:[]}}catch{return {store:null,projectId:'',items:[]}}
+    const key=window.VensisAccess?.storageKey?.('vensis_project_items_v1')||'vensis_project_items_v1';
+    try{const data=JSON.parse(localStorage.getItem(key)||'[]');return {store:null,projectId:'',items:Array.isArray(data)?data:[]}}catch{return {store:null,projectId:'',items:[]}}
   }
   function saveProjectItems(context){
     if(context.store)context.store.writeItems(context.items,context.projectId);
-    else{localStorage.setItem('vensis_project_items_v1',JSON.stringify(context.items));window.dispatchEvent(new CustomEvent('vensis-project-updated'))}
+    else{const key=window.VensisAccess?.storageKey?.('vensis_project_items_v1')||'vensis_project_items_v1';localStorage.setItem(key,JSON.stringify(context.items));window.dispatchEvent(new CustomEvent('vensis-project-updated'))}
   }
   function showProjectToast(text){
     let toast=document.getElementById('projectToast');

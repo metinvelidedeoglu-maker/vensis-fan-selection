@@ -1,5 +1,5 @@
 (function(){
-  const PRINT_KEY='vensis_project_print_snapshot_v1';
+  const PRINT_KEY=window.VensisAccess?.storageKey?.('vensis_project_print_snapshot_v1')||'vensis_project_print_snapshot_v1';
   const store=window.VensisProjects;
 
   function technicalItem(item){

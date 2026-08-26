@@ -1,6 +1,6 @@
 (function(){
   const catalog=window.VensisCatalog||{series:[],models:[]};
-  const PROJECT_KEY='vensis_project_items_v1';
+  const PROJECT_KEY=window.VensisAccess?.storageKey?.('vensis_project_items_v1')||'vensis_project_items_v1';
   const selected={manufacturers:new Set(),categories:new Set()};
   const esc=value=>String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const num=(value,decimals=0)=>{const n=Number(value);return Number.isFinite(n)&&n>0?n.toLocaleString('en-US',{maximumFractionDigits:decimals,minimumFractionDigits:decimals}):'-'};

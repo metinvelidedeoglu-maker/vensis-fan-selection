@@ -1,6 +1,6 @@
 (function(){
   const store=window.VensisProjects;
-  const QUOTATION_KEY='vensis_active_quotation_v1';
+  const QUOTATION_KEY=window.VensisAccess?.storageKey?.('vensis_active_quotation_v1')||'vensis_active_quotation_v1';
   const catalog=window.VensisCatalog||{models:[]};
   const formats=window.VensisQuotationFormats||{itemType:()=> 'fan',detect:()=> 'fan'};
   const byId=id=>document.getElementById(id);

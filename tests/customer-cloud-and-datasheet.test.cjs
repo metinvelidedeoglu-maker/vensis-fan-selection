@@ -12,8 +12,8 @@ test('customer data stays browser-local until the secure edit session is authent
 
   assert.doesNotMatch(html,/customers-faz1/i);
   assert.doesNotMatch(store,/VENSIS_FAZ1_CUSTOMERS?/);
-  assert.match(store,/const KEY='vensis_customers_v2'/);
-  assert.match(store,/const LEGACY_KEY='vensis_customers_v1'/);
+  assert.match(store,/const KEY=scoped\('vensis_customers_v2'\)/);
+  assert.match(store,/const LEGACY_KEY=scoped\('vensis_customers_v1'\)/);
   assert.match(store,/api\/edit\/session\.php/);
   assert.match(store,/payload\.authenticated/);
   assert.match(store,/if\(!cloud\.authenticated\)return/);

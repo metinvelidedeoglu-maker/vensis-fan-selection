@@ -1,8 +1,10 @@
 (function(){
   'use strict';
 
-  const KEY='vensis_customers_v2';
-  const LEGACY_KEY='vensis_customers_v1';
+  const GUEST_MODE=(window.VensisAccess?.mode?.()||window.VENSIS_ACCESS_BOOT_MODE)==='guest';
+  const scoped=key=>GUEST_MODE?key.replace(/^vensis_/,'vensis_guest_'):key;
+  const KEY=scoped('vensis_customers_v2');
+  const LEGACY_KEY=scoped('vensis_customers_v1');
   const API_BASE='api/customers';
   const cloud={state:'checking',authenticated:false,csrf:'',message:'Checking customer cloud…',lastSyncedAt:''};
   let syncPromise=null;
@@ -87,6 +89,7 @@
     return payload;
   }
   async function refreshCloudSession(){
+    if(GUEST_MODE){setCloudStatus('local','Guest — saved only in this browser.',false);return false}
     let response;
     try{
       response=await fetch('api/edit/session.php',{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
@@ -165,9 +168,9 @@
 
   migrateLegacy();
   window.addEventListener('vensis-edit-session-changed',event=>{
-    if(event.detail?.authenticated)syncCloud();
+    if(event.detail?.authenticated&&!GUEST_MODE)syncCloud();
     else{cloud.authenticated=false;cloud.csrf='';setCloudStatus('local','Browser only — sign in to sync.',false)}
   });
   window.VensisCustomers={list,get,findByName,upsert,save,sync:syncCloud,cloudState,key:KEY};
-  setTimeout(syncCloud,0);
+  if(GUEST_MODE)setCloudStatus('local','Guest — saved only in this browser.',false);else setTimeout(syncCloud,0);
 })();

@@ -7,7 +7,7 @@
     document.head.appendChild(link);
   }
 
-  const KEY='vensis_active_quotation_v1';
+  const KEY=window.VensisAccess?.storageKey?.('vensis_active_quotation_v1')||'vensis_active_quotation_v1';
   const catalog=window.VensisCatalog||{models:[]};
   const formats=window.VensisQuotationFormats||{detect:()=> 'fan',split:items=>({fan:items||[],electrical:[]}),preference:value=>value||'auto'};
   const byId=id=>document.getElementById(id);

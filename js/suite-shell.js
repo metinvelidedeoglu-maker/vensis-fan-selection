@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20260826-header-r1';
+  const BUILD='20260826-access-gate-r1';
   window.VENSIS_BUILD=BUILD;
 
   const path=(location.pathname||'').toLowerCase();
@@ -49,7 +49,7 @@
       .vensis-suite-shell .suite-nav a:after{content:"";position:absolute;left:13px;right:13px;bottom:1px;height:2px;border-radius:99px;background:#9bd43f;transform:scaleX(0);transition:.18s transform}
       .vensis-suite-shell .suite-nav a:hover{color:#fff}.vensis-suite-shell .suite-nav a.active{color:#fff}.vensis-suite-shell .suite-nav a.active:after{transform:scaleX(1)}
       .suite-tools{display:flex;align-items:center;gap:8px;flex:0 0 auto}
-      .vensis-suite-shell .suite-cloud{display:inline-flex!important;align-items:center;gap:7px;min-height:36px;padding:0 11px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(255,255,255,.055);color:#a9bfbb;font:800 10px Arial,Helvetica,sans-serif;white-space:nowrap}
+      .vensis-suite-shell .suite-cloud{display:inline-flex!important;align-items:center;gap:7px;min-height:36px;padding:0 11px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(255,255,255,.055);color:#a9bfbb;font:800 10px Arial,Helvetica,sans-serif;white-space:nowrap;cursor:pointer}
       .suite-cloud-dot{width:7px;height:7px;border-radius:50%;background:#80928f;box-shadow:0 0 0 4px rgba(128,146,143,.1)}
       .vensis-suite-shell .suite-cloud[data-state="synced"]{color:#b7dcbd}.vensis-suite-shell .suite-cloud[data-state="synced"] .suite-cloud-dot{background:#8fd258;box-shadow:0 0 0 4px rgba(143,210,88,.12)}
       .vensis-suite-shell .suite-cloud[data-state="error"]{color:#ffaaa4}.vensis-suite-shell .suite-cloud[data-state="error"] .suite-cloud-dot{background:#ef6b62}
@@ -87,10 +87,11 @@
         <a class="${isProjectPage()?'active':''}" href="${base}projects.html">${tr('Projects')}</a>
         <a class="${isActive('/customers.html')?'active':''}" href="${base}customers.html">${tr('Customers')}</a>
       </nav>
-      <div class="suite-tools"><span class="suite-cloud" data-state="local"><i class="suite-cloud-dot"></i><span class="suite-cloud-text">${tr('Browser only')}</span></span><div class="suite-language"><button class="suite-lang ${lang==='en'?'active':''}" data-lang="en" type="button">EN</button><button class="suite-lang ${lang==='tr'?'active':''}" data-lang="tr" type="button">TR</button></div></div>
+      <div class="suite-tools"><button class="suite-cloud" data-state="local" type="button" aria-label="Oturum ve bulut ayarları"><i class="suite-cloud-dot"></i><span class="suite-cloud-text">${tr('Browser only')}</span></button><div class="suite-language"><button class="suite-lang ${lang==='en'?'active':''}" data-lang="en" type="button">EN</button><button class="suite-lang ${lang==='tr'?'active':''}" data-lang="tr" type="button">TR</button></div></div>
     </div>`;
     document.body.prepend(shell);
     shell.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
+    shell.querySelector('.suite-cloud')?.addEventListener('click',()=>window.dispatchEvent(new CustomEvent('vensis-open-access-panel')));
     updateCloudStatus(window.VensisProjects?.cloudState?.()||window.VensisCustomers?.cloudState?.()||{});
     return shell;
   }

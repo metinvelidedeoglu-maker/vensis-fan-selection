@@ -1,12 +1,14 @@
 (function(){
-  const INDEX_KEY='vensis_projects_v1';
-  const ACTIVE_KEY='vensis_active_project_id_v1';
-  const MIGRATION_KEY='vensis_projects_legacy_migrated_v1';
-  const TOMBSTONES_KEY='vensis_project_tombstones_v1';
-  const LEGACY_ITEMS_KEY='vensis_project_items_v1';
-  const LEGACY_META_KEY='vensis_project_meta_v1';
-  const ITEM_PREFIX='vensis_project_items_v2:';
-  const META_PREFIX='vensis_project_meta_v2:';
+  const GUEST_MODE=(window.VensisAccess?.mode?.()||window.VENSIS_ACCESS_BOOT_MODE)==='guest';
+  const scoped=key=>GUEST_MODE?key.replace(/^vensis_/,'vensis_guest_'):key;
+  const INDEX_KEY=scoped('vensis_projects_v1');
+  const ACTIVE_KEY=scoped('vensis_active_project_id_v1');
+  const MIGRATION_KEY=scoped('vensis_projects_legacy_migrated_v1');
+  const TOMBSTONES_KEY=scoped('vensis_project_tombstones_v1');
+  const LEGACY_ITEMS_KEY=scoped('vensis_project_items_v1');
+  const LEGACY_META_KEY=scoped('vensis_project_meta_v1');
+  const ITEM_PREFIX=scoped('vensis_project_items_v2:');
+  const META_PREFIX=scoped('vensis_project_meta_v2:');
   const APP_ROOT=(location.pathname||'').toLowerCase().includes('/electrical/')?'../':'';
   const API_BASE=`${APP_ROOT}api/projects`;
   const saveTimers=new Map();
@@ -213,6 +215,7 @@
     return payload;
   }
   async function refreshCloudSession(){
+    if(GUEST_MODE){setCloudStatus('local','Guest — saved only in this browser.',false);return false}
     let response;
     try{
       response=await fetch(`${APP_ROOT}api/edit/session.php`,{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
@@ -413,7 +416,7 @@
 
   migrateLegacy();
   window.addEventListener('vensis-edit-session-changed',event=>{
-    if(event.detail?.authenticated)syncCloud();
+    if(event.detail?.authenticated&&!GUEST_MODE)syncCloud();
     else{cloud.authenticated=false;cloud.csrf='';setCloudStatus('local','Browser only — sign in to sync.',false)}
   });
   window.VensisProjects={
@@ -421,5 +424,5 @@
     list,get,create,remove,duplicate,activeId,setActive,ensureActive,readItems,writeItems,readMeta,writeMeta,projectUrl,open,
     sync:syncCloud,cloudState
   };
-  setTimeout(syncCloud,0);
+  if(GUEST_MODE)setCloudStatus('local','Guest — saved only in this browser.',false);else setTimeout(syncCloud,0);
 })();

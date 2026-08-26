@@ -16,9 +16,10 @@
     if(!payload)throw new Error('Product detail data was not found.');
     localStorage.removeItem(key);
 
+    const accessHead='<link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1"><script src="js/access-gate.js?v=20260826-access-gate-r1"><\/script>';
     const languageScript='<script src="js/language.js?v=20260825-all-pages-r1"><\/script>';
-    const extras=languageScript;
-    const localizedPayload=payload.includes('</body>')?payload.replace('</body>',extras+'</body>'):payload+extras;
+    const withAccess=payload.includes('</head>')?payload.replace('</head>',accessHead+'</head>'):accessHead+payload;
+    const localizedPayload=withAccess.includes('</body>')?withAccess.replace('</body>',languageScript+'</body>'):withAccess+languageScript;
     document.body.innerHTML='';
     document.open('text/html','replace');
     document.write(localizedPayload);
@@ -28,6 +29,8 @@
     const language=document.createElement('script');
     language.src='js/language.js?v=20260825-all-pages-r1';
     document.head.appendChild(language);
+    const accessCss=document.createElement('link');accessCss.rel='stylesheet';accessCss.href='css/access-gate.css?v=20260826-access-gate-r1';document.head.appendChild(accessCss);
+    const accessScript=document.createElement('script');accessScript.src='js/access-gate.js?v=20260826-access-gate-r1';document.head.appendChild(accessScript);
   }
 })();
 </script>

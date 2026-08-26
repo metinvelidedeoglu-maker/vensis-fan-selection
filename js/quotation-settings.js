@@ -1,6 +1,6 @@
 (function(){
-  const KEY='vensis_quotation_settings_v1';
-  const ACTIVE_KEY='vensis_active_quotation_v1';
+  const KEY=window.VensisAccess?.storageKey?.('vensis_quotation_settings_v1')||'vensis_quotation_settings_v1';
+  const ACTIVE_KEY=window.VensisAccess?.storageKey?.('vensis_active_quotation_v1')||'vensis_active_quotation_v1';
   const DEFAULTS={
     summary:{
       payment:'Siparişte peşin',
