@@ -7,7 +7,7 @@
   const esc=value=>String(value??'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
   const t=value=>window.VensisI18n?.t?.(value)||value;
   const locale=()=>window.VensisI18n?.getLanguage?.()==='tr'?'tr-TR':'en-GB';
-  const fields=['companyName','contact','phone','email','taxOffice','taxNo','address'];
+  const fields=['companyName','contact','phone','email'];
   let active='';
   let editorMode='edit';
 
@@ -43,10 +43,10 @@
   }
   function filtered(){
     const query=text($('#customerSearch')?.value).toLocaleLowerCase('tr-TR');
-    return store.list().filter(customer=>!query||[customer.companyName,customer.taxNo,customer.taxOffice,customer.contact,customer.phone,customer.email,customer.address]
+    return store.list().filter(customer=>!query||[customer.companyName,customer.contact,customer.phone,customer.email]
       .some(value=>text(value).toLocaleLowerCase('tr-TR').includes(query)));
   }
-  function isComplete(customer){return ['contact','phone','email','taxOffice','taxNo','address'].every(field=>text(customer[field]))}
+  function isComplete(customer){return Boolean(text(customer.contact)&&(text(customer.phone)||text(customer.email)))}
 
   function renderSummary(){
     const customers=store.list();
@@ -59,7 +59,7 @@
     setText('#customerProjectCount',linked.length);
     setText('#customerQuotationCount',quotations);
     setText('#customerOrderCount',orders);
-    setText('#customerDetailCoverage',`${customers.filter(isComplete).length} ${t('with full details')}`);
+    setText('#customerDetailCoverage',`${customers.filter(isComplete).length} ${t('with contact details')}`);
   }
   function renderList(){
     const rows=filtered();
@@ -67,7 +67,7 @@
     setText('#customerShown',rows.length);
     $('#customerList').innerHTML=rows.length?rows.map(customer=>{
       const stats=customerStats(customer,source);
-      const secondary=customer.contact||customer.taxNo||customer.address||t('Details missing');
+      const secondary=customer.contact||customer.phone||customer.email||t('Details missing');
       return `<button class="customer-row${customer.id===active?' is-active':''}" data-id="${esc(customer.id)}" type="button"><span class="row-avatar">${esc(initials(customer.companyName))}</span><span class="row-copy"><b>${esc(customer.companyName)}</b><span>${esc(secondary)}</span></span><span class="row-stats" title="${esc(t('Quotations and orders'))}"><b>${stats.quotations.length}</b><b>${stats.orders.length}</b></span></button>`;
     }).join(''):`<div class="customer-empty"><div><b>${esc(t('No customers in this browser yet'))}</b><span>${esc(t('Sign in to restore cloud customers, or add a new customer locally.'))}</span></div></div>`;
     document.querySelectorAll('.customer-row').forEach(button=>button.addEventListener('click',()=>openProfile(button.dataset.id)));
@@ -99,9 +99,8 @@
     $('#customerPanel').hidden=false;
     setText('#customerAvatar',initials(customer.companyName));
     setText('#customerName',customer.companyName);
-    setText('#customerSubtitle',customer.contact||customer.taxNo||t('Company details need completion'));
+    setText('#customerSubtitle',customer.contact||customer.email||customer.phone||t('Contact details need completion'));
     value('#viewContact',customer.contact);value('#viewPhone',customer.phone);value('#viewEmail',customer.email);
-    value('#viewTaxOffice',customer.taxOffice);value('#viewTaxNo',customer.taxNo);value('#viewAddress',customer.address);
     setText('#profileProjectCount',stats.projects.length);setText('#profileQuotationCount',stats.quotations.length);setText('#profileOrderCount',stats.orders.length);
     setText('#profileLastActivity',date(stats.lastActivity,true));
     setText('#activityCount',`${rows.length} ${t(rows.length===1?'record':'records')}`);

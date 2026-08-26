@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Vensis Customers</title>
-  <meta name="description" content="Vensis customer records, quotations and order activity.">
+  <meta name="description" content="Vensis customer contacts, quotations and order activity.">
   <link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1">
   <script src="js/access-gate.js?v=20260826-access-gate-r1"></script>
-  <link rel="stylesheet" href="css/customers.css?v=20260826-customer-dashboard-r1">
+  <link rel="stylesheet" href="css/customers.css?v=20260826-parasut-r1">
   <link rel="stylesheet" href="css/edit-mode.css?v=20260825-customer-cloud-r1">
 </head>
 <body class="app-shell app-customers">
@@ -16,7 +16,7 @@
       <div>
         <span class="eyebrow">CUSTOMER INTELLIGENCE</span>
         <h1>Customers</h1>
-        <p>Company details, contacts and commercial activity in one clear workspace.</p>
+        <p>Customer contacts and commercial activity in one clear workspace.</p>
       </div>
       <button id="newCustomer" class="button button-primary" type="button"><span>＋</span> New Customer</button>
     </section>
@@ -24,7 +24,7 @@
     <div id="customerStorageStatus" class="storage-status" data-state="checking">Checking customer cloud…</div>
 
     <section class="metric-grid" aria-label="Customer summary">
-      <article class="metric-card"><span class="metric-icon">♙</span><div><small>Total Customers</small><b id="customerCount">0</b><em id="customerDetailCoverage">0 with full details</em></div></article>
+      <article class="metric-card"><span class="metric-icon">♙</span><div><small>Total Customers</small><b id="customerCount">0</b><em id="customerDetailCoverage">0 with contact details</em></div></article>
       <article class="metric-card"><span class="metric-icon">▣</span><div><small>Linked Projects</small><b id="customerProjectCount">0</b><em>Customer-related workspaces</em></div></article>
       <article class="metric-card"><span class="metric-icon">◫</span><div><small>Quotations</small><b id="customerQuotationCount">0</b><em>Projects with a quotation</em></div></article>
       <article class="metric-card"><span class="metric-icon">✓</span><div><small>Orders</small><b id="customerOrderCount">0</b><em>Created purchase orders</em></div></article>
@@ -36,7 +36,7 @@
           <div><span class="eyebrow">DIRECTORY</span><h2>Customer list</h2></div>
           <span class="shown-count"><b id="customerShown">0</b> shown</span>
         </header>
-        <label class="search-box" for="customerSearch"><span aria-hidden="true">⌕</span><input id="customerSearch" type="search" autocomplete="off" placeholder="Search company, contact or tax number"></label>
+        <label class="search-box" for="customerSearch"><span aria-hidden="true">⌕</span><input id="customerSearch" type="search" autocomplete="off" placeholder="Search company, contact, phone or email"></label>
         <div id="customerList" class="customer-list"></div>
       </aside>
 
@@ -62,14 +62,6 @@
               <div><dt>Email</dt><dd id="viewEmail">—</dd></div>
             </dl>
           </article>
-          <article class="info-card">
-            <header><span class="info-icon">◇</span><div><span class="eyebrow">LEGAL &amp; BILLING</span><h3>Company Details</h3></div></header>
-            <dl>
-              <div><dt>Tax Office</dt><dd id="viewTaxOffice">—</dd></div>
-              <div><dt>Tax Number</dt><dd id="viewTaxNo">—</dd></div>
-              <div class="address-row"><dt>Address</dt><dd id="viewAddress">—</dd></div>
-            </dl>
-          </article>
         </div>
 
         <article class="activity-card">
@@ -82,7 +74,7 @@
         <div class="welcome-mark">♙</div>
         <span class="eyebrow">CUSTOMER WORKSPACE</span>
         <h2>Select a customer</h2>
-        <p>Choose a customer from the list to review company details, quotations, orders and project activity.</p>
+        <p>Choose a customer from the list to review contact details, quotations, orders and project activity.</p>
       </section>
     </section>
   </main>
@@ -90,7 +82,7 @@
   <div id="customerEditor" class="customer-modal" hidden>
     <section class="customer-dialog" role="dialog" aria-modal="true" aria-labelledby="customerEditorTitle">
       <header class="dialog-head">
-        <div><span class="eyebrow">CUSTOMER RECORD</span><h2 id="customerEditorTitle">Edit Customer</h2><p>Keep commercial and invoicing details complete.</p></div>
+        <div><span class="eyebrow">CUSTOMER RECORD</span><h2 id="customerEditorTitle">Edit Customer</h2><p>Keep customer contact details up to date.</p></div>
         <button id="closeCustomerEditor" class="dialog-close" type="button" aria-label="Close">×</button>
       </header>
       <div class="dialog-body">
@@ -99,9 +91,6 @@
           <label><span>Contact Person</span><input id="contact" autocomplete="name"></label>
           <label><span>Phone</span><input id="phone" autocomplete="tel"></label>
           <label><span>Email</span><input id="email" type="email" autocomplete="email"></label>
-          <label><span>Tax Office</span><input id="taxOffice"></label>
-          <label><span>Tax Number</span><input id="taxNo" inputmode="numeric"></label>
-          <label class="wide"><span>Address</span><textarea id="address" autocomplete="street-address"></textarea></label>
         </div>
       </div>
       <footer class="dialog-actions">
@@ -112,12 +101,12 @@
     </section>
   </div>
 
-  <script src="js/language.js?v=20260826-customer-dashboard-r1"></script>
+  <script src="js/language.js?v=20260826-parasut-r1"></script>
   <script src="js/customers-store.js?v=20260826-access-gate-r1"></script>
   <script src="js/projects-store.js?v=20260826-access-gate-r1"></script>
   <script src="js/suite-shell.js?v=20260826-access-gate-r1"></script>
   <script src="js/project-nav.js?v=20260825-sidebar-r3"></script>
-  <script src="js/customers.js?v=20260826-customer-dashboard-r1"></script>
+  <script src="js/customers.js?v=20260826-parasut-r1"></script>
   <script src="js/edit-mode.js?v=20260825-customer-cloud-r1"></script>
 </body>
 </html>

@@ -31,7 +31,7 @@ test('customer cloud endpoints require the secure session and CSRF on writes',()
   assert.match(sync,/edit_request_json/);
 });
 
-test('customer page uses a professional read-first dashboard with modal editing and activity analytics',()=>{
+test('customer page keeps contact and activity data while Paraşüt owns billing details',()=>{
   const html=read('customers.html');
   const script=read('js/customers.js');
   const css=read('css/customers.css');
@@ -40,9 +40,14 @@ test('customer page uses a professional read-first dashboard with modal editing 
   for(const id of ['customerProjectCount','customerQuotationCount','customerOrderCount','profileProjectCount','profileQuotationCount','profileOrderCount','profileLastActivity']){
     assert.match(html,new RegExp(`id="${id}"`),id);
   }
-  for(const id of ['viewContact','viewPhone','viewEmail','viewTaxOffice','viewTaxNo','viewAddress']){
+  for(const id of ['viewContact','viewPhone','viewEmail']){
     assert.match(html,new RegExp(`id="${id}"`),id);
   }
+  for(const id of ['viewTaxOffice','viewTaxNo','viewAddress','taxOffice','taxNo','address']){
+    assert.doesNotMatch(html,new RegExp(`id="${id}"`),id);
+  }
+  assert.doesNotMatch(html,/LEGAL &amp; BILLING|Tax Office|Tax Number/);
+  assert.match(script,/const fields=\['companyName','contact','phone','email'\]/);
   assert.match(html,/id="editCustomer"/);
   assert.match(html,/id="customerEditor" class="customer-modal" hidden/);
   assert.match(script,/showEditor\('edit'\)/);
