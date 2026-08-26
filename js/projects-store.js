@@ -7,7 +7,8 @@
   const LEGACY_META_KEY='vensis_project_meta_v1';
   const ITEM_PREFIX='vensis_project_items_v2:';
   const META_PREFIX='vensis_project_meta_v2:';
-  const API_BASE='api/projects';
+  const APP_ROOT=(location.pathname||'').toLowerCase().includes('/electrical/')?'../':'';
+  const API_BASE=`${APP_ROOT}api/projects`;
   const saveTimers=new Map();
   const deleteTimers=new Map();
   const cloud={state:'checking',authenticated:false,csrf:'',message:'Checking cloud storage…',pending:0,lastSyncedAt:''};
@@ -32,8 +33,12 @@
     return {
       itemKey:cleanText(source.itemKey)||`line-${index+1}`,
       mode:['selection','catalog','custom'].includes(source.mode)?source.mode:'selection',
+      productType:cleanText(source.productType)==='electrical'?'electrical':'fan',
       productKey:cleanText(source.productKey),model:cleanText(source.model),series:cleanText(source.series),
       manufacturer:cleanText(source.manufacturer)||'Vitlo',description:cleanText(source.description),
+      category:cleanText(source.category),orderCode:cleanText(source.orderCode),power:cleanText(source.power),
+      currentText:cleanText(source.currentText),phase:cleanText(source.phase),ip:cleanText(source.ip),
+      insulation:cleanText(source.insulation),lumen:cleanText(source.lumen),operatingTemperature:cleanText(source.operatingTemperature),
       nominalAirflow:Math.max(0,Number(source.nominalAirflow)||0),required:cleanPoint(source.required),selected:cleanPoint(source.selected),
       voltage:cleanText(source.voltage),frequency:cleanText(source.frequency),motorPower:Math.max(0,Number(source.motorPower)||0),
       current:Math.max(0,Number(source.current)||0),speed:Math.max(0,Number(source.speed)||0),
@@ -210,7 +215,7 @@
   async function refreshCloudSession(){
     let response;
     try{
-      response=await fetch('api/edit/session.php',{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
+      response=await fetch(`${APP_ROOT}api/edit/session.php`,{credentials:'same-origin',cache:'no-store',headers:{Accept:'application/json'}});
     }catch{
       setCloudStatus('error','Cloud connection failed; projects remain in this browser.',false);
       return false;

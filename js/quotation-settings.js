@@ -72,6 +72,21 @@
   function read(){
     try{return merge(DEFAULTS,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch{return clone(DEFAULTS)}
   }
+  function forFormat(format){
+    const value=read();
+    if(format==='electrical'){
+      value.summary.quotationNote='Teklifimiz, belirtilen elektrik ürünleri ve tarafımıza iletilen teknik bilgilere göre hazırlanmıştır. Zone sınıfı, sertifika ve saha uygunluğu müşteri tarafından doğrulanmalıdır.';
+      value.scope.included='Teklifimiz, birinci sayfadaki elektrik ürünleri tablosunda model, ürün kodu ve adetleri belirtilen ekipmanların satışını kapsamaktadır.\n\nTeklifte açıkça belirtilmeyen aksesuar, montaj ve saha hizmetleri kapsam dışındadır.';
+      value.scope.exclusions=['Sahadaki elektrik montajı, kablolama ve bağlantı işçiliği.','Kablo, rakor, kör tapa ve montaj aksesuarları; teklif tablosunda ayrıca belirtilmedikçe.','Pano içi uygulama, otomasyon, programlama ve devreye alma hizmetleri.','Nakliye ve saha içi taşıma; teklifte ayrıca belirtilmedikçe.'];
+      value.scope.suitability='Nihai ürün uygunluğu; Zone sınıfı, gaz/toz grubu, sıcaklık sınıfı, IP koruması, kablo girişleri, gerilim ve sertifika şartlarına göre müşteri veya proje müellifi tarafından doğrulanmalıdır.';
+    }else if(format==='mixed'){
+      value.summary.quotationNote='Teklifimiz, fan ve elektrik ürünleri için tarafımıza iletilen keşif ve teknik bilgilere göre hazırlanmıştır. Her ürün grubunun proje ve saha uygunluğu müşteri tarafından doğrulanmalıdır.';
+      value.scope.included='Teklifimiz, birinci sayfadaki Fan Ürünleri ve Elektrik Ürünleri tablolarında model ve adetleri belirtilen ekipmanların satışını kapsamaktadır.\n\nTeklifte açıkça belirtilmeyen ürün, aksesuar ve hizmetler kapsam dışındadır.';
+      value.scope.exclusions=['Cihaz ve ekipmanların sahada montaj işçiliği.','Fan montaj elemanları, kanal bağlantıları ve titreşim izolatörleri; ayrıca belirtilmedikçe.','Elektrik kablolaması, rakorlar, bağlantı elemanları, pano ve otomasyon işleri; ayrıca belirtilmedikçe.','Nakliye, vinç, indirme ve saha içi taşıma; ayrıca belirtilmedikçe.','Devreye alma, saha testi ve otomasyon bağlantıları.'];
+      value.scope.suitability='Fan çalışma noktaları ile elektrik ürünlerinin Zone, gerilim, IP ve sertifika uygunluğu müşteri veya proje müellifi tarafından birlikte doğrulanmalıdır.';
+    }
+    return value;
+  }
   function write(value){
     const normalized=merge(DEFAULTS,value||{});
     localStorage.setItem(KEY,JSON.stringify(normalized));
@@ -206,10 +221,10 @@
   document.getElementById('convertQuotation')?.addEventListener('click',()=>{
     try{
       const quotation=JSON.parse(localStorage.getItem(ACTIVE_KEY)||'null');
-      if(quotation){quotation.settings=read();localStorage.setItem(ACTIVE_KEY,JSON.stringify(quotation))}
+      if(quotation){const format=window.VensisQuotationFormats?.detect?.(quotation.items||[],quotation.format||'auto')||'fan';quotation.settings=forFormat(format);quotation.resolvedFormat=format;localStorage.setItem(ACTIVE_KEY,JSON.stringify(quotation))}
     }catch{}
   });
   window.addEventListener('storage',event=>{if(event.key===KEY)fillForm(read())});
-  window.VensisQuotationSettings={key:KEY,defaults:clone(DEFAULTS),read,write,fillForm,collectForm,saveFromForm};
+  window.VensisQuotationSettings={key:KEY,defaults:clone(DEFAULTS),read,forFormat,write,fillForm,collectForm,saveFromForm};
   mount();
 })();

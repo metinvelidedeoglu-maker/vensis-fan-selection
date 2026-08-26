@@ -82,6 +82,18 @@
     if(modal)modal.hidden=false;
     document.body.style.overflow='hidden';
   }
+  function openItem(item,button){
+    if(!item||!String(item.model||'').trim())return;
+    mountModal();
+    pending={item:JSON.parse(JSON.stringify(item)),button};
+    const productText=document.getElementById('catalogProjectProduct');
+    if(productText)productText.textContent=`${item.model}${item.series?` — ${item.series}`:''}`;
+    const preferred=lastChoice||requestedProject()||activeProject()||NEW_PROJECT;
+    renderProjects(preferred);
+    const modal=document.getElementById('catalogProjectModal');
+    if(modal)modal.hidden=false;
+    document.body.style.overflow='hidden';
+  }
   function closePicker(){
     const modal=document.getElementById('catalogProjectModal');
     if(modal)modal.hidden=true;
@@ -114,11 +126,27 @@
       existing.frequency=existing.frequency||frequency;
       existing.noise=Number(existing.noise)||noise;
       existing.updatedAt=new Date().toISOString();
-    }else items.push({itemKey,mode:'catalog',productKey,model:model.model||'',series:series.title||model.seriesTitle||'',manufacturer:series.manufacturer||model.manufacturer||'Vitlo',image:product.media?.image||series.media?.image||model.image||'',nominalAirflow:Number(model.performance?.nominalAirflow)||0,required:null,selected:null,motorPower:Number(model.motor?.power)||0,current:Number(model.motor?.current)||0,speed,voltage,frequency,noise,price:Number(model.pricing?.listPrice)||0,quantity:1,addedAt:new Date().toISOString()});
+    }else items.push({itemKey,mode:'catalog',productType:'fan',productKey,model:model.model||'',series:series.title||model.seriesTitle||'',manufacturer:series.manufacturer||model.manufacturer||'Vitlo',image:product.media?.image||series.media?.image||model.image||'',nominalAirflow:Number(model.performance?.nominalAirflow)||0,required:null,selected:null,motorPower:Number(model.motor?.power)||0,current:Number(model.motor?.current)||0,speed,voltage,frequency,noise,price:Number(model.pricing?.listPrice)||0,quantity:1,addedAt:new Date().toISOString()});
     store().writeItems(items,projectId);
     if(button){const old=button.innerHTML;button.innerHTML='✓';setTimeout(()=>{button.innerHTML=old},1100)}
     const name=store().readMeta(projectId).name||store().get(projectId)?.name||'selected project';
     toast(existing?`${name} quantity increased.`:`Catalog model added to ${name}.`);
+  }
+  function addItemToProject(item,button,projectId){
+    if(!item||!store()?.get?.(projectId))return;
+    store().setActive(projectId);
+    const items=store().readItems(projectId);
+    const stamp=new Date().toISOString();
+    const itemKey=String(item.itemKey||`${item.productType||'catalog'}|${item.productKey||item.model}`);
+    const existing=items.find(candidate=>candidate.itemKey===itemKey);
+    if(existing){
+      existing.quantity=(Number(existing.quantity)||1)+1;
+      existing.updatedAt=stamp;
+    }else items.push({...item,itemKey,mode:item.mode||'catalog',quantity:Math.max(1,Number(item.quantity)||1),addedAt:item.addedAt||stamp,updatedAt:stamp});
+    store().writeItems(items,projectId);
+    if(button){const old=button.innerHTML;button.innerHTML='✓ Added';setTimeout(()=>{button.innerHTML=old},1100)}
+    const name=store().readMeta(projectId).name||store().get(projectId)?.name||'selected project';
+    toast(existing?`${name} quantity increased.`:`${item.model} added to ${name}.`);
   }
   function confirmSelection(){
     if(!pending)return;
@@ -132,7 +160,8 @@
     lastChoice=projectId;
     const current=pending;
     closePicker();
-    addCatalogProduct(current.modelId,current.button,projectId);
+    if(current.item)addItemToProject(current.item,current.button,projectId);
+    else addCatalogProduct(current.modelId,current.button,projectId);
   }
 
   document.addEventListener('click',event=>{
@@ -145,5 +174,5 @@
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!document.getElementById('catalogProjectModal')?.hidden)closePicker()});
   document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{if(window.Catalog)window.Catalog.addCatalogToProject=(id,button)=>openPicker(id,button)},0));
   window.addEventListener('vensis-projects-updated',()=>{if(!document.getElementById('catalogProjectModal')?.hidden)renderProjects(lastChoice||requestedProject()||activeProject())});
-  window.VensisCatalogProjectPicker={open:openPicker,add:addCatalogProduct};
+  window.VensisCatalogProjectPicker={open:openPicker,openItem,add:addCatalogProduct,addItem:addItemToProject};
 })();

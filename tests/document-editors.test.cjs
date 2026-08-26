@@ -12,7 +12,7 @@ test('quotation uses a left editor with a live document preview',()=>{
   const previewIndex=html.indexOf('id="quotationContent"');
   assert.ok(editorIndex>0);
   assert.ok(previewIndex>editorIndex);
-  for(const id of ['editQuotationNumber','editQuotationDate','editQuotationCurrency','editQuotationProject','editQuotationReference','editQuotationContact','quotationItemEditors','saveQuotationEditor']){
+  for(const id of ['editQuotationNumber','editQuotationDate','editQuotationCurrency','editQuotationFormat','editQuotationProject','editQuotationReference','editQuotationContact','quotationItemEditors','quotationProductTables','saveQuotationEditor']){
     assert.match(html,new RegExp(`id="${id}"`));
   }
   assert.match(html,/data-quotation-editor-tab="summary"/);
@@ -20,6 +20,7 @@ test('quotation uses a left editor with a live document preview',()=>{
   assert.match(html,/data-quotation-editor-tab="terms"/);
   assert.match(html,/@media\(max-width:1100px\)\{\.quotation-workspace\{grid-template-columns:1fr\}/);
   assert.match(html,/@media print\{[\s\S]*\.toolbar,\.quotation-editor\{display:none!important\}/);
+  assert.match(html,/js\/quotation-formats\.js/);
 });
 
 test('quotation defaults use the Vensis company and warehouse wording',()=>{
@@ -45,6 +46,10 @@ test('quotation editor updates price, discount, quantity and project storage',()
   assert.match(script,/store\.writeItems\(/);
   assert.match(script,/renderPreview\(activeQuotation\)/);
   assert.match(script,/createOrderFromQuotation[\s\S]*saveQuotation\(\{silent:true\}\)/);
+  assert.match(script,/function electricalRow\(/);
+  assert.match(script,/Fan Ürünleri/);
+  assert.match(script,/Elektrik Ürünleri/);
+  assert.match(script,/formats\.detect\(/);
 });
 
 test('project uses the same left editor pattern and keeps the working table on the right',()=>{
@@ -61,4 +66,23 @@ test('project uses the same left editor pattern and keeps the working table on t
   assert.match(script,/contact:byId\('projectContact'\)/);
   assert.match(script,/status:patch\.status===undefined/);
   assert.match(script,/saveProjectMeta/);
+  assert.match(html,/id="custom-productType"/);
+  assert.match(html,/js\/quotation-formats\.js/);
+});
+
+test('electrical catalog products can be added to projects with their technical fields',()=>{
+  const html=read('electrical/index.html');
+  const script=read('electrical/catalog.js');
+  const picker=read('js/catalog-project-picker.js');
+  const backend=read('api/projects/bootstrap.php');
+
+  assert.match(html,/\.\.\/js\/projects-store\.js/);
+  assert.match(html,/\.\.\/js\/catalog-project-picker\.js/);
+  assert.match(script,/data-add-electrical-project/);
+  assert.match(script,/productType:'electrical'/);
+  assert.match(script,/orderCode:model\.orderCode/);
+  assert.match(script,/`electrical\/\$\{product\.image\}`/);
+  assert.match(picker,/openItem/);
+  assert.match(backend,/'productType' => \[24, false\]/);
+  assert.match(backend,/'operatingTemperature' => \[120, false\]/);
 });

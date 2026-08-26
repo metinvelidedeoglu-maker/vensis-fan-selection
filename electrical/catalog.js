@@ -7,6 +7,20 @@
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[char]);
   let activeSeries='';
 
+  function numeric(value){const match=String(value||'').replace(',','.').match(/-?\d+(?:\.\d+)?/);return match?Number(match[0]):0;}
+  function electricalProjectItem(product,model){
+    return {
+      itemKey:`electrical|${product.modelName}|${model.model}`,
+      mode:'catalog',productType:'electrical',productKey:`${product.modelName}|${model.model}`,
+      model:model.model||product.modelName,series:product.modelName,manufacturer:product.brand||'ZONEX',
+      image:product.image?`electrical/${product.image}`:'',description:model.subcategory||product.description||'',category:product.category||'',
+      orderCode:model.orderCode||'',power:model.power||'',currentText:model.current||'',voltage:model.voltage||'',
+      frequency:model.frequency||'',phase:model.phase||'',ip:model.ip||'',insulation:model.insulation||'',
+      lumen:model.lumen||'',operatingTemperature:model.operatingTemperature||'',current:numeric(model.current),
+      price:numeric(model.price),priceCurrency:String(model.price||'').toUpperCase().includes('USD')?'USD':String(model.price||'').toUpperCase().includes('TRY')?'TRY':'EUR',quantity:1
+    };
+  }
+
   function selected(key){return [...document.querySelectorAll(`[data-${key}]:checked`)].map(input=>input.dataset[key]);}
   function filteredProducts(){
     const brands=selected('brand');
@@ -26,7 +40,7 @@
   function modelField(label,value){return value?`<div class="model-field"><span>${label}</span><b>${escapeHtml(value)}</b></div>`:'';}
   function modelCard(product,model){
     const visual=product.image?`<img src="${escapeHtml(product.image)}" alt="${escapeHtml(model.model||product.modelName)}">`:'<div class="model-card-icon" aria-hidden="true">⚡</div>';
-    return `<article class="model-card"><div class="model-card-head">${visual}<div><div class="section-kicker">${escapeHtml(model.subcategory||product.category||'')}</div><h3>${escapeHtml(model.model||product.modelName)}</h3></div></div><div class="model-grid">${modelField('Power',model.power)}${modelField('Current',model.current)}${modelField('Voltage',model.voltage)}${modelField('Frequency',model.frequency)}${modelField('Phase',model.phase)}${modelField('IP',model.ip)}${modelField('Insulation',model.insulation)}${modelField('Lumen',model.lumen)}${modelField('Operating Temperature',model.operatingTemperature)}${modelField('Order Code',model.orderCode)}</div><div class="model-card-footer"><span>${escapeHtml(product.category||'')}</span><b>${escapeHtml(model.price||'')}</b></div></article>`;
+    return `<article class="model-card"><div class="model-card-head">${visual}<div><div class="section-kicker">${escapeHtml(model.subcategory||product.category||'')}</div><h3>${escapeHtml(model.model||product.modelName)}</h3></div></div><div class="model-grid">${modelField('Power',model.power)}${modelField('Current',model.current)}${modelField('Voltage',model.voltage)}${modelField('Frequency',model.frequency)}${modelField('Phase',model.phase)}${modelField('IP',model.ip)}${modelField('Insulation',model.insulation)}${modelField('Lumen',model.lumen)}${modelField('Operating Temperature',model.operatingTemperature)}${modelField('Order Code',model.orderCode)}</div><button class="model-project-btn" type="button" data-add-electrical-project="${escapeHtml(model.model||'')}">＋ Add to Project</button><div class="model-card-footer"><span>${escapeHtml(product.category||'')}</span><b>${escapeHtml(model.price||'')}</b></div></article>`;
   }
   function bindSeriesCards(){
     document.querySelectorAll('[data-series]').forEach(card=>{
@@ -66,5 +80,12 @@
   renderChecks('categories',unique(products.map(product=>product.category)),'category');
   document.querySelectorAll('#brands input,#categories input').forEach(input=>input.addEventListener('change',()=>{if(activeSeries)closeSeries();else renderCatalog();}));
   byId('reset').addEventListener('click',()=>{document.querySelectorAll('#brands input,#categories input').forEach(input=>{input.checked=false;});if(activeSeries)closeSeries();else renderCatalog();});
+  document.addEventListener('click',event=>{
+    const button=event.target.closest('[data-add-electrical-project]');
+    if(!button)return;
+    const product=products.find(item=>item.modelName===activeSeries);
+    const model=product?.submodels?.find(item=>item.model===button.dataset.addElectricalProject);
+    if(product&&model)window.VensisCatalogProjectPicker?.openItem?.(electricalProjectItem(product,model),button);
+  });
   renderCatalog();
 })();

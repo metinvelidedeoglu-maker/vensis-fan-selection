@@ -202,6 +202,10 @@ function project_item(array $source): array
         'productKey' => [240, false], 'model' => [240, false], 'series' => [240, false],
         'manufacturer' => [180, false], 'image' => [4096, false], 'voltage' => [120, false],
         'frequency' => [120, false], 'description' => [5000, true],
+        'productType' => [24, false], 'category' => [240, false], 'orderCode' => [240, false],
+        'power' => [120, false], 'currentText' => [120, false], 'phase' => [120, false],
+        'ip' => [120, false], 'insulation' => [240, false], 'lumen' => [120, false],
+        'operatingTemperature' => [120, false],
         'priceSource' => [180, false], 'priceCurrency' => [12, false],
     ];
     foreach ($strings as $field => [$maximumLength, $allowLines]) {
@@ -215,6 +219,9 @@ function project_item(array $source): array
             throw new EditApiException('Project item mode is invalid.', 422);
         }
         $result['mode'] = $mode;
+    }
+    if (array_key_exists('productType', $result) && !in_array($result['productType'], ['fan', 'electrical'], true)) {
+        throw new EditApiException('Project item product type is invalid.', 422);
     }
     $numbers = [
         'nominalAirflow' => [0, 1000000000], 'motorPower' => [0, 1000000],
@@ -282,7 +289,8 @@ function project_order_item(array $source): array
 {
     $item = project_item($source);
     $fields = [
-        'itemKey', 'mode', 'productKey', 'model', 'series', 'manufacturer', 'description',
+        'itemKey', 'mode', 'productType', 'productKey', 'model', 'series', 'manufacturer', 'description',
+        'category', 'orderCode', 'power', 'currentText', 'phase', 'ip', 'insulation', 'lumen', 'operatingTemperature',
         'nominalAirflow', 'required', 'selected', 'voltage', 'frequency', 'motorPower',
         'current', 'speed', 'quantity',
     ];

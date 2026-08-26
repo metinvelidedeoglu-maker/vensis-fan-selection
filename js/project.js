@@ -2,6 +2,7 @@
   const store=window.VensisProjects;
   const QUOTATION_KEY='vensis_active_quotation_v1';
   const catalog=window.VensisCatalog||{models:[]};
+  const formats=window.VensisQuotationFormats||{itemType:()=> 'fan',detect:()=> 'fan'};
   const byId=id=>document.getElementById(id);
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
   const number=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
@@ -33,7 +34,7 @@
   function enrichItems(items){
     let changed=Boolean(window.VensisPricing?.enrichItems?.(items));
     items.forEach(item=>{
-      if(item.mode==='custom')return;
+      if(item.mode==='custom'||formats.itemType(item)==='electrical')return;
       const model=modelForItem(item);
       const speed=number(item.speed)||number(model?.motor?.speed);
       const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
@@ -93,6 +94,7 @@
   function quantityControl(index,quantity){return `<div class="qty-control"><button type="button" data-qty-minus="${index}" aria-label="Decrease quantity">−</button><b>${quantity}</b><button type="button" data-qty-plus="${index}" aria-label="Increase quantity">+</button></div>`}
   function discountControl(index,rate){return `<label class="line-discount"><input type="number" min="0" max="100" step="0.1" inputmode="decimal" value="${rate}" data-line-discount="${index}" aria-label="Product discount percentage"><span>%</span></label>`}
   function pointCells(item){
+    if(formats.itemType(item)==='electrical')return `<td><span class="point" style="background:#eaf5f0;color:#087f4f">Electrical Catalog</span></td><td>${escapeHtml(item.orderCode||item.category||'-')}</td>`;
     if(item.mode==='catalog'||item.mode==='custom'){
       const nominal=number(item.nominalAirflow);
       const label=item.mode==='custom'?'Custom Product':'Catalog Item';
@@ -124,15 +126,20 @@
     const lineTotal=netUnit*qty;
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
     const safety=String(item.safetyWarning||'').trim();
+    const electrical=formats.itemType(item)==='electrical';
+    const power=electrical?escapeHtml(item.power||'-'):(number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-');
+    const speedOrIp=electrical?escapeHtml(item.ip||'-'):(number(item.speed)>0?`${fmt(item.speed)} rpm`:'-');
+    const current=electrical?escapeHtml(item.currentText||((number(item.current)>0)?`${fmt(item.current,2)} A`:'-')):(number(item.current)>0?`${fmt(item.current,2)} A`:'-');
+    const noiseOrPhase=electrical?escapeHtml(item.phase||'-'):(number(item.noise)>0?`${fmt(item.noise)} dB(A)`:'-');
     return `<tr>
       <td class="order-column">${orderControls(index,items.length)}</td>
       <td><div class="product-cell">${image}<div class="product-info"><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:10px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${noteEditor(item,index)}</div></div></td>
       ${pointCells(item)}
       <td>${supplyText(item)}</td>
-      <td>${number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-'}</td>
-      <td>${number(item.speed)>0?`${fmt(item.speed)} rpm`:'-'}</td>
-      <td>${number(item.current)>0?`${fmt(item.current,2)} A`:'-'}</td>
-      <td>${number(item.noise)>0?`${fmt(item.noise)} dB(A)`:'-'}</td>
+      <td>${power}</td>
+      <td>${speedOrIp}</td>
+      <td>${current}</td>
+      <td>${noiseOrPhase}</td>
       <td>${money(price)}</td>
       <td>${discountControl(index,rate)}</td>
       <td><b>${hasPrice?money(netUnit,true):'-'}</b></td>
@@ -184,7 +191,8 @@
   function convertToQuotation(){
     flushAllNotes();const items=readItems();if(!items.length){alert('Add at least one product before creating a quotation.');return}
     const now=new Date();const quotationNumber=quoteNumber(now);const currentStatus=readMeta().status;const status=['won','ordered'].includes(currentStatus)?currentStatus:'quoted';const meta=writeMeta(undefined,{status,lastQuotationNumber:quotationNumber});
-    const snapshot={version:2,quotationNumber,createdAt:now.toISOString(),currency:'EUR',project:{id:PROJECT_ID,name:meta.name||'',reference:meta.reference||'',contact:meta.contact||''},globalDiscount:clampDiscount(meta.globalDiscount),items:JSON.parse(JSON.stringify(items)),totals:totals(items)};
+    const resolvedFormat=formats.detect(items,'auto');
+    const snapshot={version:3,quotationNumber,createdAt:now.toISOString(),currency:'EUR',format:'auto',resolvedFormat,project:{id:PROJECT_ID,name:meta.name||'',reference:meta.reference||'',contact:meta.contact||''},globalDiscount:clampDiscount(meta.globalDiscount),items:JSON.parse(JSON.stringify(items)),totals:totals(items),settings:window.VensisQuotationSettings?.forFormat?.(resolvedFormat)};
     localStorage.setItem(QUOTATION_KEY,JSON.stringify(snapshot));window.open('quotation.html','_blank');
   }
   function remove(index){const items=readItems();if(!items[index])return;items.splice(index,1);writeItems(items);render()}
@@ -208,7 +216,7 @@
     flushAllNotes();const items=readItems();const item=index==null?null:items[index];editingIndex=index;const isExisting=Boolean(item);const isCustom=!item||item.mode==='custom';
     if(byId('customProductTitle'))byId('customProductTitle').textContent=isExisting?(isCustom?'Edit Custom Product':'Edit Product Description'):'Add Custom Product';
     if(byId('saveCustomProduct'))byId('saveCustomProduct').textContent=isExisting?'Save Changes':'Add to Project';setCustomFieldsDisabled(!isCustom);
-    setFormValue('model',item?.model||'');setFormValue('series',item?.series||'');setFormValue('manufacturer',item?.manufacturer||'Vitlo');setFormValue('description',item?.description||'');setFormValue('nominalAirflow',number(item?.nominalAirflow)||'');setFormValue('voltage',item?.voltage||'');setFormValue('frequency',item?.frequency||'50 Hz');setFormValue('motorPower',number(item?.motorPower)||'');setFormValue('speed',number(item?.speed)||'');setFormValue('current',number(item?.current)||'');setFormValue('noise',number(item?.noise)||'');setFormValue('price',number(item?.price)||'');setFormValue('discountPercent',clampDiscount(item?.discountPercent));setFormValue('quantity',Math.max(1,number(item?.quantity)||1));setFormValue('image',item?.image||'');
+    setFormValue('productType',formats.itemType(item||{}));setFormValue('model',item?.model||'');setFormValue('series',item?.series||'');setFormValue('manufacturer',item?.manufacturer||'Vitlo');setFormValue('description',item?.description||'');setFormValue('nominalAirflow',number(item?.nominalAirflow)||'');setFormValue('voltage',item?.voltage||'');setFormValue('frequency',item?.frequency||'50 Hz');setFormValue('motorPower',number(item?.motorPower)||'');setFormValue('speed',number(item?.speed)||'');setFormValue('current',number(item?.current)||'');setFormValue('noise',number(item?.noise)||'');setFormValue('price',number(item?.price)||'');setFormValue('discountPercent',clampDiscount(item?.discountPercent));setFormValue('quantity',Math.max(1,number(item?.quantity)||1));setFormValue('image',item?.image||'');
     const modal=byId('customProductModal');if(modal)modal.hidden=false;document.body.classList.add('modal-open');setTimeout(()=>formField(isCustom?'model':'description')?.focus(),0);
   }
   function closeProductEditor(){const modal=byId('customProductModal');if(modal)modal.hidden=true;document.body.classList.remove('modal-open');editingIndex=null}
@@ -217,7 +225,7 @@
     if(existing&&existing.mode!=='custom'){existing.description=String(formField('description')?.value||'').trim();existing.updatedAt=new Date().toISOString();writeItems(items);closeProductEditor();render();return}
     const model=String(formField('model')?.value||'').trim();if(!model){formField('model')?.focus();return}
     const stamp=new Date().toISOString();const item=existing||{itemKey:`custom|${Date.now()}|${Math.random().toString(36).slice(2,8)}`,mode:'custom',productKey:'',required:null,selected:null,addedAt:stamp};
-    Object.assign(item,{mode:'custom',model,series:String(formField('series')?.value||'').trim(),manufacturer:String(formField('manufacturer')?.value||'').trim()||'Vitlo',description:String(formField('description')?.value||'').trim(),nominalAirflow:number(formField('nominalAirflow')?.value),voltage:String(formField('voltage')?.value||'').trim(),frequency:String(formField('frequency')?.value||'').trim(),motorPower:number(formField('motorPower')?.value),speed:number(formField('speed')?.value),current:number(formField('current')?.value),noise:number(formField('noise')?.value),price:Math.max(0,number(formField('price')?.value)),discountPercent:clampDiscount(formField('discountPercent')?.value),quantity:Math.max(1,number(formField('quantity')?.value)||1),image:String(formField('image')?.value||'').trim(),updatedAt:stamp});
+    Object.assign(item,{mode:'custom',productType:String(formField('productType')?.value||'fan')==='electrical'?'electrical':'fan',model,series:String(formField('series')?.value||'').trim(),manufacturer:String(formField('manufacturer')?.value||'').trim()||'Vitlo',description:String(formField('description')?.value||'').trim(),nominalAirflow:number(formField('nominalAirflow')?.value),voltage:String(formField('voltage')?.value||'').trim(),frequency:String(formField('frequency')?.value||'').trim(),motorPower:number(formField('motorPower')?.value),speed:number(formField('speed')?.value),current:number(formField('current')?.value),noise:number(formField('noise')?.value),price:Math.max(0,number(formField('price')?.value)),discountPercent:clampDiscount(formField('discountPercent')?.value),quantity:Math.max(1,number(formField('quantity')?.value)||1),image:String(formField('image')?.value||'').trim(),updatedAt:stamp});
     if(existing)items[editingIndex]=item;else items.push(item);writeItems(items);closeProductEditor();render();
   }
 

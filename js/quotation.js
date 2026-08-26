@@ -9,6 +9,7 @@
 
   const KEY='vensis_active_quotation_v1';
   const catalog=window.VensisCatalog||{models:[]};
+  const formats=window.VensisQuotationFormats||{detect:()=> 'fan',split:items=>({fan:items||[],electrical:[]}),preference:value=>value||'auto'};
   const byId=id=>document.getElementById(id);
   const number=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
   const clampDiscount=value=>Math.min(100,Math.max(0,number(value)));
@@ -61,7 +62,7 @@
     const safety=String(item.safetyWarning||'').trim();
     return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:9.5px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${description?`<em class="product-description">${escapeHtml(description)}</em>`:''}</div></div>`;
   }
-  function row(item,currency){
+  function fanRow(item,currency){
     const model=modelFor(item);
     const qty=Math.max(1,Math.round(number(item.quantity)||1));
     const net=netUnit(item);
@@ -70,6 +71,29 @@
     const speed=number(item.speed)||number(model?.motor?.speed);
     const hasPrice=number(item.price)>0;
     return `<tr><td>${productMarkup(item)}</td><td>${dutyMarkup(item)}</td><td>${supplyMarkup(item,model)}</td><td class="num technical">${power>0?`${fmt(power,2)} kW`:'-'}</td><td class="num technical">${speed>0?`${fmt(speed)} rpm`:'-'}</td><td class="num unit-price">${hasPrice?money(net,currency):'-'}</td><td class="num">${fmt(qty)}</td><td class="num"><b>${hasPrice?money(total,currency):'-'}</b></td></tr>`;
+  }
+  function electricalRow(item,currency){
+    const qty=Math.max(1,Math.round(number(item.quantity)||1));
+    const net=netUnit(item);
+    const total=net*qty;
+    const hasPrice=number(item.price)>0;
+    const powerCurrent=[item.power||'',item.currentText||((number(item.current)>0)?`${fmt(item.current,2)} A`:'')].filter(Boolean);
+    const protection=[item.ip||'',item.phase||''].filter(Boolean);
+    const otherSpecs=[item.lumen||'',item.operatingTemperature||'',item.insulation||''].filter(Boolean);
+    return `<tr><td>${productMarkup(item)}</td><td class="technical">${escapeHtml(item.orderCode||'-')}</td><td>${supplyMarkup(item,null)}</td><td>${powerCurrent.length?powerCurrent.map(value=>`<span class="electrical-spec">${escapeHtml(value)}</span>`).join(''):'-'}</td><td>${protection.length?protection.map(value=>`<span class="electrical-spec">${escapeHtml(value)}</span>`).join(''):'-'}</td><td>${otherSpecs.length?otherSpecs.map(value=>`<span class="electrical-spec">${escapeHtml(value)}</span>`).join(''):'-'}</td><td class="num unit-price">${hasPrice?money(net,currency):'-'}</td><td class="num">${fmt(qty)}</td><td class="num"><b>${hasPrice?money(total,currency):'-'}</b></td></tr>`;
+  }
+  function tableMarkup(type,items,currency,title=''){
+    const electrical=type==='electrical';
+    const headers=electrical?['Product','Order Code','V / Hz','Power / Current','IP / Phase','Other Specs','Unit Price','Qty','Total']:['Product','Selected / Nominal','V / Hz','kW','rpm','Unit Price','Qty','Total'];
+    const rows=items.map(item=>electrical?electricalRow(item,currency):fanRow(item,currency)).join('');
+    const numericStart=electrical?6:3;
+    return `<section class="quote-product-group">${title?`<h2 class="quote-product-group-title">${escapeHtml(title)}</h2>`:''}<div class="quote-table-wrap"><table class="quote-table"><thead><tr>${headers.map((header,index)=>`<th${index>=numericStart?' class="num"':''}>${header}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  }
+  function productTables(items,currency,format){
+    if(format==='electrical')return tableMarkup('electrical',items,currency);
+    if(format==='fan')return tableMarkup('fan',items,currency);
+    const groups=formats.split(items);
+    return `${groups.fan.length?tableMarkup('fan',groups.fan,currency,'Fan Ürünleri'):''}${groups.electrical.length?tableMarkup('electrical',groups.electrical,currency,'Elektrik Ürünleri'):''}`;
   }
   function totals(items){
     return items.reduce((sum,item)=>{
@@ -99,7 +123,8 @@
     return String(value||'').split(/\n\s*\n/).map(text=>text.trim()).filter(Boolean).map(text=>`<p>${escapeHtml(text).replace(/\n/g,'<br>')}</p>`).join('');
   }
   function settingsFor(quotation){
-    const value=quotation?.settings||window.VensisQuotationSettings?.read?.()||window.VensisQuotationSettings?.defaults||{};
+    const format=formats.detect(quotation?.items||[],quotation?.format||'auto');
+    const value=quotation?.settings||window.VensisQuotationSettings?.forFormat?.(format)||window.VensisQuotationSettings?.read?.()||window.VensisQuotationSettings?.defaults||{};
     return clone(value);
   }
   function renderSettings(settings){
@@ -141,6 +166,10 @@
     const total=totals(quotation.items||[]);
     const quotationNumber=quotation.quotationNumber||'-';
     const currency=String(quotation.currency||'EUR').toUpperCase();
+    const format=formats.detect(quotation.items||[],quotation.format||'auto');
+    document.body.dataset.quotationFormat=format;
+    byId('quoteDocumentTitle').textContent=format==='fan'?'FAN QUOTATION':format==='electrical'?'ELECTRICAL QUOTATION':'COMMERCIAL QUOTATION';
+    byId('quoteDocumentSubtitle').textContent=format==='fan'?'Fan Commercial Offer':format==='electrical'?'Electrical Commercial Offer':'Fan & Electrical Commercial Offer';
     byId('quoteProject').textContent=quotation.project?.name||'-';
     byId('quoteReference').textContent=quotation.project?.reference||'-';
     byId('quoteContact').textContent=quotation.project?.contact||'-';
@@ -148,7 +177,7 @@
     setAll('[data-quote-number]',quotationNumber);
     byId('quoteDate').textContent=dateText(dateValue(quotation));
     byId('quoteCurrency').textContent=currency;
-    byId('quotationRows').innerHTML=(quotation.items||[]).map(item=>row(item,currency)).join('');
+    byId('quotationProductTables').innerHTML=productTables(quotation.items||[],currency,format);
     byId('quoteUnits').textContent=fmt(total.units);
     byId('quoteTotal').textContent=total.hasPrice?money(total.total,currency):'-';
     renderSettings(settingsFor(quotation));
@@ -165,6 +194,7 @@
     byId('editQuotationNumber').value=quotation.quotationNumber||'';
     byId('editQuotationDate').value=dateValue(quotation);
     byId('editQuotationCurrency').value=String(quotation.currency||'EUR').toUpperCase();
+    byId('editQuotationFormat').value=formats.preference(quotation.format||'auto');
     byId('editQuotationProject').value=quotation.project?.name||'';
     byId('editQuotationReference').value=quotation.project?.reference||'';
     byId('editQuotationContact').value=quotation.project?.contact||'';
@@ -187,6 +217,8 @@
     quotation.quotationNumber=String(byId('editQuotationNumber')?.value||'').trim();
     quotation.date=String(byId('editQuotationDate')?.value||'').trim();
     quotation.currency=String(byId('editQuotationCurrency')?.value||'EUR').toUpperCase();
+    quotation.format=formats.preference(byId('editQuotationFormat')?.value||'auto');
+    quotation.resolvedFormat=formats.detect(quotation.items||[],quotation.format);
     quotation.project={...(quotation.project||{}),name:String(byId('editQuotationProject')?.value||'').trim(),reference:String(byId('editQuotationReference')?.value||'').trim(),contact:String(byId('editQuotationContact')?.value||'').trim()};
     quotation.items=(Array.isArray(quotation.items)?quotation.items:[]).map((item,index)=>{
       const price=Math.max(0,number(document.querySelector(`[data-quote-item-price="${index}"]`)?.value));
@@ -269,7 +301,15 @@
 
   byId('quotationEditorForm')?.addEventListener('submit',event=>{event.preventDefault();saveQuotation()});
   byId('quotationEditorForm')?.addEventListener('input',updateDraft);
-  byId('quotationEditorForm')?.addEventListener('change',event=>{if(event.target.matches('select,input[type="date"]'))updateDraft()});
+  byId('quotationEditorForm')?.addEventListener('change',event=>{
+    if(event.target.id==='editQuotationFormat'&&activeQuotation){
+      activeQuotation.format=formats.preference(event.target.value);
+      activeQuotation.resolvedFormat=formats.detect(activeQuotation.items||[],activeQuotation.format);
+      activeQuotation.settings=window.VensisQuotationSettings?.forFormat?.(activeQuotation.resolvedFormat)||activeQuotation.settings;
+      fillEditor(activeQuotation);renderPreview(activeQuotation);setEditorStatus('Teklif formatı ve ilgili metinler güncellendi.','dirty');return;
+    }
+    if(event.target.matches('select,input[type="date"]'))updateDraft();
+  });
   document.querySelectorAll('[data-quotation-editor-tab]').forEach(button=>button.addEventListener('click',()=>showTab(button.dataset.quotationEditorTab)));
   byId('printQuotation')?.addEventListener('click',()=>{saveQuotation({silent:true});window.print()});
   byId('createOrderFromQuotation')?.addEventListener('click',()=>saveQuotation({silent:true}),true);

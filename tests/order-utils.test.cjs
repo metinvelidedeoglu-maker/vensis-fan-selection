@@ -35,3 +35,16 @@ test('order numbering increments per day and included totals stay independent',(
   assert.equal(U.projectStatusLabel('ordered'),'Sipariş Verildi');
   assert.equal(U.recipientType('distributor'),'distributor');
 });
+
+test('electrical order lines preserve supplier-facing technical fields',()=>{
+  const line=U.orderItem({
+    itemKey:'electrical|ZNPG.X|ZNPG.1N',mode:'catalog',productType:'electrical',
+    model:'ZNPG.1N',series:'ZNPG.X',manufacturer:'ZONEX',category:'Kör Tapa',
+    orderCode:'102301',voltage:'',power:'',currentText:'',phase:'',ip:'IP66',
+    insulation:'',lumen:'',operatingTemperature:'-30°C / +80°C',quantity:4
+  });
+  assert.equal(line.productType,'electrical');
+  assert.equal(line.orderCode,'102301');
+  assert.equal(line.ip,'IP66');
+  assert.equal(line.operatingTemperature,'-30°C / +80°C');
+});

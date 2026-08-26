@@ -152,7 +152,7 @@
       existing.updatedAt=new Date().toISOString();
     }else{
       const seriesTitle=product.series?.title||r.series||'';
-      context.items.push({itemKey,mode:'selection',productKey,control,model:product.model||r.model||'',series:visibleControl?`${seriesTitle} · Control: ${visibleControl}`:seriesTitle,manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,frequency:String(r.frequency||product.motor?.frequency||''),noise,hazardousArea:r.hazardousArea||product.technical?.atex||null,safetyWarning:r.safetyWarning||product.technical?.safetyWarning||'',price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()});
+      context.items.push({itemKey,mode:'selection',productType:'fan',productKey,control,model:product.model||r.model||'',series:visibleControl?`${seriesTitle} · Control: ${visibleControl}`:seriesTitle,manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,frequency:String(r.frequency||product.motor?.frequency||''),noise,hazardousArea:r.hazardousArea||product.technical?.atex||null,safetyWarning:r.safetyWarning||product.technical?.safetyWarning||'',price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()});
     }
     saveProjectItems(context);
     if(button){const old=button.innerHTML;button.innerHTML='✓';button.title='Added to selected project';setTimeout(()=>{button.innerHTML=old;button.title='Add to selected project'},1200)}
