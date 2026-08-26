@@ -84,6 +84,7 @@ test('ventilation and electrical catalogs share the same visual structure',()=>{
     assert.match(electricalJs,new RegExp(className));
   }
   assert.match(electricalCss,/\.catalog-grid\{[^}]*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
+  assert.match(electricalCss,/\.catalog-layout\{[^}]*max-width:1500px[^}]*margin:0 auto/);
   assert.doesNotMatch(electrical,/electrical-layout|electrical-filter|electrical-content/);
 });
 
