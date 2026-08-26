@@ -1,5 +1,6 @@
 (function(){
   const store=window.VensisProjects;
+  const customerStore=window.VensisCustomers;
   const listUtils=window.VensisProjectListUtils;
   const orderUtils=window.VensisOrderUtils;
   const byId=id=>document.getElementById(id);
@@ -7,6 +8,9 @@
   const num=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
   const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
   const money=value=>`€${fmt(value,2)}`;
+  const t=value=>window.VensisI18n?.t?.(value)||value;
+  const customerFields=['newProjectName','newProjectReference','newProjectContact','newProjectPhone','newProjectEmail'];
+  let matchedCustomerId='';
 
   function projectTotals(projectId){
     return store.readItems(projectId).reduce((sum,item)=>{
@@ -92,10 +96,63 @@
     render();
     byId('projectSearch')?.focus();
   }
+  function renderCustomerOptions(){
+    const options=byId('projectCustomerOptions');
+    if(!options)return;
+    options.innerHTML=(customerStore?.list?.()||[]).map(customer=>`<option value="${esc(customer.companyName)}"></option>`).join('');
+  }
+  function selectedCustomer(){return customerStore?.findByName?.(byId('newProjectReference')?.value)||null}
+  function missingCustomerFields(customer){
+    const missing=[];
+    if(!String(customer?.contact||'').trim())missing.push(t('contact person'));
+    if(!String(customer?.phone||'').trim()&&!String(customer?.email||'').trim())missing.push(t('phone or email'));
+    return missing;
+  }
+  function showCustomerMatch(){
+    const element=byId('projectCustomerMatch');
+    if(!element)return;
+    const company=byId('newProjectReference')?.value.trim()||'';
+    const customer=selectedCustomer();
+    element.className='customer-match wide';
+    if(!company){element.textContent='';return}
+    if(!customer){element.classList.add('is-new');element.textContent=t('New customer — details will be saved to the customer list.');return}
+    const missing=missingCustomerFields({contact:byId('newProjectContact')?.value,phone:byId('newProjectPhone')?.value,email:byId('newProjectEmail')?.value});
+    element.classList.add(missing.length?'is-incomplete':'is-found');
+    element.textContent=missing.length?`${t('Existing customer found. Complete missing information:')} ${missing.join(', ')}.`:t('Existing customer found. Details are ready.');
+  }
+  function fillSelectedCustomer(){
+    const customer=selectedCustomer();
+    if(customer){
+      byId('newProjectContact').value=customer.contact||'';
+      byId('newProjectPhone').value=customer.phone||'';
+      byId('newProjectEmail').value=customer.email||'';
+      matchedCustomerId=customer.id;
+    }else if(matchedCustomerId){
+      byId('newProjectContact').value='';
+      byId('newProjectPhone').value='';
+      byId('newProjectEmail').value='';
+      matchedCustomerId='';
+    }
+    showCustomerMatch();
+    clearProjectError();
+  }
+  function clearProjectError(){
+    const error=byId('projectFormError');
+    if(error){error.textContent='';error.classList.remove('is-visible')}
+    customerFields.forEach(id=>byId(id)?.classList?.remove('is-invalid'));
+  }
+  function projectError(message,fieldIds=[]){
+    const error=byId('projectFormError');
+    if(error){error.textContent=t(message);error.classList.add('is-visible')}
+    fieldIds.forEach(id=>byId(id)?.classList?.add('is-invalid'));
+    byId(fieldIds[0])?.focus();
+  }
   function openModal(){
     byId('projectModal').hidden=false;
     document.body.style.overflow='hidden';
     byId('projectForm').reset();
+    matchedCustomerId='';
+    clearProjectError();renderCustomerOptions();showCustomerMatch();
     setTimeout(()=>byId('newProjectName').focus(),0);
   }
   function closeModal(){
@@ -104,9 +161,21 @@
   }
   function createProject(event){
     event.preventDefault();
+    clearProjectError();
     const name=byId('newProjectName').value.trim();
-    if(!name){byId('newProjectName').focus();return}
-    const project=store.create({name,reference:byId('newProjectReference').value.trim(),contact:byId('newProjectContact').value.trim()});
+    const companyName=byId('newProjectReference').value.trim();
+    const contact=byId('newProjectContact').value.trim();
+    const phone=byId('newProjectPhone').value.trim();
+    const email=byId('newProjectEmail').value.trim();
+    if(!name){projectError('Project name is required.',['newProjectName']);return}
+    if(!companyName){projectError('Company name is required.',['newProjectReference']);return}
+    if(!contact){projectError('Contact person is required.',['newProjectContact']);return}
+    if(!phone&&!email){projectError('Enter at least one phone number or email address.',['newProjectPhone','newProjectEmail']);return}
+    if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){projectError('Enter a valid email address.',['newProjectEmail']);return}
+    if(!customerStore?.upsert){projectError('Customer records are unavailable. Please try again.');return}
+    const existing=customerStore.findByName?.(companyName);
+    const customer=customerStore.upsert({...existing,companyName,contact,phone,email,id:existing?.id});
+    const project=store.create({name,reference:customer.companyName,contact:customer.contact});
     closeModal();
     location.assign(store.projectUrl(project.id));
   }
@@ -137,10 +206,13 @@
   byId('newProject')?.addEventListener('click',openModal);
   byId('emptyNewProject')?.addEventListener('click',openModal);
   byId('cancelProject')?.addEventListener('click',closeModal);
+  byId('newProjectReference')?.addEventListener('input',fillSelectedCustomer);
+  ['newProjectName','newProjectContact','newProjectPhone','newProjectEmail'].forEach(id=>byId(id)?.addEventListener('input',()=>{clearProjectError();showCustomerMatch()}));
   byId('projectModal')?.addEventListener('click',event=>{if(event.target===byId('projectModal'))closeModal()});
   byId('projectForm')?.addEventListener('submit',createProject);
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!byId('projectModal')?.hidden)closeModal()});
   window.addEventListener('storage',render);
   window.addEventListener('vensis-projects-updated',render);
+  window.addEventListener('vensis-customers-updated',()=>{renderCustomerOptions();if(!byId('projectModal')?.hidden)showCustomerMatch()});
   render();
 })();

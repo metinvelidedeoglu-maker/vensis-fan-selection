@@ -51,6 +51,21 @@ test('customer page uses a professional read-first dashboard with modal editing 
   assert.match(css,/\.customer-modal\[hidden\]\{display:none\}/);
 });
 
+test('project creation loads customers and requires complete contact details',()=>{
+  const html=read('projects.html');
+  const script=read('js/projects.js');
+
+  assert.ok(html.indexOf('js/customers-store.js')<html.indexOf('js/projects-store.js'));
+  for(const id of ['projectCustomerOptions','newProjectReference','newProjectContact','newProjectPhone','newProjectEmail','projectFormError']){
+    assert.match(html,new RegExp(`id="${id}"`),id);
+  }
+  assert.match(html,/Save Customer &amp; Create Project/);
+  assert.match(script,/customerStore\.findByName/);
+  assert.match(script,/if\(!phone&&!email\)/);
+  assert.match(script,/customerStore\.upsert/);
+  assert.ok(script.indexOf('customerStore.upsert')<script.indexOf('store.create({name,reference:customer.companyName'));
+});
+
 test('technical datasheets no longer render an Applications box or test label',()=>{
   const datasheet=read('js/ui/datasheet.js');
   const detail=read('detail.html');
