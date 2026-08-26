@@ -86,3 +86,14 @@ test('ventilation and electrical catalogs share the same visual structure',()=>{
   assert.match(electricalCss,/\.catalog-grid\{[^}]*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
   assert.doesNotMatch(electrical,/electrical-layout|electrical-filter|electrical-content/);
 });
+
+test('electrical series use the supplied product images in cards and details',()=>{
+  const data=read('electrical/data-zonex.js');
+  const script=read('electrical/catalog.js');
+  const images=[...data.matchAll(/image:'(assets\/products\/[^']+\.webp)'/g)].map(match=>match[1]);
+
+  assert.equal(images.length,11);
+  for(const image of images)assert.ok(fs.existsSync(path.join(root,'electrical',image)),image);
+  assert.match(script,/product\.image\?`<img/);
+  assert.match(script,/model-card-head/);
+});

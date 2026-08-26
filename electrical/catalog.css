@@ -43,6 +43,7 @@ body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans
 .models-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:15px}
 .model-card{border:1px solid #d8e3e5;border-radius:13px;background:#fff;padding:15px}
 .model-card-head{display:flex;align-items:center;gap:14px;padding-bottom:13px;border-bottom:1px solid #e3eaeb}
+.model-card-head img{width:78px;height:78px;flex:0 0 78px;object-fit:contain;background:#f7faf9;border-radius:9px;padding:6px}
 .model-card-icon{width:78px;height:78px;flex:0 0 78px;display:grid;place-items:center;background:#f4f8f8;color:#087f4f;border-radius:9px;font-size:30px;font-weight:800}
 .model-card h3{margin:3px 0 0;font-size:18px}
 .model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}
