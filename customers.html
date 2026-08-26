@@ -4,83 +4,120 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Vensis Customers</title>
+  <meta name="description" content="Vensis customer records, quotations and order activity.">
   <link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1">
   <script src="js/access-gate.js?v=20260826-access-gate-r1"></script>
+  <link rel="stylesheet" href="css/customers.css?v=20260826-customer-dashboard-r1">
   <link rel="stylesheet" href="css/edit-mode.css?v=20260825-customer-cloud-r1">
-  <style>
-    *{box-sizing:border-box}
-    body{margin:0;background:#f2f6f5;color:#173033;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-    .page{max-width:1400px;margin:auto;padding:30px 18px 44px}
-    .page-head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:18px}
-    .page-head h1{margin:0;font-size:34px;letter-spacing:-.04em}
-    .page-head p{margin:7px 0 0;color:#64748b;font-weight:600}
-    .btn{border:0;border-radius:10px;padding:11px 15px;background:#087f4f;color:#fff;font-weight:800;cursor:pointer;box-shadow:0 6px 16px rgba(8,127,79,.18)}
-    .storage-status{margin-bottom:14px;padding:10px 13px;border:1px solid #d8e3e0;border-radius:10px;background:#fff;color:#52666b;font-size:12px;font-weight:750}
-    .storage-status[data-state="synced"]{border-color:#b8d8c8;background:#edf7f2;color:#087f4f}
-    .storage-status[data-state="error"]{border-color:#efc4c0;background:#fff4f2;color:#b8322c}
-    .layout{display:grid;grid-template-columns:380px minmax(0,1fr);gap:16px}
-    .card{min-width:0;background:#fff;border:1px solid #dbe5e2;border-radius:15px;padding:16px;box-shadow:0 3px 12px rgba(23,48,51,.05)}
-    .list-summary{margin-bottom:10px;color:#52666b;font-size:13px}
-    input,textarea{width:100%;box-sizing:border-box;padding:10px 11px;margin:6px 0 12px;border:1px solid #cbd8d5;border-radius:9px;background:#fbfdfc;color:#173033;font:600 14px inherit}
-    input:focus,textarea:focus{outline:3px solid rgba(8,127,79,.12);border-color:#087f4f}
-    textarea{min-height:86px;resize:vertical}
-    .list{max-height:65vh;overflow:auto;padding-right:3px}
-    .customer-row{display:block;width:100%;text-align:left;background:#fff;border:1px solid #e1e9e7;border-radius:9px;padding:11px;margin-bottom:7px;cursor:pointer}
-    .customer-row:hover{border-color:#87bda2;background:#f7fbf9}
-    .customer-row b,.customer-row span{display:block}
-    .customer-row b{font-size:13px;line-height:1.25}
-    .customer-row span{margin-top:4px;color:#64748b;font-size:11px}
-    .customer-empty{padding:30px 14px;text-align:center;color:#64748b}
-    .customer-empty b,.customer-empty span{display:block}
-    .customer-empty b{color:#355259}
-    .customer-empty span{margin-top:7px;font-size:12px;line-height:1.45}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .grid label{color:#52666b;font-size:12px;font-weight:750}
-    .wide{grid-column:1/-1}
-    #customerSaveStatus{display:inline-block;margin-left:10px;font-size:13px;font-weight:800}
-    #customerSaveStatus.is-success{color:#087f4f}
-    #customerSaveStatus.is-error{color:#b8322c}
-    .history-title{margin:22px 0 10px}
-    .history-item{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #e4ebe8}
-    .history-empty{color:#64748b}
-    @media(max-width:850px){.layout,.grid{grid-template-columns:1fr}.wide{grid-column:auto}.page-head{align-items:flex-start;flex-direction:column}.page-head .btn{width:100%}.list{max-height:42vh}}
-  </style>
 </head>
 <body class="app-shell app-customers">
-  <main class="page">
-    <div class="page-head">
-      <div><h1>Customers</h1><p>Customer records and related project history</p></div>
-      <button id="newCustomer" class="btn" type="button">+ New Customer</button>
-    </div>
+  <main class="customer-page">
+    <section class="customer-hero">
+      <div>
+        <span class="eyebrow">CUSTOMER INTELLIGENCE</span>
+        <h1>Customers</h1>
+        <p>Company details, contacts and commercial activity in one clear workspace.</p>
+      </div>
+      <button id="newCustomer" class="button button-primary" type="button"><span>＋</span> New Customer</button>
+    </section>
+
     <div id="customerStorageStatus" class="storage-status" data-state="checking">Checking customer cloud…</div>
-    <div class="layout">
-      <section class="card">
-        <div class="list-summary">Total <b id="customerCount">0</b> · Showing <b id="customerShown">0</b></div>
-        <input id="customerSearch" type="search" autocomplete="off" placeholder="Search company, contact or tax number">
-        <div id="customerList" class="list"></div>
-      </section>
-      <section id="customerPanel" class="card" hidden>
-        <div class="grid">
-          <label class="wide">Company Name<input id="companyName"></label>
-          <label>Tax Office<input id="taxOffice"></label>
-          <label>Tax Number<input id="taxNo"></label>
-          <label>Contact Person<input id="contact"></label>
-          <label>Phone<input id="phone"></label>
-          <label class="wide">Email<input id="email" type="email"></label>
-          <label class="wide">Address<textarea id="address"></textarea></label>
+
+    <section class="metric-grid" aria-label="Customer summary">
+      <article class="metric-card"><span class="metric-icon">♙</span><div><small>Total Customers</small><b id="customerCount">0</b><em id="customerDetailCoverage">0 with full details</em></div></article>
+      <article class="metric-card"><span class="metric-icon">▣</span><div><small>Linked Projects</small><b id="customerProjectCount">0</b><em>Customer-related workspaces</em></div></article>
+      <article class="metric-card"><span class="metric-icon">◫</span><div><small>Quotations</small><b id="customerQuotationCount">0</b><em>Projects with a quotation</em></div></article>
+      <article class="metric-card"><span class="metric-icon">✓</span><div><small>Orders</small><b id="customerOrderCount">0</b><em>Created purchase orders</em></div></article>
+    </section>
+
+    <section class="customer-workspace">
+      <aside class="customer-directory">
+        <header class="directory-head">
+          <div><span class="eyebrow">DIRECTORY</span><h2>Customer list</h2></div>
+          <span class="shown-count"><b id="customerShown">0</b> shown</span>
+        </header>
+        <label class="search-box" for="customerSearch"><span aria-hidden="true">⌕</span><input id="customerSearch" type="search" autocomplete="off" placeholder="Search company, contact or tax number"></label>
+        <div id="customerList" class="customer-list"></div>
+      </aside>
+
+      <section id="customerPanel" class="customer-profile" hidden>
+        <header class="profile-head">
+          <div class="profile-identity"><span id="customerAvatar" class="customer-avatar">—</span><div><span class="eyebrow">CUSTOMER PROFILE</span><h2 id="customerName">—</h2><p id="customerSubtitle">—</p></div></div>
+          <button id="editCustomer" class="button button-secondary" type="button">Edit Customer</button>
+        </header>
+
+        <div class="profile-kpis" aria-label="Selected customer activity">
+          <article><small>Projects</small><b id="profileProjectCount">0</b></article>
+          <article><small>Quotations</small><b id="profileQuotationCount">0</b></article>
+          <article><small>Orders</small><b id="profileOrderCount">0</b></article>
+          <article><small>Last Activity</small><b id="profileLastActivity">—</b></article>
         </div>
-        <button id="saveCustomer" class="btn" type="button">Save</button>
-        <h3 class="history-title">Past Quotations and Orders</h3>
-        <div id="history"></div>
+
+        <div class="profile-grid">
+          <article class="info-card">
+            <header><span class="info-icon">◎</span><div><span class="eyebrow">COMMUNICATION</span><h3>Contact Details</h3></div></header>
+            <dl>
+              <div><dt>Contact Person</dt><dd id="viewContact">—</dd></div>
+              <div><dt>Phone</dt><dd id="viewPhone">—</dd></div>
+              <div><dt>Email</dt><dd id="viewEmail">—</dd></div>
+            </dl>
+          </article>
+          <article class="info-card">
+            <header><span class="info-icon">◇</span><div><span class="eyebrow">LEGAL &amp; BILLING</span><h3>Company Details</h3></div></header>
+            <dl>
+              <div><dt>Tax Office</dt><dd id="viewTaxOffice">—</dd></div>
+              <div><dt>Tax Number</dt><dd id="viewTaxNo">—</dd></div>
+              <div class="address-row"><dt>Address</dt><dd id="viewAddress">—</dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <article class="activity-card">
+          <header><div><span class="eyebrow">COMMERCIAL HISTORY</span><h3>Quotations, orders and projects</h3></div><span id="activityCount" class="activity-count">0 records</span></header>
+          <div id="history" class="activity-list"></div>
+        </article>
       </section>
-    </div>
+
+      <section id="customerWelcome" class="customer-welcome">
+        <div class="welcome-mark">♙</div>
+        <span class="eyebrow">CUSTOMER WORKSPACE</span>
+        <h2>Select a customer</h2>
+        <p>Choose a customer from the list to review company details, quotations, orders and project activity.</p>
+      </section>
+    </section>
   </main>
-  <script src="js/language.js?v=20260825-all-pages-r1"></script>
+
+  <div id="customerEditor" class="customer-modal" hidden>
+    <section class="customer-dialog" role="dialog" aria-modal="true" aria-labelledby="customerEditorTitle">
+      <header class="dialog-head">
+        <div><span class="eyebrow">CUSTOMER RECORD</span><h2 id="customerEditorTitle">Edit Customer</h2><p>Keep commercial and invoicing details complete.</p></div>
+        <button id="closeCustomerEditor" class="dialog-close" type="button" aria-label="Close">×</button>
+      </header>
+      <div class="dialog-body">
+        <div class="form-grid">
+          <label class="wide"><span>Company Name</span><input id="companyName" autocomplete="organization"></label>
+          <label><span>Contact Person</span><input id="contact" autocomplete="name"></label>
+          <label><span>Phone</span><input id="phone" autocomplete="tel"></label>
+          <label><span>Email</span><input id="email" type="email" autocomplete="email"></label>
+          <label><span>Tax Office</span><input id="taxOffice"></label>
+          <label><span>Tax Number</span><input id="taxNo" inputmode="numeric"></label>
+          <label class="wide"><span>Address</span><textarea id="address" autocomplete="street-address"></textarea></label>
+        </div>
+      </div>
+      <footer class="dialog-actions">
+        <span id="customerSaveStatus" aria-live="polite"></span>
+        <button id="cancelCustomerEditor" class="button button-quiet" type="button">Cancel</button>
+        <button id="saveCustomer" class="button button-primary" type="button">Save Customer</button>
+      </footer>
+    </section>
+  </div>
+
+  <script src="js/language.js?v=20260826-customer-dashboard-r1"></script>
   <script src="js/customers-store.js?v=20260826-access-gate-r1"></script>
   <script src="js/projects-store.js?v=20260826-access-gate-r1"></script>
   <script src="js/suite-shell.js?v=20260826-access-gate-r1"></script>
   <script src="js/project-nav.js?v=20260825-sidebar-r3"></script>
-  <script src="js/customers.js?v=20260825-customer-cloud-r1"></script>
+  <script src="js/customers.js?v=20260826-customer-dashboard-r1"></script>
   <script src="js/edit-mode.js?v=20260825-customer-cloud-r1"></script>
 </body>
 </html>
