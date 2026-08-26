@@ -90,6 +90,7 @@
       ...(technical.productCode?[['Product Code',technical.productCode]]:[]),
       ...(technical.availabilityRegion?[['Availability',technical.availabilityRegion]]:[]),
       ...(controls.length?[['Control Levels',controls.join(' / ')]]:[]),
+      ...(model.performance?.sourcePoints?.length?[['Performance Curve','Available · selection ready']]:[]),
       ...(technical.nominalDuctMm>0?[['Duct Ø',`${num(technical.nominalDuctMm)} mm`]]:[]),
       ...(technical.phase?[['Phase',technical.phase]]:[]),
       ...(technical.poles>0?[['Poles',String(technical.poles)]]:[]),
@@ -135,7 +136,7 @@
     return `<article class="model-card">
       <div class="model-card-head">
         <img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
-        <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?'<span class="model-catalog-only">Catalog only</span>':''}</div>
+        <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?'<span class="model-catalog-only">Catalog only</span>':'<span class="model-catalog-only" style="background:#e8f6ef;color:#087f4f">Curve available · selection ready</span>'}</div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
       ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> ${esc(model.technical.safetyWarning)}</div>`:''}

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Build the Soler & Palau catalogue-only dataset from supplied catalogue text.
+"""Build the Soler & Palau dataset from supplied catalogue text and curves.
 
 The source PDFs stay outside the web project.  This importer deliberately records
-only model identities plus the small set of table values whose column order is
-unambiguous.  Performance curves are not inferred from catalogue graphics.
+only model identities plus table values whose column order is unambiguous.
+Selection-enabled rows use separately verified, axis-calibrated PDF vectors.
 """
 
 from __future__ import annotations
@@ -80,6 +80,16 @@ FORCED_MODELS = {
     "TD-EVO": FALLBACK_MODELS["TD-EVO"],
     "TD-MIXVENT": FALLBACK_MODELS["TD-MIXVENT"],
     "TD-SILENT": FALLBACK_MODELS["TD-SILENT"],
+    "VENT-NK / VENT-N": [
+        "VENT-100NK", "VENT-125NK", "VENT-150NK", "VENT-160NK", "VENT-200NK",
+        "VENT-250NK", "VENT-315NK", "VENT-355N", "VENT-400N", "VENT-355N T",
+        "VENT-400N T",
+    ],
+}
+
+TECHNICAL_OVERRIDES = {
+    "VENT-355N T": {"rpm": 1370, "kw": 0.270, "amps": 1.1, "nominal": 2640, "spl": 43, "voltage": "230/400 V"},
+    "VENT-400N T": {"rpm": 1370, "kw": 0.492, "amps": 1.9, "nominal": 3830, "spl": 47, "voltage": "230/400 V"},
 }
 
 
@@ -106,7 +116,7 @@ def simple_values(source_file: str, model: str, text: str) -> dict:
         "cab": 11, "edm": 10, "hcm": 7, "jetline": 11,
         "silen-tub": 7, "silent-decor-design": 7,
         "silent-decor": 7, "silent-design-katolog": 7,
-        "silent": 8, "tdm": 7, "vent-nk": 13,
+        "silent": 8, "tdm": 7, "vent-nk": 13, "HXM": 10,
     }
     candidates = []
     for raw in text.splitlines():
@@ -156,10 +166,15 @@ def simple_values(source_file: str, model: str, text: str) -> dict:
         result.update(rpm=values[0], kw=values[1] / 1000, nominal=values[3], spl=values[4])
     elif source_file == "vent-nk" and len(values) >= 10:
         result.update(rpm=values[3], kw=values[4] / 1000, amps=values[5], nominal=values[6], spl=values[9])
+    elif source_file == "HXM" and len(values) >= 6:
+        result.update(rpm=values[0], kw=values[2] / 1000, amps=values[3], spl=values[4], nominal=values[5])
     return {key: value for key, value in result.items() if value not in (0, "0 V")}
 
 
-def build(text_dir: Path) -> list[dict]:
+def build(text_dir: Path, curves_path: Path | None = None) -> list[dict]:
+    curve_models = {}
+    if curves_path:
+        curve_models = json.loads(curves_path.read_text(encoding="utf-8")).get("models", {})
     rows = []
     for code, source_file, title, category, image, pattern in SERIES:
         source_path = text_dir / f"{source_file}.txt"
@@ -203,6 +218,30 @@ def build(text_dir: Path) -> list[dict]:
                 "catalogOnly": True,
             }
             row.update(simple_values(source_file, model, text))
+            row.update(TECHNICAL_OVERRIDES.get(model, {}))
+            curve = curve_models.get(model)
+            if curve:
+                source_points = curve["sourcePoints"]
+                row["catalogOnly"] = False
+                row["sourcePage"] = curve["sourcePage"]
+                row["sourcePoints"] = source_points
+                row["curves"] = [{
+                    "control": "Nominal",
+                    "sourcePage": curve["sourcePage"],
+                    "sourceMethod": curve["sourceMethod"],
+                    "interpolation": curve["interpolation"],
+                    "precomputed": True,
+                    "sourcePoints": source_points,
+                }]
+                row["operatingPoints"] = [{
+                    "control": "Nominal",
+                    "powerKw": row.get("kw", 0),
+                    "rpm": row.get("rpm", 0),
+                    "currentA": row.get("amps", 0),
+                    "maxAirflowM3h": row.get("nominal", curve["maxAirflowM3h"]),
+                    "maxPressurePa": curve["maxPressurePa"],
+                    "soundPressureDbA3m": row.get("spl", 0),
+                }]
             rows.append(row)
     return rows
 
@@ -211,8 +250,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--text-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--curves", type=Path)
     args = parser.parse_args()
-    rows = build(args.text_dir)
+    rows = build(args.text_dir, args.curves)
     payload = json.dumps(rows, ensure_ascii=False, separators=(",", ":"))
     args.output.write_text(f"window.models.push(...{payload});\n", encoding="utf-8")
     print(json.dumps({"series": len(SERIES), "models": len(rows), "output": str(args.output)}, ensure_ascii=False))
