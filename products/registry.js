@@ -142,7 +142,7 @@
     const operatingPoints=normalizedOperatingPoints(row);
     const primaryCurve=curves.find(curve=>/^(?:nominal|hs|10v|en üst)$/i.test(curve.control))||curves.at(-1)||null;
     const primaryOperating=operatingPoints.find(point=>point.control===primaryCurve?.control)||operatingPoints.at(-1)||null;
-    const sourcePoints=normalizedPoints(row?.sourcePoints||row?.points||primaryCurve?.sourcePoints||[]);
+    const sourcePoints=normalizedPoints(primaryCurve?.sourcePoints||row?.sourcePoints||row?.points||[]);
     const rowPoints=normalizedPoints(row?.points||[]);
     const readyPoints=primaryCurve?.precomputed?sourcePoints:rowPoints;
     const record={

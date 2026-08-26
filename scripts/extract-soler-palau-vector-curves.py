@@ -160,6 +160,118 @@ CATALOGUES = {
             ("SILENT DUAL 300", 6, 189, "En üst"), ("SILENT DUAL 300", 6, 190, "PIR + zamanlayıcı"), ("SILENT DUAL 300", 6, 191, "Sürekli"),
         ],
     },
+    "silent.pdf": {
+        "sha256": "a1db805b242fd3bab53e136bb8c9b5319fac29a05e8a5a4e69716d0848b318b8",
+        "graphs": [
+            ("SILENT-100", 2, 141), ("SILENT-100 12V", 2, 141),
+            ("SILENT-100 CDZ", 2, 141), ("SILENT-100 CHZ VISUAL", 2, 141),
+            ("SILENT-100 ECOWATT", 5, 84),
+            ("SILENT-200", 7, 14), ("SİLENT-200", 7, 14),
+            ("SILENT-300", 9, 12, 0, 199),
+            ("SILENT-300 PLUS", 9, 12, 199, 398),
+        ],
+    },
+    "silent-design-katolog.pdf": {
+        "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+        "graphs": [
+            ("SILENT-100 DESIGN", 3, 14),
+            ("SILENT-100 DESIGN ECOWATT", 5, 14),
+            ("SILENT-100 DESIGN 12VDC ECOWATT", 5, 14),
+            ("SILENT-200 DESIGN", 7, 11), ("SILENT-200 DESIGN-3C", 7, 11),
+            ("SILENT-300 DESIGN", 9, 14, 0, 199),
+            ("SILENT-300 DESIGN-3C", 9, 14, 0, 199),
+        ],
+    },
+    "silent-decor.pdf": {
+        "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+        "graphs": [
+            ("DECOR-100", 2, 24), ("DECOR-100 C 12V", 2, 24),
+            ("DECOR-100 12V", 2, 24), ("DECOR-100 CD", 2, 24),
+            ("DECOR-100 CDZ", 2, 24), ("DECOR-100 CHZ VISUAL", 2, 24),
+            ("DECOR-200", 5, 20), ("DECOR-300", 7, 143),
+        ],
+    },
+    "silent-decor-design.pdf": {
+        "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+        "graphs": [
+            ("DECOR-100 DESIGN", 2, 188),
+            ("DECOR-200 DESIGN", 4, 199),
+            ("DECOR-300 DESIGN", 6, 174),
+        ],
+    },
+    "edm.pdf": {
+        "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+        "graphs": [
+            ("EDM-80 N", 2, 18), ("EDM-80 L", 2, 18),
+            ("EDM-100", 4, 13), ("EDM-100 12V", 4, 594),
+            ("EDM-100S 12V", 4, 594), ("EDM-100C 12V", 4, 594),
+            ("EDM-200", 7, 149),
+        ],
+    },
+    "TH-MIXVENT.pdf": {
+        "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8",
+        "graphs": [
+            ("TH-500/150", 3, 17, "LS", 0, 199), ("TH-500/150", 3, 17, "HS", 199, 398),
+            ("TH-500/160", 3, 17, "LS", 0, 199), ("TH-500/160", 3, 17, "HS", 199, 398),
+            ("TH-500", 3, 17, "LS", 0, 199), ("TH-500", 3, 17, "HS", 199, 398),
+            ("TH-800N", 3, 41, "LS", 0, 199), ("TH-800N", 3, 41, "HS", 199, 398),
+            ("TH-800 N", 3, 41, "LS", 0, 199), ("TH-800 N", 3, 41, "HS", 199, 398),
+            ("TH-800", 3, 25, "LS", 0, 199), ("TH-800", 3, 25, "HS", 199, 398),
+            ("TH-1300", 3, 48, "LS", 0, 199), ("TH-1300", 3, 48, "HS", 199, 398),
+            ("TH-2000", 3, 32, "LS", 0, 199), ("TH-2000", 3, 32, "HS", 199, 398),
+        ],
+    },
+    "TH-ATEX.pdf": {
+        "sha256": "a3a04f5176a4aefa6ff2e6e6cb4c2dd4206aad49c932a0a77a67f3edf9f29580",
+        "graphs": [
+            ("TH-800/200 EX", 2, 19), ("TH-1100/250 EX", 2, 26),
+            ("TH-1200/315 EX", 2, 35),
+        ],
+    },
+    "TD-ATEX.pdf": {
+        "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860",
+        "graphs": [
+            ("TD-800/200 ATEX", 3, 23), ("TD-800/200 EX", 3, 23),
+            ("TD-1100/250 ATEX", 3, 42), ("TD-1100/250 EX", 3, 42), ("TD-1100/250 EXE", 3, 42),
+            ("TD-1200/315 ATEX", 3, 62), ("TD-1200/315 EX", 3, 62), ("TD-1200/315 EXE", 3, 62),
+        ],
+    },
+    "HDT-ATEX.pdf": {
+        "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d",
+        "graphs": [
+            ("HDB/4-315", 3, 29, 796, 995), ("HDT/4-315", 3, 29, 796, 995),
+            ("HDB/4-355", 3, 29, 597, 796), ("HDT/4-355", 3, 29, 597, 796),
+            ("HDB/4-400", 3, 29, 398, 597), ("HDT/4-400", 3, 29, 398, 597),
+            ("HDB/4-450", 3, 29, 199, 398), ("HDT/4-450", 3, 29, 199, 398),
+            ("HDT/4-560", 3, 29, 0, 199),
+            ("HDB/6-355", 3, 21, 597, 796), ("HDT/6-355", 3, 21, 597, 796),
+            ("HDT/6-400", 3, 21, 398, 597),
+            ("HDB/6-450", 3, 21, 199, 398), ("HDT/6-450", 3, 21, 199, 398),
+            ("HDB/6-560", 3, 21, 0, 199), ("HDT/6-560", 3, 21, 0, 199),
+            ("HDT/8-450", 3, 15, 199, 398), ("HDT/8-560", 3, 15, 0, 199),
+        ],
+    },
+    "HXBR-HXTR.pdf": {
+        "sha256": "f218ab3f4803ccfb6fe7661ba6c0a6c2f906a8ebbc4b4833a463649f694cb900",
+        "graphs": [
+            ("HXTR/2-250", 6, 54),
+            ("HXTR/4-250", 9, 16), ("HXTR/4-315", 9, 54),
+            ("HXTR/4-355", 9, 35), ("HXTR/4-400", 9, 73),
+            ("HXTR/4-450", 10, 56), ("HXTR/4-500", 10, 35),
+            ("HXTR/4-560", 10, 16), ("HXTR/4-630", 10, 74),
+            ("HXTR/6-400", 12, 16), ("HXTR/6-450", 12, 73), ("HXTR/6-500", 12, 54),
+            ("HXTR/6-560", 13, 16), ("HXTR/6-630", 13, 54),
+            ("HXTR/6-710", 13, 35), ("HXTR/6-800", 13, 73),
+            ("HXTR/8-800", 14, 136),
+        ],
+    },
+    "ILT-ATEX.pdf": {
+        "sha256": "9aa0f835e2b9e1306a22501c319c29808fa7dd3d74db708d2b312bf7a3b8d2ea",
+        "graphs": [
+            ("ILT/4-225 EX", 3, 927, "50Hz"), ("ILT/4-250 EX", 3, 18, "50Hz"),
+            ("ILT/4-285 EX", 4, 50, "50Hz"), ("ILT/4-315 EX", 4, 486, "50Hz"),
+        ],
+    },
 }
 
 # Some older PDF pages outline their axis labels as vector glyphs instead of
@@ -209,6 +321,40 @@ FIXED_AXES = {
     "SILENT DUAL 100": {"plot": [145.4, 348.4, 428.7, 518.4], "pressureMax": 45, "airflowMax": 100},
     "SILENT DUAL 200": {"plot": [145.4, 348.5, 428.7, 518.4], "pressureMax": 60, "airflowMax": 200},
     "SILENT DUAL 300": {"plot": [145.3, 348.5, 428.7, 518.4], "pressureMax": 70, "airflowMax": 250},
+    "SILENT-100": {"plot": [439.7, 118.4, 563.4, 292.3], "pressureMax": 40, "airflowMax": 120},
+    "SILENT-100 12V": {"plot": [439.7, 118.4, 563.4, 292.3], "pressureMax": 40, "airflowMax": 120},
+    "SILENT-100 CDZ": {"plot": [439.7, 118.4, 563.4, 292.3], "pressureMax": 40, "airflowMax": 120},
+    "SILENT-100 CHZ VISUAL": {"plot": [439.7, 118.4, 563.4, 292.3], "pressureMax": 40, "airflowMax": 120},
+    "SILENT-100 ECOWATT": {"plot": [403.6, 120.7, 540.9, 326.8], "pressureMax": 55, "airflowMax": 100},
+    "SILENT-200": {"plot": [417.9, 119.6, 540.4, 300.5], "pressureMax": 90, "airflowMax": 200},
+    "SİLENT-200": {"plot": [417.9, 119.6, 540.4, 300.5], "pressureMax": 90, "airflowMax": 200},
+    "SILENT-300": {"plot": [416.5, 120.2, 540.2, 302.9], "pressureMax": 120, "airflowMax": 350},
+    "SILENT-300 PLUS": {"plot": [416.5, 120.2, 540.2, 302.9], "pressureMax": 120, "airflowMax": 350},
+    "SILENT-100 DESIGN": {"plot": [439.7, 114.4, 563.5, 292.2], "pressureMax": 24, "airflowMax": 100},
+    "SILENT-100 DESIGN ECOWATT": {"plot": [419.7, 117.1, 558.4, 325.2], "pressureMax": 30, "airflowMax": 100},
+    "SILENT-100 DESIGN 12VDC ECOWATT": {"plot": [419.7, 117.1, 558.4, 325.2], "pressureMax": 30, "airflowMax": 100},
+    "SILENT-200 DESIGN": {"plot": [441.8, 115.5, 551.4, 272.9], "pressureMax": 60, "airflowMax": 200},
+    "SILENT-200 DESIGN-3C": {"plot": [441.8, 115.5, 551.4, 272.9], "pressureMax": 60, "airflowMax": 200},
+    "SILENT-300 DESIGN": {"plot": [421.4, 118.6, 552.2, 311.7], "pressureMax": 60, "airflowMax": 350},
+    "SILENT-300 DESIGN-3C": {"plot": [421.4, 118.6, 552.2, 311.7], "pressureMax": 60, "airflowMax": 350},
+    "DECOR-100": {"plot": [435.6, 280.7, 561.2, 468.6], "pressureMax": 40, "airflowMax": 120},
+    "DECOR-100 C 12V": {"plot": [435.6, 280.7, 561.2, 468.6], "pressureMax": 40, "airflowMax": 120},
+    "DECOR-100 12V": {"plot": [435.6, 280.7, 561.2, 468.6], "pressureMax": 40, "airflowMax": 120},
+    "DECOR-100 CD": {"plot": [435.6, 280.7, 561.2, 468.6], "pressureMax": 40, "airflowMax": 120},
+    "DECOR-100 CDZ": {"plot": [435.6, 280.7, 561.2, 468.6], "pressureMax": 40, "airflowMax": 120},
+    "DECOR-100 CHZ VISUAL": {"plot": [435.6, 280.7, 561.2, 468.6], "pressureMax": 40, "airflowMax": 120},
+    "DECOR-200": {"plot": [417.2, 258.4, 542.0, 446.3], "pressureMax": 40, "airflowMax": 240},
+    "DECOR-300": {"plot": [416.8, 261.1, 542.8, 449.7], "pressureMax": 70, "airflowMax": 360},
+    "DECOR-100 DESIGN": {"plot": [420.9, 237.8, 543.4, 409.3], "pressureMax": 24, "airflowMax": 100},
+    "DECOR-200 DESIGN": {"plot": [420.9, 230.8, 543.4, 402.4], "pressureMax": 30, "airflowMin": 40, "airflowMax": 200},
+    "DECOR-300 DESIGN": {"plot": [420.9, 230.7, 543.4, 402.2], "pressureMax": 50, "airflowMax": 250},
+    "EDM-80 N": {"plot": [420.3, 257.1, 547.7, 434.5], "pressureMax": 20, "airflowMax": 100},
+    "EDM-80 L": {"plot": [420.3, 257.1, 547.7, 434.5], "pressureMax": 20, "airflowMax": 100},
+    "EDM-100": {"plot": [423.0, 322.7, 548.4, 513.7], "pressureMax": 35, "airflowMax": 100},
+    "EDM-100 12V": {"plot": [422.6, 576.3, 548.0, 767.3], "pressureMax": 35, "airflowMax": 100},
+    "EDM-100S 12V": {"plot": [422.6, 576.3, 548.0, 767.3], "pressureMax": 35, "airflowMax": 100},
+    "EDM-100C 12V": {"plot": [422.6, 576.3, 548.0, 767.3], "pressureMax": 35, "airflowMax": 100},
+    "EDM-200": {"plot": [415.7, 287.5, 542.1, 452.5], "pressureMax": 40, "airflowMax": 240},
 }
 
 
@@ -277,6 +423,13 @@ def axis_ticks(page: fitz.Page, drawing: dict) -> tuple[list, list]:
     # grouping by coordinate removes it while retaining every printed fan-axis tick.
     x_ticks = sorted(set(x_ticks))
     y_ticks = sorted(set(y_ticks))
+    # Ignore a neighbouring m3/s scale when the primary m3/h scale is printed
+    # under the same plot.
+    if x_ticks and max(value for _, value in x_ticks) >= 20:
+        threshold = max(value for _, value in x_ticks) / 9
+        filtered = [point for point in x_ticks if point[1] == 0 or point[1] >= threshold]
+        if len(filtered) >= 2:
+            x_ticks = filtered
     # A few compact-fan graphs print a secondary mmH2O scale beside the Pa
     # scale.  It shares the coordinate column but its 1–4 labels are not Pa.
     if y_ticks and max(value for _, value in y_ticks) >= 20:
@@ -295,7 +448,15 @@ def drawing_points(drawing: dict) -> list[tuple[float, float]]:
         if item[0] == "l":
             segment = (item[1], item[2])
         elif item[0] == "c":
-            segment = (item[1], item[4])
+            p0, p1, p2, p3 = item[1], item[2], item[3], item[4]
+            segment = []
+            for index in range(9):
+                t = index / 8
+                u = 1 - t
+                segment.append(fitz.Point(
+                    u ** 3 * p0.x + 3 * u ** 2 * t * p1.x + 3 * u * t ** 2 * p2.x + t ** 3 * p3.x,
+                    u ** 3 * p0.y + 3 * u ** 2 * t * p1.y + 3 * u * t ** 2 * p2.y + t ** 3 * p3.y,
+                ))
         else:
             continue
         for point in segment:
@@ -343,8 +504,9 @@ def extract(pdf_dir: Path) -> dict:
                 axes = FIXED_AXES[model]
                 if "plot" in axes:
                     x0, y0, x1, y1 = axes["plot"]
-                    q_slope = axes["airflowMax"] / (x1 - x0)
-                    q_intercept = -q_slope * x0
+                    airflow_min = axes.get("airflowMin", 0)
+                    q_slope = (axes["airflowMax"] - airflow_min) / (x1 - x0)
+                    q_intercept = airflow_min - q_slope * x0
                     p_slope = -axes["pressureMax"] / (y1 - y0)
                     p_intercept = -p_slope * y1
                     source_method = "axis-calibrated from original catalogue vector performance path and printed plot bounds"
@@ -418,7 +580,10 @@ def main() -> None:
     args = parser.parse_args()
     result = extract(args.pdf_dir)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.output.write_text(
+        json.dumps(result, ensure_ascii=False, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
     print(json.dumps(result["summary"] | {"output": str(args.output)}, ensure_ascii=False, indent=2))
 
 
