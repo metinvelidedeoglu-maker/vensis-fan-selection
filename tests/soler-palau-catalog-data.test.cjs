@@ -50,6 +50,7 @@ test('catalog and document pages load the Soler & Palau dataset before the regis
     const registryIndex=html.indexOf('products/registry.js');
     assert.ok(dataIndex>=0,`${file} does not load the Soler & Palau catalog`);
     assert.ok(registryIndex>dataIndex,`${file} loads registry before the Soler & Palau catalog`);
+    assert.match(html,/products\/registry\.js\?v=20260826-soler-palau-r2/,`${file} does not bust the registry cache`);
   }
   assert.doesNotMatch(fs.readFileSync(path.join(root,'fan-selection.html'),'utf8'),/soler-palau-catalog\.js/);
 });
