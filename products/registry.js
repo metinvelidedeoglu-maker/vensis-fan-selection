@@ -140,7 +140,7 @@
     const id=String(row?.key||model);
     const curves=normalizedCurves(row);
     const operatingPoints=normalizedOperatingPoints(row);
-    const primaryCurve=curves.at(-1)||null;
+    const primaryCurve=curves.find(curve=>/^(?:nominal|hs|10v|en üst)$/i.test(curve.control))||curves.at(-1)||null;
     const primaryOperating=operatingPoints.find(point=>point.control===primaryCurve?.control)||operatingPoints.at(-1)||null;
     const sourcePoints=normalizedPoints(row?.sourcePoints||row?.points||primaryCurve?.sourcePoints||[]);
     const rowPoints=normalizedPoints(row?.points||[]);

@@ -22,8 +22,8 @@ test('Soler & Palau import creates a broad catalog and verified selection range'
   assert.equal(series.length,47);
   assert.ok(models.length>=900);
   assert.equal(models.length,imported.length);
-  assert.equal(models.filter(model=>!model.catalogOnly).length,36);
-  assert.equal(models.filter(model=>model.catalogOnly).length,models.length-36);
+  assert.equal(models.filter(model=>!model.catalogOnly).length,71);
+  assert.equal(models.filter(model=>model.catalogOnly).length,models.length-71);
   assert.ok(models.filter(model=>!model.catalogOnly).every(model=>model.performance.sourcePoints.length>=10));
   assert.ok(series.every(group=>group.modelIds.length>0));
 });
@@ -61,6 +61,18 @@ test('Soler & Palau series images exist and key technical rows are preserved',()
   assert.equal(ventThreePhase.motor.power,0.27);
   assert.equal(ventThreePhase.performance.nominalAirflow,2640);
   assert.equal(ventThreePhase.motor.sound,43);
+
+  const tdSilent=catalog.models.find(model=>model.model==='TD-1300/250 SILENT');
+  assert.equal(tdSilent.catalogOnly,false);
+  assert.deepEqual([...tdSilent.performance.controls],['HS','MS','LS']);
+  assert.equal(
+    JSON.stringify(tdSilent.performance.operatingPoints.map(point=>[point.control,point.power,point.nominalAirflow])),
+    JSON.stringify([['HS',0.204,1320],['MS',0.163,1160],['LS',0.144,1040]])
+  );
+
+  const eco=catalog.models.find(model=>model.model==='TD EVO-315 PF ECOWATT');
+  assert.deepEqual([...eco.performance.controls],['10V','8V','6V','4V']);
+  assert.equal(eco.performance.operatingPoints[0].power,0.225);
 });
 
 test('catalog, selection and document pages load the Soler & Palau dataset before the registry',()=>{
@@ -70,8 +82,8 @@ test('catalog, selection and document pages load the Soler & Palau dataset befor
     const registryIndex=html.indexOf('products/registry.js');
     assert.ok(dataIndex>=0,`${file} does not load the Soler & Palau catalog`);
     assert.ok(registryIndex>dataIndex,`${file} loads registry before the Soler & Palau catalog`);
-    assert.match(html,/data\/soler-palau-catalog\.js\?v=20260826-soler-palau-r2/,`${file} does not bust the S&P data cache`);
-    assert.match(html,/products\/registry\.js\?v=20260826-soler-palau-r3/,`${file} does not bust the registry cache`);
+    assert.match(html,/data\/soler-palau-catalog\.js\?v=20260826-soler-palau-r3/,`${file} does not bust the S&P data cache`);
+    assert.match(html,/products\/registry\.js\?v=20260826-soler-palau-r4/,`${file} does not bust the registry cache`);
   }
 });
 
@@ -79,13 +91,16 @@ test('verified Soler & Palau curve artifact is traceable and contains no extrapo
   const artifact=JSON.parse(fs.readFileSync(path.join(root,'assets/products/soler-palau/verified-vector-curves.json'),'utf8'));
   assert.equal(artifact.status,'verified_against_original_catalogue_vector_graphs');
   assert.equal(artifact.extrapolation,false);
-  assert.equal(artifact.summary.models,36);
-  assert.equal(artifact.sources.length,6);
+  assert.equal(artifact.summary.models,71);
+  assert.equal(artifact.summary.curves,143);
+  assert.equal(artifact.sources.length,11);
   assert.ok(artifact.sources.every(source=>/^[a-f0-9]{64}$/.test(source.sha256)));
   for(const row of Object.values(artifact.models)){
     assert.ok(row.sourcePoints.length>=10);
     assert.ok(row.maxAirflowM3h>0);
     assert.ok(row.maxPressurePa>0);
+    assert.ok(row.curves.length>=1);
+    assert.ok(row.curves.every(curve=>curve.sourcePoints.length>=10));
   }
 });
 

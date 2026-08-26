@@ -69,9 +69,9 @@ FALLBACK_MODELS = {
     "CTVB / CTVT": ["CTVB/4-140", "CTVT/4-140"],
     "HCTB / HCTT": ["HCTB/4-250", "HCTT/4-250"],
     "MAX-TEMP CTHB / CTHT": ["CTHB/4-225", "CTHT/4-225"],
-    "TD-EVO PF ECOWATT": ["TD-EVO PF 100", "TD-EVO PF 125", "TD-EVO PF 160", "TD-EVO PF 200", "TD-EVO PF 250", "TD-EVO PF 315"],
-    "TD-EVO": ["TD-EVO 160/100", "TD-EVO 250/100", "TD-EVO 350/125", "TD-EVO 500/150", "TD-EVO 800/200", "TD-EVO 1300/250", "TD-EVO 2000/315"],
-    "TD-MIXVENT": ["TD-160/100 N", "TD-250/100", "TD-350/125", "TD-500/150", "TD-800/200", "TD-1300/250", "TD-2000/315", "TD-4000", "TD-6000"],
+    "TD-EVO PF ECOWATT": ["TD EVO-100 PF ECOWATT", "TD EVO-125 PF ECOWATT", "TD EVO-150 PF ECOWATT", "TD EVO-160 PF ECOWATT", "TD EVO-200 PF ECOWATT", "TD EVO-250 PF ECOWATT", "TD EVO-315 PF ECOWATT"],
+    "TD-EVO": ["TD EVO-100", "TD EVO-125", "TD EVO-150", "TD EVO-160", "TD EVO-200", "TD EVO-250", "TD EVO-315"],
+    "TD-MIXVENT": ["TD-160/100 N", "TD-250/100", "TD-350/125", "TD-500/150", "TD-800/200N", "TD-800/200", "TD-1300/250N", "TD-2000/315N", "TD-4000/355", "TD-6000/400"],
     "TD-SILENT": ["TD-160/100N SILENT", "TD-250/100 SILENT", "TD-350/125 SILENT", "TD-500/150 SILENT", "TD-800/200 SILENT", "TD-1000/200 SILENT", "TD-1300/250 SILENT", "TD-2000/315 SILENT"],
 }
 
@@ -90,6 +90,181 @@ FORCED_MODELS = {
 TECHNICAL_OVERRIDES = {
     "VENT-355N T": {"rpm": 1370, "kw": 0.270, "amps": 1.1, "nominal": 2640, "spl": 43, "voltage": "230/400 V"},
     "VENT-400N T": {"rpm": 1370, "kw": 0.492, "amps": 1.9, "nominal": 3830, "spl": 47, "voltage": "230/400 V"},
+}
+
+MULTI_SPEED_VALUES = {
+    "SILENT DUAL 100": {
+        "En üst": {"rpm": 2200, "kw": 0.008, "amps": 0.08, "nominal": 90, "spl": 26.5},
+        "PIR + zamanlayıcı": {"rpm": 1670, "kw": 0.006, "amps": 0.08, "nominal": 65, "spl": 22},
+        "Sürekli": {"rpm": 910, "kw": 0.004, "amps": 0.07, "nominal": 25, "spl": 19},
+    },
+    "SILENT DUAL 200": {
+        "En üst": {"rpm": 2280, "kw": 0.017, "amps": 0.12, "nominal": 170, "spl": 34},
+        "PIR + zamanlayıcı": {"rpm": 1870, "kw": 0.013, "amps": 0.11, "nominal": 120, "spl": 29},
+        "Sürekli": {"rpm": 1010, "kw": 0.007, "amps": 0.09, "nominal": 60, "spl": 19},
+    },
+    "SILENT DUAL 300": {
+        "En üst": {"rpm": 2120, "kw": 0.026, "amps": 0.16, "nominal": 235, "spl": 37},
+        "PIR + zamanlayıcı": {"rpm": 1800, "kw": 0.020, "amps": 0.14, "nominal": 190, "spl": 33},
+        "Sürekli": {"rpm": 1010, "kw": 0.011, "amps": 0.11, "nominal": 100, "spl": 19},
+    },
+    "TD EVO-100 PF ECOWATT": {
+        "10V": {"rpm": 2250, "kw": 0.009, "amps": 0.10, "nominal": 190, "spl": 18},
+        "8V": {"rpm": 1940, "kw": 0.007, "amps": 0.10, "nominal": 170, "spl": 14},
+        "6V": {"rpm": 1530, "kw": 0.005, "amps": 0.10, "nominal": 130, "spl": 11},
+        "4V": {"rpm": 1120, "kw": 0.003, "amps": 0.10, "nominal": 90, "spl": 10},
+    },
+    "TD EVO-125 PF ECOWATT": {
+        "10V": {"rpm": 2250, "kw": 0.014, "amps": 0.10, "nominal": 310, "spl": 20},
+        "8V": {"rpm": 1930, "kw": 0.010, "amps": 0.10, "nominal": 260, "spl": 16},
+        "6V": {"rpm": 1520, "kw": 0.006, "amps": 0.10, "nominal": 210, "spl": 11},
+        "4V": {"rpm": 1100, "kw": 0.004, "amps": 0.10, "nominal": 150, "spl": 10},
+    },
+    "TD EVO-150 PF ECOWATT": {
+        "10V": {"rpm": 2650, "kw": 0.038, "amps": 0.30, "nominal": 560, "spl": 30},
+        "8V": {"rpm": 2240, "kw": 0.024, "amps": 0.20, "nominal": 480, "spl": 26},
+        "6V": {"rpm": 1740, "kw": 0.012, "amps": 0.10, "nominal": 360, "spl": 21},
+        "4V": {"rpm": 1250, "kw": 0.006, "amps": 0.10, "nominal": 260, "spl": 14},
+    },
+    "TD EVO-160 PF ECOWATT": {
+        "10V": {"rpm": 2650, "kw": 0.037, "amps": 0.30, "nominal": 580, "spl": 29},
+        "8V": {"rpm": 2250, "kw": 0.024, "amps": 0.20, "nominal": 490, "spl": 25},
+        "6V": {"rpm": 1760, "kw": 0.013, "amps": 0.10, "nominal": 370, "spl": 20},
+        "4V": {"rpm": 1250, "kw": 0.006, "amps": 0.10, "nominal": 260, "spl": 12},
+    },
+    "TD EVO-200 PF ECOWATT": {
+        "10V": {"rpm": 2630, "kw": 0.075, "amps": 0.60, "nominal": 850, "spl": 30},
+        "8V": {"rpm": 2250, "kw": 0.050, "amps": 0.40, "nominal": 740, "spl": 27},
+        "6V": {"rpm": 1750, "kw": 0.026, "amps": 0.20, "nominal": 570, "spl": 21},
+        "4V": {"rpm": 1260, "kw": 0.012, "amps": 0.10, "nominal": 400, "spl": 14},
+    },
+    "TD EVO-250 PF ECOWATT": {
+        "10V": {"rpm": 2640, "kw": 0.141, "amps": 0.90, "nominal": 1380, "spl": 36},
+        "8V": {"rpm": 2270, "kw": 0.094, "amps": 0.60, "nominal": 1180, "spl": 32},
+        "6V": {"rpm": 1770, "kw": 0.049, "amps": 0.40, "nominal": 910, "spl": 27},
+        "4V": {"rpm": 1280, "kw": 0.022, "amps": 0.20, "nominal": 650, "spl": 20},
+    },
+    "TD EVO-315 PF ECOWATT": {
+        "10V": {"rpm": 2640, "kw": 0.225, "amps": 1.50, "nominal": 1780, "spl": 41},
+        "8V": {"rpm": 2280, "kw": 0.145, "amps": 1.00, "nominal": 1520, "spl": 38},
+        "6V": {"rpm": 1770, "kw": 0.073, "amps": 0.50, "nominal": 1170, "spl": 32},
+        "4V": {"rpm": 1280, "kw": 0.035, "amps": 0.30, "nominal": 840, "spl": 25},
+    },
+    "TD EVO-100": {
+        "HS": {"rpm": 2450, "kw": 0.016, "amps": 0.10, "nominal": 210, "spl": 19},
+        "MS": {"rpm": 2170, "kw": 0.013, "amps": 0.10, "nominal": 170, "spl": 16},
+        "LS": {"rpm": 1960, "kw": 0.012, "amps": 0.10, "nominal": 150, "spl": 13},
+    },
+    "TD EVO-125": {
+        "HS": {"rpm": 2320, "kw": 0.029, "amps": 0.10, "nominal": 310, "spl": 26},
+        "MS": {"rpm": 1810, "kw": 0.021, "amps": 0.10, "nominal": 240, "spl": 19},
+        "LS": {"rpm": 1600, "kw": 0.019, "amps": 0.10, "nominal": 210, "spl": 17},
+    },
+    "TD EVO-150": {
+        "HS": {"rpm": 2610, "kw": 0.045, "amps": 0.20, "nominal": 560, "spl": 32},
+        "MS": {"rpm": 2350, "kw": 0.038, "amps": 0.20, "nominal": 490, "spl": 29},
+        "LS": {"rpm": 2110, "kw": 0.033, "amps": 0.10, "nominal": 430, "spl": 26},
+    },
+    "TD EVO-160": {
+        "HS": {"rpm": 2600, "kw": 0.045, "amps": 0.20, "nominal": 560, "spl": 32},
+        "MS": {"rpm": 2330, "kw": 0.037, "amps": 0.20, "nominal": 500, "spl": 29},
+        "LS": {"rpm": 2090, "kw": 0.033, "amps": 0.10, "nominal": 440, "spl": 26},
+    },
+    "TD EVO-200": {
+        "HS": {"rpm": 2700, "kw": 0.107, "amps": 0.50, "nominal": 900, "spl": 33},
+        "MS": {"rpm": 2500, "kw": 0.076, "amps": 0.30, "nominal": 790, "spl": 31},
+        "LS": {"rpm": 2280, "kw": 0.064, "amps": 0.30, "nominal": 710, "spl": 28},
+    },
+    "TD EVO-250": {
+        "HS": {"rpm": 2710, "kw": 0.181, "amps": 0.80, "nominal": 1400, "spl": 37},
+        "MS": {"rpm": 2520, "kw": 0.153, "amps": 0.60, "nominal": 1310, "spl": 35},
+        "LS": {"rpm": 2290, "kw": 0.132, "amps": 0.50, "nominal": 1180, "spl": 33},
+    },
+    "TD EVO-315": {
+        "HS": {"rpm": 2640, "kw": 0.273, "amps": 1.10, "nominal": 1840, "spl": 40},
+        "MS": {"rpm": 2500, "kw": 0.231, "amps": 0.90, "nominal": 1730, "spl": 38},
+        "LS": {"rpm": 2290, "kw": 0.200, "amps": 0.80, "nominal": 1620, "spl": 36},
+    },
+    "TD-160/100 N": {
+        "HS": {"rpm": 2400, "kw": 0.029, "amps": 0.17, "nominal": 180, "spl": 24},
+        "LS": {"rpm": 2200, "kw": 0.018, "amps": 0.11, "nominal": 150, "spl": 22},
+    },
+    "TD-250/100": {
+        "HS": {"rpm": 2140, "kw": 0.028, "amps": 0.12, "nominal": 250, "spl": 34},
+        "LS": {"rpm": 1700, "kw": 0.022, "amps": 0.10, "nominal": 200, "spl": 28},
+    },
+    "TD-350/125": {
+        "HS": {"rpm": 2050, "kw": 0.025, "amps": 0.11, "nominal": 330, "spl": 33},
+        "LS": {"rpm": 1590, "kw": 0.020, "amps": 0.09, "nominal": 250, "spl": 28},
+    },
+    "TD-500/150": {
+        "HS": {"rpm": 2590, "kw": 0.053, "amps": 0.21, "nominal": 560, "spl": 35},
+        "MS": {"rpm": 2150, "kw": 0.044, "amps": 0.19, "nominal": 470, "spl": 31},
+        "LS": {"rpm": 1820, "kw": 0.041, "amps": 0.18, "nominal": 390, "spl": 26},
+    },
+    "TD-800/200N": {
+        "HS": {"rpm": 2190, "kw": 0.103, "amps": 0.50, "nominal": 890, "spl": 38},
+        "MS": {"rpm": 1870, "kw": 0.093, "amps": 0.47, "nominal": 750, "spl": 34},
+        "LS": {"rpm": 1660, "kw": 0.088, "amps": 0.45, "nominal": 660, "spl": 31},
+    },
+    "TD-800/200": {
+        "HS": {"rpm": 2480, "kw": 0.132, "amps": 0.55, "nominal": 1040, "spl": 40},
+        "MS": {"rpm": 2290, "kw": 0.133, "amps": 0.56, "nominal": 940, "spl": 37},
+        "LS": {"rpm": 2080, "kw": 0.131, "amps": 0.55, "nominal": 850, "spl": 34},
+    },
+    "TD-1300/250N": {
+        "HS": {"rpm": 2710, "kw": 0.181, "amps": 0.80, "nominal": 1400, "spl": 40},
+        "MS": {"rpm": 2520, "kw": 0.153, "amps": 0.60, "nominal": 1310, "spl": 39},
+        "LS": {"rpm": 2290, "kw": 0.132, "amps": 0.50, "nominal": 1180, "spl": 37},
+    },
+    "TD-2000/315N": {
+        "HS": {"rpm": 2640, "kw": 0.273, "amps": 1.10, "nominal": 1840, "spl": 39},
+        "MS": {"rpm": 2500, "kw": 0.231, "amps": 0.90, "nominal": 1730, "spl": 38},
+        "LS": {"rpm": 2290, "kw": 0.200, "amps": 0.80, "nominal": 1620, "spl": 37},
+    },
+    "TD-4000/355": {
+        "230V": {"rpm": 1360, "kw": 0.407, "amps": 1.69, "nominal": 3750, "spl": 41},
+    },
+    "TD-6000/400": {
+        "230V": {"rpm": 1400, "kw": 0.580, "amps": 2.42, "nominal": 5100, "spl": 43},
+    },
+    "TD-160/100N SILENT": {
+        "HS": {"rpm": 2400, "kw": 0.029, "amps": 0.17, "nominal": 180, "spl": 24},
+        "LS": {"rpm": 2200, "kw": 0.018, "amps": 0.11, "nominal": 150, "spl": 22},
+    },
+    "TD-250/100 SILENT": {
+        "HS": {"rpm": 2210, "kw": 0.027, "amps": 0.12, "nominal": 250, "spl": 25},
+        "LS": {"rpm": 1680, "kw": 0.021, "amps": 0.10, "nominal": 200, "spl": 20},
+    },
+    "TD-350/125 SILENT": {
+        "HS": {"rpm": 2100, "kw": 0.027, "amps": 0.12, "nominal": 330, "spl": 23},
+        "LS": {"rpm": 1650, "kw": 0.021, "amps": 0.10, "nominal": 260, "spl": 18},
+    },
+    "TD-500/150 SILENT": {
+        "HS": {"rpm": 2480, "kw": 0.059, "amps": 0.26, "nominal": 590, "spl": 27},
+        "MS": {"rpm": 2060, "kw": 0.050, "amps": 0.22, "nominal": 450, "spl": 22},
+        "LS": {"rpm": 1610, "kw": 0.045, "amps": 0.20, "nominal": 350, "spl": 17},
+    },
+    "TD-800/200 SILENT": {
+        "HS": {"rpm": 2170, "kw": 0.102, "amps": 0.50, "nominal": 910, "spl": 28},
+        "MS": {"rpm": 1870, "kw": 0.092, "amps": 0.47, "nominal": 780, "spl": 24},
+        "LS": {"rpm": 1660, "kw": 0.090, "amps": 0.46, "nominal": 690, "spl": 22},
+    },
+    "TD-1000/200 SILENT": {
+        "HS": {"rpm": 2450, "kw": 0.130, "amps": 0.55, "nominal": 1040, "spl": 29},
+        "MS": {"rpm": 2210, "kw": 0.127, "amps": 0.55, "nominal": 910, "spl": 27},
+        "LS": {"rpm": 1920, "kw": 0.122, "amps": 0.53, "nominal": 790, "spl": 24},
+    },
+    "TD-1300/250 SILENT": {
+        "HS": {"rpm": 2530, "kw": 0.204, "amps": 0.85, "nominal": 1320, "spl": 36},
+        "MS": {"rpm": 2230, "kw": 0.163, "amps": 0.68, "nominal": 1160, "spl": 33},
+        "LS": {"rpm": 2030, "kw": 0.144, "amps": 0.60, "nominal": 1040, "spl": 31},
+    },
+    "TD-2000/315 SILENT": {
+        "HS": {"rpm": 2670, "kw": 0.293, "amps": 1.25, "nominal": 1770, "spl": 39},
+        "MS": {"rpm": 2490, "kw": 0.232, "amps": 0.97, "nominal": 1610, "spl": 38},
+        "LS": {"rpm": 2240, "kw": 0.190, "amps": 0.78, "nominal": 1480, "spl": 36},
+    },
 }
 
 
@@ -219,29 +394,45 @@ def build(text_dir: Path, curves_path: Path | None = None) -> list[dict]:
             }
             row.update(simple_values(source_file, model, text))
             row.update(TECHNICAL_OVERRIDES.get(model, {}))
+            speed_values = MULTI_SPEED_VALUES.get(model, {})
+            if speed_values:
+                row.update(next(iter(speed_values.values())))
             curve = curve_models.get(model)
             if curve:
-                source_points = curve["sourcePoints"]
-                row["catalogOnly"] = False
-                row["sourcePage"] = curve["sourcePage"]
-                row["sourcePoints"] = source_points
-                row["curves"] = [{
+                extracted_curves = curve.get("curves") or [{
                     "control": "Nominal",
                     "sourcePage": curve["sourcePage"],
                     "sourceMethod": curve["sourceMethod"],
                     "interpolation": curve["interpolation"],
                     "precomputed": True,
-                    "sourcePoints": source_points,
-                }]
-                row["operatingPoints"] = [{
-                    "control": "Nominal",
-                    "powerKw": row.get("kw", 0),
-                    "rpm": row.get("rpm", 0),
-                    "currentA": row.get("amps", 0),
-                    "maxAirflowM3h": row.get("nominal", curve["maxAirflowM3h"]),
+                    "sourcePoints": curve["sourcePoints"],
+                    "maxAirflowM3h": curve["maxAirflowM3h"],
                     "maxPressurePa": curve["maxPressurePa"],
-                    "soundPressureDbA3m": row.get("spl", 0),
                 }]
+                source_points = extracted_curves[0]["sourcePoints"]
+                row["catalogOnly"] = False
+                row["sourcePage"] = extracted_curves[0]["sourcePage"]
+                row["sourcePoints"] = source_points
+                row["curves"] = [{
+                    "control": item["control"],
+                    "sourcePage": item["sourcePage"],
+                    "sourceMethod": item["sourceMethod"],
+                    "interpolation": item["interpolation"],
+                    "precomputed": True,
+                    "sourcePoints": item["sourcePoints"],
+                } for item in extracted_curves]
+                row["operatingPoints"] = []
+                for item in extracted_curves:
+                    values = speed_values.get(item["control"], {})
+                    row["operatingPoints"].append({
+                        "control": item["control"],
+                        "powerKw": values.get("kw", row.get("kw", 0)),
+                        "rpm": values.get("rpm", row.get("rpm", 0)),
+                        "currentA": values.get("amps", row.get("amps", 0)),
+                        "maxAirflowM3h": values.get("nominal", row.get("nominal", item["maxAirflowM3h"])),
+                        "maxPressurePa": item["maxPressurePa"],
+                        "soundPressureDbA3m": values.get("spl", row.get("spl", 0)),
+                    })
             rows.append(row)
     return rows
 

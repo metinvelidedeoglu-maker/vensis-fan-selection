@@ -69,6 +69,97 @@ CATALOGUES = {
             ("TDM-300", 2, 172),
         ],
     },
+    "td-silent.pdf": {
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67",
+        "graphs": [
+            ("TD-160/100N SILENT", 6, 315, "HS"),
+            ("TD-160/100N SILENT", 6, 316, "LS"),
+            ("TD-250/100 SILENT", 6, 490, "HS"),
+            ("TD-250/100 SILENT", 6, 491, "LS"),
+            ("TD-350/125 SILENT", 7, 2867, "HS"),
+            ("TD-350/125 SILENT", 7, 2868, "LS"),
+            ("TD-500/150 SILENT", 7, 3050, "HS"),
+            ("TD-500/150 SILENT", 7, 3051, "MS", 0, 199),
+            ("TD-500/150 SILENT", 7, 3051, "LS", 199, 398),
+            ("TD-800/200 SILENT", 8, 327, "HS"),
+            ("TD-800/200 SILENT", 8, 328, "MS", 0, 199),
+            ("TD-800/200 SILENT", 8, 328, "LS", 199, 398),
+            ("TD-1000/200 SILENT", 8, 547, "HS"),
+            ("TD-1000/200 SILENT", 8, 548, "MS", 0, 199),
+            ("TD-1000/200 SILENT", 8, 548, "LS", 199, 398),
+            ("TD-1300/250 SILENT", 9, 3792, "HS"),
+            ("TD-1300/250 SILENT", 9, 3793, "MS", 0, 199),
+            ("TD-1300/250 SILENT", 9, 3793, "LS", 199, 398),
+            ("TD-2000/315 SILENT", 9, 4036, "HS"),
+            ("TD-2000/315 SILENT", 9, 4037, "MS", 0, 199),
+            ("TD-2000/315 SILENT", 9, 4037, "LS", 199, 398),
+        ],
+    },
+    "td-mixvent.pdf": {
+        "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+        "graphs": [
+            ("TD-160/100 N", 6, 3336, "HS"),
+            ("TD-160/100 N", 6, 3337, "LS"),
+            ("TD-250/100", 6, 3504, "HS"),
+            ("TD-250/100", 6, 3505, "LS"),
+            ("TD-350/125", 7, 146, "HS"),
+            ("TD-350/125", 7, 147, "LS"),
+            ("TD-500/150", 7, 318, "HS"),
+            ("TD-500/150", 7, 319, "MS", 0, 199),
+            ("TD-500/150", 7, 319, "LS", 199, 398),
+            ("TD-800/200N", 8, 3645, "HS"),
+            ("TD-800/200N", 8, 3646, "MS", 0, 199),
+            ("TD-800/200N", 8, 3646, "LS", 199, 398),
+            ("TD-800/200", 8, 3858, "HS"),
+            ("TD-800/200", 8, 3859, "MS", 0, 199),
+            ("TD-800/200", 8, 3859, "LS", 199, 398),
+            ("TD-1300/250N", 9, 1782, "HS"),
+            ("TD-1300/250N", 9, 1783, "MS"),
+            ("TD-1300/250N", 9, 1784, "LS"),
+            ("TD-2000/315N", 9, 3396, "HS"),
+            ("TD-2000/315N", 9, 3397, "MS"),
+            ("TD-2000/315N", 9, 3398, "LS"),
+            ("TD-4000/355", 10, 4963, "230V"),
+            ("TD-4000/355", 10, 4964, "170V", 0, 199),
+            ("TD-4000/355", 10, 4964, "140V", 199, 398),
+            ("TD-4000/355", 10, 4964, "115V", 398, 597),
+            ("TD-6000/400", 11, 289, "230V"),
+            ("TD-6000/400", 11, 290, "170V"),
+            ("TD-6000/400", 11, 291, "140V"),
+        ],
+    },
+    "td-evo-serisi.pdf": {
+        "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e",
+        "graphs": [
+            ("TD EVO-100", 5, 3132, "HS"), ("TD EVO-100", 5, 3133, "MS"), ("TD EVO-100", 5, 3134, "LS"),
+            ("TD EVO-125", 5, 3448, "HS"), ("TD EVO-125", 5, 3449, "MS"), ("TD EVO-125", 5, 3450, "LS"),
+            ("TD EVO-150", 6, 3151, "HS"), ("TD EVO-150", 6, 3152, "MS"), ("TD EVO-150", 6, 3153, "LS"),
+            ("TD EVO-160", 6, 3450, "HS"), ("TD EVO-160", 6, 3451, "MS"), ("TD EVO-160", 6, 3452, "LS"),
+            ("TD EVO-200", 7, 3116, "HS"), ("TD EVO-200", 7, 3117, "MS"), ("TD EVO-200", 7, 3118, "LS"),
+            ("TD EVO-250", 7, 3355, "HS"), ("TD EVO-250", 7, 3356, "MS"), ("TD EVO-250", 7, 3357, "LS"),
+            ("TD EVO-315", 8, 1813, "HS"), ("TD EVO-315", 8, 1814, "MS"), ("TD EVO-315", 8, 1815, "LS"),
+        ],
+    },
+    "TD-EVO-PF-ECOWATT.pdf": {
+        "sha256": "0a15973b15ff9cea7b219e15a7f09880f3457855260ddea73e15f5e15f6f8841",
+        "graphs": [
+            ("TD EVO-100 PF ECOWATT", 5, 1655, "10V"), ("TD EVO-100 PF ECOWATT", 5, 1572, "8V"), ("TD EVO-100 PF ECOWATT", 5, 1573, "6V"), ("TD EVO-100 PF ECOWATT", 5, 1574, "4V"),
+            ("TD EVO-125 PF ECOWATT", 5, 1948, "10V"), ("TD EVO-125 PF ECOWATT", 5, 1831, "8V"), ("TD EVO-125 PF ECOWATT", 5, 1832, "6V"), ("TD EVO-125 PF ECOWATT", 5, 1833, "4V"),
+            ("TD EVO-150 PF ECOWATT", 6, 1705, "10V"), ("TD EVO-150 PF ECOWATT", 6, 1594, "8V"), ("TD EVO-150 PF ECOWATT", 6, 1595, "6V"), ("TD EVO-150 PF ECOWATT", 6, 1596, "4V"),
+            ("TD EVO-160 PF ECOWATT", 6, 1998, "10V"), ("TD EVO-160 PF ECOWATT", 6, 1887, "8V"), ("TD EVO-160 PF ECOWATT", 6, 1888, "6V"), ("TD EVO-160 PF ECOWATT", 6, 1889, "4V"),
+            ("TD EVO-200 PF ECOWATT", 7, 1711, "10V"), ("TD EVO-200 PF ECOWATT", 7, 1600, "8V"), ("TD EVO-200 PF ECOWATT", 7, 1601, "6V"), ("TD EVO-200 PF ECOWATT", 7, 1602, "4V"),
+            ("TD EVO-250 PF ECOWATT", 7, 2001, "10V"), ("TD EVO-250 PF ECOWATT", 7, 1893, "8V"), ("TD EVO-250 PF ECOWATT", 7, 1894, "6V"), ("TD EVO-250 PF ECOWATT", 7, 1895, "4V"),
+            ("TD EVO-315 PF ECOWATT", 8, 959, "10V"), ("TD EVO-315 PF ECOWATT", 8, 847, "8V"), ("TD EVO-315 PF ECOWATT", 8, 848, "6V"), ("TD EVO-315 PF ECOWATT", 8, 849, "4V"),
+        ],
+    },
+    "silent-dual.pdf": {
+        "sha256": "8c77163c13a8e48c4ea16ca697ba722f735d0881860b0cc11656fc23b5d1ce43",
+        "graphs": [
+            ("SILENT DUAL 100", 2, 256, "En üst"), ("SILENT DUAL 100", 2, 257, "PIR + zamanlayıcı"), ("SILENT DUAL 100", 2, 258, "Sürekli"),
+            ("SILENT DUAL 200", 4, 201, "En üst"), ("SILENT DUAL 200", 4, 202, "PIR + zamanlayıcı"), ("SILENT DUAL 200", 4, 203, "Sürekli"),
+            ("SILENT DUAL 300", 6, 189, "En üst"), ("SILENT DUAL 300", 6, 190, "PIR + zamanlayıcı"), ("SILENT DUAL 300", 6, 191, "Sürekli"),
+        ],
+    },
 }
 
 # Some older PDF pages outline their axis labels as vector glyphs instead of
@@ -83,6 +174,41 @@ FIXED_AXES = {
     "JETLINE-200": {"grid": 1375, "pressureMax": 500, "airflowMax": 1040},
     "JETLINE-250": {"grid": 1191, "pressureMax": 400, "airflowMax": 1279},
     "JETLINE-315": {"grid": 625, "pressureMax": 500, "airflowMax": 1610},
+    "TD-160/100N SILENT": {"plot": [77.7, 178.5, 260.1, 349.4], "pressureMax": 120, "airflowMax": 200},
+    "TD-250/100 SILENT": {"plot": [354.0, 178.5, 536.4, 349.4], "pressureMax": 160, "airflowMax": 300},
+    "TD-350/125 SILENT": {"plot": [59.9, 178.4, 242.3, 349.2], "pressureMax": 160, "airflowMax": 400},
+    "TD-500/150 SILENT": {"plot": [337.4, 178.5, 519.7, 349.4], "pressureMax": 300, "airflowMax": 600},
+    "TD-800/200 SILENT": {"plot": [77.8, 178.5, 260.1, 349.4], "pressureMax": 350, "airflowMax": 1000},
+    "TD-1000/200 SILENT": {"plot": [354.9, 178.9, 537.2, 349.7], "pressureMax": 350, "airflowMax": 1200},
+    "TD-1300/250 SILENT": {"plot": [60.8, 179.2, 243.1, 350.1], "pressureMax": 600, "airflowMax": 1400},
+    "TD-2000/315 SILENT": {"plot": [337.9, 178.5, 520.2, 349.4], "pressureMax": 800, "airflowMax": 2100},
+    "TD-160/100 N": {"plot": [78.1, 178.7, 259.4, 348.7], "pressureMax": 120, "airflowMax": 200},
+    "TD-250/100": {"plot": [355.2, 179.1, 536.5, 349.0], "pressureMax": 160, "airflowMax": 300},
+    "TD-350/125": {"plot": [60.6, 178.7, 242.0, 348.6], "pressureMax": 160, "airflowMax": 400},
+    "TD-500/150": {"plot": [338.8, 179.2, 520.2, 349.1], "pressureMax": 300, "airflowMax": 600},
+    "TD-800/200N": {"plot": [79.6, 181.0, 261.9, 351.9], "pressureMax": 350, "airflowMax": 1000},
+    "TD-800/200": {"plot": [354.5, 178.1, 536.9, 349.0], "pressureMax": 400, "airflowMax": 1200},
+    "TD-1300/250N": {"plot": [61.7, 174.4, 248.8, 349.9], "pressureMax": 500, "airflowMax": 1500},
+    "TD-2000/315N": {"plot": [335.2, 174.4, 522.0, 349.7], "pressureMax": 600, "airflowMax": 2000},
+    "TD-4000/355": {"plot": [80.6, 174.5, 262.0, 344.4], "pressureMax": 280, "airflowMax": 4000},
+    "TD-6000/400": {"plot": [66.3, 181.7, 245.5, 349.7], "pressureMax": 350, "airflowMax": 6000},
+    "TD EVO-100": {"plot": [81.6, 172.1, 258.4, 337.8], "pressureMax": 160, "airflowMax": 240},
+    "TD EVO-125": {"plot": [356.6, 172.1, 533.5, 337.8], "pressureMax": 180, "airflowMax": 350},
+    "TD EVO-150": {"plot": [64.9, 172.1, 241.4, 337.5], "pressureMax": 300, "airflowMax": 600},
+    "TD EVO-160": {"plot": [340.0, 172.1, 516.5, 337.5], "pressureMax": 300, "airflowMax": 600},
+    "TD EVO-200": {"plot": [82.1, 172.1, 258.4, 337.3], "pressureMax": 350, "airflowMax": 1000},
+    "TD EVO-250": {"plot": [359.0, 172.5, 535.3, 337.9], "pressureMax": 500, "airflowMax": 1500},
+    "TD EVO-315": {"plot": [65.4, 172.1, 241.4, 337.1], "pressureMax": 600, "airflowMax": 2000},
+    "TD EVO-100 PF ECOWATT": {"plot": [90.9, 164.2, 251.9, 315.1], "pressureMax": 125, "airflowMax": 200},
+    "TD EVO-125 PF ECOWATT": {"plot": [365.0, 164.2, 526.9, 316.0], "pressureMax": 180, "airflowMax": 350},
+    "TD EVO-150 PF ECOWATT": {"plot": [73.4, 164.2, 234.8, 315.6], "pressureMax": 300, "airflowMax": 600},
+    "TD EVO-160 PF ECOWATT": {"plot": [348.5, 164.2, 509.9, 315.6], "pressureMax": 300, "airflowMax": 600},
+    "TD EVO-200 PF ECOWATT": {"plot": [90.7, 164.5, 251.7, 315.4], "pressureMax": 350, "airflowMax": 1000},
+    "TD EVO-250 PF ECOWATT": {"plot": [367.8, 164.2, 527.1, 313.5], "pressureMax": 500, "airflowMax": 1500},
+    "TD EVO-315 PF ECOWATT": {"plot": [75.7, 164.2, 235.0, 313.6], "pressureMax": 700, "airflowMax": 2000},
+    "SILENT DUAL 100": {"plot": [145.4, 348.4, 428.7, 518.4], "pressureMax": 45, "airflowMax": 100},
+    "SILENT DUAL 200": {"plot": [145.4, 348.5, 428.7, 518.4], "pressureMax": 60, "airflowMax": 200},
+    "SILENT DUAL 300": {"plot": [145.3, 348.5, 428.7, 518.4], "pressureMax": 70, "airflowMax": 250},
 }
 
 
@@ -202,24 +328,38 @@ def extract(pdf_dir: Path) -> dict:
         sources.append({"catalogue": filename, "sha256": actual_hash})
         for graph in specification["graphs"]:
             model, page_number, drawing_index = graph[:3]
+            control = graph[3] if len(graph) >= 4 and isinstance(graph[3], str) else "Nominal"
             page = document[page_number - 1]
             drawings = page.get_drawings()
             if drawing_index >= len(drawings):
                 raise ValueError(f"{model}: drawing {drawing_index} is unavailable")
             drawing = drawings[drawing_index]
-            if len(graph) == 5:
+            if len(graph) == 5 and not isinstance(graph[3], str):
                 drawing = {**drawing, "items": drawing["items"][graph[3]:graph[4]]}
+            elif len(graph) == 6:
+                drawing = {**drawing, "items": drawing["items"][graph[4]:graph[5]]}
             raw_points = drawing_points(drawing)
             if model in FIXED_AXES:
                 axes = FIXED_AXES[model]
-                grid = drawings[axes["grid"]]["rect"]
-                q_slope = axes["airflowMax"] / (raw_points[-1][0] - raw_points[0][0])
-                q_intercept = -q_slope * raw_points[0][0]
-                p_slope = -axes["pressureMax"] / (drawing["rect"].y1 - grid.y0)
-                p_intercept = -p_slope * drawing["rect"].y1
-                source_method = "calibrated from original vector path, printed pressure scale and technical-table free-air endpoint"
+                if "plot" in axes:
+                    x0, y0, x1, y1 = axes["plot"]
+                    q_slope = axes["airflowMax"] / (x1 - x0)
+                    q_intercept = -q_slope * x0
+                    p_slope = -axes["pressureMax"] / (y1 - y0)
+                    p_intercept = -p_slope * y1
+                    source_method = "axis-calibrated from original catalogue vector performance path and printed plot bounds"
+                else:
+                    grid = drawings[axes["grid"]]["rect"]
+                    q_slope = axes["airflowMax"] / (raw_points[-1][0] - raw_points[0][0])
+                    q_intercept = -q_slope * raw_points[0][0]
+                    p_slope = -axes["pressureMax"] / (drawing["rect"].y1 - grid.y0)
+                    p_intercept = -p_slope * drawing["rect"].y1
+                    source_method = "calibrated from original vector path, printed pressure scale and technical-table free-air endpoint"
             else:
-                x_ticks, y_ticks = axis_ticks(page, drawing)
+                try:
+                    x_ticks, y_ticks = axis_ticks(page, drawing)
+                except ValueError as error:
+                    raise ValueError(f"{model} ({control}): {error}") from error
                 q_slope, q_intercept = linear_fit(x_ticks)
                 p_slope, p_intercept = linear_fit(y_ticks)
                 source_method = "axis-calibrated from original catalogue vector performance path"
@@ -234,8 +374,8 @@ def extract(pdf_dir: Path) -> dict:
                 raise ValueError(f"{model}: extracted curve is unexpectedly short")
             if calibrated[-1][1] <= calibrated[0][1]:
                 raise ValueError(f"{model}: airflow direction is invalid")
-            models[model] = {
-                "catalogue": filename,
+            curve = {
+                "control": control,
                 "sourcePage": page_number,
                 "sourceDrawingIndex": drawing_index,
                 "sourceMethod": source_method,
@@ -245,6 +385,13 @@ def extract(pdf_dir: Path) -> dict:
                 "maxAirflowM3h": round(max(point[1] for point in calibrated), 1),
                 "maxPressurePa": round(max(point[0] for point in calibrated), 1),
             }
+            model_record = models.setdefault(model, {
+                "catalogue": filename,
+                "curves": [],
+            })
+            model_record["curves"].append(curve)
+            if len(model_record["curves"]) == 1:
+                model_record.update({key: value for key, value in curve.items() if key != "control"})
     return {
         "schemaVersion": "1.0",
         "status": "verified_against_original_catalogue_vector_graphs",
@@ -253,8 +400,12 @@ def extract(pdf_dir: Path) -> dict:
         "summary": {
             "catalogues": len(sources),
             "models": len(models),
-            "curves": len(models),
-            "points": sum(len(model["sourcePoints"]) for model in models.values()),
+            "curves": sum(len(model["curves"]) for model in models.values()),
+            "points": sum(
+                len(curve["sourcePoints"])
+                for model in models.values()
+                for curve in model["curves"]
+            ),
         },
         "models": models,
     }
