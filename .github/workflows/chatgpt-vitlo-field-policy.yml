@@ -1,0 +1,35 @@
+name: ChatGPT Vitlo field policy deployment
+on:
+  push:
+    branches: [main]
+jobs:
+  verify-and-bust-cache:
+    if: github.event.head_commit.message == 'Trigger Vitlo field policy deployment'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify catalog policy JavaScript
+        run: node --check data/catalog-schema-v2.js
+      - name: Bump field policy asset version
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          version='data/catalog-schema-v2.js?v=20260827-vitlo-altmodel-r1'
+          for name in ['catalog.html','fan-selection.html']:
+              path=Path(name)
+              text=path.read_text(encoding='utf-8')
+              import re
+              text=re.sub(r'data/catalog-schema-v2\.js\?v=[^"\']+',version,text)
+              path.write_text(text,encoding='utf-8')
+          PY
+          git config user.name 'Vensis Automation'
+          git config user.email 'automation@vensis.local'
+          git add catalog.html fan-selection.html
+          git diff --cached --quiet || git commit -m 'Bump Vitlo alt-model policy asset version'
+          git push
