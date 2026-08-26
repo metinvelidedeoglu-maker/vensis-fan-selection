@@ -19,13 +19,13 @@ window.VensisSeriesOverrides={
 };
 
 document.write(
-  '<script src="data/sp-roof-01.js?v=20260826-roof-curves-final2"><\/script>',
-  '<script src="data/sp-roof-b02.js?v=20260826-roof-curves-final2"><\/script>',
-  '<script src="data/sp-roof-b03.js?v=20260826-roof-curves-final2"><\/script>',
-  '<script src="data/sp-roof-b04.js?v=20260826-roof-curves-final2"><\/script>',
-  '<script src="data/sp-roof-b05.js?v=20260826-roof-curves-final2"><\/script>',
-  '<script src="data/sp-roof-b06.js?v=20260826-roof-curves-final2"><\/script>',
-  '<script src="data/sp-roof-b07.js?v=20260826-roof-curves-final2"><\/script>',
-  '<script src="data/sp-roof-b08.js?v=20260826-roof-curves-final2"><\/script>',
-  '<script src="data/sp-roof-b09.js?v=20260826-roof-curves-final2"><\/script>'
+  '<script src="data/sp-roof-01.js?v=20260826-roof-curves-final3"><\/script>',
+  '<script src="data/sp-roof-b02.js?v=20260826-roof-curves-final3"><\/script>',
+  '<script src="data/sp-roof-b03.js?v=20260826-roof-curves-final3"><\/script>',
+  '<script src="data/sp-roof-b04.js?v=20260826-roof-curves-final3"><\/script>',
+  '<script src="data/sp-roof-b05.js?v=20260826-roof-curves-final3"><\/script>',
+  '<script src="data/sp-roof-b06.js?v=20260826-roof-curves-final3"><\/script>',
+  '<script src="data/sp-roof-b07.js?v=20260826-roof-curves-final3"><\/script>',
+  '<script src="data/sp-roof-b08.js?v=20260826-roof-curves-final3"><\/script>',
+  '<script src="data/sp-roof-b09.js?v=20260826-roof-curves-final3"><\/script>'
 );
