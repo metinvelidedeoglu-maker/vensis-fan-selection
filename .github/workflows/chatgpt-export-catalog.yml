@@ -1,0 +1,110 @@
+name: ChatGPT temporary catalog export
+on:
+  push:
+    branches: [main]
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build normalized catalog JSON
+        shell: bash
+        run: |
+          cat > /tmp/export.js <<'NODE'
+          const fs=require('fs'), vm=require('vm');
+          const window={models:[]};
+          const context={window, console, setTimeout, clearTimeout};
+          context.globalThis=context; context.self=window;
+          vm.createContext(context);
+          const files=[
+            ...Array.from({length:15},(_,i)=>`data/fans-${String(i+1).padStart(2,'0')}.js`),
+            'data/soler-palau-catalog.js','data/soler-palau-catalog-2.js','data/soler-palau-catalog-3.js',
+            'data/series-overrides.js','data/vortice-prices-2026-1.js','products/registry.js',
+            'data/crs-atex-prices-r4.js','data/catalog-schema-v2.js'
+          ];
+          for(const file of files){
+            if(!fs.existsSync(file)) continue;
+            try{ vm.runInContext(fs.readFileSync(file,'utf8'), context, {filename:file}); }
+            catch(e){ console.error('WARN',file,e.message); }
+          }
+          const cat=window.VensisCatalog||context.VensisCatalog;
+          let rows=[];
+          const uniq=a=>[...new Set((a||[]).filter(Boolean).map(String))];
+          const num=v=>{const n=Number(v);return Number.isFinite(n)&&n!==0?n:null};
+          if(cat && Array.isArray(cat.models)){
+            const seriesMap=new Map((cat.series||[]).map(s=>[String(s.id),s]));
+            for(const m of cat.models){
+              const s=seriesMap.get(String(m.seriesId))||{};
+              const ops=Array.isArray(m.performance?.operatingPoints)?m.performance.operatingPoints:[];
+              const airflowVals=[m.performance?.nominalAirflow,...ops.map(p=>p.nominalAirflow)].map(Number).filter(Number.isFinite);
+              rows.push({
+                'Marka':s.manufacturer||m.manufacturer||m.brand||'',
+                'Model':s.code||s.title||m.series||'',
+                'Bulunduğu Kategoriler':uniq(s.categories).join('; '),
+                'Alt Model':m.model||m.name||'',
+                'Motor Gücü':num(m.motor?.power), 'Devir':num(m.motor?.speed), 'Akım':num(m.motor?.current),
+                'Gerilim':m.motor?.voltage||'', 'Frekans':m.motor?.frequency||'', 'Faz':m.technical?.phase||'',
+                'Poles':num(m.technical?.poles), 'Max. Hava Debisi':airflowVals.length?Math.max(...airflowVals):null,
+                'Sound':num(m.motor?.sound), 'IP':m.technical?.ipClass||'', 'Fiyat':num(m.pricing?.listPrice)
+              });
+            }
+          } else {
+            const groups=new Map();
+            for(const r of (window.models||[])){const k=[r.brand,r.series,r.model].join('|');if(!groups.has(k))groups.set(k,[]);groups.get(k).push(r)}
+            for(const arr of groups.values()){
+              const best=[...arr].sort((a,b)=>(Number(b.nominal)||0)-(Number(a.nominal)||0))[0]||{};
+              const txt=[...(best.catalogueInfo?.general||[]),...(best.catalogueInfo?.motor||[])].join(' ');
+              const ip=(txt.match(/\bIP\s*([0-9]{2}[A-Z]?)/i)||[])[1]||'';
+              const voltage=String(best.voltage||''); const vmx=voltage.match(/([0-9]+(?:\/[0-9]+)?)\s*V/i); const fm=voltage.match(/([0-9]+)\s*Hz/i);
+              let phase=''; if(/-\d+T(?:-|\b)/i.test(best.model||'')) phase=3; else if(/-\d+M(?:-|\b)/i.test(best.model||'')) phase=1;
+              rows.push({'Marka':best.brand||'','Model':best.series||'','Bulunduğu Kategoriler':uniq(best.tags).join('; '),'Alt Model':best.model||'',
+                'Motor Gücü':num(best.kw),'Devir':num(best.rpm),'Akım':num(best.amps),'Gerilim':vmx?vmx[1]+' V':voltage,'Frekans':fm?fm[1]+' Hz':'','Faz':phase,
+                'Poles':num(best.pole),'Max. Hava Debisi':Math.max(...arr.map(x=>Number(x.nominal)||0))||null,'Sound':num(best.spl),'IP':ip?'IP'+ip:'','Fiyat':num(best.price)});
+            }
+          }
+          rows=rows.filter(r=>r.Marka||r.Model||r['Alt Model']);
+          rows.sort((a,b)=>String(a.Marka).localeCompare(String(b.Marka),'tr')||String(a.Model).localeCompare(String(b.Model),'tr')||String(a['Alt Model']).localeCompare(String(b['Alt Model']),'tr'));
+          fs.writeFileSync('/tmp/catalog.json',JSON.stringify(rows,null,2));
+          console.log(`ROWS=${rows.length}`); console.log(`SERIES=${new Set(rows.map(r=>r.Marka+'|'+r.Model)).size}`);
+          NODE
+          node /tmp/export.js
+      - name: Create Excel
+        shell: bash
+        run: |
+          python -m pip -q install openpyxl
+          cat > /tmp/make_xlsx.py <<'PY'
+          import json
+          from openpyxl import Workbook
+          from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+          from openpyxl.utils import get_column_letter
+          from openpyxl.worksheet.table import Table, TableStyleInfo
+          with open('/tmp/catalog.json',encoding='utf-8') as f: rows=json.load(f)
+          headers=['Marka','Model','Bulunduğu Kategoriler','Alt Model','Motor Gücü','Devir','Akım','Gerilim','Frekans','Faz','Poles','Max. Hava Debisi','Sound','IP','Fiyat']
+          wb=Workbook(); ws=wb.active; ws.title='Ürünler'; ws.append(headers)
+          for r in rows: ws.append([r.get(h,'') if r.get(h,'') is not None else '' for h in headers])
+          ws.freeze_panes='A2'; fill=PatternFill('solid',fgColor='1F4E78'); font=Font(color='FFFFFF',bold=True)
+          for c in ws[1]: c.fill=fill; c.font=font; c.alignment=Alignment(horizontal='center',vertical='center')
+          ws.row_dimensions[1].height=24
+          for i,w in enumerate([16,20,42,30,13,11,11,15,12,9,9,18,11,11,14],1): ws.column_dimensions[get_column_letter(i)].width=w
+          for row in ws.iter_rows(min_row=2): row[2].alignment=Alignment(wrap_text=True,vertical='top')
+          for col in [5,7,15]:
+            for (cell,) in ws.iter_cols(min_col=col,max_col=col,min_row=2): cell.number_format='#,##0.00'
+          for col in [6,11,12,13]:
+            for (cell,) in ws.iter_cols(min_col=col,max_col=col,min_row=2): cell.number_format='#,##0'
+          if ws.max_row>1:
+            tab=Table(displayName='VensisUrunler',ref=f'A1:O{ws.max_row}'); tab.tableStyleInfo=TableStyleInfo(name='TableStyleMedium2',showRowStripes=True,showFirstColumn=False,showLastColumn=False,showColumnStripes=False); ws.add_table(tab)
+          info=wb.create_sheet('Bilgi'); info.append(['Kapsam','Select.vensis.com.tr ana ürün kataloğu, Elektrik Ürünleri hariç']); info.append(['Satır sayısı',len(rows)]); info.append(['Not','Kaynakta bulunmayan bilgiler boş bırakılmıştır.']); info.append(['Max. Hava Debisi','Alt modelin katalogdaki en yüksek hava debisi değeri.']); info.column_dimensions['A'].width=22; info.column_dimensions['B'].width=75
+          wb.save('Vensis_Select_Urunler_Elektrik_Haric.xlsx')
+          PY
+          python /tmp/make_xlsx.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vensis-select-excel
+          path: Vensis_Select_Urunler_Elektrik_Haric.xlsx
+          retention-days: 1
