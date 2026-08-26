@@ -13,10 +13,10 @@
     addStyles();
     const projectId=encodeURIComponent(project.projectId);
     footer.className='project-product-sources';
-    footer.innerHTML=`<div class="project-product-sources-head"><span>Add Products</span><b>Choose a product source</b><small>Products selected from either screen will return to this project as the default destination.</small></div><div class="project-product-source-grid"><a class="project-product-source" href="index.html?project=${projectId}"><span class="source-icon">⌕</span><span><b>Select from Fan Selection</b><small>Choose a fan from airflow and pressure requirements.</small></span></a><a class="project-product-source" href="catalog.html?project=${projectId}"><span class="source-icon">▦</span><span><b>Add from Product Catalog</b><small>Browse a series and add a catalog model.</small></span></a><button id="addCustomProduct" class="project-product-source custom-source" type="button"><span class="source-icon">+</span><span><b>Add Custom Product</b><small>Enter a product that is not available in the database.</small></span></button></div>`;
+    footer.innerHTML=`<div class="project-product-sources-head"><span>Add Products</span><b>Choose a product source</b><small>Products selected from either screen will return to this project as the default destination.</small></div><div class="project-product-source-grid"><a class="project-product-source" href="fan-selection.html?project=${projectId}"><span class="source-icon">⌕</span><span><b>Select from Fan Selection</b><small>Choose a fan from airflow and pressure requirements.</small></span></a><a class="project-product-source" href="catalog.html?project=${projectId}"><span class="source-icon">▦</span><span><b>Add from Product Catalog</b><small>Browse a series and add a catalog model.</small></span></a><button id="addCustomProduct" class="project-product-source custom-source" type="button"><span class="source-icon">+</span><span><b>Add Custom Product</b><small>Enter a product that is not available in the database.</small></span></button></div>`;
     footer.querySelector('#addCustomProduct')?.addEventListener('click',()=>project.openProductEditor?.());
     const emptyLink=document.querySelector('#projectEmpty a');
-    if(emptyLink)emptyLink.href=`index.html?project=${projectId}`;
+    if(emptyLink)emptyLink.href=`fan-selection.html?project=${projectId}`;
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();

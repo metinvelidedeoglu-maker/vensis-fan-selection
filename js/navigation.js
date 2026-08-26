@@ -16,5 +16,5 @@ function goFanSelectionWithProject(){
     window.location.href='project.html';
     return;
   }
-  window.location.href='index.html';
+  window.location.href='fan-selection.html';
 }

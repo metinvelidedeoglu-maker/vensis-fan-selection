@@ -47,10 +47,24 @@ test('technical datasheets no longer render an Applications box or test label',(
 });
 
 test('all primary app entry points load the shared language layer',()=>{
-  const direct=['index.html','catalog.html','catalog-hub.html','customers.html','electrical/index.html','detail.html','project-print.html'];
+  const direct=['index.html','fan-selection.html','catalog.html','catalog-hub.html','customers.html','electrical/index.html','detail.html','project-print.html'];
   for(const file of direct)assert.match(read(file),/js\/language\.js/,file);
 
   const viaOrderUtils=['projects.html','project.html','quotation.html','order.html'];
   for(const file of viaOrderUtils)assert.match(read(file),/js\/order-utils\.js/,file);
   assert.match(read('js/order-utils.js'),/js\/language\.js/);
+});
+
+test('the overview dashboard and refreshed global header are wired',()=>{
+  const home=read('index.html');
+  const header=read('js/suite-shell.js');
+  const selection=read('fan-selection.html');
+
+  assert.match(home,/Workspace at a glance/);
+  assert.match(home,/js\/home\.js/);
+  assert.match(home,/href="fan-selection\.html"/);
+  assert.match(selection,/id="q"/);
+  assert.match(header,/href="\$\{base\}index\.html">\$\{tr\('Overview'\)\}/);
+  assert.match(header,/href="\$\{base\}fan-selection\.html">Fan Selection/);
+  assert.match(header,/background:#0b282b/);
 });

@@ -4,7 +4,8 @@ Industrial fan selection application.
 
 ## Structure
 
-- `index.html` — application shell
+- `index.html` — workspace overview dashboard
+- `fan-selection.html` — fan selection application shell
 - `css/app.css` — interface styles
 - `js/` — selection, catalogue, project and secure Edit Mode logic
 - `data/fans-*.js` — fan catalogue chunks

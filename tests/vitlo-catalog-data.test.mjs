@@ -84,7 +84,7 @@ test('AXW/ATEX includes the supplied two-pole models',()=>{
 });
 
 test('all product entry points load the supplied AXW/ATEX data chunk',()=>{
-  for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
+  for(const file of ['fan-selection.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-08\.js\?v=20260812-axw-atex-2t/,file);
   }

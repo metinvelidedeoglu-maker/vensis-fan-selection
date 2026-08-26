@@ -201,7 +201,7 @@ test('QBK technical data, dimensions and images reach the product catalog',()=>{
 });
 
 test('every product entry point and editor bootstrap load the QBK data chunk',()=>{
-  for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
+  for(const file of ['fan-selection.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-14\.js\?v=20260813-vortice-batch/,file);
     assert.match(html,/products\/registry\.js\?v=20260814-lineo-model-image/,file);

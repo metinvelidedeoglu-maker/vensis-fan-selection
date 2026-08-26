@@ -165,7 +165,7 @@ test('missing legacy prices are hydrated once by exact product key and manual pr
 });
 
 test('every product entry point loads prices before the versioned registry',()=>{
-  for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
+  for(const file of ['fan-selection.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     const priceIndex=html.indexOf('data/vortice-prices-2026-1.js?v=20260814-vortice-prices');
     const registryIndex=html.indexOf('products/registry.js?v=20260814-lineo-model-image');

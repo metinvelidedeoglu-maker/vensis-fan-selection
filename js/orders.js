@@ -1,8 +1,9 @@
 (function(){
-  if(!document.getElementById('vensisSideMenu')&&!document.getElementById('vensisSuiteSidebarScript')){
+  if(typeof document==='undefined')return;
+  if(!document.querySelector('.vensis-suite-shell')&&!document.getElementById('vensisSuiteShellScript')){
     const script=document.createElement('script');
-    script.id='vensisSuiteSidebarScript';
-    script.src='js/suite-sidebar.js?v=20260825-sidebar-r2-'+Date.now();
+    script.id='vensisSuiteShellScript';
+    script.src='js/suite-shell.js?v=20260826-header-r1-'+Date.now();
     script.async=false;
     document.head.appendChild(script);
   }

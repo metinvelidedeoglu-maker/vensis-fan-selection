@@ -164,7 +164,7 @@ test('roof datasheets keep separate continuous-air and smoke duties',()=>{
 });
 
 test('every product entry point loads both new Vortice data chunks',()=>{
-  for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
+  for(const file of ['fan-selection.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-11\.js\?v=20260813-vortice-batch/,file);
     assert.match(html,/data\/fans-12\.js\?v=20260814-vortice-images/,file);

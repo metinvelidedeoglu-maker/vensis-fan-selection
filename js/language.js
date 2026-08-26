@@ -498,6 +498,39 @@
     'VensisCatalog is empty or unavailable.':'VensisCatalog boş veya kullanılamıyor.'
   });
 
+  Object.assign(translations,{
+    'Overview':'Genel Bakış',
+    'Engineering Workspace':'Mühendislik Çalışma Alanı',
+    'Everything you need,':'İhtiyacınız olan her şey,',
+    'in one clear view.':'tek ve net bir görünümde.',
+    'Follow projects, customers and product workflows from a single engineering dashboard.':'Projeleri, müşterileri ve ürün süreçlerini tek bir mühendislik panelinden takip edin.',
+    'Start Fan Selection':'Fan Seçimine Başla',
+    'LIVE OVERVIEW':'CANLI GENEL BAKIŞ',
+    'Workspace at a glance':'Çalışma alanına genel bakış',
+    'active':'aktif',
+    'Browser + cloud records':'Tarayıcı + bulut kayıtları',
+    'Units in Projects':'Projelerdeki Ürün Adedi',
+    'Selected product quantity':'Seçili ürün miktarı',
+    'Net Pipeline':'Net Proje Hacmi',
+    'Combined project value':'Toplam proje değeri',
+    'RECENT ACTIVITY':'SON HAREKETLER',
+    'Latest projects':'Son projeler',
+    'View all':'Tümünü gör',
+    'units':'adet',
+    'PROJECT HEALTH':'PROJE DURUMU',
+    'Status overview':'Durum dağılımı',
+    'QUICK ACCESS':'HIZLI ERİŞİM',
+    'Open a workspace':'Çalışma alanını açın',
+    'Select fans by airflow and pressure.':'Debi ve basınca göre fan seçin.',
+    'Open workspace →':'Çalışma alanını aç →',
+    'Browse ventilation and electrical products.':'Havalandırma ve elektrik ürünlerini inceleyin.',
+    'Browse catalog →':'Kataloğu incele →',
+    'Manage selections, quotations and orders.':'Seçimleri, teklifleri ve siparişleri yönetin.',
+    'View projects →':'Projeleri gör →',
+    'Access customer records and history.':'Müşteri kayıtlarına ve geçmişine erişin.',
+    'View customers →':'Müşterileri gör →'
+  });
+
   const reverse=Object.create(null);
   Object.keys(translations).forEach(key=>{if(!reverse[translations[key]])reverse[translations[key]]=key});
 

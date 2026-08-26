@@ -103,7 +103,7 @@ test('desktop tolerance controls retain one percent precision',()=>{
 });
 
 test('selection page exposes responsive tolerance hit areas and cache-busted assets',()=>{
-  const html=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
+  const html=fs.readFileSync(path.join(__dirname,'../fan-selection.html'),'utf8');
   const css=fs.readFileSync(path.join(__dirname,'../css/app.css'),'utf8');
   assert.equal((html.match(/class="tolerance-control"/g)||[]).length,2);
   assert.match(html,/data-tolerance-prefix="q"/);

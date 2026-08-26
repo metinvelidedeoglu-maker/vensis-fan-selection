@@ -1,62 +1,73 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vensis Fan Selection</title>
-<link rel="stylesheet" href="css/app.css?v=20260812-responsive-tolerance">
-<link rel="stylesheet" href="css/form-state.css?v=20260719-v9cleanup">
-<link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
-<link rel="stylesheet" href="css/edit-mode.css?v=20260723-project-cloud">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vensis Engineering Suite</title>
+  <meta name="description" content="Vensis project, customer and product workspace overview.">
+  <link rel="stylesheet" href="css/home.css?v=20260826-dashboard-r1">
+  <link rel="stylesheet" href="css/edit-mode.css?v=20260825-customer-cloud-r1">
 </head>
-<body class="app-shell app-selection">
-<div class="top"><div class="brand"><div style="display:flex;align-items:center;gap:12px"><img src="assets/vensis-logo.png" alt="Vensis" style="height:44px;max-width:220px;object-fit:contain"><div><h1>Vensis Engineering Suite</h1><small>Fan Selection</small></div></div><div class="app-nav"><a class="active" href="index.html" title="Open Fan Selection">⌕ Fan Selection</a><a href="electrical/index.html" title="Open Electrical Product Selection">⚡ Electrical Selection</a><a href="catalog.html" title="Open Product Catalog">▦ Product Catalog</a><a href="projects.html" title="Open Projects">▣ Projects <span data-project-count hidden style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:#087f4f;color:#fff;font-size:11px">0</span></a><a href="customers.html" title="Müşteriler">♙ Müşteriler</a><div class="tag">Selection Workspace</div></div></div></div>
-<div class="layout">
-<aside class="panel">
-  <div class="section open duty-section">
-    <div class="section-head" onclick="toggleSec(this)"><span class="icon-label"><span class="ui-icon">◎</span>Airflow / Pressure</span><span class="chev">⌄</span></div>
-    <div class="section-body">
-      <div class="duty-block"><label>Flow (m³/h)</label><input id="q" type="number" placeholder="Enter airflow"><div class="tolerance-caption"><span>Airflow tolerance</span><b><span id="qminText">-10</span>% / +<span id="qmaxText">20</span>%</b></div><div class="tolerance-control" data-tolerance-prefix="q"><div class="dual-range"><div class="dual-range-track"></div><div class="dual-range-fill" id="qRangeFill"></div><input id="qminSlider" class="dual-range-input" type="range" min="-50" max="100" step="1" value="-10" aria-label="Minimum airflow tolerance" oninput="syncDualTolerance('q','min')"><input id="qmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="1" value="20" aria-label="Maximum airflow tolerance" oninput="syncDualTolerance('q','max')"></div><div class="dual-range-scale" aria-hidden="true"><span data-tolerance-value="-50">-50</span><span data-tolerance-value="0">0</span><span data-tolerance-value="50">+50</span><span data-tolerance-value="100">+100</span></div></div></div>
-      <div class="duty-divider"></div>
-      <div class="duty-block"><label>Pressure (Pa)</label><input id="p" type="number" placeholder="Enter pressure"><div class="tolerance-caption"><span>Pressure tolerance</span><b><span id="pminText">-10</span>% / +<span id="pmaxText">20</span>%</b></div><div class="tolerance-control" data-tolerance-prefix="p"><div class="dual-range"><div class="dual-range-track"></div><div class="dual-range-fill" id="pRangeFill"></div><input id="pminSlider" class="dual-range-input" type="range" min="-50" max="100" step="1" value="-10" aria-label="Minimum pressure tolerance" oninput="syncDualTolerance('p','min')"><input id="pmaxSlider" class="dual-range-input" type="range" min="-50" max="100" step="1" value="20" aria-label="Maximum pressure tolerance" oninput="syncDualTolerance('p','max')"></div><div class="dual-range-scale" aria-hidden="true"><span data-tolerance-value="-50">-50</span><span data-tolerance-value="0">0</span><span data-tolerance-value="50">+50</span><span data-tolerance-value="100">+100</span></div></div></div>
-      <div hidden><input id="qmin" type="number" value="-10"><input id="qmax" type="number" value="20"><input id="pmin" type="number" value="-10"><input id="pmax" type="number" value="20"></div>
-    </div>
-  </div>
-  <div class="section open product-filter-section">
-    <div class="section-head" onclick="toggleSec(this)"><span class="icon-label"><span class="ui-icon">☷</span>Product Filter</span><span class="chev">⌄</span></div>
-    <div class="section-body product-filter-grid">
-      <details class="filter-accordion filter-category" open><summary>Category <span id="categoryCount" class="summary-count"></span></summary><div class="filter-search"><input id="categorySearch" type="search" placeholder="Search category..." oninput="renderTagSeries()"></div><div id="categoryList" class="list-box"></div></details>
-      <details class="filter-accordion filter-brand" open><summary>Brand <span id="manufacturerCount" class="summary-count"></span></summary><div id="manufacturerList" class="list-box"></div></details>
-      <details class="filter-accordion filter-model" open><summary>Model <span id="seriesCount" class="summary-count"></span></summary><div class="filter-search"><input id="seriesSearch" type="search" placeholder="Search model or product code..." oninput="renderTagSeries()"></div><div id="seriesList" class="list-box"></div></details>
-    </div>
-  </div>
-  <div class="actions"><button class="secondary" onclick="resetAll()"><span class="icon-label"><span class="ui-icon">↺</span>Reset</span></button><button class="search" onclick="runSelection()"><span class="icon-label"><span class="ui-icon">⌕</span>Find Fans</span></button></div>
-</aside>
-<main><div class="content-card"><div class="headrow"><h2><span class="icon-label"><span class="ui-icon">☷</span>Matching Fans</span></h2></div><div id="range" class="range">Enter flow and pressure values to begin.</div><div class="table-toolbar"><button id="sortClosest" class="table-sort-btn active" onclick="setTableSort('closest')">Closest Match <span id="arrowClosest">↑</span></button></div><div id="cards" class="results-table-wrap"></div></div></main>
-</div>
-<script>window.models=[];</script>
-<script src="data/fans-01.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-02.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-03.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-04.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-05.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-06.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-07.js?v=20260811-vitlo-catalog-r1"></script><script src="data/fans-08.js?v=20260812-axw-atex-2t"></script><script src="data/fans-09.js?v=20260814-vortice-images"></script><script src="data/fans-10.js?v=20260813-ca-md"></script>
-<script src="data/fans-11.js?v=20260813-vortice-batch"></script><script src="data/fans-12.js?v=20260814-vortice-images"></script>
-<script src="data/fans-13.js?v=20260814-vortice-images"></script><script src="data/fans-14.js?v=20260813-vortice-batch"></script>
-<script src="data/fans-15.js?v=20260824-crs-price-r4"></script>
-<script src="data/series-overrides.js?v=20260824-crs-dual-r1"></script>
-<script src="data/vortice-prices-2026-1.js?v=20260814-vortice-prices"></script>
-<script src="products/registry.js?v=20260814-lineo-model-image"></script>
-<script src="data/crs-atex-prices-r4.js?v=20260824-r4"></script>
-<script src="data/catalog-schema-v2.js?v=20260825-schema-v2-fix-r2"></script>
-<script src="js/core/utils.js?v=20260719-v9cleanup"></script>
-<script src="js/core/state.js?v=20260813-vortice-batch"></script>
-<script src="js/core/selection-engine.js?v=20260813-lineo"></script>
-<script src="js/ui/filters.js?v=20260722-series-codes"></script>
-<script src="js/ui/datasheet.js?v=20260825-no-applications-r1"></script>
-<script src="js/ui/pdf-export.js?v=20260825-no-applications-r1"></script>
-<script src="js/language.js?v=20260825-all-pages-r1"></script>
-<script src="js/projects-store.js?v=20260813-purchase-order"></script>
-<script src="js/suite-shell.js?v=20260825-language-r1"></script>
-<script src="js/project-nav.js?v=20260825-sidebar-r3"></script>
-<script src="js/ui/results.js?v=20260813-vortice-batch"></script>
-<script src="js/selection-project-target.js?v=20260721-project-target"></script>
-<script src="js/main.js?v=20260812-responsive-tolerance"></script>
-<script src="js/form-state.js?v=20260719-v9cleanup"></script>
-<script src="js/edit-mode.js?v=20260825-customer-cloud-r1"></script>
-</body></html>
+<body class="app-shell app-home">
+  <main class="home-page">
+    <section class="home-hero">
+      <div class="hero-copy">
+        <div class="hero-kicker"><span></span> Engineering Workspace</div>
+        <h1>Everything you need,<br><em>in one clear view.</em></h1>
+        <p>Follow projects, customers and product workflows from a single engineering dashboard.</p>
+        <div class="hero-actions">
+          <a class="hero-primary" href="fan-selection.html">Start Fan Selection <span>→</span></a>
+          <a class="hero-secondary" href="projects.html">View Projects</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+        <div class="hero-mark"><b>V</b><span>ENGINEERING<br>SUITE</span></div>
+        <div class="signal signal-a"><i></i><span>SELECT</span></div>
+        <div class="signal signal-b"><i></i><span>ANALYZE</span></div>
+        <div class="signal signal-c"><i></i><span>DELIVER</span></div>
+      </div>
+    </section>
+
+    <section class="overview-head">
+      <div><span class="section-kicker">LIVE OVERVIEW</span><h2>Workspace at a glance</h2></div>
+      <div id="homeDate" class="overview-date"></div>
+    </section>
+
+    <section class="stat-grid" aria-label="Workspace summary">
+      <article class="stat-card"><div class="stat-icon">▣</div><div><span>Projects</span><b id="homeProjectCount">0</b><small id="homeActiveProjects">0 active</small></div></article>
+      <article class="stat-card"><div class="stat-icon">♙</div><div><span>Customers</span><b id="homeCustomerCount">0</b><small>Browser + cloud records</small></div></article>
+      <article class="stat-card"><div class="stat-icon">◫</div><div><span>Units in Projects</span><b id="homeUnitCount">0</b><small>Selected product quantity</small></div></article>
+      <article class="stat-card stat-value"><div class="stat-icon">€</div><div><span>Net Pipeline</span><b id="homePipeline">€0</b><small>Combined project value</small></div></article>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="dashboard-card recent-card">
+        <header class="card-head"><div><span class="section-kicker">RECENT ACTIVITY</span><h2>Latest projects</h2></div><a href="projects.html">View all <span>→</span></a></header>
+        <div id="homeRecentProjects" class="recent-list"></div>
+      </article>
+      <article class="dashboard-card status-card">
+        <header class="card-head"><div><span class="section-kicker">PROJECT HEALTH</span><h2>Status overview</h2></div></header>
+        <div id="homeStatusOverview" class="status-overview"></div>
+      </article>
+    </section>
+
+    <section class="workspace-section">
+      <div class="overview-head compact"><div><span class="section-kicker">QUICK ACCESS</span><h2>Open a workspace</h2></div></div>
+      <div class="workspace-grid">
+        <a class="workspace-card fan" href="fan-selection.html"><span class="workspace-no">01</span><div class="workspace-symbol">⌁</div><h3>Fan Selection</h3><p>Select fans by airflow and pressure.</p><b>Open workspace →</b></a>
+        <a class="workspace-card" href="catalog-hub.html"><span class="workspace-no">02</span><div class="workspace-symbol">▦</div><h3>Product Catalog</h3><p>Browse ventilation and electrical products.</p><b>Browse catalog →</b></a>
+        <a class="workspace-card" href="projects.html"><span class="workspace-no">03</span><div class="workspace-symbol">▣</div><h3>Projects</h3><p>Manage selections, quotations and orders.</p><b>View projects →</b></a>
+        <a class="workspace-card" href="customers.html"><span class="workspace-no">04</span><div class="workspace-symbol">♙</div><h3>Customers</h3><p>Access customer records and history.</p><b>View customers →</b></a>
+      </div>
+    </section>
+  </main>
+  <script src="js/language.js?v=20260826-dashboard-r1"></script>
+  <script src="js/projects-store.js?v=20260813-purchase-order"></script>
+  <script src="js/customers-store.js?v=20260825-customer-cloud-r1"></script>
+  <script src="js/suite-shell.js?v=20260826-header-r1"></script>
+  <script src="js/project-nav.js?v=20260825-sidebar-r3"></script>
+  <script src="js/home.js?v=20260826-dashboard-r1"></script>
+  <script src="js/edit-mode.js?v=20260825-customer-cloud-r1"></script>
+</body>
+</html>

@@ -28,7 +28,7 @@
     }
     localStorage.setItem(ITEMS,JSON.stringify(project.items||[]));
     localStorage.setItem(META,JSON.stringify(project.meta||{}));
-    location.href='index.html';
+    location.href='fan-selection.html';
   };
 
   function activeProject(){

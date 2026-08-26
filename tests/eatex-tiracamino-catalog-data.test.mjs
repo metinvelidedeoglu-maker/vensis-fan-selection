@@ -221,7 +221,7 @@ test('ATEX classification and Tiracamino warning reach results, datasheets, proj
 });
 
 test('new technical adapters use the shared deployment cache version',()=>{
-  const index=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  const index=fs.readFileSync(path.join(root,'fan-selection.html'),'utf8');
   assert.match(index,/js\/core\/state\.js\?v=20260813-vortice-batch/);
   assert.match(index,/js\/ui\/results\.js\?v=20260813-vortice-batch/);
   assert.match(index,/js\/ui\/datasheet\.js\?v=20260813-vortice-batch/);

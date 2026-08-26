@@ -179,13 +179,13 @@ test('LINEO datasheet shows control levels without creating new curve points',()
 });
 
 test('every product entry point loads the LINEO data and current adapters',()=>{
-  for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
+  for(const file of ['fan-selection.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-09\.js\?v=20260814-vortice-images/,file);
     assert.match(html,/data\/series-overrides\.js\?v=20260814-lineo-image/,file);
     assert.match(html,/products\/registry\.js\?v=20260814-lineo-model-image/,file);
   }
-  const selection=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  const selection=fs.readFileSync(path.join(root,'fan-selection.html'),'utf8');
   assert.match(selection,/js\/core\/selection-engine\.js\?v=20260813-lineo/);
   const bootstrap=fs.readFileSync(path.join(root,'api','edit','bootstrap.php'),'utf8');
   assert.match(bootstrap,/'data\/fans-09\.js'/);

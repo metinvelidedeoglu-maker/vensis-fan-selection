@@ -29,7 +29,7 @@ body{margin:0;background:#eef3f4;color:#173033;font-family:Arial,Helvetica,sans-
 <link rel="stylesheet" href="css/edit-mode.css?v=20260723-project-cloud">
 </head>
 <body class="app-shell app-project">
-<header class="top"><div class="top-inner"><div class="brand"><img src="assets/vensis-logo.png" alt="Vensis"><div><b>Vensis Engineering Suite</b><span>Project Workspace</span></div></div><nav class="nav"><a href="index.html">⌕ Fan Selection</a><a href="catalog.html">▦ Product Catalog</a><a class="active" href="projects.html">▣ Projects <span class="count-badge" data-project-count hidden>0</span></a></nav></div></header>
+<header class="top"><div class="top-inner"><div class="brand"><img src="assets/vensis-logo.png" alt="Vensis"><div><b>Vensis Engineering Suite</b><span>Project Workspace</span></div></div><nav class="nav"><a href="fan-selection.html">⌕ Fan Selection</a><a href="catalog.html">▦ Product Catalog</a><a class="active" href="projects.html">▣ Projects <span class="count-badge" data-project-count hidden>0</span></a></nav></div></header>
 <main class="page">
   <div class="page-head"><div><a class="projects-back" href="projects.html">← All Projects</a><div class="page-title-line"><h1 id="projectWorkspaceHeading">Project Workspace</h1><span id="projectStatusBadge" class="project-status-badge" data-status="draft">Taslak</span></div><p id="projectItemCount">0 units in project</p></div><div class="head-actions"><button id="printProject" class="print-btn" type="button">Print Project</button><button id="convertQuotation" class="quotation-btn" type="button">Print Quotation</button><button id="createOrder" class="order-form-btn" type="button">Sipariş Formu</button><button id="clearProject" class="clear-btn" type="button">Clear Project</button></div></div>
   <section class="project-workspace">
@@ -46,7 +46,7 @@ body{margin:0;background:#eef3f4;color:#173033;font-family:Arial,Helvetica,sans-
     </aside>
     <div class="project-main">
       <section class="summary"><div class="summary-card"><span>Total Units</span><b id="sumUnits">0</b></div><div class="summary-card"><span>Net Total</span><b id="sumPrice">-</b></div></section>
-      <section id="projectEmpty" class="empty" hidden><h2>No products added yet</h2><p>Add fans from Fan Selection, Product Catalog or the custom product form below.</p><a href="index.html">Open Fan Selection</a></section>
+      <section id="projectEmpty" class="empty" hidden><h2>No products added yet</h2><p>Add fans from Fan Selection, Product Catalog or the custom product form below.</p><a href="fan-selection.html">Open Fan Selection</a></section>
       <section id="projectContent" class="table-card" hidden><div class="table-wrap"><table id="projectTable" class="project-table"><thead><tr><th class="order-column">Order</th><th>Product / Free Note</th><th>Required / Source</th><th>Selected / Nominal</th><th>V / Hz</th><th>kW</th><th>rpm</th><th>A</th><th>dB(A)</th><th>Unit Price</th><th>Discount</th><th>Net Unit Price</th><th>Quantity</th><th>Total</th><th class="actions-column">Actions</th></tr></thead><tbody></tbody></table></div></section>
       <section class="custom-product-footer"><div><span>Manual Project Item</span><b>Add a product outside the selection database</b><small>The product will be added at the bottom of the current project list.</small></div><button id="addCustomProduct" class="custom-btn" type="button">Add Custom Product</button></section>
     </div>
@@ -95,7 +95,7 @@ body{margin:0;background:#eef3f4;color:#173033;font-family:Arial,Helvetica,sans-
 <script src="js/project-product-sources.js?v=20260721-product-sources"></script>
 <script src="js/quotation-settings.js?v=20260728-delivery-time"></script>
 <script src="js/project-print-action.js?v=20260721-project-contact"></script>
-<script src="js/orders.js?v=20260814-order-status"></script>
+<script src="js/orders.js?v=20260826-header-r1"></script>
 <script src="js/order-flow.js?v=20260813-purchase-order"></script>
 <script src="js/edit-mode.js?v=20260825-customer-cloud-r1"></script>
 </body>

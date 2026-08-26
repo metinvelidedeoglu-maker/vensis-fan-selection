@@ -70,5 +70,5 @@ test('purchase order entry points, form fields and cloud schema are wired',()=>{
   assert.match(backend,/function project_order\(/);
   assert.match(backend,/'orders' => \$orders/);
   assert.match(backend,/'status' => \$status/);
-  for(const html of [project,quotation,order])assert.match(html,/js\/orders\.js\?v=20260814-order-status/);
+  for(const html of [project,quotation,order])assert.match(html,/js\/orders\.js\?v=20260826-header-r1/);
 });

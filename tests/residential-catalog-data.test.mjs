@@ -253,7 +253,7 @@ test('residential feature flags and images reach product details',()=>{
 });
 
 test('every product entry point and editor bootstrap load the residential data chunk',()=>{
-  for(const file of ['index.html','catalog.html','project.html','quotation.html','project-print.html']){
+  for(const file of ['fan-selection.html','catalog.html','project.html','quotation.html','project-print.html']){
     const html=fs.readFileSync(path.join(root,file),'utf8');
     assert.match(html,/data\/fans-13\.js\?v=20260814-vortice-images/,file);
     assert.match(html,/products\/registry\.js\?v=20260814-lineo-model-image/,file);
