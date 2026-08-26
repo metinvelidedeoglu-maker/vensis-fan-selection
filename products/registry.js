@@ -133,7 +133,7 @@
   }
 
   function modelFromRow(row){
-    const code=seriesCode(row?.series||row?.model);
+    const code=normalize(row?.seriesCode)||seriesCode(row?.series||row?.model);
     const model=normalizeModel(row?.model||row?.display||'',code);
     const series=ensureSeries(row,code);
     const override=seriesOverrides[code]&&typeof seriesOverrides[code]==='object'?seriesOverrides[code]:{};
