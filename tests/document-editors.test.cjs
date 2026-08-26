@@ -22,6 +22,18 @@ test('quotation uses a left editor with a live document preview',()=>{
   assert.match(html,/@media print\{[\s\S]*\.toolbar,\.quotation-editor\{display:none!important\}/);
 });
 
+test('quotation defaults use the Vensis company and warehouse wording',()=>{
+  const html=read('quotation.html');
+  const settings=read('js/quotation-settings.js');
+
+  assert.match(html,/Vensis depo teslim/);
+  assert.match(settings,/Vensis depo teslim/);
+  assert.match(html,/Bu teklif, Vensis standart satış/);
+  assert.match(settings,/Bu teklif, Vensis standart satış/);
+  assert.doesNotMatch(html,/AVENS depo teslim|Vitlo standart satış/);
+  assert.doesNotMatch(settings,/AVENS depo teslim|Vitlo standart satış/);
+});
+
 test('quotation editor updates price, discount, quantity and project storage',()=>{
   const script=read('js/quotation.js');
   assert.match(script,/data-quote-item-quantity/);

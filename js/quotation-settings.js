@@ -7,7 +7,7 @@
       exchangeRate:'Fatura tarihindeki Türkiye Vakıflar Bankası Euro satış kuru esas alınacaktır.',
       validity:'7 gün',
       deliveryTime:'8 hafta',
-      deliveryPlace:'AVENS depo teslim',
+      deliveryPlace:'Vensis depo teslim',
       vat:'Fiyatlarımıza KDV dahil değildir.',
       commissioning:'Devreye alma hizmeti teklif fiyatına dahil değildir.',
       quotationNote:'Teklifimiz tarafımıza iletilen keşif ve teknik bilgilere göre hazırlanmıştır. Teklif edilen ürünlerin proje ve uygulama koşullarına uygunluğunun müşteri tarafından kontrol edilmesi gerekmektedir.'
@@ -47,7 +47,7 @@
         'Mücbir sebepler, tedarik zinciri kesintileri ve resmî makam kararlarından kaynaklanan gecikmeler ayrıca değerlendirilir.'
       ],
       standard:[
-        'Bu teklif, Vitlo standart satış, teslimat ve teknik kullanım koşullarına tabidir.',
+        'Bu teklif, Vensis standart satış, teslimat ve teknik kullanım koşullarına tabidir.',
         'Ürünler kataloglarda belirtilen çalışma, montaj ve bakım sınırları içerisinde kullanılmalıdır.',
         'Üretici, teknik zorunluluk halinde eşdeğer performansı koruyacak ürün geliştirmeleri yapma hakkını saklı tutar.'
       ],
