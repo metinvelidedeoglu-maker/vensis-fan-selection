@@ -68,3 +68,20 @@ test('the overview dashboard and refreshed global header are wired',()=>{
   assert.match(header,/href="\$\{base\}fan-selection\.html">Fan Selection/);
   assert.match(header,/background:#0b282b/);
 });
+
+test('ventilation and electrical catalogs share the same visual structure',()=>{
+  const ventilation=read('catalog.html');
+  const electrical=read('electrical/index.html');
+  const electricalCss=read('electrical/catalog.css');
+  const electricalJs=read('electrical/catalog.js');
+
+  for(const className of ['catalog-layout','catalog-filter','catalog-content','catalog-grid','detail-page']){
+    assert.match(ventilation,new RegExp(className));
+    assert.match(electrical,new RegExp(className));
+  }
+  for(const className of ['series-card','series-hero','models-grid','model-grid']){
+    assert.match(electricalCss,new RegExp(`\\.${className}`));
+    assert.match(electricalJs,new RegExp(className));
+  }
+  assert.doesNotMatch(electrical,/electrical-layout|electrical-filter|electrical-content/);
+});

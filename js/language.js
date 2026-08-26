@@ -477,6 +477,8 @@
     '← Electrical Catalog':'← Elektrik Kataloğu',
     'Electrical Product Catalog':'Elektrik Ürün Kataloğu',
     'Back to Electrical Catalog':'Elektrik Kataloğuna Dön',
+    'Order Code':'Sipariş Kodu',
+    'Models':'Modeller',
     'No series match these filters.':'Bu filtrelerle eşleşen seri bulunamadı.',
     'No submodels found.':'Alt model bulunamadı.',
     'Submodels':'Alt Modeller',
