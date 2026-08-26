@@ -54,3 +54,18 @@ test('header cloud status opens the account and access panel',()=>{
   assert.match(shell,/<button class="suite-cloud"/);
   assert.match(shell,/vensis-open-access-panel/);
 });
+
+test('technical source disclaimer is available without crowding the interface',()=>{
+  const shell=read('js/suite-shell.js');
+  assert.match(shell,/className='vensis-technical-note'/);
+  assert.match(shell,/Teknik Bilgilendirme ve Sorumluluk Notu/);
+  assert.match(shell,/üretici ve tedarikçiler tarafından yayımlanan kataloglar/);
+  assert.match(shell,/Kanunen sınırlandırılamayan sorumluluklar saklıdır/);
+  assert.match(shell,/showModal/);
+  assert.match(shell,/@media print\{\.vensis-suite-shell,\.vensis-technical-note,\.vensis-technical-dialog/);
+
+  for(const file of ['index.html','fan-selection.html','catalog.html','catalog-hub.html','projects.html','customers.html']){
+    assert.match(read(file),/suite-shell\.js\?v=20260826-technical-note-r1/,file);
+  }
+  assert.match(read('electrical/index.html'),/\.\.\/js\/suite-shell\.js\?v=20260826-technical-note-r1/);
+});

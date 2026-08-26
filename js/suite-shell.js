@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20260826-access-gate-r1';
+  const BUILD='20260826-technical-note-r1';
   window.VENSIS_BUILD=BUILD;
 
   const path=(location.pathname||'').toLowerCase();
@@ -56,6 +56,13 @@
       .suite-language{display:flex;padding:3px;border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(255,255,255,.055)}
       .vensis-suite-shell .suite-lang{min-width:34px;min-height:30px;padding:0;border:0;border-radius:7px;background:transparent;color:#91aaa6;font:900 10px Arial,Helvetica,sans-serif;cursor:pointer}
       .vensis-suite-shell .suite-lang.active{background:#9bd43f;color:#102c30}
+      .vensis-technical-note{position:fixed;right:12px;bottom:8px;z-index:1200;padding:4px 7px;border:0;border-radius:6px;background:rgba(255,255,255,.82);color:#7a8987;font:700 9px/1.2 Arial,Helvetica,sans-serif;text-decoration:underline;text-underline-offset:2px;cursor:pointer;opacity:.72;box-shadow:0 1px 5px rgba(16,44,48,.08)}
+      .vensis-technical-note:hover,.vensis-technical-note:focus-visible{color:#355259;opacity:1}
+      .vensis-technical-dialog{width:min(620px,calc(100% - 28px));max-height:min(78vh,680px);padding:0;border:1px solid #d7e2df;border-radius:15px;background:#fff;color:#173033;box-shadow:0 26px 80px rgba(7,31,32,.32);font-family:Arial,Helvetica,sans-serif}
+      .vensis-technical-dialog::backdrop{background:rgba(8,28,31,.58);backdrop-filter:blur(3px)}
+      .vensis-technical-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid #e1e9e7;background:#f7faf9}.vensis-technical-dialog-head h2{margin:0;font-size:17px;letter-spacing:-.02em}.vensis-technical-dialog-head button{width:31px;height:31px;border:0;border-radius:8px;background:#e8efed;color:#52666b;font-size:20px;cursor:pointer}
+      .vensis-technical-dialog-body{padding:18px 20px;overflow:auto;color:#52666b;font-size:11px;font-weight:650;line-height:1.65}.vensis-technical-dialog-body p{margin:0 0 12px}.vensis-technical-dialog-body p:last-child{margin-bottom:0}
+      .vensis-technical-dialog-actions{display:flex;justify-content:flex-end;padding:12px 20px;border-top:1px solid #e1e9e7;background:#fafcfb}.vensis-technical-dialog-actions button{min-height:35px;padding:0 16px;border:0;border-radius:8px;background:#087f4f;color:#fff;font:800 10px Arial,Helvetica,sans-serif;cursor:pointer}
       body{padding-top:var(--vensis-header-h)!important;scroll-padding-top:calc(var(--vensis-header-h) + 8px)!important}
       @media(max-width:900px){.vensis-suite-shell-inner{gap:10px;padding:9px 11px}.vensis-suite-title{display:none}.vensis-suite-brand{padding:6px 9px!important}.vensis-suite-shell .suite-nav a{padding:0 10px}.vensis-suite-shell .suite-nav a:after{left:10px;right:10px}.suite-cloud-text{display:none}.vensis-suite-shell .suite-cloud{width:35px;justify-content:center;padding:0}}
       @media(max-width:620px){
@@ -65,7 +72,7 @@
         .vensis-suite-shell .suite-nav a{min-height:39px;padding:0 9px;font-size:10px}.vensis-suite-shell .suite-nav a:after{left:9px;right:9px}
         .vensis-suite-shell .suite-cloud{display:none!important}.suite-language{padding:2px}.vensis-suite-shell .suite-lang{min-width:29px;min-height:28px;font-size:9px}
       }
-      @media print{.vensis-suite-shell{display:none!important}body{padding-top:0!important}}
+      @media print{.vensis-suite-shell,.vensis-technical-note,.vensis-technical-dialog{display:none!important}body{padding-top:0!important}}
     `;
     document.head.appendChild(s);
   }
@@ -101,9 +108,45 @@
     document.body.classList.remove('vensis-side-menu-ready');
   }
 
+  function mountDisclaimer(){
+    if(document.getElementById('vensisTechnicalDisclaimer'))return;
+    const isTurkish=currentLang()==='tr';
+    const copy=isTurkish?{
+      label:'Teknik Bilgilendirme',
+      title:'Teknik Bilgilendirme ve Sorumluluk Notu',
+      paragraphs:[
+        'Bu platformda yer alan ürün bilgileri; üretici ve tedarikçiler tarafından yayımlanan kataloglar, teknik föyler ve diğer dokümanlardan derlenmektedir. Bilgilerin doğru ve güncel tutulması için gerekli özen gösterilmekle birlikte kaynak dokümanlardan, veri aktarımından, hesaplamalardan veya yorumlamadan kaynaklanan hata ve eksiklikler bulunabilir.',
+        'Seçim sonuçları, teknik değerler, fiyatlar ve uygunluk değerlendirmeleri ön bilgilendirme niteliğindedir; nihai mühendislik hesabı, proje onayı veya sipariş teyidi yerine geçmez. Sipariş ve uygulama öncesinde ürün kodu, performans değerleri, ölçüler, sertifikalar, kullanım koşulları ve güncel fiyatlar Vensis tarafından yazılı olarak teyit edilmelidir.',
+        'Platformdaki bilgiler ile Vensis tarafından sunulan güncel teklif veya teknik doküman arasında farklılık bulunması hâlinde, yazılı olarak teyit edilen güncel belge esas alınır. Kanunen sınırlandırılamayan sorumluluklar saklıdır.'
+      ],
+      close:'Kapat'
+    }:{
+      label:'Technical Information',
+      title:'Technical Information and Disclaimer',
+      paragraphs:[
+        'Product information on this platform is compiled from catalogs, technical datasheets and other documents published by manufacturers and suppliers. Although reasonable care is taken to keep the information accurate and current, errors or omissions may arise from source documents, data transfer, calculations or interpretation.',
+        'Selection results, technical values, prices and suitability assessments are for preliminary information only and do not replace final engineering calculations, project approval or order confirmation. Product codes, performance values, dimensions, certificates, operating conditions and current prices must be confirmed in writing by Vensis before ordering or application.',
+        'If information on the platform differs from a current quotation or technical document issued by Vensis, the current document confirmed in writing shall prevail. Liability that cannot legally be limited remains reserved.'
+      ],
+      close:'Close'
+    };
+    const trigger=document.createElement('button');
+    trigger.className='vensis-technical-note';trigger.type='button';trigger.textContent=copy.label;
+    trigger.setAttribute('aria-haspopup','dialog');trigger.setAttribute('aria-controls','vensisTechnicalDisclaimer');
+    const dialog=document.createElement('dialog');
+    dialog.id='vensisTechnicalDisclaimer';dialog.className='vensis-technical-dialog';
+    dialog.innerHTML=`<div class="vensis-technical-dialog-head"><h2>${copy.title}</h2><button type="button" data-close-disclaimer aria-label="${copy.close}">×</button></div><div class="vensis-technical-dialog-body">${copy.paragraphs.map(paragraph=>`<p>${paragraph}</p>`).join('')}</div><div class="vensis-technical-dialog-actions"><button type="button" data-close-disclaimer>${copy.close}</button></div>`;
+    document.body.append(trigger,dialog);
+    const close=()=>dialog.close?.()||dialog.removeAttribute('open');
+    trigger.addEventListener('click',()=>dialog.showModal?.()||dialog.setAttribute('open',''));
+    dialog.querySelectorAll('[data-close-disclaimer]').forEach(button=>button.addEventListener('click',close));
+    dialog.addEventListener('click',event=>{if(event.target===dialog)close()});
+  }
+
   function mount(){
     installStyles();
     removeSidebar();
+    mountDisclaimer();
     return {header:mountHeader()};
   }
 
