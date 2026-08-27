@@ -1,0 +1,59 @@
+name: ChatGPT disable product editing
+on:
+  push:
+    branches: [main]
+jobs:
+  apply:
+    if: github.event.head_commit.message == 'Disable product editing everywhere'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove edit UI and disable write endpoints
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p=Path('catalog.html')
+          text=p.read_text(encoding='utf-8')
+          text=re.sub(r'\n?<link rel="stylesheet" href="css/edit-mode\.css\?v=[^"]+">', '', text)
+          text=re.sub(r'<button class="vensis-model-add" type="button" data-add-model>[^<]*</button>', '', text)
+          text=re.sub(r'\n?<script src="js/edit-mode\.js\?v=[^"]+"></script>', '', text)
+          p.write_text(text, encoding='utf-8')
+
+          disabled="""<?php
+declare(strict_types=1);
+header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store');
+http_response_code(403);
+echo json_encode([
+    'ok' => false,
+    'error' => 'Product editing is disabled.',
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+"""
+          for path in ['api/edit/add-model.php','api/edit/save-model.php','api/edit/save-series.php']:
+              Path(path).write_text(disabled, encoding='utf-8')
+          PY
+      - name: Validate editing is disabled
+        shell: bash
+        run: |
+          ! grep -q 'js/edit-mode.js' catalog.html
+          ! grep -q 'data-add-model' catalog.html
+          ! grep -q 'css/edit-mode.css' catalog.html
+          grep -q 'Product editing is disabled' api/edit/add-model.php
+          grep -q 'Product editing is disabled' api/edit/save-model.php
+          grep -q 'Product editing is disabled' api/edit/save-series.php
+          php -l api/edit/add-model.php
+          php -l api/edit/save-model.php
+          php -l api/edit/save-series.php
+      - name: Commit disabled edit mode
+        shell: bash
+        run: |
+          git config user.name 'Vensis Automation'
+          git config user.email 'automation@vensis.local'
+          git add catalog.html api/edit/add-model.php api/edit/save-model.php api/edit/save-series.php
+          git diff --cached --quiet || git commit -m 'Disable catalog product editing'
+          git push
