@@ -34,15 +34,15 @@
   function labels(){
     if(language()==='tr'){
       return {
-        fanHeaders:['Ürün','İstenen Debi','Seçilen / Anma','Voltaj','kW','rpm','Adet'],
-        electricalHeaders:['Ürün','Güç','Lümen','Voltaj','IP','Adet'],
+        fanHeaders:['Ürün','İstenen Debi / Basınç','Seçilen Debi / Basınç','Voltaj','Güç','Devir','Adet'],
+        electricalHeaders:['Ürün','Güç','Lümen','Voltaj','IP Sınıfı','Adet'],
         fanGroup:'Fan Ürünleri',
         electricalGroup:'Elektrik Ürünleri'
       };
     }
     return {
-      fanHeaders:['Product','Required Airflow','Selected / Nominal','Voltage','kW','rpm','Qty'],
-      electricalHeaders:['Product','Power','Lumen','Voltage','IP','Qty'],
+      fanHeaders:['Product','Required Airflow / Pressure','Selected Airflow / Pressure','Voltage','Power','Speed','Quantity'],
+      electricalHeaders:['Product','Power','Lumen','Voltage','IP Rating','Quantity'],
       fanGroup:'Fan Products',
       electricalGroup:'Electrical Products'
     };
@@ -82,9 +82,10 @@
     return voltage?esc(voltage):'-';
   }
 
-  function requestedAirflow(item){
-    const q=num(item?.required?.q);
-    return q>0?`${fmt(q)} m³/h`:'-';
+  function requestedPoint(item){
+    const q=Number(item?.required?.q);
+    const p=Number(item?.required?.p);
+    return Number.isFinite(q)&&q>0&&Number.isFinite(p)&&p>=0?`${fmt(q)} m³/h @ ${fmt(p)} Pa`:'-';
   }
 
   function selectedText(item){
@@ -97,7 +98,7 @@
     const power=num(item.motorPower)||num(model?.motor?.power);
     const speed=num(item.speed)||num(model?.motor?.speed);
     const qty=Math.max(1,Math.round(num(item.quantity)||1));
-    return `<tr><td>${productMarkup(item,model)}</td><td class="technical-point">${requestedAirflow(item)}</td><td class="technical-point">${esc(selectedText(item))}</td><td>${voltageText(item,model)}</td><td>${power>0?`${fmt(power,2)} kW`:'-'}</td><td>${speed>0?`${fmt(speed)} rpm`:'-'}</td><td><b>${fmt(qty)}</b></td></tr>`;
+    return `<tr><td>${productMarkup(item,model)}</td><td class="technical-point">${requestedPoint(item)}</td><td class="technical-point">${esc(selectedText(item))}</td><td>${voltageText(item,model)}</td><td>${power>0?`${fmt(power,2)} kW`:'-'}</td><td>${speed>0?`${fmt(speed)} rpm`:'-'}</td><td><b>${fmt(qty)}</b></td></tr>`;
   }
 
   function electricalRow(item){
@@ -128,7 +129,7 @@
     const style=document.createElement('style');
     style.id='projectPrintQuotationLayout';
     style.textContent=`
-      .project-product-group{margin-top:7mm}.project-product-group+.project-product-group{margin-top:5mm}.project-product-group .project-table-wrap{margin-top:0}.project-product-group-title{margin:0 0 2mm;padding:0 2px;color:#087f4f;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+      .project-product-group{margin-top:7mm}.project-product-group+.project-product-group{margin-top:5mm}.project-product-group .project-table-wrap{margin-top:0}.project-product-group-title{margin:0 0 2mm;padding:0 2px;color:#087f4f;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.project-table.project-fan-table th:nth-child(2),.project-table.project-fan-table th:nth-child(3){white-space:normal;line-height:1.2}
       @media print{
         .project-table.project-fan-table th:nth-child(1),.project-table.project-fan-table td:nth-child(1){width:34%}.project-table.project-fan-table th:nth-child(2),.project-table.project-fan-table td:nth-child(2){width:15%}.project-table.project-fan-table th:nth-child(3),.project-table.project-fan-table td:nth-child(3){width:16%}.project-table.project-fan-table th:nth-child(4),.project-table.project-fan-table td:nth-child(4){width:13%}.project-table.project-fan-table th:nth-child(5),.project-table.project-fan-table td:nth-child(5){width:8%}.project-table.project-fan-table th:nth-child(6),.project-table.project-fan-table td:nth-child(6){width:8%}.project-table.project-fan-table th:nth-child(7),.project-table.project-fan-table td:nth-child(7){width:6%}
         .project-table.project-electrical-table th:nth-child(1),.project-table.project-electrical-table td:nth-child(1){width:42%}.project-table.project-electrical-table th:nth-child(2),.project-table.project-electrical-table td:nth-child(2){width:13%}.project-table.project-electrical-table th:nth-child(3),.project-table.project-electrical-table td:nth-child(3){width:13%}.project-table.project-electrical-table th:nth-child(4),.project-table.project-electrical-table td:nth-child(4){width:14%}.project-table.project-electrical-table th:nth-child(5),.project-table.project-electrical-table td:nth-child(5){width:10%}.project-table.project-electrical-table th:nth-child(6),.project-table.project-electrical-table td:nth-child(6){width:8%}
