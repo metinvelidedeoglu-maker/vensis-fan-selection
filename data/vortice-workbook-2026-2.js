@@ -2,71 +2,177 @@
   'use strict';
 
   const catalog=window.VensisCatalog;
-  if(!catalog||!Array.isArray(catalog.series)||!Array.isArray(catalog.models))return;
+  const rows=Array.isArray(window.VensisVorticeWorkbookRows)?window.VensisVorticeWorkbookRows:[];
+  if(!catalog||!Array.isArray(catalog.series)||!rows.length)return;
 
   const text=value=>String(value??'').replace(/\s+/g,' ').trim();
   const identity=value=>text(value).toUpperCase().replace(/(\d),(\d)/g,'$1.$2');
-  const numberOrZero=value=>{const n=Number(value);return Number.isFinite(n)?n:0;};
-  const rows=[{"series":"CA MD E RF","altModel":"CA MD E RF CA 100 MD E RF","categories":["Roof Fan","Mixed Flow Fan"],"power":0.05,"speed":2405,"voltage":"230 V","maxAirflow":265,"sound":37.5,"price":270},{"series":"CA MD E RF","altModel":"CA MD E RF CA 125 MD E RF","categories":["Roof Fan","Mixed Flow Fan"],"power":0.05,"speed":2405,"voltage":"230 V","maxAirflow":312,"sound":40.2,"price":288},{"series":"CA MD E RF","altModel":"CA MD E RF CA 150 MD E RF","categories":["Roof Fan","Mixed Flow Fan"],"power":0.085,"speed":2630,"voltage":"230 V","maxAirflow":490,"sound":43.8,"price":398},{"series":"CA MD E RF","altModel":"CA MD E RF CA 200 MD E RF","categories":["Roof Fan","Mixed Flow Fan"],"power":0.095,"speed":2555,"voltage":"230 V","maxAirflow":700,"sound":31.7,"price":428},{"series":"CA MD E RF","altModel":"CA MD E RF CA 250 MD E RF","categories":["Roof Fan","Mixed Flow Fan"],"power":0.13,"speed":2665,"voltage":"230 V","maxAirflow":850,"sound":43.8,"price":510},{"series":"CA MD E RF","altModel":"CA MD E RF CA 315 MD E RF","categories":["Roof Fan","Mixed Flow Fan"],"power":0.13,"speed":2590,"voltage":"230 V","maxAirflow":865,"sound":40.7,"price":545},{"series":"CA MD EXTRA EU","altModel":"CA MD EXTRA EU CA 100 MD EXTRA EU","categories":["Duct Fan","Mixed Flow Fan"],"power":0.085,"speed":2450,"voltage":"230 V","maxAirflow":340,"sound":43.2,"price":144},{"series":"CA MD EXTRA EU","altModel":"CA MD EXTRA EU CA 125 MD EXTRA EU","categories":["Duct Fan","Mixed Flow Fan"],"power":0.085,"speed":2380,"voltage":"230 V","maxAirflow":450,"sound":45.9,"price":149},{"series":"CA MD EXTRA EU","altModel":"CA MD EXTRA EU CA 150 MD EXTRA EU","categories":["Duct Fan","Mixed Flow Fan"],"power":0.155,"speed":2080,"voltage":"230 V","maxAirflow":770,"sound":48,"price":206},{"series":"CA MD EXTRA EU","altModel":"CA MD EXTRA EU CA 200 MD EXTRA EU","categories":["Duct Fan","Mixed Flow Fan"],"power":0.155,"speed":2100,"voltage":"230 V","maxAirflow":1050,"sound":49.6,"price":229},{"series":"CA MD EXTRA EU","altModel":"CA MD EXTRA EU CA 250 MD EXTRA EU","categories":["Duct Fan","Mixed Flow Fan"],"power":0.2,"speed":2420,"voltage":"230 V","maxAirflow":1300,"sound":55.9,"price":235},{"series":"CA MD EXTRA EU","altModel":"CA MD EXTRA EU CA 315 MD EXTRA EU","categories":["Duct Fan","Mixed Flow Fan"],"power":0.28,"speed":2500,"voltage":"230 V","maxAirflow":1800,"sound":57.7,"price":310},{"series":"E-ATEX","altModel":"E-ATEX E 254 M ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.133,"speed":1400,"voltage":"230 V","maxAirflow":1145,"sound":49.9,"price":1082},{"series":"E-ATEX","altModel":"E-ATEX E 254 T ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.101,"speed":1400,"voltage":"400 V","maxAirflow":1175,"sound":48.2,"price":877},{"series":"E-ATEX","altModel":"E-ATEX E 304 M ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.162,"speed":1400,"voltage":"230 V","maxAirflow":1700,"sound":52.8,"price":1145},{"series":"E-ATEX","altModel":"E-ATEX E 304 T ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.14,"speed":1400,"voltage":"400 V","maxAirflow":1811,"sound":51.3,"price":952},{"series":"E-ATEX","altModel":"E-ATEX E 354 M ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.208,"speed":1400,"voltage":"230 V","maxAirflow":2600,"sound":58,"price":1176},{"series":"E-ATEX","altModel":"E-ATEX E 354 T ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.194,"speed":1400,"voltage":"400 V","maxAirflow":2548,"sound":56.4,"price":964},{"series":"E-ATEX","altModel":"E-ATEX E 404 M ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.274,"speed":1400,"voltage":"230 V","maxAirflow":3610,"sound":59.5,"price":1222},{"series":"E-ATEX","altModel":"E-ATEX E 404 T ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.252,"speed":1400,"voltage":"400 V","maxAirflow":3550,"sound":57.8,"price":1008},{"series":"E-ATEX","altModel":"E-ATEX E 454 M ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.39,"speed":1400,"voltage":"230 V","maxAirflow":4870,"sound":61.7,"price":1289},{"series":"E-ATEX","altModel":"E-ATEX E 454 T ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.33,"speed":1400,"voltage":"400 V","maxAirflow":4890,"sound":60.3,"price":1068},{"series":"E-ATEX","altModel":"E-ATEX E 504 M ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.55,"speed":1400,"voltage":"230 V","maxAirflow":6570,"sound":64.2,"price":1378},{"series":"E-ATEX","altModel":"E-ATEX E 504 T ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.46,"speed":1400,"voltage":"400 V","maxAirflow":6460,"sound":62.5,"price":1148},{"series":"E-ATEX","altModel":"E-ATEX E 564 M ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.74,"speed":1400,"voltage":"230 V","maxAirflow":8750,"sound":67.5,"price":1503},{"series":"E-ATEX","altModel":"E-ATEX E 564 T ATEX","categories":["Axial Fan","Wall-Mounted Fan","Explosion-Proof / ATEX Fan"],"power":0.65,"speed":1400,"voltage":"400 V","maxAirflow":8650,"sound":66.3,"price":1279},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 315 M4 0.25KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":0.29,"speed":1400,"voltage":"230 V","maxAirflow":2580,"sound":null,"price":1284},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 315 T4 0.25KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":0.22,"speed":1400,"voltage":"400 V","maxAirflow":2590,"sound":null,"price":1461},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 355 M4 0.25KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":0.4,"speed":1400,"voltage":"230 V","maxAirflow":3610,"sound":null,"price":1391},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 355 T4 0.25KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":0.33,"speed":1400,"voltage":"400 V","maxAirflow":3610,"sound":null,"price":1531},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 400 M4 0.55KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":0.62,"speed":1400,"voltage":"230 V","maxAirflow":5340,"sound":null,"price":1552},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 400 T4 0.55KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":0.56,"speed":1400,"voltage":"400 V","maxAirflow":7870,"sound":null,"price":1670},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 450 T4 1.1KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":1.12,"speed":1400,"voltage":"400 V","maxAirflow":7870,"sound":null,"price":2096},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 500 T4 1.5KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":1.84,"speed":1400,"voltage":"400 V","maxAirflow":10430,"sound":null,"price":2700},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 560 T4 3KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":3.2,"speed":1400,"voltage":"400 V","maxAirflow":15040,"sound":null,"price":3096},{"series":"HEATMASTER F400","altModel":"HEATMASTER F400 630 T4 5.5KW","categories":["Roof Fan","Centrifugal Fan","Smoke Exhaust Fan"],"power":6.1,"speed":1400,"voltage":"680 V","maxAirflow":22550,"sound":null,"price":3713},{"series":"LINEO","altModel":"LINEO LINEO 100 Q VO","categories":["Duct Fan","Mixed Flow Fan"],"power":0.018,"speed":2580,"voltage":"220-240 V","maxAirflow":255,"sound":29.5,"price":160},{"series":"LINEO","altModel":"LINEO LINEO 125 Q VO","categories":["Duct Fan","Mixed Flow Fan"],"power":0.026,"speed":2510,"voltage":"220-240 V","maxAirflow":365,"sound":34.5,"price":171},{"series":"LINEO","altModel":"LINEO LINEO 150 Q VO","categories":["Duct Fan","Mixed Flow Fan"],"power":0.045,"speed":2630,"voltage":"220-240 V","maxAirflow":555,"sound":38.5,"price":195},{"series":"LINEO","altModel":"LINEO LINEO 160 Q VO","categories":["Duct Fan","Mixed Flow Fan"],"power":0.054,"speed":2630,"voltage":"220-240 V","maxAirflow":660,"sound":41.5,"price":208},{"series":"LINEO","altModel":"LINEO LINEO 200 Q VO","categories":["Duct Fan","Mixed Flow Fan"],"power":0.078,"speed":2675,"voltage":"220-240 V","maxAirflow":1000,"sound":46,"price":252},{"series":"LINEO","altModel":"LINEO LINEO 250 Q VO","categories":["Duct Fan","Mixed Flow Fan"],"power":0.11,"speed":2550,"voltage":"220-240 V","maxAirflow":1300,"sound":49.5,"price":276},{"series":"LINEO","altModel":"LINEO LINEO 315 Q VO","categories":["Duct Fan","Mixed Flow Fan"],"power":0.19,"speed":2540,"voltage":"220-240 V","maxAirflow":2100,"sound":56,"price":359},{"series":"LINEO QUIET","altModel":"LINEO QUIET LINEO 100 QUIET","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan"],"power":0.018,"speed":2580,"voltage":"220-240 V","maxAirflow":255,"sound":21.6,"price":184},{"series":"LINEO QUIET","altModel":"LINEO QUIET LINEO 125 QUIET","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan"],"power":0.026,"speed":2510,"voltage":"220-240 V","maxAirflow":365,"sound":26.1,"price":196},{"series":"LINEO QUIET","altModel":"LINEO QUIET LINEO 150 QUIET","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan"],"power":0.045,"speed":2630,"voltage":"220-240 V","maxAirflow":555,"sound":30.1,"price":223},{"series":"LINEO QUIET","altModel":"LINEO QUIET LINEO 160 QUIET","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan"],"power":0.054,"speed":2630,"voltage":"220-240 V","maxAirflow":660,"sound":33.1,"price":239},{"series":"LINEO QUIET","altModel":"LINEO QUIET LINEO 200 QUIET","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan"],"power":0.078,"speed":2675,"voltage":"220-240 V","maxAirflow":1000,"sound":37.6,"price":289},{"series":"LINEO QUIET","altModel":"LINEO QUIET LINEO 250 QUIET","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan"],"power":0.11,"speed":2550,"voltage":"220-240 V","maxAirflow":1300,"sound":41.1,"price":316},{"series":"LINEO QUIET ES","altModel":"LINEO QUIET ES LINEO 100 QUIET ES","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan","Energy Efficient Fan"],"power":0.007,"speed":1950,"voltage":"220-240 V","maxAirflow":255,"sound":18.7,"price":274},{"series":"LINEO QUIET ES","altModel":"LINEO QUIET ES LINEO 125 QUIET ES","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan","Energy Efficient Fan"],"power":0.008,"speed":1950,"voltage":"220-240 V","maxAirflow":365,"sound":23.2,"price":289},{"series":"LINEO QUIET ES","altModel":"LINEO QUIET ES LINEO 150 QUIET ES","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan","Energy Efficient Fan"],"power":0.012,"speed":2100,"voltage":"220-240 V","maxAirflow":555,"sound":27.2,"price":330},{"series":"LINEO QUIET ES","altModel":"LINEO QUIET ES LINEO 160 QUIET ES","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan","Energy Efficient Fan"],"power":0.014,"speed":2100,"voltage":"220-240 V","maxAirflow":660,"sound":30.2,"price":352},{"series":"LINEO QUIET ES","altModel":"LINEO QUIET ES LINEO 200 QUIET ES","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan","Energy Efficient Fan"],"power":0.023,"speed":2150,"voltage":"220-240 V","maxAirflow":1000,"sound":34.7,"price":426},{"series":"LINEO QUIET ES","altModel":"LINEO QUIET ES LINEO 250 QUIET ES","categories":["Duct Fan","Mixed Flow Fan","Acoustic Fan","Energy Efficient Fan"],"power":0.032,"speed":2100,"voltage":"220-240 V","maxAirflow":1300,"sound":38.2,"price":466},{"series":"PUNTO","altModel":"PUNTO M 100/4","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.018,"speed":2300,"voltage":"230 V","maxAirflow":89.9,"sound":37.5,"price":32},{"series":"PUNTO","altModel":"PUNTO M 100/4 A","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.018,"speed":2300,"voltage":"230 V","maxAirflow":89.9,"sound":37.5,"price":60},{"series":"PUNTO","altModel":"PUNTO M 100/4 T","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.018,"speed":2300,"voltage":"230 V","maxAirflow":89.9,"sound":37.5,"price":36},{"series":"PUNTO","altModel":"PUNTO M 120/5","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.02,"speed":2100,"voltage":"230 V","maxAirflow":170,"sound":39.5,"price":39},{"series":"PUNTO","altModel":"PUNTO M 120/5 A","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.02,"speed":2100,"voltage":"230 V","maxAirflow":170,"sound":39.5,"price":68},{"series":"PUNTO","altModel":"PUNTO M 120/5 T","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.02,"speed":2100,"voltage":"230 V","maxAirflow":170,"sound":39.5,"price":43},{"series":"PUNTO","altModel":"PUNTO M 150/6","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.03,"speed":2100,"voltage":"230 V","maxAirflow":334.9,"sound":46,"price":62},{"series":"PUNTO","altModel":"PUNTO M 150/6 A","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.03,"speed":2100,"voltage":"230 V","maxAirflow":334.9,"sound":46,"price":106},{"series":"PUNTO","altModel":"PUNTO M 150/6 T","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.03,"speed":2100,"voltage":"230 V","maxAirflow":334.9,"sound":46,"price":71},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 100/4 LL","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":100},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 100/4 LL PIR","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":168},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 100/4 LL T","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":130},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 100/4 LL TP","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":154},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 100/4 LL TP HCS","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":199},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 120/5 LL","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.013,"speed":2070,"voltage":"230 V","maxAirflow":175,"sound":32.3,"price":119},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 120/5 LL PIR","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.013,"speed":2070,"voltage":"230 V","maxAirflow":175,"sound":32.3,"price":186},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 120/5 LL T","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.013,"speed":2070,"voltage":"230 V","maxAirflow":175,"sound":32.3,"price":147},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 120/5 LL TP","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.013,"speed":2070,"voltage":"230 V","maxAirflow":175,"sound":32.3,"price":172},{"series":"PUNTO EVO","altModel":"PUNTO EVO ME 120/5 LL TP HCS","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.013,"speed":2070,"voltage":"230 V","maxAirflow":175,"sound":32.3,"price":217},{"series":"PUNTO EVO FLEXO","altModel":"PUNTO EVO FLEXO MEX 100/4 LL 1S","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.009,"speed":2175,"voltage":"230 V","maxAirflow":90,"sound":26.9,"price":94},{"series":"PUNTO EVO FLEXO","altModel":"PUNTO EVO FLEXO MEX 100/4 LL 1S T","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.009,"speed":2175,"voltage":"230 V","maxAirflow":90,"sound":26.9,"price":126},{"series":"PUNTO EVO FLEXO","altModel":"PUNTO EVO FLEXO MEX 120/5 LL 1S","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.013,"speed":2075,"voltage":"230 V","maxAirflow":175,"sound":32.3,"price":111},{"series":"PUNTO EVO FLEXO","altModel":"PUNTO EVO FLEXO MEX 120/5 LL 1S T","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.013,"speed":2075,"voltage":"230 V","maxAirflow":175,"sound":32.3,"price":143},{"series":"PUNTO EVO GOLD","altModel":"PUNTO EVO GOLD ME 100/4 LL BLACK GOLD","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":165},{"series":"PUNTO EVO GOLD","altModel":"PUNTO EVO GOLD ME 100/4 LL PINK GOLD","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":165},{"series":"PUNTO EVO GOLD","altModel":"PUNTO EVO GOLD ME 100/4 LL T BLACK GOLD","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":199},{"series":"PUNTO EVO GOLD","altModel":"PUNTO EVO GOLD ME 100/4 LL T PINK GOLD","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":199},{"series":"PUNTO EVO GOLD","altModel":"PUNTO EVO GOLD ME 100/4 LL T WHITE GOLD","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":199},{"series":"PUNTO EVO GOLD","altModel":"PUNTO EVO GOLD ME 100/4 LL T YELLOW GOLD","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":199},{"series":"PUNTO EVO GOLD","altModel":"PUNTO EVO GOLD ME 100/4 LL WHITE GOLD","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":165},{"series":"PUNTO EVO GOLD","altModel":"PUNTO EVO GOLD ME 100/4 LL YELLOW GOLD","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.009,"speed":2240,"voltage":"230 V","maxAirflow":95,"sound":26.9,"price":165},{"series":"PUNTO FILO","altModel":"PUNTO FILO MF 100/4","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.015,"speed":2400,"voltage":"230 V","maxAirflow":85,"sound":31,"price":42},{"series":"PUNTO FILO","altModel":"PUNTO FILO MF 120/5","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.02,"speed":2150,"voltage":"230 V","maxAirflow":175,"sound":34.4,"price":48},{"series":"PUNTO FILO","altModel":"PUNTO FILO MF 150/6","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.028,"speed":2100,"voltage":"230 V","maxAirflow":335,"sound":40.1,"price":70},{"series":"PUNTO FOUR","altModel":"PUNTO FOUR MFO 100/4","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.015,"speed":2400,"voltage":"230 V","maxAirflow":85,"sound":33.1,"price":54},{"series":"PUNTO FOUR","altModel":"PUNTO FOUR MFO 120/5","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.02,"speed":2240,"voltage":"230 V","maxAirflow":175,"sound":39.1,"price":62},{"series":"PUNTO FOUR","altModel":"PUNTO FOUR MFO 90/3.5","categories":["Residential Fan","Axial Fan","Extract Fan","Decorative Fan"],"power":0.014,"speed":2540,"voltage":"230 V","maxAirflow":65,"sound":29.6,"price":51},{"series":"PUNTO GHOST","altModel":"PUNTO GHOST MG 100/4 LL","categories":["Residential Fan","Axial Fan","Duct Fan"],"power":0.018,"speed":2415,"voltage":"230 V","maxAirflow":80,"sound":39,"price":56},{"series":"PUNTO GHOST","altModel":"PUNTO GHOST MG 120/5 LL","categories":["Residential Fan","Axial Fan","Duct Fan"],"power":0.02,"speed":2250,"voltage":"230 V","maxAirflow":160,"sound":43,"price":64},{"series":"PUNTO GHOST","altModel":"PUNTO GHOST MG 150/6 LL","categories":["Residential Fan","Axial Fan","Duct Fan"],"power":0.03,"speed":2200,"voltage":"230 V","maxAirflow":320,"sound":48,"price":77},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 1000","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":0.46,"speed":1020,"voltage":"400 V","maxAirflow":10100,"sound":null,"price":1815},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 1120","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":0.69,"speed":1020,"voltage":"400 V","maxAirflow":13100,"sound":null,"price":1928},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 1250","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":1.11,"speed":1020,"voltage":"400 V","maxAirflow":16600,"sound":null,"price":2089},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 1400","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":1.63,"speed":1020,"voltage":"400 V","maxAirflow":21200,"sound":null,"price":2365},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 1600","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":2.25,"speed":1020,"voltage":"400 V","maxAirflow":26700,"sound":null,"price":2907},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 1800","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":3.2,"speed":1020,"voltage":"400 V","maxAirflow":33600,"sound":null,"price":3504},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 2000","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":4.5,"speed":1020,"voltage":"400 V","maxAirflow":42000,"sound":null,"price":4235},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 2250","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":6.5,"speed":1020,"voltage":"400 V","maxAirflow":51500,"sound":null,"price":5415},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 2500","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":8.5,"speed":1020,"voltage":"400 V","maxAirflow":63500,"sound":null,"price":6678},{"series":"SLIMROOF ES","altModel":"SLIMROOF ES 2800","categories":["Roof Fan","Centrifugal Fan","Energy Efficient Fan"],"power":11,"speed":1020,"voltage":"400 V","maxAirflow":76500,"sound":null,"price":8467},{"series":"TIRACAMINO","altModel":"TIRACAMINO TIRACAMINO","categories":["Roof Fan","Centrifugal Fan","Chimney Fan"],"power":0.24,"speed":1850,"voltage":"230 V","maxAirflow":750,"sound":52.5,"price":501},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 150","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":0.14,"speed":1450,"voltage":"230 V","maxAirflow":650,"sound":null,"price":368},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 200","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":0.22,"speed":1450,"voltage":"230 V","maxAirflow":1000,"sound":null,"price":398},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 250","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":0.32,"speed":1450,"voltage":"230 V","maxAirflow":1500,"sound":null,"price":445},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 315","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":0.44,"speed":1450,"voltage":"230 V","maxAirflow":2200,"sound":null,"price":509},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 355","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":0.58,"speed":1450,"voltage":"230 V","maxAirflow":2900,"sound":null,"price":571},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 400","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":0.82,"speed":1450,"voltage":"230 V","maxAirflow":3900,"sound":null,"price":655},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 450","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":1.1,"speed":1450,"voltage":"230 V","maxAirflow":5000,"sound":null,"price":748},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 500","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":1.45,"speed":1450,"voltage":"230 V","maxAirflow":6400,"sound":null,"price":864},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 560","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":1.9,"speed":1450,"voltage":"230 V","maxAirflow":8100,"sound":null,"price":1011},{"series":"VORT QBK SAL-KC EVO","altModel":"VORT QBK SAL-KC EVO 630","categories":["Duct Fan","Centrifugal Fan","Acoustic Fan"],"power":2.45,"speed":1450,"voltage":"230 V","maxAirflow":10200,"sound":null,"price":1187},{"series":"VORT QUADRO","altModel":"VORT QUADRO MEDIO","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.029,"speed":1890,"voltage":"220-240 V","maxAirflow":119.9,"sound":43.4,"price":165},{"series":"VORT QUADRO","altModel":"VORT QUADRO MICRO 100","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.028,"speed":1600,"voltage":"220-240 V","maxAirflow":92,"sound":39.2,"price":109},{"series":"VORT QUADRO","altModel":"VORT QUADRO SUPER","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.105,"speed":2200,"voltage":"220-240 V","maxAirflow":279.9,"sound":48.6,"price":224},{"series":"VORT QUADRO I","altModel":"VORT QUADRO I MEDIO I","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.029,"speed":1890,"voltage":"220-240 V","maxAirflow":122,"sound":41.2,"price":184},{"series":"VORT QUADRO I","altModel":"VORT QUADRO I MEDIO I T","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.029,"speed":1890,"voltage":"220-240 V","maxAirflow":122,"sound":41.2,"price":239},{"series":"VORT QUADRO I","altModel":"VORT QUADRO I MICRO 100 I","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.027,"speed":1450,"voltage":"220-240 V","maxAirflow":100,"sound":34.3,"price":127},{"series":"VORT QUADRO I","altModel":"VORT QUADRO I MICRO 100 I T","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.027,"speed":1450,"voltage":"220-240 V","maxAirflow":100,"sound":34.3,"price":165},{"series":"VORT QUADRO I","altModel":"VORT QUADRO I SUPER I","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.115,"speed":2190,"voltage":"220-240 V","maxAirflow":285,"sound":46.7,"price":249},{"series":"VORT QUADRO I","altModel":"VORT QUADRO I SUPER I T","categories":["Residential Fan","Centrifugal Fan","Extract Fan"],"power":0.115,"speed":2190,"voltage":"220-240 V","maxAirflow":285,"sound":46.7,"price":314},{"series":"VORTICE VARIO","altModel":"VORTICE VARIO VORTICE 150/6 AR LL S","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.025,"speed":null,"voltage":"220-240 V","maxAirflow":379.8,"sound":49.6,"price":191},{"series":"VORTICE VARIO","altModel":"VORTICE VARIO VORTICE 230/9 AR LL S","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.022,"speed":null,"voltage":"220-240 V","maxAirflow":699.7,"sound":43.6,"price":272},{"series":"VORTICE VARIO","altModel":"VORTICE VARIO VORTICE 300/12 AR LL S","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.045,"speed":null,"voltage":"220-240 V","maxAirflow":1649.5,"sound":53.6,"price":380},{"series":"VORTICE VARIO I","altModel":"VORTICE VARIO I VORTICE 150/6 ARI LL S","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.025,"speed":null,"voltage":"220-240 V","maxAirflow":379.8,"sound":49.1,"price":243},{"series":"VORTICE VARIO I","altModel":"VORTICE VARIO I VORTICE 230/9 ARI LL S","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.026,"speed":null,"voltage":"220-240 V","maxAirflow":699.7,"sound":45.3,"price":367},{"series":"VORTICE VARIO I","altModel":"VORTICE VARIO I VORTICE 300/12 ARI LL S","categories":["Residential Fan","Axial Fan","Extract Fan"],"power":0.045,"speed":null,"voltage":"220-240 V","maxAirflow":1649.5,"sound":53.5,"price":443}];
-  const byKey=new Map(rows.map(row=>[`${identity(row.series)}|${identity(row.altModel)}`,row]));
-  const matchedKeys=new Set();
+  const numeric=value=>{const n=Number(value);return Number.isFinite(n)?n:0;};
+  const originalGetModel=typeof catalog.getModel==='function'?catalog.getModel.bind(catalog):null;
+  const originalProduct=typeof catalog.product==='function'?catalog.product.bind(catalog):null;
+  const originalModelsForSeries=typeof catalog.modelsForSeries==='function'?catalog.modelsForSeries.bind(catalog):null;
+  const extraById=new Map();
+  const extraBySeries=new Map();
+  const matched=[];
+  const aliases=[];
+  const unmatched=[];
+
+  function seriesFor(row){
+    const wanted=identity(row.series);
+    return catalog.series.find(series=>
+      identity(series?.manufacturer)==='VORTICE'&&
+      [series?.id,series?.code,series?.title].some(value=>identity(value)===wanted)
+    )||null;
+  }
+
+  function sourceModels(series){
+    if(originalModelsForSeries)return originalModelsForSeries(series.id);
+    return (catalog.models||[]).filter(model=>String(model.seriesId)===String(series.id));
+  }
+
+  function findExisting(series,row){
+    const wanted=identity(row.altModel);
+    const models=sourceModels(series);
+    return models.find(model=>[
+      model?.standard?.altModel,
+      model?.altModel,
+      model?.model,
+      model?.display,
+      model?.id
+    ].some(value=>identity(value)===wanted))||null;
+  }
+
+  function applyRow(model,row){
+    model.motor=model.motor||{};
+    model.performance=model.performance||{};
+    model.pricing=model.pricing||{};
+    model.standard=model.standard||{};
+
+    model.motor.power=numeric(row.power);
+    model.motor.speed=numeric(row.speed);
+    model.motor.voltage=text(row.voltage);
+    model.motor.sound=numeric(row.sound);
+    model.performance.nominalAirflow=numeric(row.maxAirflow);
+    model.pricing.listPrice=numeric(row.price);
+    model.pricing.currency='EUR';
+
+    model.standard.altModel=text(row.altModel);
+    model.standard.motorPower=numeric(row.power);
+    model.standard.speed=numeric(row.speed);
+    model.standard.voltage=text(row.voltage);
+    model.standard.maxAirflow=numeric(row.maxAirflow);
+    model.standard.sound=numeric(row.sound);
+    model.standard.price=numeric(row.price);
+    return model;
+  }
+
+  function createWorkbookModel(series,row,index){
+    const id=`VORTICE-WORKBOOK-2026-2|${series.id}|${index+1}`;
+    const model={
+      id,
+      seriesId:series.id,
+      model:text(row.altModel),
+      display:text(row.altModel),
+      catalogOnly:true,
+      pole:0,
+      pricing:{listPrice:numeric(row.price),currency:'EUR'},
+      media:{image:series.media?.image||'',dimensionImage:'',gallery:[]},
+      motor:{power:numeric(row.power),speed:numeric(row.speed),current:0,voltage:text(row.voltage),frequency:'',sound:numeric(row.sound)},
+      technical:{},
+      performance:{nominalAirflow:numeric(row.maxAirflow),points:[],sourcePoints:[],curves:[],operatingPoints:[],controls:[]},
+      source:{catalogue:'Vortice workbook 2026.2',page:''},
+      standard:{
+        altModel:text(row.altModel),
+        motorPower:numeric(row.power),
+        speed:numeric(row.speed),
+        voltage:text(row.voltage),
+        maxAirflow:numeric(row.maxAirflow),
+        sound:numeric(row.sound),
+        price:numeric(row.price)
+      }
+    };
+    extraById.set(id,model);
+    if(!extraBySeries.has(series.id))extraBySeries.set(series.id,[]);
+    extraBySeries.get(series.id).push(model);
+    return model;
+  }
+
+  function productForExtra(model){
+    const series=catalog.series.find(item=>String(item.id)===String(model.seriesId))||{};
+    return {
+      id:model.id,
+      model:model.model,
+      series:{
+        id:series.id||model.seriesId,
+        code:series.code||model.seriesId,
+        title:series.title||model.seriesId,
+        manufacturer:series.manufacturer||'Vortice',
+        categories:[...(series.categories||[])]
+      },
+      media:model.media,
+      description:series.description||{general:[],motor:[],applications:[]},
+      pricing:model.pricing,
+      motor:model.motor,
+      technical:model.technical,
+      performance:model.performance,
+      source:model.source
+    };
+  }
+
+  const rowsBySeries=new Map();
+  rows.forEach(row=>{
+    const key=identity(row.series);
+    if(!rowsBySeries.has(key))rowsBySeries.set(key,[]);
+    rowsBySeries.get(key).push(row);
+  });
 
   for(const series of catalog.series){
     if(identity(series?.manufacturer)!=='VORTICE')continue;
-
-    const seriesRows=rows.filter(row=>identity(row.series)===identity(series.code||series.id||series.title));
-    if(seriesRows.length){
-      const categories=[...new Set(seriesRows.flatMap(row=>row.categories||[]).filter(Boolean))];
-      if(categories.length){
-        series.categories=[...categories];
-        series.category=[...categories];
-      }
-    }
-
-    const models=typeof catalog.modelsForSeries==='function'
-      ? catalog.modelsForSeries(series.id)
-      : catalog.models.filter(model=>model.seriesId===series.id);
-
-    for(const model of models){
-      const altModel=text(model?.standard?.altModel||model?.altModel||model?.model||model?.display||model?.id);
-      const key=`${identity(series.code||series.id||series.title)}|${identity(altModel)}`;
-      const row=byKey.get(key);
-      if(!row)continue;
-      matchedKeys.add(key);
-
-      model.motor=model.motor||{};
-      model.performance=model.performance||{};
-      model.pricing=model.pricing||{};
-      model.standard=model.standard||{};
-
-      model.motor.power=numberOrZero(row.power);
-      model.motor.speed=numberOrZero(row.speed);
-      model.motor.voltage=text(row.voltage);
-      model.motor.sound=numberOrZero(row.sound);
-
-      model.performance.nominalAirflow=numberOrZero(row.maxAirflow);
-
-      model.pricing.listPrice=numberOrZero(row.price);
-      model.pricing.currency='EUR';
-
-      model.standard.altModel=altModel;
-      model.standard.motorPower=numberOrZero(row.power);
-      model.standard.speed=numberOrZero(row.speed);
-      model.standard.voltage=text(row.voltage);
-      model.standard.maxAirflow=numberOrZero(row.maxAirflow);
-      model.standard.sound=numberOrZero(row.sound);
-      model.standard.price=numberOrZero(row.price);
+    const seriesRows=rowsBySeries.get(identity(series.code||series.id||series.title))||[];
+    if(!seriesRows.length)continue;
+    const categories=[...new Set(seriesRows.flatMap(row=>row.categories||[]).filter(Boolean))];
+    if(categories.length){
+      series.categories=[...categories];
+      series.category=[...categories];
     }
   }
 
-  const unmatched=rows
-    .map(row=>`${identity(row.series)}|${identity(row.altModel)}`)
-    .filter(key=>!matchedKeys.has(key));
+  rows.forEach((row,index)=>{
+    const series=seriesFor(row);
+    if(!series){
+      unmatched.push(`${row.series}|${row.altModel}`);
+      return;
+    }
+    const existing=findExisting(series,row);
+    if(existing){
+      applyRow(existing,row);
+      matched.push(existing.id);
+      return;
+    }
+    const extra=createWorkbookModel(series,row,index);
+    aliases.push(extra.id);
+  });
+
+  if(extraById.size){
+    catalog.getModel=id=>extraById.get(String(id||''))||(originalGetModel?originalGetModel(id):null);
+    catalog.product=id=>{
+      const extra=extraById.get(String(id||''));
+      return extra?productForExtra(extra):(originalProduct?originalProduct(id):null);
+    };
+    catalog.modelsForSeries=id=>[
+      ...(originalModelsForSeries?originalModelsForSeries(id):(catalog.models||[]).filter(model=>String(model.seriesId)===String(id))),
+      ...(extraBySeries.get(String(id||''))||[])
+    ];
+  }
 
   catalog.vorticeWorkbook={
-    version:'2026.2-sound-r1',
+    version:'2026.2-sound-r2',
     rows:rows.length,
-    matched:matchedKeys.size,
+    matched:matched.length,
+    catalogOnlyAliases:aliases.length,
+    applied:matched.length+aliases.length,
     unmatched
   };
+
+  delete window.VensisVorticeWorkbookRows;
 })();
