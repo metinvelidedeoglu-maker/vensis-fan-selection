@@ -49,7 +49,7 @@
   }
 
   const fmt=(value,digits=0)=>new Intl.NumberFormat(language()==='tr'?'tr-TR':'en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
-  const point=value=>value&&num(value.q)>=0&&num(value.p)>=0?`${fmt(value.q)} m³/h @ ${fmt(value.p)} Pa`:'-';
+  const point=value=>value&&Number.isFinite(Number(value.q))&&Number(value.q)>0&&Number.isFinite(Number(value.p))&&Number(value.p)>=0?`${fmt(value.q)} m³/h @ ${fmt(value.p)} Pa`:'-';
 
   function readJson(key,fallback){
     try{return JSON.parse(localStorage.getItem(key)||'')||fallback}catch{return fallback}
@@ -77,28 +77,27 @@
     return `<div class="project-product">${image?`<img src="${esc(image)}" alt="${esc(item.model||'Product')}" onerror="this.style.display='none'">`:''}<div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div>`;
   }
 
-  function voltageText(item,model){
-    const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
+  function voltageText(item){
+    const voltage=String(item.voltage||'').trim();
     return voltage?esc(voltage):'-';
   }
 
   function requestedPoint(item){
-    const q=Number(item?.required?.q);
-    const p=Number(item?.required?.p);
-    return Number.isFinite(q)&&q>0&&Number.isFinite(p)&&p>=0?`${fmt(q)} m³/h @ ${fmt(p)} Pa`:'-';
+    return point(item?.required);
   }
 
   function selectedText(item){
-    if(item.mode==='catalog'||item.mode==='custom')return num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h`:'-';
-    return point(item.selected);
+    const selected=point(item?.selected);
+    if(selected!=='-')return selected;
+    return num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h`:'-';
   }
 
   function fanRow(item){
     const model=modelFor(item);
-    const power=num(item.motorPower)||num(model?.motor?.power);
-    const speed=num(item.speed)||num(model?.motor?.speed);
+    const power=num(item.motorPower);
+    const speed=num(item.speed);
     const qty=Math.max(1,Math.round(num(item.quantity)||1));
-    return `<tr><td>${productMarkup(item,model)}</td><td class="technical-point">${requestedPoint(item)}</td><td class="technical-point">${esc(selectedText(item))}</td><td>${voltageText(item,model)}</td><td>${power>0?`${fmt(power,2)} kW`:'-'}</td><td>${speed>0?`${fmt(speed)} rpm`:'-'}</td><td><b>${fmt(qty)}</b></td></tr>`;
+    return `<tr><td>${productMarkup(item,model)}</td><td class="technical-point">${requestedPoint(item)}</td><td class="technical-point">${esc(selectedText(item))}</td><td>${voltageText(item)}</td><td>${power>0?`${fmt(power,2)} kW`:'-'}</td><td>${speed>0?`${fmt(speed)} rpm`:'-'}</td><td><b>${fmt(qty)}</b></td></tr>`;
   }
 
   function electricalRow(item){
@@ -106,7 +105,7 @@
     const power=String(item.power||'').trim();
     const lumen=String(item.lumen||'').trim();
     const ip=String(item.ip||'').trim();
-    return `<tr><td>${productMarkup(item,null)}</td><td>${power?esc(power):'-'}</td><td>${lumen?esc(lumen):'-'}</td><td>${voltageText(item,null)}</td><td>${ip?esc(ip):'-'}</td><td><b>${fmt(qty)}</b></td></tr>`;
+    return `<tr><td>${productMarkup(item,null)}</td><td>${power?esc(power):'-'}</td><td>${lumen?esc(lumen):'-'}</td><td>${voltageText(item)}</td><td>${ip?esc(ip):'-'}</td><td><b>${fmt(qty)}</b></td></tr>`;
   }
 
   function table(type,items,title=''){
