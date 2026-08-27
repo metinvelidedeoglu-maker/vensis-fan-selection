@@ -46,7 +46,6 @@
         <div class="series-title">${esc(series.title||'')}</div>
         ${summary&&summary!==series.title?`<p>${esc(summary)}</p>`:''}
         <div class="series-card-footer"><b>${count} Models</b><span>View Series →</span></div>
-        <button class="vensis-series-edit" type="button" data-edit-series="${esc(series.id)}" title="Edit series information" aria-label="Edit ${esc(series.code||series.title)} series information">✎ Edit Series</button>
       </div>
     </article>`;
   }
@@ -57,8 +56,8 @@
     document.getElementById('catalogGrid').innerHTML=rows.map(seriesCard).join('')||'<div class="empty-state">No series matches these filters.</div>';
     document.querySelectorAll('[data-series]').forEach(card=>{
       const open=()=>location.assign(seriesUrl(card.dataset.series));
-      card.addEventListener('click',event=>{if(event.target.closest('[data-edit-series]'))return;open()});
-      card.addEventListener('keydown',event=>{if(event.target.closest('[data-edit-series]'))return;if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}});
+      card.addEventListener('click',()=>open());
+      card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}});
     });
   }
 
@@ -150,10 +149,9 @@
       ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> ${esc(model.technical.safetyWarning)}</div>`:''}
       ${dimensionImage?`<details class="model-dimension"><summary>Dimension Drawing</summary><img src="${esc(dimensionImage)}" alt="${esc(model.model)} dimension drawing" loading="lazy" onerror="this.closest('details').hidden=true"></details>`:''}
       ${operatingPointsTable(model)}
-      <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px 48px;gap:8px;margin-top:13px">
+      <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px;gap:8px;margin-top:13px">
         <button class="model-datasheet-btn" style="margin-top:0" type="button" data-model-datasheet="${esc(model.id)}">Save as PDF</button>
         <button class="model-datasheet-btn" style="margin-top:0;font-size:22px;padding:0" type="button" data-add-catalog-project="${esc(model.id)}" title="Add to project" aria-label="Add to project">+</button>
-        <button class="model-datasheet-btn vensis-model-edit" style="margin-top:0;font-size:20px;padding:0;background:#173f46" type="button" data-edit-model="${esc(model.id)}" title="Edit model" aria-label="Edit model">✎</button>
       </div>
     </article>`;
   }
