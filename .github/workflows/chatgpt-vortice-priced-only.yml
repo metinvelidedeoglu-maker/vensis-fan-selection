@@ -1,0 +1,81 @@
+name: ChatGPT keep priced Vortice only
+on:
+  push:
+    branches: [main]
+jobs:
+  apply:
+    if: github.event.head_commit.message == 'Apply priced-only Vortice policy'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Inject priced-only policy across app
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          tag='<script src="data/vortice-priced-only-policy.js?v=20260827-vortice-priced-only-r1"></script>'
+          changed=[]
+          for p in Path('.').rglob('*.html'):
+              text=p.read_text(encoding='utf-8')
+              if 'data/vortice-workbook-2026-2.js' not in text:
+                  continue
+              text=re.sub(r'\n?<script src="data/vortice-priced-only-policy\.js\?v=[^"]+"></script>', '', text)
+              pattern=r'(<script src="data/vortice-workbook-2026-2\.js\?v=[^"]+"></script>)'
+              if not re.search(pattern,text):
+                  raise SystemExit(f'Vortice workbook tag not found in {p}')
+              updated=re.sub(pattern, r'\1\n'+tag, text, count=1)
+              if updated!=text:
+                  p.write_text(updated,encoding='utf-8')
+                  changed.append(str(p))
+          if not changed:
+              raise SystemExit('No HTML page was updated')
+          print('UPDATED_HTML=' + ','.join(changed))
+          PY
+      - name: Validate priced-only policy
+        shell: bash
+        run: |
+          node --check data/vortice-priced-only-policy.js
+          node <<'NODE'
+          const fs=require('fs');
+          const vm=require('vm');
+          const html=fs.readFileSync('catalog.html','utf8');
+          const srcs=[...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1].replace(/\?.*$/,''));
+          const policyIndex=srcs.indexOf('data/vortice-priced-only-policy.js');
+          if(policyIndex<0)throw new Error('Priced-only policy missing from catalog.html');
+          const scripts=srcs.slice(0,policyIndex+1).filter(src=>src.startsWith('data/')||src.startsWith('products/'));
+          const noop=()=>{};
+          const classList={contains:()=>false,add:noop,remove:noop};
+          const document={readyState:'complete',body:{classList},documentElement:{},querySelector:()=>null,querySelectorAll:()=>[],addEventListener:noop,createElement:()=>({classList,style:{},appendChild:noop,setAttribute:noop}),write:noop};
+          class MutationObserver{constructor(fn){this.fn=fn}observe(){}disconnect(){}}
+          const ctx={console,document,MutationObserver,location:{search:''},URLSearchParams,Intl,Map,Set,Number,String,Array,Object,Math,RegExp,Date,JSON};
+          ctx.setInterval=fn=>{try{fn()}catch(e){}return 1};ctx.clearInterval=noop;ctx.setTimeout=fn=>{try{fn()}catch(e){}return 1};ctx.clearTimeout=noop;ctx.window=ctx;ctx.globalThis=ctx;ctx.models=[];
+          vm.createContext(ctx);
+          for(const src of scripts)vm.runInContext(fs.readFileSync(src,'utf8'),ctx,{filename:src});
+          const cat=ctx.VensisCatalog;
+          const report=cat?.vorticePricePolicy;
+          if(!report)throw new Error('Price policy report missing');
+          const vorticeSeries=new Set(cat.series.filter(s=>String(s.manufacturer||'').trim().toLowerCase()==='vortice').map(s=>s.id));
+          const vortice=cat.models.filter(m=>vorticeSeries.has(m.seriesId));
+          const missing=vortice.filter(m=>!(Number(m?.pricing?.listPrice)>0));
+          console.log(JSON.stringify(report));
+          console.log('VORTICE_REMAINING='+vortice.length);
+          console.log('VORTICE_MISSING_PRICE='+missing.length);
+          if(report.removed!==155)throw new Error(`Expected 155 removed Vortice models, got ${report.removed}`);
+          if(vortice.length!==155)throw new Error(`Expected 155 priced Vortice models remaining, got ${vortice.length}`);
+          if(missing.length)throw new Error(`Unpriced Vortice models remain: ${missing.length}`);
+          NODE
+      - name: Commit page integration
+        shell: bash
+        run: |
+          git config user.name 'Vensis Automation'
+          git config user.email 'automation@vensis.local'
+          git add '*.html' '**/*.html' 2>/dev/null || true
+          git diff --cached --quiet || git commit -m 'Load Vortice priced-only policy across app'
+          git push
