@@ -9,11 +9,12 @@
 
   function numeric(value){const match=String(value||'').replace(',','.').match(/-?\d+(?:\.\d+)?/);return match?Number(match[0]):0;}
   function electricalProjectItem(product,model){
+    const identity=model.orderCode||model.model;
     return {
-      itemKey:`electrical|${product.modelName}|${model.model}`,
-      mode:'catalog',productType:'electrical',productKey:`${product.modelName}|${model.model}`,
+      itemKey:`electrical|${product.modelName}|${identity}`,
+      mode:'catalog',productType:'electrical',productKey:`${product.modelName}|${identity}`,
       model:model.model||product.modelName,series:product.modelName,manufacturer:product.brand||'ZONEX',
-      image:product.image?`electrical/${product.image}`:'',description:model.subcategory||product.description||'',category:product.category||'',
+      image:product.image?`electrical/${product.image}`:'',description:model.name||model.subcategory||product.description||'',category:product.category||'',
       orderCode:model.orderCode||'',power:model.power||'',currentText:model.current||'',voltage:model.voltage||'',
       frequency:model.frequency||'',phase:model.phase||'',ip:model.ip||'',insulation:model.insulation||'',
       lumen:model.lumen||'',operatingTemperature:model.operatingTemperature||'',current:numeric(model.current),
@@ -40,7 +41,8 @@
   function modelField(label,value){return value?`<div class="model-field"><span>${label}</span><b>${escapeHtml(value)}</b></div>`:'';}
   function modelCard(product,model){
     const visual=product.image?`<img src="${escapeHtml(product.image)}" alt="${escapeHtml(model.model||product.modelName)}">`:'<div class="model-card-icon" aria-hidden="true">⚡</div>';
-    return `<article class="model-card"><div class="model-card-head">${visual}<div><div class="section-kicker">${escapeHtml(model.subcategory||product.category||'')}</div><h3>${escapeHtml(model.model||product.modelName)}</h3></div></div><div class="model-grid">${modelField('Power',model.power)}${modelField('Current',model.current)}${modelField('Voltage',model.voltage)}${modelField('Frequency',model.frequency)}${modelField('Phase',model.phase)}${modelField('IP',model.ip)}${modelField('Insulation',model.insulation)}${modelField('Lumen',model.lumen)}${modelField('Operating Temperature',model.operatingTemperature)}${modelField('Order Code',model.orderCode)}</div><button class="model-project-btn" type="button" data-add-electrical-project="${escapeHtml(model.model||'')}">＋ Add to Project</button><div class="model-card-footer"><span>${escapeHtml(product.category||'')}</span><b>${escapeHtml(model.price||'')}</b></div></article>`;
+    const identity=model.orderCode||model.model||'';
+    return `<article class="model-card"><div class="model-card-head">${visual}<div><div class="section-kicker">${escapeHtml(model.subcategory||product.category||'')}</div><h3>${escapeHtml(model.model||product.modelName)}</h3><div class="model-name">${escapeHtml(model.name||'')}</div></div></div><div class="model-grid">${modelField('Power',model.power)}${modelField('Current',model.current)}${modelField('Voltage',model.voltage)}${modelField('Frequency',model.frequency)}${modelField('Phase',model.phase)}${modelField('IP',model.ip)}${modelField('Insulation',model.insulation)}${modelField('Lumen',model.lumen)}${modelField('Operating Temperature',model.operatingTemperature)}${modelField('Order Code',model.orderCode)}</div><button class="model-project-btn" type="button" data-add-electrical-project="${escapeHtml(identity)}">＋ Add to Project</button><div class="model-card-footer"><span>${escapeHtml(product.category||'')}</span><b>${escapeHtml(model.price||'')}</b></div></article>`;
   }
   function bindSeriesCards(){
     document.querySelectorAll('[data-series]').forEach(card=>{
@@ -84,7 +86,7 @@
     const button=event.target.closest('[data-add-electrical-project]');
     if(!button)return;
     const product=products.find(item=>item.modelName===activeSeries);
-    const model=product?.submodels?.find(item=>item.model===button.dataset.addElectricalProject);
+    const model=product?.submodels?.find(item=>String(item.orderCode||item.model)===button.dataset.addElectricalProject);
     if(product&&model)window.VensisCatalogProjectPicker?.openItem?.(electricalProjectItem(product,model),button);
   });
   renderCatalog();
