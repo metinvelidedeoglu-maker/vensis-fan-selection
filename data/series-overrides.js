@@ -15,6 +15,10 @@ window.VensisSeriesOverrides={
     "LINEO ES": {
         "image": "assets/products/lineo/lineo_150_20260814.png",
         "useSeriesImageForModels": true
+    },
+    "HXM": {
+        "image": "assets/products/soler-palau/hxm.jpg?v=13b8ab50",
+        "useSeriesImageForModels": true
     }
 };
 
