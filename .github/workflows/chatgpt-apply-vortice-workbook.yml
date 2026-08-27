@@ -13,84 +13,60 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Inject Vortice workbook data into every catalog page
+      - name: Inject latest Vortice workbook data
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
 
-          script='<script src="data/vortice-workbook-2026-2.js?v=20260827-vortice-workbook-r1"></script>'
-          changed=[]
+          version='20260827-vortice-workbook-r2'
+          tags='\n'.join([
+              f'<script src="data/vortice-workbook-2026-2-{i:02d}.js?v={version}"></script>' for i in range(1,6)
+          ]+[f'<script src="data/vortice-workbook-2026-2.js?v={version}"></script>'])
+          pages=[]
           for p in Path('.').rglob('*.html'):
               text=p.read_text(encoding='utf-8')
               if 'data/catalog-schema-v2.js' not in text:
                   continue
-              text=re.sub(r'\n?<script src="data/vortice-workbook-2026-2\.js\?v=[^"]+"></script>', '', text)
+              text=re.sub(r'\n?<script src="data/vortice-workbook-2026-2(?:-\d{2})?\.js\?v=[^"]+"></script>', '', text)
               pattern=r'(<script src="data/catalog-schema-v2\.js\?v=[^"]+"></script>)'
               if not re.search(pattern,text):
                   raise SystemExit(f'catalog schema tag not found in {p}')
-              updated=re.sub(pattern, r'\1\n'+script, text, count=1)
-              if updated!=text:
-                  p.write_text(updated,encoding='utf-8')
-                  changed.append(str(p))
-          if not changed:
+              text=re.sub(pattern, r'\1\n'+tags, text, count=1)
+              p.write_text(text,encoding='utf-8')
+              pages.append(str(p))
+          if not pages:
               raise SystemExit('No HTML page was updated')
-          print('UPDATED_HTML=' + ','.join(changed))
+          print('UPDATED_HTML=' + ','.join(pages))
           PY
-      - name: Validate workbook override against live catalog data
+      - name: Validate Vortice workbook against catalog
         shell: bash
         run: |
-          node --check data/vortice-workbook-2026-2.js
+          for file in data/vortice-workbook-2026-2-0{1..5}.js data/vortice-workbook-2026-2.js; do node --check "$file"; done
           node <<'NODE'
           const fs=require('fs');
           const vm=require('vm');
           const html=fs.readFileSync('catalog.html','utf8');
           const srcs=[...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1].replace(/\?.*$/,''));
           const end=srcs.indexOf('data/vortice-workbook-2026-2.js');
-          if(end<0)throw new Error('Vortice workbook script was not injected into catalog.html');
-          const dataScripts=srcs.slice(0,end+1).filter(src=>src.startsWith('data/')||src.startsWith('products/'));
+          if(end<0)throw new Error('Workbook integration script missing from catalog.html');
+          const scripts=srcs.slice(0,end+1).filter(src=>src.startsWith('data/')||src.startsWith('products/'));
           const noop=()=>{};
           const classList={contains:()=>false,add:noop,remove:noop};
-          const document={
-            readyState:'complete',
-            body:{classList},
-            documentElement:{},
-            querySelector:()=>null,
-            querySelectorAll:()=>[],
-            addEventListener:noop,
-            createElement:()=>({classList,style:{},appendChild:noop,setAttribute:noop})
-          };
+          const document={readyState:'complete',body:{classList},documentElement:{},querySelector:()=>null,querySelectorAll:()=>[],addEventListener:noop,createElement:()=>({classList,style:{},appendChild:noop,setAttribute:noop}),write:noop};
           class MutationObserver{constructor(fn){this.fn=fn}observe(){}disconnect(){}}
           const ctx={console,document,MutationObserver,location:{search:''},URLSearchParams,Intl,Map,Set,Number,String,Array,Object,Math,RegExp,Date,JSON};
-          ctx.setInterval=fn=>{try{fn()}catch(e){}return 1};
-          ctx.clearInterval=noop;
-          ctx.setTimeout=fn=>{try{fn()}catch(e){}return 1};
-          ctx.clearTimeout=noop;
-          ctx.window=ctx;
-          ctx.globalThis=ctx;
-          ctx.models=[];
+          ctx.setInterval=fn=>{try{fn()}catch(e){}return 1};ctx.clearInterval=noop;ctx.setTimeout=fn=>{try{fn()}catch(e){}return 1};ctx.clearTimeout=noop;ctx.window=ctx;ctx.globalThis=ctx;ctx.models=[];
           vm.createContext(ctx);
-          for(const src of dataScripts){
-            try{vm.runInContext(fs.readFileSync(src,'utf8'),ctx,{filename:src});}
-            catch(error){
-              if(src==='data/series-overrides.js'){
-                console.warn('series-overrides warning:',error.message);
-                continue;
-              }
-              throw error;
-            }
-          }
+          for(const src of scripts)vm.runInContext(fs.readFileSync(src,'utf8'),ctx,{filename:src});
           const report=ctx.VensisCatalog?.vorticeWorkbook;
           if(!report)throw new Error('Vortice workbook report missing');
-          console.log('VORTICE_ROWS='+report.rows);
-          console.log('VORTICE_MATCHED='+report.matched);
-          console.log('VORTICE_UNMATCHED='+report.unmatched.length);
-          if(report.rows!==131)throw new Error(`Expected 131 workbook rows, got ${report.rows}`);
-          if(report.matched!==131||report.unmatched.length)throw new Error(`Workbook match failed: ${JSON.stringify(report)}`);
-          const punto=ctx.VensisCatalog.models.find(m=>m.standard?.altModel==='PUNTO M 100/4');
+          console.log(JSON.stringify(report));
+          if(report.rows!==131||report.applied!==131||report.unmatched.length)throw new Error('Not all 131 workbook rows were applied');
+          const punto=ctx.VensisCatalog.modelsForSeries('PUNTO').find(m=>m.standard?.altModel==='PUNTO M 100/4');
           if(!punto||punto.standard.sound!==37.5||punto.standard.price!==32)throw new Error('PUNTO workbook values failed');
-          const vario=ctx.VensisCatalog.models.find(m=>m.standard?.altModel==='VORTICE VARIO VORTICE 300/12 AR LL S');
+          const vario=ctx.VensisCatalog.modelsForSeries('VORTICE VARIO').find(m=>m.standard?.altModel==='VORTICE VARIO VORTICE 300/12 AR LL S');
           if(!vario||vario.standard.sound!==53.6||vario.standard.price!==380)throw new Error('VARIO workbook values failed');
           NODE
       - name: Commit page integration
