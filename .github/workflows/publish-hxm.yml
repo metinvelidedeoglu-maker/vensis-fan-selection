@@ -1,0 +1,27 @@
+name: Publish HXM image
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and publish HXM image
+        shell: bash
+        run: |
+          cat .tmp-hxm/part00 .tmp-hxm/part01 .tmp-hxm/part02 .tmp-hxm/part03 .tmp-hxm/part04 | base64 -d > assets/products/soler-palau/hxm.jpg
+          echo "3c23ed7827b36da49b3030bbcd6c509f891108561aa2a823d66805c99dc9c7f7  assets/products/soler-palau/hxm.jpg" | sha256sum -c -
+          rm -rf .tmp-hxm
+          rm .github/workflows/publish-hxm.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update Soler & Palau HXM product image"
+          git push
