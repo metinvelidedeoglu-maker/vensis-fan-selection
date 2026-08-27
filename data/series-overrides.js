@@ -33,3 +33,12 @@ document.write(
   '<script src="data/sp-roof-b08.js?v=20260826-roof-curves-r1"><\/script>',
   '<script src="data/sp-roof-b09.js?v=20260826-roof-curves-r1"><\/script>'
 );
+
+(function removeCatalogImageErrorHandlers(){
+  const clean=()=>document.querySelectorAll('.series-card-image img[onerror], .model-card-head img[onerror]').forEach(img=>img.removeAttribute('onerror'));
+  const start=()=>{
+    clean();
+    new MutationObserver(clean).observe(document.body,{childList:true,subtree:true});
+  };
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start,{once:true}):start();
+})();
