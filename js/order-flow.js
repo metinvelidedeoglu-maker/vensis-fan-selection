@@ -3,6 +3,7 @@
   const orders=window.VensisOrders;
   const utils=window.VensisOrderUtils;
   const quotationKey=window.VensisAccess?.storageKey?.('vensis_active_quotation_v1')||'vensis_active_quotation_v1';
+  const formats=window.VensisQuotationFormats||{split:items=>({fan:items||[],electrical:[]})};
   if(!store||!orders||!utils)return;
 
   function openWindow(projectId,order){window.open(orders.url(projectId,order.id),'_blank')}
@@ -10,6 +11,7 @@
     try{return JSON.parse(localStorage.getItem(quotationKey)||'null')}catch{return null}
   }
   function createFromProject(){
+    window.VensisProjectPrint?.flushInlineEditors?.();
     window.VensisProject?.flushAllNotes?.();
     window.VensisProjectContact?.save?.();
     const projectId=window.VensisProject?.projectId||store.activeId();
@@ -79,11 +81,57 @@
     return format==='mixed'&&index>0;
   }
 
+  function num(value){const n=Number(value);return Number.isFinite(n)?n:0}
+  function fmt(value,digits=0){return new Intl.NumberFormat(quotationLanguage()==='tr'?'tr-TR':'en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value))}
+  function selectedDuty(item){
+    const q=Number(item?.selected?.q);const p=Number(item?.selected?.p);
+    if(Number.isFinite(q)&&q>0&&Number.isFinite(p)&&p>=0)return `${fmt(q)} m³/h @ ${fmt(p)} Pa`;
+    const nominal=num(item?.nominalAirflow);
+    return nominal>0?`${fmt(nominal)} m³/h`:'-';
+  }
+  function setText(node,value){if(node&&node.textContent!==value)node.textContent=value}
+  function setWrapped(cell,value,className){
+    if(!cell)return;
+    if(value==='-'){if(cell.textContent!=='-')cell.textContent='-';return}
+    let span=cell.querySelector(`.${className}`);
+    if(!span){cell.textContent='';span=document.createElement('span');span.className=className;cell.appendChild(span)}
+    setText(span,value);
+  }
+  function quotationItems(){return window.VensisQuotationEditor?.draft?.()||currentQuotation()}
+  function tableItems(quotation,electrical,format){
+    const items=Array.isArray(quotation?.items)?quotation.items:[];
+    if(format!=='mixed')return items;
+    const groups=formats.split(items);
+    return electrical?(groups.electrical||[]):(groups.fan||[]);
+  }
+  function applyProjectSourceValues(table,electrical,format,quotation){
+    const items=tableItems(quotation,electrical,format);
+    table.querySelectorAll('tbody tr').forEach((row,rowIndex)=>{
+      const item=items[rowIndex];if(!item)return;
+      if(electrical){
+        const power=String(item.power||'').trim()||'-';
+        const lumen=String(item.lumen||'').trim()||'-';
+        const voltage=String(item.voltage||'').trim()||'-';
+        const ip=String(item.ip||'').trim()||'-';
+        setWrapped(row.children[1],power,'electrical-spec');
+        setWrapped(row.children[2],lumen,'electrical-spec');
+        setWrapped(row.children[3],voltage,'technical');
+        setWrapped(row.children[4],ip,'electrical-spec');
+        return;
+      }
+      setWrapped(row.children[1],selectedDuty(item),'technical');
+      setWrapped(row.children[2],String(item.voltage||'').trim()||'-','technical');
+      setText(row.children[3],num(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-');
+      setText(row.children[4],num(item.speed)>0?`${fmt(item.speed)} rpm`:'-');
+    });
+  }
+
   function applyQuotationTableLabels(){
     const root=document.getElementById('quotationProductTables');
     if(!root)return;
     const text=quotationTableLabels();
     const format=document.body.dataset.quotationFormat||'fan';
+    const quotation=quotationItems();
     root.querySelectorAll('.quote-table').forEach((table,index)=>{
       const electrical=isElectricalQuotationTable(table,index,format);
       const headers=electrical?text.electrical:text.fan;
@@ -96,14 +144,7 @@
         const next=electrical?text.electricalGroup:text.fanGroup;
         if(groupTitle.textContent!==next)groupTitle.textContent=next;
       }
-      if(!electrical){
-        table.querySelectorAll('tbody tr').forEach(row=>{
-          const duty=row.children[1]?.querySelector('.technical');
-          if(!duty)return;
-          if(quotationLanguage()==='tr'&&/ nominal$/i.test(duty.textContent))duty.textContent=duty.textContent.replace(/ nominal$/i,' anma');
-          if(quotationLanguage()==='en'&&/ anma$/i.test(duty.textContent))duty.textContent=duty.textContent.replace(/ anma$/i,' nominal');
-        });
-      }
+      applyProjectSourceValues(table,electrical,format,quotation);
     });
   }
 
