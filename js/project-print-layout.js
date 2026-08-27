@@ -19,9 +19,36 @@
       return {fan,electrical};
     }
   };
-  const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+  const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[ch]));
   const num=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
-  const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
+
+  function language(){
+    const active=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'';
+    if(active==='tr'||active==='en')return active;
+    try{
+      const saved=localStorage.getItem('vensis_language_v1');
+      return saved==='tr'?'tr':'en';
+    }catch{return 'en'}
+  }
+
+  function labels(){
+    if(language()==='tr'){
+      return {
+        fanHeaders:['Ürün','İstenen Debi','Seçilen / Anma','Voltaj','kW','rpm','Adet'],
+        electricalHeaders:['Ürün','Güç','Lümen','Voltaj','IP','Adet'],
+        fanGroup:'Fan Ürünleri',
+        electricalGroup:'Elektrik Ürünleri'
+      };
+    }
+    return {
+      fanHeaders:['Product','Required Airflow','Selected / Nominal','Voltage','kW','rpm','Qty'],
+      electricalHeaders:['Product','Power','Lumen','Voltage','IP','Qty'],
+      fanGroup:'Fan Products',
+      electricalGroup:'Electrical Products'
+    };
+  }
+
+  const fmt=(value,digits=0)=>new Intl.NumberFormat(language()==='tr'?'tr-TR':'en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
   const point=value=>value&&num(value.q)>=0&&num(value.p)>=0?`${fmt(value.q)} m³/h @ ${fmt(value.p)} Pa`:'-';
 
   function readJson(key,fallback){
@@ -61,7 +88,7 @@
   }
 
   function selectedText(item){
-    if(item.mode==='catalog'||item.mode==='custom')return num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h nominal`:'-';
+    if(item.mode==='catalog'||item.mode==='custom')return num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h`:'-';
     return point(item.selected);
   }
 
@@ -83,15 +110,17 @@
 
   function table(type,items,title=''){
     const electrical=type==='electrical';
-    const headers=electrical?['Product','Power','Lumen','Voltaj / Voltage','IP','Qty']:['Product','İstenen Debi / Required Airflow','Selected / Nominal','Voltaj / Voltage','kW','rpm','Qty'];
+    const text=labels();
+    const headers=electrical?text.electricalHeaders:text.fanHeaders;
     const rows=items.map(item=>electrical?electricalRow(item):fanRow(item)).join('');
-    return `<section class="project-product-group">${title?`<h2 class="project-product-group-title">${esc(title)}</h2>`:''}<div class="project-table-wrap"><table class="project-table ${electrical?'project-electrical-table':'project-fan-table'}"><thead><tr>${headers.map(header=>`<th>${header}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
+    return `<section class="project-product-group">${title?`<h2 class="project-product-group-title">${esc(title)}</h2>`:''}<div class="project-table-wrap"><table class="project-table ${electrical?'project-electrical-table':'project-fan-table'}"><thead><tr>${headers.map(header=>`<th>${esc(header)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
   }
 
   function tables(items){
     const groups=formats.split(items||[]);
     const mixed=groups.fan.length&&groups.electrical.length;
-    return `${groups.fan.length?table('fan',groups.fan,mixed?'Fan Ürünleri':''):''}${groups.electrical.length?table('electrical',groups.electrical,mixed?'Elektrik Ürünleri':''):''}`;
+    const text=labels();
+    return `${groups.fan.length?table('fan',groups.fan,mixed?text.fanGroup:''):''}${groups.electrical.length?table('electrical',groups.electrical,mixed?text.electricalGroup:''):''}`;
   }
 
   function addStyles(){
@@ -111,14 +140,21 @@
     const data=snapshot();
     if(!Array.isArray(data.items)||!data.items.length)return;
     const overview=root.querySelector('.project-overview');
-    const oldTable=overview?.querySelector('.project-table-wrap');
-    if(!overview||!oldTable)return;
+    if(!overview)return;
     addStyles();
+    const existing=overview.querySelector('.project-product-tables');
+    if(existing){
+      existing.innerHTML=tables(data.items);
+      return;
+    }
+    const oldTable=overview.querySelector('.project-table-wrap');
+    if(!oldTable)return;
     const holder=document.createElement('div');
     holder.className='project-product-tables';
     holder.innerHTML=tables(data.items);
     oldTable.replaceWith(holder);
   }
 
+  window.addEventListener('vensis-language-changed',apply);
   apply();
 })();
