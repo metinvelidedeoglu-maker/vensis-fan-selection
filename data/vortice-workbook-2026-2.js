@@ -8,6 +8,7 @@
   const text=value=>String(value??'').replace(/\s+/g,' ').trim();
   const identity=value=>text(value).toUpperCase().replace(/(\d),(\d)/g,'$1.$2');
   const numeric=value=>{const n=Number(value);return Number.isFinite(n)?n:0;};
+  const isVortice=series=>identity(series?.manufacturer)==='VORTICE';
   const originalGetModel=typeof catalog.getModel==='function'?catalog.getModel.bind(catalog):null;
   const originalProduct=typeof catalog.product==='function'?catalog.product.bind(catalog):null;
   const originalModelsForSeries=typeof catalog.modelsForSeries==='function'?catalog.modelsForSeries.bind(catalog):null;
@@ -20,7 +21,7 @@
   function seriesFor(row){
     const wanted=identity(row.series);
     return catalog.series.find(series=>
-      identity(series?.manufacturer)==='VORTICE'&&
+      isVortice(series)&&
       [series?.id,series?.code,series?.title].some(value=>identity(value)===wanted)
     )||null;
   }
@@ -47,7 +48,11 @@
     model.performance=model.performance||{};
     model.pricing=model.pricing||{};
     model.standard=model.standard||{};
+    const altModel=text(row.altModel);
 
+    model.model=altModel;
+    model.display=altModel;
+    model.altModel=altModel;
     model.motor.power=numeric(row.power);
     model.motor.speed=numeric(row.speed);
     model.motor.voltage=text(row.voltage);
@@ -56,7 +61,7 @@
     model.pricing.listPrice=numeric(row.price);
     model.pricing.currency='EUR';
 
-    model.standard.altModel=text(row.altModel);
+    model.standard.altModel=altModel;
     model.standard.motorPower=numeric(row.power);
     model.standard.speed=numeric(row.speed);
     model.standard.voltage=text(row.voltage);
@@ -73,6 +78,7 @@
       seriesId:series.id,
       model:text(row.altModel),
       display:text(row.altModel),
+      altModel:text(row.altModel),
       catalogOnly:true,
       pole:0,
       pricing:{listPrice:numeric(row.price),currency:'EUR'},
@@ -97,7 +103,7 @@
     return model;
   }
 
-  function productForExtra(model){
+  function productForModel(model){
     const series=catalog.series.find(item=>String(item.id)===String(model.seriesId))||{};
     return {
       id:model.id,
@@ -127,7 +133,7 @@
   });
 
   for(const series of catalog.series){
-    if(identity(series?.manufacturer)!=='VORTICE')continue;
+    if(!isVortice(series))continue;
     const seriesRows=rowsBySeries.get(identity(series.code||series.id||series.title))||[];
     if(!seriesRows.length)continue;
     const categories=[...new Set(seriesRows.flatMap(row=>row.categories||[]).filter(Boolean))];
@@ -153,11 +159,24 @@
     aliases.push(extra.id);
   });
 
-  if(extraById.size){
+  for(const series of catalog.series){
+    if(!isVortice(series))continue;
+    series.submodels=[
+      ...sourceModels(series),
+      ...(extraBySeries.get(String(series.id))||[])
+    ].map(model=>text(model.standard?.altModel||model.altModel||model.model||model.display)).filter(Boolean);
+  }
+
+  if(extraById.size||matched.length){
     catalog.getModel=id=>extraById.get(String(id||''))||(originalGetModel?originalGetModel(id):null);
     catalog.product=id=>{
-      const extra=extraById.get(String(id||''));
-      return extra?productForExtra(extra):(originalProduct?originalProduct(id):null);
+      const key=String(id||'');
+      const extra=extraById.get(key);
+      if(extra)return productForModel(extra);
+      const current=catalog.models.find(model=>String(model.id)===key);
+      const currentSeries=current&&catalog.series.find(series=>String(series.id)===String(current.seriesId));
+      if(current&&currentSeries&&isVortice(currentSeries))return productForModel(current);
+      return originalProduct?originalProduct(id):null;
     };
     catalog.modelsForSeries=id=>[
       ...(originalModelsForSeries?originalModelsForSeries(id):(catalog.models||[]).filter(model=>String(model.seriesId)===String(id))),
@@ -166,7 +185,7 @@
   }
 
   catalog.vorticeWorkbook={
-    version:'2026.2-sound-r2',
+    version:'2026.2-sound-r3-altmodel-source',
     rows:rows.length,
     matched:matched.length,
     catalogOnlyAliases:aliases.length,
