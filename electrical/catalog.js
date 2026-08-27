@@ -10,11 +10,12 @@
   function numeric(value){const match=String(value||'').replace(',','.').match(/-?\d+(?:\.\d+)?/);return match?Number(match[0]):0;}
   function electricalProjectItem(product,model){
     const identity=model.orderCode||model.model;
+    const projectSubtitle=model.name||model.subcategory||product.description||product.modelName||'';
     return {
       itemKey:`electrical|${product.modelName}|${identity}`,
       mode:'catalog',productType:'electrical',productKey:`${product.modelName}|${identity}`,
-      model:model.model||product.modelName,series:product.modelName,manufacturer:product.brand||'ZONEX',
-      image:product.image?`electrical/${product.image}`:'',description:model.name||model.subcategory||product.description||'',category:product.category||'',
+      model:model.model||product.modelName,series:projectSubtitle,manufacturer:product.brand||'ZONEX',
+      image:product.image?`electrical/${product.image}`:'',description:'',category:product.category||'',
       orderCode:model.orderCode||'',power:model.power||'',currentText:model.current||'',voltage:model.voltage||'',
       frequency:model.frequency||'',phase:model.phase||'',ip:model.ip||'',insulation:model.insulation||'',
       lumen:model.lumen||'',operatingTemperature:model.operatingTemperature||'',current:numeric(model.current),
