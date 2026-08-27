@@ -16,7 +16,7 @@
   const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(number(value));
   const currencySymbol=value=>({EUR:'€',USD:'$',TRY:'₺'}[String(value||'EUR').toUpperCase()]||String(value||'EUR'));
   const money=(value,currency='EUR')=>`${currencySymbol(currency)}${fmt(value,2)}`;
-  const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[char]));
+  const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
   const point=value=>`${fmt(value?.q)} m³/h @ ${fmt(value?.p)} Pa`;
   const clone=value=>JSON.parse(JSON.stringify(value));
   const lines=value=>String(value||'').split(/\r?\n/).map(item=>item.trim()).filter(Boolean);
