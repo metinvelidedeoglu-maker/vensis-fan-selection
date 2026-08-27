@@ -1,0 +1,45 @@
+name: ChatGPT datasheet modal preview
+on:
+  push:
+    branches: [main]
+jobs:
+  apply:
+    if: github.event.head_commit.message == 'Validate popup-free datasheet preview'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update preview cache version
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          version='20260827-preview-modal-r4'
+          changed=[]
+          for p in Path('.').rglob('*.html'):
+              text=p.read_text(encoding='utf-8')
+              new=re.sub(r'js/ui/pdf-export\.js\?v=[^"\']+',f'js/ui/pdf-export.js?v={version}',text)
+              if new!=text:
+                  p.write_text(new,encoding='utf-8')
+                  changed.append(str(p))
+          print('UPDATED='+','.join(changed))
+          PY
+      - name: Validate preview code
+        shell: bash
+        run: |
+          node --check js/ui/pdf-export.js
+          grep -q "renderer.preview=function" js/ui/pdf-export.js
+          grep -q "vensisDatasheetPreview" js/ui/pdf-export.js
+          grep -q "iframe" js/ui/pdf-export.js
+          grep -q 'js/ui/pdf-export.js?v=20260827-preview-modal-r4' fan-selection.html
+          grep -q 'js/ui/pdf-export.js?v=20260827-preview-modal-r4' catalog.html
+      - name: Commit cache update
+        shell: bash
+        run: |
+          git config user.name 'Vensis Automation'
+          git config user.email 'automation@vensis.local'
+          git add '*.html' '**/*.html' 2>/dev/null || true
+          git diff --cached --quiet || git commit -m 'Use popup-free datasheet preview'
+          git push
