@@ -19,7 +19,7 @@
       return {fan,electrical};
     }
   };
-  const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[ch]));
+  const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
   const num=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
 
   function language(){
