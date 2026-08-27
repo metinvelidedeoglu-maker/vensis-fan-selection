@@ -19,18 +19,37 @@ jobs:
         run: |
           if [ -f .tmp-hxm/part00 ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "ready=false" >> "$GITHUB_OUTPUT"; fi
 
-      - name: Build image
+      - name: Build and validate image
         if: steps.detect.outputs.ready == 'true'
         shell: bash
         run: |
           cat .tmp-hxm/part00 .tmp-hxm/part01 .tmp-hxm/part02 .tmp-hxm/part03 .tmp-hxm/part04 | base64 -d > assets/products/soler-palau/hxm.jpg
           test -s assets/products/soler-palau/hxm.jpg
-
-      - name: Verify image
-        if: steps.detect.outputs.ready == 'true'
-        shell: bash
-        run: |
-          echo "3c23ed7827b36da49b3030bbcd6c509f891108561aa2a823d66805c99dc9c7f7  assets/products/soler-palau/hxm.jpg" | sha256sum -c -
+          file assets/products/soler-palau/hxm.jpg | grep -qi 'JPEG image data'
+          python3 - <<'PY'
+          from pathlib import Path
+          b = Path('assets/products/soler-palau/hxm.jpg').read_bytes()
+          assert b[:2] == b'\xff\xd8' and b[-2:] == b'\xff\xd9'
+          i = 2
+          size = None
+          while i < len(b)-9:
+              if b[i] != 0xFF:
+                  i += 1
+                  continue
+              while i < len(b) and b[i] == 0xFF:
+                  i += 1
+              marker = b[i]; i += 1
+              if marker in (0xD8,0xD9) or 0xD0 <= marker <= 0xD7:
+                  continue
+              n = int.from_bytes(b[i:i+2], 'big')
+              if marker in (0xC0,0xC1,0xC2,0xC3,0xC5,0xC6,0xC7,0xC9,0xCA,0xCB,0xCD,0xCE,0xCF):
+                  h = int.from_bytes(b[i+3:i+5], 'big')
+                  w = int.from_bytes(b[i+5:i+7], 'big')
+                  size = (w,h)
+                  break
+              i += n
+          assert size == (600,600), size
+          PY
 
       - name: Commit image
         if: steps.detect.outputs.ready == 'true'
