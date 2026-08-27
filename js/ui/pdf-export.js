@@ -10,7 +10,7 @@
   }
 
   function escapeHtml(value){
-    return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+    return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[ch]));
   }
 
   function printRuntime(filename){
@@ -82,64 +82,65 @@
     const productModel=payload?.model?.model||payload?.product?.model||payload?.model?.display||'Vensis-Datasheet';
     const productBrand=payload?.product?.series?.manufacturer||payload?.model?.manufacturer||'Vitlo';
     let documentHtml=renderer.html(payload)
-      .replace('Print / Save PDF','Save as PDF')
+      .replace('Print / Save PDF','PDF Olarak Kaydet')
+      .replace('Save as PDF','PDF Olarak Kaydet')
       .replace('onclick="window.print()"','onclick="window.saveVensisPdf()"');
 
     documentHtml=documentHtml
       .replace(/(<div class="product-title"><h1>[\s\S]*?<\/h1>)/,`$1<div class="product-brand">Brand: ${escapeHtml(productBrand)}</div>`)
       .replace(/<div class="spec-row"><span>(?:Brand|Fire Rating|Fan Type|Mount Type)<\/span><b>[\s\S]*?<\/b><\/div>/g,'');
 
+    const base=new URL('.',window.location.href).href;
+    documentHtml=documentHtml.includes('<head>')
+      ?documentHtml.replace('<head>',`<head><base href="${base}">`)
+      :`<base href="${base}">`+documentHtml;
     return documentHtml.replace('</body>',printRuntime(productModel)+'</body>');
   }
 
-  function openPreview(documentHtml){
-    const key=`vensis_detail_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
-    let preview=null;
-    try{
-      preview=window.open('about:blank','_blank');
-      if(preview){
-        preview.document.open();
-        preview.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Vensis Preview</title></head><body style="font-family:Arial,sans-serif;padding:24px;color:#29484d">Önizleme hazırlanıyor…</body></html>');
-        preview.document.close();
-      }
-    }catch{}
-
-    try{
-      localStorage.setItem(key,documentHtml);
-    }catch(error){
-      if(preview&&!preview.closed){
-        try{
-          const base=new URL('.',window.location.href).href;
-          const direct=documentHtml.replace('<head>',`<head><base href="${escapeHtml(base)}">`);
-          preview.document.open();
-          preview.document.write(direct);
-          preview.document.close();
-          preview.focus();
-          return preview;
-        }catch{}
-      }
-      alert('Önizleme açılamadı. Tarayıcı depolamasını ve açılır pencere izinlerini kontrol edin.');
-      return null;
-    }
-
-    const target=new URL(`detail.html?key=${encodeURIComponent(key)}`,window.location.href).href;
-    if(preview&&!preview.closed){
-      try{
-        preview.location.replace(target);
-        preview.focus();
-        return preview;
-      }catch{}
-    }
-
-    const fallback=window.open(target,'_blank');
-    if(!fallback)alert('Önizleme tarayıcı tarafından engellendi. Bu site için açılır pencerelere izin verin.');
-    return fallback;
+  function closePreview(){
+    const modal=document.getElementById('vensisDatasheetPreview');
+    if(modal)modal.remove();
+    document.documentElement.style.overflow='';
+    document.body.style.overflow='';
   }
 
-  renderer.save=function(payload){
-    return openPreview(buildDocument(payload));
-  };
+  function openPreview(documentHtml){
+    closePreview();
+    const modal=document.createElement('div');
+    modal.id='vensisDatasheetPreview';
+    modal.setAttribute('role','dialog');
+    modal.setAttribute('aria-modal','true');
+    modal.style.cssText='position:fixed;inset:0;z-index:2147483000;background:rgba(12,31,35,.72);display:flex;flex-direction:column;padding:14px;box-sizing:border-box';
+    modal.innerHTML=`
+      <div style="width:min(1180px,100%);height:100%;margin:auto;display:flex;flex-direction:column;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.38)">
+        <div style="min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px 9px 16px;background:#173033;color:#fff;font-family:Arial,sans-serif">
+          <strong>Teknik Föy Önizleme</strong>
+          <div style="display:flex;gap:8px">
+            <button type="button" data-preview-print style="border:0;border-radius:8px;padding:9px 13px;background:#087f4f;color:#fff;font-weight:800;cursor:pointer">PDF Olarak Kaydet</button>
+            <button type="button" data-preview-close style="border:0;border-radius:8px;width:38px;height:38px;background:#e7eeee;color:#173033;font-size:22px;cursor:pointer">×</button>
+          </div>
+        </div>
+        <iframe title="Teknik Föy Önizleme" style="width:100%;flex:1;border:0;background:#eef3f4"></iframe>
+      </div>`;
+    document.body.appendChild(modal);
+    document.documentElement.style.overflow='hidden';
+    document.body.style.overflow='hidden';
+    const frame=modal.querySelector('iframe');
+    frame.srcdoc=documentHtml;
+    modal.querySelector('[data-preview-close]').addEventListener('click',closePreview);
+    modal.addEventListener('click',event=>{if(event.target===modal)closePreview()});
+    modal.querySelector('[data-preview-print]').addEventListener('click',()=>{
+      const win=frame.contentWindow;
+      if(!win)return;
+      if(typeof win.saveVensisPdf==='function')win.saveVensisPdf();
+      else win.print();
+    });
+    const onKey=event=>{if(event.key==='Escape'){document.removeEventListener('keydown',onKey);closePreview()}};
+    document.addEventListener('keydown',onKey);
+    return modal;
+  }
 
-  renderer.preview=renderer.save;
-  renderer.open=renderer.save;
+  renderer.preview=function(payload){return openPreview(buildDocument(payload));};
+  renderer.save=renderer.preview;
+  renderer.open=renderer.preview;
 })();
