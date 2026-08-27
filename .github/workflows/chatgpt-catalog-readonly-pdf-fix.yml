@@ -1,0 +1,89 @@
+name: ChatGPT catalog readonly PDF fix
+on:
+  push:
+    branches: [main]
+jobs:
+  apply:
+    if: github.event.head_commit.message == 'Fix catalog readonly PDF and AXF name'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Patch catalog UI PDF and cache versions
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          catalog=Path('js/catalog.js')
+          text=catalog.read_text(encoding='utf-8')
+          text=re.sub(r'\n\s*<button class="vensis-model-add" type="button" data-add-model="\$\{esc\(series\.id\)\}">＋ Add Product</button>', '', text)
+          text=re.sub(r'\n\s*<button class="vensis-series-edit" type="button" data-edit-series="\$\{esc\(series\.id\)\}">✎ Edit Series</button>', '', text)
+          old="""    if(!model||!window.VensisDatasheet?.save)return;\n    window.VensisDatasheet.save({mode:'catalog',product,model});"""
+          new="""    const renderer=window.VensisDatasheet;\n    if(!model||!renderer)return;\n    const save=typeof renderer.save==='function'?renderer.save.bind(renderer):(typeof renderer.open==='function'?renderer.open.bind(renderer):null);\n    if(!save)return;\n    save({mode:'catalog',product,model});"""
+          if old not in text:
+              raise SystemExit('Catalog PDF function pattern not found')
+          text=text.replace(old,new,1)
+          catalog.write_text(text,encoding='utf-8')
+
+          version='20260827-readonly-pdf-r2'
+          policy='<script src="data/read-only-ui-policy.js?v='+version+'"></script>'
+          changed=[]
+          for p in Path('.').rglob('*.html'):
+              html=p.read_text(encoding='utf-8')
+              original=html
+              html=re.sub(r'data/fans-01\.js\?v=[^"]+', 'data/fans-01.js?v=20260827-axf-name-r2', html)
+              html=re.sub(r'js/catalog\.js\?v=[^"]+', 'js/catalog.js?v='+version, html)
+              html=re.sub(r'js/ui/datasheet\.js\?v=[^"]+', 'js/ui/datasheet.js?v='+version, html)
+              html=re.sub(r'js/ui/pdf-export\.js\?v=[^"]+', 'js/ui/pdf-export.js?v='+version, html)
+              html=re.sub(r'\n?<script src="data/read-only-ui-policy\.js\?v=[^"]+"></script>', '', html)
+              if 'data/catalog-schema-v2.js' in html:
+                  anchor=re.search(r'(<script src="data/no-current-policy\.js\?v=[^"]+"></script>)',html)
+                  if anchor:
+                      html=html[:anchor.end()]+"\n"+policy+html[anchor.end():]
+                  else:
+                      schema=re.search(r'(<script src="data/catalog-schema-v2\.js\?v=[^"]+"></script>)',html)
+                      if not schema:
+                          raise SystemExit(f'Catalog schema anchor missing in {p}')
+                      html=html[:schema.end()]+"\n"+policy+html[schema.end():]
+              if html!=original:
+                  p.write_text(html,encoding='utf-8')
+                  changed.append(str(p))
+          print('UPDATED_HTML='+','.join(changed))
+          PY
+      - name: Validate fixes
+        shell: bash
+        run: |
+          node --check js/catalog.js
+          node --check data/read-only-ui-policy.js
+          ! grep -q 'data-add-model' js/catalog.js
+          ! grep -q 'data-edit-series' js/catalog.js
+          grep -q "typeof renderer.save==='function'" js/catalog.js
+          grep -q 'data/read-only-ui-policy.js?v=20260827-readonly-pdf-r2' catalog.html
+          grep -q 'js/catalog.js?v=20260827-readonly-pdf-r2' catalog.html
+          grep -q 'js/ui/pdf-export.js?v=20260827-readonly-pdf-r2' catalog.html
+          grep -q 'data/fans-01.js?v=20260827-axf-name-r2' catalog.html
+          node <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          const noop=()=>{};
+          const document={readyState:'complete',querySelectorAll:()=>[],documentElement:{},addEventListener:noop};
+          class MutationObserver{observe(){}}
+          const ctx={console,document,MutationObserver,window:null,models:[{model:'AXF 35-2T-1 deneme',display:'AXF 35-2T-1 deneme (4000 m³/h)'}],VensisCatalog:{models:[{model:'AXF 35-2T-1 deneme',display:'AXF 35-2T-1 deneme (4000 m³/h)',standard:{altModel:'AXF 35-2T-1 deneme'}}]}};
+          ctx.window=ctx;vm.createContext(ctx);vm.runInContext(fs.readFileSync('data/read-only-ui-policy.js','utf8'),ctx);
+          if(ctx.VensisCatalog.models[0].model!=='AXF 35-2T-1')throw new Error('AXF model name not normalized');
+          if(ctx.VensisCatalog.models[0].standard.altModel!=='AXF 35-2T-1')throw new Error('AXF alt model not normalized');
+          console.log('AXF_NAME_OK');
+          NODE
+      - name: Commit fixes
+        shell: bash
+        run: |
+          git config user.name 'Vensis Automation'
+          git config user.email 'automation@vensis.local'
+          git add js/catalog.js data/read-only-ui-policy.js '*.html' '**/*.html' 2>/dev/null || true
+          git diff --cached --quiet || git commit -m 'Fix catalog read-only UI PDF and AXF name'
+          git push
