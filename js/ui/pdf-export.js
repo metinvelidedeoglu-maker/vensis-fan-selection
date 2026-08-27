@@ -1,145 +1,154 @@
 (function(){
+  'use strict';
+
   const renderer=window.VensisDatasheet;
   if(!renderer?.html)return;
 
-  function safeFilename(value){
-    return String(value||'Vensis-Datasheet')
-      .replace(/[\\/:*?"<>|]+/g,'-')
-      .replace(/\s+/g,' ')
-      .trim()||'Vensis-Datasheet';
+  function escapeAttr(value){
+    return String(value??'').replace(/[&<>"]/g,ch=>({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'
+    }[ch]));
   }
 
-  function escapeHtml(value){
-    return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+  function withBase(html){
+    const base=new URL('.',window.location.href).href;
+    if(/<head(?:\s[^>]*)?>/i.test(html)){
+      return html.replace(/<head(\s[^>]*)?>/i,match=>`${match}<base href="${escapeAttr(base)}">`);
+    }
+    return `<base href="${escapeAttr(base)}">`+html;
   }
 
-  function printRuntime(filename){
-    const title=JSON.stringify(`${safeFilename(filename)}.pdf`);
-    return `
-      <style>
-        .product-brand{margin-top:1.5mm;font-size:10.5px;font-weight:800;color:#087f4f;letter-spacing:.02em}
-        .product-title h2{margin-top:1mm!important}
-        .spec-box>.point-summary{display:block!important;margin:0!important;gap:0!important;border-bottom:1px solid #d7e3de;background:#fbfdfc}
-        .spec-box>.point-summary .point-card{display:grid!important;grid-template-columns:1fr auto!important;align-items:center!important;gap:8px!important;border:0!important;border-radius:0!important;padding:5px 8px!important;background:transparent!important}
-        .spec-box>.point-summary .point-card+.point-card{border-top:1px solid #e3ebe7!important}
-        .spec-box>.point-summary .point-card span{margin:0!important;font-size:9.6px!important;line-height:1.15!important}
-        .spec-box>.point-summary .point-card b{font-size:10.3px!important;white-space:nowrap!important}
-        .spec-box>.point-summary .point-card.combined{color:#173033!important}
-        .pdf-footer-meta{margin-top:1.5mm;padding-top:1.5mm;border-top:1px solid #d7e3de;font-size:7.2px;letter-spacing:.03em;color:#718086;text-transform:uppercase}
-        @page{size:A4 portrait;margin:0}
-        @media print{
-          html,body{width:210mm!important;height:297mm!important;margin:0!important;padding:0!important;background:#fff!important;overflow:hidden!important}
-          .toolbar{display:none!important}
-          .sheet{width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;margin:0!important;padding:9mm 10mm 12mm!important;box-shadow:none!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
-          .sheet>header,.sheet>.product-title,.sheet>.hero,.sheet>.section,.sheet>.bottom-grid,.sheet>.footer{flex-shrink:0!important}
-          .hero{display:grid!important;grid-template-columns:1.15fr .85fr!important;gap:5mm!important;align-items:center!important;margin-top:4mm!important}
-          .bottom-grid{display:block!important;margin-top:4mm!important}
-          .section{margin-top:4mm!important}
-          .product-image{width:100%!important;height:68mm!important;max-height:68mm!important;object-fit:contain!important}
-          .spec-row{padding:5px 8px!important;font-size:10.5px!important}
-          .spec-head{padding:5px!important}
-          .curve{height:84mm!important;padding:2mm!important}
-          .info-box{min-height:38mm!important;padding:3.5mm!important}
-          .footer{margin-top:auto!important;padding-top:2.5mm!important;padding-bottom:0!important;font-size:8px!important;line-height:1.3!important}
-          .footer b{margin-top:1.5mm!important;font-size:9px!important}
-        }
-      </style>
-      <script>
-        (function(){
-          const filename=${title};
-          const pointSummary=document.querySelector('.point-summary');
-          const specBox=document.querySelector('.spec-box');
-          if(pointSummary&&specBox){
-            const cards=Array.from(pointSummary.querySelectorAll('.point-card'));
-            if(cards.length===2){
-              const firstValue=(cards[0].querySelector('b')||{}).textContent||'';
-              const secondValue=(cards[1].querySelector('b')||{}).textContent||'';
-              if(firstValue.trim()===secondValue.trim()){
-                const label=cards[0].querySelector('span');
-                if(label)label.textContent='Required / Program Selected Point';
-                cards[0].classList.add('combined');
-                cards[1].remove();
-              }
-            }
-            specBox.insertBefore(pointSummary,specBox.children[1]||null);
-          }
-          const footer=document.querySelector('.footer');
-          if(footer&&!footer.querySelector('.pdf-footer-meta')){
-            const meta=document.createElement('div');
-            meta.className='pdf-footer-meta';
-            meta.textContent='Technical Product Datasheet  •  Document generated by Vensis Engineering Suite  •  Page 1 / 1';
-            footer.appendChild(meta);
-          }
-          window.saveVensisPdf=function(){
-            document.title=filename;
-            requestAnimationFrame(()=>setTimeout(()=>window.print(),80));
-          };
-        })();
-      <\/script>`;
-  }
-
-  function buildDocument(payload){
-    const productModel=payload?.model?.model||payload?.product?.model||payload?.model?.display||'Vensis-Datasheet';
-    const productBrand=payload?.product?.series?.manufacturer||payload?.model?.manufacturer||'Vitlo';
-    let documentHtml=renderer.html(payload)
-      .replace('Print / Save PDF','Save as PDF')
-      .replace('onclick="window.print()"','onclick="window.saveVensisPdf()"');
-
-    documentHtml=documentHtml
-      .replace(/(<div class="product-title"><h1>[\s\S]*?<\/h1>)/,`$1<div class="product-brand">Brand: ${escapeHtml(productBrand)}</div>`)
-      .replace(/<div class="spec-row"><span>(?:Brand|Fire Rating|Fan Type|Mount Type)<\/span><b>[\s\S]*?<\/b><\/div>/g,'');
-
-    return documentHtml.replace('</body>',printRuntime(productModel)+'</body>');
-  }
-
-  function openPreview(documentHtml){
-    const key=`vensis_detail_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
-    let preview=null;
-    try{
-      preview=window.open('about:blank','_blank');
-      if(preview){
-        preview.document.open();
-        preview.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Vensis Preview</title></head><body style="font-family:Arial,sans-serif;padding:24px;color:#29484d">Önizleme hazırlanıyor…</body></html>');
-        preview.document.close();
-      }
-    }catch{}
-
-    try{
-      localStorage.setItem(key,documentHtml);
-    }catch(error){
-      if(preview&&!preview.closed){
-        try{
-          const base=new URL('.',window.location.href).href;
-          const direct=documentHtml.replace('<head>',`<head><base href="${escapeHtml(base)}">`);
-          preview.document.open();
-          preview.document.write(direct);
-          preview.document.close();
-          preview.focus();
-          return preview;
-        }catch{}
-      }
-      alert('Önizleme açılamadı. Tarayıcı depolamasını ve açılır pencere izinlerini kontrol edin.');
+  function openDirect(payload){
+    const preview=window.open('about:blank','_blank');
+    if(!preview){
+      alert('Önizleme tarayıcı tarafından engellendi. select.vensis.com.tr için açılır pencereye izin verin.');
       return null;
     }
 
-    const target=new URL(`detail.html?key=${encodeURIComponent(key)}`,window.location.href).href;
-    if(preview&&!preview.closed){
-      try{
-        preview.location.replace(target);
-        preview.focus();
-        return preview;
-      }catch{}
-    }
+    try{
+      preview.document.open();
+      preview.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Vensis Önizleme</title></head><body style="font-family:Arial,sans-serif;padding:24px;color:#173033">Önizleme hazırlanıyor...</body></html>');
+      preview.document.close();
 
-    const fallback=window.open(target,'_blank');
-    if(!fallback)alert('Önizleme tarayıcı tarafından engellendi. Bu site için açılır pencerelere izin verin.');
-    return fallback;
+      const html=withBase(renderer.html(payload));
+      preview.document.open();
+      preview.document.write(html);
+      preview.document.close();
+      preview.focus();
+      return preview;
+    }catch(error){
+      try{
+        preview.document.open();
+        preview.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Önizleme Hatası</title></head><body style="font-family:Arial,sans-serif;padding:24px;color:#8a1c1c"><h2>Önizleme oluşturulamadı</h2><p>Sayfayı yenileyip tekrar deneyin.</p></body></html>');
+        preview.document.close();
+      }catch{}
+      console.error('Vensis direct preview error',error);
+      return null;
+    }
   }
 
-  renderer.save=function(payload){
-    return openPreview(buildDocument(payload));
-  };
+  function catalogPayload(id){
+    const catalog=window.VensisCatalog;
+    const model=catalog?.getModel?.(id)||(catalog?.models||[]).find(item=>String(item.id)===String(id));
+    if(!model)return null;
+    const product=catalog?.product?.(id)||null;
+    return {mode:'catalog',product,model};
+  }
 
-  renderer.preview=renderer.save;
-  renderer.open=renderer.save;
+  function selectionProduct(row){
+    const catalog=window.VensisCatalog;
+    const product=catalog?.product?.(row?.productKey||row?.key||row?.id)||window.VensisProducts?.fromResult?.(row);
+    if(product)return product;
+    return {
+      model:row?.model||row?.display||'',
+      series:{
+        title:row?.catalogNameEn||row?.series||'',
+        manufacturer:row?.manufacturer||'Vitlo'
+      },
+      media:{image:row?.image||''},
+      motor:{
+        speed:Number(row?.rpm)||0,
+        voltage:row?.voltage||'',
+        sound:Number(row?.spl)||0
+      },
+      description:row?.catalogueInfo||{general:[],motor:[],applications:[]}
+    };
+  }
+
+  function selectionPayload(index){
+    const state=window.VensisState;
+    const utils=window.VensisUtils;
+    const row=state?.results?.[Number(index)];
+    if(!row)return null;
+    return {
+      mode:'selection',
+      product:selectionProduct(row),
+      model:row,
+      required:{
+        q:typeof utils?.number==='function'?utils.number('q'):0,
+        p:typeof utils?.number==='function'?utils.number('p'):0
+      },
+      selected:{q:Number(row.qq)||0,p:Number(row.pp)||0}
+    };
+  }
+
+  function makeCatalogButton(oldButton){
+    const id=oldButton.dataset.modelDatasheet;
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='model-datasheet-btn vensis-preview-new';
+    button.textContent='Önizleme';
+    button.dataset.vensisPreviewModel=id;
+    button.style.marginTop='0';
+    button.addEventListener('click',()=>{
+      const payload=catalogPayload(id);
+      if(!payload){alert('Ürün bilgisi bulunamadı.');return;}
+      openDirect(payload);
+    });
+    oldButton.replaceWith(button);
+  }
+
+  function makeSelectionButton(oldButton){
+    const index=oldButton.dataset.viewDatasheet;
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='detail-icon-btn vensis-preview-new';
+    button.textContent='Önizleme';
+    button.dataset.vensisPreviewSelection=index;
+    button.title='Teknik föy önizleme';
+    button.setAttribute('aria-label','Teknik föy önizleme');
+    button.style.cssText='min-width:82px;height:36px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;white-space:nowrap';
+    button.addEventListener('click',()=>{
+      const payload=selectionPayload(index);
+      if(!payload){alert('Fan seçim bilgisi bulunamadı.');return;}
+      openDirect(payload);
+    });
+    oldButton.replaceWith(button);
+  }
+
+  function replaceOldPreviewButtons(root=document){
+    root.querySelectorAll?.('[data-model-datasheet]').forEach(makeCatalogButton);
+    root.querySelectorAll?.('[data-view-datasheet]').forEach(makeSelectionButton);
+  }
+
+  renderer.save=openDirect;
+  renderer.preview=openDirect;
+  renderer.open=openDirect;
+
+  const start=()=>replaceOldPreviewButtons(document);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
+  else start();
+
+  new MutationObserver(mutations=>{
+    for(const mutation of mutations){
+      for(const node of mutation.addedNodes||[]){
+        if(node?.nodeType!==1)continue;
+        if(node.matches?.('[data-model-datasheet]'))makeCatalogButton(node);
+        else if(node.matches?.('[data-view-datasheet]'))makeSelectionButton(node);
+        else replaceOldPreviewButtons(node);
+      }
+    }
+  }).observe(document.documentElement,{childList:true,subtree:true});
+
+  window.VensisDirectPreview={open:openDirect,refresh:replaceOldPreviewButtons};
 })();
