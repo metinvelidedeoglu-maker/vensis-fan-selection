@@ -16,24 +16,13 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import re
-
           p=Path('catalog.html')
           text=p.read_text(encoding='utf-8')
           text=re.sub(r'\n?<link rel="stylesheet" href="css/edit-mode\.css\?v=[^"]+">', '', text)
           text=re.sub(r'<button class="vensis-model-add" type="button" data-add-model>[^<]*</button>', '', text)
           text=re.sub(r'\n?<script src="js/edit-mode\.js\?v=[^"]+"></script>', '', text)
           p.write_text(text, encoding='utf-8')
-
-          disabled="""<?php
-declare(strict_types=1);
-header('Content-Type: application/json; charset=utf-8');
-header('Cache-Control: no-store');
-http_response_code(403);
-echo json_encode([
-    'ok' => false,
-    'error' => 'Product editing is disabled.',
-], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-"""
+          disabled="<?php\ndeclare(strict_types=1);\nheader('Content-Type: application/json; charset=utf-8');\nheader('Cache-Control: no-store');\nhttp_response_code(403);\necho json_encode(['ok'=>false,'error'=>'Product editing is disabled.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);\n"
           for path in ['api/edit/add-model.php','api/edit/save-model.php','api/edit/save-series.php']:
               Path(path).write_text(disabled, encoding='utf-8')
           PY
