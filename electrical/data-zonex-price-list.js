@@ -158,5 +158,12 @@
     Object.assign(model,details||{}, {model:modelCode,name,price:`${price} EUR`,orderCode});
   }
 
-  window.VENSIS_ELECTRICAL_PRICE_LIST_META={source:'2025-1 fiyat listesi (güncel)',currency:'EUR',rowCount:rows.length};
+  window.VENSIS_ELECTRICAL_PRICE_LIST_META={
+    source:'2025-1 fiyat listesi (güncel)',
+    documentTitle:'2024-1 Fiyat Listesi',
+    sourceSha256:'9ead2999713365d7a66954a0218aee766327186872c9e667b431ed1b19f1759d',
+    currentPricesConfirmed:true,
+    currency:'EUR',
+    rowCount:rows.length
+  };
 })();
