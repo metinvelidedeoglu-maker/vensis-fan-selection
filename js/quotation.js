@@ -52,9 +52,7 @@
   }
   function supplyMarkup(item,model){
     const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
-    const frequency=String(item.frequency||model?.motor?.frequency||'').trim();
-    if(voltage&&frequency)return `<span class="technical">${escapeHtml(voltage)} – ${escapeHtml(frequency)}</span>`;
-    return voltage||frequency?`<span class="technical">${escapeHtml(voltage||frequency)}</span>`:'-';
+    return voltage?`<span class="technical">${escapeHtml(voltage)}</span>`:'-';
   }
   function productMarkup(item){
     const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Product')}" onerror="this.style.display='none'">`:'';
@@ -77,16 +75,16 @@
     const net=netUnit(item);
     const total=net*qty;
     const hasPrice=number(item.price)>0;
-    const powerCurrent=[item.power||'',item.currentText||((number(item.current)>0)?`${fmt(item.current,2)} A`:'')].filter(Boolean);
-    const protection=[item.ip||'',item.phase||''].filter(Boolean);
-    const otherSpecs=[item.lumen||'',item.operatingTemperature||'',item.insulation||''].filter(Boolean);
-    return `<tr><td>${productMarkup(item)}</td><td class="technical">${escapeHtml(item.orderCode||'-')}</td><td>${supplyMarkup(item,null)}</td><td>${powerCurrent.length?powerCurrent.map(value=>`<span class="electrical-spec">${escapeHtml(value)}</span>`).join(''):'-'}</td><td>${protection.length?protection.map(value=>`<span class="electrical-spec">${escapeHtml(value)}</span>`).join(''):'-'}</td><td>${otherSpecs.length?otherSpecs.map(value=>`<span class="electrical-spec">${escapeHtml(value)}</span>`).join(''):'-'}</td><td class="num unit-price">${hasPrice?money(net,currency):'-'}</td><td class="num">${fmt(qty)}</td><td class="num"><b>${hasPrice?money(total,currency):'-'}</b></td></tr>`;
+    const power=String(item.power||'').trim();
+    const lumen=String(item.lumen||'').trim();
+    const ip=String(item.ip||'').trim();
+    return `<tr><td>${productMarkup(item)}</td><td>${power?`<span class="electrical-spec">${escapeHtml(power)}</span>`:'-'}</td><td>${lumen?`<span class="electrical-spec">${escapeHtml(lumen)}</span>`:'-'}</td><td>${supplyMarkup(item,null)}</td><td>${ip?`<span class="electrical-spec">${escapeHtml(ip)}</span>`:'-'}</td><td class="num unit-price">${hasPrice?money(net,currency):'-'}</td><td class="num">${fmt(qty)}</td><td class="num"><b>${hasPrice?money(total,currency):'-'}</b></td></tr>`;
   }
   function tableMarkup(type,items,currency,title=''){
     const electrical=type==='electrical';
-    const headers=electrical?['Product','Order Code','V / Hz','Power / Current','IP / Phase','Other Specs','Unit Price','Qty','Total']:['Product','Selected / Nominal','V / Hz','kW','rpm','Unit Price','Qty','Total'];
+    const headers=electrical?['Product','Power / Current','Lumen','V / Hz','IP','Unit Price','Qty','Total']:['Product','Selected / Nominal','V / Hz','kW','rpm','Unit Price','Qty','Total'];
     const rows=items.map(item=>electrical?electricalRow(item,currency):fanRow(item,currency)).join('');
-    const numericStart=electrical?6:3;
+    const numericStart=electrical?5:3;
     return `<section class="quote-product-group">${title?`<h2 class="quote-product-group-title">${escapeHtml(title)}</h2>`:''}<div class="quote-table-wrap"><table class="quote-table"><thead><tr>${headers.map((header,index)=>`<th${index>=numericStart?' class="num"':''}>${header}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
   }
   function productTables(items,currency,format){
