@@ -53,7 +53,11 @@
     model.performance=model.performance||{};
     model.pricing=model.pricing||{};
     model.standard=model.standard||{};
+    const altModel=text(row.altModel);
     const power=finite(row.power),speed=finite(row.speed),airflow=finite(row.maxAirflow),sound=finite(row.sound),price=finite(row.price);
+    model.model=altModel;
+    model.display=altModel;
+    model.altModel=altModel;
     if(power!=null)model.motor.power=power;
     if(speed!=null)model.motor.speed=speed;
     if(text(row.voltage))model.motor.voltage=text(row.voltage);
@@ -61,7 +65,7 @@
     if(airflow!=null)model.performance.nominalAirflow=airflow;
     if(price!=null)model.pricing.listPrice=price;
     model.pricing.currency='EUR';
-    model.standard.altModel=text(row.altModel);
+    model.standard.altModel=altModel;
     model.standard.motorPower=power;
     model.standard.speed=speed;
     model.standard.voltage=text(row.voltage);
@@ -131,6 +135,13 @@
     }
     const removedSeriesIds=new Set(catalog.series.filter(series=>isSP(series)&&!(series.modelIds||[]).length).map(series=>String(series.id)));
     catalog.series.splice(0,catalog.series.length,...catalog.series.filter(series=>!removedSeriesIds.has(String(series.id))));
+    for(const series of catalog.series){
+      if(!isSP(series))continue;
+      series.submodels=catalog.models
+        .filter(model=>String(model.seriesId)===String(series.id))
+        .map(model=>text(model.standard?.altModel||model.altModel||model.model||model.display))
+        .filter(Boolean);
+    }
 
     catalog.getModel=id=>{
       const key=String(id||'');
@@ -149,22 +160,25 @@
       const alias=aliasById.get(key);
       if(alias)return productFor(alias);
       if(removedIds.has(key))return null;
+      const current=catalog.models.find(model=>String(model.id)===key);
+      const currentSeries=current&&catalog.series.find(series=>String(series.id)===String(current.seriesId));
+      if(current&&currentSeries&&isSP(currentSeries))return productFor(current);
       return originalProduct?originalProduct(id):null;
     };
     const products=window.VensisProducts;
     if(products&&typeof products==='object'){
       if(typeof products.get==='function'){
         const original=products.get.bind(products);
-        products.get=key=>{const id=String(key||'');const alias=aliasById.get(id);return alias?productFor(alias):(removedIds.has(id)?null:original(key));};
+        products.get=key=>{const id=String(key||'');const current=catalog.models.find(model=>String(model.id)===id);const currentSeries=current&&catalog.series.find(series=>String(series.id)===String(current.seriesId));return current&&currentSeries&&isSP(currentSeries)?productFor(current):(removedIds.has(id)?null:original(key));};
       }
       if(typeof products.fromResult==='function'){
         const original=products.fromResult.bind(products);
-        products.fromResult=result=>{const id=String(result?.productKey||result?.key||result?.id||'');const alias=aliasById.get(id);return alias?productFor(alias):(removedIds.has(id)?null:original(result));};
+        products.fromResult=result=>{const id=String(result?.productKey||result?.key||result?.id||'');const current=catalog.models.find(model=>String(model.id)===id);const currentSeries=current&&catalog.series.find(series=>String(series.id)===String(current.seriesId));return current&&currentSeries&&isSP(currentSeries)?productFor(current):(removedIds.has(id)?null:original(result));};
       }
     }
-    catalog.solerPalauWorkbook={version:'2026-priced-r1',rows:rows.length,matched:matched.length,catalogOnlyAliases:aliases.length,applied:matched.length+aliases.length,removed:removedIds.size,removedSeries:removedSeriesIds.size,remaining:catalog.models.filter(model=>{const series=catalog.series.find(item=>String(item.id)===String(model.seriesId));return isSP(series);}).length,unmatchedSeries};
+    catalog.solerPalauWorkbook={version:'2026-priced-r2-altmodel-source',rows:rows.length,matched:matched.length,catalogOnlyAliases:aliases.length,applied:matched.length+aliases.length,removed:removedIds.size,removedSeries:removedSeriesIds.size,remaining:catalog.models.filter(model=>{const series=catalog.series.find(item=>String(item.id)===String(model.seriesId));return isSP(series);}).length,unmatchedSeries};
   }else{
-    catalog.solerPalauWorkbook={version:'2026-priced-r1',rows:rows.length,matched:matched.length,catalogOnlyAliases:aliases.length,applied:matched.length+aliases.length,removed:0,removedSeries:0,remaining:null,unmatchedSeries};
+    catalog.solerPalauWorkbook={version:'2026-priced-r2-altmodel-source',rows:rows.length,matched:matched.length,catalogOnlyAliases:aliases.length,applied:matched.length+aliases.length,removed:0,removedSeries:0,remaining:null,unmatchedSeries};
   }
 
   delete window.VensisSPWorkbookRows;
