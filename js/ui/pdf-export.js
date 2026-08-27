@@ -78,7 +78,7 @@
       <\/script>`;
   }
 
-  renderer.save=function(payload){
+  function buildDocument(payload){
     const productModel=payload?.model?.model||payload?.product?.model||payload?.model?.display||'Vensis-Datasheet';
     const productBrand=payload?.product?.series?.manufacturer||payload?.model?.manufacturer||'Vitlo';
     let documentHtml=renderer.html(payload)
@@ -89,11 +89,57 @@
       .replace(/(<div class="product-title"><h1>[\s\S]*?<\/h1>)/,`$1<div class="product-brand">Brand: ${escapeHtml(productBrand)}</div>`)
       .replace(/<div class="spec-row"><span>(?:Brand|Fire Rating|Fan Type|Mount Type)<\/span><b>[\s\S]*?<\/b><\/div>/g,'');
 
-    documentHtml=documentHtml.replace('</body>',printRuntime(productModel)+'</body>');
-    const key='vensis_detail_'+Date.now();
-    localStorage.setItem(key,documentHtml);
-    window.open('detail.html?key='+encodeURIComponent(key),'_blank');
+    return documentHtml.replace('</body>',printRuntime(productModel)+'</body>');
+  }
+
+  function openPreview(documentHtml){
+    const key=`vensis_detail_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
+    let preview=null;
+    try{
+      preview=window.open('about:blank','_blank');
+      if(preview){
+        preview.document.open();
+        preview.document.write('<!doctype html><html><head><meta charset="utf-8"><title>Vensis Preview</title></head><body style="font-family:Arial,sans-serif;padding:24px;color:#29484d">Önizleme hazırlanıyor…</body></html>');
+        preview.document.close();
+      }
+    }catch{}
+
+    try{
+      localStorage.setItem(key,documentHtml);
+    }catch(error){
+      if(preview&&!preview.closed){
+        try{
+          const base=new URL('.',window.location.href).href;
+          const direct=documentHtml.replace('<head>',`<head><base href="${escapeHtml(base)}">`);
+          preview.document.open();
+          preview.document.write(direct);
+          preview.document.close();
+          preview.focus();
+          return preview;
+        }catch{}
+      }
+      alert('Önizleme açılamadı. Tarayıcı depolamasını ve açılır pencere izinlerini kontrol edin.');
+      return null;
+    }
+
+    const target=new URL(`detail.html?key=${encodeURIComponent(key)}`,window.location.href).href;
+    if(preview&&!preview.closed){
+      try{
+        preview.location.replace(target);
+        preview.focus();
+        return preview;
+      }catch{}
+    }
+
+    const fallback=window.open(target,'_blank');
+    if(!fallback)alert('Önizleme tarayıcı tarafından engellendi. Bu site için açılır pencerelere izin verin.');
+    return fallback;
+  }
+
+  renderer.save=function(payload){
+    return openPreview(buildDocument(payload));
   };
 
+  renderer.preview=renderer.save;
   renderer.open=renderer.save;
 })();
