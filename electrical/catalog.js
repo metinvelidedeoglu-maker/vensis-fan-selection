@@ -5,12 +5,13 @@
   const byId=id=>document.getElementById(id);
   const unique=values=>[...new Set(values.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'tr'));
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[char]);
+  const projectSubtitleOverrides={'ZNF.2X18W.EM':'Acil Kitli Floresan (Kısa)'};
   let activeSeries='';
 
   function numeric(value){const match=String(value||'').replace(',','.').match(/-?\d+(?:\.\d+)?/);return match?Number(match[0]):0;}
   function electricalProjectItem(product,model){
     const identity=model.orderCode||model.model;
-    const projectSubtitle=model.name||model.subcategory||product.description||product.modelName||'';
+    const projectSubtitle=model.name||projectSubtitleOverrides[model.model]||model.subcategory||product.description||product.modelName||'';
     return {
       itemKey:`electrical|${product.modelName}|${identity}`,
       mode:'catalog',productType:'electrical',productKey:`${product.modelName}|${identity}`,
