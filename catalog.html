@@ -23,7 +23,6 @@ body{background:#eef3f4;color:#173033}.catalog-top{display:flex;align-items:cent
 .model-dimension img{display:block;width:100%;max-height:440px;object-fit:contain;padding:10px;background:#fff;border-top:1px solid #e3eaeb}
 </style>
 <link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
-<link rel="stylesheet" href="css/edit-mode.css?v=20260723-manual-product">
 <style id="catalog-mobile-stack-fix">
 body.app-catalog .check-row{
   display:flex!important;
@@ -68,7 +67,7 @@ body.app-catalog .check-row span{display:block;min-width:0;flex:1;line-height:1.
 <header class="catalog-top"><div class="catalog-brand"><img src="assets/vensis-logo.png" alt="Vensis"><div><b>Vensis Engineering Suite</b><div style="font-size:12px;color:#64748b">Product Catalog</div></div></div><nav class="catalog-nav"><a href="fan-selection.html">⌕ Fan Selection</a><a class="active" href="catalog.html">▦ Product Catalog</a><a href="projects.html">▣ Projects <span data-project-count hidden style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:#087f4f;color:#fff;font-size:11px">0</span></a></nav></header>
 <div id="catalogLayout" class="catalog-layout">
 <aside class="catalog-filter"><h2>Filters</h2><div class="filter-group"><label>Manufacturer</label><div id="catalogManufacturers" class="check-list"></div></div><div class="filter-group"><label>Category</label><div id="catalogCategories" class="check-list"></div></div><div class="filter-actions"><button type="button" onclick="Catalog.reset()">Reset Filters</button></div></aside>
-<main class="catalog-content"><div class="catalog-head"><h1>Series</h1><div class="catalog-head-actions"><div id="catalogCount" class="catalog-count"></div><button class="vensis-model-add" type="button" data-add-model>＋ Add Product</button></div></div><div id="catalogGrid" class="catalog-grid"></div></main>
+<main class="catalog-content"><div class="catalog-head"><h1>Series</h1><div class="catalog-head-actions"><div id="catalogCount" class="catalog-count"></div></div></div><div id="catalogGrid" class="catalog-grid"></div></main>
 </div>
 <main id="detailPage" class="detail-page" hidden></main>
 <script>window.models=[];</script>
@@ -108,5 +107,4 @@ body.app-catalog .check-row span{display:block;min-width:0;flex:1;line-height:1.
 <script src="js/project-nav.js?v=20260825-sidebar-r3"></script>
 <script src="js/catalog.js?v=20260826-soler-palau-r6"></script>
 <script src="js/catalog-mobile-accordions.js?v=20260721-mobile-accordions"></script>
-<script src="js/edit-mode.js?v=20260825-customer-cloud-r1"></script>
 </body></html>
