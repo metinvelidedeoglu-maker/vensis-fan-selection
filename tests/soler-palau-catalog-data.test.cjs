@@ -117,8 +117,8 @@ test('catalog, selection and document pages load the Soler & Palau dataset befor
     const registryIndex=html.indexOf('products/registry.js');
     assert.ok(dataIndex>=0,`${file} does not load the Soler & Palau catalog`);
     assert.ok(data2Index>dataIndex&&data3Index>data2Index&&registryIndex>data3Index,`${file} loads registry before every Soler & Palau catalog chunk`);
-    assert.equal((html.match(/data\/soler-palau-catalog(?:-[23])?\.js\?v=20260826-soler-palau-r6/g)||[]).length,3,`${file} does not bust every S&P data cache`);
-    assert.match(html,/products\/registry\.js\?v=20260826-soler-palau-r6/,`${file} does not bust the registry cache`);
+    assert.equal((html.match(/data\/soler-palau-catalog(?:-[23])?\.js\?v=20260827-sp-images-r7/g)||[]).length,3,`${file} does not bust every S&P data cache`);
+    assert.match(html,/products\/registry\.js\?v=20260827-sp-images-r7/,`${file} does not bust the registry cache`);
   }
 });
 

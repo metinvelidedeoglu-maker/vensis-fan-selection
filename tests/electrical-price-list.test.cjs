@@ -44,8 +44,8 @@ test('electrical price list supplies all 100 named and currently confirmed produ
 test('electrical cards show descriptions and prices without exposing order codes',()=>{
   const script=fs.readFileSync(path.join(root,'electrical/catalog.js'),'utf8');
   const html=fs.readFileSync(path.join(root,'electrical/index.html'),'utf8');
-  assert.match(html,/data-zonex-price-list\.js\?v=20260827-current-prices-r2/);
-  assert.match(html,/catalog\.js\?v=20260827-current-prices-r2/);
+  assert.match(html,/data-zonex-price-list\.js\?v=20260827-current-prices-r3/);
+  assert.match(html,/catalog\.js\?v=20260827-current-prices-r3/);
   assert.match(script,/description:model\.name\|\|model\.subcategory/);
   assert.match(script,/const identity=model\.orderCode\|\|model\.model/);
   assert.match(script,/String\(item\.orderCode\|\|item\.model\)/);
