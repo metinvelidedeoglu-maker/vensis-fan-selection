@@ -162,8 +162,11 @@
   function saveModelPdf(id){
     const model=modelById(id);
     const product=productById(id);
-    if(!model||!window.VensisDatasheet?.save)return;
-    window.VensisDatasheet.save({mode:'catalog',product,model});
+    const renderer=window.VensisDatasheet;
+    if(!model||!renderer)return;
+    const save=typeof renderer.save==='function'?renderer.save.bind(renderer):(typeof renderer.open==='function'?renderer.open.bind(renderer):null);
+    if(!save)return;
+    save({mode:'catalog',product,model});
   }
 
   function projectItems(){
@@ -242,8 +245,6 @@
           <div class="series-badges"><span>${models.length} Models</span>${(series.categories||[]).map(category=>`<span>${esc(category)}</span>`).join('')}</div>
           <div class="series-hero-actions">
             ${pdf?`<a class="catalog-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">Open Product PDF</a>`:''}
-            <button class="vensis-model-add" type="button" data-add-model="${esc(series.id)}">＋ Add Product</button>
-            <button class="vensis-series-edit" type="button" data-edit-series="${esc(series.id)}">✎ Edit Series</button>
           </div>
         </div>
       </section>
