@@ -148,6 +148,9 @@
     });
   }
 
+  document.addEventListener('input',event=>{if(event.target.closest('.project-inline-note[data-product-note]'))event.stopPropagation()},true);
+  document.addEventListener('change',event=>{if(event.target.closest('.project-inline-note[data-product-note]')){window.VensisProjectPrint?.flushInlineEditors?.();event.stopPropagation()}},true);
+
   document.getElementById('createOrder')?.addEventListener('click',createFromProject);
   document.getElementById('createOrderFromQuotation')?.addEventListener('click',createFromQuotation);
   window.addEventListener('storage',renderProjectStatus);
