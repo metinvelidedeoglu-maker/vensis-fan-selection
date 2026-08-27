@@ -106,16 +106,46 @@
     }
   }
 
+  function withoutRepeatedCode(code,text){
+    const cleanCode=String(code||'').trim();
+    const cleanText=String(text||'').trim();
+    if(!cleanCode||!cleanText)return cleanText;
+    if(cleanText.toLocaleLowerCase('en-US')===cleanCode.toLocaleLowerCase('en-US'))return cleanText;
+    if(!cleanText.toLocaleLowerCase('en-US').startsWith(cleanCode.toLocaleLowerCase('en-US')))return cleanText;
+    return cleanText.slice(cleanCode.length).replace(/^\s*[-–—:|/]?\s*/,'').trim()||cleanText;
+  }
+
+  function cleanVorticeTitles(root=document){
+    root.querySelectorAll?.('.series-card').forEach(card=>{
+      const brand=String(card.querySelector('.series-brand')?.textContent||'').trim();
+      if(brand.toLocaleLowerCase('en-US')!=='vortice')return;
+      const code=String(card.querySelector('h2')?.textContent||'').trim();
+      const title=card.querySelector('.series-title');
+      if(title)title.textContent=withoutRepeatedCode(code,title.textContent);
+    });
+    root.querySelectorAll?.('.series-hero-copy').forEach(hero=>{
+      const brand=String(hero.querySelector('.series-brand')?.textContent||'').trim();
+      if(brand.toLocaleLowerCase('en-US')!=='vortice')return;
+      const code=String(hero.querySelector('h1')?.textContent||'').trim();
+      const title=hero.querySelector('h2');
+      if(title)title.textContent=withoutRepeatedCode(code,title.textContent);
+    });
+  }
+
   function mount(){
     addStyles();
     mountFilterAccordion();
     mountSeriesAccordion();
     enforceDetailVisibility();
+    cleanVorticeTitles(document);
+    const grid=document.getElementById('catalogGrid');
+    if(grid)new MutationObserver(()=>cleanVorticeTitles(grid)).observe(grid,{childList:true,subtree:true});
     const detail=document.getElementById('detailPage');
     if(detail){
       new MutationObserver(()=>{
         mountSeriesAccordion();
         enforceDetailVisibility();
+        cleanVorticeTitles(detail);
       }).observe(detail,{childList:true,subtree:false,attributes:true,attributeFilter:['hidden']});
     }
   }
