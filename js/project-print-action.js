@@ -36,7 +36,8 @@
   function pointEditor(index,field,value){
     const rawQ=value&&Number.isFinite(Number(value.q))?Number(value.q):null;
     const q=rawQ==null?'':field==='selected'?Math.round(rawQ):rawQ;
-    const p=value&&Number.isFinite(Number(value.p))?value.p:'';
+    const rawP=value&&Number.isFinite(Number(value.p))?Number(value.p):null;
+    const p=rawP==null?'':field==='selected'?Math.round(rawP):rawP;
     return `<div class="project-point-editor">${input(index,`${field}.q`,q,{type:'number',min:0,step:1,unit:'m³/h',label:`${field} airflow`})}${input(index,`${field}.p`,p,{type:'number',min:0,step:1,unit:'Pa',label:`${field} pressure`})}</div>`;
   }
   function productMarkup(item){
@@ -105,7 +106,8 @@
     const qText=String(valueOf(row,`${field}.q`)).trim();const pText=String(valueOf(row,`${field}.p`)).trim();
     if(!qText&&!pText)return null;
     const q=Math.max(0,num(qText));
-    return {q:field==='selected'?Math.round(q):q,p:Math.max(0,num(pText))};
+    const p=Math.max(0,num(pText));
+    return {q:field==='selected'?Math.round(q):q,p:field==='selected'?Math.round(p):p};
   }
   function updateItemFromRow(item,row){
     if(!item||!row)return;
