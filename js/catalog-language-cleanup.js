@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const pairs=new Map([
+  const uiPairs=new Map([
     ['Back to Series','Serilere Dön'],
     ['← Back to Series','← Serilere Dön'],
     ['View Series →','Seriyi Gör →'],
@@ -12,7 +12,8 @@
     ['Catalog Operating Points','Katalog Çalışma Noktaları'],
     ['Dimension Drawing','Ölçü Çizimi'],
     ['Safety:','Güvenlik:'],
-    ['No data','Veri yok']
+    ['No data','Veri yok'],
+    ['No information available.','Bilgi bulunmuyor.']
   ]);
 
   const titlePairs=new Map([
@@ -34,6 +35,7 @@
     ['Horizontal Outlet Centrifugal Roof Type Fan','Yatay Atışlı Santrifüj Çatı Fanı'],
     ['Horizontal Outlet Centrifugal Roof Fan','Yatay Atışlı Santrifüj Çatı Fanı'],
     ['Axial Duct Type Smoke Extract Fans','Aksiyel Kanal Tipi Duman Tahliye Fanları'],
+    ['AXF Axial Duct Smoke Exhaust Fans','AXF Aksiyel Kanal Tipi Duman Tahliye Fanları'],
     ['Axial Jet Fan','Aksiyel Jet Fan'],
     ['Radial Jet Fans','Radyal Jet Fanlar'],
     ['Axial Duct Type Fan','Aksiyel Kanal Tipi Fan'],
@@ -48,7 +50,6 @@
     ['Duct Type Shelter Fan','Kanal Tipi Sığınak Fanı'],
     ['Heat Recovery Units','Isı Geri Kazanım Cihazları'],
     ['Centrifugal Duct Type Fan','Santrifüj Kanal Tipi Fan'],
-
     ['HEATMASTER F400 Smoke-Extract Centrifugal Roof Fans','HEATMASTER F400 Duman Tahliye Santrifüj Çatı Fanları'],
     ['SLIMROOF ES EC Centrifugal Roof Fans','SLIMROOF ES EC Santrifüj Çatı Fanları'],
     ['E-ATEX Explosion-Protected Axial Plate Fans','E-ATEX Patlamaya Dayanıklı Aksiyel Plaka Fanları'],
@@ -76,41 +77,159 @@
     ['LINEO In-Line Mixed-Flow Fans','LINEO Kanal Tipi Karışık Akışlı Fanlar']
   ]);
 
-  const reverse=new Map([...pairs.entries()].map(([en,tr])=>[tr,en]));
+  const exactProductPairs=new Map([
+    ['There are different model options in the range of 355-1250 mm','355-1250 mm aralığında farklı model seçenekleri bulunmaktadır.'],
+    ['It can be produced as double speed and reversible.','Çift devirli ve tersinir olarak üretilebilir.'],
+    ['With aerofoil section and adjustable angle blades are produced by aluminum injection casting method.','Aerodinamik kesitli, ayarlanabilir açılı kanatlar alüminyum enjeksiyon döküm yöntemiyle üretilir.'],
+    ['Both sides are self-flanged without welding according to ISO6580 UNI/EUROVENT 1-2 standards.','Her iki tarafı ISO 6580 UNI/EUROVENT 1-2 standartlarına uygun, kaynaksız kendinden flanşlıdır.'],
+    ['The fan casing is produced from hard steel and coated Hot-Dip Galvanized as standart.','Fan gövdesi yüksek dayanımlı çelikten üretilir ve standart olarak sıcak daldırma galvaniz kaplanır.'],
+    ['It is suitable for operation in temperature range (S1) -20°C/+55°C and the fire conditions (S2) 200°C/2h,','Normal çalışmada (S1) -20°C/+55°C sıcaklık aralığına ve yangın koşullarında (S2) 200°C/2 saat çalışmaya uygundur.'],
+    ['Fan is certified with EN12101-3:2015 standarts.','Fan EN 12101-3:2015 standardına göre sertifikalıdır.'],
+    ['IP 55 protected, IE2 high efficiency and with self lubricating bearing, fully enclosed type, in H insulation class.','Motor IP55 korumalı, IE2 yüksek verimli, kendinden yağlamalı rulmanlı, tam kapalı tip ve H izolasyon sınıfındadır.'],
+    ['There is an external electrical junction box with IP67 protection outside the body for easy electrical connection.','Kolay elektrik bağlantısı için gövde dışında IP67 korumalı harici bağlantı kutusu bulunur.'],
+    ['It is 400V-50Hz as standard and it is suitable for use with frequency converter.','Standart besleme 400V-50Hz olup frekans konvertörü ile kullanıma uygundur.'],
+    ['General area ventilation','Genel alan havalandırması'],
+    ['Car park smoke extraction systems','Otopark duman tahliye sistemleri'],
+    ['Used for fresh air, exhaust','Taze hava ve egzoz uygulamalarında kullanılır'],
+    ['Information transferred from the manufacturer technical catalogue.','Bilgiler üreticinin teknik kataloğundan aktarılmıştır.'],
+    ['Data transferred from the manufacturer technical catalogue.','Veriler üreticinin teknik kataloğundan aktarılmıştır.']
+  ]);
+
+  const categoryPairs=new Map([
+    ['Axial Fan','Aksiyel Fan'],['Axial','Aksiyel'],['Radial Fan','Radyal Fan'],['Radial','Radyal'],
+    ['Duct Fan','Kanal Tipi Fan'],['Duct','Kanal Tipi'],['Cabinet Fan','Hücreli Fan'],['Cabinet','Hücreli'],
+    ['Jet Fan','Jet Fan'],['Tunnel Fan','Tünel Fanı'],['Roof Fan','Çatı Fanı'],['Roof','Çatı Tipi'],
+    ['Wall-Mounted Fan','Duvar Tipi Fan'],['Wall','Duvar Tipi'],['Mobile Fan','Mobil Fan'],['Mobile','Mobil'],
+    ['Centrifugal Fan','Santrifüj Fan'],['Centrifugal','Santrifüj'],['Bifurcated Fan','Bifurkasyonlu Fan'],
+    ['Smoke Exhaust Fan','Duman Tahliye Fanı'],['Smoke Exhaust','Duman Tahliye'],['Explosion-Proof / ATEX Fan','Ex-proof / ATEX Fan'],
+    ['Ex-proof / ATEX Fan','Ex-proof / ATEX Fan'],['EC Fan','EC Fan'],['Heat Recovery Unit','Isı Geri Kazanım Cihazı'],
+    ['Shelter Fan','Sığınak Fanı'],['Soler & Palau','Soler & Palau'],['Vortice','Vortice'],['Vitlo','Vitlo']
+  ]);
+
+  const phraseRules=[
+    [/\bexplosion[- ]protected\b/gi,'patlamaya dayanıklı'],
+    [/\bexplosion[- ]proof\b/gi,'ex-proof'],
+    [/\bsmoke[- ]extract(?:ion)?\b/gi,'duman tahliye'],
+    [/\bsmoke exhaust\b/gi,'duman tahliye'],
+    [/\bheat recovery units?\b/gi,'ısı geri kazanım cihazı'],
+    [/\bmixed[- ]flow\b/gi,'karışık akışlı'],
+    [/\blow[- ]noise\b/gi,'düşük sesli'],
+    [/\blow[- ]profile\b/gi,'ince tasarımlı'],
+    [/\benergy[- ]saving\b/gi,'enerji tasarruflu'],
+    [/\btwo[- ]speed\b/gi,'çift hızlı'],
+    [/\bdouble speed\b/gi,'çift devirli'],
+    [/\breversible\b/gi,'tersinir'],
+    [/\bflush[- ]mounted\b/gi,'gömme tip'],
+    [/\broof[- ]mounted\b/gi,'çatı tipi'],
+    [/\bwall[- ]mounted\b/gi,'duvar tipi'],
+    [/\bin[- ]line\b/gi,'kanal tipi'],
+    [/\bchimney[- ]top\b/gi,'baca üstü'],
+    [/\bvertical outlet\b/gi,'dikey atışlı'],
+    [/\bhorizontal outlet\b/gi,'yatay atışlı'],
+    [/\bsingle inlet\b/gi,'tek emişli'],
+    [/\brectangular duct\b/gi,'dikdörtgen kanal tipi'],
+    [/\bduct type\b/gi,'kanal tipi'],
+    [/\broof type\b/gi,'çatı tipi'],
+    [/\bwall type\b/gi,'duvar tipi'],
+    [/\bcell type\b/gi,'hücreli'],
+    [/\bcabinet\b/gi,'hücreli'],
+    [/\bcentrifugal\b/gi,'santrifüj'],
+    [/\baxial\b/gi,'aksiyel'],
+    [/\bradial\b/gi,'radyal'],
+    [/\bextract fans?\b/gi,'aspiratör'],
+    [/\bexhaust fans?\b/gi,'egzoz fanı'],
+    [/\bfans?\b/gi,'fan'],
+    [/\bmotor\b/gi,'motor'],
+    [/\bimpeller\b/gi,'fan çarkı'],
+    [/\bblade(?:s)?\b/gi,'kanat'],
+    [/\bcasing\b/gi,'gövde'],
+    [/\benclosure\b/gi,'gövde'],
+    [/\bairflow\b/gi,'hava debisi'],
+    [/\bair flow\b/gi,'hava debisi'],
+    [/\bpressure\b/gi,'basınç'],
+    [/\bnoise\b/gi,'ses'],
+    [/\bsound\b/gi,'ses'],
+    [/\bvoltage\b/gi,'gerilim'],
+    [/\bcurrent\b/gi,'akım'],
+    [/\bfrequency\b/gi,'frekans'],
+    [/\bpower\b/gi,'güç'],
+    [/\bspeed\b/gi,'devir'],
+    [/\bweight\b/gi,'ağırlık'],
+    [/\btemperature\b/gi,'sıcaklık'],
+    [/\bprotection\b/gi,'koruma'],
+    [/\binstallation\b/gi,'montaj'],
+    [/\bmounting\b/gi,'montaj'],
+    [/\bapplication(?:s)?\b/gi,'kullanım alanı'],
+    [/\bused for\b/gi,'kullanım amacı'],
+    [/\bsuitable for\b/gi,'uygundur'],
+    [/\bstandard\b/gi,'standart'],
+    [/\bavailable\b/gi,'mevcut'],
+    [/\boptional\b/gi,'opsiyonel'],
+    [/\bstainless steel\b/gi,'paslanmaz çelik'],
+    [/\bgalvanized steel\b/gi,'galvanizli çelik'],
+    [/\baluminium\b/gi,'alüminyum'],
+    [/\baluminum\b/gi,'alüminyum'],
+    [/\bsteel\b/gi,'çelik'],
+    [/\bfresh air\b/gi,'taze hava'],
+    [/\bexhaust\b/gi,'egzoz'],
+    [/\bventilation\b/gi,'havalandırma'],
+    [/\bcar park\b/gi,'otopark'],
+    [/\bcarpark\b/gi,'otopark'],
+    [/\bindustrial\b/gi,'endüstriyel'],
+    [/\bresidential\b/gi,'konut tipi']
+  ];
+
+  const uiReverse=new Map([...uiPairs.entries()].map(([en,tr])=>[tr,en]));
   const titleReverse=new Map([...titlePairs.entries()].map(([en,tr])=>[tr,en]));
+  const categoryReverse=new Map([...categoryPairs.entries()].map(([en,tr])=>[tr,en]));
   let applying=false;
 
   function language(){
     return window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
   }
 
-  function translateFrom(value,map,reverseMap,lang=language()){
-    const text=String(value||'').trim();
-    if(!text)return text;
-    const en=reverseMap.get(text)||text;
-    return lang==='tr'?(map.get(en)||text):en;
+  function exact(value,map,reverseMap,lang=language()){
+    const source=String(value||'').trim();
+    if(!source)return source;
+    const en=reverseMap.get(source)||source;
+    return lang==='tr'?(map.get(en)||source):en;
   }
 
-  function translate(value,lang=language()){
-    return translateFrom(value,pairs,reverse,lang);
+  function productTextToTr(value){
+    const source=String(value||'').replace(/\s+/g,' ').trim();
+    if(!source)return source;
+    if(exactProductPairs.has(source))return exactProductPairs.get(source);
+    if(titlePairs.has(source))return titlePairs.get(source);
+    if(categoryPairs.has(source))return categoryPairs.get(source);
+    let output=source;
+    for(const [pattern,replacement] of phraseRules)output=output.replace(pattern,replacement);
+    return output;
   }
 
-  function translateTitle(value,lang=language()){
-    return translateFrom(value,titlePairs,titleReverse,lang);
+  function sourceText(node,mode,key='vensisEn'){
+    if(!node)return '';
+    const current=String(node.textContent||'').replace(/\s+/g,' ').trim();
+    if(!node.dataset[key]){
+      let original=current;
+      if(mode==='ui')original=uiReverse.get(current)||current;
+      else if(mode==='title')original=titleReverse.get(current)||current;
+      else if(mode==='category')original=categoryReverse.get(current)||current;
+      node.dataset[key]=original;
+    }
+    return node.dataset[key]||current;
   }
 
-  function setNodeText(node){
+  function renderNode(node,mode){
     if(!node)return;
-    const current=String(node.textContent||'').trim();
-    const next=translate(current);
-    if(next!==current)node.textContent=next;
-  }
-
-  function setTitleText(node){
-    if(!node)return;
-    const current=String(node.textContent||'').trim();
-    const next=translateTitle(current);
-    if(next!==current)node.textContent=next;
+    const en=sourceText(node,mode);
+    let next=en;
+    if(language()==='tr'){
+      if(mode==='ui')next=exact(en,uiPairs,uiReverse,'tr');
+      else if(mode==='title')next=titlePairs.get(en)||productTextToTr(en);
+      else if(mode==='category')next=categoryPairs.get(en)||productTextToTr(en);
+      else next=productTextToTr(en);
+    }
+    if(String(node.textContent||'').trim()!==next)node.textContent=next;
   }
 
   function apply(root=document){
@@ -118,15 +237,18 @@
     applying=true;
     try{
       const scope=root?.querySelectorAll?root:document;
-      scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state').forEach(setNodeText);
-      scope.querySelectorAll('.series-title,.series-hero-copy h2').forEach(setTitleText);
+      scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state').forEach(node=>renderNode(node,'ui'));
+      scope.querySelectorAll('.series-title,.series-hero-copy h2').forEach(node=>renderNode(node,'title'));
+      scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
+      scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li').forEach(node=>renderNode(node,'product'));
 
       scope.querySelectorAll('.model-field').forEach(field=>{
         const label=field.querySelector('span');
         const value=field.querySelector('b');
         if(!label||!value)return;
         const labelText=String(label.textContent||'').trim();
-        if(labelText==='Performance Curve'||labelText==='Performans Eğrisi')setNodeText(value);
+        if(labelText==='Performance Curve'||labelText==='Performans Eğrisi')renderNode(value,'ui');
+        else if(/^(Fan Type|Fan Tipi|Mount Type|Montaj Tipi|Availability|Kullanılabilirlik|Hazardous Area|Tehlikeli Bölge|Speed Controller|Hız Kontrol Cihazı)$/i.test(labelText))renderNode(value,'product');
       });
     }finally{applying=false}
   }
@@ -135,14 +257,13 @@
     apply(document);
     const observer=new MutationObserver(mutations=>{
       if(applying)return;
+      let shouldApply=false;
       for(const mutation of mutations){
-        for(const node of mutation.addedNodes){
-          if(node.nodeType===1)apply(node);
-          else if(node.nodeType===3)apply(node.parentElement||document);
-        }
+        if(mutation.addedNodes.length||mutation.type==='characterData'){shouldApply=true;break}
       }
+      if(shouldApply)apply(document);
     });
-    observer.observe(document.documentElement,{childList:true,subtree:true});
+    observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
     window.addEventListener('vensis-language-changed',()=>apply(document));
   }
 
