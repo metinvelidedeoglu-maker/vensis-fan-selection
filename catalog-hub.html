@@ -1,1 +1,303 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vensis Product Catalog</title><link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1"><script src="js/access-gate.js?v=20260826-access-gate-r1"></script><style>*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef3f4;color:#173033}.wrap{max-width:1100px;margin:auto;padding:110px 18px 40px}.panel{background:#fff;border:1px solid #d8e3e5;border-radius:16px;padding:28px}.panel h1{margin:0 0 8px;font-size:32px}.panel p{margin:0 0 24px;color:#64748b}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.choice{display:flex;align-items:center;justify-content:center;min-height:220px;border:1px solid #d8e3e5;border-radius:16px;background:linear-gradient(180deg,#fff,#f7faf9);text-decoration:none;color:#173033;font-size:28px;font-weight:900;letter-spacing:.03em;transition:.18s transform,.18s box-shadow,.18s border-color}.choice:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,48,51,.12);border-color:#087f4f;color:#087f4f}@media(max-width:700px){.grid{grid-template-columns:1fr}.choice{min-height:160px}.wrap{padding:100px 10px 24px}}</style></head><body><main class="wrap"><section class="panel"><h1>Product Catalog</h1><p>Choose a catalog type.</p><div class="grid"><a class="choice" href="catalog.html">VENTILATION</a><a class="choice" href="electrical/index.html">ELECTRICAL</a></div></section></main><script src="js/language.js?v=20260825-all-pages-r1"></script><script src="js/suite-shell.js?v=20260826-technical-note-r1"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Vensis Product Catalog</title>
+  <link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1">
+  <script src="js/access-gate.js?v=20260826-access-gate-r1"></script>
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --ink:#173033;
+      --muted:#6d7f82;
+      --line:#d9e4e5;
+      --green:#087f4f;
+      --green-dark:#055f3c;
+      --green-soft:#edf8f3;
+      --amber:#d78a22;
+      --amber-dark:#a9630c;
+      --amber-soft:#fff7e9;
+      --surface:#ffffff;
+    }
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 12%,rgba(8,127,79,.09),transparent 28%),
+        radial-gradient(circle at 92% 88%,rgba(215,138,34,.08),transparent 30%),
+        #f3f7f7;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.42;
+      background-image:
+        linear-gradient(rgba(23,48,51,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(23,48,51,.035) 1px,transparent 1px);
+      background-size:32px 32px;
+      mask-image:linear-gradient(to bottom,black,transparent 86%);
+    }
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:1160px;
+      margin:auto;
+      padding:116px 20px 56px;
+    }
+    .hero{
+      text-align:center;
+      margin:0 auto 28px;
+      max-width:760px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:12px;
+      padding:7px 11px;
+      border:1px solid #cfe0dc;
+      border-radius:999px;
+      background:rgba(255,255,255,.78);
+      color:var(--green-dark);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      backdrop-filter:blur(8px);
+    }
+    .eyebrow:before{
+      content:"";
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 0 4px rgba(8,127,79,.1);
+    }
+    h1{
+      margin:0;
+      font-size:clamp(34px,5vw,52px);
+      line-height:1.02;
+      letter-spacing:-.045em;
+    }
+    .hero p{
+      margin:14px auto 0;
+      max-width:620px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.65;
+    }
+    .panel{
+      padding:12px;
+      border:1px solid rgba(207,222,223,.95);
+      border-radius:26px;
+      background:rgba(255,255,255,.68);
+      box-shadow:0 24px 70px rgba(23,48,51,.08);
+      backdrop-filter:blur(12px);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .choice{
+      position:relative;
+      min-height:330px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:19px;
+      background:var(--surface);
+      text-decoration:none;
+      color:var(--ink);
+      padding:30px;
+      display:flex;
+      flex-direction:column;
+      transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+      isolation:isolate;
+    }
+    .choice:after{
+      content:"";
+      position:absolute;
+      z-index:-1;
+      width:250px;
+      height:250px;
+      right:-95px;
+      bottom:-110px;
+      border-radius:50%;
+      opacity:.8;
+      transition:transform .3s ease;
+    }
+    .choice.vent:after{background:radial-gradient(circle,rgba(8,127,79,.17),rgba(8,127,79,0) 68%)}
+    .choice.elec:after{background:radial-gradient(circle,rgba(215,138,34,.2),rgba(215,138,34,0) 68%)}
+    .choice:hover{
+      transform:translateY(-5px);
+      box-shadow:0 22px 45px rgba(23,48,51,.12);
+    }
+    .choice.vent:hover{border-color:rgba(8,127,79,.48)}
+    .choice.elec:hover{border-color:rgba(215,138,34,.55)}
+    .choice:hover:after{transform:scale(1.12)}
+    .choice-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .icon{
+      width:66px;
+      height:66px;
+      display:grid;
+      place-items:center;
+      border-radius:17px;
+      border:1px solid;
+    }
+    .vent .icon{color:var(--green);background:var(--green-soft);border-color:#cfe7dc}
+    .elec .icon{color:var(--amber-dark);background:var(--amber-soft);border-color:#f0d8b3}
+    .icon svg{width:34px;height:34px;stroke:currentColor}
+    .number{
+      color:#a4b1b3;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.11em;
+    }
+    .choice-copy{margin-top:auto;padding-top:52px}
+    .choice small{
+      display:block;
+      margin-bottom:7px;
+      font-size:11px;
+      line-height:1;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .vent small{color:var(--green)}
+    .elec small{color:var(--amber-dark)}
+    .choice h2{
+      margin:0 0 10px;
+      font-size:31px;
+      letter-spacing:-.03em;
+    }
+    .choice p{
+      margin:0;
+      max-width:410px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+    .action{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:24px;
+      padding-top:18px;
+      border-top:1px solid #e6eeee;
+      font-size:13px;
+      font-weight:800;
+    }
+    .arrow{
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      transition:transform .2s ease;
+    }
+    .vent .arrow{background:var(--green);color:#fff}
+    .elec .arrow{background:var(--amber);color:#fff}
+    .choice:hover .arrow{transform:translateX(4px)}
+    .footnote{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      align-items:center;
+      margin-top:18px;
+      color:#829194;
+      font-size:12px;
+    }
+    .footnote svg{width:14px;height:14px;stroke:currentColor}
+    @media(max-width:760px){
+      .wrap{padding:104px 12px 28px}
+      .hero{margin-bottom:20px}
+      .hero p{font-size:14px}
+      .panel{padding:8px;border-radius:20px}
+      .grid{grid-template-columns:1fr;gap:8px}
+      .choice{min-height:250px;padding:23px;border-radius:15px}
+      .choice-copy{padding-top:34px}
+      .choice h2{font-size:27px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .choice,.choice:after,.arrow{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Vensis Engineering Suite</div>
+      <h1>Product Catalog</h1>
+      <p>Choose the product group you want to explore. Technical data, models and project-ready selections are organized in one workspace.</p>
+    </header>
+
+    <section class="panel" aria-label="Catalog groups">
+      <div class="grid">
+        <a class="choice vent catalog-link" href="catalog.html">
+          <div class="choice-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="2.2"></circle>
+                <path d="M12 9.8c.2-3.7 1.4-5.7 3.5-5.7 2.3 0 3.1 2.7 1.6 4.6-1 1.2-2.8 2-5.1 2.4"></path>
+                <path d="M14.1 13.2c3.1 2 4.3 3.9 3.2 5.8-1.1 2-3.9 1.4-4.8-.9-.6-1.5-.4-3.4.3-5.6"></path>
+                <path d="M9.9 13.1c-3.3 1.7-5.6 1.8-6.7 0-1.2-2 1-3.9 3.4-3.5 1.6.3 3.1 1.4 4.6 3.2"></path>
+              </svg>
+            </div>
+            <span class="number">01 / 02</span>
+          </div>
+          <div class="choice-copy">
+            <small>Air & Ventilation</small>
+            <h2>Ventilation</h2>
+            <p>Fans, smoke extraction, ATEX ventilation and air movement products from the Vensis catalog.</p>
+            <div class="action"><span>Browse ventilation catalog</span><span class="arrow">→</span></div>
+          </div>
+        </a>
+
+        <a class="choice elec catalog-link" href="electrical/index.html">
+          <div class="choice-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2 5.8 13h5.8L11 22l7.2-12h-5.7L13 2Z"></path>
+              </svg>
+            </div>
+            <span class="number">02 / 02</span>
+          </div>
+          <div class="choice-copy">
+            <small>Industrial Electrical</small>
+            <h2>Electrical</h2>
+            <p>Ex-proof electrical equipment, lighting, plugs & sockets and industrial field products.</p>
+            <div class="action"><span>Browse electrical catalog</span><span class="arrow">→</span></div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div class="footnote">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path><path d="M12 10v6"></path><path d="M12 7h.01"></path></svg>
+      <span>Your active project destination is kept while moving between catalog screens.</span>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      var qs = window.location.search;
+      if(!qs) return;
+      document.querySelectorAll('.catalog-link').forEach(function(link){
+        link.href += qs;
+      });
+    })();
+  </script>
+  <script src="js/language.js?v=20260825-all-pages-r1"></script>
+  <script src="js/suite-shell.js?v=20260826-technical-note-r1"></script>
+</body>
+</html>
