@@ -1,6 +1,7 @@
 (function(){
   const S=window.VensisState,U=window.VensisUtils;
-  const categoryNames={'Aksiyal':'Axial Fan','Radyal':'Radial Fan','Kanal Tipi':'Duct Fan','Hücreli':'Cabinet Fan','Jetfan':'Jet Fan','Tünel Tipi':'Tunnel Fan','Çatı Tipi':'Roof Fan','Duvar Tipi':'Wall-Mounted Fan','Mobil':'Mobile Fan','Salyangoz':'Centrifugal Fan','Bifurcated':'Bifurcated Fan','Kısa Kasalı':'Short-Casing Fan','Duman Tahliye':'Smoke Exhaust Fan','Exproof / ATEX':'Explosion-Proof / ATEX Fan','EC':'EC Fan','Isı Geri Kazanım':'Heat Recovery Unit','Sığınak':'Shelter Fan'};
+  const hiddenCategories=new Set(['Kısa Kasalı']);
+  const categoryNames={'Aksiyal':'Axial Fan','Radyal':'Radial Fan','Kanal Tipi':'Duct Fan','Hücreli':'Cabinet Fan','Jetfan':'Jet Fan','Tünel Tipi':'Tunnel Fan','Çatı Tipi':'Roof Fan','Duvar Tipi':'Wall-Mounted Fan','Mobil':'Mobile Fan','Salyangoz':'Centrifugal Fan','Bifurcated':'Bifurcated Fan','Duman Tahliye':'Smoke Exhaust Fan','Exproof / ATEX':'Explosion-Proof / ATEX Fan','EC':'EC Fan','Isı Geri Kazanım':'Heat Recovery Unit','Sığınak':'Shelter Fan'};
   const categoryName=category=>categoryNames[category]||category;
   const seriesName=series=>window.VensisProducts?.seriesName(series)||series;
   const seriesCode=series=>window.VensisProducts?.seriesCode(series)||String(series||'').trim();
@@ -11,6 +12,7 @@
 
   function availableCategories(){
     return [...new Set(S.models.filter(modelMatchesManufacturer).flatMap(model=>model.categories||[]))]
+      .filter(category=>!hiddenCategories.has(category))
       .sort((a,b)=>categoryName(a).localeCompare(categoryName(b),'en'));
   }
 
@@ -43,6 +45,8 @@
     const manufacturerBox=U.byId('manufacturerList'),categoryBox=U.byId('categoryList'),seriesBox=U.byId('seriesList');
     if(!manufacturerBox||!categoryBox||!seriesBox)return;
 
+    for(const category of hiddenCategories)S.selectedCategories.delete(category);
+
     const manufacturers=[...S.indexes.manufacturers].sort((a,b)=>a.localeCompare(b,'en'));
     manufacturerBox.innerHTML=manufacturers.map(name=>button(name,name,S.selectedManufacturers.has(name),'manufacturer')).join('');
     U.byId('manufacturerCount').textContent=`${S.selectedManufacturers.size} selected`;
@@ -73,6 +77,7 @@
   }
 
   function toggleCategory(category){
+    if(hiddenCategories.has(category))return;
     S.selectedCategories.has(category)?S.selectedCategories.delete(category):S.selectedCategories.add(category);
     cleanSelections();render();window.runSelection();
   }
