@@ -1,6 +1,6 @@
 (function(){
   const S=window.VensisState,U=window.VensisUtils;
-  const hiddenCategories=new Set(['Kısa Kasalı']);
+  const hiddenCategories=new Set(['Kısa Kasalı','Short-Casing Fan']);
   const categoryNames={'Aksiyal':'Axial Fan','Radyal':'Radial Fan','Kanal Tipi':'Duct Fan','Hücreli':'Cabinet Fan','Jetfan':'Jet Fan','Tünel Tipi':'Tunnel Fan','Çatı Tipi':'Roof Fan','Duvar Tipi':'Wall-Mounted Fan','Mobil':'Mobile Fan','Salyangoz':'Centrifugal Fan','Bifurcated':'Bifurcated Fan','Duman Tahliye':'Smoke Exhaust Fan','Exproof / ATEX':'Explosion-Proof / ATEX Fan','EC':'EC Fan','Isı Geri Kazanım':'Heat Recovery Unit','Sığınak':'Shelter Fan'};
   const categoryName=category=>categoryNames[category]||category;
   const seriesName=series=>window.VensisProducts?.seriesName(series)||series;
