@@ -31,7 +31,7 @@
     const style=document.createElement('style');
     style.id='customProductLibraryStyles';
     style.textContent=`
-      .custom-library-tabs{display:flex;gap:8px;margin:0 0 14px;padding:0 0 14px;border-bottom:1px solid #e1e9ea}.custom-library-tabs button{border:1px solid #cfdadc;border-radius:9px;padding:9px 13px;background:#f4f7f7;color:#29484d;font-weight:850;cursor:pointer}.custom-library-tabs button.active{background:#087f4f;border-color:#087f4f;color:#fff}.custom-library-status{margin-left:auto;align-self:center;color:#64748b;font-size:10px;font-weight:750}.custom-library-pane{display:grid;gap:11px}.custom-library-tools{display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:9px}.custom-library-tools input,.custom-library-tools select{width:100%;border:1px solid #c9d6d8;border-radius:8px;padding:10px 11px;background:#fbfdfd;color:#173033;font:650 12px Arial,Helvetica,sans-serif}.custom-library-list{display:grid;gap:9px;max-height:52vh;overflow:auto;padding-right:3px}.custom-library-card{display:grid;grid-template-columns:66px minmax(0,1fr) auto;gap:11px;align-items:center;border:1px solid #dce6e3;border-radius:11px;padding:10px;background:#fff}.custom-library-card img{width:62px;height:62px;object-fit:contain;border:1px solid #e2e9e5;border-radius:8px;padding:3px;background:#fff}.custom-library-card .no-image{width:62px;height:62px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#eef3f3;color:#789;font-size:9px;font-weight:800}.custom-library-card strong,.custom-library-card span,.custom-library-card small{display:block}.custom-library-card strong{font-size:13px}.custom-library-card span{margin-top:2px;color:#52666b;font-size:11px}.custom-library-card small{margin-top:4px;color:#087f4f;font-size:10px;font-weight:850}.custom-library-spec{margin-top:5px;color:#64748b;font-size:10px;line-height:1.4}.custom-library-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.custom-library-actions button{border:0;border-radius:7px;padding:8px 9px;font-size:10px;font-weight:850;cursor:pointer}.custom-library-add{background:#087f4f;color:#fff}.custom-library-edit{background:#e8f2f5;color:#0f6f86}.custom-library-delete{background:#fff0ef;color:#b8322c}.custom-library-empty{padding:28px 12px;text-align:center;border:1px dashed #b8c9cc;border-radius:10px;color:#64748b;font-size:12px}.custom-library-save-row{display:flex;align-items:flex-start;gap:9px;margin-top:14px;padding:12px 13px;border:1px solid #d7e5de;border-radius:10px;background:#f5faf7;color:#29484d;font-size:11px;font-weight:750;text-transform:none!important;letter-spacing:0!important}.custom-library-save-row input{width:auto!important;margin:2px 0 0!important}.custom-library-save-row small{display:block;margin-top:3px;color:#64748b;font-size:10px;font-weight:600}.custom-library-message{min-height:15px;color:#087f4f;font-size:10px;font-weight:750}.custom-library-message.error{color:#b8322c}@media(max-width:700px){.custom-library-tools{grid-template-columns:1fr}.custom-library-card{grid-template-columns:52px minmax(0,1fr)}.custom-library-card img,.custom-library-card .no-image{width:48px;height:48px}.custom-library-actions{grid-column:1/-1;justify-content:flex-start}.custom-library-status{width:100%;margin:0}.custom-library-tabs{flex-wrap:wrap}}
+      .custom-library-tabs{display:flex;gap:8px;margin:0 0 14px;padding:0 0 14px;border-bottom:1px solid #e1e9ea}.custom-library-tabs button{border:1px solid #cfdadc;border-radius:9px;padding:9px 13px;background:#f4f7f7;color:#29484d;font-weight:850;cursor:pointer}.custom-library-tabs button.active{background:#087f4f;border-color:#087f4f;color:#fff}.custom-library-status{margin-left:auto;align-self:center;color:#64748b;font-size:10px;font-weight:750}.custom-library-pane{display:grid;gap:11px}.custom-library-tools{display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:9px}.custom-library-tools input,.custom-library-tools select{width:100%;border:1px solid #c9d6d8;border-radius:8px;padding:10px 11px;background:#fbfdfd;color:#173033;font:650 12px Arial,Helvetica,sans-serif}.custom-library-list{display:grid;gap:9px;max-height:52vh;overflow:auto;padding-right:3px}.custom-library-card{display:grid;grid-template-columns:66px minmax(0,1fr) auto;gap:11px;align-items:center;border:1px solid #dce6e3;border-radius:11px;padding:10px;background:#fff}.custom-library-card img{width:62px;height:62px;object-fit:contain;border:1px solid #e2e9e5;border-radius:8px;padding:3px;background:#fff}.custom-library-card .no-image{width:62px;height:62px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#eef3f3;color:#789;font-size:9px;font-weight:800}.custom-library-card strong,.custom-library-card span,.custom-library-card small{display:block}.custom-library-card strong{font-size:13px}.custom-library-card span{margin-top:2px;color:#52666b;font-size:11px}.custom-library-card small{margin-top:4px;color:#087f4f;font-size:10px;font-weight:850}.custom-library-spec{margin-top:5px;color:#64748b;font-size:10px;line-height:1.4}.custom-library-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.custom-library-actions button{border:0;border-radius:7px;padding:8px 9px;font-size:10px;font-weight:850;cursor:pointer}.custom-library-add{background:#087f4f;color:#fff}.custom-library-edit{background:#e8f2f5;color:#0f6f86}.custom-library-delete{background:#fff0ef;color:#b8322c}.custom-library-empty{padding:28px 12px;text-align:center;border:1px dashed #b8c9cc;border-radius:10px;color:#64748b;font-size:12px}.custom-library-message{min-height:15px;color:#087f4f;font-size:10px;font-weight:750}.custom-library-message.error{color:#b8322c}@media(max-width:700px){.custom-library-tools{grid-template-columns:1fr}.custom-library-card{grid-template-columns:52px minmax(0,1fr)}.custom-library-card img,.custom-library-card .no-image{width:48px;height:48px}.custom-library-actions{grid-column:1/-1;justify-content:flex-start}.custom-library-status{width:100%;margin:0}.custom-library-tabs{flex-wrap:wrap}}
     `;
     document.head.appendChild(style);
   }
@@ -70,26 +70,18 @@
     const pane=document.createElement('div');pane.id='customLibraryPane';pane.className='custom-library-pane';pane.hidden=true;
     pane.innerHTML='<div class="custom-library-tools"><input id="customLibrarySearch" type="search" placeholder="Marka, model veya açıklama ara"><select id="customLibraryType"><option value="">Tümü</option><option value="fan">Fan</option><option value="electrical">Elektrik</option></select></div><div id="customLibraryMessage" class="custom-library-message"></div><div id="customLibraryList" class="custom-library-list"></div>';
     tabs.insertAdjacentElement('afterend',pane);
-
-    const actions=form.querySelector('.custom-actions');
-    const saveRow=document.createElement('label');saveRow.id='customLibrarySaveRow';saveRow.className='custom-library-save-row';
-    saveRow.innerHTML='<input id="custom-save-library" type="checkbox"><span>Özel Ürün Kütüphanesine de kaydet<small id="customLibrarySaveHint"></small></span>';
-    if(actions)actions.insertAdjacentElement('beforebegin',saveRow);else form.appendChild(saveRow);
     updateLibraryStatus();
   }
 
   function updateLibraryStatus(){
-    const status=byId('customLibraryStatus');const hint=byId('customLibrarySaveHint');
-    const text=secureMode()?'Şifreli ortak kütüphane':'Misafir: yalnız bu tarayıcı';
-    if(status)status.textContent=text;
-    if(hint)hint.textContent=secureMode()?'Aynı şifreyle giriş yapan ekipte ortak görünür.':'Bu kayıt yalnız bu tarayıcıda görünür.';
+    const status=byId('customLibraryStatus');
+    if(status)status.textContent=secureMode()?'Şifreli ortak kütüphane':'Misafir: yalnız bu tarayıcı';
   }
 
   function switchTab(tab){
     const library=tab==='library';
     byId('customLibraryPane').hidden=!library;grid.hidden=library;
     const actions=form.querySelector('.custom-actions');if(actions)actions.hidden=library;
-    const saveRow=byId('customLibrarySaveRow');if(saveRow)saveRow.hidden=library;
     form.querySelectorAll('[data-custom-tab]').forEach(button=>button.classList.toggle('active',button.dataset.customTab===tab));
     if(library)refreshLibrary();
   }
@@ -111,8 +103,7 @@
   function clearFormForNew(){
     form.dataset.editIndex='';form.dataset.libraryEditId='';form.dataset.libraryEditCreatedAt='';form.dataset.existingImage='';
     setValue('custom-productType','');[...commonIds,...fanIds,...electricalIds].forEach(id=>setValue(id,''));resetFile();loadImagePreview('');
-    const saveLibrary=byId('custom-save-library');if(saveLibrary)saveLibrary.checked=false;
-    const saveButton=form.querySelector('.custom-save,[type="submit"]');if(saveButton)saveButton.textContent='Projeye Ekle';
+    const saveButton=form.querySelector('.custom-save,[type="submit"]');if(saveButton)saveButton.textContent='Kaydet ve Projeye Ekle';
     const title=byId('customProductTitle');if(title)title.textContent='Özel Ürün Ekle';
     syncTypeFields();switchTab('form');setTimeout(()=>byId('custom-productType')?.focus(),0);
   }
@@ -128,7 +119,6 @@
   function prepareProjectEdit(index){
     const items=project.readItems?.()||[];const item=items[index];if(!item)return;
     form.dataset.editIndex=String(index);form.dataset.libraryEditId='';form.dataset.libraryEditCreatedAt='';populateForm(item);
-    const saveLibrary=byId('custom-save-library');if(saveLibrary)saveLibrary.checked=false;
     const saveButton=form.querySelector('.custom-save,[type="submit"]');if(saveButton)saveButton.textContent='Değişiklikleri Kaydet';
     const title=byId('customProductTitle');if(title)title.textContent='Özel Ürünü Düzenle';switchTab('form');
   }
@@ -220,7 +210,7 @@
 
   function editLibraryProduct(id){
     const source=libraryProducts.find(item=>item.id===id);if(!source)return;form.dataset.editIndex='';form.dataset.libraryEditId=source.id;form.dataset.libraryEditCreatedAt=source.createdAt||new Date().toISOString();populateForm(source);
-    const saveLibrary=byId('custom-save-library');if(saveLibrary)saveLibrary.checked=true;const saveButton=form.querySelector('.custom-save,[type="submit"]');if(saveButton)saveButton.textContent='Kütüphaneyi Güncelle';const title=byId('customProductTitle');if(title)title.textContent='Kütüphane Ürününü Düzenle';switchTab('form');
+    const saveButton=form.querySelector('.custom-save,[type="submit"]');if(saveButton)saveButton.textContent='Kütüphaneyi Güncelle';const title=byId('customProductTitle');if(title)title.textContent='Kütüphane Ürününü Düzenle';switchTab('form');
   }
 
   async function removeLibraryProduct(id){
@@ -238,10 +228,10 @@
     const libraryEditId=String(form.dataset.libraryEditId||'');
     if(libraryEditId){const existing=libraryProducts.find(item=>item.id===libraryEditId)||{id:libraryEditId,createdAt:form.dataset.libraryEditCreatedAt||new Date().toISOString()};const record=libraryRecordFromData(data,existing);libraryMessage('Kütüphane güncelleniyor…');try{await saveLibraryRecord(record);libraryProducts=await loadLibrary();renderLibrary();libraryMessage('Kütüphane ürünü güncellendi.');form.dataset.libraryEditId='';switchTab('library')}catch(error){alert(error.message||'Kütüphane güncellenemedi.')}return}
 
-    const saveToLibrary=Boolean(byId('custom-save-library')?.checked);
-    if(saveToLibrary){const record=libraryRecordFromData(data);try{await saveLibraryRecord(record)}catch(error){alert(`Ürün projeye eklenmedi. Kütüphane kaydı başarısız: ${error.message||'Bilinmeyen hata'}`);return}}
+    const items=project.readItems?.()||[];const indexText=String(form.dataset.editIndex||'');const index=indexText===''?null:Number(indexText);const existing=Number.isInteger(index)&&items[index]?items[index]:null;
+    if(!existing){const record=libraryRecordFromData(data);try{await saveLibraryRecord(record)}catch(error){alert(`Ürün projeye eklenmedi. Kütüphane kaydı başarısız: ${error.message||'Bilinmeyen hata'}`);return}}
 
-    const items=project.readItems?.()||[];const indexText=String(form.dataset.editIndex||'');const index=indexText===''?null:Number(indexText);const existing=Number.isInteger(index)&&items[index]?items[index]:null;const item=projectItemFromData(data,existing);
+    const item=projectItemFromData(data,existing);
     if(existing)items[index]=item;else items.push(item);project.writeItems?.(items);project.render?.();closeModal();
   }
 
