@@ -166,3 +166,10 @@
 
   renderProjectStatus();
 })();
+
+if(document.getElementById('customProductForm')&&!document.querySelector('script[data-custom-product-editor]')){
+  const script=document.createElement('script');
+  script.src='js/custom-product-editor.js?v=20260828-custom-product-r1';
+  script.dataset.customProductEditor='1';
+  document.head.appendChild(script);
+}
