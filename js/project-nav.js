@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260825-header-r1';
+  const BUILD='20260828-custom-products-r1';
   const stamp=Date.now();
 
   function load(src,id,onload){
@@ -34,4 +34,5 @@
   }
 
   mountShell();
+  load('js/custom-products-integration.js','vensisCustomProductsIntegrationScript');
 })();
