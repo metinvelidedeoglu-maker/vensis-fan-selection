@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260828-custom-products-r1';
+  const BUILD='20260830-custom-products-disabled-r1';
   const stamp=Date.now();
 
   function load(src,id,onload){
@@ -34,5 +34,6 @@
   }
 
   mountShell();
-  load('js/custom-products-integration.js','vensisCustomProductsIntegrationScript');
+  // Custom product integration temporarily disabled: its global MutationObserver
+  // can trigger a recursive DOM update loop and lock the workspace UI.
 })();
