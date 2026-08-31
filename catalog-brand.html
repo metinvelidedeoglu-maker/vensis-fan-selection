@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vensis Product Catalog</title>
+<script>
+(function(){
+  const params=new URLSearchParams(location.search);
+  if(String(params.get('brand')||'').toLowerCase()==='vortice'){
+    params.delete('brand');
+    const target='catalog-vortice.html'+(params.toString()?'?'+params.toString():'');
+    location.replace(target);
+  }
+})();
+</script>
 <link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1">
 <script src="js/access-gate.js?v=20260826-access-gate-r1"></script>
 <link rel="stylesheet" href="css/app.css?v=20260720-series-catalog">
