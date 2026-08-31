@@ -2,7 +2,7 @@
   'use strict';
 
   const path=String(location.pathname||'').toLowerCase();
-  if(!path.endsWith('catalog.html')&&!path.endsWith('catalog-brand.html'))return;
+  if(!path.endsWith('catalog.html')&&!path.endsWith('catalog-brand.html')&&!path.endsWith('catalog-vortice.html'))return;
 
   const rows=Array.isArray(window.models)?window.models:[];
   if(!rows.length)return;
@@ -44,7 +44,7 @@
 
   window.VensisCatalogPerformanceGuard={
     active:true,
-    page:path.endsWith('catalog-brand.html')?'brand':'catalog',
+    page:path.endsWith('catalog-vortice.html')?'vortice':(path.endsWith('catalog-brand.html')?'brand':'catalog'),
     brand:window.VensisCatalogBrand||'',
     requestedSeries:requested,
     totalRows:rows.length,
