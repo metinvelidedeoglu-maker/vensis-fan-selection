@@ -2,7 +2,7 @@
   'use strict';
 
   const path=String(location.pathname||'').toLowerCase();
-  if(!path.endsWith('catalog.html')&&!path.endsWith('catalog-brand.html'))return;
+  if(!path.endsWith('catalog.html')&&!path.endsWith('catalog-brand.html')&&!path.endsWith('catalog-vortice.html'))return;
 
   const rows=Array.isArray(window.models)?window.models:[];
   if(!rows.length)return;
@@ -11,12 +11,14 @@
   const normalize=value=>String(value||'').toUpperCase().replace(/\\/g,'/').replace(/\s+/g,' ').trim();
   const requestedKey=normalize(requested);
   const aliases={'MOB-AXD':'AXD/MOB','AXD-MOB':'AXD/MOB'};
+  const vorticeScoped=path.endsWith('catalog-vortice.html');
 
   function rowMatchesRequested(row){
     if(!requestedKey)return false;
     const direct=aliases[normalize(row?.seriesCode)]||normalize(row?.seriesCode);
-    if(direct&&direct===requestedKey)return true;
     const series=normalize(row?.series);
+    if(vorticeScoped)return direct===requestedKey||series===requestedKey;
+    if(direct&&direct===requestedKey)return true;
     const family=normalize(row?.family);
     const model=normalize(row?.model||row?.display);
     return series===requestedKey
@@ -44,7 +46,7 @@
 
   window.VensisCatalogPerformanceGuard={
     active:true,
-    page:path.endsWith('catalog-brand.html')?'brand':'catalog',
+    page:vorticeScoped?'vortice':(path.endsWith('catalog-brand.html')?'brand':'catalog'),
     brand:window.VensisCatalogBrand||'',
     requestedSeries:requested,
     totalRows:rows.length,
