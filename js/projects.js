@@ -10,7 +10,7 @@
   const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
   const money=value=>`€${fmt(value,2)}`;
   const t=value=>window.VensisI18n?.t?.(value)||value;
-  const customerFields=['newProjectName','newProjectReference','newProjectContact','newProjectPhone','newProjectEmail'];
+  const customerFields=['newProjectName','newProjectPreparedBy','newProjectReference','newProjectContact','newProjectPhone','newProjectEmail'];
   let matchedCustomerId='';
   let duplicateSourceId='';
 
@@ -43,6 +43,7 @@
       name:meta.name||project.name||'Untitled Project',
       reference:meta.reference||project.reference||'',
       contact:meta.contact||project.contact||'',
+      preparedBy:meta.preparedBy||'',
       status:meta.status||project.status||'draft'
     };
   }
@@ -55,6 +56,7 @@
       <div class="project-identifiers"><div class="project-identifier"><span>Project Code</span><b>${esc(listUtils.projectCode(project))}</b></div><div class="project-identifier"><span>Project Date</span><b>${esc(dateText(project.createdAt||project.updatedAt))}</b></div></div>
       <p class="reference">${esc(reference)}</p>
       <p class="contact">${project.contact?`Contact: ${esc(project.contact)}`:'No contact person entered'}</p>
+      <p class="contact">${project.preparedBy?`Prepared by: ${esc(project.preparedBy)}`:'Prepared by not recorded'}</p>
       <div class="card-stats"><div class="card-stat"><span>Total Units</span><b>${fmt(totals.units)}</b></div><div class="card-stat"><span>Net Value</span><b>${totals.hasValue?money(totals.value):'-'}</b></div></div>
       <div class="updated">Updated ${esc(dateText(project.updatedAt,true))}</div>
       <div class="card-actions"><button class="open-btn" type="button" data-open-project="${esc(project.id)}">Open Project</button><button class="duplicate-btn" type="button" data-duplicate-project="${esc(project.id)}" title="Duplicate project">Duplicate</button><button class="delete-btn" type="button" data-delete-project="${esc(project.id)}" title="Delete project">Delete</button></div>
@@ -172,6 +174,7 @@
       const source=store.get(duplicateSourceId);
       const meta=source?store.readMeta(duplicateSourceId):{};
       byId('newProjectName').value=`${meta.name||source?.name||t('Project')} ${t('Copy')}`;
+      byId('newProjectPreparedBy').value=meta.preparedBy||'';
       byId('newProjectReference').value=meta.reference||source?.reference||'';
       fillSelectedCustomer();
       if(!selectedCustomer())byId('newProjectContact').value=meta.contact||source?.contact||'';
@@ -203,11 +206,13 @@
     event.preventDefault();
     clearProjectError();
     const name=byId('newProjectName').value.trim();
+    const preparedBy=byId('newProjectPreparedBy').value.trim();
     const companyName=byId('newProjectReference').value.trim();
     const contact=byId('newProjectContact').value.trim();
     const phone=byId('newProjectPhone').value.trim();
     const email=byId('newProjectEmail').value.trim();
     if(!name){projectError('Project name is required.',['newProjectName']);return}
+    if(!preparedBy){projectError('Prepared by is required.',['newProjectPreparedBy']);return}
     if(!companyName){projectError('Company name is required.',['newProjectReference']);return}
     if(!contact){projectError('Contact person is required.',['newProjectContact']);return}
     if(!phone&&!email){projectError('Enter at least one phone number or email address.',['newProjectPhone','newProjectEmail']);return}
@@ -216,9 +221,9 @@
     const existing=customerStore.findByName?.(companyName);
     const customer=customerStore.upsert({...existing,companyName,contact,phone,email,id:existing?.id});
     const isDuplicate=Boolean(duplicateSourceId);
-    const project=isDuplicate?store.duplicate(duplicateSourceId):store.create({name,reference:customer.companyName,contact:customer.contact});
+    const project=isDuplicate?store.duplicate(duplicateSourceId):store.create({name,reference:customer.companyName,contact:customer.contact,preparedBy});
     if(!project){projectError('Project could not be created. Please try again.');return}
-    if(isDuplicate)store.writeMeta({name,reference:customer.companyName,contact:customer.contact},project.id);
+    if(isDuplicate)store.writeMeta({name,reference:customer.companyName,contact:customer.contact,preparedBy},project.id);
     else applyPendingItems(project.id);
     closeModal();
     location.assign(store.projectUrl(project.id));
@@ -250,7 +255,7 @@
   byId('emptyNewProject')?.addEventListener('click',()=>openModal());
   byId('cancelProject')?.addEventListener('click',closeModal);
   byId('newProjectReference')?.addEventListener('input',fillSelectedCustomer);
-  ['newProjectName','newProjectContact','newProjectPhone','newProjectEmail'].forEach(id=>byId(id)?.addEventListener('input',()=>{clearProjectError();showCustomerMatch()}));
+  ['newProjectName','newProjectPreparedBy','newProjectContact','newProjectPhone','newProjectEmail'].forEach(id=>byId(id)?.addEventListener('input',()=>{clearProjectError();showCustomerMatch()}));
   byId('projectModal')?.addEventListener('click',event=>{if(event.target===byId('projectModal'))closeModal()});
   byId('projectForm')?.addEventListener('submit',createProject);
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!byId('projectModal')?.hidden)closeModal()});
