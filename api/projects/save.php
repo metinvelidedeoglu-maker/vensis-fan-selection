@@ -5,6 +5,9 @@ require __DIR__ . '/bootstrap.php';
 $config = project_api_authorize('POST', true);
 $data = edit_request_json(2 * 1024 * 1024);
 $project = project_record($data['project'] ?? null);
+$projectSource = is_array($data['project'] ?? null) ? $data['project'] : [];
+$metaSource = is_array($projectSource['meta'] ?? null) ? $projectSource['meta'] : [];
+$project['meta']['preparedBy'] = project_text($metaSource['preparedBy'] ?? '', 'preparedBy', 240);
 $result = project_store_mutate(static function (array &$state) use ($project): array {
     $id = $project['id'];
     $incomingTime = $project['updatedAt'];
