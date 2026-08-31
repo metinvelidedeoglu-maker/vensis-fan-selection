@@ -2,30 +2,42 @@
   'use strict';
   if(!window.VensisCatalogManifestOnly)return;
 
-  function language(){
-    try{return localStorage.getItem('vensis_language_v1')==='tr'?'tr':'en'}catch{return 'en'}
-  }
-
-  function apply(){
-    const label=language()==='tr'?'Ürünler':'Products';
-    document.querySelectorAll('.series-card-footer b').forEach(node=>{
-      if(node.textContent!==label)node.textContent=label;
-    });
+  function cleanEmptyImages(){
     document.querySelectorAll('.series-card-image img').forEach(img=>{
       if(!String(img.getAttribute('src')||'').trim())img.remove();
     });
   }
 
-  function start(){
-    apply();
-    const grid=document.getElementById('catalogGrid');
-    if(grid){
-      const observer=new MutationObserver(mutations=>{
-        if(mutations.some(mutation=>mutation.addedNodes.length))apply();
+  function placeholderIds(seriesId,count){
+    return Array.from({length:count},(_,index)=>`manifest:${seriesId}:${index+1}`);
+  }
+
+  async function hydrateCounts(){
+    try{
+      const response=await fetch('api/catalog/vortice-counts.php?v=20260831-counts-r1',{cache:'no-cache'});
+      if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      const counts=await response.json();
+      const rows=window.VensisCatalog?.series||[];
+      rows.forEach(series=>{
+        const count=Number(counts?.[series.id]);
+        if(!Number.isFinite(count)||count<0)return;
+        series.modelCount=count;
+        series.modelIds=placeholderIds(series.id,count);
       });
-      observer.observe(grid,{childList:true,subtree:true});
+      window.VensisVorticeSeriesCounts=counts;
+      window.VensisVorticeSeriesCountsReady=true;
+      window.Catalog?.render?.();
+      cleanEmptyImages();
+    }catch(error){
+      window.VensisVorticeSeriesCountsReady=false;
+      console.warn('[Vensis] Vortice series counts could not be loaded.',error);
     }
-    window.addEventListener('vensis-language-changed',apply);
+  }
+
+  function start(){
+    cleanEmptyImages();
+    hydrateCounts();
+    window.addEventListener('vensis-language-changed',cleanEmptyImages);
   }
 
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start,{once:true}):start();
