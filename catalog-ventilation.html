@@ -16,7 +16,7 @@
 <header class="hero"><span class="eyebrow" data-i18n="eyebrow">Ventilation</span><h1 data-i18n="title">Choose Manufacturer</h1><p data-i18n="intro">Only the selected manufacturer is loaded. This keeps the catalog fast while preserving full product and technical data.</p></header>
 <section class="grid">
 <a class="card brand-link" data-brand="vitlo" href="catalog-brand.html?brand=vitlo"><small data-i18n="manufacturer">Manufacturer</small><h2>Vitlo</h2><p data-i18n="vitloDesc">Industrial, smoke extraction, ATEX and project ventilation products.</p><div class="action" data-i18n="vitloAction">Open Vitlo Catalog →</div></a>
-<a class="card brand-link" data-brand="vortice" href="catalog-vortice.html"><small data-i18n="manufacturer">Manufacturer</small><h2>Vortice</h2><p data-i18n="vorticeDesc">Commercial, residential and specialist ventilation product ranges.</p><div class="action" data-i18n="vorticeAction">Open Vortice Catalog →</div></a>
+<a class="card brand-link" data-brand="vortice" href="catalog-vortice-stable.html"><small data-i18n="manufacturer">Manufacturer</small><h2>Vortice</h2><p data-i18n="vorticeDesc">Commercial, residential and specialist ventilation product ranges.</p><div class="action" data-i18n="vorticeAction">Open Vortice Catalog →</div></a>
 <a class="card brand-link" data-brand="sp" href="catalog-brand.html?brand=sp"><small data-i18n="manufacturer">Manufacturer</small><h2>Soler &amp; Palau</h2><p data-i18n="spDesc">Industrial and commercial Soler &amp; Palau ventilation products.</p><div class="action" data-i18n="spAction">Open S&amp;P Catalog →</div></a>
 </section>
 <div class="note" data-i18n="note">Heavy performance data is loaded only after a manufacturer is selected.</div>
@@ -30,7 +30,7 @@
     const isVortice=link.dataset.brand==='vortice';
     if(isVortice){
       params.delete('brand');
-      link.href='catalog-vortice.html'+(params.toString()?'?'+params.toString():'');
+      link.href='catalog-vortice-stable.html'+(params.toString()?'?'+params.toString():'');
     }else{
       params.set('brand',link.dataset.brand);
       link.href='catalog-brand.html?'+params.toString();
