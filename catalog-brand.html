@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vensis Product Catalog</title>
+<link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1">
+<script src="js/access-gate.js?v=20260826-access-gate-r1"></script>
+<link rel="stylesheet" href="css/app.css?v=20260720-series-catalog">
+<link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef3f4;color:#173033;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.catalog-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;background:#fff;border-bottom:1px solid #d7e1e3;position:sticky;top:0;z-index:10}.catalog-brand{display:flex;align-items:center;gap:12px}.catalog-brand img{height:44px;max-width:220px;object-fit:contain}.catalog-nav{display:flex;gap:8px;align-items:center}.catalog-nav a{display:inline-flex;align-items:center;gap:7px;padding:10px 13px;border-radius:8px;text-decoration:none;font-weight:700;color:#29484d;background:#e8eff0}.catalog-nav a.active{background:#087f4f;color:#fff}.catalog-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:18px;padding:18px}.catalog-filter,.catalog-content,.detail-page{background:#fff;border:1px solid #d8e3e5;border-radius:14px}.catalog-filter{padding:18px;height:max-content;position:sticky;top:90px}.catalog-filter h2,.catalog-content h1{margin:0 0 16px}.filter-group{margin-bottom:18px}.filter-group label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#52666b}.check-list{max-height:240px;overflow:auto;border:1px solid #d8e3e5;border-radius:9px;padding:7px}.check-row{display:flex;align-items:center;gap:8px;padding:7px 5px;font-size:13px}.check-row input{accent-color:#087f4f}.filter-actions button{width:100%;border:0;border-radius:8px;padding:10px;font-weight:700;cursor:pointer;background:#e8eff0;color:#29484d}.catalog-content{padding:20px}.catalog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.catalog-head h1,.catalog-head h2{margin:0}.catalog-count{color:#64748b;font-size:13px}.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.series-card{border:1px solid #d8e3e5;border-radius:14px;background:#fff;overflow:hidden;cursor:pointer;transition:.18s transform,.18s box-shadow,.18s border-color}.series-card:hover,.series-card:focus{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,48,51,.12);border-color:#087f4f;outline:none}.series-card-image{height:210px;background:linear-gradient(180deg,#f9fbfb,#eef5f3);display:flex;align-items:center;justify-content:center}.series-card-image img{width:100%;height:100%;object-fit:contain;padding:20px}.series-card-body{padding:16px}.series-brand,.section-kicker{font-size:12px;color:#087f4f;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.series-card h2{margin:5px 0 4px;font-size:22px}.series-title{color:#52666b;min-height:38px}.series-card p{color:#64748b;font-size:13px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.series-card-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:15px;padding-top:13px;border-top:1px solid #e3eaeb;font-size:13px}.series-card-footer span{color:#087f4f;font-weight:700}.detail-page{width:min(1280px,calc(100% - 36px));margin:18px auto;padding:22px}.detail-back{display:inline-flex;align-items:center;gap:7px;margin-bottom:18px;padding:10px 13px;border:0;border-radius:8px;background:#e8eff0;color:#29484d;font-weight:700;cursor:pointer}.series-hero{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:28px;align-items:center;padding:8px 0 24px;border-bottom:1px solid #d8e3e5}.series-hero-image{height:300px;border:1px solid #d8e3e5;border-radius:14px;background:#f8fbfb}.series-hero-image img{width:100%;height:100%;object-fit:contain;padding:24px}.series-hero-copy h1{font-size:42px;margin:5px 0}.series-hero-copy h2{font-size:21px;font-weight:500;color:#52666b;margin:0 0 18px}.series-badges{display:flex;flex-wrap:wrap;gap:8px}.series-badges span{background:#eaf5f0;color:#087f4f;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700}.catalog-pdf{display:inline-flex;margin-top:18px;padding:10px 14px;border-radius:8px;background:#087f4f;color:#fff;text-decoration:none;font-weight:700}.series-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}.detail-section{border:1px solid #d8e3e5;border-radius:12px;padding:16px;background:#fbfdfd}.detail-section h3{margin:0 0 12px;border-bottom:3px solid #087f4f;padding-bottom:8px}.detail-section ul{margin:0;padding-left:20px;line-height:1.55}.models-section{margin-top:28px}.models-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:15px}.model-card{border:1px solid #d8e3e5;border-radius:13px;background:#fff;padding:15px}.model-card-head{display:flex;align-items:center;gap:14px;padding-bottom:13px;border-bottom:1px solid #e3eaeb}.model-card-head img{width:78px;height:78px;object-fit:contain;background:#f7faf9;border-radius:9px;padding:6px}.model-card h3{margin:3px 0 0;font-size:18px}.model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.model-field{background:#f4f8f8;border-radius:8px;padding:8px;min-width:0}.model-field span{display:block;color:#64748b;font-size:10px}.model-field b{display:block;font-size:12px;margin-top:2px;overflow-wrap:anywhere}.model-datasheet-btn{width:100%;margin-top:13px;border:0;border-radius:8px;padding:10px 12px;background:#087f4f;color:#fff;font-weight:800;cursor:pointer}.model-operating-points{margin-top:13px;border:1px solid #d8e3e5;border-radius:9px;overflow:hidden}.model-operating-title{padding:8px 10px;background:#edf6f1;color:#087f4f;font-size:10px;font-weight:900;text-transform:uppercase}.model-operating-scroll{overflow-x:auto}.model-operating-points table{width:100%;border-collapse:collapse;font-size:10px}.model-operating-points th,.model-operating-points td{padding:6px 7px;text-align:right;border-top:1px solid #e3eaeb;white-space:nowrap}.model-operating-points th:first-child,.model-operating-points td:first-child{text-align:left}.model-dimension{margin-top:13px;border:1px solid #d8e3e5;border-radius:9px;background:#f8fbfa;overflow:hidden}.model-dimension summary{padding:9px 10px;color:#087f4f;font-size:11px;font-weight:900;cursor:pointer}.model-dimension img{display:block;width:100%;max-height:440px;object-fit:contain;padding:10px;background:#fff;border-top:1px solid #e3eaeb}.empty-note{padding:6px;color:#64748b}.empty-state{padding:30px;color:#64748b;text-align:center;grid-column:1/-1}.brand-chip{display:inline-flex;padding:5px 8px;margin-left:6px;border-radius:999px;background:#eaf7ef;color:#087f4f;font-size:11px;font-weight:900}@media(max-width:950px){.catalog-layout{grid-template-columns:1fr}.catalog-filter{position:static}.series-info-grid{grid-template-columns:1fr}.series-hero{grid-template-columns:1fr}.series-hero-image{height:250px}}@media(max-width:620px){.catalog-top{align-items:flex-start;flex-direction:column}.catalog-nav{width:100%;overflow:auto}.catalog-nav a{white-space:nowrap}.catalog-layout{padding:10px}.catalog-content{padding:14px}.catalog-grid,.models-grid{grid-template-columns:1fr}.model-grid{grid-template-columns:repeat(2,1fr)}.detail-page{width:calc(100% - 20px);padding:14px}.series-hero-copy h1{font-size:34px}}
+</style>
+</head>
+<body class="app-shell app-catalog">
+<header class="catalog-top"><div class="catalog-brand"><img src="assets/vensis-logo.png" alt="Vensis"><div><b>Vensis Engineering Suite</b><div style="font-size:12px;color:#64748b">Product Catalog <span id="brandChip" class="brand-chip"></span></div></div></div><nav class="catalog-nav"><a href="fan-selection.html">⌕ Fan Selection</a><a id="brandBack" class="active" href="catalog-ventilation.html">▦ Product Catalog</a><a href="projects.html">▣ Projects <span data-project-count hidden>0</span></a></nav></header>
+<div id="catalogLayout" class="catalog-layout"><aside class="catalog-filter"><h2>Filters</h2><div class="filter-group"><label>Manufacturer</label><div id="catalogManufacturers" class="check-list"></div></div><div class="filter-group"><label>Category</label><div id="catalogCategories" class="check-list"></div></div><div class="filter-actions"><button type="button" onclick="Catalog.reset()">Reset Filters</button></div></aside><main class="catalog-content"><div class="catalog-head"><h1>Series</h1><div id="catalogCount" class="catalog-count"></div></div><div id="catalogGrid" class="catalog-grid"></div></main></div>
+<main id="detailPage" class="detail-page" hidden></main>
+<script>
+window.models=[];
+(function(){
+  const params=new URLSearchParams(location.search);
+  const raw=(params.get('brand')||'vitlo').toLowerCase();
+  const brand=['vitlo','vortice','sp'].includes(raw)?raw:'vitlo';
+  window.VensisCatalogBrand=brand;
+  const labels={vitlo:'Vitlo',vortice:'Vortice',sp:'Soler & Palau'};
+  document.getElementById('brandChip').textContent=labels[brand];
+  const backParams=new URLSearchParams(params);backParams.delete('series');backParams.delete('brand');
+  document.getElementById('brandBack').href='catalog-ventilation.html'+(backParams.toString()?'?'+backParams.toString():'');
+  const groups={
+    vitlo:[
+      'data/fans-01.js?v=20260827-axf-name-r2','data/fans-02.js?v=20260811-vitlo-catalog-r1','data/fans-03.js?v=20260811-vitlo-catalog-r1','data/fans-04.js?v=20260811-vitlo-catalog-r1','data/fans-05.js?v=20260811-vitlo-catalog-r1','data/fans-06.js?v=20260811-vitlo-catalog-r1','data/fans-07.js?v=20260811-vitlo-catalog-r1','data/fans-08.js?v=20260812-axw-atex-2t','data/fans-15.js?v=20260824-crs-price-r4'
+    ],
+    vortice:[
+      'data/fans-09.js?v=20260814-vortice-images','data/fans-10.js?v=20260813-ca-md','data/fans-11.js?v=20260813-vortice-batch','data/fans-12.js?v=20260814-vortice-images','data/fans-13.js?v=20260814-vortice-images','data/fans-14.js?v=20260813-vortice-batch','data/vortice-prices-2026-1.js?v=20260814-vortice-prices'
+    ],
+    sp:[
+      'data/soler-palau-catalog.js?v=20260827-sp-images-r7','data/soler-palau-catalog-2.js?v=20260827-sp-images-r7','data/soler-palau-catalog-3.js?v=20260827-sp-images-r7'
+    ]
+  };
+  const write=src=>document.write('<script src="'+src+'"><\\/script>');
+  groups[brand].forEach(write);
+  write('data/series-overrides.js?v=20260824-crs-dual-r1');
+  write('products/registry.js?v=20260827-sp-images-r7');
+  if(brand==='vitlo')write('data/crs-atex-prices-r4.js?v=20260824-r4');
+  write('data/catalog-schema-v2.js?v=20260827-vitlo-altmodel-r1');
+  if(brand==='vortice'){
+    ['01','02','03','04','05'].forEach(n=>write('data/vortice-workbook-2026-2-'+n+'.js?v=20260827-vortice-workbook-r2'));
+    write('data/vortice-workbook-2026-2.js?v=20260827-vortice-workbook-r2');
+    write('data/vortice-priced-only-policy.js?v=20260827-vortice-priced-only-r1');
+  }
+  if(brand==='sp'){
+    ['01','02','03','04'].forEach(n=>write('data/sp-workbook-2026-2-'+n+'.js?v=20260827-sp-workbook-r1'));
+    write('data/sp-workbook-2026-2.js?v=20260827-sp-workbook-r1');
+  }
+  write('data/no-current-policy.js?v=20260827-no-current-r1');
+  write('data/read-only-ui-policy.js?v=20260827-readonly-pdf-r2');
+})();
+</script>
+<script src="js/core/utils.js?v=20260719-v9cleanup"></script>
+<script src="js/ui/datasheet.js?v=20260827-readonly-pdf-r2"></script>
+<script src="js/ui/pdf-export.js?v=20260827-preview-modal-r4"></script>
+<script src="js/language.js?v=20260825-all-pages-r1"></script>
+<script src="js/pending-project.js?v=20260826-project-transfer-r1"></script>
+<script src="js/projects-store.js?v=20260826-access-gate-r1"></script>
+<script src="js/catalog-project-picker.js?v=20260826-project-transfer-r1"></script>
+<script src="js/suite-shell.js?v=20260826-technical-note-r1"></script>
+<script src="js/project-nav.js?v=20260825-sidebar-r3"></script>
+<script src="js/catalog.js?v=20260827-catalog-preview-r1"></script>
+<script src="js/catalog-brand-navigation.js?v=20260831-lazy-r1"></script>
+<script src="js/catalog-language-cleanup.js?v=20260828-r1"></script>
+<script src="js/catalog-mobile-accordions.js?v=20260721-mobile-accordions"></script>
+</body>
+</html>
