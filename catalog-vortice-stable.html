@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vortice | Vensis Product Catalog</title>
+<link rel="stylesheet" href="css/access-gate.css?v=20260831-vortice-stable-r1">
+<style>html.vensis-access-pending body>*:not(#vensisAccessGate){visibility:visible!important}</style>
+<script src="js/access-gate.js?v=20260831-vortice-stable-r1"></script>
+<link rel="stylesheet" href="css/app.css?v=20260720-series-catalog">
+<link rel="stylesheet" href="css/ui-polish.css?v=20260721-design-review">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef3f4;color:#173033;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.catalog-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 24px;background:#fff;border-bottom:1px solid #d7e1e3;position:sticky;top:0;z-index:10}.catalog-brand{display:flex;align-items:center;gap:12px}.catalog-brand img{height:44px;max-width:220px;object-fit:contain}.catalog-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.catalog-nav a{display:inline-flex;align-items:center;gap:7px;padding:10px 13px;border-radius:8px;text-decoration:none;font-weight:700;color:#29484d;background:#e8eff0}.catalog-nav a.active{background:#087f4f;color:#fff}.brand-chip{display:inline-flex;padding:4px 8px;margin-left:5px;border-radius:999px;background:#eaf7ef;color:#087f4f;font-size:10px;font-weight:900}.catalog-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:18px;padding:18px}.catalog-filter,.catalog-content{background:#fff;border:1px solid #d8e3e5;border-radius:14px}.catalog-filter{padding:18px;height:max-content;position:sticky;top:90px}.catalog-filter h2,.catalog-content h1{margin:0 0 16px}.filter-group{margin-bottom:18px}.filter-group label{display:block;font-size:12px;font-weight:700;margin-bottom:7px;color:#52666b}.check-list{max-height:240px;overflow:auto;border:1px solid #d8e3e5;border-radius:9px;padding:7px}.check-row{display:flex;align-items:center;gap:8px;padding:7px 5px;font-size:13px}.check-row input{accent-color:#087f4f}.filter-actions button{width:100%;border:0;border-radius:8px;padding:10px;font-weight:700;cursor:pointer;background:#e8eff0;color:#29484d}.catalog-content{padding:20px}.catalog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.catalog-head h1{margin:0}.catalog-count{color:#64748b;font-size:13px}.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.series-card{border:1px solid #d8e3e5;border-radius:14px;background:#fff;overflow:hidden;cursor:pointer;transition:.18s transform,.18s box-shadow,.18s border-color;content-visibility:auto;contain-intrinsic-size:420px}.series-card:hover,.series-card:focus{transform:translateY(-3px);box-shadow:0 12px 28px rgba(23,48,51,.12);border-color:#087f4f;outline:none}.series-card-image{height:210px;background:linear-gradient(180deg,#f9fbfb,#eef5f3);display:flex;align-items:center;justify-content:center}.series-card-image img{width:100%;height:100%;object-fit:contain;padding:20px}.series-card-body{padding:16px}.series-brand{font-size:12px;color:#087f4f;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.series-card h2{margin:5px 0 4px;font-size:22px}.series-title{color:#52666b;min-height:38px}.series-card p{color:#64748b;font-size:13px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.series-card-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:15px;padding-top:13px;border-top:1px solid #e3eaeb;font-size:13px}.series-card-footer span{color:#087f4f;font-weight:700}.empty-state{padding:30px;color:#64748b;text-align:center;grid-column:1/-1}@media(max-width:950px){.catalog-layout{grid-template-columns:1fr}.catalog-filter{position:static}}@media(max-width:620px){.catalog-top{align-items:flex-start;flex-direction:column}.catalog-nav{width:100%;overflow:auto;flex-wrap:nowrap}.catalog-nav a{white-space:nowrap}.catalog-layout{padding:10px}.catalog-content{padding:14px}.catalog-grid{grid-template-columns:1fr}}
+</style>
+<script>
+(function(){
+  const params=new URLSearchParams(location.search);
+  if(params.get('series'))location.replace('catalog-vortice.html?'+params.toString());
+})();
+</script>
+</head>
+<body class="app-catalog">
+<header class="catalog-top">
+  <div class="catalog-brand"><img src="assets/vensis-logo.png" alt="Vensis"><div><b>Vensis Engineering Suite</b><div style="font-size:12px;color:#64748b">Product Catalog <span class="brand-chip">Vortice</span></div></div></div>
+  <nav class="catalog-nav"><a href="fan-selection.html">⌕ Fan Selection</a><a class="active" href="catalog-ventilation.html">▦ Product Catalog</a><a href="projects.html">▣ Projects</a></nav>
+</header>
+<div class="catalog-layout">
+  <aside class="catalog-filter">
+    <h2>Filters</h2>
+    <div class="filter-group"><label>Category</label><div id="catalogCategories" class="check-list"></div></div>
+    <div class="filter-actions"><button type="button" onclick="Catalog.reset()">Reset Filters</button></div>
+  </aside>
+  <main class="catalog-content"><div class="catalog-head"><h1>Series</h1><div id="catalogCount" class="catalog-count"></div></div><div id="catalogGrid" class="catalog-grid"></div></main>
+</div>
+<script src="data/vortice-series-manifest.js?v=20260831-stable-r1"></script>
+<script src="js/language.js?v=20260831-vortice-stable-r1"></script>
+<script src="js/vortice-manifest-catalog.js?v=20260831-stable-r1"></script>
+</body>
+</html>
