@@ -67,6 +67,7 @@
       name:cleanText(source.name),
       reference:cleanText(source.reference),
       contact:cleanText(source.contact),
+      preparedBy:cleanText(source.preparedBy),
       globalDiscount:Math.min(100,Math.max(0,Number(source.globalDiscount)||0)),
       status:cleanStatus(source.status),
       lastQuotationNumber:cleanText(source.lastQuotationNumber),
@@ -407,7 +408,7 @@
   function duplicate(projectId){
     const source=get(projectId);if(!source)return null;
     const meta=readMeta(source.id);
-    const copy=create({name:`${meta.name||source.name||'Project'} Copy`,reference:meta.reference,contact:meta.contact,globalDiscount:meta.globalDiscount});
+    const copy=create({name:`${meta.name||source.name||'Project'} Copy`,reference:meta.reference,contact:meta.contact,preparedBy:meta.preparedBy,globalDiscount:meta.globalDiscount});
     writeItems(JSON.parse(JSON.stringify(readItems(source.id))),copy.id);
     return get(copy.id);
   }
