@@ -3,6 +3,13 @@
 
   const KEY='vensis_access_mode_v1';
   const path=(location.pathname||'').toLowerCase();
+  if(path.endsWith('/catalog-vortice.html')){
+    const routeParams=new URLSearchParams(location.search);
+    if(!routeParams.get('series')){
+      location.replace('catalog-vortice-stable.html'+(location.search||''));
+      return;
+    }
+  }
   const base=path.includes('/electrical/')?'../':'';
   const API=`${base}api/edit`;
   const valid=value=>value==='guest'||value==='secure'?value:'';
