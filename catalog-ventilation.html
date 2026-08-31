@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vensis Ventilation Catalog</title>
+<link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1">
+<script src="js/access-gate.js?v=20260826-access-gate-r1"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#173033;background:#f3f7f7}.top{background:#fff;border-bottom:1px solid #d7e1e3}.top-inner{max-width:1180px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:12px}.brand img{height:44px;max-width:220px;object-fit:contain}.brand span{display:block;font-size:12px;color:#64748b}.back{padding:10px 13px;border-radius:9px;background:#edf3f2;color:#355259;text-decoration:none;font-weight:800}.wrap{max-width:1180px;margin:42px auto;padding:0 22px 50px}.hero{text-align:center;max-width:760px;margin:0 auto 28px}.eyebrow{display:inline-block;padding:7px 11px;border-radius:999px;background:#eaf7ef;color:#087f4f;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.hero h1{margin:13px 0 0;font-size:42px;letter-spacing:-.04em}.hero p{margin:12px auto 0;color:#64748b;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{display:flex;flex-direction:column;min-height:250px;padding:24px;border:1px solid #d8e3e5;border-radius:18px;background:#fff;color:#173033;text-decoration:none;box-shadow:0 4px 16px rgba(23,48,51,.05);transition:.18s transform,.18s box-shadow,.18s border-color}.card:hover{transform:translateY(-4px);border-color:#8fc2a8;box-shadow:0 16px 32px rgba(23,48,51,.1)}.card small{color:#087f4f;font-weight:900;text-transform:uppercase;letter-spacing:.07em}.card h2{margin:12px 0 8px;font-size:29px}.card p{margin:0;color:#64748b;line-height:1.55}.action{margin-top:auto;padding-top:24px;font-weight:900;color:#087f4f}.note{margin:20px auto 0;text-align:center;color:#718187;font-size:12px}@media(max-width:760px){.top-inner{align-items:flex-start;flex-direction:column}.wrap{margin-top:28px;padding:0 12px 30px}.hero h1{font-size:34px}.grid{grid-template-columns:1fr}.card{min-height:190px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-inner"><div class="brand"><img src="assets/vensis-logo.png" alt="Vensis"><div><b>Vensis Engineering Suite</b><span>Ventilation Catalog</span></div></div><a id="catalogHome" class="back" href="catalog-hub.html">← Product Catalog</a></div></header>
+<main class="wrap">
+<header class="hero"><span class="eyebrow">Ventilation</span><h1>Choose Manufacturer</h1><p>Only the selected manufacturer is loaded. This keeps the catalog fast while preserving full product and technical data.</p></header>
+<section class="grid">
+<a class="card brand-link" data-brand="vitlo" href="catalog-brand.html?brand=vitlo"><small>Manufacturer</small><h2>Vitlo</h2><p>Industrial, smoke extraction, ATEX and project ventilation products.</p><div class="action">Open Vitlo Catalog →</div></a>
+<a class="card brand-link" data-brand="vortice" href="catalog-brand.html?brand=vortice"><small>Manufacturer</small><h2>Vortice</h2><p>Commercial, residential and specialist ventilation product ranges.</p><div class="action">Open Vortice Catalog →</div></a>
+<a class="card brand-link" data-brand="sp" href="catalog-brand.html?brand=sp"><small>Manufacturer</small><h2>Soler &amp; Palau</h2><p>Industrial and commercial Soler &amp; Palau ventilation products.</p><div class="action">Open S&amp;P Catalog →</div></a>
+</section>
+<div class="note">Heavy performance data is loaded only after a manufacturer is selected.</div>
+</main>
+<script>
+(function(){
+  const current=new URLSearchParams(location.search);
+  document.querySelectorAll('.brand-link').forEach(link=>{
+    const params=new URLSearchParams(current);
+    params.delete('series');
+    params.set('brand',link.dataset.brand);
+    link.href='catalog-brand.html?'+params.toString();
+  });
+  const home=document.getElementById('catalogHome');
+  const homeParams=new URLSearchParams(current);homeParams.delete('brand');homeParams.delete('series');
+  home.href='catalog-hub.html'+(homeParams.toString()?'?'+homeParams.toString():'');
+})();
+</script>
+<script src="js/language.js?v=20260825-all-pages-r1"></script>
+<script src="js/suite-shell.js?v=20260826-technical-note-r1"></script>
+</body>
+</html>
