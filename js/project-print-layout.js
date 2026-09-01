@@ -158,3 +158,12 @@
   window.addEventListener('vensis-language-changed',apply);
   apply();
 })();
+
+(function(){
+  if(document.getElementById('vensisDocumentOutputI18n'))return;
+  const script=document.createElement('script');
+  script.id='vensisDocumentOutputI18n';
+  script.src='js/document-output-i18n.js?v=20260901-r1';
+  script.defer=true;
+  document.head.appendChild(script);
+})();
