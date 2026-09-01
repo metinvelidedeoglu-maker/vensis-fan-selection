@@ -22,14 +22,23 @@
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
   const num=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
 
-  function language(){
+  function readJson(key,fallback){
+    try{return JSON.parse(localStorage.getItem(key)||'')||fallback}catch{return fallback}
+  }
+
+  function resolveLanguage(){
+    const stored=readJson(PRINT_KEY,null);
+    if(stored?.outputLanguage==='tr'||stored?.outputLanguage==='en')return stored.outputLanguage;
+    const requested=new URLSearchParams(location.search).get('lang');
+    if(requested==='tr'||requested==='en')return requested;
     const active=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'';
     if(active==='tr'||active==='en')return active;
-    try{
-      const saved=localStorage.getItem('vensis_language_v1');
-      return saved==='tr'?'tr':'en';
-    }catch{return 'en'}
+    try{return localStorage.getItem('vensis_language_v1')==='tr'?'tr':'en'}catch{return 'en'}
   }
+
+  const OUTPUT_LANGUAGE=resolveLanguage();
+  const language=()=>OUTPUT_LANGUAGE;
+  document.documentElement.lang=OUTPUT_LANGUAGE;
 
   function labels(){
     if(language()==='tr'){
@@ -48,12 +57,8 @@
     };
   }
 
-  const fmt=(value,digits=0)=>new Intl.NumberFormat(language()==='tr'?'tr-TR':'en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
+  const fmt=(value,digits=0)=>new Intl.NumberFormat(language()==='tr'?'tr-TR':'en-GB',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
   const point=value=>value&&Number.isFinite(Number(value.q))&&Number(value.q)>0&&Number.isFinite(Number(value.p))&&Number(value.p)>=0?`${fmt(value.q)} m³/h @ ${fmt(value.p)} Pa`:'-';
-
-  function readJson(key,fallback){
-    try{return JSON.parse(localStorage.getItem(key)||'')||fallback}catch{return fallback}
-  }
 
   function snapshot(){
     const stored=readJson(PRINT_KEY,null);
@@ -136,12 +141,37 @@
     document.head.appendChild(style);
   }
 
+  function applyOverviewLanguage(overview,data){
+    if(language()!=='en')return;
+    const toolbarBack=document.querySelector('.toolbar .back');
+    const toolbarPrint=document.getElementById('printProjectDocument');
+    if(toolbarBack)toolbarBack.textContent='← Back to Project';
+    if(toolbarPrint)toolbarPrint.textContent='Print Project';
+
+    const title=overview.querySelector('.project-title h1');
+    const subtitle=overview.querySelector('.project-title p');
+    if(title)title.textContent='PROJECT TECHNICAL DOCUMENT';
+    if(subtitle){
+      const units=(data.items||[]).reduce((sum,item)=>sum+Math.max(1,num(item.quantity)||1),0);
+      const date=new Intl.DateTimeFormat('en-GB',{dateStyle:'medium',timeStyle:'short'}).format(new Date(data.createdAt||Date.now()));
+      subtitle.textContent=`Project list and product datasheets • ${date} • ${fmt(units)} units`;
+    }
+    const metaLabels=['Project Name','Customer / Reference','Contact Person'];
+    overview.querySelectorAll('.project-meta .meta-card span').forEach((node,index)=>{if(metaLabels[index])node.textContent=metaLabels[index]});
+    const note=overview.querySelector('.project-note');
+    if(note)note.innerHTML='<b>Technical Project Output</b>This document intentionally excludes unit prices, discounts and commercial totals. A product datasheet or custom technical sheet is included for every project line below.';
+    const footer=overview.querySelector('.project-footer');
+    if(footer)footer.innerHTML='Vensis Engineering Suite &nbsp;•&nbsp; Technical Project Print &nbsp;•&nbsp; www.vensis.com.tr';
+    document.title=`${data.project?.name||'Vensis Project'} - Technical Project.pdf`;
+  }
+
   function apply(){
     const data=snapshot();
     if(!Array.isArray(data.items)||!data.items.length)return;
     const overview=root.querySelector('.project-overview');
     if(!overview)return;
     addStyles();
+    applyOverviewLanguage(overview,data);
     const existing=overview.querySelector('.project-product-tables');
     if(existing){
       existing.innerHTML=tables(data.items);
@@ -155,6 +185,5 @@
     oldTable.replaceWith(holder);
   }
 
-  window.addEventListener('vensis-language-changed',apply);
   apply();
 })();
