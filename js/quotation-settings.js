@@ -221,7 +221,11 @@
   document.getElementById('convertQuotation')?.addEventListener('click',()=>{
     try{
       const quotation=JSON.parse(localStorage.getItem(ACTIVE_KEY)||'null');
-      if(quotation){const format=window.VensisQuotationFormats?.detect?.(quotation.items||[],quotation.format||'auto')||'fan';quotation.settings=forFormat(format);quotation.resolvedFormat=format;localStorage.setItem(ACTIVE_KEY,JSON.stringify(quotation))}
+      if(quotation){
+        if(quotation.outputLanguage==='en'||quotation.outputLanguage==='tr')return;
+        const format=window.VensisQuotationFormats?.detect?.(quotation.items||[],quotation.format||'auto')||'fan';
+        quotation.settings=forFormat(format);quotation.resolvedFormat=format;localStorage.setItem(ACTIVE_KEY,JSON.stringify(quotation));
+      }
     }catch{}
   });
   window.addEventListener('storage',event=>{if(event.key===KEY)fillForm(read())});
