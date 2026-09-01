@@ -11,6 +11,21 @@
     }
   }
   const base=path.includes('/electrical/')?'../':'';
+  const publicCatalogPaths=[
+    '/catalog-hub.html','/catalog-ventilation.html','/catalog-brand.html',
+    '/catalog-vortice-stable.html','/catalog-vortice.html','/electrical/index.html'
+  ];
+  const isPublicCatalog=publicCatalogPaths.some(item=>path.endsWith(item));
+  const robots=document.createElement('meta');
+  robots.name='robots';
+  robots.content=isPublicCatalog?'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1':'noindex,nofollow';
+  document.head.appendChild(robots);
+  if(isPublicCatalog&&!document.querySelector('script[data-vensis-seo]')){
+    const seo=document.createElement('script');
+    seo.src=base+'js/catalog-seo.js?v=20260901-seo-r1';
+    seo.dataset.vensisSeo='1';
+    document.head.appendChild(seo);
+  }
   const API=`${base}api/edit`;
   const valid=value=>value==='guest'||value==='secure'?value:'';
   const readMode=()=>{try{return valid(localStorage.getItem(KEY)||'')}catch{return ''}};
@@ -110,6 +125,9 @@
     });
   }
   async function start(){
+    if(isPublicCatalog&&!initialMode){
+      state.mode='guest';state.checked=true;window.VENSIS_ACCESS_BOOT_MODE='guest';applyMode('guest');reveal();return;
+    }
     mount();
     if(initialMode==='guest'){close();return}
     const payload=await refreshSession();
