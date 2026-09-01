@@ -228,6 +228,8 @@
   const titleReverse=new Map([...titlePairs.entries()].map(([en,tr])=>[tr,en]));
   const categoryReverse=new Map([...categoryPairs.entries()].map(([en,tr])=>[tr,en]));
   let applying=false;
+  let observer=null;
+  let scheduled=false;
 
   function language(){
     return window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
@@ -277,9 +279,27 @@
     if(String(node.textContent||'').trim()!==next)node.textContent=next;
   }
 
+  function observeMutations(){
+    if(!observer){
+      observer=new MutationObserver(mutations=>{
+        if(applying)return;
+        if(!mutations.some(mutation=>mutation.addedNodes.length))return;
+        if(scheduled)return;
+        scheduled=true;
+        requestAnimationFrame(()=>{
+          scheduled=false;
+          apply(document);
+        });
+      });
+    }
+    observer.observe(document.documentElement,{childList:true,subtree:true});
+  }
+
   function apply(root=document){
     if(applying)return;
     applying=true;
+    const reconnect=Boolean(observer);
+    if(observer)observer.disconnect();
     try{
       const scope=root?.querySelectorAll?root:document;
       scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state,.model-datasheet-btn').forEach(node=>renderNode(node,'ui'));
@@ -297,20 +317,15 @@
         else if(/^(Fan Type|Mount Type|Availability|Hazardous Area|Speed Controller)$/i.test(originalLabel))renderNode(value,'product');
         else renderNode(value,'ui');
       });
-    }finally{applying=false}
+    }finally{
+      applying=false;
+      if(reconnect)observeMutations();
+    }
   }
 
   function start(){
     apply(document);
-    const observer=new MutationObserver(mutations=>{
-      if(applying)return;
-      let shouldApply=false;
-      for(const mutation of mutations){
-        if(mutation.addedNodes.length||mutation.type==='characterData'){shouldApply=true;break}
-      }
-      if(shouldApply)apply(document);
-    });
-    observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+    observeMutations();
     window.addEventListener('vensis-language-changed',()=>apply(document));
   }
 
