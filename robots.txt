@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /projects.html
+Disallow: /project-detail.html
+Disallow: /customers.html
+Disallow: /custom-products.html
+Disallow: /quotation.html
+Disallow: /quotations.html
+Disallow: /orders.html
+
+Sitemap: https://select.vensis.com.tr/sitemap.xml
