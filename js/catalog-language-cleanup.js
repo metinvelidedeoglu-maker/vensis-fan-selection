@@ -13,7 +13,50 @@
     ['Dimension Drawing','Ölçü Çizimi'],
     ['Safety:','Güvenlik:'],
     ['No data','Veri yok'],
-    ['No information available.','Bilgi bulunmuyor.']
+    ['No information available.','Bilgi bulunmuyor.'],
+    ['Product Code','Ürün Kodu'],
+    ['Availability','Kullanılabilirlik'],
+    ['Control Levels','Kontrol Seviyeleri'],
+    ['Performance Curve','Performans Eğrisi'],
+    ['Duct Ø','Kanal Ø'],
+    ['Duct Connection','Kanal Bağlantısı'],
+    ['Phase','Faz'],
+    ['Poles','Kutup Sayısı'],
+    ['Power','Güç'],
+    ['Speed','Devir'],
+    ['Current','Akım'],
+    ['Voltage','Gerilim'],
+    ['Frequency','Frekans'],
+    ['Airflow','Debi'],
+    ['Max Pressure','Maks. Basınç'],
+    ['Noise','Ses'],
+    ['Noise · Inlet','Ses · Emiş'],
+    ['Noise · Radiated','Ses · Yayılım'],
+    ['Noise · Outlet','Ses · Atış'],
+    ['Weight','Ağırlık'],
+    ['Fire Rating','Yangın Dayanımı'],
+    ['Continuous Air Limit','Sürekli Hava Sıcaklığı'],
+    ['Operating Temperature','Çalışma Sıcaklığı'],
+    ['Approx. Air Temperature','Yaklaşık Hava Sıcaklığı'],
+    ['Inlet Ø','Emiş Ø'],
+    ['ATEX Gas Marking','ATEX Gaz İşaretlemesi'],
+    ['ATEX Dust Marking','ATEX Toz İşaretlemesi'],
+    ['Hazardous Area','Tehlikeli Bölge'],
+    ['Speed Controller','Hız Kontrol Cihazı'],
+    ['Timer','Zamanlayıcı'],
+    ['Humidity Sensor','Nem Sensörü'],
+    ['Presence Sensor','Varlık Sensörü'],
+    ['Long-Life Motor','Uzun Ömürlü Motor'],
+    ['Reversible','Tersinir'],
+    ['Fan Type','Fan Tipi'],
+    ['Mount Type','Montaj Tipi'],
+    ['IP Class','IP Sınıfı'],
+    ['Price','Fiyat'],
+    ['Control','Kontrol'],
+    ['Preview','Önizleme'],
+    ['Add to project','Projeye ekle'],
+    ['Yes','Evet'],
+    ['No','Hayır']
   ]);
 
   const titlePairs=new Map([
@@ -176,7 +219,9 @@
     [/\bcar park\b/gi,'otopark'],
     [/\bcarpark\b/gi,'otopark'],
     [/\bindustrial\b/gi,'endüstriyel'],
-    [/\bresidential\b/gi,'konut tipi']
+    [/\bresidential\b/gi,'konut tipi'],
+    [/\bZone\b/gi,'Bölge'],
+    [/\bX special conditions\b/gi,'X özel koşulları']
   ];
 
   const uiReverse=new Map([...uiPairs.entries()].map(([en,tr])=>[tr,en]));
@@ -237,7 +282,7 @@
     applying=true;
     try{
       const scope=root?.querySelectorAll?root:document;
-      scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state').forEach(node=>renderNode(node,'ui'));
+      scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state,.model-datasheet-btn').forEach(node=>renderNode(node,'ui'));
       scope.querySelectorAll('.series-title,.series-hero-copy h2').forEach(node=>renderNode(node,'title'));
       scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
       scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li').forEach(node=>renderNode(node,'product'));
@@ -246,9 +291,11 @@
         const label=field.querySelector('span');
         const value=field.querySelector('b');
         if(!label||!value)return;
-        const labelText=String(label.textContent||'').trim();
-        if(labelText==='Performance Curve'||labelText==='Performans Eğrisi')renderNode(value,'ui');
-        else if(/^(Fan Type|Fan Tipi|Mount Type|Montaj Tipi|Availability|Kullanılabilirlik|Hazardous Area|Tehlikeli Bölge|Speed Controller|Hız Kontrol Cihazı)$/i.test(labelText))renderNode(value,'product');
+        const originalLabel=sourceText(label,'ui');
+        renderNode(label,'ui');
+        if(originalLabel==='Performance Curve')renderNode(value,'ui');
+        else if(/^(Fan Type|Mount Type|Availability|Hazardous Area|Speed Controller)$/i.test(originalLabel))renderNode(value,'product');
+        else renderNode(value,'ui');
       });
     }finally{applying=false}
   }
