@@ -11,7 +11,6 @@
   };
   const text=value=>String(value||'').replace(/\s+/g,' ').trim();
   const first=items=>Array.isArray(items)&&items.length?text(items[0]):'';
-  const language=()=>window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'en';
   const brandLabels={vitlo:'Vitlo',sp:'Soler & Palau',vortice:'Vortice'};
   let retries=0;
 
@@ -86,11 +85,17 @@
     if(unitText)out.unitText=unitText;
     return out;
   }
-  function productVariant(model,series,url,index){
+  function variantUrl(groupUrl,model){
+    const url=new URL(groupUrl);
+    url.searchParams.set('model',String(model.id||model.technical?.productCode||model.model||''));
+    return url.href;
+  }
+  function productVariant(model,series,groupUrl,index){
     const price=Number(model.pricing?.listPrice);
     const currency=text(model.pricing?.currency||'EUR');
     const productCode=text(model.technical?.productCode||model.model||model.id);
     const image=abs(model.media?.image||series.media?.image||'');
+    const url=variantUrl(groupUrl,model);
     const props=[
       property('Airflow',Number(model.performance?.nominalAirflow)||null,'m³/h'),
       property('Power',Number(model.motor?.power)||null,'kW'),
@@ -105,13 +110,13 @@
     ].filter(Boolean);
     const item={
       '@type':'Product',
-      '@id':`${url}#variant-${index+1}`,
+      '@id':`${url}#product`,
       name:text(`${series.code||series.id||''} ${model.model||productCode}`),
       sku:productCode,
       brand:{'@type':'Brand',name:text(series.manufacturer||model.manufacturer||'Vensis')},
       category:text(model.technical?.productGroup||(series.categories||[]).join(' / ')),
       url,
-      isVariantOf:{'@id':url+'#product-group'}
+      isVariantOf:{'@id':groupUrl+'#product-group'}
     };
     if(image)item.image=image;
     if(props.length)item.additionalProperty=props;
@@ -125,6 +130,24 @@
       };
     }
     return item;
+  }
+  function preselectModel(catalog){
+    const requested=params.get('model');
+    if(!requested)return;
+    const models=Array.isArray(catalog.models)?catalog.models:[];
+    const target=(catalog.getModel?catalog.getModel(requested):null)||models.find(model=>String(model.id)===requested||String(model.technical?.productCode||'')===requested||String(model.model||'')===requested);
+    if(!target)return;
+    const buttons=[...document.querySelectorAll('[data-model-datasheet]')];
+    const button=buttons.find(node=>node.getAttribute('data-model-datasheet')===String(target.id));
+    const card=button?.closest('.model-card');
+    if(!card)return;
+    document.querySelectorAll('.model-card').forEach(node=>{node.hidden=node!==card;});
+    card.dataset.seoSelected='true';
+    const count=document.querySelector('.models-section .catalog-count');
+    if(count)count.textContent='1 Model';
+    const heading=card.querySelector('h3');
+    if(heading)document.title=`${text(heading.textContent)} | Vensis Product Catalog`;
+    setTimeout(()=>card.scrollIntoView({block:'start'}),0);
   }
   function seriesSeo(series,catalog,url){
     const manufacturer=text(series.manufacturer||'Vensis');
@@ -148,6 +171,7 @@
     if(image)group.image=image;
     if(variants.length)group.hasVariant=variants.map((model,index)=>productVariant(model,series,url,index));
     jsonLd({'@context':'https://schema.org','@graph':[organization(),group]});
+    preselectModel(catalog);
   }
   function catalogSeriesLinks(catalog,baseUrl){
     return (catalog.series||[]).slice(0,120).map(series=>{
@@ -204,22 +228,20 @@
     return true;
   }
   function runVorticeStable(){
-    const manifest=Array.isArray(window.VensisVorticeSeriesManifest)?window.VensisVorticeSeriesManifest:[];
+    const manifest=Array.isArray(window.VensisCatalog?.series)?window.VensisCatalog.series:[];
     const url=cleanCanonical();
     const description='Browse Vortice ventilation fan series, residential extract fans, mixed-flow fans, roof fans and ATEX products with technical catalog data.';
-    setPage({title:'Vortice Fan Catalog | Vensis',description,url,image:abs(manifest[0]?.image||'/assets/vensis-logo.png')});
+    setPage({title:'Vortice Fan Catalog | Vensis',description,url,image:abs(manifest[0]?.media?.image||'/assets/vensis-logo.png')});
     const items=manifest.map(item=>{const target=new URL(SITE+'/catalog-vortice.html');target.searchParams.set('series',item.id);return {name:text(item.title||item.id),url:target.href};});
     jsonLd(collectionSchema('Vortice Fan Catalog',description,url,items));
     installCrawlableFanLinks();setTimeout(installCrawlableFanLinks,250);
     return true;
   }
   function runElectrical(){
-    const products=Array.isArray(window.VENSIS_ELECTRICAL_PRODUCTS)?window.VENSIS_ELECTRICAL_PRODUCTS:[];
     const url=cleanCanonical();
     const description='Browse industrial electrical products, Ex-proof equipment, lighting, plugs, sockets and field products in the Vensis electrical catalog.';
     setPage({title:'Industrial Electrical Product Catalog | Vensis',description,url,image:abs('/assets/vensis-logo.png')});
-    const items=products.slice(0,120).map(product=>({name:text(`${product.brand||''} ${product.modelName||''}`),url}));
-    jsonLd(collectionSchema('Industrial Electrical Product Catalog',description,url,items));
+    jsonLd(collectionSchema('Industrial Electrical Product Catalog',description,url));
     return true;
   }
   function runStatic(){
