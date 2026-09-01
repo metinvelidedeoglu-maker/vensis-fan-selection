@@ -1,7 +1,16 @@
 (function(root,factory){
   const api=factory();
   if(typeof module==='object'&&module.exports)module.exports=api;
-  else root.VensisQuotationFormats=api;
+  else{
+    root.VensisQuotationFormats=api;
+    if(typeof document!=='undefined'&&!document.getElementById('vensisDocumentOutputI18n')){
+      const script=document.createElement('script');
+      script.id='vensisDocumentOutputI18n';
+      script.src='js/document-output-i18n.js?v=20260901-r1';
+      script.defer=true;
+      document.head.appendChild(script);
+    }
+  }
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   const FORMATS=['auto','fan','electrical','mixed'];
   function text(value){return String(value??'').trim().toLowerCase()}
