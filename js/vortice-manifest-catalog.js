@@ -16,7 +16,7 @@
     'EC Fan':'EC Fan',
     'Explosion-Proof / ATEX Fan':'Ex-Proof / ATEX Fan',
     'Extract Fan':'Egzoz Fanı',
-    'Mixed Flow Fan':'Karma Akışlı Fan',
+    'Mixed Flow Fan':'Karışık Akışlı Fan',
     'Quiet Fan':'Sessiz Fan',
     'Residential Fan':'Konut Tipi Fan',
     'Roof Fan':'Çatı Tipi Fan',
@@ -131,6 +131,7 @@
     const list=filteredRows();
     const count=document.getElementById('catalogCount');
     const grid=document.getElementById('catalogGrid');
+    document.title=tr()?'Vortice | Vensis Ürün Kataloğu':'Vortice | Vensis Product Catalog';
     if(count)count.textContent=tr()?`${list.length} seri`:`${list.length} series`;
     if(!grid)return;
     grid.innerHTML=list.map(card).join('')||`<div class="empty-state">${tr()?'Bu filtrelere uygun seri bulunamadı.':'No series matches these filters.'}</div>`;
