@@ -1,25 +1,7 @@
 (function(root,factory){
   const api=factory();
   if(typeof module==='object'&&module.exports)module.exports=api;
-  else{
-    root.VensisQuotationFormats=api;
-    if(typeof document!=='undefined'){
-      if(!document.getElementById('vensisDocumentOutputI18n')){
-        const script=document.createElement('script');
-        script.id='vensisDocumentOutputI18n';
-        script.src='js/document-output-i18n.js?v=20260901-r2';
-        script.defer=true;
-        document.head.appendChild(script);
-      }
-      if(!document.getElementById('vensisQuotationOutputCleanup')){
-        const script=document.createElement('script');
-        script.id='vensisQuotationOutputCleanup';
-        script.src='js/quotation-output-cleanup.js?v=20260901-r1';
-        script.defer=true;
-        document.head.appendChild(script);
-      }
-    }
-  }
+  else root.VensisQuotationFormats=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   const FORMATS=['auto','fan','electrical','mixed'];
   function text(value){return String(value??'').trim().toLowerCase()}
