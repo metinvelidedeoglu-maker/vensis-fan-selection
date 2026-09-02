@@ -85,8 +85,9 @@
   function patchJsonLd(language){
     const node=document.getElementById('vensisSeoJsonLd');
     if(!node?.textContent)return;
+    const before=node.textContent;
     let data;
-    try{data=JSON.parse(node.textContent)}catch{return}
+    try{data=JSON.parse(before)}catch{return}
     const visit=value=>{
       if(Array.isArray(value)){value.forEach(visit);return}
       if(!value||typeof value!=='object')return;
@@ -100,7 +101,8 @@
       }
     };
     visit(data);
-    node.textContent=JSON.stringify(data);
+    const after=JSON.stringify(data);
+    if(after!==before)node.textContent=after;
   }
 
   function syncAddress(language){
