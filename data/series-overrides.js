@@ -25,7 +25,8 @@ window.VensisSeriesOverrides={
 if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='vitlo'){
   document.write(
     '<script src="data/fans-16.js?v=20260902-crs-crh-31-r1"><\/script>',
-    '<script src="data/fans-17.js?v=20260902-crs-crh-63-r1"><\/script>'
+    '<script src="data/fans-17.js?v=20260902-crs-crh-63-r1"><\/script>',
+    '<script src="data/cr-family-matrix.js?v=20260902-cr-matrix-r1"><\/script>'
   );
 }
 
