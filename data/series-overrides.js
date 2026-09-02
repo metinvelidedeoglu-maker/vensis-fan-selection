@@ -30,17 +30,19 @@ if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='vitlo'){
   );
 }
 
-document.write(
-  '<script src="data/sp-roof-01.js?v=20260826-roof-curves-r1"><\/script>',
-  '<script src="data/sp-roof-b02.js?v=20260826-roof-curves-r1"><\/script>',
-  '<script src="data/sp-roof-b03.js?v=20260826-roof-curves-r1"><\/script>',
-  '<script src="data/sp-roof-b04.js?v=20260826-roof-curves-r1"><\/script>',
-  '<script src="data/sp-roof-b05.js?v=20260826-roof-curves-r1"><\/script>',
-  '<script src="data/sp-roof-b06.js?v=20260826-roof-curves-r1"><\/script>',
-  '<script src="data/sp-roof-b07.js?v=20260826-roof-curves-r1"><\/script>',
-  '<script src="data/sp-roof-b08.js?v=20260826-roof-curves-r1"><\/script>',
-  '<script src="data/sp-roof-b09.js?v=20260826-roof-curves-r1"><\/script>'
-);
+if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='sp'){
+  document.write(
+    '<script src="data/sp-roof-01.js?v=20260826-roof-curves-r1"><\/script>',
+    '<script src="data/sp-roof-b02.js?v=20260826-roof-curves-r1"><\/script>',
+    '<script src="data/sp-roof-b03.js?v=20260826-roof-curves-r1"><\/script>',
+    '<script src="data/sp-roof-b04.js?v=20260826-roof-curves-r1"><\/script>',
+    '<script src="data/sp-roof-b05.js?v=20260826-roof-curves-r1"><\/script>',
+    '<script src="data/sp-roof-b06.js?v=20260826-roof-curves-r1"><\/script>',
+    '<script src="data/sp-roof-b07.js?v=20260826-roof-curves-r1"><\/script>',
+    '<script src="data/sp-roof-b08.js?v=20260826-roof-curves-r1"><\/script>',
+    '<script src="data/sp-roof-b09.js?v=20260826-roof-curves-r1"><\/script>'
+  );
+}
 
 (function removeCatalogImageErrorHandlers(){
   const clean=()=>document.querySelectorAll('.series-card-image img[onerror], .model-card-head img[onerror]').forEach(img=>img.removeAttribute('onerror'));
