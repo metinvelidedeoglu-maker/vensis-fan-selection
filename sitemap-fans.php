@@ -64,6 +64,8 @@ function parse_json_push_rows($source) {
 
 function parse_object_literal_rows($source) {
     $rows = [];
+
+    // Standalone object-literal rows that repeat brand/series/productCode.
     preg_match_all("/key:'[^']+'[\\s\\S]*?model:'([^']+)'[\\s\\S]*?brand:'([^']+)'[\\s\\S]*?series:'([^']+)'[\\s\\S]*?productCode:'([^']+)'/", $source, $matches, PREG_SET_ORDER);
     foreach ($matches as $match) {
         $rows[] = [
@@ -71,6 +73,27 @@ function parse_object_literal_rows($source) {
             'brand' => stripcslashes($match[2]),
             'series' => stripcslashes($match[3]),
             'productCode' => stripcslashes($match[4])
+        ];
+    }
+    if ($rows) return $rows;
+
+    // Newer CR additions use a shared `const base={brand:'Vitlo', ...}` and spread
+    // that base into each row, so brand is not repeated inside every object.
+    $baseBrand = '';
+    if (preg_match("/const\\s+base\\s*=\\s*\\{[\\s\\S]*?brand:'([^']+)'/", $source, $brandMatch)) {
+        $baseBrand = stripcslashes($brandMatch[1]);
+    } elseif (preg_match("/const\\s+base\\s*=\\s*\\{[\\s\\S]*?manufacturer:'([^']+)'/", $source, $brandMatch)) {
+        $baseBrand = stripcslashes($brandMatch[1]);
+    }
+    if ($baseBrand === '') return [];
+
+    preg_match_all("/key:'[^']+'[\\s\\S]*?model:'([^']+)'[\\s\\S]*?series:'([^']+)'[\\s\\S]*?productCode:'([^']+)'/", $source, $spreadMatches, PREG_SET_ORDER);
+    foreach ($spreadMatches as $match) {
+        $rows[] = [
+            'model' => stripcslashes($match[1]),
+            'brand' => $baseBrand,
+            'series' => stripcslashes($match[2]),
+            'productCode' => stripcslashes($match[3])
         ];
     }
     return $rows;
@@ -107,6 +130,13 @@ function add_priced_vortice_routes(&$urls, $site, $priceListPath) {
     }
 }
 
+function add_cr_matrix_series_routes(&$urls, $site, $matrixPath) {
+    if (!is_file($matrixPath)) return;
+    $timestamp = filemtime($matrixPath) ?: time();
+    $series = ['CRS','CRS/ATEX','CRK','CRK/ATEX','CRD','CRD/ATEX','CRH','CRH/ATEX'];
+    foreach ($series as $code) add_fan_url($urls, fan_route($site, 'vitlo', $code), $timestamp);
+}
+
 $files = array_merge(
     glob(__DIR__ . '/data/fans-*.js') ?: [],
     glob(__DIR__ . '/data/soler-palau-catalog*.js') ?: [],
@@ -125,6 +155,7 @@ foreach ($files as $file) {
     foreach ($rows as $row) add_row_routes($urls, $site, $row, $timestamp);
 }
 
+add_cr_matrix_series_routes($urls, $site, __DIR__ . '/data/cr-family-matrix.js');
 add_priced_vortice_routes($urls, $site, __DIR__ . '/data/vortice-prices-2026-1.js');
 
 ksort($urls);
@@ -137,6 +168,7 @@ foreach ($urls as $loc => $timestamp) {
         echo '  <url><loc>' . xml_escape_fan($localized) . '</loc><lastmod>' . gmdate('Y-m-d', $timestamp) . '</lastmod>';
         echo '<xhtml:link rel="alternate" hreflang="en" href="' . xml_escape_fan($en) . '" />';
         echo '<xhtml:link rel="alternate" hreflang="tr" href="' . xml_escape_fan($tr) . '" />';
+        echo '<xhtml:link rel="alternate" hreflang="x-default" href="' . xml_escape_fan($en) . '" />';
         echo '</url>' . "\n";
     }
 }
