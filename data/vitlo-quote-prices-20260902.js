@@ -8,7 +8,7 @@
   function normalizeModel(value){
     return text(value)
       .toUpperCase()
-      .replace(/(?<=\d),(?=\d)/g,'.')
+      .replace(/(\d),(\d)/g,'$1.$2')
       .replace(/\s*-\s*/g,'-')
       .replace(/\s+/g,' ')
       .trim();
