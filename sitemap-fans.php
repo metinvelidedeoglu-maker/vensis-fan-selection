@@ -168,6 +168,7 @@ foreach ($urls as $loc => $timestamp) {
         echo '  <url><loc>' . xml_escape_fan($localized) . '</loc><lastmod>' . gmdate('Y-m-d', $timestamp) . '</lastmod>';
         echo '<xhtml:link rel="alternate" hreflang="en" href="' . xml_escape_fan($en) . '" />';
         echo '<xhtml:link rel="alternate" hreflang="tr" href="' . xml_escape_fan($tr) . '" />';
+        echo '<xhtml:link rel="alternate" hreflang="x-default" href="' . xml_escape_fan($en) . '" />';
         echo '</url>' . "\n";
     }
 }
