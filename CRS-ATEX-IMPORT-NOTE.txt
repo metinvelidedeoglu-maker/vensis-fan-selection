@@ -2,3 +2,13 @@ CRS and CRS/ATEX models were synchronized from the supplied CRS/ATEX datasheets.
 CRS copies intentionally reuse the requested CRS/ATEX performance/model values.
 CRS/ATEX 40-2T-5.5 price: 4300 EUR.
 CRS/ATEX 80-4T-25 price: 10700 EUR.
+
+2026-09-02 — CRS/ATEX 31-2T-2 family
+- CRS/ATEX 31-2T-2 is based on the supplied CRS ATEX 31-2T-2(1).pdf.
+- Model-specific values used: 1.50 kW, 2865 rpm, 3.25 A at 400 V, 2 poles, IP55, frame 90, dimensions A/B/C/H = 550/650/500/380 mm.
+- The supplied PDF's general motor paragraph states IP65, while its model-specific motor data table states IP55; the model-specific IP55 value is used.
+- The performance curve was digitized approximately from the supplied PDF chart; the working data uses 4400 m³/h at the chart endpoint and 68 dB(A) all-bands acoustics.
+- CRS 31-2T-2, CRH 31-2T-2 and CRH/ATEX 31-2T-2 intentionally reuse the same performance, motor and dimension values at the user's request because separate technical datasheets are unavailable.
+- Variant-specific construction, temperature limits and exact ATEX marking are not inferred for the derived products. The exact EXII2G EEX-D IIC T4 marking is asserted only for the supplied CRS/ATEX model.
+- Images: CRS.webp, CRS-ATEX.webp, CRH.webp and CRH-ATEX.webp.
+- No price was supplied for these four new models, so no price is assigned.
