@@ -2,6 +2,7 @@
   'use strict';
 
   const path=(location.pathname||'/').toLowerCase();
+  const base=path.includes('/electrical/')?'../':'';
   const params=()=>new URLSearchParams(location.search);
   const text=value=>String(value??'').replace(/\s+/g,' ').trim();
   const lang=()=>{
@@ -9,6 +10,17 @@
     if(requested==='tr'||requested==='en')return requested;
     return String(document.documentElement.lang||'en').toLowerCase().startsWith('tr')?'tr':'en';
   };
+
+  function loadEnhancement(file,marker){
+    if(document.querySelector(`script[data-${marker}]`))return;
+    const script=document.createElement('script');
+    script.src=base+`js/${file}?v=20260902-r1`;
+    script.async=false;
+    script.setAttribute(`data-${marker}`,'1');
+    document.head.appendChild(script);
+  }
+  loadEnhancement('catalog-breadcrumbs.js','vensis-breadcrumbs');
+  loadEnhancement('catalog-seo-copy.js','vensis-seo-copy');
 
   const copies={
     hub:{
