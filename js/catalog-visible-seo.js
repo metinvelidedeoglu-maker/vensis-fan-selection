@@ -2,6 +2,13 @@
   'use strict';
 
   const path=(location.pathname||'/').toLowerCase();
+  const scriptBase=path.includes('/electrical/')?'../':'';
+  if(!document.querySelector('script[data-vensis-catalog-breadcrumbs]')){
+    const breadcrumbs=document.createElement('script');
+    breadcrumbs.src=scriptBase+'js/catalog-breadcrumbs.js?v=20260902-r1';
+    breadcrumbs.dataset.vensisCatalogBreadcrumbs='1';
+    document.head.appendChild(breadcrumbs);
+  }
   const params=()=>new URLSearchParams(location.search);
   const lang=()=>{
     const requested=String(params().get('lang')||'').toLowerCase();
