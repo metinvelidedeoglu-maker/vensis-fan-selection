@@ -16,6 +16,23 @@
     '/catalog-vortice-stable.html','/catalog-vortice.html','/electrical/index.html'
   ];
   const isPublicCatalog=publicCatalogPaths.some(item=>path.endsWith(item));
+  if(isPublicCatalog){
+    const languageParams=new URLSearchParams(location.search);
+    const requestedLanguage=languageParams.get('lang');
+    let savedLanguage='';
+    try{savedLanguage=localStorage.getItem('vensis_language_v1')||''}catch{}
+    const bootLanguage=requestedLanguage==='tr'||requestedLanguage==='en'
+      ?requestedLanguage
+      :(savedLanguage==='tr'||savedLanguage==='en'?savedLanguage:'en');
+    document.documentElement.lang=bootLanguage;
+    try{localStorage.setItem('vensis_language_v1',bootLanguage)}catch{}
+    if(languageParams.get('lang')!==bootLanguage){
+      languageParams.set('lang',bootLanguage);
+      const localized=location.pathname+'?'+languageParams.toString()+(location.hash||'');
+      history.replaceState(history.state,'',localized);
+    }
+    window.VENSIS_CATALOG_BOOT_LANGUAGE=bootLanguage;
+  }
   const desktopEditorPages=['/project.html','/quotation.html'];
   const hasDesktopEditor=desktopEditorPages.some(item=>path.endsWith(item));
   if(hasDesktopEditor&&!document.querySelector('script[data-vensis-desktop-editor-toggle]')){
@@ -28,8 +45,16 @@
   robots.name='robots';
   robots.content=isPublicCatalog?'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1':'noindex,nofollow';
   document.head.appendChild(robots);
+  if(isPublicCatalog&&!document.querySelector('script[data-vensis-seo-language]')){
+    const seoLanguage=document.createElement('script');
+    seoLanguage.async=false;
+    seoLanguage.src=base+'js/seo-bilingual.js?v=20260902-r1';
+    seoLanguage.dataset.vensisSeoLanguage='1';
+    document.head.appendChild(seoLanguage);
+  }
   if(isPublicCatalog&&!document.querySelector('script[data-vensis-seo]')){
     const seo=document.createElement('script');
+    seo.async=false;
     seo.src=base+'js/catalog-seo.js?v=20260901-seo-r1';
     seo.dataset.vensisSeo='1';
     document.head.appendChild(seo);
