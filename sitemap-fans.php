@@ -14,6 +14,10 @@ function add_fan_url(&$urls, $loc, $timestamp) {
     if (!isset($urls[$loc]) || $timestamp > $urls[$loc]) $urls[$loc] = $timestamp;
 }
 
+function fan_lang_url($loc, $lang) {
+    return $loc . (strpos($loc, '?') === false ? '?' : '&') . 'lang=' . rawurlencode($lang);
+}
+
 function fan_route($site, $brand, $series, $model = '') {
     $brandLower = strtolower(trim($brand));
     if ($brandLower === 'vitlo') {
@@ -125,8 +129,15 @@ add_priced_vortice_routes($urls, $site, __DIR__ . '/data/vortice-prices-2026-1.j
 
 ksort($urls);
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
 foreach ($urls as $loc => $timestamp) {
-    echo '  <url><loc>' . xml_escape_fan($loc) . '</loc><lastmod>' . gmdate('Y-m-d', $timestamp) . '</lastmod></url>' . "\n";
+    $en = fan_lang_url($loc, 'en');
+    $tr = fan_lang_url($loc, 'tr');
+    foreach ([$en, $tr] as $localized) {
+        echo '  <url><loc>' . xml_escape_fan($localized) . '</loc><lastmod>' . gmdate('Y-m-d', $timestamp) . '</lastmod>';
+        echo '<xhtml:link rel="alternate" hreflang="en" href="' . xml_escape_fan($en) . '" />';
+        echo '<xhtml:link rel="alternate" hreflang="tr" href="' . xml_escape_fan($tr) . '" />';
+        echo '</url>' . "\n";
+    }
 }
 echo '</urlset>' . "\n";
