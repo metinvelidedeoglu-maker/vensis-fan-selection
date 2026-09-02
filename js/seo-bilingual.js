@@ -9,6 +9,7 @@
   ];
   const path=(location.pathname||'/').replace(/\/+/g,'/');
   const isIndexable=INDEXABLE_PATHS.some(item=>path.toLowerCase().endsWith(item));
+  const isFanDetailPath=path.endsWith('/catalog-brand.html')||path.endsWith('/catalog-vortice.html');
   if(!isIndexable)return;
 
   const text=value=>String(value??'').replace(/\s+/g,' ').trim();
@@ -97,6 +98,16 @@
       if(type&&['CollectionPage','ProductGroup','Product','BreadcrumbList','ItemList','WebPage'].includes(type)){
         value.inLanguage=lang==='tr'?'tr-TR':'en';
       }
+      if(lang==='tr'&&isFanDetailPath&&type==='ProductGroup'){
+        const brand=text(value.brand?.name||'Vensis');
+        const name=text(value.name||'fan serisi');
+        value.description=`${brand} ${name}. Teknik özellikler, performans verileri, model seçenekleri ve ürün bilgileri.`;
+      }
+      if(lang==='tr'&&isFanDetailPath&&type==='Product'){
+        const brand=text(value.brand?.name||'Vensis');
+        const name=text(value.name||value.sku||'fan modeli');
+        value.description=`${brand} ${name}. Teknik özellikler, performans verileri ve ürün bilgileri.`;
+      }
       for(const [key,item] of Object.entries(value)){
         if(typeof item==='string'){
           if(/^https:\/\/select\.vensis\.com\.tr\//i.test(item)){
@@ -122,7 +133,7 @@
     return map[text(value)]||text(value);
   }
   function fanSeriesCopy(lang){
-    if(!(path.endsWith('/catalog-brand.html')||path.endsWith('/catalog-vortice.html')))return null;
+    if(!isFanDetailPath)return null;
     const params=query();
     const seriesId=text(params.get('series'));
     if(!seriesId)return null;
@@ -198,6 +209,10 @@
     setCopy(staticCopy(lang)||fanSeriesCopy(lang));
     patchInternalLinks(lang);
     patchJsonLd(lang);
+    setTimeout(()=>{
+      patchInternalLinks(lang);
+      patchJsonLd(lang);
+    },360);
   }
   function schedule(delay=100){setTimeout(apply,delay)}
 
