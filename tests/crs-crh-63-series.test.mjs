@@ -68,3 +68,14 @@ test('only CRS/ATEX has the supplied exact ATEX marking and 17000 EUR price',()=
   assert.equal(bySeries.get('CRH').atex,false);
   assert.equal(bySeries.get('CRH').price,undefined);
 });
+
+test('Vitlo catalog loader includes the new 63-2T-40 family',()=>{
+  const loader=fs.readFileSync(new URL('../data/series-overrides.js',import.meta.url),'utf8');
+  assert.match(loader,/fans-17\.js\?v=20260902-crs-crh-63-r1/);
+});
+
+test('explicit row price is normalized as EUR for rich product offers',()=>{
+  const registry=fs.readFileSync(new URL('../products/registry.js',import.meta.url),'utf8');
+  assert.match(registry,/hasOwnProperty\.call\(row\|\|\{},'price'\)/);
+  assert.match(registry,/currency:'EUR'/);
+});
