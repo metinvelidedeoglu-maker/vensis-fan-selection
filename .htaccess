@@ -1,5 +1,15 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Locale URL trees share the same physical application files. The browser keeps
+  # /tr/... or /en/... while Apache serves the existing file underneath it.
+  # Query parameters such as brand, series and model are preserved during this
+  # first clean-locale phase so the catalog engine remains a single source.
+  RewriteRule ^(tr|en)/(.*)$ $2 [L,QSA]
+</IfModule>
+
 <IfModule mod_setenvif.c>
-  SetEnvIf Request_URI "^/(index|fan-selection|catalog|projects|project|customers|custom-products|quotation|order|project-print|detail)\.html$" vensis_noindex=1
+  SetEnvIf Request_URI "^/(tr/|en/)?(index|fan-selection|catalog|projects|project|customers|custom-products|quotation|order|project-print|detail)\.html$" vensis_noindex=1
 </IfModule>
 
 <IfModule mod_headers.c>

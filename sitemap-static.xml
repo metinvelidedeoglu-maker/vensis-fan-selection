@@ -1,63 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://select.vensis.com.tr/catalog-hub.html?lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-hub.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-hub.html?lang=tr" />
+    <loc>https://select.vensis.com.tr/en/catalog-hub.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-hub.html" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-hub.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-hub.html" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-hub.html?lang=tr</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-hub.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-hub.html?lang=tr" />
+    <loc>https://select.vensis.com.tr/tr/catalog-hub.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-hub.html" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-hub.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-hub.html" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-ventilation.html?lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-ventilation.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-ventilation.html?lang=tr" />
+    <loc>https://select.vensis.com.tr/en/catalog-ventilation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-ventilation.html" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-ventilation.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-ventilation.html" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-ventilation.html?lang=tr</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-ventilation.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-ventilation.html?lang=tr" />
+    <loc>https://select.vensis.com.tr/tr/catalog-ventilation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-ventilation.html" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-ventilation.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-ventilation.html" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-brand.html?brand=vitlo&amp;lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-brand.html?brand=vitlo&amp;lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-brand.html?brand=vitlo&amp;lang=tr" />
+    <loc>https://select.vensis.com.tr/en/catalog-brand.html?brand=vitlo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-brand.html?brand=vitlo" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-brand.html?brand=vitlo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-brand.html?brand=vitlo" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-brand.html?brand=vitlo&amp;lang=tr</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-brand.html?brand=vitlo&amp;lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-brand.html?brand=vitlo&amp;lang=tr" />
+    <loc>https://select.vensis.com.tr/tr/catalog-brand.html?brand=vitlo</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-brand.html?brand=vitlo" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-brand.html?brand=vitlo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-brand.html?brand=vitlo" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-vortice-stable.html?lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-vortice-stable.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-vortice-stable.html?lang=tr" />
+    <loc>https://select.vensis.com.tr/en/catalog-vortice-stable.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-vortice-stable.html" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-vortice-stable.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-vortice-stable.html" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-vortice-stable.html?lang=tr</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-vortice-stable.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-vortice-stable.html?lang=tr" />
+    <loc>https://select.vensis.com.tr/tr/catalog-vortice-stable.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-vortice-stable.html" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-vortice-stable.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-vortice-stable.html" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-brand.html?brand=sp&amp;lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-brand.html?brand=sp&amp;lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-brand.html?brand=sp&amp;lang=tr" />
+    <loc>https://select.vensis.com.tr/en/catalog-brand.html?brand=sp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-brand.html?brand=sp" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-brand.html?brand=sp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-brand.html?brand=sp" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/catalog-brand.html?brand=sp&amp;lang=tr</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/catalog-brand.html?brand=sp&amp;lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/catalog-brand.html?brand=sp&amp;lang=tr" />
+    <loc>https://select.vensis.com.tr/tr/catalog-brand.html?brand=sp</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/catalog-brand.html?brand=sp" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/catalog-brand.html?brand=sp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/catalog-brand.html?brand=sp" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/electrical/index.html?lang=en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/electrical/index.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/electrical/index.html?lang=tr" />
+    <loc>https://select.vensis.com.tr/en/electrical/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/electrical/index.html" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/electrical/index.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/electrical/index.html" />
   </url>
   <url>
-    <loc>https://select.vensis.com.tr/electrical/index.html?lang=tr</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/electrical/index.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/electrical/index.html?lang=tr" />
+    <loc>https://select.vensis.com.tr/tr/electrical/index.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://select.vensis.com.tr/en/electrical/index.html" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://select.vensis.com.tr/tr/electrical/index.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://select.vensis.com.tr/en/electrical/index.html" />
   </url>
 </urlset>

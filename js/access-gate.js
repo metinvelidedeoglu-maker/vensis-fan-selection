@@ -3,6 +3,8 @@
 
   const KEY='vensis_access_mode_v1';
   const path=(location.pathname||'').toLowerCase();
+  const localeMatch=path.match(/^\/(tr|en)(?:\/|$)/);
+  const pathLanguage=localeMatch?.[1]||'';
   if(path.endsWith('/catalog-vortice.html')){
     const routeParams=new URLSearchParams(location.search);
     if(!routeParams.get('series')){
@@ -21,12 +23,20 @@
     const requestedLanguage=languageParams.get('lang');
     let savedLanguage='';
     try{savedLanguage=localStorage.getItem('vensis_language_v1')||''}catch{}
-    const bootLanguage=requestedLanguage==='tr'||requestedLanguage==='en'
-      ?requestedLanguage
-      :(savedLanguage==='tr'||savedLanguage==='en'?savedLanguage:'en');
+    const bootLanguage=pathLanguage==='tr'||pathLanguage==='en'
+      ?pathLanguage
+      :(requestedLanguage==='tr'||requestedLanguage==='en'
+        ?requestedLanguage
+        :(savedLanguage==='tr'||savedLanguage==='en'?savedLanguage:'en'));
     document.documentElement.lang=bootLanguage;
     try{localStorage.setItem('vensis_language_v1',bootLanguage)}catch{}
-    if(languageParams.get('lang')!==bootLanguage){
+    if(pathLanguage){
+      if(languageParams.has('lang')){
+        languageParams.delete('lang');
+        const cleaned=location.pathname+(languageParams.toString()?'?'+languageParams.toString():'')+(location.hash||'');
+        history.replaceState(history.state,'',cleaned);
+      }
+    }else if(languageParams.get('lang')!==bootLanguage){
       languageParams.set('lang',bootLanguage);
       const localized=location.pathname+'?'+languageParams.toString()+(location.hash||'');
       history.replaceState(history.state,'',localized);
@@ -65,6 +75,13 @@
     seo.src=base+'js/catalog-seo.js?v=20260901-seo-r1';
     seo.dataset.vensisSeo='1';
     document.head.appendChild(seo);
+  }
+  if(isPublicCatalog&&!document.querySelector('script[data-vensis-locale-urls]')){
+    const localeUrls=document.createElement('script');
+    localeUrls.async=false;
+    localeUrls.src=base+'js/seo-locale-paths.js?v=20260902-r1';
+    localeUrls.dataset.vensisLocaleUrls='1';
+    document.head.appendChild(localeUrls);
   }
   const API=`${base}api/edit`;
   const valid=value=>value==='guest'||value==='secure'?value:'';
@@ -134,7 +151,7 @@
     if(state.busy)return;state.busy=true;
     if(!state.checked)await refreshSession();
     try{await request('logout.php',{method:'POST',body:{},csrf:true})}catch{}
-    writeMode('');applyMode('');state.authenticated=false;state.csrf='';state.busy=false;showChoice(false);
+    writeMode('');applyMode('');state.authenticated=false;state.csrf='';state.busy=false;showChoice(false);reveal();
   }
   async function openAccount(){
     if(!state.checked)await refreshSession();

@@ -16,7 +16,9 @@ function xml_escape($value) {
 }
 
 function electrical_lang_url($loc, $lang) {
-    return $loc . (strpos($loc, '?') === false ? '?' : '&') . 'lang=' . rawurlencode($lang);
+    $prefix = 'https://select.vensis.com.tr';
+    if (strpos($loc, $prefix) !== 0) return $loc;
+    return $prefix . '/' . rawurlencode($lang) . substr($loc, strlen($prefix));
 }
 
 $lastmod = is_file($sourcePath) ? gmdate('Y-m-d', filemtime($sourcePath)) : null;
@@ -53,6 +55,7 @@ foreach ($urls as $loc => $modified) {
         if ($modified) echo '<lastmod>' . xml_escape($modified) . '</lastmod>';
         echo '<xhtml:link rel="alternate" hreflang="en" href="' . xml_escape($en) . '" />';
         echo '<xhtml:link rel="alternate" hreflang="tr" href="' . xml_escape($tr) . '" />';
+        echo '<xhtml:link rel="alternate" hreflang="x-default" href="' . xml_escape($en) . '" />';
         echo '</url>' . "\n";
     }
 }
