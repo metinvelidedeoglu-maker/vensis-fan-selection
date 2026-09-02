@@ -16,6 +16,14 @@
     '/catalog-vortice-stable.html','/catalog-vortice.html','/electrical/index.html'
   ];
   const isPublicCatalog=publicCatalogPaths.some(item=>path.endsWith(item));
+  const desktopEditorPages=['/project.html','/quotation.html'];
+  const hasDesktopEditor=desktopEditorPages.some(item=>path.endsWith(item));
+  if(hasDesktopEditor&&!document.querySelector('script[data-vensis-desktop-editor-toggle]')){
+    const editorToggle=document.createElement('script');
+    editorToggle.src=base+'js/desktop-editor-toggle.js?v=20260902-r1';
+    editorToggle.dataset.vensisDesktopEditorToggle='1';
+    document.head.appendChild(editorToggle);
+  }
   const robots=document.createElement('meta');
   robots.name='robots';
   robots.content=isPublicCatalog?'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1':'noindex,nofollow';
