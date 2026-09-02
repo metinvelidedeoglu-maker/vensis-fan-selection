@@ -52,6 +52,13 @@
     seoLanguage.dataset.vensisSeoLanguage='1';
     document.head.appendChild(seoLanguage);
   }
+  if(isPublicCatalog&&!document.querySelector('script[data-vensis-visible-seo]')){
+    const visibleSeo=document.createElement('script');
+    visibleSeo.async=false;
+    visibleSeo.src=base+'js/catalog-visible-seo.js?v=20260902-r1';
+    visibleSeo.dataset.vensisVisibleSeo='1';
+    document.head.appendChild(visibleSeo);
+  }
   if(isPublicCatalog&&!document.querySelector('script[data-vensis-seo]')){
     const seo=document.createElement('script');
     seo.async=false;
