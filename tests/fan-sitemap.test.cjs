@@ -26,8 +26,24 @@ test('fan sitemap deduplicates model URLs and supports object-literal additions'
   const source=read('sitemap-fans.php');
   assert.match(source,/parse_json_push_rows/);
   assert.match(source,/parse_object_literal_rows/);
+  assert.match(source,/const\\s\+base/);
+  assert.match(source,/baseBrand/);
   assert.match(source,/add_fan_url/);
   assert.match(source,/ksort\(\$urls\)/);
+});
+
+test('new CR source files and matrix-only series are discoverable',()=>{
+  const source=read('sitemap-fans.php');
+  assert.match(source,/add_cr_matrix_series_routes/);
+  assert.match(source,/cr-family-matrix\.js/);
+  for(const series of ['CRS','CRS/ATEX','CRK','CRK/ATEX','CRD','CRD/ATEX','CRH','CRH/ATEX']){
+    assert.match(source,new RegExp(series.replace('/','\\/')));
+  }
+  const fans16=read('data/fans-16.js');
+  const fans17=read('data/fans-17.js');
+  assert.match(fans16,/const base=/);
+  assert.match(fans17,/const base=/);
+  assert.match(fans17,/CRS\/ATEX 63-2T-40/);
 });
 
 test('Vortice sitemap routes come only from priced products',()=>{
