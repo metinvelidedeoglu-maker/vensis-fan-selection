@@ -10,3 +10,4 @@ Disallow: /quotations.html
 Disallow: /orders.html
 
 Sitemap: https://select.vensis.com.tr/sitemap.xml
+Sitemap: https://select.vensis.com.tr/sitemap-electrical.php
