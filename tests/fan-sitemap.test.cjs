@@ -30,6 +30,23 @@ test('fan sitemap deduplicates model URLs and supports object-literal additions'
   assert.match(source,/ksort\(\$urls\)/);
 });
 
+test('Vortice sitemap routes come only from priced products',()=>{
+  const source=read('sitemap-fans.php');
+  assert.match(source,/vortice-prices-2026-1\.js/);
+  assert.match(source,/VensisVorticePriceList2026_1/);
+  assert.match(source,/strtolower\(\$brand\) === 'vortice'/);
+  assert.match(source,/\['listPrice'\].*<= 0|\['listPrice'\].*> 0/s);
+  assert.match(source,/productCode/);
+  assert.match(source,/add_priced_vortice_routes/);
+});
+
+test('Vortice price list contains the expected active priced subset',()=>{
+  const source=read('data/vortice-prices-2026-1.js');
+  assert.match(source,/"totalVorticeProducts": 310/);
+  assert.match(source,/"matchedProducts": 153/);
+  assert.match(source,/"unpricedProducts": 157/);
+});
+
 test('robots advertises fan and electrical product sitemaps',()=>{
   const robots=read('robots.txt');
   assert.match(robots,/sitemap-fans\.php/);
