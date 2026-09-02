@@ -44,6 +44,8 @@ if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='sp'){
   );
 }
 
+document.write('<script src="js/catalog-model-seo-links.js?v=20260902-r1"><\/script>');
+
 (function removeCatalogImageErrorHandlers(){
   const clean=()=>document.querySelectorAll('.series-card-image img[onerror], .model-card-head img[onerror]').forEach(img=>img.removeAttribute('onerror'));
   const start=()=>{
