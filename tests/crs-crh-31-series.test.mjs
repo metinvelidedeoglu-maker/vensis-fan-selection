@@ -14,8 +14,8 @@ function loadRows(){
 test('CRS/CRH 31-2T-2 family exposes four requested variants',()=>{
   const rows=loadRows();
   assert.equal(rows.length,4);
-  assert.deepEqual(rows.map(row=>row.series),['CRS/ATEX','CRS','CRH','CRH/ATEX']);
-  assert.deepEqual(rows.map(row=>row.model),[
+  assert.deepEqual(Array.from(rows,row=>row.series),['CRS/ATEX','CRS','CRH','CRH/ATEX']);
+  assert.deepEqual(Array.from(rows,row=>row.model),[
     'CRS/ATEX 31-2T-2',
     'CRS 31-2T-2',
     'CRH 31-2T-2',
@@ -44,7 +44,7 @@ test('derived variants keep the supplied model performance and dimensions',()=>{
 });
 
 test('each variant uses its requested series artwork',()=>{
-  const bySeries=new Map(loadRows().map(row=>[row.series,row]));
+  const bySeries=new Map(Array.from(loadRows(),row=>[row.series,row]));
   assert.equal(bySeries.get('CRS').image,'assets/products/CRS.webp');
   assert.equal(bySeries.get('CRS/ATEX').image,'assets/products/CRS-ATEX.webp');
   assert.equal(bySeries.get('CRH').image,'assets/products/CRH.webp');
@@ -52,7 +52,7 @@ test('each variant uses its requested series artwork',()=>{
 });
 
 test('exact ATEX marking is asserted only for the supplied CRS/ATEX datasheet',()=>{
-  const bySeries=new Map(loadRows().map(row=>[row.series,row]));
+  const bySeries=new Map(Array.from(loadRows(),row=>[row.series,row]));
   assert.equal(bySeries.get('CRS/ATEX').atexProtection,'EXII2G EEX-D IIC T4');
   assert.equal(bySeries.get('CRS/ATEX').atex,true);
   assert.equal(bySeries.get('CRH/ATEX').atex,true);
