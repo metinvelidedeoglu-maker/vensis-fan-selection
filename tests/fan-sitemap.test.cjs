@@ -47,8 +47,8 @@ test('Vortice price list contains the expected active priced subset',()=>{
   assert.match(source,/"unpricedProducts": 157/);
 });
 
-test('robots advertises fan and electrical product sitemaps',()=>{
-  const robots=read('robots.txt');
-  assert.match(robots,/sitemap-fans\.php/);
-  assert.match(robots,/sitemap-electrical\.php/);
+test('main sitemap index includes the fan product sitemap',()=>{
+  const sitemap=read('sitemap.xml');
+  assert.match(sitemap,/<sitemapindex/);
+  assert.match(sitemap,/sitemap-fans\.php/);
 });
