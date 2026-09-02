@@ -15,7 +15,9 @@ function add_fan_url(&$urls, $loc, $timestamp) {
 }
 
 function fan_lang_url($loc, $lang) {
-    return $loc . (strpos($loc, '?') === false ? '?' : '&') . 'lang=' . rawurlencode($lang);
+    $prefix = 'https://select.vensis.com.tr';
+    if (strpos($loc, $prefix) !== 0) return $loc;
+    return $prefix . '/' . rawurlencode($lang) . substr($loc, strlen($prefix));
 }
 
 function fan_route($site, $brand, $series, $model = '') {
