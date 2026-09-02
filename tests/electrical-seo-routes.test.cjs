@@ -34,8 +34,11 @@ test('electrical sitemap derives routes from the product data source',()=>{
   assert.match(source,/ENT_XML1/);
 });
 
-test('robots advertises both catalog sitemaps',()=>{
+test('robots advertises one sitemap index and the index includes electrical products',()=>{
   const robots=read('robots.txt');
+  const sitemap=read('sitemap.xml');
   assert.match(robots,/Sitemap: https:\/\/select\.vensis\.com\.tr\/sitemap\.xml/);
-  assert.match(robots,/Sitemap: https:\/\/select\.vensis\.com\.tr\/sitemap-electrical\.php/);
+  assert.doesNotMatch(robots,/sitemap-electrical\.php/);
+  assert.match(sitemap,/<sitemapindex/);
+  assert.match(sitemap,/sitemap-electrical\.php/);
 });
