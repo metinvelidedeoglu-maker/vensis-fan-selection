@@ -22,6 +22,10 @@ window.VensisSeriesOverrides={
     }
 };
 
+if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='vitlo'){
+  document.write('<script src="data/fans-16.js?v=20260902-crs-crh-31-r1"><\/script>');
+}
+
 document.write(
   '<script src="data/sp-roof-01.js?v=20260826-roof-curves-r1"><\/script>',
   '<script src="data/sp-roof-b02.js?v=20260826-roof-curves-r1"><\/script>',
