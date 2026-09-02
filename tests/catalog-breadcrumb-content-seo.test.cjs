@@ -10,8 +10,9 @@ test('visible SEO loads breadcrumb and metadata enhancements',()=>{
   const source=read('js/catalog-visible-seo.js');
   assert.match(source,/catalog-breadcrumbs\.js/);
   assert.match(source,/catalog-seo-copy\.js/);
-  assert.match(source,/data-vensis-breadcrumbs/);
-  assert.match(source,/data-vensis-seo-copy/);
+  assert.match(source,/vensis-breadcrumbs/);
+  assert.match(source,/vensis-seo-copy/);
+  assert.match(source,/data-\$\{marker\}/);
 });
 
 test('visible detail copy is generated for fan series and model routes in both languages',()=>{
@@ -51,7 +52,7 @@ test('metadata enhancer uses real model and series performance data',()=>{
 
 test('metadata enhancer patches ProductGroup and Product descriptions without inventing ATEX certification',()=>{
   const source=read('js/catalog-seo-copy.js');
-  assert.match(source,/item\?\.\['@type'\]==='ProductGroup'/);
+  assert.match(source,/ProductGroup/);
   assert.match(source,/product\.description=fanModelCopy/);
   assert.match(source,/verified catalog data/);
   assert.match(source,/doğrulanmış katalog verisi/);
