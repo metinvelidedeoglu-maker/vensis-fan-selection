@@ -20,7 +20,6 @@ function electrical_lang_url($loc, $lang) {
 }
 
 $lastmod = is_file($sourcePath) ? gmdate('Y-m-d', filemtime($sourcePath)) : null;
-add_url($urls, $site . '/electrical/index.html', $lastmod);
 
 if (is_file($sourcePath)) {
     $source = file_get_contents($sourcePath);
