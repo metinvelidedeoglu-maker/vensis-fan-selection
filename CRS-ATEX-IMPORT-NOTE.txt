@@ -12,3 +12,13 @@ CRS/ATEX 80-4T-25 price: 10700 EUR.
 - Variant-specific construction, temperature limits and exact ATEX marking are not inferred for the derived products. The exact EXII2G EEX-D IIC T4 marking is asserted only for the supplied CRS/ATEX model.
 - Images: CRS.webp, CRS-ATEX.webp, CRH.webp and CRH-ATEX.webp.
 - No price was supplied for these four new models, so no price is assigned.
+
+2026-09-02 — CRS/ATEX 63-2T-40 family
+- CRS/ATEX 63-2T-40 is based on the supplied CRS ATEX 63-2T-40 II 2G EEX-D IIC T4.pdf.
+- Model-specific values used: 19,430 m³/h working airflow, 3,000 Pa static pressure, 72% efficiency, 27.30 kW mechanical power at the working point, 30.00 kW rated motor power, 2960 rpm, 52.20 A at 400 V, 2 poles, IP65, frame 180, dimensions A/B/C/H = 1100/1200/950/750 mm.
+- All-bands acoustics is 86 dB(A) at 1 m, one reflecting plane.
+- The performance curve was digitized approximately from the supplied PDF chart at 1.2 kg/m³ air density.
+- CRS 63-2T-40, CRH 63-2T-40 and CRH/ATEX 63-2T-40 intentionally reuse the same performance, motor and dimension values at the user's request because separate technical datasheets are unavailable.
+- Variant-specific construction, temperature limits and exact ATEX marking are not inferred for the derived products. The exact EXII2G EEX-D IIC T4 marking is asserted only for the supplied CRS/ATEX model.
+- Images: CRS.webp, CRS-ATEX.webp, CRH.webp and CRH-ATEX.webp.
+- CRS/ATEX 63-2T-40 price: 17000 EUR. No price was supplied for CRS 63-2T-40, CRH 63-2T-40 or CRH/ATEX 63-2T-40.
