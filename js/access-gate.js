@@ -76,7 +76,7 @@
 
   window.VENSIS_ACCESS_BOOT_MODE=initialMode||'guest';
 
-  function esc(value){return String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[char]))}
+  function esc(value){return String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
   function applyMode(mode){
     state.mode=valid(mode);
     if(document.body){document.body.classList.toggle('guest-user',state.mode==='guest');document.body.classList.toggle('secure-user',state.mode==='secure')}
