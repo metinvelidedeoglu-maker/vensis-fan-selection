@@ -48,7 +48,12 @@
     setName('twitter:description',description);
     if(image)setName('twitter:image',image);
   }
-  function organization(){return {'@type':'Organization','@id':SITE+'/#organization',name:'Vensis',url:SITE+'/',logo:abs('/assets/vensis-logo.png')};}
+  function organization(){
+    return {'@type':'Organization','@id':SITE+'/#organization',name:'Vensis',url:SITE+'/',logo:abs('/assets/vensis-logo.png')};
+  }
+  function breadcrumb(items){
+    return {'@type':'BreadcrumbList',itemListElement:items.map((item,index)=>({'@type':'ListItem',position:index+1,name:item.name,item:item.url}))};
+  }
   function collectionSchema(name,description,url,items=[]){
     const data={
       '@context':'https://schema.org',
@@ -79,6 +84,18 @@
     }
     return [...unique.values()];
   }
+  function modelIdentity(model){
+    return text(model?.technical?.productCode||model?.model||model?.id||'');
+  }
+  function requestedModel(models){
+    const requested=text(params.get('model'));
+    if(!requested)return null;
+    return models.find(model=>
+      String(model.id)===requested||
+      text(model.technical?.productCode)===requested||
+      text(model.model)===requested
+    )||null;
+  }
   function property(name,value,unitText){
     if(value===undefined||value===null||value===''||Number.isNaN(value))return null;
     const out={'@type':'PropertyValue',name,value:String(value)};
@@ -87,10 +104,11 @@
   }
   function variantUrl(groupUrl,model){
     const url=new URL(groupUrl);
-    url.searchParams.set('model',String(model.id||model.technical?.productCode||model.model||''));
+    const identity=modelIdentity(model);
+    if(identity)url.searchParams.set('model',identity);
     return url.href;
   }
-  function productVariant(model,series,groupUrl,index){
+  function productVariant(model,series,groupUrl){
     const price=Number(model.pricing?.listPrice);
     const currency=text(model.pricing?.currency||'EUR');
     const productCode=text(model.technical?.productCode||model.model||model.id);
@@ -111,7 +129,7 @@
     const item={
       '@type':'Product',
       '@id':`${url}#product`,
-      name:text(`${series.code||series.id||''} ${model.model||productCode}`),
+      name:text(model.model||`${series.code||series.id||''} ${productCode}`),
       sku:productCode,
       brand:{'@type':'Brand',name:text(series.manufacturer||model.manufacturer||'Vensis')},
       category:text(model.technical?.productGroup||(series.categories||[]).join(' / ')),
@@ -122,20 +140,24 @@
     if(props.length)item.additionalProperty=props;
     if(Number.isFinite(price)&&price>0){
       item.offers={
-        '@type':'Offer',
-        url,
-        priceCurrency:currency||'EUR',
-        price:price.toFixed(2),
+        '@type':'Offer',url,priceCurrency:currency||'EUR',price:price.toFixed(2),
         seller:{'@id':SITE+'/#organization'}
       };
     }
     return item;
   }
-  function preselectModel(catalog){
-    const requested=params.get('model');
-    if(!requested)return;
-    const models=Array.isArray(catalog.models)?catalog.models:[];
-    const target=(catalog.getModel?catalog.getModel(requested):null)||models.find(model=>String(model.id)===requested||String(model.technical?.productCode||'')===requested||String(model.model||'')===requested);
+  function modelDescription(model,series,manufacturer){
+    const parts=[
+      `${manufacturer} ${text(model.model||modelIdentity(model))}`,
+      Number(model.performance?.nominalAirflow)>0?`${Number(model.performance.nominalAirflow)} m³/h airflow`:'',
+      Number(model.motor?.power)>0?`${Number(model.motor.power)} kW`:'',
+      text(model.technical?.productGroup||''),
+      text(model.technical?.fireRating||''),
+      text(model.technical?.ipClass||'')
+    ].filter(Boolean);
+    return parts.join(', ')+'. Technical specifications and product data in the Vensis catalog.';
+  }
+  function preselectModel(target){
     if(!target)return;
     const buttons=[...document.querySelectorAll('[data-model-datasheet]')];
     const button=buttons.find(node=>node.getAttribute('data-model-datasheet')===String(target.id));
@@ -145,33 +167,47 @@
     card.dataset.seoSelected='true';
     const count=document.querySelector('.models-section .catalog-count');
     if(count)count.textContent='1 Model';
-    const heading=card.querySelector('h3');
-    if(heading)document.title=`${text(heading.textContent)} | Vensis Product Catalog`;
     setTimeout(()=>card.scrollIntoView({block:'start'}),0);
   }
-  function seriesSeo(series,catalog,url){
+  function seriesSeo(series,catalog,groupUrl){
     const manufacturer=text(series.manufacturer||'Vensis');
     const code=text(series.code||series.id||'');
     const titleText=text(series.title||code);
-    const description=first(series.description?.general)||`${manufacturer} ${code} fan series, technical specifications, model options and product data.`;
-    const pageTitle=`${code} ${titleText&&titleText!==code?'| '+titleText+' ':''}| Vensis Product Catalog`.replace(/\s+\|/g,' |').trim();
+    const seriesDescription=first(series.description?.general)||`${manufacturer} ${code} fan series, technical specifications, model options and product data.`;
     const image=abs(series.media?.image||'');
-    setPage({title:pageTitle,description,url,image,type:'product'});
     const variants=physicalModels(series,catalog);
+    const selected=requestedModel(variants);
+    const pageUrl=selected?variantUrl(groupUrl,selected):groupUrl;
+    const pageTitle=selected
+      ?`${text(selected.model||modelIdentity(selected))} | ${manufacturer} ${code} | Vensis Product Catalog`
+      :`${code} ${titleText&&titleText!==code?'| '+titleText+' ':''}| Vensis Product Catalog`.replace(/\s+\|/g,' |').trim();
+    const description=selected?modelDescription(selected,series,manufacturer):seriesDescription;
+    setPage({title:pageTitle,description,url:pageUrl,image:abs(selected?.media?.image||image),type:'product'});
+
     const group={
       '@type':'ProductGroup',
-      '@id':url+'#product-group',
+      '@id':groupUrl+'#product-group',
       name:text(`${manufacturer} ${code} ${titleText}`),
       productGroupID:code||text(series.id),
       brand:{'@type':'Brand',name:manufacturer},
       category:text((series.categories||[]).join(' / ')),
-      description,
-      url
+      description:seriesDescription,
+      url:groupUrl
     };
     if(image)group.image=image;
-    if(variants.length)group.hasVariant=variants.map((model,index)=>productVariant(model,series,url,index));
-    jsonLd({'@context':'https://schema.org','@graph':[organization(),group]});
-    preselectModel(catalog);
+    if(variants.length)group.hasVariant=variants.map(model=>productVariant(model,series,groupUrl));
+
+    const brand=path.endsWith('/catalog-brand.html')?(window.VensisCatalogBrand||params.get('brand')||'vitlo'):'vortice';
+    const catalogUrl=brand==='vortice'?SITE+'/catalog-vortice-stable.html':SITE+`/catalog-brand.html?brand=${encodeURIComponent(brand)}`;
+    const crumbs=[
+      {name:'Product Catalog',url:SITE+'/catalog-hub.html'},
+      {name:'Ventilation',url:SITE+'/catalog-ventilation.html'},
+      {name:manufacturer,url:catalogUrl},
+      {name:code,url:groupUrl}
+    ];
+    if(selected)crumbs.push({name:text(selected.model||modelIdentity(selected)),url:pageUrl});
+    jsonLd({'@context':'https://schema.org','@graph':[organization(),group,breadcrumb(crumbs)]});
+    preselectModel(selected);
   }
   function catalogSeriesLinks(catalog,baseUrl){
     return (catalog.series||[]).slice(0,120).map(series=>{
@@ -193,7 +229,9 @@
         url.searchParams.set('series',id);
         href=url.href;
       }else if(path.endsWith('/catalog-vortice-stable.html')){
-        const url=new URL(SITE+'/catalog-vortice.html');url.searchParams.set('series',id);href=url.href;
+        const url=new URL(SITE+'/catalog-vortice.html');
+        url.searchParams.set('series',id);
+        href=url.href;
       }
       if(!href)return;
       card.style.position=card.style.position||'relative';
@@ -213,8 +251,8 @@
       const series=catalog.getSeries?catalog.getSeries(seriesId):catalog.series.find(row=>String(row.id)===String(seriesId));
       if(!series)return false;
       const brand=path.endsWith('/catalog-brand.html')?(window.VensisCatalogBrand||params.get('brand')||'vitlo'):'';
-      const url=path.endsWith('/catalog-brand.html')?cleanCanonical({brand,series:seriesId}):cleanCanonical({series:seriesId});
-      seriesSeo(series,catalog,url);
+      const groupUrl=path.endsWith('/catalog-brand.html')?cleanCanonical({brand,series:seriesId}):cleanCanonical({series:seriesId});
+      seriesSeo(series,catalog,groupUrl);
       return true;
     }
     const brand=window.VensisCatalogBrand||params.get('brand')||'vitlo';
@@ -232,9 +270,14 @@
     const url=cleanCanonical();
     const description='Browse Vortice ventilation fan series, residential extract fans, mixed-flow fans, roof fans and ATEX products with technical catalog data.';
     setPage({title:'Vortice Fan Catalog | Vensis',description,url,image:abs(manifest[0]?.media?.image||'/assets/vensis-logo.png')});
-    const items=manifest.map(item=>{const target=new URL(SITE+'/catalog-vortice.html');target.searchParams.set('series',item.id);return {name:text(item.title||item.id),url:target.href};});
+    const items=manifest.map(item=>{
+      const target=new URL(SITE+'/catalog-vortice.html');
+      target.searchParams.set('series',item.id);
+      return {name:text(item.title||item.id),url:target.href};
+    });
     jsonLd(collectionSchema('Vortice Fan Catalog',description,url,items));
-    installCrawlableFanLinks();setTimeout(installCrawlableFanLinks,250);
+    installCrawlableFanLinks();
+    setTimeout(installCrawlableFanLinks,250);
     return true;
   }
   function runElectrical(){
@@ -249,7 +292,10 @@
       const url=cleanCanonical();
       const description='Explore Vensis industrial ventilation and electrical product catalogs with technical data, model options and engineering-focused product information.';
       setPage({title:'Industrial Product Catalog | Vensis',description,url,image:abs('/assets/vensis-logo.png')});
-      jsonLd(collectionSchema('Vensis Industrial Product Catalog',description,url,[{name:'Ventilation Catalog',url:SITE+'/catalog-ventilation.html'},{name:'Electrical Catalog',url:SITE+'/electrical/index.html'}]));
+      jsonLd(collectionSchema('Vensis Industrial Product Catalog',description,url,[
+        {name:'Ventilation Catalog',url:SITE+'/catalog-ventilation.html'},
+        {name:'Electrical Catalog',url:SITE+'/electrical/index.html'}
+      ]));
       return true;
     }
     if(path.endsWith('/catalog-ventilation.html')){

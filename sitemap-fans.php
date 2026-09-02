@@ -38,7 +38,9 @@ function add_row_routes(&$urls, $site, $row, $timestamp) {
     if (!is_array($row)) return;
     $brand = trim((string)($row['brand'] ?? $row['manufacturer'] ?? ''));
     $series = trim((string)($row['series'] ?? $row['family'] ?? ''));
-    $model = trim((string)($row['model'] ?? $row['productCode'] ?? ''));
+    $productCode = trim((string)($row['productCode'] ?? ''));
+    $modelName = trim((string)($row['model'] ?? ''));
+    $model = $productCode !== '' ? $productCode : $modelName;
     if ($brand === '' || $series === '') return;
 
     // Vortice public catalog is filtered by the 2026 price-list policy.
@@ -58,12 +60,13 @@ function parse_json_push_rows($source) {
 
 function parse_object_literal_rows($source) {
     $rows = [];
-    preg_match_all("/key:'[^']+'[\\s\\S]*?model:'([^']+)'[\\s\\S]*?brand:'([^']+)'[\\s\\S]*?series:'([^']+)'/", $source, $matches, PREG_SET_ORDER);
+    preg_match_all("/key:'[^']+'[\\s\\S]*?model:'([^']+)'[\\s\\S]*?brand:'([^']+)'[\\s\\S]*?series:'([^']+)'[\\s\\S]*?productCode:'([^']+)'/", $source, $matches, PREG_SET_ORDER);
     foreach ($matches as $match) {
         $rows[] = [
             'model' => stripcslashes($match[1]),
             'brand' => stripcslashes($match[2]),
-            'series' => stripcslashes($match[3])
+            'series' => stripcslashes($match[3]),
+            'productCode' => stripcslashes($match[4])
         ];
     }
     return $rows;
