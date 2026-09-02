@@ -15,6 +15,10 @@ function xml_escape($value) {
     return htmlspecialchars($value, ENT_XML1 | ENT_QUOTES, 'UTF-8');
 }
 
+function electrical_lang_url($loc, $lang) {
+    return $loc . (strpos($loc, '?') === false ? '?' : '&') . 'lang=' . rawurlencode($lang);
+}
+
 $lastmod = is_file($sourcePath) ? gmdate('Y-m-d', filemtime($sourcePath)) : null;
 add_url($urls, $site . '/electrical/index.html', $lastmod);
 
@@ -41,10 +45,16 @@ if (is_file($sourcePath)) {
 }
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
 foreach ($urls as $loc => $modified) {
-    echo '  <url><loc>' . xml_escape($loc) . '</loc>';
-    if ($modified) echo '<lastmod>' . xml_escape($modified) . '</lastmod>';
-    echo '</url>' . "\n";
+    $en = electrical_lang_url($loc, 'en');
+    $tr = electrical_lang_url($loc, 'tr');
+    foreach ([$en, $tr] as $localized) {
+        echo '  <url><loc>' . xml_escape($localized) . '</loc>';
+        if ($modified) echo '<lastmod>' . xml_escape($modified) . '</lastmod>';
+        echo '<xhtml:link rel="alternate" hreflang="en" href="' . xml_escape($en) . '" />';
+        echo '<xhtml:link rel="alternate" hreflang="tr" href="' . xml_escape($tr) . '" />';
+        echo '</url>' . "\n";
+    }
 }
 echo '</urlset>' . "\n";
