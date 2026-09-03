@@ -6,24 +6,24 @@ const path=require('node:path');
 const source=fs.readFileSync(path.resolve(__dirname,'../js/desktop-editor-toggle.js'),'utf8');
 
 test('quotation marking includes the agreed Zone 1 gas and Zone 21 dust ATEX text',()=>{
-  assert.match(source,/ATEX: Zone 1 Gas \/ Zone 21 Dust/);
-  assert.match(source,/II 2G Ex db IIC T4 Gb/);
-  assert.match(source,/II 2D Ex tb IIIC T125°C Db/);
+  assert.ok(source.includes('ATEX: Zone 1 Gas / Zone 21 Dust'));
+  assert.ok(source.includes('II 2G Ex db IIC T4 Gb'));
+  assert.ok(source.includes('II 2D Ex tb IIIC T125°C Db'));
 });
 
 test('automatic ATEX quotation marking is scoped to Vitlo Ex-Proof identities',()=>{
-  assert.match(source,/manufacturer!==['"]VITLO['"]/);
-  assert.match(source,/\\\/ATEX/);
-  assert.match(source,/EX\[\\s-\]\?PROOF/);
+  assert.ok(source.includes("manufacturer!=='VITLO'"));
+  assert.ok(source.includes('/\\/ATEX\\b/i'));
+  assert.ok(source.includes('/\\bEX[\\s-]?PROOF\\b/i'));
 });
 
 test('automatic ATEX marking is limited to quotation fan tables',()=>{
-  assert.match(source,/config\.kind!==['"]quotation['"]/);
-  assert.match(source,/SELECTED \/ NOMINAL/);
-  assert.match(source,/vitlo-atex-quotation-marking/);
+  assert.ok(source.includes("config.kind!=='quotation'"));
+  assert.ok(source.includes('SELECTED / NOMINAL'));
+  assert.ok(source.includes('vitlo-atex-quotation-marking'));
 });
 
 test('quotation marking is appended as a separate product-description block',()=>{
-  assert.match(source,/product-description vitlo-atex-quotation-marking/);
-  assert.match(source,/detail\.appendChild\(marking\)/);
+  assert.ok(source.includes("marking.className='product-description vitlo-atex-quotation-marking'"));
+  assert.ok(source.includes('detail.appendChild(marking)'));
 });
