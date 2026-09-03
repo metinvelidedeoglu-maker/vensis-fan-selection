@@ -17,6 +17,12 @@
       :null;
   if(!config)return;
 
+  const VITLO_ATEX_QUOTATION_LINES=[
+    'ATEX: Zone 1 Gas / Zone 21 Dust',
+    'II 2G Ex db IIC T4 Gb',
+    'II 2D Ex tb IIIC T125°C Db'
+  ];
+
   function readState(){
     try{return localStorage.getItem(config.key)==='1'}catch{return false}
   }
@@ -57,6 +63,47 @@
     document.head.appendChild(style);
   }
 
+  function isFanQuotationTable(table){
+    return [...table.querySelectorAll('thead th')]
+      .some(node=>String(node.textContent||'').trim().toUpperCase().includes('SELECTED / NOMINAL'));
+  }
+  function isVitloExProofProduct(product){
+    const manufacturer=String(product.querySelector('small')?.textContent||'').trim().toUpperCase();
+    if(manufacturer!=='VITLO')return false;
+    const model=String(product.querySelector('strong')?.textContent||'').trim();
+    const series=String(product.querySelector('span')?.textContent||'').trim();
+    const identity=`${series} ${model}`;
+    return /\/ATEX\b/i.test(identity)||/\bEX[\s-]?PROOF\b/i.test(identity);
+  }
+  function applyVitloAtexQuotationMarking(){
+    if(config.kind!=='quotation')return;
+    document.querySelectorAll('#quotationProductTables .quote-table').forEach(table=>{
+      if(!isFanQuotationTable(table))return;
+      table.querySelectorAll('.product').forEach(product=>{
+        if(!isVitloExProofProduct(product))return;
+        const detail=product.querySelector(':scope > div');
+        if(!detail||detail.querySelector('.vitlo-atex-quotation-marking'))return;
+        const marking=document.createElement('em');
+        marking.className='product-description vitlo-atex-quotation-marking';
+        marking.textContent=VITLO_ATEX_QUOTATION_LINES.join('\n');
+        detail.appendChild(marking);
+      });
+    });
+  }
+  function installVitloAtexQuotationMarking(){
+    if(config.kind!=='quotation')return;
+    const root=document.getElementById('quotationProductTables');
+    if(!root)return;
+    let queued=false;
+    const schedule=()=>{
+      if(queued)return;
+      queued=true;
+      requestAnimationFrame(()=>{queued=false;applyVitloAtexQuotationMarking()});
+    };
+    new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
+    schedule();
+  }
+
   function start(){
     const workspace=document.querySelector(config.workspace);
     const panel=document.querySelector(config.panel);
@@ -93,6 +140,7 @@
     else if(typeof media.addListener==='function')media.addListener(onMediaChange);
     window.addEventListener('vensis-language-changed',apply);
     apply();
+    installVitloAtexQuotationMarking();
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
