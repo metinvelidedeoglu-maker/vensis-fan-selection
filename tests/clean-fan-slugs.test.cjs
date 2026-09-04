@@ -47,11 +47,27 @@ test('clean fan runtime builds series and model links without routing query para
   assert.match(routes,/setAlternate\('x-default',en\)/);
 });
 
+test('clean fan runtime follows the live language after TR and EN switching',()=>{
+  const routes=read('js/catalog-clean-routes.js');
+  assert.match(routes,/function currentLanguage\(\)/);
+  assert.match(routes,/function cleanUrl\(series=null,model=null,language=currentLanguage\(\)\)/);
+  assert.match(routes,/const language=currentLanguage\(\)/);
+  assert.match(routes,/VensisCatalogRoutes=\{slugify,cleanUrl,currentLanguage,route\}/);
+});
+
 test('clean fan runtime localizes Turkish SEO copy and schema language',()=>{
   const routes=read('js/catalog-clean-routes.js');
   assert.match(routes,/Fan Serisi \| Vensis/);
   assert.match(routes,/Teknik özellikleri ve ürün verilerini inceleyin/);
-  assert.match(routes,/inLanguage:route\.language==='tr'\?'tr-TR':'en'/);
+  assert.match(routes,/inLanguage:language==='tr'\?'tr-TR':'en'/);
+});
+
+test('unknown clean series and model slugs are noindex',()=>{
+  const routes=read('js/catalog-clean-routes.js');
+  assert.match(routes,/function markUnresolved/);
+  assert.match(routes,/content:'noindex,follow'/);
+  assert.match(routes,/if\(!series\)\{installLinks\(null\);markUnresolved\(null\);return\}/);
+  assert.match(routes,/if\(route\.modelSlug&&!model\)\{markUnresolved\(series\);return\}/);
 });
 
 test('fan sitemap emits clean brand series and model paths',()=>{
