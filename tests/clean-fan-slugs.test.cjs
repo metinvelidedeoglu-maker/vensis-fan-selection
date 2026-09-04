@@ -16,6 +16,14 @@ test('Apache serves clean localized fan paths through the existing catalog engin
   assert.match(source,/catalog-brand\.html/);
 });
 
+test('deep clean fan routes preserve relative assets and locale-root html navigation',()=>{
+  const source=read('.htaccess');
+  assert.match(source,/\(assets\|css\|js\|data\|products\|api\)/);
+  assert.match(source,/\$2\/\$3 \[L,QSA\]/);
+  assert.match(source,/\(\[\^\/\]\+\\\.html\)/);
+  assert.match(source,/\$1\/\$2 \[R=301,L,NE\]/);
+});
+
 test('catalog boot recognizes clean fan routes before brand and series data load',()=>{
   const gate=read('js/access-gate.js');
   assert.match(gate,/cleanFanMatch/);
@@ -37,6 +45,13 @@ test('clean fan runtime builds series and model links without routing query para
   assert.match(routes,/setAlternate\('en',en\)/);
   assert.match(routes,/setAlternate\('tr',tr\)/);
   assert.match(routes,/setAlternate\('x-default',en\)/);
+});
+
+test('clean fan runtime localizes Turkish SEO copy and schema language',()=>{
+  const routes=read('js/catalog-clean-routes.js');
+  assert.match(routes,/Fan Serisi \| Vensis/);
+  assert.match(routes,/Teknik özellikleri ve ürün verilerini inceleyin/);
+  assert.match(routes,/inLanguage:route\.language==='tr'\?'tr-TR':'en'/);
 });
 
 test('fan sitemap emits clean brand series and model paths',()=>{
