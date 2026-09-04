@@ -1,6 +1,14 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Relative resources requested from a deep clean URL must still resolve from
+  # the application root. Handle these before the page-route rules below.
+  RewriteRule ^(tr|en)/fan/(?:vitlo|soler-palau|vortice)(?:/[^/]+){0,2}/(assets|css|js|data|products|api)/(.*)$ $2/$3 [L,QSA]
+
+  # Relative HTML navigation from a clean fan page belongs to the locale root,
+  # not below /fan/{brand}/{series}/{model}/.
+  RewriteRule ^(tr|en)/fan/(?:vitlo|soler-palau|vortice)(?:/[^/]+){0,2}/([^/]+\.html)$ $1/$2 [R=301,L,NE]
+
   # Clean public fan routes. The browser keeps the SEO path while Apache serves
   # the existing catalog application underneath it.
   #   /tr/fan/vitlo/crs/
