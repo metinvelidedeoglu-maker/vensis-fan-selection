@@ -17,9 +17,10 @@
     const match=String(pathname||'').match(/^\/(tr|en)(?:\/|$)/i);
     return match?match[1].toLowerCase():'';
   };
+  const isCleanFanPath=pathname=>/^\/fan\/(?:vitlo|soler-palau|vortice)(?:\/|$)/i.test(stripLocale(pathname));
   const isPublicPath=pathname=>{
     const clean=stripLocale(pathname).toLowerCase();
-    return PUBLIC_PATHS.some(item=>clean.endsWith(item));
+    return isCleanFanPath(clean)||PUBLIC_PATHS.some(item=>clean.endsWith(item));
   };
   const currentLanguage=()=>{
     const query=new URLSearchParams(location.search);
@@ -35,6 +36,11 @@
     const lang=valid(language)||'en';
     if(url.origin!==SITE||!isPublicPath(url.pathname))return url.href;
     url.searchParams.delete('lang');
+    if(isCleanFanPath(url.pathname)){
+      url.searchParams.delete('brand');
+      url.searchParams.delete('series');
+      url.searchParams.delete('model');
+    }
     url.pathname=`/${lang}${stripLocale(url.pathname)}`.replace(/\/+/g,'/');
     return url.href;
   }
@@ -114,7 +120,7 @@
   function exposeApi(){
     const old=window.VensisSeoLanguage||{};
     window.VensisSeoLanguage={...old,currentLanguage,withLanguage:localeUrl};
-    window.VensisLocaleUrls={currentLanguage,localeUrl,stripLocale,isPublicPath,apply};
+    window.VensisLocaleUrls={currentLanguage,localeUrl,stripLocale,isPublicPath,isCleanFanPath,apply};
   }
 
   function apply(forcedLanguage=''){
