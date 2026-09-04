@@ -96,15 +96,24 @@
   }
   function productDescription(series,model){
     const manufacturer=text(series?.manufacturer||brandLabels[route.brandKey]||'Vensis');
+    const code=text(series?.code||series?.id);
+    const language=route.language==='tr'?'tr':'en';
     if(model){
       const facts=[];
       if(Number(model.performance?.nominalAirflow)>0)facts.push(`${Number(model.performance.nominalAirflow)} m³/h`);
       if(Number(model.motor?.power)>0)facts.push(`${Number(model.motor.power)} kW`);
       if(Number(model.motor?.speed)>0)facts.push(`${Number(model.motor.speed)} rpm`);
-      const base=`${manufacturer} ${text(model.model||modelIdentity(model))}, ${text(series.code||series.id)} fan series`;
-      return facts.length?`${base}. ${facts.join(', ')}. Technical specifications and catalog data.`:`${base}. Technical specifications and catalog data.`;
+      const modelName=text(model.model||modelIdentity(model));
+      if(language==='tr'){
+        const base=`${manufacturer} ${modelName}, ${code} fan serisi`;
+        return facts.length?`${base}. Katalog verileri: ${facts.join(', ')}. Teknik özellikleri ve ürün verilerini inceleyin.`:`${base}. Teknik özellikleri ve ürün verilerini inceleyin.`;
+      }
+      const base=`${manufacturer} ${modelName}, ${code} fan series`;
+      return facts.length?`${base}. Catalog data: ${facts.join(', ')}. Review technical specifications and product data.`:`${base}. Review technical specifications and product data.`;
     }
-    return `${manufacturer} ${text(series?.code||series?.id)} fan series, technical specifications, model options and product data.`;
+    return language==='tr'
+      ?`${manufacturer} ${code} fan serisi, teknik özellikler, model seçenekleri ve ürün verileri.`
+      :`${manufacturer} ${code} fan series, technical specifications, model options and product data.`;
   }
   function applyRootSeo(){
     const own=cleanUrl();
@@ -126,7 +135,7 @@
     const description=productDescription(series,model);
     const title=model
       ?`${text(model.model||modelIdentity(model))} | ${manufacturer} ${code} | Vensis`
-      :`${manufacturer} ${code} Fan Series | Vensis`;
+      :route.language==='tr'?`${manufacturer} ${code} Fan Serisi | Vensis`:`${manufacturer} ${code} Fan Series | Vensis`;
     document.title=title;
     setMeta('meta[name="description"]',{name:'description',content:description});
     setMeta('meta[name="robots"]',{name:'robots',content:'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'});
@@ -140,8 +149,8 @@
 
     const seriesUrl=cleanUrl(series,null,route.language);
     const crumbs=[
-      {'@type':'ListItem',position:1,name:'Product Catalog',item:`${SITE}/${route.language}/catalog-hub.html`},
-      {'@type':'ListItem',position:2,name:'Ventilation',item:`${SITE}/${route.language}/catalog-ventilation.html`},
+      {'@type':'ListItem',position:1,name:route.language==='tr'?'Ürün Kataloğu':'Product Catalog',item:`${SITE}/${route.language}/catalog-hub.html`},
+      {'@type':'ListItem',position:2,name:route.language==='tr'?'Havalandırma':'Ventilation',item:`${SITE}/${route.language}/catalog-ventilation.html`},
       {'@type':'ListItem',position:3,name:manufacturer,item:cleanUrl()},
       {'@type':'ListItem',position:4,name:code,item:seriesUrl}
     ];
@@ -149,10 +158,10 @@
     const graph=[
       {'@type':'Organization','@id':SITE+'/#organization',name:'Vensis',url:SITE+'/'},
       {'@type':'BreadcrumbList',itemListElement:crumbs},
-      {'@type':'ProductGroup','@id':seriesUrl+'#product-group',name:`${manufacturer} ${code}`,productGroupID:code,brand:{'@type':'Brand',name:manufacturer},url:seriesUrl,description:productDescription(series,null)}
+      {'@type':'ProductGroup','@id':seriesUrl+'#product-group',name:`${manufacturer} ${code}`,productGroupID:code,brand:{'@type':'Brand',name:manufacturer},url:seriesUrl,description:productDescription(series,null),inLanguage:route.language==='tr'?'tr-TR':'en'}
     ];
     if(model){
-      const item={'@type':'Product','@id':own+'#product',name:text(model.model||modelIdentity(model)),sku:modelIdentity(model),brand:{'@type':'Brand',name:manufacturer},url:own,isVariantOf:{'@id':seriesUrl+'#product-group'}};
+      const item={'@type':'Product','@id':own+'#product',name:text(model.model||modelIdentity(model)),sku:modelIdentity(model),brand:{'@type':'Brand',name:manufacturer},url:own,isVariantOf:{'@id':seriesUrl+'#product-group'},description,inLanguage:route.language==='tr'?'tr-TR':'en'};
       const price=Number(model.pricing?.listPrice);
       if(Number.isFinite(price)&&price>0)item.offers={'@type':'Offer',url:own,price:price.toFixed(2),priceCurrency:text(model.pricing?.currency||'EUR'),seller:{'@id':SITE+'/#organization'}};
       graph.push(item);
@@ -166,7 +175,7 @@
       card.hidden=String(id)!==String(model.id);
     });
     const count=document.querySelector('.models-section .catalog-count');
-    if(count)count.textContent='1 Model';
+    if(count)count.textContent=route.language==='tr'?'1 Model':'1 Model';
   }
   function installLinks(series){
     const source=catalog();
