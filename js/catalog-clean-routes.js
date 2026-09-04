@@ -2,9 +2,6 @@
   'use strict';
 
   const SITE='https://select.vensis.com.tr';
-  const route=window.VENSIS_CLEAN_FAN_ROUTE;
-  if(!route)return;
-
   const text=value=>String(value??'').replace(/\s+/g,' ').trim();
   const brandSlugs={vitlo:'vitlo',sp:'soler-palau',vortice:'vortice'};
   const brandLabels={vitlo:'Vitlo',sp:'Soler & Palau',vortice:'Vortice'};
@@ -17,7 +14,38 @@
     .replace(/[^a-z0-9]+/g,'-')
     .replace(/^-+|-+$/g,'');
 
+  function routeFromLocation(){
+    if(window.VENSIS_CLEAN_FAN_ROUTE)return {...window.VENSIS_CLEAN_FAN_ROUTE,clean:true};
+    const pathname=location.pathname||'/';
+    const lower=pathname.toLowerCase();
+    const locale=lower.match(/^\/(tr|en)(?:\/|$)/)?.[1]||'';
+    const language=locale||(document.documentElement.lang==='tr'?'tr':'en');
+    const params=new URLSearchParams(location.search);
+    let brandKey='';
+    if(lower.endsWith('/catalog-brand.html'))brandKey=params.get('brand')==='sp'?'sp':'vitlo';
+    else if(lower.endsWith('/catalog-vortice.html')||lower.endsWith('/catalog-vortice-stable.html'))brandKey='vortice';
+    else return null;
+    return {
+      language,
+      brandKey,
+      brandSlug:brandSlugs[brandKey],
+      seriesSlug:slugify(params.get('series')),
+      modelSlug:slugify(params.get('model')),
+      pathname,
+      clean:false
+    };
+  }
+
+  const route=routeFromLocation();
+  if(!route)return;
+
   function catalog(){return window.VensisCatalog||null}
+  function seriesById(id){
+    const source=catalog();
+    if(!source)return null;
+    return (typeof source.getSeries==='function'?source.getSeries(id):null)||
+      (source.series||[]).find(item=>String(item.id)===String(id))||null;
+  }
   function modelsForSeries(series){
     const source=catalog();
     if(!source||!series)return [];
@@ -78,6 +106,16 @@
     }
     return `${manufacturer} ${text(series?.code||series?.id)} fan series, technical specifications, model options and product data.`;
   }
+  function applyRootSeo(){
+    const own=cleanUrl();
+    const en=cleanUrl(null,null,'en');
+    const tr=cleanUrl(null,null,'tr');
+    setCanonical(own);
+    setAlternate('en',en);
+    setAlternate('tr',tr);
+    setAlternate('x-default',en);
+    setMeta('meta[property="og:url"]',{property:'og:url',content:own});
+  }
   function applySeo(series,model){
     if(!series)return;
     const manufacturer=text(series.manufacturer||brandLabels[route.brandKey]||'Vensis');
@@ -104,7 +142,7 @@
     const crumbs=[
       {'@type':'ListItem',position:1,name:'Product Catalog',item:`${SITE}/${route.language}/catalog-hub.html`},
       {'@type':'ListItem',position:2,name:'Ventilation',item:`${SITE}/${route.language}/catalog-ventilation.html`},
-      {'@type':'ListItem',position:3,name:manufacturer,item:`${SITE}/${route.language}/fan/${brandSlugs[route.brandKey]||route.brandSlug}/`},
+      {'@type':'ListItem',position:3,name:manufacturer,item:cleanUrl()},
       {'@type':'ListItem',position:4,name:code,item:seriesUrl}
     ];
     if(model)crumbs.push({'@type':'ListItem',position:5,name:text(model.model||modelIdentity(model)),item:own});
@@ -134,14 +172,13 @@
     const source=catalog();
     if(!source)return;
     document.querySelectorAll('.series-card[data-series]').forEach(card=>{
-      const row=(typeof source.getSeries==='function'?source.getSeries(card.dataset.series):null)||
-        (source.series||[]).find(item=>String(item.id)===String(card.dataset.series));
+      const row=seriesById(card.dataset.series);
       if(!row)return;
       let link=card.querySelector(':scope > a.vensis-clean-series-link');
       if(!link){
         link=document.createElement('a');
         link.className='vensis-clean-series-link';
-        link.style.cssText='position:absolute;inset:0;z-index:1;text-indent:-9999px;overflow:hidden;border-radius:inherit';
+        link.style.cssText='position:absolute;inset:0;z-index:2;text-indent:-9999px;overflow:hidden;border-radius:inherit';
         card.style.position=card.style.position||'relative';
         card.appendChild(link);
       }
@@ -153,7 +190,7 @@
       const id=card.querySelector('[data-model-datasheet]')?.getAttribute('data-model-datasheet');
       const model=(typeof source.getModel==='function'?source.getModel(id):null);
       const heading=card.querySelector('.model-card-head h3');
-      if(!model||!heading)return;
+      if(!model||!heading)continue;
       let link=heading.querySelector('a.vensis-clean-model-link');
       if(!link){
         link=document.createElement('a');
@@ -165,41 +202,50 @@
       link.href=cleanUrl(series,model);
     }
   }
-  function cleanAddress(){
-    const clean=route.pathname+(location.hash||'');
-    if(location.pathname+location.search+(location.hash||'')!==clean)history.replaceState(history.state,'',clean);
+  function cleanAddress(series,model){
+    let target='';
+    if(route.seriesSlug){
+      if(!series)return;
+      if(route.modelSlug&&!model)return;
+      target=cleanUrl(series,model||null,route.language);
+    }else target=cleanUrl(null,null,route.language);
+    const url=new URL(target);
+    const next=url.pathname+(location.hash||'');
+    if(location.pathname+location.search+(location.hash||'')!==next)history.replaceState(history.state,'',next);
   }
   function apply(){
     const source=catalog();
     if(!source||!window.Catalog){setTimeout(apply,80);return}
     const series=resolveSeries();
+    let model=null;
     if(route.seriesSlug&&series){
-      window.Catalog.showSeries(series.id);
-      const model=resolveModel(series);
+      if(typeof window.Catalog.showSeries==='function')window.Catalog.showSeries(series.id);
+      model=resolveModel(series);
       if(route.modelSlug&&model)selectModel(series,model);
       installLinks(series);
       applySeo(series,model);
     }else{
       installLinks(null);
+      if(!route.seriesSlug)applyRootSeo();
     }
-    cleanAddress();
+    cleanAddress(series,model);
   }
 
   document.addEventListener('click',event=>{
     const card=event.target.closest?.('.series-card[data-series]');
     if(card){
-      const row=(typeof catalog()?.getSeries==='function'?catalog().getSeries(card.dataset.series):null);
+      const row=seriesById(card.dataset.series);
       if(row){event.preventDefault();event.stopImmediatePropagation();location.assign(cleanUrl(row));}
       return;
     }
     const back=event.target.closest?.('.detail-back');
-    if(back){event.preventDefault();event.stopImmediatePropagation();location.assign(`${SITE}/${route.language}/fan/${brandSlugs[route.brandKey]||route.brandSlug}/`);}
+    if(back){event.preventDefault();event.stopImmediatePropagation();location.assign(cleanUrl());}
   },true);
 
   document.addEventListener('keydown',event=>{
     const card=event.target.closest?.('.series-card[data-series]');
     if(card&&(event.key==='Enter'||event.key===' ')){
-      const row=(typeof catalog()?.getSeries==='function'?catalog().getSeries(card.dataset.series):null);
+      const row=seriesById(card.dataset.series);
       if(row){event.preventDefault();event.stopImmediatePropagation();location.assign(cleanUrl(row));}
     }
   },true);
