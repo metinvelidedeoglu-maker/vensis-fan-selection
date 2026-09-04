@@ -39,6 +39,12 @@
   const route=routeFromLocation();
   if(!route)return;
 
+  function currentLanguage(){
+    const html=String(document.documentElement.lang||'').toLowerCase();
+    if(html.startsWith('tr'))return 'tr';
+    if(html.startsWith('en'))return 'en';
+    return (location.pathname||'').toLowerCase().match(/^\/(tr|en)(?:\/|$)/)?.[1]||route.language||'en';
+  }
   function catalog(){return window.VensisCatalog||null}
   function seriesById(id){
     const source=catalog();
@@ -67,7 +73,7 @@
       modelIdentity(model),model?.model,model?.id
     ].some(value=>slugify(value)===route.modelSlug))||null;
   }
-  function cleanUrl(series=null,model=null,language=route.language){
+  function cleanUrl(series=null,model=null,language=currentLanguage()){
     const brand=brandSlugs[route.brandKey]||route.brandSlug||'vitlo';
     const parts=[language,'fan',brand];
     if(series)parts.push(slugify(series.code||series.id));
@@ -97,7 +103,7 @@
   function productDescription(series,model){
     const manufacturer=text(series?.manufacturer||brandLabels[route.brandKey]||'Vensis');
     const code=text(series?.code||series?.id);
-    const language=route.language==='tr'?'tr':'en';
+    const language=currentLanguage();
     if(model){
       const facts=[];
       if(Number(model.performance?.nominalAirflow)>0)facts.push(`${Number(model.performance.nominalAirflow)} m³/h`);
@@ -125,17 +131,24 @@
     setAlternate('x-default',en);
     setMeta('meta[property="og:url"]',{property:'og:url',content:own});
   }
+  function markUnresolved(series=null){
+    const fallback=series?cleanUrl(series):cleanUrl();
+    setMeta('meta[name="robots"]',{name:'robots',content:'noindex,follow'});
+    setCanonical(fallback);
+    setMeta('meta[property="og:url"]',{property:'og:url',content:fallback});
+  }
   function applySeo(series,model){
     if(!series)return;
+    const language=currentLanguage();
     const manufacturer=text(series.manufacturer||brandLabels[route.brandKey]||'Vensis');
     const code=text(series.code||series.id);
-    const own=cleanUrl(series,model,route.language);
+    const own=cleanUrl(series,model,language);
     const en=cleanUrl(series,model,'en');
     const tr=cleanUrl(series,model,'tr');
     const description=productDescription(series,model);
     const title=model
       ?`${text(model.model||modelIdentity(model))} | ${manufacturer} ${code} | Vensis`
-      :route.language==='tr'?`${manufacturer} ${code} Fan Serisi | Vensis`:`${manufacturer} ${code} Fan Series | Vensis`;
+      :language==='tr'?`${manufacturer} ${code} Fan Serisi | Vensis`:`${manufacturer} ${code} Fan Series | Vensis`;
     document.title=title;
     setMeta('meta[name="description"]',{name:'description',content:description});
     setMeta('meta[name="robots"]',{name:'robots',content:'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'});
@@ -147,21 +160,21 @@
     setAlternate('tr',tr);
     setAlternate('x-default',en);
 
-    const seriesUrl=cleanUrl(series,null,route.language);
+    const seriesUrl=cleanUrl(series,null,language);
     const crumbs=[
-      {'@type':'ListItem',position:1,name:route.language==='tr'?'Ürün Kataloğu':'Product Catalog',item:`${SITE}/${route.language}/catalog-hub.html`},
-      {'@type':'ListItem',position:2,name:route.language==='tr'?'Havalandırma':'Ventilation',item:`${SITE}/${route.language}/catalog-ventilation.html`},
-      {'@type':'ListItem',position:3,name:manufacturer,item:cleanUrl()},
+      {'@type':'ListItem',position:1,name:language==='tr'?'Ürün Kataloğu':'Product Catalog',item:`${SITE}/${language}/catalog-hub.html`},
+      {'@type':'ListItem',position:2,name:language==='tr'?'Havalandırma':'Ventilation',item:`${SITE}/${language}/catalog-ventilation.html`},
+      {'@type':'ListItem',position:3,name:manufacturer,item:cleanUrl(null,null,language)},
       {'@type':'ListItem',position:4,name:code,item:seriesUrl}
     ];
     if(model)crumbs.push({'@type':'ListItem',position:5,name:text(model.model||modelIdentity(model)),item:own});
     const graph=[
       {'@type':'Organization','@id':SITE+'/#organization',name:'Vensis',url:SITE+'/'},
       {'@type':'BreadcrumbList',itemListElement:crumbs},
-      {'@type':'ProductGroup','@id':seriesUrl+'#product-group',name:`${manufacturer} ${code}`,productGroupID:code,brand:{'@type':'Brand',name:manufacturer},url:seriesUrl,description:productDescription(series,null),inLanguage:route.language==='tr'?'tr-TR':'en'}
+      {'@type':'ProductGroup','@id':seriesUrl+'#product-group',name:`${manufacturer} ${code}`,productGroupID:code,brand:{'@type':'Brand',name:manufacturer},url:seriesUrl,description:productDescription(series,null),inLanguage:language==='tr'?'tr-TR':'en'}
     ];
     if(model){
-      const item={'@type':'Product','@id':own+'#product',name:text(model.model||modelIdentity(model)),sku:modelIdentity(model),brand:{'@type':'Brand',name:manufacturer},url:own,isVariantOf:{'@id':seriesUrl+'#product-group'},description,inLanguage:route.language==='tr'?'tr-TR':'en'};
+      const item={'@type':'Product','@id':own+'#product',name:text(model.model||modelIdentity(model)),sku:modelIdentity(model),brand:{'@type':'Brand',name:manufacturer},url:own,isVariantOf:{'@id':seriesUrl+'#product-group'},description,inLanguage:language==='tr'?'tr-TR':'en'};
       const price=Number(model.pricing?.listPrice);
       if(Number.isFinite(price)&&price>0)item.offers={'@type':'Offer',url:own,price:price.toFixed(2),priceCurrency:text(model.pricing?.currency||'EUR'),seller:{'@id':SITE+'/#organization'}};
       graph.push(item);
@@ -175,7 +188,7 @@
       card.hidden=String(id)!==String(model.id);
     });
     const count=document.querySelector('.models-section .catalog-count');
-    if(count)count.textContent=route.language==='tr'?'1 Model':'1 Model';
+    if(count)count.textContent='1 Model';
   }
   function installLinks(series){
     const source=catalog();
@@ -213,11 +226,12 @@
   }
   function cleanAddress(series,model){
     let target='';
+    const language=currentLanguage();
     if(route.seriesSlug){
       if(!series)return;
       if(route.modelSlug&&!model)return;
-      target=cleanUrl(series,model||null,route.language);
-    }else target=cleanUrl(null,null,route.language);
+      target=cleanUrl(series,model||null,language);
+    }else target=cleanUrl(null,null,language);
     const url=new URL(target);
     const next=url.pathname+(location.hash||'');
     if(location.pathname+location.search+(location.hash||'')!==next)history.replaceState(history.state,'',next);
@@ -227,15 +241,17 @@
     if(!source||!window.Catalog){setTimeout(apply,80);return}
     const series=resolveSeries();
     let model=null;
-    if(route.seriesSlug&&series){
+    if(route.seriesSlug){
+      if(!series){installLinks(null);markUnresolved(null);return}
       if(typeof window.Catalog.showSeries==='function')window.Catalog.showSeries(series.id);
       model=resolveModel(series);
-      if(route.modelSlug&&model)selectModel(series,model);
       installLinks(series);
+      if(route.modelSlug&&!model){markUnresolved(series);return}
+      if(model)selectModel(series,model);
       applySeo(series,model);
     }else{
       installLinks(null);
-      if(!route.seriesSlug)applyRootSeo();
+      applyRootSeo();
     }
     cleanAddress(series,model);
   }
@@ -259,7 +275,7 @@
     }
   },true);
 
-  window.VensisCatalogRoutes={slugify,cleanUrl,route};
+  window.VensisCatalogRoutes={slugify,cleanUrl,currentLanguage,route};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply,{once:true});else apply();
-  window.addEventListener('vensis-language-changed',()=>setTimeout(apply,60));
+  window.addEventListener('vensis-language-changed',()=>setTimeout(apply,80));
 })();
