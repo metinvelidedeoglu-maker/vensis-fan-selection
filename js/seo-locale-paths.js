@@ -17,9 +17,14 @@
     const match=String(pathname||'').match(/^\/(tr|en)(?:\/|$)/i);
     return match?match[1].toLowerCase():'';
   };
+  const isCleanFanPath=pathname=>/^\/fan\/(?:vitlo|soler-palau|vortice)(?:\/|$)/i.test(stripLocale(pathname));
+  const isLegacyFanPath=pathname=>{
+    const clean=stripLocale(pathname).toLowerCase();
+    return ['/catalog-brand.html','/catalog-vortice-stable.html','/catalog-vortice.html'].some(item=>clean.endsWith(item));
+  };
   const isPublicPath=pathname=>{
     const clean=stripLocale(pathname).toLowerCase();
-    return PUBLIC_PATHS.some(item=>clean.endsWith(item));
+    return isCleanFanPath(clean)||PUBLIC_PATHS.some(item=>clean.endsWith(item));
   };
   const currentLanguage=()=>{
     const query=new URLSearchParams(location.search);
@@ -29,12 +34,27 @@
       (()=>{try{return valid(localStorage.getItem(STORAGE_KEY)||'')}catch{return ''}})()||'en';
   };
 
+  function loadCleanFanRuntime(){
+    if(!isCleanFanPath(location.pathname)&&!isLegacyFanPath(location.pathname))return;
+    if(document.querySelector('script[data-vensis-clean-fan-routes]'))return;
+    const script=document.createElement('script');
+    script.async=false;
+    script.src='js/catalog-clean-routes.js?v=20260904-r2';
+    script.dataset.vensisCleanFanRoutes='1';
+    document.head.appendChild(script);
+  }
+
   function localeUrl(value,language=currentLanguage()){
     let url;
     try{url=new URL(value,location.href)}catch{return value}
     const lang=valid(language)||'en';
     if(url.origin!==SITE||!isPublicPath(url.pathname))return url.href;
     url.searchParams.delete('lang');
+    if(isCleanFanPath(url.pathname)){
+      url.searchParams.delete('brand');
+      url.searchParams.delete('series');
+      url.searchParams.delete('model');
+    }
     url.pathname=`/${lang}${stripLocale(url.pathname)}`.replace(/\/+/g,'/');
     return url.href;
   }
@@ -114,7 +134,7 @@
   function exposeApi(){
     const old=window.VensisSeoLanguage||{};
     window.VensisSeoLanguage={...old,currentLanguage,withLanguage:localeUrl};
-    window.VensisLocaleUrls={currentLanguage,localeUrl,stripLocale,isPublicPath,apply};
+    window.VensisLocaleUrls={currentLanguage,localeUrl,stripLocale,isPublicPath,isCleanFanPath,apply};
   }
 
   function apply(forcedLanguage=''){
@@ -134,6 +154,7 @@
     timer=setTimeout(()=>apply(language),delay);
   }
 
+  loadCleanFanRuntime();
   exposeApi();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>schedule(220),{once:true});
   else schedule(120);

@@ -5,6 +5,41 @@
   const path=(location.pathname||'').toLowerCase();
   const localeMatch=path.match(/^\/(tr|en)(?:\/|$)/);
   const pathLanguage=localeMatch?.[1]||'';
+  const cleanFanMatch=path.match(/^\/(tr|en)\/fan\/(vitlo|soler-palau|vortice)(?:\/([^/?#]+))?(?:\/([^/?#]+))?\/?$/i);
+  const vorticeSeriesBySlug={
+    'lineo-quiet-es':'LINEO QUIET ES','lineo-quiet':'LINEO QUIET','lineo-es':'LINEO ES','lineo':'LINEO',
+    'ca-md':'CA MD','ca-md-extra-eu':'CA MD EXTRA EU','ca-md-e-rf':'CA MD E RF',
+    'slimroof-es':'SLIMROOF ES','heatmaster-f400':'HEATMASTER F400','e-atex':'E-ATEX','tiracamino':'TIRACAMINO',
+    'vort-quadro-evo':'VORT QUADRO EVO','vort-quadro-i':'VORT QUADRO I','vort-quadro':'VORT QUADRO',
+    'vortice-vario-i':'VORTICE VARIO I','vortice-vario':'VORTICE VARIO',
+    'punto-evo-flexo':'PUNTO EVO FLEXO','punto-evo-gold':'PUNTO EVO GOLD','punto-evo-es':'PUNTO EVO ES','punto-evo':'PUNTO EVO',
+    'punto-ghost':'PUNTO GHOST','punto-four':'PUNTO FOUR','punto-filo':'PUNTO FILO','punto':'PUNTO',
+    'vort-qbk-sal-kc-evo':'VORT QBK SAL-KC EVO'
+  };
+  let cleanFanRoute=null;
+  if(cleanFanMatch){
+    const language=cleanFanMatch[1].toLowerCase();
+    const brandSlug=cleanFanMatch[2].toLowerCase();
+    const brandKey=brandSlug==='soler-palau'?'sp':brandSlug;
+    const seriesSlug=String(cleanFanMatch[3]||'').toLowerCase();
+    const modelSlug=String(cleanFanMatch[4]||'').toLowerCase();
+    cleanFanRoute={language,brandSlug,brandKey,seriesSlug,modelSlug,pathname:location.pathname};
+    window.VENSIS_CLEAN_FAN_ROUTE=cleanFanRoute;
+
+    // Existing catalog code reads query parameters while booting. Inject a
+    // temporary compatibility query, then catalog-clean-routes.js removes it
+    // after the current catalog engine has resolved the route.
+    const bootParams=new URLSearchParams(location.search);
+    if(brandKey==='vitlo'||brandKey==='sp')bootParams.set('brand',brandKey);
+    if(seriesSlug){
+      const seriesValue=brandKey==='vortice'?(vorticeSeriesBySlug[seriesSlug]||seriesSlug):seriesSlug;
+      bootParams.set('series',seriesValue);
+    }
+    if(modelSlug)bootParams.set('model',modelSlug);
+    const bootUrl=location.pathname+(bootParams.toString()?'?'+bootParams.toString():'')+(location.hash||'');
+    if(bootUrl!==location.pathname+location.search+(location.hash||''))history.replaceState(history.state,'',bootUrl);
+  }
+
   if(path.endsWith('/catalog-vortice.html')){
     const routeParams=new URLSearchParams(location.search);
     if(!routeParams.get('series')){
@@ -17,7 +52,7 @@
     '/catalog-hub.html','/catalog-ventilation.html','/catalog-brand.html',
     '/catalog-vortice-stable.html','/catalog-vortice.html','/electrical/index.html'
   ];
-  const isPublicCatalog=publicCatalogPaths.some(item=>path.endsWith(item));
+  const isPublicCatalog=Boolean(cleanFanRoute)||publicCatalogPaths.some(item=>path.endsWith(item));
   if(isPublicCatalog){
     const languageParams=new URLSearchParams(location.search);
     const requestedLanguage=languageParams.get('lang');
@@ -82,6 +117,13 @@
     localeUrls.src=base+'js/seo-locale-paths.js?v=20260902-r1';
     localeUrls.dataset.vensisLocaleUrls='1';
     document.head.appendChild(localeUrls);
+  }
+  if(cleanFanRoute&&!document.querySelector('script[data-vensis-clean-fan-routes]')){
+    const cleanRoutes=document.createElement('script');
+    cleanRoutes.async=false;
+    cleanRoutes.src=base+'js/catalog-clean-routes.js?v=20260904-r1';
+    cleanRoutes.dataset.vensisCleanFanRoutes='1';
+    document.head.appendChild(cleanRoutes);
   }
   const API=`${base}api/edit`;
   const valid=value=>value==='guest'||value==='secure'?value:'';

@@ -14,6 +14,27 @@ function add_fan_url(&$urls, $loc, $timestamp) {
     if (!isset($urls[$loc]) || $timestamp > $urls[$loc]) $urls[$loc] = $timestamp;
 }
 
+function fan_slug($value) {
+    $value = trim((string)$value);
+    if ($value === '') return '';
+    $value = str_replace('&', ' and ', $value);
+    if (function_exists('iconv')) {
+        $ascii = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $value);
+        if ($ascii !== false && $ascii !== '') $value = $ascii;
+    }
+    $value = strtolower($value);
+    $value = preg_replace('/[^a-z0-9]+/', '-', $value);
+    return trim((string)$value, '-');
+}
+
+function fan_brand_slug($brand) {
+    $brandLower = strtolower(trim((string)$brand));
+    if ($brandLower === 'vitlo') return 'vitlo';
+    if (strpos($brandLower, 'soler') !== false || $brandLower === 'sp') return 'soler-palau';
+    if ($brandLower === 'vortice') return 'vortice';
+    return '';
+}
+
 function fan_lang_url($loc, $lang) {
     $prefix = 'https://select.vensis.com.tr';
     if (strpos($loc, $prefix) !== 0) return $loc;
@@ -21,23 +42,15 @@ function fan_lang_url($loc, $lang) {
 }
 
 function fan_route($site, $brand, $series, $model = '') {
-    $brandLower = strtolower(trim($brand));
-    if ($brandLower === 'vitlo') {
-        $params = ['brand' => 'vitlo', 'series' => $series];
-        if ($model !== '') $params['model'] = $model;
-        return $site . '/catalog-brand.html?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
+    $brandSlug = fan_brand_slug($brand);
+    $seriesSlug = fan_slug($series);
+    if ($brandSlug === '' || $seriesSlug === '') return '';
+    $route = $site . '/fan/' . rawurlencode($brandSlug) . '/' . rawurlencode($seriesSlug) . '/';
+    if ($model !== '') {
+        $modelSlug = fan_slug($model);
+        if ($modelSlug !== '') $route .= rawurlencode($modelSlug) . '/';
     }
-    if (strpos($brandLower, 'soler') !== false || $brandLower === 'sp') {
-        $params = ['brand' => 'sp', 'series' => $series];
-        if ($model !== '') $params['model'] = $model;
-        return $site . '/catalog-brand.html?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
-    }
-    if ($brandLower === 'vortice') {
-        $params = ['series' => $series];
-        if ($model !== '') $params['model'] = $model;
-        return $site . '/catalog-vortice.html?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
-    }
-    return '';
+    return $route;
 }
 
 function add_row_routes(&$urls, $site, $row, $timestamp) {
@@ -125,8 +138,6 @@ function add_priced_vortice_routes(&$urls, $site, $priceListPath) {
         if ($series === '') continue;
 
         add_fan_url($urls, fan_route($site, 'vortice', $series), $timestamp);
-        // registry.js preserves row.productCode as technical.productCode, and the
-        // catalog SEO preselector accepts technical.productCode in ?model=.
         $identity = $productCode !== '' ? $productCode : $model;
         if ($identity !== '') add_fan_url($urls, fan_route($site, 'vortice', $series, $identity), $timestamp);
     }
