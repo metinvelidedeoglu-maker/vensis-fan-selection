@@ -1,10 +1,18 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Clean public fan routes. The browser keeps the SEO path while Apache serves
+  # the existing catalog application underneath it.
+  #   /tr/fan/vitlo/crs/
+  #   /en/fan/soler-palau/<series>/
+  #   /tr/fan/vortice/<series>/<model>/
+  RewriteRule ^(tr|en)/fan/vortice/?$ catalog-vortice-stable.html [L,QSA]
+  RewriteRule ^(tr|en)/fan/vortice/[^/]+(?:/[^/]+)?/?$ catalog-vortice.html [L,QSA]
+  RewriteRule ^(tr|en)/fan/(vitlo|soler-palau)(?:/.*)?$ catalog-brand.html [L,QSA]
+
   # Locale URL trees share the same physical application files. The browser keeps
   # /tr/... or /en/... while Apache serves the existing file underneath it.
-  # Query parameters such as brand, series and model are preserved during this
-  # first clean-locale phase so the catalog engine remains a single source.
+  # Query parameters remain supported as backward-compatible legacy routes.
   RewriteRule ^(tr|en)/(.*)$ $2 [L,QSA]
 </IfModule>
 
