@@ -15,10 +15,12 @@
     'CRK 35-4T':1280,
     'CRK 40-4T':1530,
     'CRK 45-2T-10':4900,
+    'CRK/ATEX 35-4T':2960,
     'CRK/ATEX 40-4T-1':2560,
     'CRK/ATEX 71-4T-15':8360,
     'CRK/ATEX 80-4T-25':12700,
     'CRS 45-2T-10':1960,
+    'CRS 50-4T':1600,
     'CRS 56-4T':1700,
     'CRS 71-4T-15':3520,
     'CRS/ATEX 31-4T':1750,
@@ -30,11 +32,12 @@
     'CRS/ATEX 71-4T-15':6900
   };
 
-  // The supplied worksheet contains two unresolved same-model price conflicts.
-  // Do not guess which historical quote price should win.
-  const conflicts={
-    'CRK/ATEX 35-4T':[2960,2720],
-    'CRS 50-4T':[1600,1400]
+  // The worksheet contained two historical same-model price conflicts. The user
+  // explicitly selected the values below on 2026-09-04, so they are now safe to
+  // apply while retaining the discarded alternatives for auditability.
+  const resolvedConflicts={
+    'CRK/ATEX 35-4T':{price:2960,discarded:[2720]},
+    'CRS 50-4T':{price:1600,discarded:[1400]}
   };
 
   function normalize(value){
@@ -46,7 +49,6 @@
   }
 
   const priceMap=new Map(Object.entries(prices).map(([model,price])=>[normalize(model),price]));
-  const conflictMap=new Map(Object.entries(conflicts).map(([model,values])=>[normalize(model),values]));
   const applied=[];
   const alreadyPriced=[];
   const unmatched=[];
@@ -54,7 +56,6 @@
   for(const row of window.models){
     if(String(row?.brand||row?.manufacturer||'').trim().toUpperCase()!=='VITLO')continue;
     const model=normalize(row?.model||row?.configurationId||row?.display);
-    if(conflictMap.has(model))continue;
     if(!priceMap.has(model))continue;
 
     const price=priceMap.get(model);
@@ -77,14 +78,15 @@
 
   window.VensisVitloPriceFill20260903Report={
     source,
-    requestedUniqueModels:22,
+    requestedUniqueModels:24,
     configuredModelAliases:Object.keys(prices).length,
     appliedCount:applied.length,
     applied,
     alreadyPricedCount:alreadyPriced.length,
     alreadyPriced,
     unmatched,
-    conflicts:Object.entries(conflicts).map(([model,values])=>({model,values})),
+    conflicts:[],
+    resolvedConflicts:Object.entries(resolvedConflicts).map(([model,detail])=>({model,...detail})),
     generatedAt:new Date().toISOString()
   };
 })();
