@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
-const root=new URL('../',import.meta.url);
 const verified={
   'CRH 35-4T':920,
   'CRH 40-4T':1070,
@@ -15,10 +14,12 @@ const verified={
   'CRK 35-4T':1280,
   'CRK 40-4T':1530,
   'CRK 45-2T-10':4900,
+  'CRK/ATEX 35-4T':2960,
   'CRK/ATEX 40-4T-1':2560,
   'CRK/ATEX 71-4T-15':8360,
   'CRK/ATEX 80-4T-25':12700,
   'CRS 45-2T-10':1960,
+  'CRS 50-4T':1600,
   'CRS 56-4T':1700,
   'CRS 71-4T-15':3520,
   'CRS/ATEX 31-4T':1750,
@@ -37,15 +38,16 @@ function run(rows){
   return context.window;
 }
 
-test('fills the 22 unambiguous filtered-list prices in EUR',()=>{
+test('fills all 24 confirmed filtered-list prices in EUR',()=>{
   const rows=Object.keys(verified).map(model=>({brand:'Vitlo',model}));
   const window=run(rows);
   for(const row of rows){
     assert.equal(row.price,verified[row.model],row.model);
     assert.equal(row.priceCurrency,'EUR',row.model);
   }
-  assert.equal(window.VensisVitloPriceFill20260903Report.requestedUniqueModels,22);
-  assert.equal(window.VensisVitloPriceFill20260903Report.appliedCount,22);
+  assert.equal(window.VensisVitloPriceFill20260903Report.requestedUniqueModels,24);
+  assert.equal(window.VensisVitloPriceFill20260903Report.appliedCount,24);
+  assert.deepEqual(Array.from(window.VensisVitloPriceFill20260903Report.conflicts),[]);
 });
 
 test('normalizes comma decimals but never overwrites an existing positive price',()=>{
@@ -58,16 +60,16 @@ test('normalizes comma decimals but never overwrites an existing positive price'
   assert.equal(rows[1].price,9999);
 });
 
-test('leaves the two same-model source conflicts unresolved',()=>{
+test('applies the user-selected values for the two former source conflicts',()=>{
   const rows=[
     {brand:'Vitlo',model:'CRK/ATEX 35-4T'},
     {brand:'Vitlo',model:'CRS 50-4T'}
   ];
   const window=run(rows);
-  assert.equal(rows[0].price,undefined);
-  assert.equal(rows[1].price,undefined);
+  assert.equal(rows[0].price,2960);
+  assert.equal(rows[1].price,1600);
   assert.deepEqual(
-    Array.from(window.VensisVitloPriceFill20260903Report.conflicts,entry=>[entry.model,Array.from(entry.values)]),
-    [['CRK/ATEX 35-4T',[2960,2720]],['CRS 50-4T',[1600,1400]]]
+    Array.from(window.VensisVitloPriceFill20260903Report.resolvedConflicts,entry=>[entry.model,entry.price,Array.from(entry.discarded)]),
+    [['CRK/ATEX 35-4T',2960,[2720]],['CRS 50-4T',1600,[1400]]]
   );
 });
