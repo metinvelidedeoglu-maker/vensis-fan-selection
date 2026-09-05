@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20260905-r1';
+  const BUILD='20260905-r2';
   const page=(location.pathname||'').toLowerCase();
   if(!page.endsWith('/project.html'))return;
 
@@ -11,17 +11,39 @@
     :{header:'Order',up:'Move up',down:'Move down'};
   const projectId=()=>window.VensisProject?.projectId||window.VensisProjects?.activeId?.()||'';
   const itemKind=item=>window.VensisQuotationFormats?.itemType?.(item)==='electrical'?'electrical':'fan';
+  const scrollPositions=new Map();
+
+  function scrollKey(node){
+    const group=node?.closest?.('.project-edit-group');
+    if(group?.classList.contains('project-edit-electrical'))return 'electrical';
+    if(group?.classList.contains('project-edit-fan'))return 'fan';
+    return 'default';
+  }
+
+  function rememberScroll(node){
+    if(!node?.classList?.contains('project-edit-scroll'))return;
+    scrollPositions.set(scrollKey(node),node.scrollLeft||0);
+  }
+
+  function restoreScroll(table){
+    const scroll=table.closest('.project-edit-scroll');
+    if(!scroll)return;
+    const key=scrollKey(scroll);
+    if(!scrollPositions.has(key))return;
+    const left=scrollPositions.get(key)||0;
+    if(scroll.scrollLeft!==left)scroll.scrollLeft=left;
+  }
 
   function ensureStyles(){
     if(document.getElementById('projectReorderControlsStyles'))return;
     const style=document.createElement('style');
     style.id='projectReorderControlsStyles';
     style.textContent=`
-      .project-reorder-column{width:68px;min-width:68px;text-align:center!important}
-      .project-reorder-controls{display:flex;align-items:center;justify-content:center;gap:4px}
-      .project-reorder-button{width:29px;height:29px;border:1px solid #d4dfdc;border-radius:7px;background:#edf3f3;color:#29484d;font:900 15px/1 Arial,Helvetica,sans-serif;cursor:pointer}
+      .project-reorder-column{width:34px!important;min-width:34px!important;max-width:34px!important;padding:4px 3px!important;text-align:center!important}
+      .project-reorder-controls{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+      .project-reorder-button{width:24px;height:22px;padding:0;border:1px solid #d4dfdc;border-radius:5px;background:#edf3f3;color:#29484d;font:900 12px/1 Arial,Helvetica,sans-serif;cursor:pointer}
       .project-reorder-button:hover:not(:disabled){border-color:#8db9a6;background:#edf7f2;color:#087f4f}
-      .project-reorder-button:focus-visible{outline:3px solid rgba(8,127,79,.16);outline-offset:1px}
+      .project-reorder-button:focus-visible{outline:2px solid rgba(8,127,79,.16);outline-offset:1px}
       .project-reorder-button:disabled{opacity:.32;cursor:not-allowed}
     `;
     document.head.appendChild(style);
@@ -39,6 +61,7 @@
       headRow.prepend(header);
     }
     if(header.textContent!==text.header)header.textContent=text.header;
+    header.title=text.header;
 
     const rows=[...table.querySelectorAll('tbody tr[data-project-edit-row]')];
     rows.forEach((row,position)=>{
@@ -63,6 +86,7 @@
         down.setAttribute('aria-label',text.down);
       }
     });
+    restoreScroll(table);
   }
 
   function enhance(){
@@ -75,6 +99,7 @@
     const id=projectId();
     if(!store?.readItems||!store?.writeItems||!id)return;
 
+    document.querySelectorAll('.project-edit-scroll').forEach(rememberScroll);
     window.VensisProjectPrint?.flushInlineEditors?.();
     const items=store.readItems(id);
     if(!Array.isArray(items)||!items[index])return;
@@ -108,6 +133,7 @@
     schedule();
     const root=document.getElementById('projectContent')||document.body;
     new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
+    document.addEventListener('scroll',event=>rememberScroll(event.target),true);
     document.addEventListener('click',event=>{
       const button=event.target.closest('[data-project-reorder]');
       if(!button)return;
