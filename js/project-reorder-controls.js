@@ -56,7 +56,7 @@
       .project-edit-fan th:nth-child(9),.project-edit-fan td:nth-child(9){width:86px!important;min-width:86px!important;max-width:86px!important}
       .project-edit-fan th:nth-child(10),.project-edit-fan td:nth-child(10){width:84px!important;min-width:84px!important;max-width:84px!important}
       .project-edit-fan th:nth-child(11),.project-edit-fan td:nth-child(11){width:96px!important;min-width:96px!important;max-width:96px!important}
-      .project-edit-fan th:nth-child(12),.project-edit-fan td:nth-child(12){width:78px!important;min-width:78px!important;max-width:78px!important}
+      .project-edit-fan th:nth-child(12),.project-edit-fan td:nth-child(12){width:80px!important;min-width:80px!important;max-width:80px!important}
       .project-edit-fan td:nth-child(n+4):nth-child(-n+12){padding-left:5px!important;padding-right:5px!important}
       .project-edit-fan td:nth-child(4) .project-point-editor,
       .project-edit-fan td:nth-child(5) .project-point-editor{min-width:126px!important}
@@ -67,8 +67,8 @@
       .project-edit-fan td:nth-child(8) .project-inline-input{min-width:84px!important}
       .project-edit-fan td:nth-child(9) .project-list-price{min-width:72px!important;padding-left:7px!important;padding-right:7px!important}
       .project-edit-fan td:nth-child(10) .project-inline-input,
-      .project-edit-fan td:nth-child(11) .project-inline-input,
-      .project-edit-fan td:nth-child(12) .project-inline-input{min-width:70px!important}
+      .project-edit-fan td:nth-child(11) .project-inline-input{min-width:70px!important}
+      .project-edit-fan td:nth-child(12) .project-inline-input{min-width:68px!important}
     `;
     document.head.appendChild(style);
   }
