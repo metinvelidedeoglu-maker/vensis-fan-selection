@@ -1,6 +1,7 @@
 (function(){
   const S=window.VensisState,U=window.VensisUtils,C=window.VensisCatalog;
   const NEW_PROJECT_VALUE='__new_project__';
+  const uniqueLineKey=base=>`${String(base||'item')}|line|${Date.now().toString(36)}${Math.random().toString(36).slice(2,8)}`;
   function validPositive(value){const n=Number(value);return Number.isFinite(n)&&n>0?n:null}
   function sortValue(row,key){if(key==='flow')return Number(row.qq)||0;if(key==='pressure')return Number(row.pp)||0;if(key==='price')return validPositive(row.price)??Infinity;if(key==='noise')return validPositive(row.spl)??Infinity;return Number(row.score)||0}
   function displayPositive(value,decimals,unit){const n=validPositive(value);return n==null?'-':`${U.format(n,decimals)}${unit?' '+unit:''}`}
@@ -127,28 +128,20 @@
     const productKey=r.productKey||r.key||r.id||product.model||r.model||'';
     const control=String(r.control||'').trim();
     const visibleControl=control&&control.toLowerCase()!=='nominal'?control:'';
-    const itemKey=[productKey,control,required.q,required.p,selected.q,selected.p].join('|');
+    const baseKey=[productKey,control,required.q,required.p,selected.q,selected.p].join('|');
     const speed=Number(r.rpm)||Number(product.motor?.speed)||0;
     const voltage=String(r.voltage||product.motor?.voltage||'').trim();
     const noise=Number(r.spl)||Number(product.motor?.sound)||0;
     const seriesTitle=product.series?.title||r.series||'';
-    const candidate={itemKey,mode:'selection',productType:'fan',productKey,control,model:product.model||r.model||'',series:visibleControl?`${seriesTitle} · Control: ${visibleControl}`:seriesTitle,manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,frequency:String(r.frequency||product.motor?.frequency||''),noise,hazardousArea:r.hazardousArea||product.technical?.atex||null,safetyWarning:r.safetyWarning||product.technical?.safetyWarning||'',price:Number(r.price)||0,quantity:1,addedAt:new Date().toISOString()};
+    const stamp=new Date().toISOString();
+    const candidate={itemKey:uniqueLineKey(baseKey),mode:'selection',productType:'fan',productKey,control,model:product.model||r.model||'',series:visibleControl?`${seriesTitle} · Control: ${visibleControl}`:seriesTitle,manufacturer:product.series?.manufacturer||r.manufacturer||'Vitlo',image:product.media?.image||r.image||'',required,selected,motorPower:Number(r.kw)||0,current:Number(r.amps)||0,speed,voltage,frequency:String(r.frequency||product.motor?.frequency||''),noise,hazardousArea:r.hazardousArea||product.technical?.atex||null,safetyWarning:r.safetyWarning||product.technical?.safetyWarning||'',price:Number(r.price)||0,quantity:1,addedAt:stamp,updatedAt:stamp};
     const context=projectContext();
     if(!context){window.VensisPendingProject?.open?.([candidate],'fan-selection');return}
-    const existing=context.items.find(item=>item.itemKey===itemKey);
-    if(existing){
-      existing.quantity=(Number(existing.quantity)||1)+1;
-      existing.speed=Number(existing.speed)||speed;
-      existing.voltage=existing.voltage||voltage;
-      existing.noise=Number(existing.noise)||noise;
-      existing.hazardousArea=existing.hazardousArea||r.hazardousArea||product.technical?.atex||null;
-      existing.safetyWarning=existing.safetyWarning||r.safetyWarning||product.technical?.safetyWarning||'';
-      existing.updatedAt=new Date().toISOString();
-    }else context.items.push(candidate);
+    context.items.push(candidate);
     saveProjectItems(context);
     if(button){const old=button.innerHTML;button.innerHTML='✓';button.title='Added to selected project';setTimeout(()=>{button.innerHTML=old;button.title='Add to selected project'},1200)}
     const projectName=context.store?.readMeta(context.projectId)?.name||context.store?.get(context.projectId)?.name||'selected project';
-    showProjectToast(existing?`${projectName} quantity increased.`:`Fan added to ${projectName}.`);
+    showProjectToast(`Fan added to ${projectName}.`);
   }
   document.addEventListener('click',e=>{
     const sort=e.target.closest('[data-sort]');if(sort)setSort(sort.dataset.sort);
