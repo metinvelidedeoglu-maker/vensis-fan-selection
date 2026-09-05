@@ -25,6 +25,9 @@
   function totals(projectId){
     return (store()?.readItems?.(projectId)||[]).reduce((sum,item)=>sum+Math.max(1,Number(item.quantity)||1),0);
   }
+  function uniqueLineKey(base){
+    return `${String(base||'item')}|line|${Date.now().toString(36)}${Math.random().toString(36).slice(2,8)}`;
+  }
   function addStyles(){
     if(document.getElementById('catalogProjectPickerStyles'))return;
     const style=document.createElement('style');
@@ -110,35 +113,28 @@
     store().setActive(projectId);
     const items=store().readItems(projectId);
     const candidate=catalogProjectItem(modelId);if(!candidate)return;
-    const existing=items.find(item=>item.itemKey===candidate.itemKey);
-    if(existing){
-      existing.quantity=(Number(existing.quantity)||1)+1;
-      existing.speed=Number(existing.speed)||candidate.speed;
-      existing.voltage=existing.voltage||candidate.voltage;
-      existing.frequency=existing.frequency||candidate.frequency;
-      existing.noise=Number(existing.noise)||candidate.noise;
-      existing.updatedAt=new Date().toISOString();
-    }else items.push(candidate);
+    const stamp=new Date().toISOString();
+    candidate.itemKey=uniqueLineKey(candidate.itemKey);
+    candidate.quantity=1;
+    candidate.addedAt=stamp;
+    candidate.updatedAt=stamp;
+    items.push(candidate);
     store().writeItems(items,projectId);
     if(button){const old=button.innerHTML;button.innerHTML='✓';setTimeout(()=>{button.innerHTML=old},1100)}
     const name=store().readMeta(projectId).name||store().get(projectId)?.name||'selected project';
-    toast(existing?`${name} quantity increased.`:`Catalog model added to ${name}.`);
+    toast(`Catalog model added to ${name}.`);
   }
   function addItemToProject(item,button,projectId){
     if(!item||!store()?.get?.(projectId))return;
     store().setActive(projectId);
     const items=store().readItems(projectId);
     const stamp=new Date().toISOString();
-    const itemKey=String(item.itemKey||`${item.productType||'catalog'}|${item.productKey||item.model}`);
-    const existing=items.find(candidate=>candidate.itemKey===itemKey);
-    if(existing){
-      existing.quantity=(Number(existing.quantity)||1)+1;
-      existing.updatedAt=stamp;
-    }else items.push({...item,itemKey,mode:item.mode||'catalog',quantity:Math.max(1,Number(item.quantity)||1),addedAt:item.addedAt||stamp,updatedAt:stamp});
+    const baseKey=String(item.itemKey||`${item.productType||'catalog'}|${item.productKey||item.model}`);
+    items.push({...item,itemKey:uniqueLineKey(baseKey),mode:item.mode||'catalog',quantity:Math.max(1,Number(item.quantity)||1),addedAt:stamp,updatedAt:stamp});
     store().writeItems(items,projectId);
     if(button){const old=button.innerHTML;button.innerHTML='✓ Added';setTimeout(()=>{button.innerHTML=old},1100)}
     const name=store().readMeta(projectId).name||store().get(projectId)?.name||'selected project';
-    toast(existing?`${name} quantity increased.`:`${item.model} added to ${name}.`);
+    toast(`${item.model} added to ${name}.`);
   }
   function confirmSelection(){
     if(!pending)return;
