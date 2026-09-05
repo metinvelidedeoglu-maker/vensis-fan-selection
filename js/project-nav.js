@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260905-project-order-r1';
+  const BUILD='20260905-project-order-atex-r2';
   const stamp=Date.now();
   const page=(location.pathname||'').toLowerCase();
 
@@ -35,7 +35,10 @@
   }
 
   mountShell();
-  if(page.endsWith('/project.html'))load('js/project-reorder-controls.js','vensisProjectReorderControlsScript');
+  if(page.endsWith('/project.html')){
+    load('js/project-reorder-controls.js','vensisProjectReorderControlsScript');
+    load('js/atex-output-bridge.js','vensisAtexOutputBridgeScript');
+  }
   // Custom product integration temporarily disabled: its global MutationObserver
   // can trigger a recursive DOM update loop and lock the workspace UI.
 })();
