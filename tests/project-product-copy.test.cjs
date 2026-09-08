@@ -23,8 +23,6 @@ test('project rows show submodel code, description without series code, then bra
     productKey:'VORTICE-LINEO|17160|LINEO 100 QUIET',model:'LINEO 100 QUIET',
     series:'LINEO QUIET Low-Noise In-Line Mixed-Flow Fans',manufacturer:'Vortice',quantity:1
   };
-  const model={id:item.productKey,seriesId:'LINEO QUIET',model:item.model,motor:{},technical:{}};
-  const series={id:'LINEO QUIET',code:'LINEO QUIET'};
   const store={
     get:id=>id==='project-1'?{id}:null,setActive:id=>id,activeId:()=>'',list:()=>[],
     readItems:()=>[item],writeItems(){},readMeta:()=>({}),writeMeta:value=>value,
@@ -36,7 +34,8 @@ test('project rows show submodel code, description without series code, then bra
   };
   const window={
     VensisProjects:store,
-    VensisCatalog:{models:[model],series:[series],getModel:id=>id===model.id?model:null,getSeries:id=>id===series.id?series:null},
+    VensisCatalog:{models:[],series:[],getModel:()=>null,getSeries:()=>null},
+    VensisProducts:{get:()=>null,seriesCode:value=>String(value||'').startsWith('LINEO QUIET')?'LINEO QUIET':''},
     VensisQuotationFormats:{itemType:()=> 'fan',detect:()=> 'fan'},
     addEventListener(){},dispatchEvent(){},open(){}
   };

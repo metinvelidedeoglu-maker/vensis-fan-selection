@@ -2,6 +2,7 @@
   const store=window.VensisProjects;
   const QUOTATION_KEY=window.VensisAccess?.storageKey?.('vensis_active_quotation_v1')||'vensis_active_quotation_v1';
   const catalog=window.VensisCatalog||{models:[]};
+  const products=window.VensisProducts||{};
   const formats=window.VensisQuotationFormats||{itemType:()=> 'fan',detect:()=> 'fan'};
   const byId=id=>document.getElementById(id);
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
@@ -45,7 +46,9 @@
     const text=String(item?.series||'').trim();
     const model=modelForItem(item);
     const series=model&&(catalog.getSeries?.(model.seriesId)||(catalog.series||[]).find(row=>String(row.id||'')===String(model.seriesId||'')));
-    return withoutRepeatedCode(series?.code,text);
+    const product=products.get?.(item?.productKey);
+    const code=series?.code||product?.series?.code||products.seriesCode?.(text)||products.seriesCode?.(item?.model);
+    return withoutRepeatedCode(code,text);
   }
   function enrichItems(items){
     let changed=Boolean(window.VensisPricing?.enrichItems?.(items));
