@@ -72,7 +72,8 @@
         note.style.fontWeight='700';
         product.appendChild(note);
       }
-      note.textContent=`Hız Anahtarı / Speed Controller: ${spec.speedControllerIncluded}`;
+      const value=`Hız Anahtarı / Speed Controller: ${spec.speedControllerIncluded}`;
+      if(note.textContent!==value)note.textContent=value;
     });
   }
 
