@@ -16,6 +16,7 @@ assert.equal(first.items[1].parentItemKey,'fan-a');
 assert.equal(first.items[1].quantity,1);
 assert.equal(Object.hasOwn(first.items[1],'orderCode'),false);
 assert.equal(Object.hasOwn(first.items[1],'accessoryId'),false);
+assert.equal(Object.hasOwn(first.items[1],'description'),false);
 
 let second=core.insertAccessory(first.items,'fan-a',accessory,{itemKey:'acc-line-2',now:'2026-09-07T12:01:00.000Z'});
 assert.equal(second.items.length,5,'adding the same accessory again must append another line');
@@ -23,6 +24,10 @@ assert.equal(second.items[1].itemKey,'acc-line-1');
 assert.equal(second.items[2].itemKey,'acc-line-2');
 assert.equal(second.items[1].quantity,1);
 assert.equal(second.items[2].quantity,1);
+
+const legacy=[{itemKey:'legacy-accessory',productType:'accessory',description:'Eski ürün notu'}];
+assert.equal(core.purgeAccessoryNotes(legacy),true);
+assert.equal(Object.hasOwn(legacy[0],'description'),false);
 
 const typeOf=item=>item.productType==='electrical'?'electrical':'fan';
 const moved=core.reorderFanBlock(second.items,'fan-a',1,typeOf);

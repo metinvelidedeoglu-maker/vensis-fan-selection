@@ -34,13 +34,23 @@
       model:text(source.model||source.name||'Aksesuar'),
       series:text(source.category||'Aksesuar'),
       manufacturer:text(source.manufacturer||'AVenS'),
-      description:text(source.description||source.specs||''),
       price:number(source.price),
       discountPercent:number(options.discountPercent),
       quantity:Math.max(1,Math.round(number(options.quantity)||1)),
       createdAt:now,
       updatedAt:now
     };
+  }
+
+  function purgeAccessoryNotes(items){
+    let changed=false;
+    (Array.isArray(items)?items:[]).forEach(item=>{
+      if(isAccessory(item)&&Object.prototype.hasOwnProperty.call(item,'description')){
+        delete item.description;
+        changed=true;
+      }
+    });
+    return changed;
   }
 
   function insertAccessory(items,parentItemKey,accessory,options={}){
@@ -98,5 +108,5 @@
 
   function technicalItems(items){return (Array.isArray(items)?items:[]).filter(item=>!isAccessory(item))}
 
-  return {isAccessory,accessoryChildren,buildAccessoryItem,insertAccessory,fanBlocks,reorderFanBlock,technicalItems};
+  return {isAccessory,accessoryChildren,buildAccessoryItem,purgeAccessoryNotes,insertAccessory,fanBlocks,reorderFanBlock,technicalItems};
 });

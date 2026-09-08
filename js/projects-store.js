@@ -30,12 +30,12 @@
     if(!value||typeof value!=='object')return null;
     return {q:Math.max(0,Number(value.q)||0),p:Math.max(0,Number(value.p)||0)};
   }
-  function purgeAccessoryCodes(items){
+  function purgeAccessoryStoredFields(items){
     let changed=false;
     for(const item of items||[]){
       const accessory=cleanText(item?.productType).toLowerCase()==='accessory'||cleanText(item?.mode).toLowerCase()==='accessory';
       if(!accessory)continue;
-      for(const field of ['code','orderCode','productCode','accessoryId']){
+      for(const field of ['code','orderCode','productCode','accessoryId','description']){
         if(Object.prototype.hasOwnProperty.call(item,field)){delete item[field];changed=true}
       }
     }
@@ -160,7 +160,7 @@
     if(!projectId)return [];
     const value=readJson(itemsKey(projectId),[]);
     if(!Array.isArray(value))return [];
-    if(purgeAccessoryCodes(value)){writeJson(itemsKey(projectId),value);scheduleSave(projectId)}
+    if(purgeAccessoryStoredFields(value)){writeJson(itemsKey(projectId),value);scheduleSave(projectId)}
     return value;
   }
   function readMeta(projectId=activeId()){
@@ -395,7 +395,7 @@
   }
   function writeItems(items,projectId=activeId()){
     if(!projectId)projectId=ensureActive();
-    const value=Array.isArray(items)?items:[];purgeAccessoryCodes(value);
+    const value=Array.isArray(items)?items:[];purgeAccessoryStoredFields(value);
     writeJson(itemsKey(projectId),value);touch(projectId);
     emit('vensis-project-updated',projectId);emit('vensis-projects-updated',projectId);
     scheduleSave(projectId);

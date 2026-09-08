@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20260908-empty-image-box-r1';
+  const BUILD='20260908-accessory-no-note-r1';
   const page=(location.pathname.split('/').pop()||'').toLowerCase();
   const core=window.VensisAccessoryCore;
   if(!core)return;
@@ -18,6 +18,7 @@
   function readJson(key){try{return JSON.parse(localStorage.getItem(key)||'null')}catch{return null}}
   function writeJson(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{return false}}
   function itemType(item){return window.VensisQuotationFormats?.itemType?.(item)==='electrical'?'electrical':'fan'}
+  function purgeAccessoryNotes(items){return Boolean(core.purgeAccessoryNotes?.(items))}
   function accessoryImageSlot(item){
     const image=String(item?.image||'').trim();
     return `<i class="vensis-accessory-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(item?.model||'Aksesuar')}" onerror="this.remove()">`:''}</i>`;
@@ -25,10 +26,16 @@
 
   let fullPrintSnapshot=null;
   let printSnapshotKey='';
+  if(page==='quotation.html'){
+    const key=storageKey('vensis_active_quotation_v1');
+    const quotation=readJson(key);
+    if(quotation&&Array.isArray(quotation.items)&&purgeAccessoryNotes(quotation.items))writeJson(key,quotation);
+  }
   if(page==='project-print.html'){
     printSnapshotKey=storageKey('vensis_project_print_snapshot_v1');
     const snapshot=readJson(printSnapshotKey);
     if(snapshot&&Array.isArray(snapshot.items)&&snapshot.items.some(isAccessory)){
+      if(purgeAccessoryNotes(snapshot.items))writeJson(printSnapshotKey,snapshot);
       fullPrintSnapshot=snapshot;
       window.__VENSIS_ACCESSORY_PRINT_FULL__=snapshot;
       writeJson(printSnapshotKey,{...snapshot,items:core.technicalItems(snapshot.items)});
@@ -85,6 +92,7 @@
   function decorateProject(){
     const {store,projectId}=projectContext();if(!store?.readItems||!projectId)return;
     ensureStyles();const items=store.readItems(projectId);
+    if(purgeAccessoryNotes(items)){store.writeItems(items,projectId);return}
     document.querySelectorAll('.project-edit-fan tbody tr[data-project-edit-row]').forEach(row=>{
       const index=Number(row.dataset.projectEditRow);const item=items[index];if(!item)return;
       if(isAccessory(item)){simplifyAccessoryProjectRow(row,item);return}

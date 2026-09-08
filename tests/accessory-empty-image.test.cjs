@@ -37,9 +37,9 @@ test('every product row reserves its image column even when the image is missing
 
 test('the accessory display cache is refreshed on every related screen',()=>{
   const gate=read('js/access-gate.js');
-  assert.match(gate,/accessory-suite\.js\?v=20260908-empty-image-box-r1/);
+  assert.match(gate,/accessory-suite\.js\?v=20260908-accessory-no-note-r1/);
   for(const file of ['project.html','quotation.html','project-print.html']){
-    assert.match(read(file),/access-gate\.js\?v=20260908-empty-image-box-r1/,file);
+    assert.match(read(file),/access-gate\.js\?v=20260908-accessory-no-note-r1/,file);
   }
   assert.match(read('project.html'),/project\.js\?v=20260908-empty-image-box-r1/);
   assert.match(read('project.html'),/project-print-action\.js\?v=20260908-empty-image-box-r1/);

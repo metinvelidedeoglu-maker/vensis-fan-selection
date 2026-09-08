@@ -18,9 +18,10 @@ test('accessory catalog and UI do not retain or display catalog codes',()=>{
   assert.doesNotMatch(html,/Kod, model/);
 });
 
-test('project storage purges accessory codes from old and new records',()=>{
+test('project storage purges accessory codes and product notes from old and new records',()=>{
   const store=read('js/projects-store.js');
-  assert.match(store,/function purgeAccessoryCodes\(items\)/);
-  for(const field of ['code','orderCode','productCode','accessoryId'])assert.match(store,new RegExp(`'${field}'`));
-  assert.match(store,/if\(purgeAccessoryCodes\(value\)\)\{writeJson\(itemsKey\(projectId\),value\);scheduleSave\(projectId\)\}/);
+  assert.match(store,/function purgeAccessoryStoredFields\(items\)/);
+  for(const field of ['code','orderCode','productCode','accessoryId','description'])assert.match(store,new RegExp(`'${field}'`));
+  assert.match(store,/if\(purgeAccessoryStoredFields\(value\)\)\{writeJson\(itemsKey\(projectId\),value\);scheduleSave\(projectId\)\}/);
+  assert.match(store,/purgeAccessoryStoredFields\(value\);/);
 });
