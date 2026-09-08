@@ -2,14 +2,14 @@
   'use strict';
 
   const rows=[
-    {series:'SILENT',altModel:'SILENT-100 CZ',categories:['Bathroom Fan','Soler & Palau'],power:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:67,speedControllerIncluded:'REB-1 N',timerVariant:false,featuresTr:'Pilot lamba, geri tepme ventili',featuresEn:'Pilot lamp, backdraft damper'},
-    {series:'SILENT',altModel:'SILENT-100 CRZ',categories:['Bathroom Fan','Soler & Palau'],power:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:98,speedControllerIncluded:'REB-1 N',timerVariant:true,featuresTr:'Pilot lamba, geri tepme ventili, timer',featuresEn:'Pilot lamp, backdraft damper, timer'},
-    {series:'SILENT',altModel:'SILENT-100 CZ SILVER',categories:['Bathroom Fan','Soler & Palau'],power:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:83,speedControllerIncluded:'REB-1 N',timerVariant:false,featuresTr:'Krom renk, geri tepme ventili',featuresEn:'Chrome finish, backdraft damper'},
-    {series:'SILENT',altModel:'SILENT-100 CRZ SILVER',categories:['Bathroom Fan','Soler & Palau'],power:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:102,speedControllerIncluded:'REB-1 N',timerVariant:true,featuresTr:'Krom renk, geri tepme ventili, timer',featuresEn:'Chrome finish, backdraft damper, timer'},
-    {series:'SILENT',altModel:'SILENT-200 CZ',categories:['Bathroom Fan','Soler & Palau'],power:0.016,speed:2350,voltage:'230 V',maxAirflow:180,sound:33,price:98,speedControllerIncluded:'REB-1 N',timerVariant:false,featuresTr:'Pilot lamba, geri tepme ventili',featuresEn:'Pilot lamp, backdraft damper'},
-    {series:'SILENT',altModel:'SILENT-200 CRZ',categories:['Bathroom Fan','Soler & Palau'],power:0.016,speed:2350,voltage:'230 V',maxAirflow:180,sound:33,price:129,speedControllerIncluded:'REB-1 N',timerVariant:true,featuresTr:'Pilot lamba, geri tepme ventili, timer',featuresEn:'Pilot lamp, backdraft damper, timer'},
-    {series:'SILENT',altModel:'SILENT-300 CZ',categories:['Bathroom Fan','Soler & Palau'],power:0.029,speed:1700,voltage:'230 V',maxAirflow:260,sound:32,price:127,speedControllerIncluded:'REB-1 N',timerVariant:false,featuresTr:'Pilot lamba, geri tepme ventili',featuresEn:'Pilot lamp, backdraft damper'},
-    {series:'SILENT',altModel:'SILENT-300 CRZ',categories:['Bathroom Fan','Soler & Palau'],power:0.029,speed:1700,voltage:'230 V',maxAirflow:260,sound:32,price:158,speedControllerIncluded:'REB-1 N',timerVariant:true,featuresTr:'Pilot lamba, geri tepme ventili, timer',featuresEn:'Pilot lamp, backdraft damper, timer'}
+    {series:'SILENT',altModel:'SILENT-100 CZ',categories:['Bathroom Fan','Soler & Palau'],power:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:67,timerVariant:false,featuresTr:'Pilot lamba, geri tepme ventili',featuresEn:'Pilot lamp, backdraft damper'},
+    {series:'SILENT',altModel:'SILENT-100 CRZ',categories:['Bathroom Fan','Soler & Palau'],power:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:98,timerVariant:true,featuresTr:'Pilot lamba, geri tepme ventili, timer',featuresEn:'Pilot lamp, backdraft damper, timer'},
+    {series:'SILENT',altModel:'SILENT-100 CZ SILVER',categories:['Bathroom Fan','Soler & Palau'],power:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:83,timerVariant:false,featuresTr:'Krom renk, geri tepme ventili',featuresEn:'Chrome finish, backdraft damper'},
+    {series:'SILENT',altModel:'SILENT-100 CRZ SILVER',categories:['Bathroom Fan','Soler & Palau'],power:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:102,timerVariant:true,featuresTr:'Krom renk, geri tepme ventili, timer',featuresEn:'Chrome finish, backdraft damper, timer'},
+    {series:'SILENT',altModel:'SILENT-200 CZ',categories:['Bathroom Fan','Soler & Palau'],power:0.016,speed:2350,voltage:'230 V',maxAirflow:180,sound:33,price:98,timerVariant:false,featuresTr:'Pilot lamba, geri tepme ventili',featuresEn:'Pilot lamp, backdraft damper'},
+    {series:'SILENT',altModel:'SILENT-200 CRZ',categories:['Bathroom Fan','Soler & Palau'],power:0.016,speed:2350,voltage:'230 V',maxAirflow:180,sound:33,price:129,timerVariant:true,featuresTr:'Pilot lamba, geri tepme ventili, timer',featuresEn:'Pilot lamp, backdraft damper, timer'},
+    {series:'SILENT',altModel:'SILENT-300 CZ',categories:['Bathroom Fan','Soler & Palau'],power:0.029,speed:1700,voltage:'230 V',maxAirflow:260,sound:32,price:127,timerVariant:false,featuresTr:'Pilot lamba, geri tepme ventili',featuresEn:'Pilot lamp, backdraft damper'},
+    {series:'SILENT',altModel:'SILENT-300 CRZ',categories:['Bathroom Fan','Soler & Palau'],power:0.029,speed:1700,voltage:'230 V',maxAirflow:260,sound:32,price:158,timerVariant:true,featuresTr:'Pilot lamba, geri tepme ventili, timer',featuresEn:'Pilot lamp, backdraft damper, timer'}
   ];
 
   const text=value=>String(value??'').replace(/\s+/g,' ').trim();
@@ -50,7 +50,7 @@
       const spec=specByModel.get(identity(model?.model||model?.display||model?.standard?.altModel));
       if(!spec)continue;
       model.technical=model.technical||{};
-      model.technical.speedControllerIncluded=spec.speedControllerIncluded;
+      delete model.technical.speedControllerIncluded;
       model.technical.timerVariant=Boolean(spec.timerVariant);
       model.technical.silentFeaturesTr=spec.featuresTr;
       model.technical.silentFeaturesEn=spec.featuresEn;
@@ -104,8 +104,7 @@
       const model=findModelForCard(card);if(!model)return;
       const spec=specByModel.get(identity(model.model));if(!spec)return;
       const grid=card.querySelector('.model-grid');if(!grid)return;
-      if(!hasField(grid,['Speed Controller','Hız Kontrol Cihazı','Hız Anahtarı']))addField(grid,'controller',lang==='tr'?'Hız Anahtarı':'Speed Controller',spec.speedControllerIncluded);
-      else grid.querySelector('[data-silent-field="controller"]')?.remove();
+      grid.querySelector('[data-silent-field="controller"]')?.remove();
       addField(grid,'features',lang==='tr'?'Özellikler':'Features',lang==='tr'?spec.featuresTr:spec.featuresEn);
       if(spec.timerVariant&&!hasField(grid,['Timer','Zamanlayıcı']))addField(grid,'timer',lang==='tr'?'Zamanlayıcı':'Timer',lang==='tr'?'Evet':'Yes');
       else if(!spec.timerVariant||hasField(grid,['Timer','Zamanlayıcı']))grid.querySelector('[data-silent-field="timer"]')?.remove();

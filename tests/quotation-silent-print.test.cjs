@@ -32,13 +32,12 @@ test('catalogue pricing refreshes stale SILENT prices but preserves manual quote
 test('quotation loads the SILENT correction layer with cache-busted URL',()=>{
   const overrides=read('data/series-overrides.js');
   assert.match(overrides,/quotation\\\.html/);
-  assert.match(overrides,/js\/quotation-silent-fix\.js\?v=20260908-r1/);
+  assert.match(overrides,/js\/quotation-silent-fix\.js\?v=20260908-no-controller-r1/);
 });
 
-test('quotation SILENT correction shows REB-1 N and compacts first printed page',()=>{
+test('quotation SILENT correction omits controller note and compacts first printed page',()=>{
   const fix=read('js/quotation-silent-fix.js');
-  assert.match(fix,/Hız Anahtarı \/ Speed Controller/);
-  assert.match(fix,/speedControllerIncluded/);
+  assert.doesNotMatch(fix,/speedControllerIncluded/);
   assert.match(fix,/#quotationContent>\.quote-page:first-child/);
   assert.match(fix,/@media print/);
   assert.match(fix,/quote-table td\{padding:5px 4px/);

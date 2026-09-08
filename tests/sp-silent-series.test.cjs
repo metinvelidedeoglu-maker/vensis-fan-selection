@@ -43,14 +43,14 @@ test('SILENT workbook policy replaces the three generic rows with the confirmed 
   assert.equal(rows.some(row=>['SILENT-100','SILENT-200','SILENT-300'].includes(row.altModel)),false);
 });
 
-test('confirmed SILENT airflow, controller, prices and variant features are exact',()=>{
+test('confirmed SILENT airflow, prices and variant features are exact without controller metadata',()=>{
   const context=policyContext();
   const rows=context.window.VensisSPSilentPolicy20260908.rows;
   for(const [model,airflow,price,timer,featuresTr] of expected){
     const row=rows.find(item=>item.altModel===model);
     assert.ok(row,model);
     assert.equal(row.maxAirflow,airflow,model);
-    assert.equal(row.speedControllerIncluded,'REB-1 N',model);
+    assert.equal(Object.hasOwn(row,'speedControllerIncluded'),false,model);
     assert.equal(row.price,price,model);
     assert.equal(row.timerVariant,timer,model);
     assert.equal(row.featuresTr,featuresTr,model);
@@ -71,10 +71,10 @@ test('SILENT size technical values are preserved from the existing workbook base
   }
 });
 
-test('catalog enrichment exposes controller, timer and bilingual feature metadata',()=>{
+test('catalog enrichment removes controller metadata and exposes timer and bilingual feature metadata',()=>{
   const context=policyContext();
   const rows=context.window.VensisSPSilentPolicy20260908.rows;
-  const models=rows.map((row,index)=>({id:`m${index}`,seriesId:'SILENT',model:row.altModel,technical:{},pricing:{},performance:{},motor:{},standard:{}}));
+  const models=rows.map((row,index)=>({id:`m${index}`,seriesId:'SILENT',model:row.altModel,technical:{speedControllerIncluded:'legacy value'},pricing:{},performance:{},motor:{},standard:{}}));
   context.window.VensisCatalog={
     series:[{id:'SILENT',code:'SILENT',title:'SILENT',manufacturer:'Soler & Palau',submodels:[]}],
     models,
@@ -83,7 +83,7 @@ test('catalog enrichment exposes controller, timer and bilingual feature metadat
   assert.equal(context.window.VensisSPSilentPolicy20260908.applyCatalog(),true);
   for(const model of models){
     const spec=rows.find(row=>row.altModel===model.model);
-    assert.equal(model.technical.speedControllerIncluded,'REB-1 N');
+    assert.equal(Object.hasOwn(model.technical,'speedControllerIncluded'),false);
     assert.equal(model.technical.timerVariant,spec.timerVariant);
     assert.equal(model.technical.silentFeaturesTr,spec.featuresTr);
     assert.equal(model.technical.silentFeaturesEn,spec.featuresEn);
@@ -94,7 +94,7 @@ test('catalog enrichment exposes controller, timer and bilingual feature metadat
 
 test('SILENT authority is loaded before the S&P workbook chunks',()=>{
   const source=read('data/series-overrides.js');
-  assert.match(source,/data\/sp-silent-workbook-policy\.js\?v=20260908-silent-r1/);
+  assert.match(source,/data\/sp-silent-workbook-policy\.js\?v=20260908-silent-no-controller-r1/);
 });
 
 test('fan sitemap uses only the authoritative SILENT model source',()=>{
