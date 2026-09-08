@@ -50,7 +50,7 @@
       const spec=specByModel.get(identity(model?.model||model?.display||model?.standard?.altModel));
       if(!spec)continue;
       model.technical=model.technical||{};
-      delete model.technical.speedControllerIncluded;
+      model.technical.speedControllerIncluded=spec.speedControllerIncluded;
       model.technical.timerVariant=Boolean(spec.timerVariant);
       model.technical.silentFeaturesTr=spec.featuresTr;
       model.technical.silentFeaturesEn=spec.featuresEn;
@@ -104,7 +104,8 @@
       const model=findModelForCard(card);if(!model)return;
       const spec=specByModel.get(identity(model.model));if(!spec)return;
       const grid=card.querySelector('.model-grid');if(!grid)return;
-      grid.querySelector('[data-silent-field="controller"]')?.remove();
+      if(!hasField(grid,['Speed Controller','Hız Kontrol Cihazı','Hız Anahtarı']))addField(grid,'controller',lang==='tr'?'Hız Anahtarı':'Speed Controller',spec.speedControllerIncluded);
+      else grid.querySelector('[data-silent-field="controller"]')?.remove();
       addField(grid,'features',lang==='tr'?'Özellikler':'Features',lang==='tr'?spec.featuresTr:spec.featuresEn);
       if(spec.timerVariant&&!hasField(grid,['Timer','Zamanlayıcı']))addField(grid,'timer',lang==='tr'?'Zamanlayıcı':'Timer',lang==='tr'?'Evet':'Yes');
       else if(!spec.timerVariant||hasField(grid,['Timer','Zamanlayıcı']))grid.querySelector('[data-silent-field="timer"]')?.remove();
