@@ -25,7 +25,8 @@
     if(!cells.length)return false;
 
     const first=cells[0];
-    const desired=`<strong class="vensis-accessory-name-only">${esc(item.model||'Aksesuar')}</strong>`;
+    const manufacturer=String(item.manufacturer||'').trim();
+    const desired=`<div class="vensis-accessory-summary"><strong class="vensis-accessory-name-only">${esc(item.model||'Aksesuar')}</strong>${manufacturer?`<small class="vensis-accessory-brand">${esc(manufacturer)}</small>`:''}</div>`;
     let changed=false;
 
     if(first.colSpan!==5){first.colSpan=5;changed=true}

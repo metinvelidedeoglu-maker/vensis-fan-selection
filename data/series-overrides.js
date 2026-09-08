@@ -54,7 +54,7 @@ if(/(^|\/)(project|quotation)\.html$/.test(String(location.pathname||''))){
 if(/(^|\/)quotation\.html$/.test(String(location.pathname||''))){
   document.write(
     '<script src="js/quotation-silent-fix.js?v=20260908-r2"><\/script>',
-    '<script src="js/quotation-accessory-minimal.js?v=20260908-r1"><\/script>'
+    '<script src="js/quotation-accessory-minimal.js?v=20260908-r2"><\/script>'
   );
 }
 
