@@ -71,6 +71,14 @@ function add_row_routes(&$urls, $site, $row, $timestamp) {
     if ($model !== '') add_fan_url($urls, fan_route($site, $brand, $series, $model), $timestamp);
 }
 
+function is_sp_silent_row($row) {
+    if (!is_array($row)) return false;
+    $brand = strtolower(trim((string)($row['brand'] ?? $row['manufacturer'] ?? '')));
+    $series = strtoupper(trim((string)($row['series'] ?? $row['family'] ?? '')));
+    $isSp = strpos($brand, 'soler') !== false || $brand === 'sp';
+    return $isSp && $series === 'SILENT';
+}
+
 function parse_json_push_rows($source) {
     if (!preg_match('/window\.models\.push\(\.\.\.(\[[\s\S]*\])\s*\);?/', $source, $match)) return [];
     $decoded = json_decode($match[1], true);
@@ -165,7 +173,11 @@ foreach ($files as $file) {
     $timestamp = filemtime($file) ?: time();
     $rows = parse_json_push_rows($source);
     if (!$rows) $rows = parse_object_literal_rows($source);
-    foreach ($rows as $row) add_row_routes($urls, $site, $row, $timestamp);
+    $isSilentAuthority = basename($file) === 'soler-palau-catalog-silent.js';
+    foreach ($rows as $row) {
+        if (!$isSilentAuthority && is_sp_silent_row($row)) continue;
+        add_row_routes($urls, $site, $row, $timestamp);
+    }
 }
 
 add_cr_matrix_series_routes($urls, $site, __DIR__ . '/data/cr-family-matrix.js');
