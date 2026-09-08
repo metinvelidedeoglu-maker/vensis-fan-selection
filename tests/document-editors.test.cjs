@@ -72,8 +72,8 @@ test('project uses the same left editor pattern and keeps the working table on t
   assert.match(script,/presentation\.description/);
   assert.match(script,/presentation\.brand/);
   assert.match(html,/products\/registry\.js\?v=20260908-product-presentation-r1/);
-  assert.match(html,/js\/project\.js\?v=20260908-product-presentation-r1/);
-  assert.match(html,/js\/project-print-action\.js\?v=20260908-product-presentation-r1/);
+  assert.match(html,/js\/project\.js\?v=20260908-empty-image-box-r1/);
+  assert.match(html,/js\/project-print-action\.js\?v=20260908-empty-image-box-r1/);
   assert.match(html,/id="custom-productType"/);
   assert.match(html,/js\/quotation-formats\.js/);
 });

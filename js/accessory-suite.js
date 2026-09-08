@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20260908-empty-image-r1';
+  const BUILD='20260908-empty-image-box-r1';
   const page=(location.pathname.split('/').pop()||'').toLowerCase();
   const core=window.VensisAccessoryCore;
   if(!core)return;
@@ -18,6 +18,10 @@
   function readJson(key){try{return JSON.parse(localStorage.getItem(key)||'null')}catch{return null}}
   function writeJson(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{return false}}
   function itemType(item){return window.VensisQuotationFormats?.itemType?.(item)==='electrical'?'electrical':'fan'}
+  function accessoryImageSlot(item){
+    const image=String(item?.image||'').trim();
+    return `<i class="vensis-accessory-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(item?.model||'Aksesuar')}" onerror="this.remove()">`:''}</i>`;
+  }
 
   let fullPrintSnapshot=null;
   let printSnapshotKey='';
@@ -40,10 +44,10 @@
       .vensis-add-accessory{display:inline-flex;align-items:center;margin-top:7px;border:1px solid #9dcab5;border-radius:7px;padding:6px 8px;background:#f4fbf7;color:#087f4f;font:850 10px/1 Arial,Helvetica,sans-serif;cursor:pointer;white-space:nowrap}
       .vensis-add-accessory:hover{background:#e8f6ef;border-color:#68ad8c}
       .vensis-accessory-row{background:#fbfdfc}.vensis-accessory-row>td{border-top:1px dashed #c9d9d4!important}.vensis-accessory-row [data-project-reorder-cell],.vensis-accessory-row .project-reorder-controls{visibility:hidden!important}
-      .vensis-accessory-project-cell{padding-left:20px!important;white-space:normal!important}.vensis-accessory-project{display:flex;align-items:center;min-width:310px}
+      .vensis-accessory-image-slot img{display:block;width:100%;height:100%;object-fit:contain}.vensis-accessory-project-cell{white-space:normal!important}.vensis-accessory-project{display:flex;align-items:center;gap:9px;min-width:310px}.vensis-accessory-project .vensis-accessory-image-slot{display:block;width:52px;height:52px;flex:0 0 52px;border:1px solid #e2e9e5;border-radius:7px;padding:3px;background:#fff}
       .vensis-accessory-project strong,.vensis-accessory-project span,.vensis-accessory-project small{display:block}.vensis-accessory-project strong{font-size:11.5px}.vensis-accessory-project span{margin-top:2px;color:#52666b}.vensis-accessory-project small{margin-top:3px;color:#087f4f;font-weight:800}.vensis-accessory-badge{display:inline-flex!important;width:max-content;margin-bottom:4px;padding:3px 6px;border-radius:999px;background:#e8f6ef;color:#087f4f!important;font-size:8px!important;font-weight:900!important;text-transform:uppercase;letter-spacing:.04em}
-      .quote-table tr.vensis-accessory-quote-row td{background:#fbfdfc;border-top:1px dashed #c9d9d4}.vensis-accessory-quote{display:flex;align-items:flex-start;gap:7px;padding-left:12px;white-space:normal}.vensis-accessory-quote b,.vensis-accessory-quote span,.vensis-accessory-quote small{display:block}.vensis-accessory-quote b{font-size:9.5px}.vensis-accessory-quote span{margin-top:2px;color:#52666b;font-size:8px}.vensis-accessory-quote small{margin-top:2px;color:#087f4f;font-size:7.5px;font-weight:800}.quote-item-editor.vensis-accessory-editor{border-left:3px solid #8bc4a8;background:#f7fcf9}
-      .project-table tr.vensis-accessory-print-row td{background:#fbfdfc;border-top:1px dashed #c9d9d4}.vensis-accessory-print{display:flex;align-items:center;gap:6px;padding-left:8px}.vensis-accessory-print b,.vensis-accessory-print span,.vensis-accessory-print small{display:block}.vensis-accessory-print b{font-size:8.2px}.vensis-accessory-print span{margin-top:1px;color:#52666b;font-size:7.2px}.vensis-accessory-print small{margin-top:1px;color:#087f4f;font-size:6.8px;font-weight:800}
+      .quote-table tr.vensis-accessory-quote-row td{background:#fbfdfc;border-top:1px dashed #c9d9d4}.vensis-accessory-quote{display:flex;align-items:flex-start;gap:8px;white-space:normal}.vensis-accessory-quote .vensis-accessory-image-slot{display:block;width:38px;height:38px;flex:0 0 38px;border:1px solid #e1e9e6;border-radius:6px;padding:3px;background:#fff}.vensis-accessory-quote b,.vensis-accessory-quote span,.vensis-accessory-quote small{display:block}.vensis-accessory-quote b{font-size:9.5px}.vensis-accessory-quote span{margin-top:2px;color:#52666b;font-size:8px}.vensis-accessory-quote small{margin-top:2px;color:#087f4f;font-size:7.5px;font-weight:800}.quote-item-editor.vensis-accessory-editor{border-left:3px solid #8bc4a8;background:#f7fcf9}
+      .project-table tr.vensis-accessory-print-row td{background:#fbfdfc;border-top:1px dashed #c9d9d4}.vensis-accessory-print{display:flex;align-items:center;gap:6px}.vensis-accessory-print .vensis-accessory-image-slot{display:block;width:32px;height:32px;flex:0 0 32px;border:1px solid #e1e9e6;border-radius:5px;padding:2px;background:#fff}.vensis-accessory-print b,.vensis-accessory-print span,.vensis-accessory-print small{display:block}.vensis-accessory-print b{font-size:8.2px}.vensis-accessory-print span{margin-top:1px;color:#52666b;font-size:7.2px}.vensis-accessory-print small{margin-top:1px;color:#087f4f;font-size:6.8px;font-weight:800}
       @media print{.vensis-add-accessory{display:none!important}.quote-table tr.vensis-accessory-quote-row td,.project-table tr.vensis-accessory-print-row td{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
     `;
     document.head.appendChild(style);
@@ -66,7 +70,7 @@
   }
 
   function accessoryProjectMarkup(item){
-    return `<div class="vensis-accessory-project"><div><span class="vensis-accessory-badge">Aksesuar</span><strong>${esc(item.model||'Aksesuar')}</strong><span>${esc(item.series||'')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`;
+    return `<div class="vensis-accessory-project">${accessoryImageSlot(item)}<div><span class="vensis-accessory-badge">Aksesuar</span><strong>${esc(item.model||'Aksesuar')}</strong><span>${esc(item.series||'')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`;
   }
 
   function simplifyAccessoryProjectRow(row,item){
@@ -132,7 +136,7 @@
 
   function quoteKey(){return storageKey('vensis_active_quotation_v1')}
   function quoteItemKey(item,index){return String(item?.itemKey||`quote-index-${index}`)}
-  function quoteAccessoryMarkup(item){return `<div class="vensis-accessory-quote"><div><b>${esc(item.model||'Aksesuar')}</b><span>${esc(item.series||'Aksesuar')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`}
+  function quoteAccessoryMarkup(item){return `<div class="vensis-accessory-quote">${accessoryImageSlot(item)}<div><b>${esc(item.model||'Aksesuar')}</b><span>${esc(item.series||'Aksesuar')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`}
   function quoteAccessoryRow(row,item,currency='EUR'){
     if(row.classList.contains('vensis-accessory-quote-row'))return;
     const symbol={EUR:'€',USD:'$',TRY:'₺'}[String(currency).toUpperCase()]||String(currency||'€');const qty=Math.max(1,Math.round(num(item.quantity)||1));const discount=Math.min(100,Math.max(0,num(item.discountPercent)));const net=num(item.price)*(1-discount/100);const total=net*qty;const hasPrice=num(item.price)>0;
@@ -167,7 +171,7 @@
   function scheduleQuotation(){if(quoteQueued)return;quoteQueued=true;requestAnimationFrame(()=>{quoteQueued=false;decorateQuotation()})}
   function startQuotation(){ensureStyles();scheduleQuotation();const root=document.getElementById('quotationWorkspace')||document.body;new MutationObserver(scheduleQuotation).observe(root,{childList:true,subtree:true});window.addEventListener('storage',scheduleQuotation)}
 
-  function printAccessoryMarkup(item){return `<div class="vensis-accessory-print"><div><b>${esc(item.model||'Aksesuar')}</b><span>${esc(item.series||'Aksesuar')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`}
+  function printAccessoryMarkup(item){return `<div class="vensis-accessory-print">${accessoryImageSlot(item)}<div><b>${esc(item.model||'Aksesuar')}</b><span>${esc(item.series||'Aksesuar')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`}
   function decorateProjectPrint(){
     const full=fullPrintSnapshot||window.__VENSIS_ACCESSORY_PRINT_FULL__;const root=document.getElementById('projectPrintRoot');if(!full||!Array.isArray(full.items)||!root?.querySelector('.project-overview'))return false;
     ensureStyles();const technical=core.technicalItems(full.items);const tbody=root.querySelector('.project-overview .project-table tbody');if(!tbody)return false;

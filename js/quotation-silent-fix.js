@@ -27,7 +27,7 @@
   #quotationContent>.quote-page:first-child .quote-table th{padding:5px 4px;font-size:7px}
   #quotationContent>.quote-page:first-child .quote-table td{padding:5px 4px;font-size:8px}
   #quotationContent>.quote-page:first-child .product{gap:5px;min-width:145px}
-  #quotationContent>.quote-page:first-child .product img{width:30px;height:30px;flex-basis:30px;padding:2px}
+  #quotationContent>.quote-page:first-child .product-image-slot{width:30px;height:30px;flex-basis:30px;padding:2px}
   #quotationContent>.quote-page:first-child .product strong{font-size:9px}
   #quotationContent>.quote-page:first-child .product span,#quotationContent>.quote-page:first-child .product small{margin-top:1px;font-size:7.5px}
   #quotationContent>.quote-page:first-child .product-description{margin-top:2px;max-width:180px;font-size:7px;line-height:1.2}

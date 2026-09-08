@@ -133,7 +133,7 @@
     const rate=clampDiscount(item.discountPercent);
     const netUnit=netUnitPrice(item);
     const lineTotal=netUnit*qty;
-    const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(presentation.altModel||'Fan')}" onerror="this.style.display='none'">`:'';
+    const image=`<i class="product-image-slot"${item.image?'':` aria-hidden="true"`}>${item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(presentation.altModel||'Fan')}" onerror="this.remove()">`:''}</i>`;
     const safety=String(item.safetyWarning||'').trim();
     const electrical=formats.itemType(item)==='electrical';
     const power=electrical?escapeHtml(item.power||'-'):(number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-');
