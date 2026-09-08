@@ -66,6 +66,10 @@ test('project uses the same left editor pattern and keeps the working table on t
   assert.match(script,/contact:byId\('projectContact'\)/);
   assert.match(script,/status:patch\.status===undefined/);
   assert.match(script,/saveProjectMeta/);
+  assert.match(script,/function modelDescription\(item\)/);
+  assert.match(script,/catalog\.getSeries\?\.\(model\.seriesId\)/);
+  assert.match(script,/escapeHtml\(modelDescription\(item\)\)/);
+  assert.match(html,/js\/project\.js\?v=20260908-product-copy-r1/);
   assert.match(html,/id="custom-productType"/);
   assert.match(html,/js\/quotation-formats\.js/);
 });
