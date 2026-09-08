@@ -34,6 +34,7 @@ if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='vitlo'){
 
 if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='sp'){
   document.write(
+    '<script src="data/sp-silent-workbook-policy.js?v=20260908-silent-r1"><\/script>',
     '<script src="data/sp-roof-01.js?v=20260826-roof-curves-r1"><\/script>',
     '<script src="data/sp-roof-b02.js?v=20260826-roof-curves-r1"><\/script>',
     '<script src="data/sp-roof-b03.js?v=20260826-roof-curves-r1"><\/script>',

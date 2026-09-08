@@ -1,6 +1,11 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Legacy generic SILENT model URLs now point to the confirmed CZ variants.
+  RewriteRule ^(tr|en)/fan/soler-palau/silent/silent-100/?$ /$1/fan/soler-palau/silent/silent-100-cz/ [R=301,L,NE]
+  RewriteRule ^(tr|en)/fan/soler-palau/silent/silent-200/?$ /$1/fan/soler-palau/silent/silent-200-cz/ [R=301,L,NE]
+  RewriteRule ^(tr|en)/fan/soler-palau/silent/silent-300/?$ /$1/fan/soler-palau/silent/silent-300-cz/ [R=301,L,NE]
+
   # Relative resources requested from a deep clean URL must still resolve from
   # the application root. Handle these before the page-route rules below.
   RewriteRule ^(tr|en)/fan/(?:vitlo|soler-palau|vortice)(?:/[^/]+){0,2}/(assets|css|js|data|products|api)/(.*)$ $2/$3 [L,QSA]
