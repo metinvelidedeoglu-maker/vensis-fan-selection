@@ -1,6 +1,7 @@
 (function(){
   const PRINT_KEY=window.VensisAccess?.storageKey?.('vensis_project_print_snapshot_v1')||'vensis_project_print_snapshot_v1';
   const store=window.VensisProjects;
+  const products=window.VensisProducts||{};
   const formats=window.VensisQuotationFormats||{itemType:item=>item?.productType==='electrical'?'electrical':'fan'};
   const num=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
@@ -41,9 +42,10 @@
     return `<div class="project-point-editor">${input(index,`${field}.q`,q,{type:'number',min:0,step:1,unit:'m³/h',label:`${field} airflow`})}${input(index,`${field}.p`,p,{type:'number',min:0,step:1,unit:'Pa',label:`${field} pressure`})}</div>`;
   }
   function productMarkup(item){
-    const image=item.image?`<img src="${esc(item.image)}" alt="${esc(item.model||'Product')}">`:'';
+    const presentation=products.presentation?.(item)||{altModel:item.model||'',description:item.series||'',brand:item.manufacturer||'Vitlo'};
+    const image=item.image?`<img src="${esc(item.image)}" alt="${esc(presentation.altModel||'Product')}">`:'';
     const safety=String(item.safetyWarning||'').trim();
-    return `<div class="project-cell-product">${image}<div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em>${esc(safety)}</em>`:''}</div></div>`;
+    return `<div class="project-cell-product">${image}<div><strong>${esc(presentation.altModel||'-')}</strong><span>${esc(presentation.description)}</span><small>${esc(presentation.brand)}</small>${safety?`<em>${esc(safety)}</em>`:''}</div></div>`;
   }
   function noteEditor(item,index){
     const stableKey=String(item.itemKey||`index-${index}`);

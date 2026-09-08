@@ -229,6 +229,30 @@
     };
   }
 
+  function withoutSeriesCode(code,value){
+    const cleanCode=String(code||'').trim();
+    const text=String(value||'').replace(/\s+/g,' ').trim();
+    if(!cleanCode||!text)return text;
+    if(!text.toLocaleLowerCase('en-US').startsWith(cleanCode.toLocaleLowerCase('en-US')))return text;
+    const remainder=text.slice(cleanCode.length);
+    if(!remainder)return text;
+    if(!/^[\s\-–—:|\/]/.test(remainder))return text;
+    return remainder.replace(/^\s*[-–—:|\/]?\s*/,'').trim()||text;
+  }
+  function presentation(value){
+    const item=value&&typeof value==='object'?value:{};
+    const key=String(item.productKey||item.key||item.id||'');
+    const product=productView(modelRecords.get(key));
+    const altModel=String(item.altModel||item.model||product?.model||'').trim();
+    const rawDescription=String(item.productDescription||item.series||product?.series?.title||'').trim();
+    const code=String(item.seriesCode||product?.series?.code||seriesCode(rawDescription)||seriesCode(altModel)||'').trim();
+    return {
+      altModel,
+      description:withoutSeriesCode(code,rawDescription),
+      brand:String(item.brand||item.manufacturer||product?.series?.manufacturer||'Vitlo').trim()||'Vitlo'
+    };
+  }
+
   window.VensisCatalog={
     series:[...seriesRecords.values()],
     models:[...modelRecords.values()],
@@ -242,6 +266,7 @@
     fromResult:result=>productView(modelRecords.get(String(result?.productKey||result?.key||result?.id||''))),
     seriesCode,
     seriesName:value=>seriesRecords.get(seriesCode(value))?.title||'',
+    presentation,
     image:value=>seriesRecords.get(seriesCode(value))?.media?.image||'',
     count:()=>modelRecords.size,
     seriesCount:()=>seriesRecords.size

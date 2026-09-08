@@ -35,7 +35,11 @@ test('project rows show submodel code, description without series code, then bra
   const window={
     VensisProjects:store,
     VensisCatalog:{models:[],series:[],getModel:()=>null,getSeries:()=>null},
-    VensisProducts:{get:()=>null,seriesCode:value=>String(value||'').startsWith('LINEO QUIET')?'LINEO QUIET':''},
+    VensisProducts:{presentation:value=>({
+      altModel:value.model,
+      description:'Low-Noise In-Line Mixed-Flow Fans',
+      brand:value.manufacturer
+    })},
     VensisQuotationFormats:{itemType:()=> 'fan',detect:()=> 'fan'},
     addEventListener(){},dispatchEvent(){},open(){}
   };
@@ -46,4 +50,12 @@ test('project rows show submodel code, description without series code, then bra
   });
   assert.match(tbody.innerHTML,/<strong>LINEO 100 QUIET<\/strong><span>Low-Noise In-Line Mixed-Flow Fans<\/span><small>Vortice<\/small>/);
   assert.doesNotMatch(tbody.innerHTML,/>LINEO QUIET Low-Noise In-Line Mixed-Flow Fans<\/span>/);
+});
+
+test('the active project table renderer uses the same central product presentation',()=>{
+  const script=fs.readFileSync(path.join(__dirname,'../js/project-print-action.js'),'utf8');
+  assert.match(script,/products\.presentation\?\.\(item\)/);
+  assert.match(script,/presentation\.altModel/);
+  assert.match(script,/presentation\.description/);
+  assert.match(script,/presentation\.brand/);
 });

@@ -32,23 +32,12 @@
     if(direct)return direct;
     return (catalog.models||[]).find(model=>String(model.model||'')===String(item?.model||''))||null;
   }
-  function withoutRepeatedCode(code,text){
-    const cleanCode=String(code||'').trim();
-    const cleanText=String(text||'').trim();
-    if(!cleanCode||!cleanText)return cleanText;
-    if(cleanText.toLocaleLowerCase('en-US')===cleanCode.toLocaleLowerCase('en-US'))return cleanText;
-    if(!cleanText.toLocaleLowerCase('en-US').startsWith(cleanCode.toLocaleLowerCase('en-US')))return cleanText;
-    const remainder=cleanText.slice(cleanCode.length);
-    if(!/^[\s\-–—:|\/]/.test(remainder))return cleanText;
-    return remainder.replace(/^\s*[-–—:|\/]?\s*/,'').trim()||cleanText;
-  }
-  function modelDescription(item){
-    const text=String(item?.series||'').trim();
-    const model=modelForItem(item);
-    const series=model&&(catalog.getSeries?.(model.seriesId)||(catalog.series||[]).find(row=>String(row.id||'')===String(model.seriesId||'')));
-    const product=products.get?.(item?.productKey);
-    const code=series?.code||product?.series?.code||products.seriesCode?.(text)||products.seriesCode?.(item?.model);
-    return withoutRepeatedCode(code,text);
+  function productPresentation(item){
+    return products.presentation?.(item)||{
+      altModel:String(item?.model||'').trim(),
+      description:String(item?.series||'').trim(),
+      brand:String(item?.manufacturer||'Vitlo').trim()||'Vitlo'
+    };
   }
   function enrichItems(items){
     let changed=Boolean(window.VensisPricing?.enrichItems?.(items));
@@ -137,13 +126,14 @@
     return `<label class="product-note"><span>Free Note</span><textarea rows="2" data-product-note="${escapeHtml(stableKey)}" data-product-index="${index}" placeholder="Project-specific note shown in project and quotation outputs.">${escapeHtml(item.description||'')}</textarea></label>`;
   }
   function row(item,index,items){
+    const presentation=productPresentation(item);
     const qty=Math.max(1,number(item.quantity)||1);
     const price=number(item.price);
     const hasPrice=price>0;
     const rate=clampDiscount(item.discountPercent);
     const netUnit=netUnitPrice(item);
     const lineTotal=netUnit*qty;
-    const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Fan')}" onerror="this.style.display='none'">`:'';
+    const image=item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(presentation.altModel||'Fan')}" onerror="this.style.display='none'">`:'';
     const safety=String(item.safetyWarning||'').trim();
     const electrical=formats.itemType(item)==='electrical';
     const power=electrical?escapeHtml(item.power||'-'):(number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-');
@@ -152,7 +142,7 @@
     const noiseOrPhase=electrical?escapeHtml(item.phase||'-'):(number(item.noise)>0?`${fmt(item.noise)} dB(A)`:'-');
     return `<tr>
       <td class="order-column">${orderControls(index,items.length)}</td>
-      <td><div class="product-cell">${image}<div class="product-info"><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(modelDescription(item))}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:10px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${noteEditor(item,index)}</div></div></td>
+      <td><div class="product-cell">${image}<div class="product-info"><strong>${escapeHtml(presentation.altModel||'-')}</strong><span>${escapeHtml(presentation.description)}</span><small>${escapeHtml(presentation.brand)}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:10px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${noteEditor(item,index)}</div></div></td>
       ${pointCells(item)}
       <td>${supplyText(item)}</td>
       <td>${power}</td>
