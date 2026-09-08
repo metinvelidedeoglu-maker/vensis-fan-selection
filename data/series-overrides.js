@@ -47,6 +47,10 @@ if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='sp'){
   );
 }
 
+if(/(^|\/)quotation\.html$/.test(String(location.pathname||''))){
+  document.write('<script src="js/quotation-silent-fix.js?v=20260908-r1"><\/script>');
+}
+
 document.write('<script src="js/catalog-model-seo-links.js?v=20260902-r1"><\/script>');
 
 (function removeCatalogImageErrorHandlers(){
