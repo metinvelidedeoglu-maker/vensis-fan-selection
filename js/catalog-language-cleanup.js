@@ -279,6 +279,29 @@
     if(String(node.textContent||'').trim()!==next)node.textContent=next;
   }
 
+  function withoutRepeatedCode(code,text){
+    const cleanCode=String(code||'').trim();
+    const cleanText=String(text||'').trim();
+    if(!cleanCode||!cleanText)return cleanText;
+    if(cleanText.toLocaleLowerCase('en-US')===cleanCode.toLocaleLowerCase('en-US'))return cleanText;
+    if(!cleanText.toLocaleLowerCase('en-US').startsWith(cleanCode.toLocaleLowerCase('en-US')))return cleanText;
+    return cleanText.slice(cleanCode.length).replace(/^\s*[-–—:|\/]?\s*/,'').trim()||cleanText;
+  }
+
+  function cleanVorticeTitles(scope){
+    const clean=(container,codeSelector,titleSelector)=>{
+      const brand=String(container.querySelector('.series-brand')?.textContent||'').trim();
+      if(brand.toLocaleLowerCase('en-US')!=='vortice')return;
+      const code=String(container.querySelector(codeSelector)?.textContent||'').trim();
+      const title=container.querySelector(titleSelector);
+      if(!title)return;
+      const cleaned=withoutRepeatedCode(code,title.textContent);
+      if(cleaned!==title.textContent)title.textContent=cleaned;
+    };
+    scope.querySelectorAll('.series-card').forEach(card=>clean(card,'h2','.series-title'));
+    scope.querySelectorAll('.series-hero-copy').forEach(hero=>clean(hero,'h1','h2'));
+  }
+
   function observeMutations(){
     if(!observer){
       observer=new MutationObserver(mutations=>{
@@ -304,6 +327,7 @@
       const scope=root?.querySelectorAll?root:document;
       scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state,.model-datasheet-btn').forEach(node=>renderNode(node,'ui'));
       scope.querySelectorAll('.series-title,.series-hero-copy h2').forEach(node=>renderNode(node,'title'));
+      cleanVorticeTitles(scope);
       scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
       scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li').forEach(node=>renderNode(node,'product'));
 
