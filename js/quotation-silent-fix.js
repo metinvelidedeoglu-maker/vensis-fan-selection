@@ -31,6 +31,7 @@
   #quotationContent>.quote-page:first-child .product strong{font-size:9px}
   #quotationContent>.quote-page:first-child .product span,#quotationContent>.quote-page:first-child .product small{margin-top:1px;font-size:7.5px}
   #quotationContent>.quote-page:first-child .product-description{margin-top:2px;max-width:180px;font-size:7px;line-height:1.2}
+  #quotationContent>.quote-page:first-child .silent-controller-note{margin-top:2px;font-size:7px;line-height:1.2}
   #quotationContent>.quote-page:first-child .totals{margin-top:4mm}
   #quotationContent>.quote-page:first-child .total-row{padding:6px 9px;font-size:9px}
   #quotationContent>.quote-page:first-child .total-row.grand{padding:7px 9px}
@@ -47,13 +48,38 @@
     document.head.appendChild(style);
   }
 
-  function removeSilentControllerNotes(){
-    document.querySelectorAll('#quotationProductTables .silent-controller-note').forEach(note=>note.remove());
+  const normalize=value=>String(value??'').replace(/\s+/g,' ').trim().toUpperCase();
+  function silentSpec(modelName){
+    const target=normalize(modelName);
+    return (root.VensisSPSilentPolicy20260908?.rows||[]).find(row=>normalize(row.altModel)===target)||null;
+  }
+  function decorateSilentRows(){
+    document.querySelectorAll('#quotationProductTables tbody tr').forEach(row=>{
+      const nameNode=row.querySelector('.product strong');
+      const product=row.querySelector('.product>div');
+      if(!nameNode||!product)return;
+      const spec=silentSpec(nameNode.textContent);
+      if(!spec?.speedControllerIncluded){
+        row.querySelector('.silent-controller-note')?.remove();
+        return;
+      }
+      let note=row.querySelector('.silent-controller-note');
+      if(!note){
+        note=document.createElement('span');
+        note.className='silent-controller-note';
+        note.style.display='block';
+        note.style.color='#52666b';
+        note.style.fontWeight='700';
+        product.appendChild(note);
+      }
+      const value=`Hız Anahtarı / Speed Controller: ${spec.speedControllerIncluded}`;
+      if(note.textContent!==value)note.textContent=value;
+    });
   }
 
   function refresh(){
     try{root.VensisSPSilentPolicy20260908?.applyCatalog?.()}catch{}
-    removeSilentControllerNotes();
+    decorateSilentRows();
   }
   function start(){
     installPrintStyle();
