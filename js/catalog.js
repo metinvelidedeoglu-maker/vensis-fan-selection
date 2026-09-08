@@ -3,6 +3,7 @@
   const PROJECT_KEY=window.VensisAccess?.storageKey?.('vensis_project_items_v1')||'vensis_project_items_v1';
   const selected={manufacturers:new Set(),categories:new Set()};
   const esc=value=>String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  const displayBrand=value=>String(value??'').trim().toLowerCase()==='vortice'?'VORTICE':value;
   const num=(value,decimals=0)=>{const n=Number(value);return Number.isFinite(n)&&n>0?n.toLocaleString('en-US',{maximumFractionDigits:decimals,minimumFractionDigits:decimals}):'-'};
   const unique=items=>[...new Set(items.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
   const allSeries=catalog.series||[];
@@ -41,7 +42,7 @@
     return `<article class="series-card" data-series="${esc(series.id)}" role="link" tabindex="0">
       <div class="series-card-image"><img src="${esc(series.media?.image||'')}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
       <div class="series-card-body">
-        <div class="series-brand">${esc(series.manufacturer||'')}</div>
+        <div class="series-brand">${esc(displayBrand(series.manufacturer||''))}</div>
         <h2>${esc(series.code||series.title)}</h2>
         <div class="series-title">${esc(series.title||'')}</div>
         ${summary&&summary!==series.title?`<p>${esc(summary)}</p>`:''}
@@ -239,7 +240,7 @@
       <section class="series-hero">
         <div class="series-hero-image"><img src="${esc(series.media?.image||'')}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
         <div class="series-hero-copy">
-          <div class="series-brand">${esc(series.manufacturer||'')}</div>
+          <div class="series-brand">${esc(displayBrand(series.manufacturer||''))}</div>
           <h1>${esc(series.code||series.title)}</h1>
           <h2>${esc(series.title||'')}</h2>
           <div class="series-badges"><span>${models.length} Models</span>${(series.categories||[]).map(category=>`<span>${esc(category)}</span>`).join('')}</div>

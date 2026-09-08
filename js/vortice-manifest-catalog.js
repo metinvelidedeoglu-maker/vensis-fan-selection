@@ -5,6 +5,7 @@
   const rows=Array.isArray(window.VensisCatalog?.series)?window.VensisCatalog.series:[];
   const selected=new Set();
   const esc=value=>String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  const displayBrand=value=>String(value??'').trim().toLowerCase()==='vortice'?'VORTICE':value;
   const unique=items=>[...new Set(items.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
   const categories=unique(rows.flatMap(row=>row.categories||[]));
 
@@ -118,7 +119,7 @@
     return `<article class="series-card" data-series="${esc(row.id)}" role="link" tabindex="0">
       <div class="series-card-image">${image?`<img src="${esc(image)}" alt="${esc(row.code||row.title||'Vortice')}" loading="lazy" decoding="async" fetchpriority="low" onerror="this.remove()">`:''}</div>
       <div class="series-card-body">
-        <div class="series-brand">${esc(row.manufacturer||'Vortice')}</div>
+        <div class="series-brand">${esc(displayBrand(row.manufacturer||'Vortice'))}</div>
         <h2>${esc(row.code||row.title||'')}</h2>
         <div class="series-title">${esc(title)}</div>
         ${summary&&summary!==title?`<p>${esc(summary)}</p>`:''}
