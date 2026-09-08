@@ -137,6 +137,12 @@
   const state={mode:initialMode,authenticated:false,csrf:'',configured:true,persistentConfigReady:true,checked:false,busy:false};
   let gate,content;
 
+  // Hold the first paint while the access state and shared header are resolved.
+  // This must happen while the blocking head script is running; applying the
+  // class later in DOMContentLoaded makes the page flash visible, hidden, then
+  // visible again on every navigation.
+  document.documentElement.classList.add('vensis-access-pending');
+
   window.VENSIS_ACCESS_BOOT_MODE=initialMode||'guest';
 
   function esc(value){return String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
@@ -205,7 +211,6 @@
     else showChoice(state.mode==='guest');
   }
   function mount(){
-    document.documentElement.classList.add('vensis-access-pending');
     gate=document.createElement('div');gate.id='vensisAccessGate';gate.className='vensis-access-gate';gate.hidden=true;
     gate.innerHTML=`<section class="vensis-access-card" role="dialog" aria-modal="true" aria-label="Vensis giriş"><aside class="vensis-access-brand">${logo()}<div class="vensis-access-brand-copy"><span>Engineering Workspace</span><h2>Select.<br>Analyze. Deliver.</h2><p>Fan seçimi, ürün kataloğu, proje ve teklif süreçleri tek çalışma alanında.</p></div></aside><main class="vensis-access-content"></main></section>`;
     content=gate.querySelector('.vensis-access-content');document.body.appendChild(gate);applyMode(state.mode);

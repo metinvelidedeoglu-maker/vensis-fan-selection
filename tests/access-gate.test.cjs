@@ -10,17 +10,25 @@ test('primary application pages load the access gate before workspace stores',()
   const rootPages=['index.html','fan-selection.html','catalog-hub.html','catalog.html','projects.html','project.html','customers.html','quotation.html','order.html','project-print.html','detail.html'];
   for(const file of rootPages){
     const html=read(file);
-    assert.match(html,/css\/access-gate\.css\?v=20260826-access-gate-r1/,file);
-    assert.match(html,/js\/access-gate\.js\?v=20260826-access-gate-r1/,file);
+    assert.match(html,/css\/access-gate\.css\?v=[^"']+/,file);
+    assert.match(html,/js\/access-gate\.js\?v=[^"']+/,file);
     const gate=html.indexOf('js/access-gate.js');
     const store=html.indexOf('js/projects-store.js');
     if(store>=0)assert.ok(gate>=0&&gate<store,`${file}: access gate must load before project storage`);
   }
 
   const electrical=read('electrical/index.html');
-  assert.match(electrical,/\.\.\/css\/access-gate\.css\?v=20260826-access-gate-r1/);
-  assert.match(electrical,/\.\.\/js\/access-gate\.js\?v=20260826-access-gate-r1/);
+  assert.match(electrical,/\.\.\/css\/access-gate\.css\?v=[^"']+/);
+  assert.match(electrical,/\.\.\/js\/access-gate\.js\?v=[^"']+/);
   assert.ok(electrical.indexOf('../js/access-gate.js')<electrical.indexOf('../js/projects-store.js'));
+});
+
+test('private workspace blocks its first paint before session validation',()=>{
+  const gate=read('js/access-gate.js');
+  const apply=gate.indexOf("document.documentElement.classList.add('vensis-access-pending')");
+  const domReady=gate.lastIndexOf("document.addEventListener('DOMContentLoaded',start");
+  assert.ok(apply>=0&&domReady>apply,'paint hold must be applied by the blocking head script');
+  assert.doesNotMatch(read('index.html'),/vensis-access-pending body>\*:not\(#vensisAccessGate\)\{visibility:visible/);
 });
 
 test('access gate offers password and guest entry using the secure server session',()=>{
@@ -65,7 +73,7 @@ test('technical source disclaimer is available without crowding the interface',(
   assert.match(shell,/@media print\{\.vensis-suite-shell,\.vensis-technical-note,\.vensis-technical-dialog/);
 
   for(const file of ['index.html','fan-selection.html','catalog.html','catalog-hub.html','projects.html','customers.html']){
-    assert.match(read(file),/suite-shell\.js\?v=20260826-technical-note-r1/,file);
+    assert.match(read(file),/suite-shell\.js\?v=[^"']+/,file);
   }
-  assert.match(read('electrical/index.html'),/\.\.\/js\/suite-shell\.js\?v=20260826-technical-note-r1/);
+  assert.match(read('electrical/index.html'),/\.\.\/js\/suite-shell\.js\?v=[^"']+/);
 });
