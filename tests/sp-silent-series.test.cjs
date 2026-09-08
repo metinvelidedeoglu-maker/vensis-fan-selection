@@ -43,7 +43,7 @@ test('SILENT workbook policy replaces the three generic rows with the confirmed 
   assert.equal(rows.some(row=>['SILENT-100','SILENT-200','SILENT-300'].includes(row.altModel)),false);
 });
 
-test('confirmed SILENT airflow, controller reference, prices and variant features are exact',()=>{
+test('confirmed SILENT airflow, controller, prices and variant features are exact',()=>{
   const context=policyContext();
   const rows=context.window.VensisSPSilentPolicy20260908.rows;
   for(const [model,airflow,price,timer,featuresTr] of expected){
@@ -71,10 +71,10 @@ test('SILENT size technical values are preserved from the existing workbook base
   }
 });
 
-test('catalog enrichment keeps timer and bilingual features without exposing controller as included',()=>{
+test('catalog enrichment exposes controller, timer and bilingual feature metadata',()=>{
   const context=policyContext();
   const rows=context.window.VensisSPSilentPolicy20260908.rows;
-  const models=rows.map((row,index)=>({id:`m${index}`,seriesId:'SILENT',model:row.altModel,technical:{speedControllerIncluded:'stale'},pricing:{},performance:{},motor:{},standard:{}}));
+  const models=rows.map((row,index)=>({id:`m${index}`,seriesId:'SILENT',model:row.altModel,technical:{},pricing:{},performance:{},motor:{},standard:{}}));
   context.window.VensisCatalog={
     series:[{id:'SILENT',code:'SILENT',title:'SILENT',manufacturer:'Soler & Palau',submodels:[]}],
     models,
@@ -83,7 +83,7 @@ test('catalog enrichment keeps timer and bilingual features without exposing con
   assert.equal(context.window.VensisSPSilentPolicy20260908.applyCatalog(),true);
   for(const model of models){
     const spec=rows.find(row=>row.altModel===model.model);
-    assert.equal(model.technical.speedControllerIncluded,undefined);
+    assert.equal(model.technical.speedControllerIncluded,'REB-1 N');
     assert.equal(model.technical.timerVariant,spec.timerVariant);
     assert.equal(model.technical.silentFeaturesTr,spec.featuresTr);
     assert.equal(model.technical.silentFeaturesEn,spec.featuresEn);
@@ -92,19 +92,9 @@ test('catalog enrichment keeps timer and bilingual features without exposing con
   }
 });
 
-test('SILENT cards and quotations do not present REB-1 N as an included speed controller',()=>{
-  const policy=read('data/sp-silent-workbook-policy.js');
-  const quotationFix=read('js/quotation-silent-fix.js');
-  assert.doesNotMatch(policy,/addField\(grid,'controller'/);
-  assert.doesNotMatch(quotationFix,/Hız Anahtarı \/ Speed Controller:/);
-  assert.match(quotationFix,/silent-controller-note/);
-  assert.match(quotationFix,/note=>note\.remove\(\)/);
-});
-
 test('SILENT authority is loaded before the S&P workbook chunks',()=>{
   const source=read('data/series-overrides.js');
-  assert.match(source,/data\/sp-silent-workbook-policy\.js\?v=20260908-silent-r2/);
-  assert.match(source,/js\/quotation-silent-fix\.js\?v=20260908-r2/);
+  assert.match(source,/data\/sp-silent-workbook-policy\.js\?v=20260908-silent-r1/);
 });
 
 test('fan sitemap uses only the authoritative SILENT model source',()=>{
