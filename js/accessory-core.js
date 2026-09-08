@@ -31,8 +31,6 @@
       productType:'accessory',
       mode:'accessory',
       parentItemKey:text(parentItemKey),
-      accessoryId:text(source.id||source.code||source.model),
-      orderCode:text(source.code),
       model:text(source.model||source.name||'Aksesuar'),
       series:text(source.category||'Aksesuar'),
       manufacturer:text(source.manufacturer||'AVenS'),

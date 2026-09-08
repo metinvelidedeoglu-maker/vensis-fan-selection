@@ -50,7 +50,7 @@
   const base=path.includes('/electrical/')?'../':'';
   const accessorySuitePages=['/project.html','/quotation.html','/project-print.html'];
   if(accessorySuitePages.some(item=>path.endsWith(item))){
-    document.write(`<script src="${base}js/accessory-core.js?v=20260907-r1"><\/script><script src="${base}js/accessory-suite.js?v=20260907-r1"><\/script>`);
+    document.write(`<script src="${base}js/accessory-core.js?v=20260908-no-code-r1"><\/script><script src="${base}js/accessory-suite.js?v=20260908-no-code-r1"><\/script>`);
   }
   const publicCatalogPaths=[
     '/catalog-hub.html','/catalog-ventilation.html','/catalog-brand.html',

@@ -30,6 +30,17 @@
     if(!value||typeof value!=='object')return null;
     return {q:Math.max(0,Number(value.q)||0),p:Math.max(0,Number(value.p)||0)};
   }
+  function purgeAccessoryCodes(items){
+    let changed=false;
+    for(const item of items||[]){
+      const accessory=cleanText(item?.productType).toLowerCase()==='accessory'||cleanText(item?.mode).toLowerCase()==='accessory';
+      if(!accessory)continue;
+      for(const field of ['code','orderCode','productCode','accessoryId']){
+        if(Object.prototype.hasOwnProperty.call(item,field)){delete item[field];changed=true}
+      }
+    }
+    return changed;
+  }
   function normalizeOrderItem(value,index){
     const source=value&&typeof value==='object'?value:{};
     return {
@@ -148,7 +159,9 @@
   function readItems(projectId=activeId()){
     if(!projectId)return [];
     const value=readJson(itemsKey(projectId),[]);
-    return Array.isArray(value)?value:[];
+    if(!Array.isArray(value))return [];
+    if(purgeAccessoryCodes(value)){writeJson(itemsKey(projectId),value);scheduleSave(projectId)}
+    return value;
   }
   function readMeta(projectId=activeId()){
     if(!projectId)return normalizeMeta({});
@@ -382,7 +395,8 @@
   }
   function writeItems(items,projectId=activeId()){
     if(!projectId)projectId=ensureActive();
-    writeJson(itemsKey(projectId),Array.isArray(items)?items:[]);touch(projectId);
+    const value=Array.isArray(items)?items:[];purgeAccessoryCodes(value);
+    writeJson(itemsKey(projectId),value);touch(projectId);
     emit('vensis-project-updated',projectId);emit('vensis-projects-updated',projectId);
     scheduleSave(projectId);
     return projectId;

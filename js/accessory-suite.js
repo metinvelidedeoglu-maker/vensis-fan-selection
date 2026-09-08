@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20260907-r2';
+  const BUILD='20260908-no-code-r1';
   const page=(location.pathname.split('/').pop()||'').toLowerCase();
   const core=window.VensisAccessoryCore;
   if(!core)return;
@@ -66,7 +66,7 @@
   }
 
   function accessoryProjectMarkup(item){
-    return `<div class="vensis-accessory-project"><span class="vensis-accessory-arrow">↳</span><div><span class="vensis-accessory-badge">Aksesuar</span><strong>${esc(item.model||'Aksesuar')}</strong><span>${esc(item.series||'')}</span><small>${esc(item.orderCode?`Kod: ${item.orderCode} • `:'')}${esc(item.manufacturer||'')}</small></div></div>`;
+    return `<div class="vensis-accessory-project"><span class="vensis-accessory-arrow">↳</span><div><span class="vensis-accessory-badge">Aksesuar</span><strong>${esc(item.model||'Aksesuar')}</strong><span>${esc(item.series||'')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`;
   }
 
   function simplifyAccessoryProjectRow(row,item){
@@ -132,7 +132,7 @@
 
   function quoteKey(){return storageKey('vensis_active_quotation_v1')}
   function quoteItemKey(item,index){return String(item?.itemKey||`quote-index-${index}`)}
-  function quoteAccessoryMarkup(item){return `<div class="vensis-accessory-quote"><span class="vensis-accessory-arrow">↳</span><div><b>${esc(item.model||'Aksesuar')}</b><span>${esc(item.series||'Aksesuar')}</span><small>${esc(item.orderCode?`Kod: ${item.orderCode} • `:'')}${esc(item.manufacturer||'')}</small></div></div>`}
+  function quoteAccessoryMarkup(item){return `<div class="vensis-accessory-quote"><span class="vensis-accessory-arrow">↳</span><div><b>${esc(item.model||'Aksesuar')}</b><span>${esc(item.series||'Aksesuar')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`}
   function quoteAccessoryRow(row,item,currency='EUR'){
     if(row.classList.contains('vensis-accessory-quote-row'))return;
     const symbol={EUR:'€',USD:'$',TRY:'₺'}[String(currency).toUpperCase()]||String(currency||'€');const qty=Math.max(1,Math.round(num(item.quantity)||1));const discount=Math.min(100,Math.max(0,num(item.discountPercent)));const net=num(item.price)*(1-discount/100);const total=net*qty;const hasPrice=num(item.price)>0;
@@ -167,7 +167,7 @@
   function scheduleQuotation(){if(quoteQueued)return;quoteQueued=true;requestAnimationFrame(()=>{quoteQueued=false;decorateQuotation()})}
   function startQuotation(){ensureStyles();scheduleQuotation();const root=document.getElementById('quotationWorkspace')||document.body;new MutationObserver(scheduleQuotation).observe(root,{childList:true,subtree:true});window.addEventListener('storage',scheduleQuotation)}
 
-  function printAccessoryMarkup(item){return `<div class="vensis-accessory-print"><span class="vensis-accessory-arrow">↳</span><div><b>${esc(item.model||'Aksesuar')}</b><span>${esc(item.series||'Aksesuar')}</span><small>${esc(item.orderCode?`Kod: ${item.orderCode} • `:'')}${esc(item.manufacturer||'')}</small></div></div>`}
+  function printAccessoryMarkup(item){return `<div class="vensis-accessory-print"><span class="vensis-accessory-arrow">↳</span><div><b>${esc(item.model||'Aksesuar')}</b><span>${esc(item.series||'Aksesuar')}</span><small>${esc(item.manufacturer||'')}</small></div></div>`}
   function decorateProjectPrint(){
     const full=fullPrintSnapshot||window.__VENSIS_ACCESSORY_PRINT_FULL__;const root=document.getElementById('projectPrintRoot');if(!full||!Array.isArray(full.items)||!root?.querySelector('.project-overview'))return false;
     ensureStyles();const technical=core.technicalItems(full.items);const tbody=root.querySelector('.project-overview .project-table tbody');if(!tbody)return false;

@@ -44,7 +44,7 @@
     return (catalog.items||[]).filter(item=>{
       if(activeCategory!=='Tümü'&&String(item.category)!==activeCategory)return false;
       if(!query)return true;
-      const haystack=[item.code,item.model,item.category,item.manufacturer,item.specs].join(' ').toLocaleLowerCase('tr-TR');
+      const haystack=[item.model,item.category,item.manufacturer,item.specs].join(' ').toLocaleLowerCase('tr-TR');
       return haystack.includes(query);
     });
   }
@@ -55,7 +55,7 @@
     const rows=filteredItems();
     const enabled=validTarget();
     if(!rows.length){grid.innerHTML='<div class="empty">Aramanıza uygun aksesuar bulunamadı.</div>';return}
-    grid.innerHTML=rows.map(item=>`<article class="card" data-accessory-id="${esc(item.id)}"><div class="card-head"><span class="code">${esc(item.code||'-')}</span><b class="price">${money(item.price)}</b></div><h2>${esc(item.model)}</h2><div class="category">${esc(item.category)}</div><p class="specs">${esc(item.specs||'')}</p><div class="meta">${esc(item.manufacturer||'')} • Katalog s. ${esc(item.sourcePage||'-')}</div><button class="add" type="button" data-add-accessory="${esc(item.id)}" ${enabled?'':'disabled'}>+ Projeye Ekle</button></article>`).join('');
+    grid.innerHTML=rows.map(item=>`<article class="card" data-accessory-id="${esc(item.id)}"><div class="card-head"><b class="price">${money(item.price)}</b></div><h2>${esc(item.model)}</h2><div class="category">${esc(item.category)}</div><p class="specs">${esc(item.specs||'')}</p><div class="meta">${esc(item.manufacturer||'')} • Katalog s. ${esc(item.sourcePage||'-')}</div><button class="add" type="button" data-add-accessory="${esc(item.id)}" ${enabled?'':'disabled'}>+ Projeye Ekle</button></article>`).join('');
   }
 
   function addAccessory(id){

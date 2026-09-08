@@ -5,7 +5,7 @@ require('../data/accessories-catalog.js');
 const fanA={itemKey:'fan-a',productType:'fan',model:'Fan A'};
 const fanB={itemKey:'fan-b',productType:'fan',model:'Fan B'};
 const electrical={itemKey:'electrical|1',productType:'electrical',model:'Lamp'};
-const accessory={id:'acc-1',code:'A1',model:'Accessory 1',category:'Hız Kontrolü',manufacturer:'AVenS',price:85};
+const accessory={id:'accessory-1',model:'Accessory 1',category:'Hız Kontrolü',manufacturer:'AVenS',price:85};
 
 let items=[fanA,fanB,electrical];
 let first=core.insertAccessory(items,'fan-a',accessory,{itemKey:'acc-line-1',now:'2026-09-07T12:00:00.000Z'});
@@ -14,6 +14,8 @@ assert.equal(first.items[1].itemKey,'acc-line-1');
 assert.equal(first.items[1].productType,'accessory');
 assert.equal(first.items[1].parentItemKey,'fan-a');
 assert.equal(first.items[1].quantity,1);
+assert.equal(Object.hasOwn(first.items[1],'orderCode'),false);
+assert.equal(Object.hasOwn(first.items[1],'accessoryId'),false);
 
 let second=core.insertAccessory(first.items,'fan-a',accessory,{itemKey:'acc-line-2',now:'2026-09-07T12:01:00.000Z'});
 assert.equal(second.items.length,5,'adding the same accessory again must append another line');
@@ -37,6 +39,9 @@ assert.ok(catalog.items.some(item=>item.category==='Frekans İnverteri'));
 assert.ok(catalog.items.some(item=>item.category==='Hız Kontrolü'));
 assert.ok(catalog.items.some(item=>item.category==='Sensör / Otomasyon'));
 assert.ok(catalog.items.some(item=>item.category==='Mekanik Kit'));
+assert.ok(catalog.items.every(item=>!Object.hasOwn(item,'code')),'catalog must not retain accessory codes');
+assert.ok(catalog.items.every(item=>!/^\d+-/.test(String(item.id||''))),'internal accessory ids must not retain catalog codes');
+assert.equal(new Set(catalog.items.map(item=>item.id)).size,catalog.items.length,'accessory ids must stay unique');
 assert.equal(catalog.items.some(item=>/quadro\s*evo/i.test(`${item.model} ${item.specs||''}`)),false,'QUADRO EVO accessories must stay out of this catalog');
 
 console.log('Accessory workflow tests passed.');
