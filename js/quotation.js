@@ -18,6 +18,7 @@
   const money=(value,currency='EUR')=>`${currencySymbol(currency)}${fmt(value,2)}`;
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
   const point=value=>`${fmt(value?.q)} m³/h @ ${fmt(value?.p)} Pa`;
+  const isAccessory=item=>String(item?.productType||'').toLowerCase()==='accessory'||String(item?.mode||'').toLowerCase()==='accessory';
   const clone=value=>JSON.parse(JSON.stringify(value));
   const lines=value=>String(value||'').split(/\r?\n/).map(item=>item.trim()).filter(Boolean);
   let activeQuotation=null;
@@ -44,6 +45,7 @@
   }
   function netUnit(item){return number(item.price)*(1-clampDiscount(item.discountPercent)/100)}
   function dutyMarkup(item){
+    if(isAccessory(item))return '-';
     if(item.mode==='catalog'||item.mode==='custom'){
       const nominal=number(item.nominalAirflow);
       return nominal>0?`<span class="technical">${fmt(nominal)} m³/h nominal</span>`:'-';

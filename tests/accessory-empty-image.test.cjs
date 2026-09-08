@@ -43,7 +43,13 @@ test('the accessory display cache is refreshed on every related screen',()=>{
   }
   assert.match(read('project.html'),/project\.js\?v=20260908-empty-image-box-r1/);
   assert.match(read('project.html'),/project-print-action\.js\?v=20260908-empty-image-box-r1/);
-  assert.match(read('quotation.html'),/quotation\.js\?v=20260908-empty-image-box-r1/);
+  assert.match(read('quotation.html'),/quotation\.js\?v=20260908-accessory-zero-duty-r1/);
   assert.match(read('project-print.html'),/project-print\.js\?v=20260908-empty-image-box-r1/);
   assert.match(read('project-print.html'),/project-print-layout\.js\?v=20260908-empty-image-box-r1/);
+});
+
+test('quotation accessories never render a zero airflow and pressure point',()=>{
+  const quotation=read('js/quotation.js');
+  assert.match(quotation,/const isAccessory=item=>/);
+  assert.match(quotation,/function dutyMarkup\(item\)\{\s*if\(isAccessory\(item\)\)return '-';/);
 });
