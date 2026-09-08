@@ -66,8 +66,7 @@
     const inserted=core.insertAccessory(items,parentItemKey,accessory,{discountPercent:Number(meta.globalDiscount)||0,quantity:1});
     if(!inserted.item)return;
     store.writeItems(inserted.items,projectId);
-    const status=byId('accessoryStatus');
-    if(status){status.textContent=`${accessory.model} projeye eklendi. Aynı fana başka aksesuarlar eklemeye devam edebilirsiniz.`;setTimeout(()=>{if(status.textContent.includes(accessory.model))status.textContent=''},4500)}
+    location.replace(`project.html?project=${encodeURIComponent(projectId)}`);
   }
 
   function start(){
