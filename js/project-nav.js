@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const BUILD='20260905-project-order-atex-r2';
+  const BUILD='20260909-catalog-image-guard-r1';
   const stamp=Date.now();
   const page=(location.pathname||'').toLowerCase();
 
@@ -35,6 +35,9 @@
   }
 
   mountShell();
+  if(document.body?.classList.contains('app-catalog')){
+    load('js/catalog-image-guard.js','vensisCatalogImageGuardScript');
+  }
   if(page.endsWith('/project.html')){
     load('js/project-reorder-controls.js','vensisProjectReorderControlsScript');
     load('js/atex-output-bridge.js','vensisAtexOutputBridgeScript');
