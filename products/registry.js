@@ -1,6 +1,6 @@
 (function(){
   const names={
-    'HEATMASTER F400':'HEATMASTER F400 Smoke-Extract Centrifugal Roof Fans','SLIMROOF ES':'SLIMROOF ES EC Centrifugal Roof Fans','E-ATEX':'E-ATEX Explosion-Protected Axial Plate Fans','TIRACAMINO':'Tiracamino Chimney-Top Extract Fan',
+    'HEATMASTER F400':'HEATMASTER F400 Smoke-Extract Centrifugal Roof Fans','SLIMROOF ES':'SLIMROOF ES EC Centrifugal Roof Fans','E-ATEX':'E-ATEX Explosion-Protected Axial Plate Fans','CMS ATEX':'CMS ATEX Centrifugal Medium Pressure ATEX Fans','TIRACAMINO':'Tiracamino Chimney-Top Extract Fan',
     'VORT QBK SAL-KC EVO':'VORT QBK SAL-KC EVO Cabinet Centrifugal Fans',
     'VORT QUADRO EVO':'VORT QUADRO EVO Residential Centrifugal Extract Fans','VORT QUADRO I':'VORT QUADRO I Flush-Mounted Centrifugal Duct Fans','VORT QUADRO':'VORT QUADRO Centrifugal Duct Fans',
     'VORTICE VARIO I':'VORTICE VARIO I Flush-Mounted Axial Fans','VORTICE VARIO':'VORTICE VARIO Wall / Window Axial Fans',
