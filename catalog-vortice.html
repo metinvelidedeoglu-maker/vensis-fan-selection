@@ -25,7 +25,7 @@ window.VensisCatalogBrand='vortice';
   const write=src=>document.write('<scr'+'ipt src="'+src+'"></scr'+'ipt>');
 
   if(!requested){
-    write('data/vortice-series-manifest.js?v=20260831-lazy-r1');
+    write('data/vortice-series-manifest.js?v=20260925-cms-atex-r1');
     return;
   }
 
@@ -40,6 +40,7 @@ window.VensisCatalogBrand='vortice';
     'SLIMROOF ES':'data/fans-11.js?v=20260813-vortice-batch',
     'HEATMASTER F400':'data/fans-11.js?v=20260813-vortice-batch',
     'E-ATEX':'data/fans-12.js?v=20260814-vortice-images',
+    'CMS ATEX':'data/fans-19.js?v=20260925-cms-atex-r1',
     'TIRACAMINO':'data/fans-12.js?v=20260814-vortice-images',
     'VORT QUADRO EVO':'data/fans-13.js?v=20260814-vortice-images',
     'VORT QUADRO I':'data/fans-13.js?v=20260814-vortice-images',
@@ -59,18 +60,18 @@ window.VensisCatalogBrand='vortice';
 
   const selected=fileBySeries[normalize(requested)];
   if(!selected){
-    write('data/vortice-series-manifest.js?v=20260831-lazy-r1');
+    write('data/vortice-series-manifest.js?v=20260925-cms-atex-r1');
     return;
   }
 
   write(selected);
   write('data/vortice-prices-2026-1.js?v=20260814-vortice-prices');
   write('js/catalog-performance-guard.js?v=20260831-vortice-lazy-r3');
-  write('products/registry.js?v=20260827-sp-images-r7');
+  write('products/registry.js?v=20260925-cms-atex-r1');
   write('data/catalog-schema-v2.js?v=20260827-vitlo-altmodel-r1');
   ['01','02','03','04','05'].forEach(n=>write('data/vortice-workbook-2026-2-'+n+'.js?v=20260827-vortice-workbook-r2'));
   write('data/vortice-workbook-2026-2.js?v=20260827-vortice-workbook-r2');
-  write('data/vortice-priced-only-policy.js?v=20260827-vortice-priced-only-r1');
+  write('data/vortice-priced-only-policy.js?v=20260925-cms-atex-r1');
   write('data/no-current-policy.js?v=20260827-no-current-r1');
   write('data/read-only-ui-policy.js?v=20260827-readonly-pdf-r2');
 })();
