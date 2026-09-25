@@ -6,7 +6,8 @@
 
   const isVorticeSeries=series=>String(series?.manufacturer||'').trim().toLowerCase()==='vortice';
   const vorticeSeriesIds=new Set(catalog.series.filter(isVorticeSeries).map(series=>String(series.id)));
-  const hasPrice=model=>Number(model?.pricing?.listPrice)>0;
+  const pendingPriceAllowlist=new Set(['VORTICE-CMS-ATEX|30172']);
+  const hasPrice=model=>Number(model?.pricing?.listPrice)>0||pendingPriceAllowlist.has(String(model?.id||''));
   const removedIds=new Set(
     catalog.models
       .filter(model=>vorticeSeriesIds.has(String(model?.seriesId))&&!hasPrice(model))
