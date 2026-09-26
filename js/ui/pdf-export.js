@@ -9,6 +9,30 @@
   const obj=value=>value&&typeof value==='object'&&!Array.isArray(value)?value:{};
   const arr=value=>Array.isArray(value)?value.filter(Boolean):(value==null||value===''?[]:[value]);
 
+  function absoluteAssetUrl(value){
+    const raw=String(value??'').trim();
+    if(!raw)return '';
+    try{
+      if(/^(?:data:|blob:|https?:|\/\/)/i.test(raw))return new URL(raw,window.location.href).href;
+      const clean=raw.replace(/^\.\//,'').replace(/^(?:\.\.\/)+/,'').replace(/^\/+/, '');
+      return new URL('/'+clean,window.location.origin).href;
+    }catch{return raw}
+  }
+
+  function previewImage(product,model,series){
+    const fallback=(()=>{
+      try{return window.VensisProducts?.image?.(series?.code||model?.seriesId||model?.series||'')||''}catch{return ''}
+    })();
+    return absoluteAssetUrl(
+      product?.media?.image||
+      product?.image||
+      model?.media?.image||
+      model?.image||
+      fallback||
+      ''
+    );
+  }
+
   function modelId(item){return item?.id??item?.key??item?.productKey??item?.model??''}
 
   function productForCatalog(id){
@@ -72,7 +96,7 @@
       model:model.model||product.model||model.display||'Ürün',
       title:series.title||product.seriesTitle||model.catalogNameEn||model.seriesTitle||model.series||'',
       brand:series.manufacturer||product.manufacturer||model.manufacturer||model.brand||'Vitlo',
-      image:product.media?.image||product.image||model.image||'',
+      image:previewImage(product,model,series),
       motor:{
         power:motor.power??model.kw,
         current:motor.current??model.amps,
