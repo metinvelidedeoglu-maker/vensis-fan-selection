@@ -308,7 +308,7 @@
     if(!drawing)return '';
     const sourceUrl=String(d.dimensions.sourceProxy||drawing.pdfUrl||'/api/catalog/vitlo-pdf.php');
     const officialUrl=String(d.dimensions.sourceUrl||drawing.officialPdfUrl||'');
-    return `<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" integrity="sha512-FpP6ZQY8U7PRJRNX8oqK7K/AGg6Jm47yF0c7j5b/3A+qfsjq7q8H7Dq6M1SL8uVhB8PM3sJf6LUTQPNqW2iWlw==" crossorigin="anonymous" referrerpolicy="no-referrer"><\/script>
+    return `<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"><\/script>
 <script>
 (async function(){
   const canvas=document.getElementById('vitloCatalogDrawing');
