@@ -318,7 +318,7 @@
   const proxy=${JSON.stringify(sourceUrl)};
   const fail=(message)=>{
     if(status){
-      status.innerHTML=message+(official?` <a href="${official}" target="_blank" rel="noopener">Vitlo kataloğunu aç</a>`:'');
+      status.innerHTML=message+(official?' <a href="'+official+'" target="_blank" rel="noopener">Vitlo kataloğunu aç</a>':'');
       status.classList.add('error');
     }
     if(printButton)printButton.disabled=false;
