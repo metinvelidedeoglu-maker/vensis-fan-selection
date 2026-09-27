@@ -54,3 +54,38 @@ test('unknown Vitlo series or unsupported body size does not invent dimensions',
   assert.equal(api.resolve('UNKNOWN',{model:'UNKNOWN 35'}),null);
   assert.equal(api.resolve('AXF',{model:'AXF 999-4T-1'}),null);
 });
+
+
+test('shared casing families reuse one original Vitlo catalogue drawing',()=>{
+  const axw=api.resolve('AXW',{model:'AXW 50-4T-0.55'});
+  const axwAtex=api.resolve('AXW/ATEX',{model:'AXW/ATEX 50-4T-0.55'});
+  assert.equal(axw.drawingFamily,'axial_wall');
+  assert.equal(axwAtex.drawingFamily,'axial_wall');
+  assert.equal(axw.drawing.pdfPage,axwAtex.drawing.pdfPage);
+
+  const ductSeries=['AXF','AXD','AXD/ATEX'];
+  for(const series of ductSeries){
+    const dim=api.resolve(series,{model:series+' 63-4T-2'});
+    assert.equal(dim.drawingFamily,'axial_duct');
+    assert.equal(dim.drawing.sourceSeries,'AXF');
+  }
+
+  const mobileSeries=['AXD/MOB','MOB-AXD/ATEX'];
+  for(const series of mobileSeries){
+    const dim=api.resolve(series,{model:series+' 63-4T-2'});
+    assert.equal(dim.drawingFamily,'axial_mobile');
+  }
+
+  const roofSeries=['ROOF-AXF','AXR','AXR/ATEX'];
+  for(const series of roofSeries){
+    const dim=api.resolve(series,{model:series+' 63-4T-2'});
+    assert.equal(dim.drawingFamily,'axial_roof_horizontal');
+  }
+});
+
+test('published AXF and AXD/ATEX large-body dimensions stay source-faithful',()=>{
+  assert.equal(api.resolve('AXF',{model:'AXF 112-4T-15'}).values['ØA'],1000);
+  assert.equal(api.resolve('AXF',{model:'AXF 125-4T-20'}).values['ØA'],1100);
+  assert.equal(api.resolve('AXD/ATEX',{model:'AXD/ATEX 112-4T-15'}).values['ØA'],1000);
+  assert.equal(api.resolve('AXD/ATEX',{model:'AXD/ATEX 125-4T-20'}).values['ØA'],1100);
+});
