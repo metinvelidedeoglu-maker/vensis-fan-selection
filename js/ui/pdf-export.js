@@ -33,6 +33,20 @@
     );
   }
 
+  function previewDimensions(product,model,series){
+    const brand=String(series?.manufacturer||product?.manufacturer||model?.manufacturer||model?.brand||'').trim().toLowerCase();
+    if(brand!=='vitlo')return null;
+    try{
+      return window.VensisVitloDimensions?.resolve?.(
+        series?.code||model?.seriesId||model?.series||product?.seriesCode||'',
+        model
+      )||null;
+    }catch(error){
+      console.warn('Vensis Vitlo dimension resolver error',error);
+      return null;
+    }
+  }
+
   function modelId(item){return item?.id??item?.key??item?.productKey??item?.model??''}
 
   function productForCatalog(id){
@@ -91,6 +105,7 @@
     const controls=arr(rawControls).map(String).filter(value=>value.toLowerCase()!=='nominal');
     const rawControl=String(model.control??performance.control??'');
     const control=rawControl.toLowerCase()==='nominal'?'':rawControl;
+    const dimensions=previewDimensions(product,model,series);
     return {
       mode:payload.mode||'catalog',
       model:model.model||product.model||model.display||'Ürün',
@@ -118,6 +133,7 @@
         controls
       },
       description:{general,applications},
+      dimensions,
       required:obj(payload.required),
       selected:obj(payload.selected)
     };
@@ -224,10 +240,65 @@
     return `<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`;
   }
 
+  function dimensionDisplayValue(value,header){
+    if(value==null||value==='')return '-';
+    const raw=String(value);
+    if(/[Ø×x]/.test(raw)||/N\s*×/i.test(String(header||'')))return raw;
+    const n=Number(value);
+    return Number.isFinite(n)?`${fmt(n)} mm`:raw;
+  }
+
+  function dimensionRowsHtml(dim){
+    if(!dim)return '';
+    return dim.headers.map(header=>`<tr><th>${esc(header)}</th><td>${esc(dimensionDisplayValue(dim.values?.[header],header))}</td></tr>`).join('');
+  }
+
+  function dimensionDiagramSvg(dim){
+    if(!dim)return '';
+    const type=String(dim.diagram||'');
+    const value=key=>dim.values?.[key];
+    const caption=key=>{
+      const v=value(key);
+      return v==null?'':`${key} = ${dimensionDisplayValue(v,key)}`;
+    };
+    const labels=dim.headers.map((header,index)=>{
+      const x=34+(index%3)*188;
+      const y=274+Math.floor(index/3)*28;
+      return `<g transform="translate(${x},${y})"><rect width="174" height="22" rx="5" fill="#f2f7f5" stroke="#b8d0c5"/><text x="87" y="15" text-anchor="middle" font-size="11" font-weight="700" fill="#24434a">${esc(caption(header))}</text></g>`;
+    }).join('');
+    const defs='<defs><marker id="dim-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="#31535a"/></marker></defs>';
+    const line=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#31535a" stroke-width="1.5" marker-start="url(#dim-arrow)" marker-end="url(#dim-arrow)"/>`;
+    let body='';
+    if(['axial-duct','axial-short','axial-mobile'].includes(type)){
+      body=`<circle cx="145" cy="118" r="76" fill="none" stroke="#173033" stroke-width="2"/><circle cx="145" cy="118" r="58" fill="none" stroke="#678087" stroke-width="1.4"/><circle cx="145" cy="118" r="15" fill="none" stroke="#173033" stroke-width="1.5"/><line x1="145" y1="42" x2="145" y2="194" stroke="#c4d1d4"/><line x1="69" y1="118" x2="221" y2="118" stroke="#c4d1d4"/><rect x="330" y="65" width="180" height="106" rx="4" fill="none" stroke="#173033" stroke-width="2"/><rect x="390" y="88" width="58" height="60" rx="4" fill="none" stroke="#678087"/>${line(330,196,510,196)}<text x="420" y="214" text-anchor="middle" font-size="12" font-weight="700">E</text>${line(56,24,234,24)}<text x="145" y="17" text-anchor="middle" font-size="12" font-weight="700">ØA / ØB / ØD</text>`;
+    }else if(['wall-axial','cell-axial','cell-radial'].includes(type)){
+      body=`<rect x="58" y="34" width="176" height="176" fill="none" stroke="#173033" stroke-width="2"/><circle cx="146" cy="122" r="66" fill="none" stroke="#678087" stroke-width="1.5"/><circle cx="146" cy="122" r="16" fill="none" stroke="#173033" stroke-width="1.5"/><rect x="336" y="62" width="170" height="120" fill="none" stroke="#173033" stroke-width="2"/><circle cx="385" cy="122" r="38" fill="none" stroke="#678087"/>${line(58,224,234,224)}<text x="146" y="242" text-anchor="middle" font-size="12" font-weight="700">A / B</text>${line(336,204,506,204)}<text x="421" y="222" text-anchor="middle" font-size="12" font-weight="700">C / E</text>`;
+    }else if(['jet-axial','jet-radial','tunnel-axial'].includes(type)){
+      body=`<rect x="64" y="78" width="470" height="92" rx="42" fill="none" stroke="#173033" stroke-width="2"/><rect x="255" y="68" width="86" height="112" rx="8" fill="none" stroke="#678087" stroke-width="1.5"/><circle cx="108" cy="124" r="38" fill="none" stroke="#678087"/>${line(64,204,534,204)}<text x="299" y="222" text-anchor="middle" font-size="12" font-weight="700">C / L / E</text>${line(28,78,28,170)}<text x="17" y="128" text-anchor="middle" font-size="12" font-weight="700" transform="rotate(-90 17 128)">A / B / ØA / ØB</text>`;
+    }else if(['roof-axial-horizontal','roof-axial-vertical','roof-radial-horizontal','roof-radial-vertical'].includes(type)){
+      body=`<rect x="78" y="166" width="420" height="28" fill="none" stroke="#173033" stroke-width="2"/><path d="M125 166 L170 76 L410 76 L455 166 Z" fill="none" stroke="#173033" stroke-width="2"/><circle cx="290" cy="128" r="40" fill="none" stroke="#678087"/><rect x="260" y="94" width="60" height="68" fill="none" stroke="#678087"/>${line(78,216,498,216)}<text x="288" y="234" text-anchor="middle" font-size="12" font-weight="700">A / B / D</text>${line(522,76,522,194)}<text x="540" y="137" text-anchor="middle" font-size="12" font-weight="700" transform="rotate(-90 540 137)">C / E</text>`;
+    }else if(type==='circular-duct'){
+      body=`<circle cx="142" cy="118" r="74" fill="none" stroke="#173033" stroke-width="2"/><circle cx="142" cy="118" r="44" fill="none" stroke="#678087" stroke-width="1.5"/><rect x="330" y="74" width="176" height="88" rx="20" fill="none" stroke="#173033" stroke-width="2"/>${line(52,26,232,26)}<text x="142" y="18" text-anchor="middle" font-size="12" font-weight="700">ØD1 / Ød</text>${line(330,196,506,196)}<text x="418" y="214" text-anchor="middle" font-size="12" font-weight="700">A / B / E</text>`;
+    }else if(type==='heat-recovery'){
+      body=`<rect x="86" y="56" width="390" height="142" rx="5" fill="none" stroke="#173033" stroke-width="2"/><rect x="120" y="86" width="76" height="70" fill="none" stroke="#678087"/><rect x="366" y="86" width="76" height="70" fill="none" stroke="#678087"/><path d="M238 84 L326 170 M326 84 L238 170" stroke="#678087" stroke-width="1.5"/>${line(86,222,476,222)}<text x="281" y="240" text-anchor="middle" font-size="12" font-weight="700">A / B</text>${line(504,56,504,198)}<text x="522" y="128" text-anchor="middle" font-size="12" font-weight="700" transform="rotate(-90 522 128)">C / e / f / z</text>`;
+    }else{
+      body=`<rect x="92" y="62" width="374" height="130" fill="none" stroke="#173033" stroke-width="2"/><circle cx="278" cy="127" r="46" fill="none" stroke="#678087"/>${line(92,218,466,218)}<text x="279" y="236" text-anchor="middle" font-size="12" font-weight="700">A / B / C</text>${line(494,62,494,192)}<text x="512" y="127" text-anchor="middle" font-size="12" font-weight="700" transform="rotate(-90 512 127)">D / H</text>`;
+    }
+    return `<svg viewBox="0 0 600 350" role="img" aria-label="Ölçü referans şeması">${defs}<rect width="600" height="350" fill="#fff"/>${body}${labels}</svg>`;
+  }
+
+  function dimensionPage(d){
+    const dim=d.dimensions;
+    if(!dim)return '';
+    const source=dim.sourceUrl?`<a href="${attr(dim.sourceUrl)}" target="_blank" rel="noopener">Vitlo Genel Ürün Kataloğu, s. ${esc(dim.catalogPage||'-')}</a>`:'Vitlo Genel Ürün Kataloğu';
+    const note=dim.sourceNote?`<div class="dimension-alert">${esc(dim.sourceNote)}</div>`:'';
+    return `<main class="sheet dimension-sheet"><header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">TEKNİK RESİM &amp; ÖLÇÜLER</div></header><div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">Marka: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div><section class="dimension-layout"><div class="dimension-figure"><h3>ÖLÇÜ ŞEMASI</h3>${dimensionDiagramSvg(dim)}<p>Şema, katalogdaki ölçü referanslarının okunmasını kolaylaştırmak içindir. Sayısal ölçüler sağdaki tabloda verilmiştir.</p></div><div class="dimension-data"><h3>MODEL ÖLÇÜLERİ</h3><table><thead><tr><th>Ölçü</th><th>Değer</th></tr></thead><tbody>${dimensionRowsHtml(dim)}</tbody></table><div class="dimension-ref"><b>Ölçü referansı:</b> ${esc(dim.series)} ${esc(dim.referenceModel)}<br><b>Kaynak:</b> ${source}</div>${note}</div></section><section class="dimension-note"><b>Not:</b> Ölçüler üretici kataloğundan aktarılmıştır. Montaj boşlukları, aksesuarlar, kaide/kanal bağlantıları ve proje özelindeki toleranslar uygulama öncesinde kontrol edilmelidir.</section><footer class="footer">Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">TEKNİK FÖY • SAYFA 2 / 2</div></footer></main>`;
+  }
+
   function classicHtml(payload){
     const d=normalizedPayload(payload);
     const curve=curveSvg(d);
-    return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} Teknik Föy</title><base href="${attr(new URL('.',window.location.href).href)}"><style>*{box-sizing:border-box}body{margin:0;background:#e9eff0;color:#162f33;font-family:Arial,Helvetica,sans-serif}.toolbar{max-width:210mm;margin:10px auto 0;display:flex;justify-content:flex-end;gap:8px}.toolbar button{border:0;border-radius:7px;padding:9px 13px;font-weight:800;cursor:pointer}.print{background:#087f4f;color:#fff}.close{background:#dfe8e9;color:#29484d}.sheet{width:210mm;min-height:297mm;margin:10px auto 22px;background:#fff;padding:9mm 10mm 7mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column}.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #087f4f;padding-bottom:5px}.logo{height:17mm;max-width:80mm;object-fit:contain}.doc-title{font-size:11px;color:#566b70;font-weight:800;margin-top:3px}.product-title{margin:5px 0 0}.product-title h1{font-size:27px;line-height:1.05;color:#075e39;margin:0}.brand{margin-top:4px;color:#087f4f;font-weight:800;font-size:11px}.product-title h2{font-size:16px;line-height:1.15;margin:4px 0 0;color:#173033}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:7mm;align-items:center;margin-top:4mm}.product-image{width:100%;height:59mm;object-fit:contain}.spec-box{border:1px solid #8db3a2;border-radius:8px;overflow:hidden}.spec-head{background:#edf6f1;color:#07633c;text-align:center;font-weight:900;padding:5px;font-size:12px}.spec-row{display:grid;grid-template-columns:1fr 1.22fr;gap:7px;padding:4.7px 8px;border-top:1px solid #d7e3de;font-size:9.5px;line-height:1.15}.spec-row span{font-weight:700}.spec-row b{text-align:right}.spec-row.required{color:#d63b32}.spec-row.selected{color:#168451}.section{margin-top:4mm}.section-head{font-size:12px;font-weight:900;color:#07633c;margin:0 0 2px;text-transform:uppercase}.curve{border:1px solid #8db3a2;border-radius:8px;padding:1.5mm;height:84mm;overflow:hidden}.curve svg{height:100%;display:block}.info-box{border:1px solid #8db3a2;border-radius:8px;padding:3.5mm;min-height:36mm;max-height:40mm;overflow:hidden}.info-box h3{font-size:10.5px;color:#07633c;margin:0 0 2mm;text-transform:uppercase}.info-box ul{margin:0;padding-left:15px;font-size:8.2px;line-height:1.28}.info-box li{margin-bottom:1.5px}.muted{font-size:9px;color:#64748b}.footer{margin-top:auto;padding-top:2.5mm;border-top:2px solid #087f4f;text-align:center;font-size:7.6px;color:#64748b}.footer b{display:block;margin-top:1.5mm;color:#087f4f;font-size:8.7px}.page-note{margin-top:2mm;padding-top:1.7mm;border-top:1px solid #d7e3e5;font-size:7.2px;color:#7b898d}.empty-curve{padding:25px;text-align:center;color:#64748b}@page{size:A4 portrait;margin:0}@media print{body{background:#fff}.toolbar{display:none}.sheet{margin:0;box-shadow:none;width:210mm;height:297mm;min-height:297mm;overflow:hidden}}@media(max-width:850px){.toolbar{padding:0 10px}.sheet{width:100%;min-height:0;margin:8px 0;padding:16px}.hero{grid-template-columns:1fr}.product-image{height:240px}.curve{height:auto}.info-box{max-height:none}}</style></head><body><div class="toolbar"><button class="close" onclick="window.close()">Kapat</button><button class="print" onclick="window.print()">Yazdır / PDF Kaydet</button></div><main class="sheet"><header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">ÜRÜN TEKNİK FÖYÜ</div></header><div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">Marka: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div><section class="hero">${d.image?`<img class="product-image" src="${attr(d.image)}" alt="${attr(d.model)}" onerror="this.style.visibility='hidden'">`:'<div></div>'}<div class="spec-box"><div class="spec-head">TEKNİK ÖZELLİKLER</div>${specRows(d)}</div></section><section class="section"><h3 class="section-head">PERFORMANS EĞRİSİ</h3><div class="curve">${curve}</div></section><section class="section info-box"><h3>GENEL ÖZELLİKLER</h3>${featuresHtml(d)}</section><footer class="footer">Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">TEKNİK FÖY • SAYFA 1 / 1</div></footer></main></body></html>`;
+    return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} Teknik Föy</title><base href="${attr(new URL('.',window.location.href).href)}"><style>*{box-sizing:border-box}body{margin:0;background:#e9eff0;color:#162f33;font-family:Arial,Helvetica,sans-serif}.toolbar{max-width:210mm;margin:10px auto 0;display:flex;justify-content:flex-end;gap:8px}.toolbar button{border:0;border-radius:7px;padding:9px 13px;font-weight:800;cursor:pointer}.print{background:#087f4f;color:#fff}.close{background:#dfe8e9;color:#29484d}.sheet{width:210mm;min-height:297mm;margin:10px auto 22px;background:#fff;padding:9mm 10mm 7mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column}.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #087f4f;padding-bottom:5px}.logo{height:17mm;max-width:80mm;object-fit:contain}.doc-title{font-size:11px;color:#566b70;font-weight:800;margin-top:3px}.product-title{margin:5px 0 0}.product-title h1{font-size:27px;line-height:1.05;color:#075e39;margin:0}.brand{margin-top:4px;color:#087f4f;font-weight:800;font-size:11px}.product-title h2{font-size:16px;line-height:1.15;margin:4px 0 0;color:#173033}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:7mm;align-items:center;margin-top:4mm}.product-image{width:100%;height:59mm;object-fit:contain}.spec-box{border:1px solid #8db3a2;border-radius:8px;overflow:hidden}.spec-head{background:#edf6f1;color:#07633c;text-align:center;font-weight:900;padding:5px;font-size:12px}.spec-row{display:grid;grid-template-columns:1fr 1.22fr;gap:7px;padding:4.7px 8px;border-top:1px solid #d7e3de;font-size:9.5px;line-height:1.15}.spec-row span{font-weight:700}.spec-row b{text-align:right}.spec-row.required{color:#d63b32}.spec-row.selected{color:#168451}.section{margin-top:4mm}.section-head{font-size:12px;font-weight:900;color:#07633c;margin:0 0 2px;text-transform:uppercase}.curve{border:1px solid #8db3a2;border-radius:8px;padding:1.5mm;height:84mm;overflow:hidden}.curve svg{height:100%;display:block}.info-box{border:1px solid #8db3a2;border-radius:8px;padding:3.5mm;min-height:36mm;max-height:40mm;overflow:hidden}.info-box h3{font-size:10.5px;color:#07633c;margin:0 0 2mm;text-transform:uppercase}.info-box ul{margin:0;padding-left:15px;font-size:8.2px;line-height:1.28}.info-box li{margin-bottom:1.5px}.muted{font-size:9px;color:#64748b}.dimension-sheet{page-break-before:always;break-before:page}.dimension-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:7mm;margin-top:8mm;align-items:start}.dimension-figure,.dimension-data{border:1px solid #8db3a2;border-radius:9px;padding:5mm;background:#fbfdfc}.dimension-figure h3,.dimension-data h3{margin:0 0 4mm;color:#07633c;font-size:13px}.dimension-figure svg{display:block;width:100%;height:auto;max-height:126mm}.dimension-figure p{margin:3mm 0 0;color:#64748b;font-size:8.5px;line-height:1.4}.dimension-data table{width:100%;border-collapse:collapse;font-size:11px}.dimension-data th,.dimension-data td{border:1px solid #d7e3de;padding:7px 8px}.dimension-data th{text-align:left;background:#edf6f1;color:#075e39}.dimension-data td{text-align:right;font-weight:800}.dimension-ref{margin-top:5mm;padding:4mm;border-radius:7px;background:#f3f7f6;font-size:9px;line-height:1.55;color:#40565b}.dimension-ref a{color:#087f4f}.dimension-alert{margin-top:3mm;padding:3mm;border:1px solid #e4b45e;border-radius:7px;background:#fff8e8;color:#6d4a09;font-size:8.5px;line-height:1.4}.dimension-note{margin-top:7mm;padding:4mm;border:1px solid #d7e3de;border-radius:8px;background:#f8fbfa;font-size:9px;line-height:1.5}.footer{margin-top:auto;padding-top:2.5mm;border-top:2px solid #087f4f;text-align:center;font-size:7.6px;color:#64748b}.footer b{display:block;margin-top:1.5mm;color:#087f4f;font-size:8.7px}.page-note{margin-top:2mm;padding-top:1.7mm;border-top:1px solid #d7e3e5;font-size:7.2px;color:#7b898d}.empty-curve{padding:25px;text-align:center;color:#64748b}@page{size:A4 portrait;margin:0}@media print{body{background:#fff}.toolbar{display:none}.sheet{margin:0;box-shadow:none;width:210mm;height:297mm;min-height:297mm;overflow:hidden}}@media(max-width:850px){.toolbar{padding:0 10px}.sheet{width:100%;min-height:0;margin:8px 0;padding:16px}.hero{grid-template-columns:1fr}.product-image{height:240px}.curve{height:auto}.info-box{max-height:none}}</style></head><body><div class="toolbar"><button class="close" onclick="window.close()">Kapat</button><button class="print" onclick="window.print()">Yazdır / PDF Kaydet</button></div><main class="sheet"><header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">ÜRÜN TEKNİK FÖYÜ</div></header><div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">Marka: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div><section class="hero">${d.image?`<img class="product-image" src="${attr(d.image)}" alt="${attr(d.model)}" onerror="this.style.visibility='hidden'">`:'<div></div>'}<div class="spec-box"><div class="spec-head">TEKNİK ÖZELLİKLER</div>${specRows(d)}</div></section><section class="section"><h3 class="section-head">PERFORMANS EĞRİSİ</h3><div class="curve">${curve}</div></section><section class="section info-box"><h3>GENEL ÖZELLİKLER</h3>${featuresHtml(d)}</section><footer class="footer">Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">TEKNİK FÖY • SAYFA 1 / ${d.dimensions?'2':'1'}</div></footer></main>${dimensionPage(d)}</body></html>`;
   }
 
   function openClassic(payload){
