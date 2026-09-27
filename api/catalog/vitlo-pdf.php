@@ -7,7 +7,7 @@ const VITLO_CACHE_TTL = 86400;
 $cache = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'vensis-vitlo-catalog.pdf';
 
 function validPdf(string $bytes): bool {
-    return strlen($bytes) > 1024 && str_starts_with($bytes, '%PDF');
+    return strlen($bytes) > 1024 && strncmp($bytes, '%PDF', 4) === 0;
 }
 
 function fetchCatalog(): ?string {
@@ -23,7 +23,7 @@ function fetchCatalog(): ?string {
             CURLOPT_HTTPHEADER => ['Accept: application/pdf'],
         ]);
         $body = curl_exec($ch);
-        $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         if (is_string($body) && $status >= 200 && $status < 300 && validPdf($body)) {
             return $body;
