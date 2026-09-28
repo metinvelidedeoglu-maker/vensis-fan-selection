@@ -291,15 +291,23 @@
     const drawing=dim?.drawing;
     if(!drawing)return dimensionDiagramSvg(dim);
     const crop=drawing.crop||{};
+    const family=encodeURIComponent(String(drawing.family||dim.drawingFamily||''));
+    const imageUrl='/api/catalog/vitlo-drawing.php?family='+family+'&v=20260928-r3';
     return `<div class="catalog-drawing" data-original-catalog-drawing>
+      <img id="vitloCatalogDrawingImage"
+        class="catalog-drawing-image"
+        src="${attr(imageUrl)}"
+        alt="Vitlo katalog orijinal teknik çizimi"
+        decoding="sync">
       <canvas id="vitloCatalogDrawing"
+        class="catalog-drawing-canvas"
         data-pdf-page="${attr(drawing.pdfPage)}"
         data-crop-x="${attr(crop.x)}"
         data-crop-y="${attr(crop.y)}"
         data-crop-w="${attr(crop.w)}"
         data-crop-h="${attr(crop.h)}"
         aria-label="Vitlo katalog orijinal teknik çizimi"></canvas>
-      <div id="vitloCatalogDrawingStatus" class="drawing-status">Vitlo kataloğundaki orijinal teknik çizim yükleniyor…</div>
+      <div id="vitloCatalogDrawingStatus" class="drawing-status">Vitlo kataloğundaki orijinal teknik çizim hazırlanıyor…</div>
     </div>`;
   }
 
@@ -308,56 +316,123 @@
     if(!drawing)return '';
     const sourceUrl=String(d.dimensions.sourceProxy||drawing.pdfUrl||'/api/catalog/vitlo-pdf.php');
     const officialUrl=String(d.dimensions.sourceUrl||drawing.officialPdfUrl||'');
-    return `<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"><\/script>
+    return `<div id="printBlocker" class="print-blocker"><h2>Teknik çizim hazırlanıyor</h2><p>PDF çıktısı alınmadan önce Vitlo katalog çiziminin yüklenmesi gerekiyor.</p></div>
 <script>
-(async function(){
+(function(){
+  const image=document.getElementById('vitloCatalogDrawingImage');
   const canvas=document.getElementById('vitloCatalogDrawing');
   const status=document.getElementById('vitloCatalogDrawingStatus');
   const printButton=document.getElementById('printBtn');
   const official=${JSON.stringify(officialUrl)};
   const proxy=${JSON.stringify(sourceUrl)};
-  const fail=(message)=>{
-    if(status){
-      status.innerHTML=message+(official?' <a href="'+official+'" target="_blank" rel="noopener">Vitlo kataloğunu aç</a>':'');
-      status.classList.add('error');
-    }
-    if(printButton)printButton.disabled=false;
-  };
-  try{
-    if(!canvas||!window.pdfjsLib)throw new Error('PDF renderer unavailable');
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-    const pdf=await window.pdfjsLib.getDocument({url:proxy}).promise;
-    const pageNo=Number(canvas.dataset.pdfPage||1);
-    const page=await pdf.getPage(pageNo);
-    const viewport=page.getViewport({scale:2.25});
-    const source=document.createElement('canvas');
-    source.width=Math.ceil(viewport.width);
-    source.height=Math.ceil(viewport.height);
-    const context=source.getContext('2d',{alpha:false});
-    await page.render({canvasContext:context,viewport}).promise;
+  let ready=false;
+  let fallbackStarted=false;
+  let fallbackTimer=0;
 
-    const cx=Math.max(0,Math.min(1,Number(canvas.dataset.cropX)||0));
-    const cy=Math.max(0,Math.min(1,Number(canvas.dataset.cropY)||0));
-    const cw=Math.max(0.01,Math.min(1-cx,Number(canvas.dataset.cropW)||1));
-    const ch=Math.max(0.01,Math.min(1-cy,Number(canvas.dataset.cropH)||1));
-    const sx=Math.round(source.width*cx);
-    const sy=Math.round(source.height*cy);
-    const sw=Math.max(1,Math.round(source.width*cw));
-    const sh=Math.max(1,Math.round(source.height*ch));
-
-    canvas.width=sw;
-    canvas.height=sh;
-    const out=canvas.getContext('2d',{alpha:false});
-    out.fillStyle='#fff';
-    out.fillRect(0,0,sw,sh);
-    out.drawImage(source,sx,sy,sw,sh,0,0,sw,sh);
-    canvas.classList.add('ready');
+  const setReady=()=>{
+    if(ready)return;
+    ready=true;
+    document.documentElement.classList.add('drawing-ready');
+    document.documentElement.classList.remove('drawing-pending','block-print');
     if(status)status.hidden=true;
     if(printButton)printButton.disabled=false;
-  }catch(error){
-    console.error('Vitlo catalogue drawing render error',error);
-    fail('Orijinal katalog çizimi yüklenemedi.');
+    if(fallbackTimer)clearTimeout(fallbackTimer);
+  };
+
+  const setStatus=(message,isError=false)=>{
+    if(!status)return;
+    status.hidden=false;
+    status.textContent=message;
+    status.classList.toggle('error',Boolean(isError));
+  };
+
+  const blockPrint=()=>{
+    if(ready)return false;
+    document.documentElement.classList.add('block-print');
+    setStatus('Teknik çizim henüz hazır değil. Birkaç saniye sonra tekrar deneyin.');
+    return true;
+  };
+
+  const loadScript=url=>new Promise((resolve,reject)=>{
+    if(window.pdfjsLib){resolve();return}
+    const script=document.createElement('script');
+    script.src=url;
+    script.crossOrigin='anonymous';
+    script.referrerPolicy='no-referrer';
+    script.onload=()=>resolve();
+    script.onerror=()=>reject(new Error('PDF.js load failed'));
+    document.head.appendChild(script);
+  });
+
+  const renderFallback=async()=>{
+    if(ready||fallbackStarted)return;
+    fallbackStarted=true;
+    try{
+      setStatus('Orijinal çizim katalogdan hazırlanıyor…');
+      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js');
+      if(!canvas||!window.pdfjsLib)throw new Error('PDF renderer unavailable');
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      const pdf=await window.pdfjsLib.getDocument({url:proxy}).promise;
+      const page=await pdf.getPage(Number(canvas.dataset.pdfPage||1));
+      const viewport=page.getViewport({scale:2.25});
+      const source=document.createElement('canvas');
+      source.width=Math.ceil(viewport.width);
+      source.height=Math.ceil(viewport.height);
+      await page.render({canvasContext:source.getContext('2d',{alpha:false}),viewport}).promise;
+
+      const cx=Math.max(0,Math.min(1,Number(canvas.dataset.cropX)||0));
+      const cy=Math.max(0,Math.min(1,Number(canvas.dataset.cropY)||0));
+      const cw=Math.max(0.01,Math.min(1-cx,Number(canvas.dataset.cropW)||1));
+      const ch=Math.max(0.01,Math.min(1-cy,Number(canvas.dataset.cropH)||1));
+      const sx=Math.round(source.width*cx),sy=Math.round(source.height*cy);
+      const sw=Math.max(1,Math.round(source.width*cw)),sh=Math.max(1,Math.round(source.height*ch));
+
+      canvas.width=sw;canvas.height=sh;
+      const out=canvas.getContext('2d',{alpha:false});
+      out.fillStyle='#fff';out.fillRect(0,0,sw,sh);
+      out.drawImage(source,sx,sy,sw,sh,0,0,sw,sh);
+      canvas.classList.add('ready');
+      if(image)image.hidden=true;
+      setReady();
+    }catch(error){
+      console.error('Vitlo catalogue drawing fallback error',error);
+      const suffix=official?' Vitlo kataloğunu kaynak bağlantısından kontrol edebilirsiniz.':'';
+      setStatus('Orijinal katalog çizimi yüklenemedi.'+suffix,true);
+      if(status&&official){
+        const link=document.createElement('a');
+        link.href=official;link.target='_blank';link.rel='noopener';
+        link.textContent=' Vitlo kataloğunu aç';
+        status.appendChild(link);
+      }
+    }
+  };
+
+  if(image){
+    image.addEventListener('load',()=>{
+      image.classList.add('ready');
+      setReady();
+    },{once:true});
+    image.addEventListener('error',()=>renderFallback(),{once:true});
+    if(image.complete){
+      if(image.naturalWidth>0){image.classList.add('ready');setReady()}
+      else renderFallback();
+    }
+  }else{
+    renderFallback();
   }
+
+  fallbackTimer=setTimeout(()=>{if(!ready)renderFallback()},6000);
+
+  document.addEventListener('keydown',event=>{
+    if((event.ctrlKey||event.metaKey)&&String(event.key).toLowerCase()==='p'&&!ready){
+      event.preventDefault();
+      blockPrint();
+    }
+  },true);
+
+  window.addEventListener('beforeprint',()=>{if(!ready)blockPrint()});
+  window.addEventListener('afterprint',()=>document.documentElement.classList.remove('block-print'));
+  window.addEventListener('load',()=>{if(!ready&&image?.complete&&image.naturalWidth>0){image.classList.add('ready');setReady()}});
 })();
 <\/script>`;
   }
@@ -373,7 +448,7 @@
   function classicHtml(payload){
     const d=normalizedPayload(payload);
     const curve=curveSvg(d);
-    return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} Teknik Föy</title><base href="${attr(new URL('.',window.location.href).href)}"><style>*{box-sizing:border-box}body{margin:0;background:#e9eff0;color:#162f33;font-family:Arial,Helvetica,sans-serif}.toolbar{max-width:210mm;margin:10px auto 0;display:flex;justify-content:flex-end;gap:8px}.toolbar button{border:0;border-radius:7px;padding:9px 13px;font-weight:800;cursor:pointer}.print{background:#087f4f;color:#fff}.close{background:#dfe8e9;color:#29484d}.sheet{width:210mm;min-height:297mm;margin:10px auto 22px;background:#fff;padding:9mm 10mm 7mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column}.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #087f4f;padding-bottom:5px}.logo{height:17mm;max-width:80mm;object-fit:contain}.doc-title{font-size:11px;color:#566b70;font-weight:800;margin-top:3px}.product-title{margin:5px 0 0}.product-title h1{font-size:27px;line-height:1.05;color:#075e39;margin:0}.brand{margin-top:4px;color:#087f4f;font-weight:800;font-size:11px}.product-title h2{font-size:16px;line-height:1.15;margin:4px 0 0;color:#173033}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:7mm;align-items:center;margin-top:4mm}.product-image{width:100%;height:59mm;object-fit:contain}.spec-box{border:1px solid #8db3a2;border-radius:8px;overflow:hidden}.spec-head{background:#edf6f1;color:#07633c;text-align:center;font-weight:900;padding:5px;font-size:12px}.spec-row{display:grid;grid-template-columns:1fr 1.22fr;gap:7px;padding:4.7px 8px;border-top:1px solid #d7e3de;font-size:9.5px;line-height:1.15}.spec-row span{font-weight:700}.spec-row b{text-align:right}.spec-row.required{color:#d63b32}.spec-row.selected{color:#168451}.section{margin-top:4mm}.section-head{font-size:12px;font-weight:900;color:#07633c;margin:0 0 2px;text-transform:uppercase}.curve{border:1px solid #8db3a2;border-radius:8px;padding:1.5mm;height:84mm;overflow:hidden}.curve svg{height:100%;display:block}.info-box{border:1px solid #8db3a2;border-radius:8px;padding:3.5mm;min-height:36mm;max-height:40mm;overflow:hidden}.info-box h3{font-size:10.5px;color:#07633c;margin:0 0 2mm;text-transform:uppercase}.info-box ul{margin:0;padding-left:15px;font-size:8.2px;line-height:1.28}.info-box li{margin-bottom:1.5px}.muted{font-size:9px;color:#64748b}.dimension-sheet{page-break-before:always;break-before:page}.dimension-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:7mm;margin-top:8mm;align-items:start}.dimension-figure,.dimension-data{border:1px solid #8db3a2;border-radius:9px;padding:5mm;background:#fbfdfc}.dimension-figure h3,.dimension-data h3{margin:0 0 4mm;color:#07633c;font-size:13px}.dimension-figure svg{display:block;width:100%;height:auto;max-height:126mm}.catalog-drawing{position:relative;min-height:88mm;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #e3e9e7;border-radius:7px;overflow:hidden}.catalog-drawing canvas{display:block;width:100%;height:auto;opacity:0;transition:opacity .15s}.catalog-drawing canvas.ready{opacity:1}.drawing-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:12px;text-align:center;color:#64748b;font-size:9px;background:#fff}.drawing-status.error{color:#8a5a12;background:#fff8e8}.drawing-status a{color:#087f4f;font-weight:800}.print:disabled{opacity:.45;cursor:wait}.dimension-figure p{margin:3mm 0 0;color:#64748b;font-size:8.5px;line-height:1.4}.dimension-data table{width:100%;border-collapse:collapse;font-size:11px}.dimension-data th,.dimension-data td{border:1px solid #d7e3de;padding:7px 8px}.dimension-data th{text-align:left;background:#edf6f1;color:#075e39}.dimension-data td{text-align:right;font-weight:800}.dimension-ref{margin-top:5mm;padding:4mm;border-radius:7px;background:#f3f7f6;font-size:9px;line-height:1.55;color:#40565b}.dimension-ref a{color:#087f4f}.dimension-alert{margin-top:3mm;padding:3mm;border:1px solid #e4b45e;border-radius:7px;background:#fff8e8;color:#6d4a09;font-size:8.5px;line-height:1.4}.dimension-note{margin-top:7mm;padding:4mm;border:1px solid #d7e3de;border-radius:8px;background:#f8fbfa;font-size:9px;line-height:1.5}.footer{margin-top:auto;padding-top:2.5mm;border-top:2px solid #087f4f;text-align:center;font-size:7.6px;color:#64748b}.footer b{display:block;margin-top:1.5mm;color:#087f4f;font-size:8.7px}.page-note{margin-top:2mm;padding-top:1.7mm;border-top:1px solid #d7e3e5;font-size:7.2px;color:#7b898d}.empty-curve{padding:25px;text-align:center;color:#64748b}@page{size:A4 portrait;margin:0}@media print{body{background:#fff}.toolbar{display:none}.sheet{margin:0;box-shadow:none;width:210mm;height:297mm;min-height:297mm;overflow:hidden}}@media(max-width:850px){.toolbar{padding:0 10px}.sheet{width:100%;min-height:0;margin:8px 0;padding:16px}.hero{grid-template-columns:1fr}.product-image{height:240px}.curve{height:auto}.info-box{max-height:none}}</style></head><body><div class="toolbar"><button class="close" onclick="window.close()">Kapat</button><button id="printBtn" class="print" onclick="window.print()" ${d.dimensions?.drawing?'disabled':''}>Yazdır / PDF Kaydet</button></div><main class="sheet"><header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">ÜRÜN TEKNİK FÖYÜ</div></header><div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">Marka: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div><section class="hero">${d.image?`<img class="product-image" src="${attr(d.image)}" alt="${attr(d.model)}" onerror="this.style.visibility='hidden'">`:'<div></div>'}<div class="spec-box"><div class="spec-head">TEKNİK ÖZELLİKLER</div>${specRows(d)}</div></section><section class="section"><h3 class="section-head">PERFORMANS EĞRİSİ</h3><div class="curve">${curve}</div></section><section class="section info-box"><h3>GENEL ÖZELLİKLER</h3>${featuresHtml(d)}</section><footer class="footer">Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">TEKNİK FÖY • SAYFA 1 / ${d.dimensions?'2':'1'}</div></footer></main>${dimensionPage(d)}${dimensionRuntime(d)}</body></html>`;
+    return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} Teknik Föy</title><base href="${attr(new URL('.',window.location.href).href)}"><style>*{box-sizing:border-box}body{margin:0;background:#e9eff0;color:#162f33;font-family:Arial,Helvetica,sans-serif}.toolbar{max-width:210mm;margin:10px auto 0;display:flex;justify-content:flex-end;gap:8px}.toolbar button{border:0;border-radius:7px;padding:9px 13px;font-weight:800;cursor:pointer}.print{background:#087f4f;color:#fff}.close{background:#dfe8e9;color:#29484d}.sheet{width:210mm;min-height:297mm;margin:10px auto 22px;background:#fff;padding:9mm 10mm 7mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column}.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #087f4f;padding-bottom:5px}.logo{height:17mm;max-width:80mm;object-fit:contain}.doc-title{font-size:11px;color:#566b70;font-weight:800;margin-top:3px}.product-title{margin:5px 0 0}.product-title h1{font-size:27px;line-height:1.05;color:#075e39;margin:0}.brand{margin-top:4px;color:#087f4f;font-weight:800;font-size:11px}.product-title h2{font-size:16px;line-height:1.15;margin:4px 0 0;color:#173033}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:7mm;align-items:center;margin-top:4mm}.product-image{width:100%;height:59mm;object-fit:contain}.spec-box{border:1px solid #8db3a2;border-radius:8px;overflow:hidden}.spec-head{background:#edf6f1;color:#07633c;text-align:center;font-weight:900;padding:5px;font-size:12px}.spec-row{display:grid;grid-template-columns:1fr 1.22fr;gap:7px;padding:4.7px 8px;border-top:1px solid #d7e3de;font-size:9.5px;line-height:1.15}.spec-row span{font-weight:700}.spec-row b{text-align:right}.spec-row.required{color:#d63b32}.spec-row.selected{color:#168451}.section{margin-top:4mm}.section-head{font-size:12px;font-weight:900;color:#07633c;margin:0 0 2px;text-transform:uppercase}.curve{border:1px solid #8db3a2;border-radius:8px;padding:1.5mm;height:84mm;overflow:hidden}.curve svg{height:100%;display:block}.info-box{border:1px solid #8db3a2;border-radius:8px;padding:3.5mm;min-height:36mm;max-height:40mm;overflow:hidden}.info-box h3{font-size:10.5px;color:#07633c;margin:0 0 2mm;text-transform:uppercase}.info-box ul{margin:0;padding-left:15px;font-size:8.2px;line-height:1.28}.info-box li{margin-bottom:1.5px}.muted{font-size:9px;color:#64748b}.dimension-sheet{page-break-before:always;break-before:page}.dimension-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:7mm;margin-top:8mm;align-items:start}.dimension-figure,.dimension-data{border:1px solid #8db3a2;border-radius:9px;padding:5mm;background:#fbfdfc}.dimension-figure h3,.dimension-data h3{margin:0 0 4mm;color:#07633c;font-size:13px}.dimension-figure svg{display:block;width:100%;height:auto;max-height:126mm}.catalog-drawing{position:relative;min-height:88mm;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid #e3e9e7;border-radius:7px;overflow:hidden}.catalog-drawing-image,.catalog-drawing-canvas{display:block;width:100%;height:auto;max-height:112mm;object-fit:contain;opacity:0;transition:opacity .15s}.catalog-drawing-image.ready,.catalog-drawing-canvas.ready{opacity:1}.catalog-drawing-canvas{display:none}.catalog-drawing-canvas.ready{display:block}.drawing-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:12px;text-align:center;color:#64748b;font-size:9px;background:#fff}.drawing-status.error{color:#8a5a12;background:#fff8e8}.drawing-status a{color:#087f4f;font-weight:800}.print:disabled{opacity:.45;cursor:wait}.print-blocker{display:none;padding:25mm;font-size:14px;color:#173033}.print-blocker h2{color:#087f4f}.dimension-figure p{margin:3mm 0 0;color:#64748b;font-size:8.5px;line-height:1.4}.dimension-data table{width:100%;border-collapse:collapse;font-size:11px}.dimension-data th,.dimension-data td{border:1px solid #d7e3de;padding:7px 8px}.dimension-data th{text-align:left;background:#edf6f1;color:#075e39}.dimension-data td{text-align:right;font-weight:800}.dimension-ref{margin-top:5mm;padding:4mm;border-radius:7px;background:#f3f7f6;font-size:9px;line-height:1.55;color:#40565b}.dimension-ref a{color:#087f4f}.dimension-alert{margin-top:3mm;padding:3mm;border:1px solid #e4b45e;border-radius:7px;background:#fff8e8;color:#6d4a09;font-size:8.5px;line-height:1.4}.dimension-note{margin-top:7mm;padding:4mm;border:1px solid #d7e3de;border-radius:8px;background:#f8fbfa;font-size:9px;line-height:1.5}.footer{margin-top:auto;padding-top:2.5mm;border-top:2px solid #087f4f;text-align:center;font-size:7.6px;color:#64748b}.footer b{display:block;margin-top:1.5mm;color:#087f4f;font-size:8.7px}.page-note{margin-top:2mm;padding-top:1.7mm;border-top:1px solid #d7e3e5;font-size:7.2px;color:#7b898d}.empty-curve{padding:25px;text-align:center;color:#64748b}@page{size:A4 portrait;margin:0}@media print{html,body{margin:0!important;padding:0!important;background:#fff!important}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.toolbar{display:none!important}.sheet{margin:0!important;box-shadow:none!important;width:210mm!important;height:297mm!important;min-height:0!important;max-height:297mm!important;padding:6mm 9mm 5mm!important;overflow:hidden!important;page-break-inside:avoid!important;break-inside:avoid-page!important;page-break-after:always!important;break-after:page!important}.sheet:last-of-type{page-break-after:auto!important;break-after:auto!important}.header{padding-bottom:3px!important}.logo{height:14mm!important}.product-title{margin-top:3px!important}.product-title h1{font-size:24px!important}.product-title h2{font-size:14px!important;margin-top:2px!important}.hero{grid-template-columns:1.02fr .98fr!important;gap:5mm!important;margin-top:2.5mm!important}.product-image{height:46mm!important}.spec-head{padding:4px!important;font-size:10.5px!important}.spec-row{padding:3.2px 7px!important;font-size:8.5px!important;line-height:1.1!important}.section{margin-top:2.5mm!important}.section-head{font-size:10.5px!important;margin-bottom:1px!important}.curve{height:68mm!important;padding:1mm!important}.info-box{min-height:25mm!important;max-height:27mm!important;padding:2.5mm!important}.info-box h3{font-size:9.5px!important;margin-bottom:1.5mm!important}.info-box ul{font-size:7.2px!important;line-height:1.16!important;max-height:19mm!important;overflow:hidden!important}.info-box li{margin-bottom:1px!important}.footer{padding-top:1.8mm!important;font-size:6.8px!important}.footer b{margin-top:1mm!important;font-size:7.8px!important}.page-note{margin-top:1mm!important;padding-top:1mm!important;font-size:6.4px!important}.dimension-sheet{page-break-before:auto!important;break-before:auto!important}.dimension-layout{gap:5mm!important;margin-top:5mm!important}.dimension-figure,.dimension-data{padding:4mm!important}.dimension-figure h3,.dimension-data h3{margin-bottom:2.5mm!important;font-size:11.5px!important}.catalog-drawing{min-height:72mm!important}.catalog-drawing-image,.catalog-drawing-canvas{max-height:100mm!important}.dimension-data table{font-size:10px!important}.dimension-data th,.dimension-data td{padding:5px 7px!important}.dimension-ref{margin-top:3mm!important;padding:3mm!important;font-size:8px!important}.dimension-note{margin-top:4mm!important;padding:3mm!important;font-size:8px!important}.block-print body>*:not(.print-blocker){display:none!important}.block-print .print-blocker{display:block!important}}@media(max-width:850px){.toolbar{padding:0 10px}.sheet{width:100%;min-height:0;margin:8px 0;padding:16px}.hero{grid-template-columns:1fr}.product-image{height:240px}.curve{height:auto}.info-box{max-height:none}}</style></head><body><div class="toolbar"><button class="close" onclick="window.close()">Kapat</button><button id="printBtn" class="print" onclick="window.print()" ${d.dimensions?.drawing?'disabled':''}>Yazdır / PDF Kaydet</button></div><main class="sheet"><header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">ÜRÜN TEKNİK FÖYÜ</div></header><div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">Marka: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div><section class="hero">${d.image?`<img class="product-image" src="${attr(d.image)}" alt="${attr(d.model)}" onerror="this.style.visibility='hidden'">`:'<div></div>'}<div class="spec-box"><div class="spec-head">TEKNİK ÖZELLİKLER</div>${specRows(d)}</div></section><section class="section"><h3 class="section-head">PERFORMANS EĞRİSİ</h3><div class="curve">${curve}</div></section><section class="section info-box"><h3>GENEL ÖZELLİKLER</h3>${featuresHtml(d)}</section><footer class="footer">Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">TEKNİK FÖY • SAYFA 1 / ${d.dimensions?'2':'1'}</div></footer></main>${dimensionPage(d)}${dimensionRuntime(d)}</body></html>`;
   }
 
   function openClassic(payload){
