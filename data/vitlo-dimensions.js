@@ -83,11 +83,14 @@
       drawing:(()=>{
         const family=SERIES_DRAWING_FAMILY[code];
         const drawing=family?DRAWING_FAMILIES[family]:null;
+        const staticDrawing=window.VensisVitloTechnicalDrawings?.resolve?.(code)||null;
         return drawing?{
           family,
           sourceSeries:drawing.sourceSeries,
           pdfPage:drawing.pdfPage,
           crop:{...drawing.crop},
+          asset:staticDrawing?.asset||'',
+          fallback:staticDrawing?.fallback||('/api/catalog/vitlo-drawing.php?family='+encodeURIComponent(family)),
           pdfUrl:SOURCE_PROXY,
           officialPdfUrl:SOURCE_URL
         }:null;
