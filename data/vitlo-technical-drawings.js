@@ -12,7 +12,7 @@
       sourcePage:5
     },
     axial_wall:{
-      asset:'assets/products/vitlo/axial-wall-dimensions.png',
+      asset:'assets/technical-drawings/vitlo/axial-wall.png',
       fallback:'/api/catalog/vitlo-drawing.php?family=axial_wall',
       series:['AXW','AXW/ATEX'],
       sourcePage:15
