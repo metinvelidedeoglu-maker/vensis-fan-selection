@@ -298,7 +298,7 @@
     const asset=absoluteAssetUrl(rawAsset);
     if(!asset)return dimensionDiagramSvg(dim);
     const cleanAsset=rawAsset.replace(/^\/+/, '');
-    const fallback=/^assets\\//i.test(cleanAsset)
+    const fallback=cleanAsset.toLowerCase().startsWith('assets/')
       ?'https://raw.githubusercontent.com/metinvelidedeoglu-maker/vensis-fan-selection/main/'+cleanAsset
       :'';
     return `<div class="catalog-drawing" data-original-catalog-drawing>
