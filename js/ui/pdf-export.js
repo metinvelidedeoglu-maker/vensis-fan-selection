@@ -133,6 +133,7 @@
         controls
       },
       description:{general,applications},
+      seriesCode:series.code||model.seriesId||model.series||product.seriesCode||'',
       dimensions,
       required:obj(payload.required),
       selected:obj(payload.selected)
@@ -324,9 +325,10 @@
   function classicHtml(payload){
     const d=normalizedPayload(payload);
     const curve=curveSvg(d);
-    const drawingHtml=d.dimensions?originalDrawingHtml(d.dimensions):'';
-    const dimensionPanel=d.dimensions
-      ?`<section class="bottom-card dimension-panel${drawingHtml?'':' no-drawing'}"><h3>TEKNİK RESİM &amp; ÖLÇÜLER</h3>${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${dimensionValuesCompact(d.dimensions)}</section>`
+    const drawingContext=d.dimensions||{series:d.seriesCode};
+    const drawingHtml=originalDrawingHtml(drawingContext);
+    const dimensionPanel=(d.dimensions||drawingHtml)
+      ?`<section class="bottom-card dimension-panel${drawingHtml?'':' no-drawing'}"><h3>TEKNİK RESİM &amp; ÖLÇÜLER</h3>${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${d.dimensions?dimensionValuesCompact(d.dimensions):''}</section>`
       :`<section class="bottom-card dimension-panel empty-dimension"><h3>TEKNİK RESİM &amp; ÖLÇÜLER</h3></section>`;
 
     return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} Teknik Föy</title><base href="${attr(new URL('.',window.location.href).href)}"><style>
