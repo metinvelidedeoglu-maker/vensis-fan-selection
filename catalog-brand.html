@@ -38,7 +38,7 @@ window.models=[];
   const backParams=new URLSearchParams(params);backParams.delete('series');backParams.delete('brand');
   document.getElementById('brandBack').href='catalog-ventilation.html'+(backParams.toString()?'?'+backParams.toString():'');
   const groups={
-    vitlo:['data/fans-01.js?v=20260827-axf-name-r2','data/fans-02.js?v=20260929-axw-drawing-r1','data/fans-03.js?v=20260811-vitlo-catalog-r1','data/fans-04.js?v=20260929-axw-drawing-r1','data/fans-05.js?v=20260811-vitlo-catalog-r1','data/fans-06.js?v=20260811-vitlo-catalog-r1','data/fans-07.js?v=20260811-vitlo-catalog-r1','data/fans-08.js?v=20260929-axw-drawing-r1','data/fans-15.js?v=20260824-crs-price-r4'],
+    vitlo:['data/fans-01.js?v=20260827-axf-name-r2','data/fans-02.js?v=20260929-axw-product-drawing-r1','data/fans-03.js?v=20260811-vitlo-catalog-r1','data/fans-04.js?v=20260929-axw-product-drawing-r1','data/fans-05.js?v=20260811-vitlo-catalog-r1','data/fans-06.js?v=20260811-vitlo-catalog-r1','data/fans-07.js?v=20260811-vitlo-catalog-r1','data/fans-08.js?v=20260929-axw-product-drawing-r1','data/fans-15.js?v=20260824-crs-price-r4'],
     vortice:['data/fans-09.js?v=20260814-vortice-images','data/fans-10.js?v=20260813-ca-md','data/fans-11.js?v=20260813-vortice-batch','data/fans-12.js?v=20260814-vortice-images','data/fans-13.js?v=20260814-vortice-images','data/fans-14.js?v=20260813-vortice-batch','data/vortice-prices-2026-1.js?v=20260814-vortice-prices'],
     sp:['data/soler-palau-catalog.js?v=20260827-sp-images-r7','data/soler-palau-catalog-2.js?v=20260827-sp-images-r7','data/soler-palau-catalog-3.js?v=20260827-sp-images-r7']
   };
@@ -46,7 +46,7 @@ window.models=[];
   groups[brand].forEach(write);
   write('data/series-overrides.js?v=20260929-axw-atex-4m-r2');
   write('js/catalog-performance-guard.js?v=20260831-brand-r2');
-  write('data/vitlo-technical-drawings.js?v=20260929-static-r1');
+  write('data/vitlo-technical-drawings.js?v=20260929-product-asset-r1');
   write('data/vitlo-dimensions.js?v=20260929-static-r1');
   write('products/registry.js?v=20260929-static-drawings-r1');
   if(brand==='vitlo')write('data/crs-atex-prices-r4.js?v=20260824-r4');
@@ -67,7 +67,7 @@ window.models=[];
 <script src="js/core/utils.js?v=20260719-v9cleanup"></script>
 <script src="js/ui/datasheet.js?v=20260929-static-drawings-r2"></script>
 
-<script src="js/ui/pdf-export.js?v=20260929-onepage-layout-r2"></script>
+<script src="js/ui/pdf-export.js?v=20260929-onepage-layout-r3"></script>
 <script src="js/language.js?v=20260825-all-pages-r1"></script>
 <script src="js/pending-project.js?v=20260826-project-transfer-r1"></script>
 <script src="js/projects-store.js?v=20260826-access-gate-r1"></script>
