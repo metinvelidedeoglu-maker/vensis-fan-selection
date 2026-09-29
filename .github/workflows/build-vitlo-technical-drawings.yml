@@ -31,7 +31,7 @@ jobs:
       - name: Render Vitlo technical drawings per series
         run: |
           mkdir -p /tmp/vitlo-pages assets/products
-          for page in 5 6 9 11 15 17 19 21 23 24 25 27 29 31 33 35 37 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 55 56 57; do
+          for page in 5 6 9 11 15 19 21 23 24 25 31 39 42 47 51 56; do
             pdftoppm -f "$page" -singlefile -png -r 220 /tmp/vitlo.pdf "/tmp/vitlo-pages/page-$page"
           done
 
@@ -40,42 +40,58 @@ jobs:
           from pathlib import Path
 
           SERIES = {
+              # Every series gets its own file name. Source pages can repeat when
+              # Vitlo uses the same technical drawing type for multiple products.
               'AXF': ('AXF', 5),
+              'AXD': ('AXD', 5),
+              'AXD/ATEX': ('AXD-ATEX', 5),
+              'AXB': ('AXB', 5),
+
               'BOX-AXF': ('BOX-AXF', 11),
+              'AXH': ('AXH', 11),
+
+              'AXW': ('AXW', 15),
               'AXW/ATEX': ('AXW-ATEX', 15),
-              'AXD/ATEX': ('AXD-ATEX', 17),
+
+              'AXD/MOB': ('MOB-AXD', 19),
               'MOB-AXD/ATEX': ('MOB-AXD-ATEX', 19),
+
+              'AXR': ('AXR', 21),
               'AXR/ATEX': ('AXR-ATEX', 21),
+
+              'CR': ('CR', 23),
+              'CRH': ('CRH', 23),
               'CRH/ATEX': ('CRH-ATEX', 23),
+              'CR-EC': ('CR-EC', 23),
+
+              'CRB': ('CRB', 24),
+              'CRD': ('CRD', 24),
               'CRD/ATEX': ('CRD-ATEX', 24),
+              'CRR': ('CRR', 24),
+              'CRB-EC': ('CRB-EC', 24),
+
+              'CRS': ('CRS', 25),
               'CRS/ATEX': ('CRS-ATEX', 25),
-              'AXD': ('AXD', 27),
-              'AXD/MOB': ('MOB-AXD', 29),
+
               'AXS': ('AXS', 31),
-              'AXW': ('AXW', 33),
-              'AXB': ('AXB', 35),
-              'AXH': ('AXH', 37),
+
               'CD': ('CD', 39),
-              'CRB': ('CRB', 40),
-              'CRD': ('CRD', 41),
+
               'CRK': ('CRK', 42),
-              'CRC': ('CRC', 43),
-              'CRS': ('CRS', 44),
-              'CR': ('CR', 45),
-              'CRH': ('CRH', 46),
+              'CRC': ('CRC', 42),
+              'CRC-EC': ('CRC-EC', 42),
+
               'CRV': ('CRV', 47),
-              'CRU': ('CRU', 48),
-              'AXR': ('AXR', 49),
+              'CRU': ('CRU', 47),
+              'CRU-EC': ('CRU-EC', 47),
+
               'AXV': ('AXV', 51),
-              'CR-EC': ('CR-EC', 52),
-              'CRU-EC': ('CRU-EC', 53),
-              'CRB-EC': ('CRB-EC', 54),
-              'CRC-EC': ('CRC-EC', 55),
+
               'VHR': ('VHR', 56),
-              'CRR': ('CRR', 57),
+
               'AXJ': ('AXJ', 6),
               'TUNEL-AXF': ('TUNEL-AXF', 9),
-          }
+          }}
 
           def teal_row_count(image, y):
               w, _ = image.size
