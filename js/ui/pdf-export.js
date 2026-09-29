@@ -290,19 +290,25 @@
   function originalDrawingHtml(dim){
     const drawing=dim?.drawing;
     if(!drawing)return dimensionDiagramSvg(dim);
-    const asset=absoluteAssetUrl(
+    const rawAsset=String(
       drawing.asset||
       window.VensisVitloTechnicalDrawings?.resolve?.(dim?.series)?.asset||
       ''
-    );
+    ).trim();
+    const asset=absoluteAssetUrl(rawAsset);
     if(!asset)return dimensionDiagramSvg(dim);
+    const cleanAsset=rawAsset.replace(/^\\/+/, '');
+    const fallback=/^assets\\//i.test(cleanAsset)
+      ?'https://raw.githubusercontent.com/metinvelidedeoglu-maker/vensis-fan-selection/main/'+cleanAsset
+      :'';
     return `<div class="catalog-drawing" data-original-catalog-drawing>
       <img id="vitloCatalogDrawingImage"
         class="catalog-drawing-image ready"
         src="${attr(asset)}"
+        data-fallback="${attr(fallback)}"
         alt="Vitlo katalog orijinal teknik çizimi"
         decoding="sync"
-        onerror="this.style.display='none';this.nextElementSibling.hidden=false">
+        onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;return}this.style.display='none';this.nextElementSibling.hidden=false">
       <div class="drawing-status error" hidden>Teknik çizim dosyası yüklenemedi.</div>
     </div>`;
   }
