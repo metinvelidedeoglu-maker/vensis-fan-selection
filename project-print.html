@@ -33,13 +33,59 @@ html,body{width:210mm;min-width:210mm;margin:0;background:#fff;-webkit-print-col
 .curve{height:84mm}
 .empty{display:none}
 }
+
+/* One-page product datasheet layout used inside project print */
+.datasheet-page.one-page-datasheet{padding:7mm 9mm 7mm}
+.datasheet-page .top-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:5mm;align-items:stretch;margin-top:3mm}
+.datasheet-page .product-image-wrap,.datasheet-page .feature-card{border:1px solid #d7e3de;border-radius:8px;background:#fbfdfc;min-height:39mm}
+.datasheet-page .product-image-wrap{display:flex;align-items:center;justify-content:center;padding:2mm}
+.datasheet-page .product-image{width:100%;height:36mm;max-height:36mm;object-fit:contain}
+.datasheet-page .feature-card{padding:2.6mm;overflow:hidden}
+.datasheet-page .feature-card h3,.datasheet-page .bottom-card h3{margin:0 0 1.8mm;color:#07633c;font-size:10px;font-weight:900;text-transform:uppercase}
+.datasheet-page .feature-card ul{margin:0;padding-left:14px;font-size:7.4px;line-height:1.18}
+.datasheet-page .feature-card li{margin-bottom:1px}
+.datasheet-page .section{margin-top:2.8mm}
+.datasheet-page .section-head{font-size:10.5px;margin:0 0 2px}
+.datasheet-page .curve{height:69mm;padding:1mm}
+.datasheet-page .bottom-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:4mm;margin-top:3mm;align-items:stretch}
+.datasheet-page .bottom-card{border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.4mm;min-height:61mm;overflow:hidden}
+.datasheet-page .technical-panel .spec-box{border:0;border-radius:0;background:#fff}
+.datasheet-page .technical-panel .spec-head{display:none}
+.datasheet-page .technical-panel .spec-row{display:grid;grid-template-columns:1fr 1.18fr;gap:5px;padding:2.5px 5px;border-top:1px solid #d7e3de;font-size:7.7px;line-height:1.08}
+.datasheet-page .technical-panel .spec-row:first-child{border-top:0}
+.datasheet-page .dimension-panel{display:flex;flex-direction:column}
+.datasheet-page .dimension-drawing-wrap{display:flex;align-items:center;justify-content:center;height:45mm;min-height:0;background:#fff;border:1px solid #e3e9e7;border-radius:6px;overflow:hidden}
+.datasheet-page .catalog-drawing{position:relative;width:100%;height:100%;min-height:0!important;border:0!important;border-radius:0!important;background:#fff;display:flex;align-items:center;justify-content:center}
+.datasheet-page .catalog-drawing-image{display:block;width:100%;height:100%;max-height:none!important;object-fit:contain;opacity:1}
+.datasheet-page .drawing-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:6px;text-align:center;color:#8a5a12;font-size:7.5px;background:#fff}
+.datasheet-page .dimension-values-compact{display:grid;grid-template-columns:repeat(3,1fr);gap:1mm;margin-top:1.3mm}
+.datasheet-page .dimension-chip{border:1px solid #d7e3de;border-radius:4px;background:#fff;padding:.8mm 1mm;min-width:0}
+.datasheet-page .dimension-chip span,.datasheet-page .dimension-chip b{display:block}
+.datasheet-page .dimension-chip span{font-size:6.8px;color:#64748b;font-weight:800}
+.datasheet-page .dimension-chip b{margin-top:.2mm;font-size:7.4px;color:#173033;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.datasheet-page .footer{margin-top:auto;padding-top:1.8mm;font-size:6.7px}
+.datasheet-page .footer b{margin-top:.8mm;font-size:7.5px}
+.datasheet-page .pdf-footer-meta{margin-top:1mm;padding-top:1mm;font-size:6.5px}
+@media print{
+  .datasheet-page.one-page-datasheet{width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;padding:6mm 9mm 5mm!important;overflow:hidden!important}
+  .datasheet-page .top-grid{margin-top:2.4mm!important;gap:4mm!important}
+  .datasheet-page .product-image-wrap,.datasheet-page .feature-card{min-height:36mm!important}
+  .datasheet-page .product-image{height:33mm!important;max-height:33mm!important}
+  .datasheet-page .feature-card{padding:2.2mm!important}
+  .datasheet-page .feature-card ul{font-size:6.9px!important;line-height:1.13!important}
+  .datasheet-page .curve{height:66mm!important}
+  .datasheet-page .bottom-grid{margin-top:2.5mm!important;gap:3.5mm!important}
+  .datasheet-page .bottom-card{min-height:59mm!important;padding:2.2mm!important}
+  .datasheet-page .dimension-drawing-wrap{height:44mm!important}
+}
+
 </style>
 </head>
 <body>
 <div class="toolbar"><a class="back" href="project.html">← Back to Project</a><button id="printProjectDocument" class="print" type="button">Print Project</button></div>
 <main id="projectPrintRoot"></main>
 <script>window.models=[];</script>
-<script src="data/fans-01.js?v=20260827-axf-name-r2"></script><script src="data/fans-02.js?v=20260929-axw-drawing-r1"></script><script src="data/fans-03.js?v=20260720-series-catalog"></script><script src="data/fans-04.js?v=20260929-axw-drawing-r1"></script><script src="data/fans-05.js?v=20260720-series-catalog"></script><script src="data/fans-06.js?v=20260720-series-catalog"></script><script src="data/fans-07.js?v=20260720-series-catalog"></script><script src="data/fans-08.js?v=20260929-axw-drawing-r1"></script><script src="data/fans-09.js?v=20260814-vortice-images"></script><script src="data/fans-10.js?v=20260813-ca-md"></script>
+<script src="data/fans-01.js?v=20260827-axf-name-r2"></script><script src="data/fans-02.js?v=20260929-known-good-drawing-r1"></script><script src="data/fans-03.js?v=20260720-series-catalog"></script><script src="data/fans-04.js?v=20260929-known-good-drawing-r1"></script><script src="data/fans-05.js?v=20260720-series-catalog"></script><script src="data/fans-06.js?v=20260720-series-catalog"></script><script src="data/fans-07.js?v=20260720-series-catalog"></script><script src="data/fans-08.js?v=20260929-known-good-drawing-r1"></script><script src="data/fans-09.js?v=20260814-vortice-images"></script><script src="data/fans-10.js?v=20260813-ca-md"></script>
 <script src="data/fans-11.js?v=20260813-vortice-batch"></script><script src="data/fans-12.js?v=20260814-vortice-images"></script>
 <script src="data/fans-13.js?v=20260814-vortice-images"></script><script src="data/fans-14.js?v=20260813-vortice-batch"></script>
 <script src="data/fans-15.js?v=20260824-crs-price-r4"></script>
@@ -48,7 +94,7 @@ html,body{width:210mm;min-width:210mm;margin:0;background:#fff;-webkit-print-col
 <script src="data/soler-palau-catalog-3.js?v=20260827-sp-images-r7"></script>
 <script src="data/series-overrides.js?v=20260929-axw-atex-4m-r2"></script>
 <script src="data/vortice-prices-2026-1.js?v=20260814-vortice-prices"></script>
-<script src="data/vitlo-technical-drawings.js?v=20260929-static-r1"></script>
+<script src="data/vitlo-technical-drawings.js?v=20260929-known-good-r1"></script>
 <script src="data/vitlo-dimensions.js?v=20260929-static-r1"></script>
 <script src="products/registry.js?v=20260929-static-drawings-r1"></script>
 <script src="data/crs-atex-prices-r4.js?v=20260824-r4"></script>
@@ -68,8 +114,9 @@ html,body{width:210mm;min-width:210mm;margin:0;background:#fff;-webkit-print-col
 <script src="data/no-current-policy.js?v=20260827-no-current-r1"></script>
 <script src="data/read-only-ui-policy.js?v=20260827-readonly-pdf-r2"></script>
 <script src="js/ui/datasheet.js?v=20260929-static-drawings-r2"></script>
+<script src="js/ui/pdf-export.js?v=20260929-onepage-known-good-r1"></script>
 <script src="js/language.js?v=20260825-all-pages-r1"></script>
-<script src="js/project-print.js?v=20260929-static-drawings-r2"></script>
+<script src="js/project-print.js?v=20260929-onepage-print-r1"></script>
 <script src="js/project-print-layout.js?v=20260908-empty-image-box-r1"></script>
 </body>
 </html>
