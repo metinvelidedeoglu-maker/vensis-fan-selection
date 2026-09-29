@@ -159,7 +159,7 @@
       }
     });
 
-    if(sheet.querySelector('.dimension-box .dimension-drawing'))return;
+    if(sheet.querySelector('.dimension-panel .catalog-drawing-image,.dimension-box .dimension-drawing'))return;
 
     const model=modelFor(item);
     const seriesCode=String(model?.seriesId||item.series||model?.seriesTitle||'').trim();
@@ -230,7 +230,7 @@
     const note=doc.createElement('div');
     note.style.cssText='margin-top:3mm;padding:3mm 4mm;border-left:3px solid #087f4f;background:#f5faf7;border-radius:0 6px 6px 0;color:#29484d;font-size:9.5px;line-height:1.4';
     note.innerHTML=`<b style="display:block;color:#087f4f;margin-bottom:2px;text-transform:uppercase;font-size:8.5px">Project Description</b>${esc(description).replace(/\n/g,'<br>')}`;
-    const hero=sheet.querySelector('.hero');
+    const hero=sheet.querySelector('.top-grid,.hero');
     if(hero)hero.insertAdjacentElement('afterend',note);
   }
 
@@ -270,6 +270,7 @@
     }
     addDescriptionNote(doc,sheet,item);
     ensureMechanicalDimensions(doc,sheet,item);
+    sheet.querySelectorAll('.page-note').forEach(node=>node.remove());
     const footer=sheet.querySelector('.footer');
     if(footer){
       const meta=doc.createElement('div');
@@ -277,7 +278,7 @@
       meta.textContent=`Project Datasheet Appendix  •  Page ${index+2} / ${total+1}`;
       footer.appendChild(meta);
     }
-    return `<section class="sheet datasheet-page">${sheet.innerHTML}</section>`;
+    return `<section class="sheet datasheet-page one-page-datasheet">${sheet.innerHTML}</section>`;
   }
 
   function specRow(label,value){
