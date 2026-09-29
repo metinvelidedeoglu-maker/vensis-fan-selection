@@ -27,7 +27,7 @@ jobs:
             -o /tmp/vitlo.pdf
       - name: Render static drawings
         run: |
-          mkdir -p /tmp/vitlo-pages assets/technical-drawings/vitlo
+          mkdir -p /tmp/vitlo-pages assets/technical-drawings/vitlo assets/products
           for page in 5 13 15 19; do
             pdftoppm -f "$page" -singlefile -png -r 220 /tmp/vitlo.pdf "/tmp/vitlo-pages/page-$page"
           done
@@ -58,12 +58,14 @@ jobs:
               if bbox:
                   cropped = cropped.crop(bbox)
               cropped.save(out / f'{name}.png', optimize=True)
+              if name == 'axial-wall':
+                  cropped.save(Path('assets/products/AXW-ATEX-dimensions.webp'), 'WEBP', quality=95, method=6)
           PY
       - name: Commit generated assets
         run: |
           git config user.name 'Vensis Build Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add assets/technical-drawings/vitlo
+          git add assets/technical-drawings/vitlo assets/products/AXW-ATEX-dimensions.webp
           if git diff --cached --quiet; then
             echo 'Drawings already up to date.'
           else
