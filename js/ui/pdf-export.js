@@ -290,11 +290,11 @@
   function originalDrawingHtml(dim){
     const drawing=dim?.drawing;
     if(!drawing)return dimensionDiagramSvg(dim);
-    const asset=String(
+    const asset=absoluteAssetUrl(
       drawing.asset||
       window.VensisVitloTechnicalDrawings?.resolve?.(dim?.series)?.asset||
       ''
-    ).trim();
+    );
     if(!asset)return dimensionDiagramSvg(dim);
     return `<div class="catalog-drawing" data-original-catalog-drawing>
       <img id="vitloCatalogDrawingImage"
