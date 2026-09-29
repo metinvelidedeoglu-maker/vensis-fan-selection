@@ -68,5 +68,6 @@ jobs:
             echo 'Drawings already up to date.'
           else
             git commit -m 'Add static Vitlo technical drawing assets'
+            git pull --rebase origin main
             git push
           fi
