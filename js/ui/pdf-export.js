@@ -288,11 +288,10 @@
   }
 
   function originalDrawingHtml(dim){
-    const drawing=dim?.drawing;
-    if(!drawing)return '';
+    const drawing=dim?.drawing||null;
     const drawingDef=window.VensisVitloTechnicalDrawings?.resolve?.(dim?.series)||null;
     const asset=absoluteAssetUrl(
-      drawing.asset||
+      drawing?.asset||
       drawingDef?.asset||
       ''
     );
