@@ -303,8 +303,7 @@
         src="${attr(asset)}"
         alt="Vitlo katalog orijinal teknik çizimi"
         decoding="sync"
-        onerror="this.style.display='none';this.nextElementSibling.hidden=false">
-      <div class="drawing-status error" hidden>Teknik çizim dosyası yüklenemedi.</div>
+        onerror="this.style.display='none'">
     </div>`;
   }
 
