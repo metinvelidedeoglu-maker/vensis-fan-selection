@@ -12,7 +12,7 @@
       sourcePage:5
     },
     axial_wall:{
-      asset:'assets/products/AXW-ATEX-dimensions.png',
+      asset:'assets/products/AXW-ATEX-dimensions.webp',
       fallback:'/api/catalog/vitlo-drawing.php?family=axial_wall&v=20260929-static-endpoint-r1',
       series:['AXW','AXW/ATEX'],
       sourcePage:15
