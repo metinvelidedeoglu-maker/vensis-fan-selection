@@ -153,7 +153,7 @@
       catalogOnly:Boolean(row?.catalogOnly),
       pole:Number(row?.pole)||0,
       pricing:pricingFor(row),
-      media:{image:override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||'',gallery:[]},
+      media:{image:override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||window.VensisVitloTechnicalDrawings?.resolve?.(code)?.asset||'',gallery:[]},
       motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl??primaryOperating?.sound)||0},
       technical:{
         weight:Number(row?.weight)||0,
