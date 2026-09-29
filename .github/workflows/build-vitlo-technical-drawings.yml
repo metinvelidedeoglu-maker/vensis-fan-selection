@@ -83,13 +83,13 @@ jobs:
               count = 0
               for x in range(int(w * 0.03), int(w * 0.96), 4):
                   r, g, b = pixels[x, y]
-                  if r < 70 and g > 105 and b > 90 and g > r * 1.8 and b > r * 1.5:
+                  if g > 95 and b > 75 and r < 150 and (g - r) > 25 and (b - r) > 15:
                       count += 1
               return count
 
           def find_dimensions_bar(image):
               w, h = image.size
-              threshold = int((w * 0.90 / 4) * 0.55)
+              threshold = int((w * 0.90 / 4) * 0.30)
               rows = []
               for y in range(int(h * 0.18), int(h * 0.94), 3):
                   if teal_row_count(image, y) >= threshold:
@@ -176,6 +176,7 @@ jobs:
 
           built = []
           for series, (base, page) in SERIES.items():
+              print(f'Processing {series} page {page}', flush=True)
               drawing = crop_drawing(page)
               target = out / f'{base}-technical-drawing.webp'
               drawing.save(target, 'WEBP', quality=96, method=6)
