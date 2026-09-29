@@ -14,62 +14,187 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install renderer
         run: |
           sudo apt-get update
           sudo apt-get install -y poppler-utils
           python3 -m pip install --user pillow
+
       - name: Download official Vitlo catalogue
         run: |
           curl -L --fail --retry 3 --connect-timeout 15 \
             -A 'Mozilla/5.0 Vensis Engineering Suite' \
             'https://vitlo.com.tr/wp-content/uploads/2025/04/Vitlo-2021-Tr-Eng-Catalog-FZ.pdf' \
             -o /tmp/vitlo.pdf
-      - name: Render static drawings
+
+      - name: Render Vitlo technical drawings per series
         run: |
-          mkdir -p /tmp/vitlo-pages assets/technical-drawings/vitlo assets/products
-          for page in 5 13 15 19; do
+          mkdir -p /tmp/vitlo-pages assets/products
+          for page in 5 6 9 11 15 17 19 21 23 24 25 27 29 31 33 35 37 39 40 41 42 43 44 45 46 47 48 49 51 52 53 54 55 56 57; do
             pdftoppm -f "$page" -singlefile -png -r 220 /tmp/vitlo.pdf "/tmp/vitlo-pages/page-$page"
           done
+
           python3 - <<'PY'
           from PIL import Image
           from pathlib import Path
 
-          jobs = {
-              'axial-duct': (5, (0.50, 0.695, 0.39, 0.19)),
-              'axial-wall': (15, (0.50, 0.465, 0.39, 0.20)),
-              'axial-mobile': (19, (0.50, 0.335, 0.39, 0.17)),
-              'axial-roof-horizontal': (13, (0.50, 0.735, 0.42, 0.17)),
+          SERIES = {
+              'AXF': ('AXF', 5),
+              'BOX-AXF': ('BOX-AXF', 11),
+              'AXW/ATEX': ('AXW-ATEX', 15),
+              'AXD/ATEX': ('AXD-ATEX', 17),
+              'MOB-AXD/ATEX': ('MOB-AXD-ATEX', 19),
+              'AXR/ATEX': ('AXR-ATEX', 21),
+              'CRH/ATEX': ('CRH-ATEX', 23),
+              'CRD/ATEX': ('CRD-ATEX', 24),
+              'CRS/ATEX': ('CRS-ATEX', 25),
+              'AXD': ('AXD', 27),
+              'AXD/MOB': ('MOB-AXD', 29),
+              'AXS': ('AXS', 31),
+              'AXW': ('AXW', 33),
+              'AXB': ('AXB', 35),
+              'AXH': ('AXH', 37),
+              'CD': ('CD', 39),
+              'CRB': ('CRB', 40),
+              'CRD': ('CRD', 41),
+              'CRK': ('CRK', 42),
+              'CRC': ('CRC', 43),
+              'CRS': ('CRS', 44),
+              'CR': ('CR', 45),
+              'CRH': ('CRH', 46),
+              'CRV': ('CRV', 47),
+              'CRU': ('CRU', 48),
+              'AXR': ('AXR', 49),
+              'AXV': ('AXV', 51),
+              'CR-EC': ('CR-EC', 52),
+              'CRU-EC': ('CRU-EC', 53),
+              'CRB-EC': ('CRB-EC', 54),
+              'CRC-EC': ('CRC-EC', 55),
+              'VHR': ('VHR', 56),
+              'CRR': ('CRR', 57),
+              'AXJ': ('AXJ', 6),
+              'TUNEL-AXF': ('TUNEL-AXF', 9),
           }
-          out = Path('assets/technical-drawings/vitlo')
-          out.mkdir(parents=True, exist_ok=True)
-          for name, (page, crop) in jobs.items():
+
+          def teal_row_count(image, y):
+              w, _ = image.size
+              pixels = image.load()
+              count = 0
+              for x in range(int(w * 0.03), int(w * 0.96), 4):
+                  r, g, b = pixels[x, y]
+                  if r < 70 and g > 105 and b > 90 and g > r * 1.8 and b > r * 1.5:
+                      count += 1
+              return count
+
+          def find_dimensions_bar(image):
+              w, h = image.size
+              threshold = int((w * 0.90 / 4) * 0.55)
+              rows = []
+              for y in range(int(h * 0.18), int(h * 0.94), 3):
+                  if teal_row_count(image, y) >= threshold:
+                      rows.append(y)
+              if not rows:
+                  raise RuntimeError('Dimensions bar not detected')
+              groups = []
+              start = prev = rows[0]
+              for y in rows[1:]:
+                  if y - prev > 9:
+                      groups.append((start, prev))
+                      start = y
+                  prev = y
+              groups.append((start, prev))
+              # The Dimensions banner is the lowest wide teal bar on catalogue data pages.
+              return groups[-1]
+
+          def crop_drawing(page):
               image = Image.open(f'/tmp/vitlo-pages/page-{page}.png').convert('RGB')
               w, h = image.size
-              x, y, cw, ch = crop
-              box = (
-                  round(w*x), round(h*y),
-                  round(w*(x+cw)), round(h*(y+ch))
-              )
-              cropped = image.crop(box)
-              # Remove the catalogue's surrounding whitespace without touching
-              # the manufacturer's drawing itself.
-              bbox = cropped.convert('L').point(lambda p: 255 if p > 247 else 0).getbbox()
+              _, bar_bottom = find_dimensions_bar(image)
+
+              x0 = int(w * 0.495)
+              x1 = int(w * 0.945)
+              y0 = min(h - 1, bar_bottom + 8)
+              y1 = int(h * 0.955)
+              region = image.crop((x0, y0, x1, y1))
+
+              gray = region.convert('L')
+              rw, rh = gray.size
+              px = gray.load()
+
+              # Keep dark catalogue line-art and dimension labels, while ignoring the
+              # light decorative footer. The technical drawing is the first coherent
+              # dark-content block to the right of the dimension table.
+              active = []
+              for y in range(rh):
+                  dark = 0
+                  for x in range(0, rw, 2):
+                      if px[x, y] < 185:
+                          dark += 1
+                  if dark >= 6:
+                      active.append(y)
+
+              if not active:
+                  raise RuntimeError(f'No drawing pixels detected on page {page}')
+
+              groups = []
+              start = prev = active[0]
+              for y in active[1:]:
+                  if y - prev > 45:
+                      groups.append((start, prev))
+                      start = y
+                  prev = y
+              groups.append((start, prev))
+
+              # Ignore tiny footer/page-number groups.
+              groups = [g for g in groups if g[1] - g[0] >= 35]
+              if not groups:
+                  raise RuntimeError(f'No technical drawing block detected on page {page}')
+
+              top, bottom = groups[0]
+              sub = region.crop((0, max(0, top - 18), rw, min(rh, bottom + 19)))
+
+              # Tight horizontal trim around actual drawing content.
+              g = sub.convert('L')
+              mask = g.point(lambda p: 0 if p > 205 else 255)
+              bbox = mask.getbbox()
               if bbox:
-                  cropped = cropped.crop(bbox)
-              cropped.save(out / f'{name}.png', optimize=True)
-              if name == 'axial-wall':
-                  cropped.save(Path('assets/products/AXW-ATEX-dimensions.webp'), 'WEBP', quality=95, method=6)
+                  left, top2, right, bottom2 = bbox
+                  pad = 24
+                  left = max(0, left - pad)
+                  top2 = max(0, top2 - pad)
+                  right = min(sub.width, right + pad)
+                  bottom2 = min(sub.height, bottom2 + pad)
+                  sub = sub.crop((left, top2, right, bottom2))
+
+              canvas = Image.new('RGB', (sub.width + 32, sub.height + 32), 'white')
+              canvas.paste(sub, (16, 16))
+              return canvas
+
+          out = Path('assets/products')
+          out.mkdir(parents=True, exist_ok=True)
+
+          built = []
+          for series, (base, page) in SERIES.items():
+              drawing = crop_drawing(page)
+              target = out / f'{base}-technical-drawing.webp'
+              drawing.save(target, 'WEBP', quality=96, method=6)
+              built.append((series, target.name, page, drawing.size))
+
+          print('Generated:')
+          for row in built:
+              print(row)
           PY
+
       - name: Commit generated assets
         run: |
           git config user.name 'Vensis Build Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add assets/technical-drawings/vitlo assets/products/AXW-ATEX-dimensions.webp
+          git add assets/products/*-technical-drawing.webp
           if git diff --cached --quiet; then
-            echo 'Drawings already up to date.'
+            echo 'Technical drawings already up to date.'
           else
-            git commit -m 'Add static Vitlo technical drawing assets'
+            git commit -m 'Add per-series Vitlo technical drawing WebP assets'
             git pull --rebase origin main
             git push
           fi
