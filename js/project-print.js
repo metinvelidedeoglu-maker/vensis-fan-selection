@@ -159,7 +159,7 @@
       }
     });
 
-    if(sheet.querySelector('.dimension-panel .catalog-drawing-image,.dimension-box .dimension-drawing'))return;
+    if(sheet.querySelector('.dimension-panel,.dimension-box .dimension-drawing'))return;
 
     const model=modelFor(item);
     const seriesCode=String(model?.seriesId||item.series||model?.seriesTitle||'').trim();
@@ -242,7 +242,7 @@
     if(!sheet)return '';
     const productTitle=sheet.querySelector('.product-title');
     const heading=productTitle?.querySelector('h1');
-    if(productTitle&&heading&&!productTitle.querySelector('.product-brand')){
+    if(productTitle&&heading&&!productTitle.querySelector('.product-brand,.brand')){
       const brand=doc.createElement('div');
       brand.className='product-brand';
       brand.textContent=`Brand: ${item.manufacturer||'Vitlo'}`;
