@@ -91,7 +91,7 @@ jobs:
 
               'AXJ': ('AXJ', 6),
               'TUNEL-AXF': ('TUNEL-AXF', 9),
-          }}
+          }
 
           def teal_row_count(image, y):
               w, _ = image.size
