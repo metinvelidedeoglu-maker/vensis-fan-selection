@@ -297,7 +297,7 @@
     ).trim();
     const asset=absoluteAssetUrl(rawAsset);
     if(!asset)return dimensionDiagramSvg(dim);
-    const cleanAsset=rawAsset.replace(/^\\/+/, '');
+    const cleanAsset=rawAsset.replace(/^\/+/, '');
     const fallback=/^assets\\//i.test(cleanAsset)
       ?'https://raw.githubusercontent.com/metinvelidedeoglu-maker/vensis-fan-selection/main/'+cleanAsset
       :'';
