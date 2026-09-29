@@ -290,9 +290,12 @@
   function originalDrawingHtml(dim){
     const drawing=dim?.drawing;
     if(!drawing)return '';
+    const drawingDef=window.VensisVitloTechnicalDrawings?.resolve?.(dim?.series)||null;
     const asset=absoluteAssetUrl(
+      drawing.fallback||
+      drawingDef?.fallback||
       drawing.asset||
-      window.VensisVitloTechnicalDrawings?.resolve?.(dim?.series)?.asset||
+      drawingDef?.asset||
       ''
     );
     if(!asset)return '';
