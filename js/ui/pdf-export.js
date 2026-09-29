@@ -289,13 +289,13 @@
 
   function originalDrawingHtml(dim){
     const drawing=dim?.drawing;
-    if(!drawing)return dimensionDiagramSvg(dim);
+    if(!drawing)return '';
     const asset=absoluteAssetUrl(
       drawing.asset||
       window.VensisVitloTechnicalDrawings?.resolve?.(dim?.series)?.asset||
       ''
     );
-    if(!asset)return dimensionDiagramSvg(dim);
+    if(!asset)return '';
     return `<div class="catalog-drawing" data-original-catalog-drawing>
       <img id="vitloCatalogDrawingImage"
         class="catalog-drawing-image ready"
@@ -325,9 +325,10 @@
   function classicHtml(payload){
     const d=normalizedPayload(payload);
     const curve=curveSvg(d);
+    const drawingHtml=d.dimensions?originalDrawingHtml(d.dimensions):'';
     const dimensionPanel=d.dimensions
-      ?`<section class="bottom-card dimension-panel"><h3>TEKNİK RESİM &amp; ÖLÇÜLER</h3><div class="dimension-drawing-wrap">${originalDrawingHtml(d.dimensions)}</div>${dimensionValuesCompact(d.dimensions)}</section>`
-      :`<section class="bottom-card dimension-panel empty-dimension"><h3>TEKNİK RESİM &amp; ÖLÇÜLER</h3><p>Bu ürün için ölçü çizimi verisi bulunmuyor.</p></section>`;
+      ?`<section class="bottom-card dimension-panel${drawingHtml?'':' no-drawing'}"><h3>TEKNİK RESİM &amp; ÖLÇÜLER</h3>${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${dimensionValuesCompact(d.dimensions)}</section>`
+      :`<section class="bottom-card dimension-panel empty-dimension"><h3>TEKNİK RESİM &amp; ÖLÇÜLER</h3><p>Bu ürün için ölçü verisi bulunmuyor.</p></section>`;
 
     return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} Teknik Föy</title><base href="${attr(new URL('.',window.location.href).href)}"><style>
 *{box-sizing:border-box}body{margin:0;background:#e9eff0;color:#162f33;font-family:Arial,Helvetica,sans-serif}.toolbar{max-width:210mm;margin:10px auto 0;display:flex;justify-content:flex-end;gap:8px}.toolbar button{border:0;border-radius:7px;padding:9px 13px;font-weight:800;cursor:pointer}.print{background:#087f4f;color:#fff}.close{background:#dfe8e9;color:#29484d}
@@ -339,11 +340,11 @@
 .bottom-grid{display:grid;grid-template-columns:.93fr 1.07fr;gap:5mm;margin-top:3.5mm;align-items:stretch}.bottom-card{border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:3mm;min-height:67mm;overflow:hidden}
 .spec-box{border:0;border-radius:0;overflow:hidden;background:#fff}.spec-head{display:none}.spec-row{display:grid;grid-template-columns:1fr 1.18fr;gap:6px;padding:3.1px 6px;border-top:1px solid #d7e3de;font-size:8.15px;line-height:1.08}.spec-row:first-child{border-top:0}.spec-row span{font-weight:700}.spec-row b{text-align:right}.spec-row.required{color:#b52f2a}.spec-row.selected{color:#126a44}
 .dimension-panel{display:flex;flex-direction:column}.dimension-drawing-wrap{display:flex;align-items:center;justify-content:center;min-height:0;height:48mm;background:#fff;border:1px solid #e3e9e7;border-radius:6px;overflow:hidden}.catalog-drawing{position:relative;min-height:0!important;height:100%;width:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:0!important;border-radius:0!important;overflow:hidden}.catalog-drawing-image{display:block;width:100%;height:100%;max-height:none!important;object-fit:contain;opacity:1}.catalog-drawing-canvas{display:none}.drawing-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:8px;text-align:center;color:#8a5a12;font-size:8px;background:#fff}
-.dimension-values-compact{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2mm;margin-top:1.8mm}.dimension-chip{border:1px solid #d7e3de;border-radius:4px;background:#fff;padding:1.1mm 1.3mm;min-width:0}.dimension-chip span,.dimension-chip b{display:block}.dimension-chip span{font-size:7px;color:#64748b;font-weight:800}.dimension-chip b{margin-top:.3mm;font-size:7.8px;color:#173033;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.empty-dimension p{margin:16mm 0 0;text-align:center;color:#64748b;font-size:9px}
+.dimension-values-compact{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2mm;margin-top:1.8mm}.dimension-chip{border:1px solid #d7e3de;border-radius:4px;background:#fff;padding:1.1mm 1.3mm;min-width:0}.dimension-chip span,.dimension-chip b{display:block}.dimension-chip span{font-size:7px;color:#64748b;font-weight:800}.dimension-chip b{margin-top:.3mm;font-size:7.8px;color:#173033;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dimension-panel.no-drawing .dimension-values-compact{grid-template-columns:repeat(2,1fr);margin-top:3mm}.empty-dimension p{margin:16mm 0 0;text-align:center;color:#64748b;font-size:9px}
 .footer{margin-top:auto;padding-top:2.2mm;border-top:2px solid #087f4f;text-align:center;font-size:6.8px;color:#64748b}.footer b{display:block;margin-top:1mm;color:#087f4f;font-size:7.8px}.page-note{margin-top:1mm;padding-top:1mm;border-top:1px solid #d7e3e5;font-size:6.4px;color:#7b898d}
 @page{size:A4 portrait;margin:0}
-@media print{html,body{margin:0!important;padding:0!important;background:#fff!important}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.toolbar{display:none!important}.sheet{margin:0!important;box-shadow:none!important;width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;padding:6mm 9mm 5mm!important;overflow:hidden!important}.logo{height:14mm!important}.product-title{margin-top:2.5px!important}.product-title h1{font-size:23px!important}.product-title h2{font-size:13px!important}.top-grid{margin-top:2.5mm!important;gap:5mm!important}.product-image-wrap,.feature-card{min-height:38mm!important}.product-image{height:35mm!important}.feature-card{padding:2.5mm!important}.feature-card ul{font-size:7.2px!important;line-height:1.16!important}.section{margin-top:2.6mm!important}.curve{height:70mm!important;padding:1mm!important}.bottom-grid{margin-top:2.8mm!important;gap:4mm!important}.bottom-card{min-height:64mm!important;padding:2.5mm!important}.spec-row{padding:2.7px 5px!important;font-size:7.8px!important}.dimension-drawing-wrap{height:46mm!important}.dimension-values-compact{gap:1mm!important;margin-top:1.4mm!important}.dimension-chip{padding:.9mm 1.1mm!important}.footer{padding-top:1.6mm!important}}
-@media(max-width:850px){.toolbar{padding:0 10px}.sheet{width:100%;min-height:0;margin:8px 0;padding:16px}.top-grid,.bottom-grid{grid-template-columns:1fr}.product-image{height:240px}.product-image-wrap{min-height:250px}.curve{height:auto}.bottom-card{min-height:0}.dimension-drawing-wrap{height:260px}}
+@media print{html,body{margin:0!important;padding:0!important;background:#fff!important}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.toolbar{display:none!important}.sheet{margin:0!important;box-shadow:none!important;width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;padding:6mm 9mm 5mm!important;overflow:hidden!important}.logo{height:14mm!important}.product-title{margin-top:2.5px!important}.product-title h1{font-size:23px!important}.product-title h2{font-size:13px!important}.top-grid{grid-template-columns:.92fr 1.08fr!important;margin-top:2.5mm!important;gap:5mm!important}.product-image-wrap,.feature-card{min-height:38mm!important}.product-image{height:35mm!important}.feature-card{padding:2.5mm!important}.feature-card ul{font-size:7.2px!important;line-height:1.16!important}.section{margin-top:2.6mm!important}.curve{height:70mm!important;padding:1mm!important}.bottom-grid{grid-template-columns:.93fr 1.07fr!important;margin-top:2.8mm!important;gap:4mm!important}.bottom-card{min-height:64mm!important;padding:2.5mm!important}.spec-row{padding:2.7px 5px!important;font-size:7.8px!important}.dimension-drawing-wrap{height:46mm!important}.dimension-values-compact{gap:1mm!important;margin-top:1.4mm!important}.dimension-chip{padding:.9mm 1.1mm!important}.footer{padding-top:1.6mm!important}}
+@media screen and (max-width:850px){.toolbar{padding:0 10px}.sheet{width:100%;min-height:0;margin:8px 0;padding:16px}.top-grid,.bottom-grid{grid-template-columns:1fr}.product-image{height:240px}.product-image-wrap{min-height:250px}.curve{height:auto}.bottom-card{min-height:0}.dimension-drawing-wrap{height:260px}}
 </style></head><body><div class="toolbar"><button class="close" onclick="window.close()">Kapat</button><button id="printBtn" class="print" onclick="window.print()">Yazdır / PDF Kaydet</button></div>
 <main class="sheet">
 <header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">ÜRÜN TEKNİK FÖYÜ</div></header>
