@@ -1,0 +1,72 @@
+name: Build Vitlo technical drawings
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-vitlo-technical-drawings.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          python3 -m pip install --user pillow
+      - name: Download official Vitlo catalogue
+        run: |
+          curl -L --fail --retry 3 --connect-timeout 15 \
+            -A 'Mozilla/5.0 Vensis Engineering Suite' \
+            'https://vitlo.com.tr/wp-content/uploads/2025/04/Vitlo-2021-Tr-Eng-Catalog-FZ.pdf' \
+            -o /tmp/vitlo.pdf
+      - name: Render static drawings
+        run: |
+          mkdir -p /tmp/vitlo-pages assets/technical-drawings/vitlo
+          for page in 5 13 15 19; do
+            pdftoppm -f "$page" -singlefile -png -r 220 /tmp/vitlo.pdf "/tmp/vitlo-pages/page-$page"
+          done
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+
+          jobs = {
+              'axial-duct': (5, (0.50, 0.695, 0.39, 0.19)),
+              'axial-wall': (15, (0.50, 0.465, 0.39, 0.20)),
+              'axial-mobile': (19, (0.50, 0.335, 0.39, 0.17)),
+              'axial-roof-horizontal': (13, (0.50, 0.735, 0.42, 0.17)),
+          }
+          out = Path('assets/technical-drawings/vitlo')
+          out.mkdir(parents=True, exist_ok=True)
+          for name, (page, crop) in jobs.items():
+              image = Image.open(f'/tmp/vitlo-pages/page-{page}.png').convert('RGB')
+              w, h = image.size
+              x, y, cw, ch = crop
+              box = (
+                  round(w*x), round(h*y),
+                  round(w*(x+cw)), round(h*(y+ch))
+              )
+              cropped = image.crop(box)
+              # Remove the catalogue's surrounding whitespace without touching
+              # the manufacturer's drawing itself.
+              bbox = cropped.convert('L').point(lambda p: 255 if p > 247 else 0).getbbox()
+              if bbox:
+                  cropped = cropped.crop(bbox)
+              cropped.save(out / f'{name}.png', optimize=True)
+          PY
+      - name: Commit generated assets
+        run: |
+          git config user.name 'Vensis Build Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add assets/technical-drawings/vitlo
+          if git diff --cached --quiet; then
+            echo 'Drawings already up to date.'
+          else
+            git commit -m 'Add static Vitlo technical drawing assets'
+            git push
+          fi
