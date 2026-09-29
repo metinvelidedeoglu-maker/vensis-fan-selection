@@ -292,8 +292,6 @@
     if(!drawing)return '';
     const drawingDef=window.VensisVitloTechnicalDrawings?.resolve?.(dim?.series)||null;
     const asset=absoluteAssetUrl(
-      drawing.fallback||
-      drawingDef?.fallback||
       drawing.asset||
       drawingDef?.asset||
       ''
