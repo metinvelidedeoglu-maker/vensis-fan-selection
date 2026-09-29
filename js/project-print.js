@@ -149,6 +149,81 @@
     };
   }
 
+  function ensureMechanicalDimensions(doc,sheet,item){
+    // Remove legacy placeholder/source notes. A report must show the actual
+    // stored technical drawing, never a sentence explaining where it came from.
+    sheet.querySelectorAll('p,.muted,.source-note,.dimension-note').forEach(node=>{
+      const value=String(node.textContent||'').toLocaleLowerCase('tr-TR');
+      if(value.includes('ortak kasa çizim')||value.includes('genel ürün kataloğundaki')||value.includes('common casing drawing')){
+        node.remove();
+      }
+    });
+
+    if(sheet.querySelector('.dimension-box .dimension-drawing'))return;
+
+    const model=modelFor(item);
+    const seriesCode=String(model?.seriesId||item.series||model?.seriesTitle||'').trim();
+    const info=window.VensisVitloDimensions?.resolve?.(seriesCode,{
+      ...(model||{}),
+      model:model?.model||item.model||'',
+      motor:model?.motor||{},
+      performance:model?.performance||{}
+    })||null;
+    const drawing=String(
+      model?.media?.dimensionImage||
+      window.VensisVitloTechnicalDrawings?.resolve?.(seriesCode)?.asset||
+      info?.drawing?.asset||
+      ''
+    ).trim();
+    if(!drawing&&!info)return;
+
+    const box=doc.createElement('section');
+    box.className='info-box dimension-box';
+    const title=doc.createElement('h3');
+    title.textContent='Mechanical Dimensions';
+    box.appendChild(title);
+
+    if(drawing){
+      const img=doc.createElement('img');
+      img.className='dimension-drawing';
+      img.src=drawing;
+      img.alt=(item.model||model?.model||'Fan')+' technical drawing';
+      const fallback=window.VensisVitloTechnicalDrawings?.resolve?.(seriesCode)?.fallback||info?.drawing?.fallback||'';
+      if(fallback)img.dataset.fallback=fallback;
+      img.onerror=function(){
+        if(this.dataset.fallback&&this.src.indexOf(this.dataset.fallback)<0)this.src=this.dataset.fallback;
+        else this.style.display='none';
+      };
+      box.appendChild(img);
+    }
+
+    if(info?.headers?.length){
+      const values=doc.createElement('div');
+      values.className='dimension-values';
+      info.headers.forEach(header=>{
+        const cell=doc.createElement('div');
+        cell.className='dimension-value';
+        const label=doc.createElement('span');
+        label.textContent=header;
+        const value=doc.createElement('b');
+        value.textContent=String(info.values?.[header]??'-')+(info.unit?' '+info.unit:'');
+        cell.append(label,value);
+        values.appendChild(cell);
+      });
+      box.appendChild(values);
+    }
+
+    let bottom=sheet.querySelector('.bottom-grid');
+    if(!bottom){
+      bottom=doc.createElement('div');
+      bottom.className='bottom-grid';
+      const footer=sheet.querySelector('.footer');
+      if(footer)footer.insertAdjacentElement('beforebegin',bottom);
+      else sheet.appendChild(bottom);
+    }
+    bottom.appendChild(box);
+  }
+
   function addDescriptionNote(doc,sheet,item){
     const description=String(item.description||'').trim();
     if(!description)return;
@@ -194,6 +269,7 @@
       specBox.insertBefore(pointSummary,specBox.children[1]||null);
     }
     addDescriptionNote(doc,sheet,item);
+    ensureMechanicalDimensions(doc,sheet,item);
     const footer=sheet.querySelector('.footer');
     if(footer){
       const meta=doc.createElement('div');
