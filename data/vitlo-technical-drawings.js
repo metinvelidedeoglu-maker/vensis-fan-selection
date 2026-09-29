@@ -1,43 +1,55 @@
 (function(){
   'use strict';
 
-  // Static manufacturer technical drawings. These are generated once from the
-  // official Vitlo catalogue and then served exactly like normal product assets.
-  // Runtime reports must never need to crop the source PDF.
-  const families={
-    axial_duct:{
-      asset:'assets/technical-drawings/vitlo/axial-duct.png',
-      fallback:'/api/catalog/vitlo-drawing.php?family=axial_duct&v=20260929-static-endpoint-r1',
-      series:['AXF','AXD','AXD/ATEX'],
-      sourcePage:5
-    },
-    axial_wall:{
-      asset:'assets/products/AXW-ATEX-dimensions.webp',
-      fallback:'/api/catalog/vitlo-drawing.php?family=axial_wall&v=20260929-static-endpoint-r1',
-      series:['AXW','AXW/ATEX'],
-      sourcePage:15
-    },
-    axial_mobile:{
-      asset:'assets/technical-drawings/vitlo/axial-mobile.png',
-      fallback:'/api/catalog/vitlo-drawing.php?family=axial_mobile&v=20260929-static-endpoint-r1',
-      series:['AXD/MOB','MOB-AXD/ATEX'],
-      sourcePage:19
-    },
-    axial_roof_horizontal:{
-      asset:'assets/technical-drawings/vitlo/axial-roof-horizontal.png',
-      fallback:'/api/catalog/vitlo-drawing.php?family=axial_roof_horizontal&v=20260929-static-endpoint-r1',
-      series:['ROOF-AXF','AXR','AXR/ATEX'],
-      sourcePage:13
-    }
+  // Every Vitlo series has its own technical-drawing asset.
+  // File names mirror the product image names and intentionally may contain
+  // duplicate drawing content when Vitlo uses the same casing/drawing type.
+  const drawings={
+    'AXF':{asset:'assets/products/AXF-technical-drawing.webp',sourcePage:5},
+    'BOX-AXF':{asset:'assets/products/BOX-AXF-technical-drawing.webp',sourcePage:11},
+    'AXW/ATEX':{asset:'assets/products/AXW-ATEX-technical-drawing.webp',sourcePage:15},
+    'AXD/ATEX':{asset:'assets/products/AXD-ATEX-technical-drawing.webp',sourcePage:5},
+    'MOB-AXD/ATEX':{asset:'assets/products/MOB-AXD-ATEX-technical-drawing.webp',sourcePage:19},
+    'AXR/ATEX':{asset:'assets/products/AXR-ATEX-technical-drawing.webp',sourcePage:21},
+    'CRH/ATEX':{asset:'assets/products/CRH-ATEX-technical-drawing.webp',sourcePage:23},
+    'CRD/ATEX':{asset:'assets/products/CRD-ATEX-technical-drawing.webp',sourcePage:24},
+    'CRS/ATEX':{asset:'assets/products/CRS-ATEX-technical-drawing.webp',sourcePage:25},
+    'AXD':{asset:'assets/products/AXD-technical-drawing.webp',sourcePage:5},
+    'AXD/MOB':{asset:'assets/products/MOB-AXD-technical-drawing.webp',sourcePage:19},
+    'AXS':{asset:'assets/products/AXS-technical-drawing.webp',sourcePage:31},
+    'AXW':{asset:'assets/products/AXW-technical-drawing.webp',sourcePage:15},
+    'AXB':{asset:'assets/products/AXB-technical-drawing.webp',sourcePage:5},
+    'AXH':{asset:'assets/products/AXH-technical-drawing.webp',sourcePage:11},
+    'CD':{asset:'assets/products/CD-technical-drawing.webp',sourcePage:39},
+    'CRB':{asset:'assets/products/CRB-technical-drawing.webp',sourcePage:24},
+    'CRD':{asset:'assets/products/CRD-technical-drawing.webp',sourcePage:24},
+    'CRK':{asset:'assets/products/CRK-technical-drawing.webp',sourcePage:42},
+    'CRC':{asset:'assets/products/CRC-technical-drawing.webp',sourcePage:42},
+    'CRS':{asset:'assets/products/CRS-technical-drawing.webp',sourcePage:25},
+    'CR':{asset:'assets/products/CR-technical-drawing.webp',sourcePage:23},
+    'CRH':{asset:'assets/products/CRH-technical-drawing.webp',sourcePage:23},
+    'CRV':{asset:'assets/products/CRV-technical-drawing.webp',sourcePage:47},
+    'CRU':{asset:'assets/products/CRU-technical-drawing.webp',sourcePage:47},
+    'AXR':{asset:'assets/products/AXR-technical-drawing.webp',sourcePage:21},
+    'AXV':{asset:'assets/products/AXV-technical-drawing.webp',sourcePage:51},
+    'CR-EC':{asset:'assets/products/CR-EC-technical-drawing.webp',sourcePage:23},
+    'CRU-EC':{asset:'assets/products/CRU-EC-technical-drawing.webp',sourcePage:47},
+    'CRB-EC':{asset:'assets/products/CRB-EC-technical-drawing.webp',sourcePage:24},
+    'CRC-EC':{asset:'assets/products/CRC-EC-technical-drawing.webp',sourcePage:42},
+    'VHR':{asset:'assets/products/VHR-technical-drawing.webp',sourcePage:56},
+    'CRR':{asset:'assets/products/CRR-technical-drawing.webp',sourcePage:24},
+    'AXJ':{asset:'assets/products/AXJ-technical-drawing.webp',sourcePage:6},
+    'TUNEL-AXF':{asset:'assets/products/TUNEL-AXF-technical-drawing.webp',sourcePage:9}
   };
+
   const bySeries={};
-  for(const [family,definition] of Object.entries(families)){
-    for(const series of definition.series){
-      bySeries[String(series).toUpperCase()]={family,...definition};
-    }
+  for(const [series,definition] of Object.entries(drawings)){
+    bySeries[String(series).toUpperCase()]={series,...definition};
   }
+
   function resolve(series){
     return bySeries[String(series||'').trim().toUpperCase()]||null;
   }
-  window.VensisVitloTechnicalDrawings={families,bySeries,resolve};
+
+  window.VensisVitloTechnicalDrawings={drawings,families:drawings,bySeries,resolve};
 })();
