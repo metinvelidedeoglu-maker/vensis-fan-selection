@@ -11,7 +11,10 @@
   const fullModelName=(series,model)=>{const code=text(series?.code||series?.id),current=text(model?.model||model?.display||model?.id);if(!code)return current;if(!current)return code;const c=current.toUpperCase(),s=code.toUpperCase();const exists=c===s||c.startsWith(s+' ')||c.startsWith(s+'-')||c.startsWith(s+'/')||c.includes(' '+s+' ')||c.endsWith(' '+s);return exists?current:`${code} ${current}`};
   const maxAirflow=model=>{const values=[finite(model?.performance?.nominalAirflow)];for(const point of model?.performance?.points||[])values.push(finite(point?.[1]));for(const point of model?.performance?.sourcePoints||[])values.push(finite(point?.[1]));for(const curve of model?.performance?.curves||[]){for(const point of curve?.sourcePoints||[])values.push(finite(point?.[1]));for(const point of curve?.points||[])values.push(finite(point?.[1]))}for(const point of model?.performance?.operatingPoints||[])values.push(finite(point?.nominalAirflow));return Math.max(0,...values)};
   const voltageOnly=value=>{const raw=text(value);const match=raw.match(/\b(\d+(?:\/\d+)?\s*V)\b/i);return match?match[1].replace(/\s+/g,'').toUpperCase():raw};
-  const isVitlo=series=>text(series?.manufacturer).toLocaleLowerCase('tr-TR')==='vitlo';
+  const brandKey=series=>text(series?.manufacturer).toLocaleLowerCase('tr-TR');
+  const isVitlo=series=>brandKey(series)==='vitlo';
+  const isVortice=series=>brandKey(series)==='vortice';
+  const usesUnifiedFeatures=series=>isVitlo(series)||isVortice(series);
 
   // 2026-08-27: Values supplied by Metin in the Vitlo workbook.
   // All other Vitlo power/speed/current/airflow/sound values already match the workbook exactly.
@@ -27,7 +30,7 @@
     series.brand=text(series.manufacturer);
     series.descriptionParts=originalDescription;
     series.descriptionText=descriptionText;
-    series.description=isVitlo(series)
+    series.description=usesUnifiedFeatures(series)
       ? {text:descriptionText,general:[...originalDescription.general],motor:[...originalDescription.motor],applications:[...originalDescription.applications]}
       : {text:descriptionText,general:descriptionText?[descriptionText]:[],motor:[],applications:[]};
     series.category=[...(series.categories||[])];
@@ -95,15 +98,15 @@
       if(series&&infoGrid&&infoGrid.dataset.schemaV2!=='1'){
         infoGrid.dataset.schemaV2='1';
         infoGrid.style.gridTemplateColumns='1fr';
-        if(isVitlo(series)){
+        if(usesUnifiedFeatures(series)){
           const parts=series.descriptionParts||series.description||{};
           const general=uniqueText([parts.general||[],parts.motor||[]]);
           const applications=uniqueText([parts.applications||[]]);
           const items=[
-            ...general.map(value=>`<li class="vitlo-general">${esc(value)}</li>`),
-            ...applications.map(value=>`<li class="vitlo-application">${esc(value)}</li>`)
+            ...general.map(value=>`<li class="catalog-general">${esc(value)}</li>`),
+            ...applications.map(value=>`<li class="catalog-application">${esc(value)}</li>`)
           ].join('');
-          infoGrid.innerHTML=`<section class="detail-section" data-vitlo-features><h3>General Features</h3>${items?`<ul>${items}</ul>`:'<p class="empty-note">No information available.</p>'}</section>`;
+          infoGrid.innerHTML=`<section class="detail-section" data-unified-features data-${brandKey(series)}-features><h3>General Features</h3>${items?`<ul>${items}</ul>`:'<p class="empty-note">No information available.</p>'}</section>`;
         }else{
           infoGrid.innerHTML=`<section class="detail-section"><h3>Description</h3><p style="margin:0;line-height:1.65;color:#334155">${esc(series.descriptionText||'No information available.')}</p></section>`;
         }
