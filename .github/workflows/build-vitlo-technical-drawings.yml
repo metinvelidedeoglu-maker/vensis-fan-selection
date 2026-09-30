@@ -169,7 +169,10 @@ jobs:
                   raise RuntimeError(f'No technical drawing block detected on page {page}')
 
               top, bottom = groups[0]
-              sub = region.crop((0, max(0, top - 48), rw, min(rh, bottom + 24)))
+              # Preserve the entire area below the Dimensions banner.
+              # Sparse top dimension lines can sit well above the main drawing body,
+              # so never use the detected body top as a crop boundary.
+              sub = region.crop((0, 0, rw, min(rh, bottom + 24)))
 
               # Tight horizontal trim around actual drawing content.
               g = sub.convert('L')
