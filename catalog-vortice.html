@@ -25,7 +25,7 @@ window.VensisCatalogBrand='vortice';
   const write=src=>document.write('<scr'+'ipt src="'+src+'"></scr'+'ipt>');
 
   if(!requested){
-    write('data/vortice-series-manifest.js?v=20260925-cms-atex-r1');
+    write('data/vortice-series-manifest.js?v=20260930-image-root-r2');
     return;
   }
 
@@ -60,14 +60,14 @@ window.VensisCatalogBrand='vortice';
 
   const selected=fileBySeries[normalize(requested)];
   if(!selected){
-    write('data/vortice-series-manifest.js?v=20260925-cms-atex-r1');
+    write('data/vortice-series-manifest.js?v=20260930-image-root-r2');
     return;
   }
 
   write(selected);
   write('data/vortice-prices-2026-1.js?v=20260814-vortice-prices');
   write('js/catalog-performance-guard.js?v=20260831-vortice-lazy-r3');
-  write('products/registry.js?v=20260930-vortice-final-r3');
+  write('products/registry.js?v=20260930-image-root-r4');
   write('data/catalog-schema-v2.js?v=20260930-vortice-final-r3');
   ['01','02','03','04','05'].forEach(n=>write('data/vortice-workbook-2026-2-'+n+'.js?v=20260827-vortice-workbook-r2'));
   write('data/vortice-workbook-2026-2.js?v=20260930-vortice-final-r6');
@@ -85,7 +85,7 @@ window.VensisCatalogBrand='vortice';
 <script src="js/catalog-project-picker.js?v=20260826-project-transfer-r1"></script>
 <script src="js/suite-shell.js?v=20260826-technical-note-r1"></script>
 <script src="js/project-nav.js?v=20260825-sidebar-r3"></script>
-<script src="js/catalog.js?v=20260930-vortice-final-r4"></script>
+<script src="js/catalog.js?v=20260930-image-root-r5"></script>
 <script src="js/catalog-manifest-ui.js?v=20260831-counts-r2"></script>
 <script src="js/catalog-language-cleanup.js?v=20260930-vortice-final-r4"></script>
 <script src="js/catalog-mobile-accordions.js?v=20260901-mobile-r2"></script>
