@@ -28,6 +28,12 @@
   const modelRecords=new Map();
 
   function normalize(value){return String(value||'').toUpperCase().replace(/\\/g,'/').replace(/\s+/g,' ').trim()}
+  function assetPath(value){
+    const raw=String(value||'').trim();
+    if(!raw)return '';
+    if(/^(?:data:|blob:|https?:|\/\/|\/)/i.test(raw))return raw;
+    return raw.startsWith('assets/')?'/'+raw:raw;
+  }
   function seriesCode(value){
     const text=normalize(value);
     const found=keys.find(key=>text===key||text.startsWith(key+' ')||text.startsWith(key+'-')||text.includes(' '+key+' '));
@@ -38,7 +44,7 @@
     if(code==='AXD/MOB')model=model.replace(/^MOB-AXD(?=\s|-)/i,'AXD/MOB').replace(/^AXD-MOB(?=\s|-)/i,'AXD/MOB');
     return model;
   }
-  function imageFor(code){return code&&files[code]?'assets/products/'+files[code]:''}
+  function imageFor(code){return code&&files[code]?'/assets/products/'+files[code]:''}
   function finite(value){const number=Number(value);return Number.isFinite(number)?number:0}
   function pricingFor(row){
     if(Object.prototype.hasOwnProperty.call(row||{},'price')){
@@ -119,7 +125,7 @@
       manufacturer:override.manufacturer||row?.manufacturer||row?.brand||'Vitlo',
       categories,
       title:override.title||names[code]||row?.catalogNameEn||row?.series||code,
-      media:{image:override.image||row?.image||row?.imagePath||row?.image_path||imageFor(code),gallery:[]},
+      media:{image:assetPath(override.image||row?.image||row?.imagePath||row?.image_path||imageFor(code)),gallery:[]},
       catalogue:{pdf:row?.catalogPdf||'',page:row?.sourcePage||''},
       description:{
         general:Array.isArray(descriptionOverride.general)?descriptionOverride.general:(info.general||[]),
@@ -153,7 +159,7 @@
       catalogOnly:Boolean(row?.catalogOnly),
       pole:Number(row?.pole)||0,
       pricing:pricingFor(row),
-      media:{image:override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||window.VensisVitloTechnicalDrawings?.resolve?.(code)?.asset||'',gallery:[]},
+      media:{image:assetPath(override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||''),dimensionImage:assetPath(row?.dimensionImage||row?.dimension_image_path||window.VensisVitloTechnicalDrawings?.resolve?.(code)?.asset||''),gallery:[]},
       motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl??primaryOperating?.sound)||0},
       description:{
         general:[...(row?.catalogueInfo?.general||[])],
