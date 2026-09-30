@@ -130,7 +130,7 @@ jobs:
 
               x0 = int(w * 0.495)
               x1 = int(w * 0.945)
-              y0 = min(h - 1, bar_bottom + (1 if page == 15 else 8))
+              y0 = min(h - 1, max(0, bar_bottom + 1))
               y1 = int(h * 0.955)
               region = image.crop((x0, y0, x1, y1))
 
@@ -168,19 +168,21 @@ jobs:
                   raise RuntimeError(f'No technical drawing block detected on page {page}')
 
               top, bottom = groups[0]
-              sub = region.crop((0, max(0, top - 18), rw, min(rh, bottom + 19)))
+              sub = region.crop((0, max(0, top - 48), rw, min(rh, bottom + 24)))
 
               # Tight horizontal trim around actual drawing content.
               g = sub.convert('L')
-              mask = g.point(lambda p: 0 if p > 205 else 255)
+              mask = g.point(lambda p: 0 if p > 238 else 255)
               bbox = mask.getbbox()
               if bbox:
                   left, top2, right, bottom2 = bbox
-                  pad = 24
-                  left = max(0, left - pad)
-                  top2 = max(0, top2 - pad)
-                  right = min(sub.width, right + pad)
-                  bottom2 = min(sub.height, bottom2 + pad)
+                  side_pad = 24
+                  top_pad = 54
+                  bottom_pad = 28
+                  left = max(0, left - side_pad)
+                  top2 = max(0, top2 - top_pad)
+                  right = min(sub.width, right + side_pad)
+                  bottom2 = min(sub.height, bottom2 + bottom_pad)
                   sub = sub.crop((left, top2, right, bottom2))
 
               canvas = Image.new('RGB', (sub.width + 32, sub.height + 32), 'white')
