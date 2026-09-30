@@ -13,7 +13,7 @@ window.models.push(...[{
   "mountType":"Salyangoz",
   "productGroup":"ATEX Orta Basınçlı Fan",
   "fanTypeEn":"Centrifugal",
-  "mountTypeEn":"Centrifugal",
+  "mountTypeEn":"Scroll Housing",
   "productGroupEn":"ATEX Medium-Pressure Fan",
   "categories":["Centrifugal Fan","Explosion-Proof / ATEX Fan"],
   "tagsEn":["Centrifugal Fan","Explosion-Proof / ATEX Fan"],
@@ -45,9 +45,9 @@ window.models.push(...[{
   "operatingPoints":[{"control":"nominal","powerW":90,"powerKw":0.09,"currentA":0.46,"rpm":1450,"maxAirflowM3h":415,"maxPressurePa":142.2,"soundPressureDbA3m":53,"efficiencyPct":53,"mechanicalPowerAtWorkingPointKw":0.04}],
   "curves":[{"control":"nominal","sourcePage":2,"sourceGraphTitle":"Performance Curve - Static Pressure","sourceMethod":"digitized approximately from supplied PDF performance graph","interpolation":"linear","precomputed":true,"sourcePoints":[[142.2,63],[140.5,75],[137.2,100],[134,125],[130.4,150],[126.3,175],[121.3,200],[115,225],[107.2,250],[97.8,275],[88.9,295.18],[86.3,300],[72.4,325],[56,350],[36.5,375],[13.7,400],[0,414]]}],
   "catalogueInfo":{
-    "general":["Centrifugal medium pressure ATEX fan.","Rolling steel sheet housing with completely joined or welded construction.","Galvanised steel sheet simple-inlet forward-curved impeller.","Polyester powder finishing coat.","Inlet sparkproof ring made of copper or aluminium.","Suitable for totally clean air without dust."],
+    "general":["Centrifugal medium pressure ATEX fan.","Rolling steel sheet housing with completely joined or welded construction.","Galvanised steel sheet simple-inlet forward-curved impeller.","Polyester powder finishing coat.","Inlet sparkproof ring made of copper or aluminium.","Suitable for totally clean air without dust.","Ambient working temperature from -20 °C to +40 °C; transported-air temperature according to the ATEX classification."],
     "motor":["ATEX standard asynchronous motor certified according to the zone.","IP55 protection and insulation class F.","Standard voltages: 230 V 50 Hz for single-phase motors, 230/400 V 50 Hz for three-phase motors up to 4 kW, and 400/690 V 50 Hz for higher powers.","This 0.09 kW model is rated 1450 rpm and 0.46 A at 400 V."],
-    "applications":["Inline installation in indoor environments classified as ATEX.","Ambient working temperature from -20 °C to +40 °C; transported-air temperature according to the ATEX classification."]
+    "applications":["Inline installation in indoor environments classified as ATEX."]
   },
   "atex":{
     "group":"II",
