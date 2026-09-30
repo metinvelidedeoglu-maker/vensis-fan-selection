@@ -229,12 +229,17 @@
   for(const series of seriesRecords.values()){
     if(String(series.manufacturer||'').trim().toLowerCase()!=='vortice')continue;
     const familyModels=[...modelRecords.values()].filter(model=>String(model.seriesId)===String(series.id));
-    const collect=key=>[...new Set(familyModels.flatMap(model=>model.description?.[key]||[]).map(value=>String(value||'').trim()).filter(Boolean))];
-    const general=collect('general').filter(value=>!/^(?:Nominal duct connection|Nominal intake diameter):/i.test(value));
+    const common=key=>{
+      const lists=familyModels.map(model=>(model.description?.[key]||[]).map(value=>String(value||'').trim()).filter(Boolean));
+      if(!lists.length)return [];
+      const first=[...new Set(lists[0])];
+      return first.filter(value=>lists.every(list=>list.includes(value)));
+    };
+    const general=common('general').filter(value=>!/^(?:Nominal duct connection|Nominal intake diameter):/i.test(value));
     series.description={
       general,
-      motor:collect('motor'),
-      applications:collect('applications')
+      motor:common('motor'),
+      applications:common('applications')
     };
   }
 
