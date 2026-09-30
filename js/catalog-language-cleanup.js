@@ -609,6 +609,48 @@
     [/\bX special conditions\b/gi,'X özel koşulları']
   ];
 
+  const applicationPhrasePairs=new Map([
+    ['General area ventilation','genel alan havalandırması'],
+    ['General space ventilation','genel mahal havalandırması'],
+    ['Car park smoke extraction systems','otopark duman tahliye sistemleri'],
+    ['Smoke extraction systems','duman tahliye sistemleri'],
+    ['Tunnel smoke extraction systems','tünel duman tahliye sistemleri'],
+    ['Explosive area ventilation','patlayıcı ortam havalandırması'],
+    ['Factory, warehouse and parking ventilation systems','fabrika, depo ve otopark havalandırma sistemleri'],
+    ['Industrial warehouse ventilation','endüstriyel depo havalandırması'],
+    ['Industrial kitchen hood exhaust systems','endüstriyel mutfak davlumbaz egzoz sistemleri'],
+    ['Kitchen hood exhausts with filter system','filtreli mutfak davlumbaz egzoz sistemleri'],
+    ['Office, restaurant, garage, warehouse and workshop ventilation','ofis, restoran, garaj, depo ve atölye havalandırması'],
+    ['Office, restaurant,WC, garage, warehouse and workshop ventilation','ofis, restoran, WC, garaj, depo ve atölye havalandırması'],
+    ['Stair and elevator pressurization systems','merdiven ve asansör basınçlandırma sistemleri'],
+    ['Refuge fresh air systems','sığınak taze hava sistemleri'],
+    ['Welding smoke extraction systems','kaynak dumanı tahliye sistemleri'],
+    ['Heavy industry productions','ağır sanayi üretim tesisleri'],
+    ['Production processes with intense oil and high temperature','yoğun yağ ve yüksek sıcaklık içeren üretim prosesleri'],
+    ['Petrochem','petrokimya tesisleri'],
+    ['Petrochemical plants','petrokimya tesisleri'],
+    ['Used for fresh air, exhaust','taze hava ve egzoz uygulamaları'],
+    ['Used for fresh air, exhaust and circulation','taze hava, egzoz ve sirkülasyon uygulamaları'],
+    ['Uses for fresh air, exhaust and circulation in explosive and flammable spaces','patlayıcı ve yanıcı ortamlarda taze hava, egzoz ve sirkülasyon uygulamaları']
+  ]);
+
+  function joinTr(items){
+    const values=[...new Set((items||[]).filter(Boolean))];
+    if(!values.length)return '';
+    if(values.length===1)return values[0];
+    if(values.length===2)return `${values[0]} ve ${values[1]}`;
+    return `${values.slice(0,-1).join(', ')} ve ${values.at(-1)}`;
+  }
+
+  function applicationSentenceToTr(items){
+    const phrases=(items||[]).map(value=>{
+      const source=String(value||'').replace(/\s+/g,' ').replace(/[.,]+\s*$/,'').trim();
+      return applicationPhrasePairs.get(source)||productTextToTr(source).replace(/[.]+$/,'').toLocaleLowerCase('tr-TR');
+    }).filter(Boolean);
+    const joined=joinTr(phrases);
+    return joined?`Başlıca kullanım alanları arasında ${joined} yer alır.`:'';
+  }
+
   const uiReverse=new Map([...uiPairs.entries()].map(([en,tr])=>[tr,en]));
   const titleReverse=new Map([...titlePairs.entries()].map(([en,tr])=>[tr,en]));
   const categoryReverse=new Map([...categoryPairs.entries()].map(([en,tr])=>[tr,en]));
@@ -706,6 +748,26 @@
     observer.observe(document.documentElement,{childList:true,subtree:true});
   }
 
+  function consolidateVitloApplications(scope){
+    scope.querySelectorAll?.('[data-vitlo-features]').forEach(section=>{
+      const apps=[...section.querySelectorAll('.vitlo-application')];
+      if(!apps.length)return;
+      apps.forEach(node=>sourceText(node,'product'));
+      if(language()==='tr'){
+        const originals=apps.map(node=>node.dataset.vensisEn||node.textContent||'').filter(Boolean);
+        const summary=applicationSentenceToTr(originals);
+        apps[0].textContent=summary;
+        apps[0].hidden=!summary;
+        apps.slice(1).forEach(node=>node.hidden=true);
+      }else{
+        apps.forEach(node=>{
+          node.hidden=false;
+          node.textContent=node.dataset.vensisEn||node.textContent||'';
+        });
+      }
+    });
+  }
+
   function apply(root=document){
     if(applying)return;
     applying=true;
@@ -718,6 +780,7 @@
       cleanVorticeTitles(scope);
       scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
       scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li').forEach(node=>renderNode(node,'product'));
+      consolidateVitloApplications(scope);
 
       scope.querySelectorAll('.model-field').forEach(field=>{
         const label=field.querySelector('span');
@@ -734,6 +797,14 @@
       if(reconnect)observeMutations();
     }
   }
+
+  window.VensisCatalogLanguage={
+    language,
+    productTextToTr,
+    titleToTr:value=>titlePairs.get(String(value||'').trim())||productTextToTr(value),
+    categoryToTr:value=>categoryPairs.get(String(value||'').trim())||productTextToTr(value),
+    applicationSentenceToTr
+  };
 
   function start(){
     apply(document);
