@@ -230,8 +230,9 @@
     if(String(series.manufacturer||'').trim().toLowerCase()!=='vortice')continue;
     const familyModels=[...modelRecords.values()].filter(model=>String(model.seriesId)===String(series.id));
     const collect=key=>[...new Set(familyModels.flatMap(model=>model.description?.[key]||[]).map(value=>String(value||'').trim()).filter(Boolean))];
+    const general=collect('general').filter(value=>!/^(?:Nominal duct connection|Nominal intake diameter):/i.test(value));
     series.description={
-      general:collect('general'),
+      general,
       motor:collect('motor'),
       applications:collect('applications')
     };
