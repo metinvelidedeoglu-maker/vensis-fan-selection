@@ -641,14 +641,32 @@
     if(values.length===2)return `${values[0]} ve ${values[1]}`;
     return `${values.slice(0,-1).join(', ')} ve ${values.at(-1)}`;
   }
+  function sentenceCaseTr(value){
+    let text=String(value||'').replace(/\s+/g,' ').trim();
+    if(!text)return text;
+    const commonWords=[
+      ['Genel Alan','genel alan'],['Genel Mahal','genel mahal'],['Otopark Duman','otopark duman'],
+      ['Duman Tahliye','duman tahliye'],['Tünel Duman','tünel duman'],['Patlayıcı Ortam','patlayıcı ortam'],
+      ['Endüstriyel Depo','endüstriyel depo'],['Petrokimya Tesisleri','petrokimya tesisleri'],
+      ['Fabrika, Depo','fabrika, depo'],['Ofis, Restoran','ofis, restoran'],
+      ['Merdiven ve Asansör','merdiven ve asansör'],['Sığınak Taze Hava','sığınak taze hava'],
+      ['Kaynak Dumanı','kaynak dumanı'],['Ağır Sanayi','ağır sanayi'],['Yoğun Yağ','yoğun yağ'],
+      ['Taze Hava','taze hava'],['Elektrik Bağlantı','elektrik bağlantı'],['Fan Gövdesi','fan gövdesi']
+    ];
+    for(const [from,to] of commonWords)text=text.split(from).join(to);
+    text=text.replace(/(^|[.!?]\s+)([a-zçğıöşü])/g,(all,prefix,letter)=>prefix+letter.toLocaleUpperCase('tr-TR'));
+    if(!/[.!?]$/.test(text))text+='.';
+    return text;
+  }
 
   function applicationSentenceToTr(items){
     const phrases=(items||[]).map(value=>{
       const source=String(value||'').replace(/\s+/g,' ').replace(/[.,]+\s*$/,'').trim();
-      return applicationPhrasePairs.get(source)||productTextToTr(source).replace(/[.]+$/,'').toLocaleLowerCase('tr-TR');
+      const phrase=applicationPhrasePairs.get(source)||productTextToTr(source).replace(/[.!?]+$/,'');
+      return phrase.charAt(0).toLocaleLowerCase('tr-TR')+phrase.slice(1);
     }).filter(Boolean);
     const joined=joinTr(phrases);
-    return joined?`Başlıca kullanım alanları arasında ${joined} yer alır.`:'';
+    return joined?sentenceCaseTr(`Başlıca kullanım alanları arasında ${joined} yer alır`):'';
   }
 
   const uiReverse=new Map([...uiPairs.entries()].map(([en,tr])=>[tr,en]));
@@ -680,7 +698,7 @@
       if(output.includes(english))output=output.split(english).join(turkish);
     }
     for(const [pattern,replacement] of phraseRules)output=output.replace(pattern,replacement);
-    return output;
+    return sentenceCaseTr(output);
   }
 
   function sourceText(node,mode,key='vensisEn'){
@@ -702,8 +720,8 @@
     let next=en;
     if(language()==='tr'){
       if(mode==='ui')next=exact(en,uiPairs,uiReverse,'tr');
-      else if(mode==='title')next=titlePairs.get(en)||productTextToTr(en);
-      else if(mode==='category')next=categoryPairs.get(en)||productTextToTr(en);
+      else if(mode==='title')next=titlePairs.get(en)||en;
+      else if(mode==='category')next=categoryPairs.get(en)||en;
       else next=productTextToTr(en);
     }
     if(String(node.textContent||'').trim()!==next)node.textContent=next;
@@ -801,8 +819,8 @@
   window.VensisCatalogLanguage={
     language,
     productTextToTr,
-    titleToTr:value=>titlePairs.get(String(value||'').trim())||productTextToTr(value),
-    categoryToTr:value=>categoryPairs.get(String(value||'').trim())||productTextToTr(value),
+    titleToTr:value=>titlePairs.get(String(value||'').trim())||String(value||'').trim(),
+    categoryToTr:value=>categoryPairs.get(String(value||'').trim())||String(value||'').trim(),
     applicationSentenceToTr
   };
 
