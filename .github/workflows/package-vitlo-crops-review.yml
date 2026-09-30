@@ -1,0 +1,40 @@
+name: Package Vitlo crop review
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/package-vitlo-crops-review.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build review ZIP
+        run: |
+          rm -rf /tmp/vitlo-crop-review
+          mkdir -p /tmp/vitlo-crop-review
+          cp assets/products/*-technical-drawing.webp /tmp/vitlo-crop-review/
+          {
+            echo "VITLO TECHNICAL DRAWING CROP REVIEW"
+            echo
+            echo "Files: $(find /tmp/vitlo-crop-review -maxdepth 1 -name '*-technical-drawing.webp' | wc -l)"
+            echo
+            find /tmp/vitlo-crop-review -maxdepth 1 -name '*-technical-drawing.webp' -printf '%f\n' | sort
+          } > /tmp/vitlo-crop-review/00-FILE-LIST.txt
+          cd /tmp
+          zip -r -9 vitlo-technical-crops-review.zip vitlo-crop-review
+
+      - name: Upload review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: vitlo-technical-crops-review
+          path: /tmp/vitlo-technical-crops-review.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
