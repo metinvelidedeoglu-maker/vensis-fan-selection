@@ -103,7 +103,7 @@
       const technical=obj(model?.technical);
       const productTechnical=obj(product?.technical);
       const raw=obj(technical.dimensions||model?.dimensions||productTechnical.dimensions);
-      const headers=Object.keys(raw).filter(key=>raw[key]!=null&&raw[key]!=='');
+      const headers=Object.keys(raw).filter(key=>!['type','unit','note'].includes(String(key).toLowerCase())&&raw[key]!=null&&raw[key]!=='');
       const values={};
       headers.forEach(key=>{values[key]=raw[key]});
       const asset=absoluteAssetUrl(
@@ -403,10 +403,10 @@
     );
     if(!asset)return '';
     return `<div class="catalog-drawing" data-original-catalog-drawing>
-      <img id="vitloCatalogDrawingImage"
+      <img id="catalogDrawingImage"
         class="catalog-drawing-image ready"
         src="${attr(asset)}"
-        alt="Vitlo katalog orijinal teknik çizimi"
+        alt="${attr(tx('drawingDimensions'))}"
         decoding="sync"
         onerror="this.style.display='none'">
     </div>`;
@@ -434,8 +434,9 @@
     const curve=curveSvg(d);
     const drawingContext=d.dimensions||{series:d.seriesCode};
     const drawingHtml=originalDrawingHtml(drawingContext);
+    const hasDimensionValues=Boolean(d.dimensions?.headers?.length);
     const dimensionPanel=(d.dimensions||drawingHtml)
-      ?`<section class="drawing-section"><h3 class="section-head">${esc(tx('drawingDimensions'))}</h3><div class="dimension-panel${d.dimensions?'':' no-values'}">${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${d.dimensions?`<div class="dimension-table-wrap"><table class="dimension-table"><thead><tr><th>${esc(tx('dimension'))}</th><th aria-label="${esc(tx('value'))}"></th></tr></thead><tbody>${dimensionRowsHtml(d.dimensions)}</tbody></table></div>`:''}</div></section>`
+      ?`<section class="drawing-section"><h3 class="section-head">${esc(tx('drawingDimensions'))}</h3><div class="dimension-panel${hasDimensionValues?'':' no-values'}">${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${hasDimensionValues?`<div class="dimension-table-wrap"><table class="dimension-table"><thead><tr><th>${esc(tx('dimension'))}</th><th aria-label="${esc(tx('value'))}"></th></tr></thead><tbody>${dimensionRowsHtml(d.dimensions)}</tbody></table></div>`:''}</div></section>`
       :'';
 
     const html=`<!doctype html><html lang="${language()}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} ${esc(tx('titleSuffix'))}</title><base href="${attr(new URL('.',window.location.href).href)}"><style>
