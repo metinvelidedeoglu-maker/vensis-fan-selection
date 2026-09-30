@@ -612,6 +612,9 @@
   let applying=false;
 
   function readLanguage(){
+    const path=String(location.pathname||'').toLowerCase();
+    if(path==='/tr'||path.startsWith('/tr/'))return 'tr';
+    if(path==='/en'||path.startsWith('/en/'))return 'en';
     try{
       const saved=localStorage.getItem(STORAGE_KEY);
       return saved==='tr'||saved==='en'?saved:DEFAULT_LANGUAGE;
