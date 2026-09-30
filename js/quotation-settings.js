@@ -49,6 +49,7 @@
       standard:[
         'Bu teklif, Vensis standart satış, teslimat ve teknik kullanım koşullarına tabidir.',
         'Ürünler kataloglarda belirtilen çalışma, montaj ve bakım sınırları içerisinde kullanılmalıdır.',
+        'Ürünler, üreticinin ilgili ürün için geçerli garanti koşulları kapsamında garanti altındadır. Garanti kapsamı ve süresi üretici şartlarına göre belirlenir.',
         'Üretici, teknik zorunluluk halinde eşdeğer performansı koruyacak ürün geliştirmeleri yapma hakkını saklı tutar.'
       ],
       acceptance:'Bu teklifin imzalanması veya yazılı siparişe dönüştürülmesi; ürün tablosu, ticari özet, kapsam, hariç işler ve bu sayfadaki şartların birlikte kabul edildiği anlamına gelir.',
