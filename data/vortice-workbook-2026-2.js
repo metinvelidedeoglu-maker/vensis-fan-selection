@@ -102,7 +102,7 @@
 
   function productFor(model){
     const series=catalog.series.find(item=>String(item.id)===String(model.seriesId))||{};
-    return {id:model.id,model:model.model,series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vortice',categories:[...(series.categories||[])]},media:model.media,description:series.description||{general:[],motor:[],applications:[]},pricing:model.pricing,motor:model.motor,technical:model.technical,performance:model.performance,source:model.source};
+    return {id:model.id,model:model.model,series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vortice',categories:[...(series.categories||[])]},media:model.media,description:model.description||series.description||{general:[],motor:[],applications:[]},pricing:model.pricing,motor:model.motor,technical:model.technical,performance:model.performance,source:model.source};
   }
 
   const rowsBySeries=new Map();
