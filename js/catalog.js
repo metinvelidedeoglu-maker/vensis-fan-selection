@@ -234,9 +234,14 @@
     const pdf=series.catalogue?.pdf;
     const isVitlo=String(series.manufacturer||'').trim().toLowerCase()==='vitlo';
     const description=series.description||{};
-    const vitloFeatures=[...(description.general||[]),...(description.motor||[]),...(description.applications||[])].filter(Boolean);
+    const vitloGeneral=[...(description.general||[]),...(description.motor||[])].filter(Boolean);
+    const vitloApplications=[...(description.applications||[])].filter(Boolean);
+    const vitloFeaturesHtml=()=>{
+      if(!vitloGeneral.length&&!vitloApplications.length)return '<p class="empty-note">No information available.</p>';
+      return `<ul>${vitloGeneral.map(item=>`<li class="vitlo-general">${esc(item)}</li>`).join('')}${vitloApplications.map(item=>`<li class="vitlo-application">${esc(item)}</li>`).join('')}</ul>`;
+    };
     const seriesInfoHtml=isVitlo
-      ? `<div class="series-info-grid"><section class="detail-section" style="grid-column:1/-1"><h3>General Features</h3>${bullets(vitloFeatures)}</section></div>`
+      ? `<div class="series-info-grid"><section class="detail-section" data-vitlo-features style="grid-column:1/-1"><h3>General Features</h3>${vitloFeaturesHtml()}</section></div>`
       : `<div class="series-info-grid">
           <section class="detail-section"><h3>General Features</h3>${bullets(description.general)}</section>
           <section class="detail-section"><h3>Motor</h3>${bullets(description.motor)}</section>
