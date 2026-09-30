@@ -433,7 +433,7 @@
 ${technicalGridHtml(d)}
 <section class="section"><h3 class="section-head">${esc(tx('performanceCurve'))}</h3><div class="curve">${curve}</div></section>
 ${dimensionPanel}
-<footer class="footer">${esc(tx('footer'))}<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">${esc(tx('pageNote'))}</div></footer>
+<footer class="footer">${esc(tx('footer'))}<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b></footer>
 </main></body></html>`;
     renderLanguage=previousLanguage;
     return html;
