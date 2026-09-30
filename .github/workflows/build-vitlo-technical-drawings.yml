@@ -173,7 +173,7 @@ jobs:
 
               # Tight horizontal trim around actual drawing content.
               g = sub.convert('L')
-              mask = g.point(lambda p: 0 if p > 238 else 255)
+              mask = g.point(lambda p: 0 if p > 205 else 255)
               bbox = mask.getbbox()
               if bbox:
                   left, top2, right, bottom2 = bbox
