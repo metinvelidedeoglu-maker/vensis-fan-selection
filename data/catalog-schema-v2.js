@@ -24,6 +24,9 @@
   for(const series of catalog.series){
     const models=typeof catalog.modelsForSeries==='function'?catalog.modelsForSeries(series.id):catalog.models.filter(model=>model.seriesId===series.id);
     const originalDescription={general:[...(series?.description?.general||[])],motor:[...(series?.description?.motor||[])],applications:[...(series?.description?.applications||[])]};
+    if(isVortice(series)){
+      originalDescription.general=originalDescription.general.filter(value=>!/^(?:Nominal duct connection|Nominal intake diameter):/i.test(text(value)));
+    }
     const descriptionText=uniqueText([originalDescription.general,originalDescription.motor,originalDescription.applications]).join(' ');
     series.schemaVersion='2.2';
     series.modelName=text(series.code||series.title||series.id);
