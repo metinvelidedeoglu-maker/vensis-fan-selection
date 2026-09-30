@@ -186,6 +186,22 @@ jobs:
                   bottom2 = min(sub.height, bottom2 + bottom_pad)
                   sub = sub.crop((left, top2, right, bottom2))
 
+              # Page 40 has pale catalogue-table cells at the far left.
+              # Trim only that pale margin, using the first real dark drawing line
+              # as the anchor. Keep all top drawing content untouched.
+              if page == 40:
+                  probe = sub.convert('L')
+                  top_skip = max(0, int(probe.height * 0.08))
+                  bottom_keep = max(top_skip + 1, int(probe.height * 0.96))
+                  strict = probe.crop((0, top_skip, probe.width, bottom_keep)).point(
+                      lambda p: 0 if p > 155 else 255
+                  )
+                  strict_bbox = strict.getbbox()
+                  if strict_bbox:
+                      true_left = max(0, strict_bbox[0] - 18)
+                      if true_left > 0:
+                          sub = sub.crop((true_left, 0, sub.width, sub.height))
+
               canvas = Image.new('RGB', (sub.width + 32, sub.height + 32), 'white')
               canvas.paste(sub, (16, 16))
               return canvas
