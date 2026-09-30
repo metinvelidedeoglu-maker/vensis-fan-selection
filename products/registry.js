@@ -155,6 +155,11 @@
       pricing:pricingFor(row),
       media:{image:override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||window.VensisVitloTechnicalDrawings?.resolve?.(code)?.asset||'',gallery:[]},
       motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl??primaryOperating?.sound)||0},
+      description:{
+        general:[...(row?.catalogueInfo?.general||[])],
+        motor:[...(row?.catalogueInfo?.motor||[])],
+        applications:[...(row?.catalogueInfo?.applications||[])]
+      },
       technical:{
         weight:Number(row?.weight)||0,
         ipClass:row?.ipClass||'',
@@ -214,6 +219,18 @@
   }
 
   rawModels.forEach(modelFromRow);
+
+  for(const series of seriesRecords.values()){
+    if(String(series.manufacturer||'').trim().toLowerCase()!=='vortice')continue;
+    const familyModels=[...modelRecords.values()].filter(model=>String(model.seriesId)===String(series.id));
+    const collect=key=>[...new Set(familyModels.flatMap(model=>model.description?.[key]||[]).map(value=>String(value||'').trim()).filter(Boolean))];
+    series.description={
+      general:collect('general'),
+      motor:collect('motor'),
+      applications:collect('applications')
+    };
+  }
+
   delete window.models;
 
   function productView(model){
@@ -224,7 +241,7 @@
       catalogOnly:Boolean(model.catalogOnly),
       series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vitlo',categories:series.categories||[]},
       media:model.media?.image?model.media:(series.media||{image:'',gallery:[]}),catalogue:series.catalogue||{},
-      description:series.description||{general:[],motor:[],applications:[]},
+      description:model.description||series.description||{general:[],motor:[],applications:[]},
       pricing:model.pricing,motor:model.motor,technical:model.technical,performance:model.performance,source:model.source
     };
   }
