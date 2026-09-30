@@ -22,6 +22,18 @@
     return {createdAt:new Date().toISOString(),project:{name:meta.name||'',reference:meta.reference||'',contact:meta.contact||''},items:Array.isArray(items)?items:[]};
   }
 
+  function outputLanguage(){
+    const stored=readJson(PRINT_KEY,null);
+    if(stored?.outputLanguage==='tr'||stored?.outputLanguage==='en')return stored.outputLanguage;
+    const requested=new URLSearchParams(location.search).get('lang');
+    if(requested==='tr'||requested==='en')return requested;
+    const active=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'';
+    if(active==='tr'||active==='en')return active;
+    try{return localStorage.getItem('vensis_language_v1')==='tr'?'tr':'en'}catch{return 'en'}
+  }
+
+  const OUTPUT_LANGUAGE=outputLanguage();
+
   function modelFor(item){
     if(item.mode==='custom')return null;
     const direct=catalog.getModel?.(item.productKey);
@@ -142,6 +154,7 @@
     };
     return {
       mode:item.mode==='catalog'?'catalog':'selection',
+      outputLanguage:OUTPUT_LANGUAGE,
       product,
       model:fallbackModel,
       required:item.mode==='catalog'?null:item.required,
