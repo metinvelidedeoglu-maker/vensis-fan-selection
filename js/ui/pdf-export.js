@@ -37,7 +37,7 @@
       close:'Kapat',printSave:'Yazdır / PDF Kaydet',productDatasheet:'ÜRÜN TEKNİK FÖYÜ',
       brand:'Marka',generalFeatures:'GENEL ÖZELLİKLER',performanceCurve:'PERFORMANS EĞRİSİ',
       footer:'Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.',
-      pageNote:'TEKNİK FÖY • SAYFA 1 / 1',titleSuffix:'Teknik Föy',
+      titleSuffix:'Teknik Föy',
       originalDrawing:'ORİJİNAL KATALOG TEKNİK ÇİZİMİ',modelDimensions:'MODEL ÖLÇÜLERİ',
       dimensionReference:'Ölçü referansı',source:'Kaynak',catalogue:'Vitlo Genel Ürün Kataloğu'
     },
@@ -55,7 +55,7 @@
       close:'Close',printSave:'Print / Save PDF',productDatasheet:'PRODUCT DATASHEET',
       brand:'Brand',generalFeatures:'GENERAL FEATURES',performanceCurve:'PERFORMANCE CURVE',
       footer:'Technical data is based on manufacturer catalogue information. Project suitability should be confirmed by Vensis.',
-      pageNote:'PRODUCT DATASHEET • PAGE 1 / 1',titleSuffix:'Datasheet',
+      titleSuffix:'Datasheet',
       originalDrawing:'ORIGINAL CATALOGUE TECHNICAL DRAWING',modelDimensions:'MODEL DIMENSIONS',
       dimensionReference:'Dimension reference',source:'Source',catalogue:'Vitlo General Product Catalogue'
     }
