@@ -28,12 +28,6 @@
   const modelRecords=new Map();
 
   function normalize(value){return String(value||'').toUpperCase().replace(/\\/g,'/').replace(/\s+/g,' ').trim()}
-  function assetPath(value){
-    const raw=String(value||'').trim();
-    if(!raw)return '';
-    if(/^(?:data:|blob:|https?:|\/\/|\/)/i.test(raw))return raw;
-    return raw.startsWith('assets/')?'/'+raw:raw;
-  }
   function seriesCode(value){
     const text=normalize(value);
     const found=keys.find(key=>text===key||text.startsWith(key+' ')||text.startsWith(key+'-')||text.includes(' '+key+' '));
@@ -44,7 +38,7 @@
     if(code==='AXD/MOB')model=model.replace(/^MOB-AXD(?=\s|-)/i,'AXD/MOB').replace(/^AXD-MOB(?=\s|-)/i,'AXD/MOB');
     return model;
   }
-  function imageFor(code){return code&&files[code]?'/assets/products/'+files[code]:''}
+  function imageFor(code){return code&&files[code]?'assets/products/'+files[code]:''}
   function finite(value){const number=Number(value);return Number.isFinite(number)?number:0}
   function pricingFor(row){
     if(Object.prototype.hasOwnProperty.call(row||{},'price')){
@@ -125,7 +119,7 @@
       manufacturer:override.manufacturer||row?.manufacturer||row?.brand||'Vitlo',
       categories,
       title:override.title||names[code]||row?.catalogNameEn||row?.series||code,
-      media:{image:assetPath(override.image||row?.image||row?.imagePath||row?.image_path||imageFor(code)),gallery:[]},
+      media:{image:override.image||row?.image||row?.imagePath||row?.image_path||imageFor(code),gallery:[]},
       catalogue:{pdf:row?.catalogPdf||'',page:row?.sourcePage||''},
       description:{
         general:Array.isArray(descriptionOverride.general)?descriptionOverride.general:(info.general||[]),
@@ -159,13 +153,8 @@
       catalogOnly:Boolean(row?.catalogOnly),
       pole:Number(row?.pole)||0,
       pricing:pricingFor(row),
-      media:{image:assetPath(override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||''),dimensionImage:assetPath(row?.dimensionImage||row?.dimension_image_path||window.VensisVitloTechnicalDrawings?.resolve?.(code)?.asset||''),gallery:[]},
+      media:{image:override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||window.VensisVitloTechnicalDrawings?.resolve?.(code)?.asset||'',gallery:[]},
       motor:{power:Number(row?.kw)||primaryOperating?.power||0,speed:Number(row?.rpm)||primaryOperating?.speed||0,current:Number(row?.amps)||primaryOperating?.current||0,voltage:row?.voltage||'',frequency:row?.frequency||'',sound:Number(row?.spl??primaryOperating?.sound)||0},
-      description:{
-        general:[...(row?.catalogueInfo?.general||[])],
-        motor:[...(row?.catalogueInfo?.motor||[])],
-        applications:[...(row?.catalogueInfo?.applications||[])]
-      },
       technical:{
         weight:Number(row?.weight)||0,
         ipClass:row?.ipClass||'',
@@ -225,24 +214,6 @@
   }
 
   rawModels.forEach(modelFromRow);
-
-  for(const series of seriesRecords.values()){
-    if(String(series.manufacturer||'').trim().toLowerCase()!=='vortice')continue;
-    const familyModels=[...modelRecords.values()].filter(model=>String(model.seriesId)===String(series.id));
-    const common=key=>{
-      const lists=familyModels.map(model=>(model.description?.[key]||[]).map(value=>String(value||'').trim()).filter(Boolean));
-      if(!lists.length)return [];
-      const first=[...new Set(lists[0])];
-      return first.filter(value=>lists.every(list=>list.includes(value)));
-    };
-    const general=common('general').filter(value=>!/^(?:Nominal duct connection|Nominal intake diameter):/i.test(value));
-    series.description={
-      general,
-      motor:common('motor'),
-      applications:common('applications')
-    };
-  }
-
   delete window.models;
 
   function productView(model){
@@ -253,7 +224,7 @@
       catalogOnly:Boolean(model.catalogOnly),
       series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vitlo',categories:series.categories||[]},
       media:model.media?.image?model.media:(series.media||{image:'',gallery:[]}),catalogue:series.catalogue||{},
-      description:model.description||series.description||{general:[],motor:[],applications:[]},
+      description:series.description||{general:[],motor:[],applications:[]},
       pricing:model.pricing,motor:model.motor,technical:model.technical,performance:model.performance,source:model.source
     };
   }

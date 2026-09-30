@@ -6,9 +6,6 @@
   const attr=esc;
   let renderLanguage='';
   function baseLanguage(){
-    const path=String(location.pathname||'').toLowerCase();
-    if(path==='/tr'||path.startsWith('/tr/'))return 'tr';
-    if(path==='/en'||path.startsWith('/en/'))return 'en';
     const value=window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
     return value==='tr'?'tr':'en';
   }
@@ -91,43 +88,16 @@
 
   function previewDimensions(product,model,series){
     const brand=String(series?.manufacturer||product?.manufacturer||model?.manufacturer||model?.brand||'').trim().toLowerCase();
-    if(brand==='vitlo'){
-      try{
-        return window.VensisVitloDimensions?.resolve?.(
-          series?.code||model?.seriesId||model?.series||product?.seriesCode||'',
-          model
-        )||null;
-      }catch(error){
-        console.warn('Vensis Vitlo dimension resolver error',error);
-        return null;
-      }
+    if(brand!=='vitlo')return null;
+    try{
+      return window.VensisVitloDimensions?.resolve?.(
+        series?.code||model?.seriesId||model?.series||product?.seriesCode||'',
+        model
+      )||null;
+    }catch(error){
+      console.warn('Vensis Vitlo dimension resolver error',error);
+      return null;
     }
-    if(brand==='vortice'){
-      const technical=obj(model?.technical);
-      const productTechnical=obj(product?.technical);
-      const raw=obj(technical.dimensions||model?.dimensions||productTechnical.dimensions);
-      const headers=Object.keys(raw).filter(key=>!['type','unit','note'].includes(String(key).toLowerCase())&&raw[key]!=null&&raw[key]!=='');
-      const values={};
-      headers.forEach(key=>{values[key]=raw[key]});
-      const asset=absoluteAssetUrl(
-        model?.media?.dimensionImage||
-        product?.media?.dimensionImage||
-        model?.dimensionImage||
-        model?.dimension_image_path||
-        product?.dimensionImage||
-        ''
-      );
-      if(!headers.length&&!asset)return null;
-      return {
-        series:series?.code||model?.seriesId||model?.series||product?.seriesCode||'',
-        referenceModel:model?.model||product?.model||model?.display||'',
-        headers,
-        values,
-        unit:'mm',
-        drawing:asset?{asset}:null
-      };
-    }
-    return null;
   }
 
   function modelId(item){return item?.id??item?.key??item?.productKey??item?.model??''}
@@ -184,16 +154,13 @@
     const fallbackDescription=obj(model.catalogueInfo);
     const brand=series.manufacturer||product.manufacturer||model.manufacturer||model.brand||'Vitlo';
     const isTr=language()==='tr';
-    let rawGeneral=arr(rawDescription.general?.length?rawDescription.general:fallbackDescription.general);
+    const rawGeneral=arr(rawDescription.general?.length?rawDescription.general:fallbackDescription.general);
     const rawMotorInfo=arr(rawDescription.motor?.length?rawDescription.motor:fallbackDescription.motor);
     const rawApplications=arr(rawDescription.applications?.length?rawDescription.applications:fallbackDescription.applications);
-    if(String(brand).trim().toLowerCase()==='vortice'){
-      rawGeneral=rawGeneral.filter(value=>!/^(?:Nominal duct connection|Nominal intake diameter):/i.test(String(value||'').trim()));
-    }
     const general=isTr?rawGeneral.map(trText):rawGeneral;
     const motorInfo=isTr?rawMotorInfo.map(trText):rawMotorInfo;
     let applications=isTr?rawApplications.map(trText):rawApplications;
-    if(isTr&&['vitlo','vortice'].includes(String(brand).trim().toLowerCase())&&rawApplications.length){
+    if(isTr&&String(brand).trim().toLowerCase()==='vitlo'&&rawApplications.length){
       const sentence=window.VensisCatalogLanguage?.applicationSentenceToTr?.(rawApplications);
       if(sentence)applications=[sentence];
     }
@@ -409,10 +376,10 @@
     );
     if(!asset)return '';
     return `<div class="catalog-drawing" data-original-catalog-drawing>
-      <img id="catalogDrawingImage"
+      <img id="vitloCatalogDrawingImage"
         class="catalog-drawing-image ready"
         src="${attr(asset)}"
-        alt="${attr(tx('drawingDimensions'))}"
+        alt="Vitlo katalog orijinal teknik çizimi"
         decoding="sync"
         onerror="this.style.display='none'">
     </div>`;
@@ -440,9 +407,8 @@
     const curve=curveSvg(d);
     const drawingContext=d.dimensions||{series:d.seriesCode};
     const drawingHtml=originalDrawingHtml(drawingContext);
-    const hasDimensionValues=Boolean(d.dimensions?.headers?.length);
     const dimensionPanel=(d.dimensions||drawingHtml)
-      ?`<section class="drawing-section"><h3 class="section-head">${esc(tx('drawingDimensions'))}</h3><div class="dimension-panel${hasDimensionValues?'':' no-values'}">${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${hasDimensionValues?`<div class="dimension-table-wrap"><table class="dimension-table"><thead><tr><th>${esc(tx('dimension'))}</th><th aria-label="${esc(tx('value'))}"></th></tr></thead><tbody>${dimensionRowsHtml(d.dimensions)}</tbody></table></div>`:''}</div></section>`
+      ?`<section class="drawing-section"><h3 class="section-head">${esc(tx('drawingDimensions'))}</h3><div class="dimension-panel${d.dimensions?'':' no-values'}">${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${d.dimensions?`<div class="dimension-table-wrap"><table class="dimension-table"><thead><tr><th>${esc(tx('dimension'))}</th><th aria-label="${esc(tx('value'))}"></th></tr></thead><tbody>${dimensionRowsHtml(d.dimensions)}</tbody></table></div>`:''}</div></section>`
       :'';
 
     const html=`<!doctype html><html lang="${language()}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} ${esc(tx('titleSuffix'))}</title><base href="${attr(new URL('.',window.location.href).href)}"><style>

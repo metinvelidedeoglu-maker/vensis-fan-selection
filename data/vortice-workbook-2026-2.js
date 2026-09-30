@@ -16,18 +16,6 @@
   const extraById=new Map();
   const extraBySeries=new Map();
   const usedIds=new Set();
-  const verifiedSpecOverrides=new Map([
-    ['SLIMROOF ES|SLIMROOF 155 M ES',{speed:3950}],
-    ['SLIMROOF ES|SLIMROOF 190 M ES',{speed:3570}],
-    ['SLIMROOF ES|SLIMROOF 220 M ES',{speed:2600}],
-    ['SLIMROOF ES|SLIMROOF 250 M ES',{speed:2500}],
-    ['SLIMROOF ES|SLIMROOF 310 M ES',{speed:2350}],
-    ['SLIMROOF ES|SLIMROOF 355 T ES',{speed:2100}],
-    ['SLIMROOF ES|SLIMROOF 450 T ES',{speed:1450}],
-    ['SLIMROOF ES|SLIMROOF 500 T ES',{speed:1800}],
-    ['SLIMROOF ES|SLIMROOF 560 T ES',{speed:1520}],
-    ['SLIMROOF ES|SLIMROOF 630 T ES',{speed:1250}]
-  ]);
   const matched=[];
   const aliases=[];
   const unmatched=[];
@@ -69,24 +57,19 @@
     model.model=altModel;
     model.display=altModel;
     model.altModel=altModel;
-    const verified=verifiedSpecOverrides.get(`${text(row.series)}|${altModel}`)||{};
-    const power=numeric(row.power);
-    const speed=numeric(verified.speed??row.speed);
-    const sound=numeric(row.sound);
-    const airflow=numeric(row.maxAirflow);
-    model.motor.power=power||numeric(model.motor.power);
-    model.motor.speed=speed||numeric(model.motor.speed);
-    model.motor.voltage=text(row.voltage)||text(model.motor.voltage);
-    model.motor.sound=sound||numeric(model.motor.sound);
-    model.performance.nominalAirflow=airflow||numeric(model.performance.nominalAirflow);
+    model.motor.power=numeric(row.power);
+    model.motor.speed=numeric(row.speed);
+    model.motor.voltage=text(row.voltage);
+    model.motor.sound=numeric(row.sound);
+    model.performance.nominalAirflow=numeric(row.maxAirflow);
     model.pricing.listPrice=numeric(row.price);
     model.pricing.currency='EUR';
     model.standard.altModel=altModel;
-    model.standard.motorPower=power||numeric(model.standard.motorPower);
-    model.standard.speed=speed||numeric(model.standard.speed);
-    model.standard.voltage=text(row.voltage)||text(model.standard.voltage);
-    model.standard.maxAirflow=airflow||numeric(model.standard.maxAirflow);
-    model.standard.sound=sound||numeric(model.standard.sound);
+    model.standard.motorPower=numeric(row.power);
+    model.standard.speed=numeric(row.speed);
+    model.standard.voltage=text(row.voltage);
+    model.standard.maxAirflow=numeric(row.maxAirflow);
+    model.standard.sound=numeric(row.sound);
     model.standard.price=numeric(row.price);
     return model;
   }
@@ -115,7 +98,7 @@
 
   function productFor(model){
     const series=catalog.series.find(item=>String(item.id)===String(model.seriesId))||{};
-    return {id:model.id,model:model.model,series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vortice',categories:[...(series.categories||[])]},media:model.media,description:model.description||series.description||{general:[],motor:[],applications:[]},pricing:model.pricing,motor:model.motor,technical:model.technical,performance:model.performance,source:model.source};
+    return {id:model.id,model:model.model,series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vortice',categories:[...(series.categories||[])]},media:model.media,description:series.description||{general:[],motor:[],applications:[]},pricing:model.pricing,motor:model.motor,technical:model.technical,performance:model.performance,source:model.source};
   }
 
   const rowsBySeries=new Map();

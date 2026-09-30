@@ -78,9 +78,6 @@
   };
 
   function language(){
-    const path=String(location.pathname||'').toLowerCase();
-    if(path==='/tr'||path.startsWith('/tr/'))return 'tr';
-    if(path==='/en'||path.startsWith('/en/'))return 'en';
     if(window.VensisI18n?.getLanguage)return window.VensisI18n.getLanguage();
     try{return localStorage.getItem('vensis_language_v1')==='tr'?'tr':'en'}catch{return 'en'}
   }

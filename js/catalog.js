@@ -4,74 +4,6 @@
   const selected={manufacturers:new Set(),categories:new Set()};
   const esc=value=>String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const displayBrand=value=>String(value??'').trim().toLowerCase()==='vortice'?'VORTICE':value;
-  const assetPath=value=>{
-    const raw=String(value??'').trim();
-    if(!raw)return '';
-    if(/^(?:data:|blob:|https?:|\/\/|\/)/i.test(raw))return raw;
-    return raw.startsWith('assets/')?'/'+raw:raw;
-  };
-  const catalogLanguage=()=>{
-    const path=String(location.pathname||'').toLowerCase();
-    if(path==='/tr'||path.startsWith('/tr/'))return 'tr';
-    if(path==='/en'||path.startsWith('/en/'))return 'en';
-    return window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
-  };
-  const featureText=value=>{
-    const source=String(value??'').trim();
-    if(catalogLanguage()!=='tr')return source;
-    return window.VensisCatalogLanguage?.productTextToTr?.(source)||source;
-  };
-  const uiTr=new Map([
-    ['← Back to Series','← Serilere Dön'],
-    ['General Features','Genel Özellikler'],
-    ['Models','Modeller'],
-    ['View Series →','Seriyi Gör →'],
-    ['Open Product PDF','Ürün PDF’ini Aç'],
-    ['Catalog only','Yalnızca katalog'],
-    ['Curve available · selection ready','Eğri mevcut · seçime hazır'],
-    ['Available · selection ready','Mevcut · seçime hazır'],
-    ['Catalog Operating Points','Katalog Çalışma Noktaları'],
-    ['Dimension Drawing','Ölçü Çizimi'],
-    ['Preview','Önizleme'],
-    ['Power','Güç'],
-    ['Motor Power','Güç'],
-    ['Speed','Devir'],
-    ['Current','Akım'],
-    ['Voltage','Gerilim'],
-    ['Frequency','Frekans'],
-    ['Airflow','Debi'],
-    ['Noise','Ses'],
-    ['Fire Rating','Yangın Dayanımı'],
-    ['Fan Type','Fan Tipi'],
-    ['Mount Type','Montaj Tipi'],
-    ['IP Class','IP Sınıfı'],
-    ['Price','Fiyat'],
-    ['Control','Kontrol'],
-    ['Yes','Evet'],
-    ['No','Hayır']
-  ]);
-  const uiText=value=>{
-    const source=String(value??'').trim();
-    return catalogLanguage()==='tr'?(uiTr.get(source)||source):source;
-  };
-  const titleText=value=>{
-    const source=String(value??'').trim();
-    if(catalogLanguage()!=='tr')return source;
-    return window.VensisCatalogLanguage?.titleToTr?.(source)||source;
-  };
-  const categoryText=value=>{
-    const source=String(value??'').trim();
-    if(catalogLanguage()!=='tr')return source;
-    return window.VensisCatalogLanguage?.categoryToTr?.(source)||source;
-  };
-  const fieldValueText=(label,value)=>{
-    const source=String(value??'').trim();
-    if(catalogLanguage()!=='tr')return source;
-    if(source==='Yes'||source==='No'||source==='Available · selection ready')return uiText(source);
-    if(label==='Fan Type')return ({Axial:'Aksiyel',Centrifugal:'Santrifüj',Radial:'Radyal'})[source]||featureText(source);
-    if(label==='Mount Type')return ({Duct:'Kanal Tipi',Wall:'Duvar Tipi',Roof:'Çatı Tipi',Cell:'Hücreli',Mobile:'Mobil'})[source]||featureText(source);
-    return source;
-  };
   const num=(value,decimals=0)=>{const n=Number(value);return Number.isFinite(n)&&n>0?n.toLocaleString('en-US',{maximumFractionDigits:decimals,minimumFractionDigits:decimals}):'-'};
   const unique=items=>[...new Set(items.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
   const allSeries=catalog.series||[];
@@ -108,13 +40,13 @@
     const count=(series.modelIds||[]).length;
     const summary=firstText(series.description?.general)||series.title||'';
     return `<article class="series-card" data-series="${esc(series.id)}" role="link" tabindex="0">
-      <div class="series-card-image"><img src="${esc(assetPath(series.media?.image||''))}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
+      <div class="series-card-image"><img src="${esc(series.media?.image||'')}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
       <div class="series-card-body">
         <div class="series-brand">${esc(displayBrand(series.manufacturer||''))}</div>
         <h2>${esc(series.code||series.title)}</h2>
-        <div class="series-title">${esc(titleText(series.title||''))}</div>
+        <div class="series-title">${esc(series.title||'')}</div>
         ${summary&&summary!==series.title?`<p>${esc(summary)}</p>`:''}
-        <div class="series-card-footer"><b>${count} ${esc(catalogLanguage()==='tr'?'model':'Models')}</b><span>${esc(uiText('View Series →'))}</span></div>
+        <div class="series-card-footer"><b>${count} Models</b><span>View Series →</span></div>
       </div>
     </article>`;
   }
@@ -197,29 +129,29 @@
       ['IP Class',technical.ipClass||'-'],
       ['Price',model.pricing?.listPrice>0?`€${num(model.pricing.listPrice,2)}`:'-']
     ];
-    return fields.map(([label,value])=>`<div class="model-field"><span>${esc(uiText(label))}</span><b>${esc(fieldValueText(label,value))}</b></div>`).join('');
+    return fields.map(([label,value])=>`<div class="model-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
   }
 
   function operatingPointsTable(model){
     const points=model.performance?.operatingPoints||[];
     if(points.length<2)return '';
-    return `<div class="model-operating-points"><div class="model-operating-title">${esc(uiText('Catalog Operating Points'))}</div><div class="model-operating-scroll"><table><thead><tr><th>${esc(uiText('Control'))}</th><th>kW</th><th>rpm</th><th>A</th><th>m³/h</th><th>Pa</th><th>dB(A)</th></tr></thead><tbody>${points.map(point=>`<tr><td><b>${esc(point.control||'-')}</b></td><td>${num(point.power,3)}</td><td>${num(point.speed)}</td><td>${num(point.current,2)}</td><td>${num(point.nominalAirflow)}</td><td>${num(point.maxPressure)}</td><td>${num(point.sound,1)}</td></tr>`).join('')}</tbody></table></div></div>`;
+    return `<div class="model-operating-points"><div class="model-operating-title">Catalog Operating Points</div><div class="model-operating-scroll"><table><thead><tr><th>Control</th><th>kW</th><th>rpm</th><th>A</th><th>m³/h</th><th>Pa</th><th>dB(A)</th></tr></thead><tbody>${points.map(point=>`<tr><td><b>${esc(point.control||'-')}</b></td><td>${num(point.power,3)}</td><td>${num(point.speed)}</td><td>${num(point.current,2)}</td><td>${num(point.nominalAirflow)}</td><td>${num(point.maxPressure)}</td><td>${num(point.sound,1)}</td></tr>`).join('')}</tbody></table></div></div>`;
   }
 
   function modelCard(model,series){
-    const image=assetPath(model.media?.image||series.media?.image||'');
-    const dimensionImage=assetPath(model.media?.dimensionImage||'');
+    const image=model.media?.image||series.media?.image||'';
+    const dimensionImage=model.media?.dimensionImage||'';
     return `<article class="model-card">
       <div class="model-card-head">
         <img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
-        <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?`<span class="model-catalog-only">${esc(uiText('Catalog only'))}</span>`:`<span class="model-catalog-only" style="background:#e8f6ef;color:#087f4f">${esc(uiText('Curve available · selection ready'))}</span>`}</div>
+        <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?'<span class="model-catalog-only">Catalog only</span>':'<span class="model-catalog-only" style="background:#e8f6ef;color:#087f4f">Curve available · selection ready</span>'}</div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
-      ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> <span class="model-safety-warning-text">${esc(model.technical.safetyWarning)}</span></div>`:''}
-      ${dimensionImage?`<details class="model-dimension"><summary>${esc(uiText('Dimension Drawing'))}</summary><img src="${esc(dimensionImage)}" alt="${esc(model.model)} dimension drawing" loading="lazy" onerror="this.closest('details').hidden=true"></details>`:''}
+      ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> ${esc(model.technical.safetyWarning)}</div>`:''}
+      ${dimensionImage?`<details class="model-dimension"><summary>Dimension Drawing</summary><img src="${esc(dimensionImage)}" alt="${esc(model.model)} dimension drawing" loading="lazy" onerror="this.closest('details').hidden=true"></details>`:''}
       ${operatingPointsTable(model)}
       <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px;gap:8px;margin-top:13px">
-        <button class="model-datasheet-btn" style="margin-top:0" type="button" data-model-datasheet="${esc(model.id)}">${esc(uiText('Preview'))}</button>
+        <button class="model-datasheet-btn" style="margin-top:0" type="button" data-model-datasheet="${esc(model.id)}">Preview</button>
         <button class="model-datasheet-btn" style="margin-top:0;font-size:22px;padding:0" type="button" data-add-catalog-project="${esc(model.id)}" title="Add to project" aria-label="Add to project">+</button>
       </div>
     </article>`;
@@ -276,7 +208,7 @@
       model:model.model||'',
       series:series.title||model.seriesTitle||'',
       manufacturer:series.manufacturer||model.manufacturer||'Vitlo',
-      image:assetPath(product.media?.image||series.media?.image||model.image||''),
+      image:product.media?.image||series.media?.image||model.image||'',
       nominalAirflow:Number(model.performance?.nominalAirflow)||0,
       required:null,
       selected:null,
@@ -300,17 +232,16 @@
     const series=catalog.getSeries?catalog.getSeries(id):allSeries.find(item=>item.id===id);if(!series)return;
     const models=catalog.modelsForSeries?catalog.modelsForSeries(id):allModels.filter(model=>model.seriesId===id);
     const pdf=series.catalogue?.pdf;
-    const brandKey=String(series.manufacturer||'').trim().toLowerCase();
-    const unifiedFeatures=brandKey==='vitlo'||brandKey==='vortice';
+    const isVitlo=String(series.manufacturer||'').trim().toLowerCase()==='vitlo';
     const description=series.description||{};
-    const featureGeneral=[...(description.general||[]),...(description.motor||[])].filter(Boolean);
-    const featureApplications=[...(description.applications||[])].filter(Boolean);
-    const unifiedFeaturesHtml=()=>{
-      if(!featureGeneral.length&&!featureApplications.length)return '<p class="empty-note">No information available.</p>';
-      return `<ul>${featureGeneral.map(item=>`<li class="catalog-general" data-vensis-en="${esc(item)}">${esc(featureText(item))}</li>`).join('')}${featureApplications.map(item=>`<li class="catalog-application" data-vensis-en="${esc(item)}">${esc(featureText(item))}</li>`).join('')}</ul>`;
+    const vitloGeneral=[...(description.general||[]),...(description.motor||[])].filter(Boolean);
+    const vitloApplications=[...(description.applications||[])].filter(Boolean);
+    const vitloFeaturesHtml=()=>{
+      if(!vitloGeneral.length&&!vitloApplications.length)return '<p class="empty-note">No information available.</p>';
+      return `<ul>${vitloGeneral.map(item=>`<li class="vitlo-general">${esc(item)}</li>`).join('')}${vitloApplications.map(item=>`<li class="vitlo-application">${esc(item)}</li>`).join('')}</ul>`;
     };
-    const seriesInfoHtml=unifiedFeatures
-      ? `<div class="series-info-grid"><section class="detail-section" data-unified-features data-${brandKey}-features style="grid-column:1/-1"><h3>${esc(uiText('General Features'))}</h3>${unifiedFeaturesHtml()}</section></div>`
+    const seriesInfoHtml=isVitlo
+      ? `<div class="series-info-grid"><section class="detail-section" data-vitlo-features style="grid-column:1/-1"><h3>General Features</h3>${vitloFeaturesHtml()}</section></div>`
       : `<div class="series-info-grid">
           <section class="detail-section"><h3>General Features</h3>${bullets(description.general)}</section>
           <section class="detail-section"><h3>Motor</h3>${bullets(description.motor)}</section>
@@ -320,22 +251,22 @@
     const detail=document.getElementById('detailPage');
     detail.hidden=false;
     detail.innerHTML=`
-      <button class="detail-back" type="button" onclick="Catalog.back()">${esc(uiText('← Back to Series'))}</button>
+      <button class="detail-back" type="button" onclick="Catalog.back()">← Back to Series</button>
       <section class="series-hero">
-        <div class="series-hero-image"><img src="${esc(assetPath(series.media?.image||''))}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
+        <div class="series-hero-image"><img src="${esc(series.media?.image||'')}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
         <div class="series-hero-copy">
           <div class="series-brand">${esc(displayBrand(series.manufacturer||''))}</div>
           <h1>${esc(series.code||series.title)}</h1>
-          <h2>${esc(titleText(series.title||''))}</h2>
-          <div class="series-badges"><span>${models.length} ${esc(catalogLanguage()==='tr'?'model':'Models')}</span>${(series.categories||[]).map(category=>`<span>${esc(categoryText(category))}</span>`).join('')}</div>
+          <h2>${esc(series.title||'')}</h2>
+          <div class="series-badges"><span>${models.length} Models</span>${(series.categories||[]).map(category=>`<span>${esc(category)}</span>`).join('')}</div>
           <div class="series-hero-actions">
-            ${pdf?`<a class="catalog-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">${esc(uiText('Open Product PDF'))}</a>`:''}
+            ${pdf?`<a class="catalog-pdf" href="${esc(pdf)}" target="_blank" rel="noopener">Open Product PDF</a>`:''}
           </div>
         </div>
       </section>
       ${seriesInfoHtml}
       <section class="models-section">
-        <div class="catalog-head"><div><div class="section-kicker">${esc(series.code)}</div><h2>${esc(uiText('Models'))}</h2></div><div class="catalog-count">${models.length} ${esc(catalogLanguage()==='tr'?'model':'models')}</div></div>
+        <div class="catalog-head"><div><div class="section-kicker">${esc(series.code)}</div><h2>Models</h2></div><div class="catalog-count">${models.length} models</div></div>
         <div class="models-grid">${models.map(model=>modelCard(model,series)).join('')||'<div class="empty-state">No models available.</div>'}</div>
       </section>`;
     detail.querySelectorAll('[data-model-datasheet]').forEach(button=>button.addEventListener('click',()=>saveModelPdf(button.dataset.modelDatasheet)));

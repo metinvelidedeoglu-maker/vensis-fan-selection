@@ -11,37 +11,7 @@
   const fullModelName=(series,model)=>{const code=text(series?.code||series?.id),current=text(model?.model||model?.display||model?.id);if(!code)return current;if(!current)return code;const c=current.toUpperCase(),s=code.toUpperCase();const exists=c===s||c.startsWith(s+' ')||c.startsWith(s+'-')||c.startsWith(s+'/')||c.includes(' '+s+' ')||c.endsWith(' '+s);return exists?current:`${code} ${current}`};
   const maxAirflow=model=>{const values=[finite(model?.performance?.nominalAirflow)];for(const point of model?.performance?.points||[])values.push(finite(point?.[1]));for(const point of model?.performance?.sourcePoints||[])values.push(finite(point?.[1]));for(const curve of model?.performance?.curves||[]){for(const point of curve?.sourcePoints||[])values.push(finite(point?.[1]));for(const point of curve?.points||[])values.push(finite(point?.[1]))}for(const point of model?.performance?.operatingPoints||[])values.push(finite(point?.nominalAirflow));return Math.max(0,...values)};
   const voltageOnly=value=>{const raw=text(value);const match=raw.match(/\b(\d+(?:\/\d+)?\s*V)\b/i);return match?match[1].replace(/\s+/g,'').toUpperCase():raw};
-  const brandKey=series=>text(series?.manufacturer).toLocaleLowerCase('tr-TR');
-  const isVitlo=series=>brandKey(series)==='vitlo';
-  const isVortice=series=>brandKey(series)==='vortice';
-  const usesUnifiedFeatures=series=>isVitlo(series)||isVortice(series);
-  const catalogLanguage=()=>{
-    const path=String(location.pathname||'').toLowerCase();
-    if(path==='/tr'||path.startsWith('/tr/'))return 'tr';
-    if(path==='/en'||path.startsWith('/en/'))return 'en';
-    return window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
-  };
-  const uiText=value=>{
-    const source=text(value);
-    if(catalogLanguage()!=='tr')return source;
-    const fallback={
-      'General Features':'Genel Özellikler',
-      'No information available.':'Bilgi bulunmuyor.',
-      'Motor Power':'Güç',
-      'Speed':'Devir',
-      'Current':'Akım',
-      'Voltage':'Gerilim',
-      'Max. Airflow':'Maks. Debi',
-      'Sound':'Ses',
-      'Price':'Fiyat'
-    };
-    return fallback[source]||source;
-  };
-  const productText=value=>{
-    const source=text(value);
-    if(catalogLanguage()!=='tr')return source;
-    return window.VensisCatalogLanguage?.productTextToTr?.(source)||source;
-  };
+  const isVitlo=series=>text(series?.manufacturer).toLocaleLowerCase('tr-TR')==='vitlo';
 
   // 2026-08-27: Values supplied by Metin in the Vitlo workbook.
   // All other Vitlo power/speed/current/airflow/sound values already match the workbook exactly.
@@ -51,16 +21,13 @@
   for(const series of catalog.series){
     const models=typeof catalog.modelsForSeries==='function'?catalog.modelsForSeries(series.id):catalog.models.filter(model=>model.seriesId===series.id);
     const originalDescription={general:[...(series?.description?.general||[])],motor:[...(series?.description?.motor||[])],applications:[...(series?.description?.applications||[])]};
-    if(isVortice(series)){
-      originalDescription.general=originalDescription.general.filter(value=>!/^(?:Nominal duct connection|Nominal intake diameter):/i.test(text(value)));
-    }
     const descriptionText=uniqueText([originalDescription.general,originalDescription.motor,originalDescription.applications]).join(' ');
     series.schemaVersion='2.2';
     series.modelName=text(series.code||series.title||series.id);
     series.brand=text(series.manufacturer);
     series.descriptionParts=originalDescription;
     series.descriptionText=descriptionText;
-    series.description=usesUnifiedFeatures(series)
+    series.description=isVitlo(series)
       ? {text:descriptionText,general:[...originalDescription.general],motor:[...originalDescription.motor],applications:[...originalDescription.applications]}
       : {text:descriptionText,general:descriptionText?[descriptionText]:[],motor:[],applications:[]};
     series.category=[...(series.categories||[])];
@@ -128,15 +95,15 @@
       if(series&&infoGrid&&infoGrid.dataset.schemaV2!=='1'){
         infoGrid.dataset.schemaV2='1';
         infoGrid.style.gridTemplateColumns='1fr';
-        if(usesUnifiedFeatures(series)){
+        if(isVitlo(series)){
           const parts=series.descriptionParts||series.description||{};
           const general=uniqueText([parts.general||[],parts.motor||[]]);
           const applications=uniqueText([parts.applications||[]]);
           const items=[
-            ...general.map(value=>`<li class="catalog-general" data-vensis-en="${esc(value)}">${esc(productText(value))}</li>`),
-            ...applications.map(value=>`<li class="catalog-application" data-vensis-en="${esc(value)}">${esc(productText(value))}</li>`)
+            ...general.map(value=>`<li class="vitlo-general">${esc(value)}</li>`),
+            ...applications.map(value=>`<li class="vitlo-application">${esc(value)}</li>`)
           ].join('');
-          infoGrid.innerHTML=`<section class="detail-section" data-unified-features data-${brandKey(series)}-features><h3>${esc(uiText('General Features'))}</h3>${items?`<ul>${items}</ul>`:`<p class="empty-note">${esc(uiText('No information available.'))}</p>`}</section>`;
+          infoGrid.innerHTML=`<section class="detail-section" data-vitlo-features><h3>General Features</h3>${items?`<ul>${items}</ul>`:'<p class="empty-note">No information available.</p>'}</section>`;
         }else{
           infoGrid.innerHTML=`<section class="detail-section"><h3>Description</h3><p style="margin:0;line-height:1.65;color:#334155">${esc(series.descriptionText||'No information available.')}</p></section>`;
         }
@@ -153,13 +120,13 @@
         if(title)title.textContent=s.altModel||model.model||'';
         const grid=card.querySelector('.model-grid');
         if(grid)grid.innerHTML=[
-          field(uiText('Motor Power'),s.motorPower>0?`${num(s.motorPower,2)} kW`:'-'),
-          field(uiText('Speed'),s.speed>0?`${num(s.speed)} rpm`:'-'),
-          field(uiText('Current'),s.current>0?`${num(s.current,2)} A`:'-'),
-          field(uiText('Voltage'),s.voltage||'-'),
-          field(uiText('Max. Airflow'),s.maxAirflow>0?`${num(s.maxAirflow)} m³/h`:'-'),
-          field(uiText('Sound'),s.sound>0?`${num(s.sound)} dB(A)`:'-'),
-          field(uiText('Price'),money(s.price,model?.pricing?.currency||'EUR'))
+          field('Motor Power',s.motorPower>0?`${num(s.motorPower,2)} kW`:'-'),
+          field('Speed',s.speed>0?`${num(s.speed)} rpm`:'-'),
+          field('Current',s.current>0?`${num(s.current,2)} A`:'-'),
+          field('Voltage',s.voltage||'-'),
+          field('Max. Airflow',s.maxAirflow>0?`${num(s.maxAirflow)} m³/h`:'-'),
+          field('Sound',s.sound>0?`${num(s.sound)} dB(A)`:'-'),
+          field('Price',money(s.price,model?.pricing?.currency||'EUR'))
         ].join('');
         const op=card.querySelector('.model-operating-points');
         if(op)op.hidden=true;
