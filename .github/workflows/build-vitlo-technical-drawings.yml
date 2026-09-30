@@ -32,7 +32,7 @@ jobs:
       - name: Render Vitlo technical drawings per series
         run: |
           mkdir -p /tmp/vitlo-pages assets/products
-          for page in 5 6 9 11 15 19 21 23 24 25 31 39 42 47 51 56; do
+          for page in 5 6 9 11 15 19 21 23 24 25 31 39 40 42 47 51 56; do
             pdftoppm -f "$page" -singlefile -png -r 220 /tmp/vitlo.pdf "/tmp/vitlo-pages/page-$page"
           done
 
@@ -65,11 +65,11 @@ jobs:
               'CRH/ATEX': ('CRH-ATEX', 23),
               'CR-EC': ('CR-EC', 23),
 
-              'CRB': ('CRB', 24),
-              'CRD': ('CRD', 24),
-              'CRD/ATEX': ('CRD-ATEX', 24),
-              'CRR': ('CRR', 24),
-              'CRB-EC': ('CRB-EC', 24),
+              'CRB': ('CRB', 40),
+              'CRD': ('CRD', 40),
+              'CRD/ATEX': ('CRD-ATEX', 40),
+              'CRR': ('CRR', 40),
+              'CRB-EC': ('CRB-EC', 40),
 
               'CRS': ('CRS', 25),
               'CRS/ATEX': ('CRS-ATEX', 25),
