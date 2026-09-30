@@ -1243,6 +1243,9 @@
   let scheduled=false;
 
   function language(){
+    const path=String(location.pathname||'').toLowerCase();
+    if(path==='/tr'||path.startsWith('/tr/'))return 'tr';
+    if(path==='/en'||path.startsWith('/en/'))return 'en';
     return window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
   }
 
