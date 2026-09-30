@@ -288,7 +288,7 @@
     if(footer){
       const meta=doc.createElement('div');
       meta.className='pdf-footer-meta';
-      meta.textContent=`Project Datasheet Appendix  •  Page ${index+2} / ${total+1}`;
+      meta.textContent='Project Datasheet Appendix';
       footer.appendChild(meta);
     }
     return `<section class="sheet datasheet-page one-page-datasheet">${sheet.innerHTML}</section>`;
@@ -308,7 +308,7 @@
       <section class="hero">${image?`<img class="product-image" src="${esc(image)}" alt="${esc(item.model||'Custom Product')}" onerror="this.style.visibility='hidden'">`:`<div class="product-image" aria-hidden="true" style="border:1px dashed #b8c9cc;border-radius:8px"></div>`}<div class="spec-box"><div class="spec-head">PROJECT SPECIFICATIONS</div>${specRow('Selected / Nominal Airflow',num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h`:'-')}${specRow('Voltage / Frequency',motor.voltage||motor.frequency?`${motor.voltage}${motor.voltage&&motor.frequency?' – ':''}${motor.frequency}`:'-')}${specRow('Motor Power',motor.power>0?`${fmt(motor.power,2)} kW`:'-')}${specRow('Speed',motor.speed>0?`${fmt(motor.speed)} rpm`:'-')}${specRow('Current',motor.current>0?`${fmt(motor.current,2)} A`:'-')}${specRow('Sound Level',motor.sound>0?`${fmt(motor.sound)} dB(A)`:'-')}${specRow('Quantity',String(Math.max(1,num(item.quantity)||1)))}</div></section>
       <section class="info-box" style="margin-top:7mm;min-height:74mm"><h3>Project Description</h3>${description?`<p style="margin:0;color:#29484d;font-size:11px;line-height:1.65;white-space:pre-wrap">${esc(description)}</p>`:'<p class="muted">No additional project description was entered.</p>'}</section>
       <section class="info-box" style="margin-top:5mm;min-height:38mm"><h3>Document Note</h3><p style="margin:0;color:#52666b;font-size:10px;line-height:1.55">This custom product was entered manually in the project and is not linked to a verified selection-program performance curve. Technical suitability and manufacturer data should be confirmed before order.</p></section>
-      <footer class="footer">Custom product data is based on project-entered information and should be verified before order.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Project Technical Document&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="pdf-footer-meta">Custom Product Appendix &nbsp;•&nbsp; Page ${index+2} / ${total+1}</div></footer>
+      <footer class="footer">Custom product data is based on project-entered information and should be verified before order.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Project Technical Document&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="pdf-footer-meta">Custom Product Appendix</div></footer>
     </section>`;
   }
 
