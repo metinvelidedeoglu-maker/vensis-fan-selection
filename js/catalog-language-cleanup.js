@@ -1332,6 +1332,13 @@
     observer.observe(document.documentElement,{childList:true,subtree:true});
   }
 
+  function pruneVorticeModelSpecificFeatures(scope){
+    scope.querySelectorAll?.('[data-vortice-features] li').forEach(node=>{
+      const original=String(node.dataset.vensisEn||node.textContent||'').replace(/\s+/g,' ').trim();
+      if(/^(?:Nominal duct connection|Nominal intake diameter):/i.test(original)||/^Nominal (?:kanal bağlantı çapı|emiş çapı)/i.test(original))node.remove();
+    });
+  }
+
   function consolidateFeatureApplications(scope){
     scope.querySelectorAll?.('[data-unified-features],[data-vitlo-features],[data-vortice-features]').forEach(section=>{
       const apps=[...section.querySelectorAll('.catalog-application,.vitlo-application,.vortice-application')];
@@ -1364,6 +1371,7 @@
       cleanVorticeTitles(scope);
       scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
       scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li,.model-safety-warning-text').forEach(node=>renderNode(node,'product'));
+      pruneVorticeModelSpecificFeatures(scope);
       consolidateFeatureApplications(scope);
 
       scope.querySelectorAll('.model-field').forEach(field=>{
