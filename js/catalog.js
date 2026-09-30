@@ -232,16 +232,17 @@
     const series=catalog.getSeries?catalog.getSeries(id):allSeries.find(item=>item.id===id);if(!series)return;
     const models=catalog.modelsForSeries?catalog.modelsForSeries(id):allModels.filter(model=>model.seriesId===id);
     const pdf=series.catalogue?.pdf;
-    const isVitlo=String(series.manufacturer||'').trim().toLowerCase()==='vitlo';
+    const brandKey=String(series.manufacturer||'').trim().toLowerCase();
+    const unifiedFeatures=brandKey==='vitlo'||brandKey==='vortice';
     const description=series.description||{};
-    const vitloGeneral=[...(description.general||[]),...(description.motor||[])].filter(Boolean);
-    const vitloApplications=[...(description.applications||[])].filter(Boolean);
-    const vitloFeaturesHtml=()=>{
-      if(!vitloGeneral.length&&!vitloApplications.length)return '<p class="empty-note">No information available.</p>';
-      return `<ul>${vitloGeneral.map(item=>`<li class="vitlo-general">${esc(item)}</li>`).join('')}${vitloApplications.map(item=>`<li class="vitlo-application">${esc(item)}</li>`).join('')}</ul>`;
+    const featureGeneral=[...(description.general||[]),...(description.motor||[])].filter(Boolean);
+    const featureApplications=[...(description.applications||[])].filter(Boolean);
+    const unifiedFeaturesHtml=()=>{
+      if(!featureGeneral.length&&!featureApplications.length)return '<p class="empty-note">No information available.</p>';
+      return `<ul>${featureGeneral.map(item=>`<li class="catalog-general">${esc(item)}</li>`).join('')}${featureApplications.map(item=>`<li class="catalog-application">${esc(item)}</li>`).join('')}</ul>`;
     };
-    const seriesInfoHtml=isVitlo
-      ? `<div class="series-info-grid"><section class="detail-section" data-vitlo-features style="grid-column:1/-1"><h3>General Features</h3>${vitloFeaturesHtml()}</section></div>`
+    const seriesInfoHtml=unifiedFeatures
+      ? `<div class="series-info-grid"><section class="detail-section" data-unified-features data-${brandKey}-features style="grid-column:1/-1"><h3>General Features</h3>${unifiedFeaturesHtml()}</section></div>`
       : `<div class="series-info-grid">
           <section class="detail-section"><h3>General Features</h3>${bullets(description.general)}</section>
           <section class="detail-section"><h3>Motor</h3>${bullets(description.motor)}</section>
