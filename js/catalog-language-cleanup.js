@@ -520,6 +520,402 @@
   [
     "Data transferred from the manufacturer technical catalogue",
     "Veriler üreticinin teknik kataloğundan aktarılmıştır"
+  ],
+  [
+    "ATEX dust marking: II 2D Ex h IIIC T125°C Db.",
+    "ATEX toz işaretlemesi: II 2D Ex h IIIC T125°C Db."
+  ],
+  [
+    "ATEX gas marking: II 2G Ex h IIB T3 Gb.",
+    "ATEX gaz işaretlemesi: II 2G Ex h IIB T3 Gb."
+  ],
+  [
+    "Acoustic casing designed for reduced sound transmission.",
+    "Ses iletimini azaltmak üzere tasarlanmış akustik gövdeye sahiptir."
+  ],
+  [
+    "Approximate continuous air-temperature capability: 200 °C.",
+    "Sürekli hava sıcaklığı kapasitesi yaklaşık 200 °C'dir."
+  ],
+  [
+    "Availability region: EU/current.",
+    "Kullanılabilirlik bölgesi: AB / güncel."
+  ],
+  [
+    "Availability region: Extra EU.",
+    "Kullanılabilirlik bölgesi: AB dışı."
+  ],
+  [
+    "Availability region: global.",
+    "Kullanılabilirlik bölgesi: global."
+  ],
+  [
+    "Axial plate fan for potentially explosive gas and dust atmospheres.",
+    "Patlayıcı gaz ve toz atmosferleri için aksiyel plaka tipi fandır."
+  ],
+  [
+    "Axial residential extract fan.",
+    "Konut tipi aksiyel aspiratördür."
+  ],
+  [
+    "Catalogue vector controls: 8_poles / 4_poles.",
+    "Katalogdaki kontrol seçenekleri: 8 kutup / 4 kutup."
+  ],
+  [
+    "Catalogue vector controls: min / max.",
+    "Katalogdaki kontrol kademeleri: min. / maks."
+  ],
+  [
+    "Catalogue vector controls: min / med / max.",
+    "Katalogdaki kontrol kademeleri: min. / orta / maks."
+  ],
+  [
+    "Catalogue vector controls: nominal.",
+    "Katalogdaki kontrol seviyesi: nominal."
+  ],
+  [
+    "Catalogue vector controls: speed_1 / speed_2 / speed_3 / speed_4.",
+    "Katalogdaki kontrol kademeleri: hız 1 / hız 2 / hız 3 / hız 4."
+  ],
+  [
+    "Centrifugal residential extract fan.",
+    "Konut tipi santrifüj aspiratördür."
+  ],
+  [
+    "Chimney-top radial extract fan for fireplace smoke extraction.",
+    "Şömine dumanının tahliyesi için baca üstü radyal aspiratördür."
+  ],
+  [
+    "Configuration features: humidity sensor, long-life motor.",
+    "Donanım özellikleri: nem sensörü ve uzun ömürlü motor."
+  ],
+  [
+    "Configuration features: long-life motor, reversible airflow.",
+    "Donanım özellikleri: uzun ömürlü motor ve tersinir hava akışı."
+  ],
+  [
+    "Configuration features: long-life motor.",
+    "Donanım özelliği: uzun ömürlü motor."
+  ],
+  [
+    "Configuration features: presence sensor, long-life motor.",
+    "Donanım özellikleri: varlık sensörü ve uzun ömürlü motor."
+  ],
+  [
+    "Configuration features: presence sensor.",
+    "Donanım özelliği: varlık sensörü."
+  ],
+  [
+    "Configuration features: reversible airflow.",
+    "Donanım özelliği: tersinir hava akışı."
+  ],
+  [
+    "Configuration features: timer, humidity sensor, long-life motor.",
+    "Donanım özellikleri: zamanlayıcı, nem sensörü ve uzun ömürlü motor."
+  ],
+  [
+    "Configuration features: timer, humidity sensor.",
+    "Donanım özellikleri: zamanlayıcı ve nem sensörü."
+  ],
+  [
+    "Configuration features: timer, long-life motor.",
+    "Donanım özellikleri: zamanlayıcı ve uzun ömürlü motor."
+  ],
+  [
+    "Configuration features: timer, presence sensor, long-life motor.",
+    "Donanım özellikleri: zamanlayıcı, varlık sensörü ve uzun ömürlü motor."
+  ],
+  [
+    "Configuration features: timer.",
+    "Donanım özelliği: zamanlayıcı."
+  ],
+  [
+    "Continuous air-temperature limit: 80 °C.",
+    "Sürekli hava sıcaklığı sınırı 80 °C'dir."
+  ],
+  [
+    "EC control levels supplied in the catalogue: 2V / 4V / 6V / 8V / 10V.",
+    "Katalogda verilen EC kontrol seviyeleri: 2 V / 4 V / 6 V / 8 V / 10 V."
+  ],
+  [
+    "EC control levels supplied in the catalogue: 2V / 6V / 8V / 10V.",
+    "Katalogda verilen EC kontrol seviyeleri: 2 V / 6 V / 8 V / 10 V."
+  ],
+  [
+    "EC control levels supplied in the catalogue: 2V / 8V / 10V.",
+    "Katalogda verilen EC kontrol seviyeleri: 2 V / 8 V / 10 V."
+  ],
+  [
+    "Emergency smoke duty: F400 (400 °C / 120 minutes).",
+    "Acil durum duman tahliye sınıfı F400'dür (400 °C / 120 dakika)."
+  ],
+  [
+    "Hazardous-area suitability must be confirmed against the project classification and manufacturer documentation; X special conditions apply.",
+    "Tehlikeli bölge uygunluğu proje sınıflandırması ve üretici dokümantasyonuna göre doğrulanmalıdır; X özel koşulları geçerlidir."
+  ],
+  [
+    "In-line mixed-flow fan for circular duct systems.",
+    "Dairesel kanal sistemleri için kanal tipi karışık akışlı fandır."
+  ],
+  [
+    "Insulated cabinet centrifugal fan with 90-degree inlet/outlet arrangement.",
+    "90° emiş/atış düzenine sahip yalıtımlı hücre tipi santrifüj fandır."
+  ],
+  [
+    "Maximum ambient temperature: 45 °C.",
+    "Maksimum ortam sıcaklığı 45 °C'dir."
+  ],
+  [
+    "Maximum ambient temperature: 50 °C.",
+    "Maksimum ortam sıcaklığı 50 °C'dir."
+  ],
+  [
+    "Maximum ambient temperature: 55 °C.",
+    "Maksimum ortam sıcaklığı 55 °C'dir."
+  ],
+  [
+    "Maximum ambient temperature: 60 °C.",
+    "Maksimum ortam sıcaklığı 60 °C'dir."
+  ],
+  [
+    "Nominal duct connection: 100 mm.",
+    "Nominal kanal bağlantı çapı 100 mm'dir."
+  ],
+  [
+    "Nominal duct connection: 125 mm.",
+    "Nominal kanal bağlantı çapı 125 mm'dir."
+  ],
+  [
+    "Nominal duct connection: 150 mm.",
+    "Nominal kanal bağlantı çapı 150 mm'dir."
+  ],
+  [
+    "Nominal duct connection: 160 mm.",
+    "Nominal kanal bağlantı çapı 160 mm'dir."
+  ],
+  [
+    "Nominal duct connection: 200 mm.",
+    "Nominal kanal bağlantı çapı 200 mm'dir."
+  ],
+  [
+    "Nominal duct connection: 250 mm.",
+    "Nominal kanal bağlantı çapı 250 mm'dir."
+  ],
+  [
+    "Nominal duct connection: 315 mm.",
+    "Nominal kanal bağlantı çapı 315 mm'dir."
+  ],
+  [
+    "Nominal intake diameter: 315 mm.",
+    "Nominal emiş çapı 315 mm'dir."
+  ],
+  [
+    "Nominal intake diameter: 355 mm.",
+    "Nominal emiş çapı 355 mm'dir."
+  ],
+  [
+    "Nominal intake diameter: 400 mm.",
+    "Nominal emiş çapı 400 mm'dir."
+  ],
+  [
+    "Nominal intake diameter: 450 mm.",
+    "Nominal emiş çapı 450 mm'dir."
+  ],
+  [
+    "Nominal intake diameter: 500 mm.",
+    "Nominal emiş çapı 500 mm'dir."
+  ],
+  [
+    "Nominal intake diameter: 560 mm.",
+    "Nominal emiş çapı 560 mm'dir."
+  ],
+  [
+    "Nominal intake diameter: 630 mm.",
+    "Nominal emiş çapı 630 mm'dir."
+  ],
+  [
+    "Operating air-temperature range: -20 to +40 °C.",
+    "Çalışma hava sıcaklığı aralığı -20 °C ile +40 °C'dir."
+  ],
+  [
+    "Operating air-temperature range: -25 to +60 °C.",
+    "Çalışma hava sıcaklığı aralığı -25 °C ile +60 °C'dir."
+  ],
+  [
+    "Radial-discharge centrifugal roof fan with an EC motor.",
+    "EC motorlu, radyal atışlı santrifüj çatı fanıdır."
+  ],
+  [
+    "Radial-discharge, dual-use centrifugal roof fan.",
+    "Radyal atışlı, çift amaçlı santrifüj çatı fanıdır."
+  ],
+  [
+    "Roof-mounted mixed-flow exhaust fan for circular duct systems.",
+    "Dairesel kanal sistemleri için çatı tipi karışık akışlı egzoz fanıdır."
+  ],
+  [
+    "Standard configuration.",
+    "Standart konfigürasyondur."
+  ],
+  [
+    "Timer-equipped product variant.",
+    "Zamanlayıcılı ürün varyantıdır."
+  ],
+  [
+    "Warning: not suitable for gas fires.",
+    "Uyarı: gaz yakıtlı şömineler için uygun değildir."
+  ],
+  [
+    "12 V, 50 Hz.",
+    "12 V, 50 Hz."
+  ],
+  [
+    "220-240 V, 50 Hz.",
+    "220-240 V, 50 Hz."
+  ],
+  [
+    "220-240 V, 50/60 Hz.",
+    "220-240 V, 50/60 Hz."
+  ],
+  [
+    "230 V, 50 Hz.",
+    "230 V, 50 Hz."
+  ],
+  [
+    "230 V, 50/60 Hz.",
+    "230 V, 50/60 Hz."
+  ],
+  [
+    "400 V, 50 Hz.",
+    "400 V, 50 Hz."
+  ],
+  [
+    "400 V, 50/60 Hz.",
+    "400 V, 50/60 Hz."
+  ],
+  [
+    "680 V, 50 Hz.",
+    "680 V, 50 Hz."
+  ],
+  [
+    "AC motor.",
+    "AC motora sahiptir."
+  ],
+  [
+    "AC multi-speed.",
+    "Çok kademeli AC motora sahiptir."
+  ],
+  [
+    "AC.",
+    "AC motora sahiptir."
+  ],
+  [
+    "Control levels: 4V / 6V / 8V / 10V.",
+    "Kontrol seviyeleri: 4 V / 6 V / 8 V / 10 V."
+  ],
+  [
+    "Control levels: max.",
+    "Kontrol seviyesi: maks."
+  ],
+  [
+    "Control levels: min / max.",
+    "Kontrol seviyeleri: min. / maks."
+  ],
+  [
+    "Control levels: min / med / max.",
+    "Kontrol seviyeleri: min. / orta / maks."
+  ],
+  [
+    "Control levels: min / mid / max.",
+    "Kontrol seviyeleri: min. / orta / maks."
+  ],
+  [
+    "EC brushless.",
+    "Fırçasız EC motora sahiptir."
+  ],
+  [
+    "EC motor.",
+    "EC motora sahiptir."
+  ],
+  [
+    "IP44 protection, insulation class II.",
+    "IP44 koruma sınıfında ve izolasyon sınıfı II'dir."
+  ],
+  [
+    "IP44 protection.",
+    "IP44 koruma sınıfındadır."
+  ],
+  [
+    "IP45 protection.",
+    "IP45 koruma sınıfındadır."
+  ],
+  [
+    "IP54 protection, insulation class I.",
+    "IP54 koruma sınıfında ve izolasyon sınıfı I'dir."
+  ],
+  [
+    "IP55 protection, insulation class F.",
+    "IP55 koruma sınıfında ve F izolasyon sınıfındadır."
+  ],
+  [
+    "IP55 protection, insulation class I.",
+    "IP55 koruma sınıfında ve izolasyon sınıfı I'dir."
+  ],
+  [
+    "IP65 protection, motor insulation class F.",
+    "IP65 koruma sınıfında ve motor izolasyon sınıfı F'dir."
+  ],
+  [
+    "IPX4 protection, insulation class I.",
+    "IPX4 koruma sınıfında ve izolasyon sınıfı I'dir."
+  ],
+  [
+    "IPX4 protection.",
+    "IPX4 koruma sınıfındadır."
+  ],
+  [
+    "IPX5 protection.",
+    "IPX5 koruma sınıfındadır."
+  ],
+  [
+    "Included speed controller: SCNR.",
+    "SCNR hız kontrol cihazı dahildir."
+  ],
+  [
+    "Performance curves are precomputed from the original catalogue vector paths.",
+    "Performans eğrileri orijinal katalogdaki vektör eğrilerden önceden hesaplanmıştır."
+  ],
+  [
+    "Single Phase, 4-pole motor.",
+    "Monofaze, 4 kutuplu motora sahiptir."
+  ],
+  [
+    "Single Phase, M4 motor.",
+    "Monofaze M4 motora sahiptir."
+  ],
+  [
+    "Three Phase, 4-pole motor.",
+    "Trifaze, 4 kutuplu motora sahiptir."
+  ],
+  [
+    "Three Phase, 6-pole motor.",
+    "Trifaze, 6 kutuplu motora sahiptir."
+  ],
+  [
+    "Three Phase, T2 motor.",
+    "Trifaze T2 motora sahiptir."
+  ],
+  [
+    "Three Phase, T4 motor.",
+    "Trifaze T4 motora sahiptir."
+  ],
+  [
+    "Three Phase, T4/8 motor.",
+    "Trifaze T4/8 motora sahiptir."
+  ],
+  [
+    "Three Phase, T6 motor.",
+    "Trifaze T6 motora sahiptir."
   ]
 ]);
 
@@ -631,7 +1027,22 @@
     ['Petrochemical plants','petrokimya tesisleri'],
     ['Used for fresh air, exhaust','taze hava ve egzoz uygulamaları'],
     ['Used for fresh air, exhaust and circulation','taze hava, egzoz ve sirkülasyon uygulamaları'],
-    ['Uses for fresh air, exhaust and circulation in explosive and flammable spaces','patlayıcı ve yanıcı ortamlarda taze hava, egzoz ve sirkülasyon uygulamaları']
+    ['Uses for fresh air, exhaust and circulation in explosive and flammable spaces','patlayıcı ve yanıcı ortamlarda taze hava, egzoz ve sirkülasyon uygulamaları'],
+    ["Air supply and exhaust systems","hava besleme ve egzoz sistemleri"],
+    ["Bathroom, WC and utility-room ventilation","banyo, WC ve yardımcı hacim havalandırması"],
+    ["Cabinet-fan duct installations","hücreli fan kanal uygulamaları"],
+    ["Chimney-top installation","baca üstü uygulamalar"],
+    ["Circular duct ventilation","dairesel kanal havalandırması"],
+    ["Commercial and industrial air extraction","ticari ve endüstriyel hava tahliyesi"],
+    ["EC-controlled air exhaust systems","EC kontrollü hava egzoz sistemleri"],
+    ["Emergency smoke extraction at F400 / 120 min","F400 / 120 dakika acil durum duman tahliyesi"],
+    ["Fireplace and solid-fuel chimney smoke extraction","şömine ve katı yakıtlı baca duman tahliyesi"],
+    ["Normal roof extract ventilation","normal çatı egzoz havalandırması"],
+    ["Residential room extraction","konut mahallerinde hava tahliyesi"],
+    ["Roof extract ventilation","çatı egzoz havalandırması"],
+    ["Roof-mounted air exhaust","çatı tipi hava egzozu"],
+    ["Zone 1 gas atmospheres subject to full compatibility review","tam uygunluk kontrolü şartıyla Zone 1 gaz atmosferleri"],
+    ["Zone 21 dust atmospheres subject to full compatibility review","tam uygunluk kontrolü şartıyla Zone 21 toz atmosferleri"]
   ]);
 
   function joinTr(items){
@@ -766,9 +1177,9 @@
     observer.observe(document.documentElement,{childList:true,subtree:true});
   }
 
-  function consolidateVitloApplications(scope){
-    scope.querySelectorAll?.('[data-vitlo-features]').forEach(section=>{
-      const apps=[...section.querySelectorAll('.vitlo-application')];
+  function consolidateFeatureApplications(scope){
+    scope.querySelectorAll?.('[data-unified-features],[data-vitlo-features],[data-vortice-features]').forEach(section=>{
+      const apps=[...section.querySelectorAll('.catalog-application,.vitlo-application,.vortice-application')];
       if(!apps.length)return;
       apps.forEach(node=>sourceText(node,'product'));
       if(language()==='tr'){
@@ -798,7 +1209,7 @@
       cleanVorticeTitles(scope);
       scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
       scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li').forEach(node=>renderNode(node,'product'));
-      consolidateVitloApplications(scope);
+      consolidateFeatureApplications(scope);
 
       scope.querySelectorAll('.model-field').forEach(field=>{
         const label=field.querySelector('span');
