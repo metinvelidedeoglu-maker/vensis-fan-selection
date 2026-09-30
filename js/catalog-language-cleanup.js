@@ -14,6 +14,10 @@
     ['Safety:','Güvenlik:'],
     ['No data','Veri yok'],
     ['No information available.','Bilgi bulunmuyor.'],
+    ['General Features','Genel Özellikler'],
+    ['Models','Modeller'],
+    ['Open Product PDF','Ürün PDF’ini Aç'],
+    ['Models count','Model sayısı'],
     ['Product Code','Ürün Kodu'],
     ['Availability','Kullanılabilirlik'],
     ['Control Levels','Kontrol Seviyeleri'],
@@ -121,22 +125,403 @@
   ]);
 
   const exactProductPairs=new Map([
-    ['There are different model options in the range of 355-1250 mm','355-1250 mm aralığında farklı model seçenekleri bulunmaktadır.'],
-    ['It can be produced as double speed and reversible.','Çift devirli ve tersinir olarak üretilebilir.'],
-    ['With aerofoil section and adjustable angle blades are produced by aluminum injection casting method.','Aerodinamik kesitli, ayarlanabilir açılı kanatlar alüminyum enjeksiyon döküm yöntemiyle üretilir.'],
-    ['Both sides are self-flanged without welding according to ISO6580 UNI/EUROVENT 1-2 standards.','Her iki tarafı ISO 6580 UNI/EUROVENT 1-2 standartlarına uygun, kaynaksız kendinden flanşlıdır.'],
-    ['The fan casing is produced from hard steel and coated Hot-Dip Galvanized as standart.','Fan gövdesi yüksek dayanımlı çelikten üretilir ve standart olarak sıcak daldırma galvaniz kaplanır.'],
-    ['It is suitable for operation in temperature range (S1) -20°C/+55°C and the fire conditions (S2) 200°C/2h,','Normal çalışmada (S1) -20°C/+55°C sıcaklık aralığına ve yangın koşullarında (S2) 200°C/2 saat çalışmaya uygundur.'],
-    ['Fan is certified with EN12101-3:2015 standarts.','Fan EN 12101-3:2015 standardına göre sertifikalıdır.'],
-    ['IP 55 protected, IE2 high efficiency and with self lubricating bearing, fully enclosed type, in H insulation class.','Motor IP55 korumalı, IE2 yüksek verimli, kendinden yağlamalı rulmanlı, tam kapalı tip ve H izolasyon sınıfındadır.'],
-    ['There is an external electrical junction box with IP67 protection outside the body for easy electrical connection.','Kolay elektrik bağlantısı için gövde dışında IP67 korumalı harici bağlantı kutusu bulunur.'],
-    ['It is 400V-50Hz as standard and it is suitable for use with frequency converter.','Standart besleme 400V-50Hz olup frekans konvertörü ile kullanıma uygundur.'],
-    ['General area ventilation','Genel alan havalandırması'],
-    ['Car park smoke extraction systems','Otopark duman tahliye sistemleri'],
-    ['Used for fresh air, exhaust','Taze hava ve egzoz uygulamalarında kullanılır'],
-    ['Information transferred from the manufacturer technical catalogue.','Bilgiler üreticinin teknik kataloğundan aktarılmıştır.'],
-    ['Data transferred from the manufacturer technical catalogue.','Veriler üreticinin teknik kataloğundan aktarılmıştır.']
-  ]);
+  [
+    "There are different model options in the range of 315-450 mm",
+    "315-450 mm aralığında farklı model seçenekleri bulunmaktadır"
+  ],
+  [
+    "There are different model options in the range of 355-800 mm",
+    "355-800 mm aralığında farklı model seçenekleri bulunmaktadır"
+  ],
+  [
+    "There are different model options in the range of 355-1000 mm",
+    "355-1000 mm aralığında farklı model seçenekleri bulunmaktadır"
+  ],
+  [
+    "There are different model options in the range of 355-1250 mm",
+    "355-1250 mm aralığında farklı model seçenekleri bulunmaktadır"
+  ],
+  [
+    "There are different model options in the range of 400-1250 mm",
+    "400-1250 mm aralığında farklı model seçenekleri bulunmaktadır"
+  ],
+  [
+    "There are different model options in the range of 450-1250 mm",
+    "450-1250 mm aralığında farklı model seçenekleri bulunmaktadır"
+  ],
+  [
+    "It can be produced as double speed and reversible",
+    "Çift devirli ve tersinir olarak üretilebilir"
+  ],
+  [
+    "With aerofoil section and adjustable angle blades are produced by aluminum injection casting method",
+    "Aerodinamik kesitli ve ayarlanabilir açılı kanatlar alüminyum enjeksiyon döküm yöntemiyle üretilir"
+  ],
+  [
+    "Both sides are self-flanged without welding according to ISO6580 UNI/EUROVENT 1-2 standards",
+    "Her iki tarafı ISO 6580 ve UNI/EUROVENT 1-2 standartlarına uygun, kaynaksız kendinden flanşlıdır"
+  ],
+  [
+    "One side is self-flanged without welding according to ISO6580 UNI/EUROVENT 1-2 standards",
+    "Bir tarafı ISO 6580 ve UNI/EUROVENT 1-2 standartlarına uygun, kaynaksız kendinden flanşlıdır"
+  ],
+  [
+    "The fan casing is produced from hard steel and coated Hot-Dip Galvanized as standart",
+    "Fan gövdesi yüksek dayanımlı çelikten üretilir ve standart olarak sıcak daldırma galvaniz kaplanır"
+  ],
+  [
+    "The fan casing is produced from hard steel and it is coated electrostatic powder coating as standart",
+    "Fan gövdesi yüksek dayanımlı çelikten üretilir ve standart olarak elektrostatik toz boya ile kaplanır"
+  ],
+  [
+    "The fan casing is made of hard steel and and it is coated electrostatic powder coating as standart",
+    "Fan gövdesi yüksek dayanımlı çelikten üretilir ve standart olarak elektrostatik toz boya ile kaplanır"
+  ],
+  [
+    "The fan casing is produced from galvanized sheet and is double wall insulated",
+    "Fan gövdesi galvaniz sacdan üretilmiş, çift cidarlı ve yalıtımlıdır"
+  ],
+  [
+    "The fan casing is made of galvanized sheet steel and it is self-flanged",
+    "Fan gövdesi galvaniz sacdan üretilmiş ve kendinden flanşlıdır"
+  ],
+  [
+    "Fan casing is made of galvanized sheet, integrated with silencer",
+    "Fan gövdesi galvaniz sacdan imal edilmiş olup susturucu ile entegredir"
+  ],
+  [
+    "They are cell type fans with a structure that will not be affected by external conditions and sun rays",
+    "Dış ortam koşullarından ve güneş ışınlarından etkilenmeyecek yapıda hücreli fanlardır"
+  ],
+  [
+    "Louvre grill option is available for suction and discharge side",
+    "Emiş ve atış tarafı için panjur ızgara seçeneği mevcuttur"
+  ],
+  [
+    "It is suitable for operation in temperature range (S1) -20°C/+55°C and the fire conditions (S2) 200°C/2h",
+    "Normal çalışmada (S1) -20°C/+55°C sıcaklık aralığına ve yangın koşullarında (S2) 200°C/2 saat çalışmaya uygundur"
+  ],
+  [
+    "It is suitable for operation in temperature range -20°C/+55°C",
+    "-20°C/+55°C çalışma sıcaklığı aralığına uygundur"
+  ],
+  [
+    "It is suitable for operation in temperature range -20°C/+120°C",
+    "-20°C/+120°C çalışma sıcaklığı aralığına uygundur"
+  ],
+  [
+    "Suitable for continuously operation at +50°C",
+    "+50°C'de sürekli çalışmaya uygundur"
+  ],
+  [
+    "Suitable for permanent operation at +50°C",
+    "+50°C'de sürekli çalışmaya uygundur"
+  ],
+  [
+    "Fan is certified with EN12101-3:2015 standarts",
+    "Fan EN 12101-3:2015 standardına göre sertifikalıdır"
+  ],
+  [
+    "IP 55 protected, IE2 high efficiency and with self lubricating bearing, fully enclosed type, in H insulation class",
+    "Motor IP55 koruma sınıfında, IE2 yüksek verimli, kendinden yağlamalı rulmanlı, tam kapalı tip ve H izolasyon sınıfındadır"
+  ],
+  [
+    "IP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class",
+    "Motor IP55 koruma sınıfında, IE2/IE3 yüksek verimli, kendinden yağlamalı rulmanlı, tam kapalı tip ve F izolasyon sınıfındadır"
+  ],
+  [
+    "IP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F",
+    "Motor IP55 koruma sınıfında, IE2/IE3 yüksek verimli, kendinden yağlamalı rulmanlı ve tam kapalı tiptir; F izolasyon sınıfındadır"
+  ],
+  [
+    "IP 65 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class",
+    "Motor IP65 koruma sınıfında, IE2/IE3 yüksek verimli, kendinden yağlamalı rulmanlı, tam kapalı tip ve F izolasyon sınıfındadır"
+  ],
+  [
+    "It is 2/4 poles, IP 55 protection, IE2/3 high efficiency self lubricating bearing, fully closed type, in H insulation class",
+    "Motor 2/4 kutuplu, IP55 koruma sınıfında, IE2/IE3 yüksek verimli, kendinden yağlamalı rulmanlı, tam kapalı tip ve H izolasyon sınıfındadır"
+  ],
+  [
+    "IP 44 motor protection is available",
+    "Motor IP44 koruma sınıfındadır"
+  ],
+  [
+    "IP 54 motor protection is available",
+    "Motor IP54 koruma sınıfındadır"
+  ],
+  [
+    "There is an external electrical junction box with IP67 protection outside the body for easy electrical connection",
+    "Kolay elektrik bağlantısı için gövde dışında IP67 koruma sınıfında harici elektrik bağlantı kutusu bulunur"
+  ],
+  [
+    "There is an external electrical junction box with IP55 protection outside the body for easy electrical connection",
+    "Kolay elektrik bağlantısı için gövde dışında IP55 koruma sınıfında harici elektrik bağlantı kutusu bulunur"
+  ],
+  [
+    "It is 400V-50Hz as standard and it is suitable for use with frequency converter",
+    "Standart besleme 400V-50Hz olup frekans konvertörü ile kullanıma uygundur"
+  ],
+  [
+    "It is 230V-50Hz as standard and it is suitable for use with frequency converter",
+    "Standart besleme 230V-50Hz olup frekans konvertörü ile kullanıma uygundur"
+  ],
+  [
+    "It is 220V-50Hz as standard and it is suitable for speed controlled use",
+    "Standart besleme 220V-50Hz olup hız kontrollü kullanıma uygundur"
+  ],
+  [
+    "There are 4,6,8 pole motor options depending on the model and II 2G Ex D/e IIB/IIC T4-T3 protection ratings",
+    "Modele bağlı olarak 4, 6 ve 8 kutuplu motor seçenekleri ile II 2G Ex d/e IIB/IIC T4-T3 koruma sınıfları mevcuttur"
+  ],
+  [
+    "Aluminum plate in accordance with EN14986:2017 standards is rotated between the fan and the fan case",
+    "Fan çarkı ile fan gövdesi arasında EN 14986:2017 standardına uygun alüminyum plaka kullanılmaktadır"
+  ],
+  [
+    "Suction cone is made of copper material",
+    "Emiş konisi bakır malzemeden imal edilir"
+  ],
+  [
+    "It is ex-proof as a complete device",
+    "Cihaz komple Ex-proof olarak tasarlanmıştır"
+  ],
+  [
+    "It has mobile portable wheels, carrying handle, duct connection flange",
+    "Taşınabilir tekerlekler, taşıma kolu ve kanal bağlantı flanşı bulunur"
+  ],
+  [
+    "It has start-stop button outside the body and 5m electrical connection cable",
+    "Gövde dışında start-stop butonu ve 5 m elektrik bağlantı kablosu bulunur"
+  ],
+  [
+    "It has double side wire mesh as standard",
+    "Standart olarak her iki tarafta koruyucu tel kafes bulunur"
+  ],
+  [
+    "It has one side wire mesh as standard",
+    "Standart olarak bir tarafta koruyucu tel kafes bulunur"
+  ],
+  [
+    "It has square plate and wire mesh",
+    "Kare montaj plakası ve koruyucu tel kafesi bulunur"
+  ],
+  [
+    "t has square plate and wire mesh",
+    "Kare montaj plakası ve koruyucu tel kafesi bulunur"
+  ],
+  [
+    "It has wire mesh on the suction side and deflector on the blow side as standard",
+    "Standart olarak emiş tarafında koruyucu tel kafes, atış tarafında yönlendirici bulunur"
+  ],
+  [
+    "It has body structure with double sided silencer",
+    "Gövde çift taraflı susturucu yapısına sahiptir"
+  ],
+  [
+    "Duct type silencer and smart automation systems can be applied as optional",
+    "Kanal tipi susturucu ve akıllı otomasyon sistemleri opsiyonel olarak uygulanabilir"
+  ],
+  [
+    "It has radial backward curved blades with maximum efficiency",
+    "Maksimum verim sağlayan geriye eğik radyal kanatlara sahiptir"
+  ],
+  [
+    "It has high efficiency backward curved plug fan for low energy consumption",
+    "Düşük enerji tüketimi için yüksek verimli geriye eğik plug fan kullanılır"
+  ],
+  [
+    "It is a cell type radial fan with backward curved blades",
+    "Geriye eğik kanatlı hücre tipi radyal fandır"
+  ],
+  [
+    "It is a rectangular duct type radial fan with backward curved blades",
+    "Geriye eğik kanatlı dikdörtgen kanal tipi radyal fandır"
+  ],
+  [
+    "It is a roof type horizontal outlet radial fan with backward curved blades",
+    "Geriye eğik kanatlı, yatay atışlı çatı tipi radyal fandır"
+  ],
+  [
+    "It is a roof type vertical outlet radial fan with backward curved blades",
+    "Geriye eğik kanatlı, dikey atışlı çatı tipi radyal fandır"
+  ],
+  [
+    "It adjusts the motor speed according to the need with its integrated control circuit",
+    "Entegre kontrol devresi sayesinde motor hızını ihtiyaca göre ayarlar"
+  ],
+  [
+    "It can provide 0-100% speed control with 0-10V input",
+    "0-10 V giriş ile %0-100 hız kontrolü sağlar"
+  ],
+  [
+    "It provides over 90% efficiency thanks to integrated speed control",
+    "Entegre hız kontrolü sayesinde %90'ın üzerinde verim sağlar"
+  ],
+  [
+    "Speed control can be done in all models",
+    "Tüm modellerde hız kontrolü yapılabilir"
+  ],
+  [
+    "It provides low noise level and energy saving",
+    "Düşük ses seviyesi ve enerji tasarrufu sağlar"
+  ],
+  [
+    "It has a low sound level",
+    "Düşük ses seviyesine sahiptir"
+  ],
+  [
+    "The one-way flap is standard in the outlet side",
+    "Atış tarafında tek yönlü klape standarttır"
+  ],
+  [
+    "The motor is out of airflow and it can operate at 120°C continuously",
+    "Motor hava akımının dışında konumlandırılmıştır ve 120°C'de sürekli çalışabilir"
+  ],
+  [
+    "It is designed for use in the discharge of air containing intense oil and high temperature",
+    "Yoğun yağ ve yüksek sıcaklık içeren havanın tahliyesi için tasarlanmıştır"
+  ],
+  [
+    "It is resistant to factors such as rainwater and snow. It is suitable to work in outdoor conditions",
+    "Yağmur suyu ve kar gibi dış etkenlere dayanıklıdır ve dış ortam koşullarında çalışmaya uygundur"
+  ],
+  [
+    "It is suitable for horizontal and vertical installation",
+    "Yatay ve dikey montaja uygundur"
+  ],
+  [
+    "Smoke Extraction (F300, F400) option is also available",
+    "F300 ve F400 duman tahliye seçenekleri de mevcuttur"
+  ],
+  [
+    "It can be produced up to 2.000m3/h capacity",
+    "2.000 m³/h kapasiteye kadar üretilebilir"
+  ],
+  [
+    "It can be produced up to 5.000m3/h capacity",
+    "5.000 m³/h kapasiteye kadar üretilebilir"
+  ],
+  [
+    "It can be produced up to 12.000m3/h capacity",
+    "12.000 m³/h kapasiteye kadar üretilebilir"
+  ],
+  [
+    "It can be produced up to 50.000m3/h capacity",
+    "50.000 m³/h kapasiteye kadar üretilebilir"
+  ],
+  [
+    "High efficiency aluminum plate heat exchangers are used",
+    "Yüksek verimli alüminyum plakalı ısı eşanjörleri kullanılır"
+  ],
+  [
+    "G4 class filter is used as standard",
+    "Standart olarak G4 sınıfı filtre kullanılır"
+  ],
+  [
+    "With bypass cell, G4, activated carbon and hepa filter",
+    "By-pass hücresi, G4 filtre, aktif karbon filtre ve HEPA filtre ile donatılmıştır"
+  ],
+  [
+    "Watery or electrically heater battery can be added as optional",
+    "Sulu veya elektrikli ısıtıcı batarya opsiyonel olarak eklenebilir"
+  ],
+  [
+    "General area ventilation",
+    "Genel alan havalandırması"
+  ],
+  [
+    "General space ventilation",
+    "Genel mahal havalandırması"
+  ],
+  [
+    "Car park smoke extraction systems",
+    "Otopark duman tahliye sistemleri"
+  ],
+  [
+    "Smoke extraction systems",
+    "Duman tahliye sistemleri"
+  ],
+  [
+    "Tunnel smoke extraction systems",
+    "Tünel duman tahliye sistemleri"
+  ],
+  [
+    "Explosive area ventilation",
+    "Patlayıcı ortam havalandırması"
+  ],
+  [
+    "Factory, warehouse and parking ventilation systems",
+    "Fabrika, depo ve otopark havalandırma sistemleri"
+  ],
+  [
+    "Industrial warehouse ventilation",
+    "Endüstriyel depo havalandırması"
+  ],
+  [
+    "Industrial kitchen hood exhaust systems",
+    "Endüstriyel mutfak davlumbaz egzoz sistemleri"
+  ],
+  [
+    "Kitchen hood exhausts with filter system",
+    "Filtreli mutfak davlumbaz egzoz sistemleri"
+  ],
+  [
+    "Office, restaurant, garage, warehouse and workshop ventilation",
+    "Ofis, restoran, garaj, depo ve atölye havalandırması"
+  ],
+  [
+    "Office, restaurant,WC, garage, warehouse and workshop ventilation",
+    "Ofis, restoran, WC, garaj, depo ve atölye havalandırması"
+  ],
+  [
+    "Stair and elevator pressurization systems",
+    "Merdiven ve asansör basınçlandırma sistemleri"
+  ],
+  [
+    "Refuge fresh air systems",
+    "Sığınak taze hava sistemleri"
+  ],
+  [
+    "Welding smoke extraction systems",
+    "Kaynak dumanı tahliye sistemleri"
+  ],
+  [
+    "Heavy industry productions",
+    "Ağır sanayi üretim tesisleri"
+  ],
+  [
+    "Production processes with intense oil and high temperature",
+    "Yoğun yağ ve yüksek sıcaklık içeren üretim prosesleri"
+  ],
+  [
+    "Petrochem",
+    "Petrokimya tesisleri"
+  ],
+  [
+    "Petrochemical plants",
+    "Petrokimya tesisleri"
+  ],
+  [
+    "Used for fresh air, exhaust",
+    "Taze hava ve egzoz uygulamalarında kullanılır"
+  ],
+  [
+    "Used for fresh air, exhaust and circulation",
+    "Taze hava, egzoz ve sirkülasyon uygulamalarında kullanılır"
+  ],
+  [
+    "Uses for fresh air, exhaust and circulation in explosive and flammable spaces",
+    "Patlayıcı ve yanıcı ortamlarda taze hava, egzoz ve sirkülasyon uygulamalarında kullanılır"
+  ],
+  [
+    "Information transferred from the manufacturer technical catalogue",
+    "Bilgiler üreticinin teknik kataloğundan aktarılmıştır"
+  ],
+  [
+    "Data transferred from the manufacturer technical catalogue",
+    "Veriler üreticinin teknik kataloğundan aktarılmıştır"
+  ]
+]);
 
   const categoryPairs=new Map([
     ['Axial Fan','Aksiyel Fan'],['Axial','Aksiyel'],['Radial Fan','Radyal Fan'],['Radial','Radyal'],
@@ -245,10 +630,13 @@
   function productTextToTr(value){
     const source=String(value||'').replace(/\s+/g,' ').trim();
     if(!source)return source;
-    if(exactProductPairs.has(source))return exactProductPairs.get(source);
     if(titlePairs.has(source))return titlePairs.get(source);
     if(categoryPairs.has(source))return categoryPairs.get(source);
     let output=source;
+    const fragments=[...exactProductPairs.entries()].sort((a,b)=>b[0].length-a[0].length);
+    for(const [english,turkish] of fragments){
+      if(output.includes(english))output=output.split(english).join(turkish);
+    }
     for(const [pattern,replacement] of phraseRules)output=output.replace(pattern,replacement);
     return output;
   }
@@ -325,7 +713,7 @@
     if(observer)observer.disconnect();
     try{
       const scope=root?.querySelectorAll?root:document;
-      scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state,.model-datasheet-btn').forEach(node=>renderNode(node,'ui'));
+      scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state,.model-datasheet-btn,.detail-section h3,.models-section h2,.catalog-pdf').forEach(node=>renderNode(node,'ui'));
       scope.querySelectorAll('.series-title,.series-hero-copy h2').forEach(node=>renderNode(node,'title'));
       cleanVorticeTitles(scope);
       scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
