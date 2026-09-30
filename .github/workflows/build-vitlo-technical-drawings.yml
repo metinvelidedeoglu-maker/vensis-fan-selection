@@ -130,7 +130,7 @@ jobs:
 
               x0 = int(w * 0.495)
               x1 = int(w * 0.945)
-              y0 = min(h - 1, bar_bottom + 8)
+              y0 = min(h - 1, bar_bottom + (1 if page == 15 else 8))
               y1 = int(h * 0.955)
               region = image.crop((x0, y0, x1, y1))
 
