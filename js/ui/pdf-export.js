@@ -181,9 +181,12 @@
     const fallbackDescription=obj(model.catalogueInfo);
     const brand=series.manufacturer||product.manufacturer||model.manufacturer||model.brand||'Vitlo';
     const isTr=language()==='tr';
-    const rawGeneral=arr(rawDescription.general?.length?rawDescription.general:fallbackDescription.general);
+    let rawGeneral=arr(rawDescription.general?.length?rawDescription.general:fallbackDescription.general);
     const rawMotorInfo=arr(rawDescription.motor?.length?rawDescription.motor:fallbackDescription.motor);
     const rawApplications=arr(rawDescription.applications?.length?rawDescription.applications:fallbackDescription.applications);
+    if(String(brand).trim().toLowerCase()==='vortice'){
+      rawGeneral=rawGeneral.filter(value=>!/^(?:Nominal duct connection|Nominal intake diameter):/i.test(String(value||'').trim()));
+    }
     const general=isTr?rawGeneral.map(trText):rawGeneral;
     const motorInfo=isTr?rawMotorInfo.map(trText):rawMotorInfo;
     let applications=isTr?rawApplications.map(trText):rawApplications;
