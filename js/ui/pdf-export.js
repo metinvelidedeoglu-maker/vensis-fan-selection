@@ -88,16 +88,43 @@
 
   function previewDimensions(product,model,series){
     const brand=String(series?.manufacturer||product?.manufacturer||model?.manufacturer||model?.brand||'').trim().toLowerCase();
-    if(brand!=='vitlo')return null;
-    try{
-      return window.VensisVitloDimensions?.resolve?.(
-        series?.code||model?.seriesId||model?.series||product?.seriesCode||'',
-        model
-      )||null;
-    }catch(error){
-      console.warn('Vensis Vitlo dimension resolver error',error);
-      return null;
+    if(brand==='vitlo'){
+      try{
+        return window.VensisVitloDimensions?.resolve?.(
+          series?.code||model?.seriesId||model?.series||product?.seriesCode||'',
+          model
+        )||null;
+      }catch(error){
+        console.warn('Vensis Vitlo dimension resolver error',error);
+        return null;
+      }
     }
+    if(brand==='vortice'){
+      const technical=obj(model?.technical);
+      const productTechnical=obj(product?.technical);
+      const raw=obj(technical.dimensions||model?.dimensions||productTechnical.dimensions);
+      const headers=Object.keys(raw).filter(key=>raw[key]!=null&&raw[key]!=='');
+      const values={};
+      headers.forEach(key=>{values[key]=raw[key]});
+      const asset=absoluteAssetUrl(
+        model?.media?.dimensionImage||
+        product?.media?.dimensionImage||
+        model?.dimensionImage||
+        model?.dimension_image_path||
+        product?.dimensionImage||
+        ''
+      );
+      if(!headers.length&&!asset)return null;
+      return {
+        series:series?.code||model?.seriesId||model?.series||product?.seriesCode||'',
+        referenceModel:model?.model||product?.model||model?.display||'',
+        headers,
+        values,
+        unit:'mm',
+        drawing:asset?{asset}:null
+      };
+    }
+    return null;
   }
 
   function modelId(item){return item?.id??item?.key??item?.productKey??item?.model??''}
@@ -160,7 +187,7 @@
     const general=isTr?rawGeneral.map(trText):rawGeneral;
     const motorInfo=isTr?rawMotorInfo.map(trText):rawMotorInfo;
     let applications=isTr?rawApplications.map(trText):rawApplications;
-    if(isTr&&String(brand).trim().toLowerCase()==='vitlo'&&rawApplications.length){
+    if(isTr&&['vitlo','vortice'].includes(String(brand).trim().toLowerCase())&&rawApplications.length){
       const sentence=window.VensisCatalogLanguage?.applicationSentenceToTr?.(rawApplications);
       if(sentence)applications=[sentence];
     }
