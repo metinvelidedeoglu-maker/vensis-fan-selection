@@ -260,7 +260,7 @@
     detail.innerHTML=`
       <button class="detail-back" type="button" onclick="Catalog.back()">← Back to Series</button>
       <section class="series-hero">
-        <div class="series-hero-image"><img src="${esc(series.media?.image||'')}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
+        <div class="series-hero-image"><img src="${esc(assetPath(series.media?.image||''))}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
         <div class="series-hero-copy">
           <div class="series-brand">${esc(displayBrand(series.manufacturer||''))}</div>
           <h1>${esc(series.code||series.title)}</h1>
