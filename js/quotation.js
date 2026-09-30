@@ -122,10 +122,30 @@
   function paragraphMarkup(value){
     return String(value||'').split(/\n\s*\n/).map(text=>text.trim()).filter(Boolean).map(text=>`<p>${escapeHtml(text).replace(/\n/g,'<br>')}</p>`).join('');
   }
+
+  const WARRANTY_TR='Ürünler, üreticinin ilgili ürün için geçerli garanti koşulları kapsamında garanti altındadır. Garanti kapsamı ve süresi üretici şartlarına göre belirlenir.';
+  const WARRANTY_EN="Products are covered under the manufacturer's applicable warranty terms for the relevant product. Warranty scope and duration are governed by the manufacturer's terms.";
+
+  function quotationLanguage(quotation,settings){
+    const explicit=String(quotation?.outputLanguage||'').toLowerCase();
+    if(explicit==='tr'||explicit==='en')return explicit;
+    const sample=JSON.stringify(settings||quotation?.settings||{});
+    return /[çğıöşü]|\b(?:teklif|ürün|teslim|ödeme|müşteri|garanti|fiyat|sipariş|koşul)\b/i.test(sample)?'tr':'en';
+  }
+
+  function ensureWarranty(quotation,settings){
+    const value=clone(settings||{});
+    value.terms=value.terms||{};
+    const standard=Array.isArray(value.terms.standard)?value.terms.standard.slice():[];
+    const hasWarranty=standard.some(item=>/\bgaranti\b|\bwarrant(?:y|ies)\b/i.test(String(item||'')));
+    if(!hasWarranty)standard.push(quotationLanguage(quotation,value)==='tr'?WARRANTY_TR:WARRANTY_EN);
+    value.terms.standard=standard;
+    return value;
+  }
   function settingsFor(quotation){
     const format=formats.detect(quotation?.items||[],quotation?.format||'auto');
     const value=quotation?.settings||window.VensisQuotationSettings?.forFormat?.(format)||window.VensisQuotationSettings?.read?.()||window.VensisQuotationSettings?.defaults||{};
-    return clone(value);
+    return ensureWarranty(quotation,value);
   }
   function renderSettings(settings){
     const pages=[...document.querySelectorAll('.quote-page')];
