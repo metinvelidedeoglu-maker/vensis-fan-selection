@@ -916,6 +916,14 @@
   [
     "Three Phase, T6 motor.",
     "Trifaze T6 motora sahiptir."
+  ],
+  [
+    "Hazardous-area compatibility must be confirmed against the project classification and manufacturer documentation. X special conditions apply.",
+    "Tehlikeli bölge uygunluğu proje sınıflandırması ve üretici dokümantasyonuna göre doğrulanmalıdır. X özel koşulları geçerlidir."
+  ],
+  [
+    "Not suitable for gas fires.",
+    "Gaz yakıtlı şömineler için uygun değildir."
   ]
 ]);
 
@@ -927,7 +935,12 @@
     ['Centrifugal Fan','Santrifüj Fan'],['Centrifugal','Santrifüj'],['Bifurcated Fan','Bifurkasyonlu Fan'],
     ['Smoke Exhaust Fan','Duman Tahliye Fanı'],['Smoke Exhaust','Duman Tahliye'],['Explosion-Proof / ATEX Fan','Ex-proof / ATEX Fan'],
     ['Ex-proof / ATEX Fan','Ex-proof / ATEX Fan'],['EC Fan','EC Fan'],['Heat Recovery Unit','Isı Geri Kazanım Cihazı'],
-    ['Shelter Fan','Sığınak Fanı'],['Soler & Palau','Soler & Palau'],['Vortice','Vortice'],['Vitlo','Vitlo']
+    ['Shelter Fan','Sığınak Fanı'],['Soler & Palau','Soler & Palau'],['Vortice','Vortice'],['Vitlo','Vitlo'],
+    ['Mixed Flow','Karışık Akışlı'],['Cabinet / Duct-Mounted','Hücreli / Kanal Tipi'],['Chimney-Top','Baca Üstü'],
+    ['Flush-Mounted','Gömme Tip'],['In-Line Duct','Kanal Tipi'],['Roof-Mounted','Çatı Tipi'],
+    ['Wall / Ceiling','Duvar / Tavan'],['Wall / Plate-Mounted','Duvar / Plaka Tipi'],['Wall / Window','Duvar / Pencere'],
+    ['Chimney Fan','Baca Fanı'],['Explosion-Protected Axial Fan','Patlamaya Dayanıklı Aksiyel Fan'],
+    ['Residential Extract Fan','Konut Tipi Aspiratör'],['EU/current','AB / Güncel'],['Extra EU','AB Dışı'],['global','Global']
   ]);
 
   const phraseRules=[
@@ -1208,7 +1221,7 @@
       scope.querySelectorAll('.series-title,.series-hero-copy h2').forEach(node=>renderNode(node,'title'));
       cleanVorticeTitles(scope);
       scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
-      scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li').forEach(node=>renderNode(node,'product'));
+      scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li,.model-safety-warning-text').forEach(node=>renderNode(node,'product'));
       consolidateFeatureApplications(scope);
 
       scope.querySelectorAll('.model-field').forEach(field=>{
