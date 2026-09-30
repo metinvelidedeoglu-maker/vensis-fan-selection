@@ -232,6 +232,16 @@
     const series=catalog.getSeries?catalog.getSeries(id):allSeries.find(item=>item.id===id);if(!series)return;
     const models=catalog.modelsForSeries?catalog.modelsForSeries(id):allModels.filter(model=>model.seriesId===id);
     const pdf=series.catalogue?.pdf;
+    const isVitlo=String(series.manufacturer||'').trim().toLowerCase()==='vitlo';
+    const description=series.description||{};
+    const vitloFeatures=[...(description.general||[]),...(description.motor||[]),...(description.applications||[])].filter(Boolean);
+    const seriesInfoHtml=isVitlo
+      ? `<div class="series-info-grid"><section class="detail-section" style="grid-column:1/-1"><h3>General Features</h3>${bullets(vitloFeatures)}</section></div>`
+      : `<div class="series-info-grid">
+          <section class="detail-section"><h3>General Features</h3>${bullets(description.general)}</section>
+          <section class="detail-section"><h3>Motor</h3>${bullets(description.motor)}</section>
+          <section class="detail-section"><h3>Areas of Usage</h3>${bullets(description.applications)}</section>
+        </div>`;
     document.getElementById('catalogLayout').hidden=true;
     const detail=document.getElementById('detailPage');
     detail.hidden=false;
@@ -249,11 +259,7 @@
           </div>
         </div>
       </section>
-      <div class="series-info-grid">
-        <section class="detail-section"><h3>General Features</h3>${bullets(series.description?.general)}</section>
-        <section class="detail-section"><h3>Motor</h3>${bullets(series.description?.motor)}</section>
-        <section class="detail-section"><h3>Areas of Usage</h3>${bullets(series.description?.applications)}</section>
-      </div>
+      ${seriesInfoHtml}
       <section class="models-section">
         <div class="catalog-head"><div><div class="section-kicker">${esc(series.code)}</div><h2>Models</h2></div><div class="catalog-count">${models.length} models</div></div>
         <div class="models-grid">${models.map(model=>modelCard(model,series)).join('')||'<div class="empty-state">No models available.</div>'}</div>
