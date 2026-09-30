@@ -36,49 +36,60 @@ html,body{width:210mm;min-width:210mm;margin:0;background:#fff;-webkit-print-col
 
 /* One-page product datasheet layout used inside project print */
 .datasheet-page.one-page-datasheet{padding:7mm 9mm 7mm}
-.datasheet-page .top-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:5mm;align-items:stretch;margin-top:3mm}
-.datasheet-page .product-image-wrap,.datasheet-page .feature-card{border:1px solid #d7e3de;border-radius:8px;background:#fbfdfc;min-height:39mm}
+.datasheet-page .top-grid{display:grid;grid-template-columns:1fr 2fr;gap:4mm;align-items:stretch;margin-top:3mm}
+.datasheet-page .product-image-wrap,.datasheet-page .feature-card{border:1px solid #d7e3de;border-radius:8px;background:#fbfdfc;min-height:38mm}
 .datasheet-page .product-image-wrap{display:flex;align-items:center;justify-content:center;padding:2mm}
-.datasheet-page .product-image{width:100%;height:36mm;max-height:36mm;object-fit:contain}
+.datasheet-page .product-image{width:100%;height:34mm;max-height:34mm;object-fit:contain}
 .datasheet-page .feature-card{padding:2.6mm;overflow:hidden}
-.datasheet-page .feature-card h3,.datasheet-page .bottom-card h3{margin:0 0 1.8mm;color:#07633c;font-size:10px;font-weight:900;text-transform:uppercase}
-.datasheet-page .feature-card ul{margin:0;padding-left:14px;font-size:7.4px;line-height:1.18}
-.datasheet-page .feature-card li{margin-bottom:1px}
-.datasheet-page .section{margin-top:2.8mm}
-.datasheet-page .section-head{font-size:10.5px;margin:0 0 2px}
+.datasheet-page .feature-card h3,.datasheet-page .technical-strip h3{margin:0 0 1.8mm;color:#07633c;font-size:10.5px;font-weight:900;text-transform:uppercase}
+.datasheet-page .feature-card ul{margin:0;padding-left:15px;font-size:8.9px;line-height:1.2}
+.datasheet-page .feature-card li{margin-bottom:1.1px}
+.datasheet-page .technical-strip{margin-top:2.6mm;border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.2mm}
+.datasheet-page .technical-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1mm}
+.datasheet-page .technical-cell{min-width:0;border:1px solid #d7e3de;border-radius:4px;background:#fff;padding:1.1mm 1.3mm}
+.datasheet-page .technical-cell span,.datasheet-page .technical-cell b{display:block}
+.datasheet-page .technical-cell span{font-size:6.9px;color:#64748b;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.datasheet-page .technical-cell b{margin-top:.35mm;font-size:7.9px;color:#173033;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.datasheet-page .technical-cell.required{border-color:#d63b32}.datasheet-page .technical-cell.required b{color:#b62e27}
+.datasheet-page .technical-cell.selected{border-color:#168451}.datasheet-page .technical-cell.selected b{color:#116b43}
+.datasheet-page .section,.datasheet-page .drawing-section{margin-top:2.7mm}
+.datasheet-page .section-head{font-size:10.5px;margin:0 0 2px;color:#07633c;font-weight:900;text-transform:uppercase}
 .datasheet-page .curve{height:69mm;padding:1mm}
-.datasheet-page .bottom-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:4mm;margin-top:3mm;align-items:stretch}
-.datasheet-page .bottom-card{border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.4mm;min-height:61mm;overflow:hidden}
-.datasheet-page .technical-panel .spec-box{border:0;border-radius:0;background:#fff}
-.datasheet-page .technical-panel .spec-head{display:none}
-.datasheet-page .technical-panel .spec-row{display:grid;grid-template-columns:1fr 1.18fr;gap:5px;padding:2.5px 5px;border-top:1px solid #d7e3de;font-size:7.7px;line-height:1.08}
-.datasheet-page .technical-panel .spec-row:first-child{border-top:0}
-.datasheet-page .dimension-panel{display:flex;flex-direction:column}
-.datasheet-page .dimension-drawing-wrap{display:flex;align-items:center;justify-content:center;height:66mm;min-height:66mm;background:#fff;border:1px solid #e3e9e7;border-radius:6px;overflow:hidden}
+.datasheet-page .dimension-panel{display:grid;grid-template-columns:2fr 1fr;gap:2.8mm;border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.3mm;min-height:62mm;overflow:hidden}
+.datasheet-page .dimension-panel.no-values{grid-template-columns:1fr}
+.datasheet-page .dimension-drawing-wrap{display:flex;align-items:center;justify-content:center;height:57mm;min-height:57mm;background:#fff;border:1px solid #e3e9e7;border-radius:6px;overflow:hidden}
 .datasheet-page .catalog-drawing{position:relative;width:100%;height:100%;min-height:0!important;border:0!important;border-radius:0!important;background:#fff;display:flex;align-items:center;justify-content:center}
-.datasheet-page .catalog-drawing-image{display:block;width:auto;height:auto;max-width:100%;max-height:56mm!important;object-fit:contain;opacity:1}
-.datasheet-page .drawing-status{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:6px;text-align:center;color:#8a5a12;font-size:7.5px;background:#fff}
-.datasheet-page .dimension-values-compact{display:grid;grid-template-columns:repeat(3,1fr);gap:1mm;margin-top:1.3mm}
-.datasheet-page .dimension-chip{border:1px solid #d7e3de;border-radius:4px;background:#fff;padding:.8mm 1mm;min-width:0}
-.datasheet-page .dimension-chip span,.datasheet-page .dimension-chip b{display:block}
-.datasheet-page .dimension-chip span{font-size:6.8px;color:#64748b;font-weight:800}
-.datasheet-page .dimension-chip b{margin-top:.2mm;font-size:7.4px;color:#173033;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.datasheet-page .catalog-drawing-image{display:block;width:auto;height:auto;max-width:100%;max-height:55mm!important;object-fit:contain;opacity:1}
+.datasheet-page .drawing-status{display:none!important}
+.datasheet-page .dimension-table-wrap{display:flex;align-items:stretch;min-width:0}
+.datasheet-page .dimension-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid #d7e3de;border-radius:6px;overflow:hidden;align-self:stretch}
+.datasheet-page .dimension-table th,.datasheet-page .dimension-table td{padding:1.8mm 1.8mm;border-top:1px solid #e1e9e6;font-size:7.7px;line-height:1.05}
+.datasheet-page .dimension-table thead th{border-top:0;background:#edf6f1;color:#07633c;font-size:7.2px;text-transform:uppercase;text-align:left}
+.datasheet-page .dimension-table th:first-child,.datasheet-page .dimension-table td:first-child{width:34%;font-weight:800;color:#52666b}
+.datasheet-page .dimension-table td:last-child{font-weight:800;color:#173033;text-align:right}
+.datasheet-page .dimension-table tbody tr:first-child th,.datasheet-page .dimension-table tbody tr:first-child td{border-top:0}
 .datasheet-page .footer{margin-top:auto;padding-top:1.8mm;font-size:6.7px}
 .datasheet-page .footer b{margin-top:.8mm;font-size:7.5px}
 .datasheet-page .pdf-footer-meta{margin-top:1mm;padding-top:1mm;font-size:6.5px}
 @media print{
   .datasheet-page.one-page-datasheet{width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;padding:6mm 9mm 5mm!important;overflow:hidden!important}
-  .datasheet-page .top-grid{margin-top:2.4mm!important;gap:4mm!important}
-  .datasheet-page .product-image-wrap,.datasheet-page .feature-card{min-height:36mm!important}
-  .datasheet-page .product-image{height:33mm!important;max-height:33mm!important}
+  .datasheet-page .top-grid{grid-template-columns:1fr 2fr!important;margin-top:2.3mm!important;gap:4mm!important}
+  .datasheet-page .product-image-wrap,.datasheet-page .feature-card{min-height:35mm!important}
+  .datasheet-page .product-image{height:31mm!important;max-height:31mm!important}
   .datasheet-page .feature-card{padding:2.2mm!important}
-  .datasheet-page .feature-card ul{font-size:6.9px!important;line-height:1.13!important}
+  .datasheet-page .feature-card ul{font-size:8.5px!important;line-height:1.17!important}
+  .datasheet-page .technical-strip{margin-top:2.1mm!important;padding:1.9mm!important}
+  .datasheet-page .technical-grid{gap:.9mm!important}
+  .datasheet-page .technical-cell{padding:.95mm 1.1mm!important}
+  .datasheet-page .technical-cell span{font-size:6.6px!important}
+  .datasheet-page .technical-cell b{font-size:7.6px!important}
   .datasheet-page .curve{height:66mm!important}
-  .datasheet-page .bottom-grid{margin-top:2.5mm!important;gap:3.5mm!important}
-  .datasheet-page .bottom-card{min-height:59mm!important;padding:2.2mm!important}
-  .datasheet-page .dimension-drawing-wrap{height:66mm!important;min-height:66mm!important}.datasheet-page .catalog-drawing-image{width:auto!important;height:auto!important;max-width:100%!important;max-height:56mm!important}
+  .datasheet-page .drawing-section{margin-top:2.3mm!important}
+  .datasheet-page .dimension-panel{grid-template-columns:2fr 1fr!important;gap:2.5mm!important;min-height:60mm!important;padding:2mm!important}
+  .datasheet-page .dimension-drawing-wrap{height:55mm!important;min-height:55mm!important}
+  .datasheet-page .catalog-drawing-image{width:auto!important;height:auto!important;max-width:100%!important;max-height:53mm!important}
+  .datasheet-page .dimension-table th,.datasheet-page .dimension-table td{padding:1.5mm 1.6mm!important;font-size:7.4px!important}
 }
-
 </style>
 </head>
 <body>
