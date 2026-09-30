@@ -4,6 +4,12 @@
   const selected={manufacturers:new Set(),categories:new Set()};
   const esc=value=>String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const displayBrand=value=>String(value??'').trim().toLowerCase()==='vortice'?'VORTICE':value;
+  const assetPath=value=>{
+    const raw=String(value??'').trim();
+    if(!raw)return '';
+    if(/^(?:data:|blob:|https?:|\/\/|\/)/i.test(raw))return raw;
+    return raw.startsWith('assets/')?'/'+raw:raw;
+  };
   const num=(value,decimals=0)=>{const n=Number(value);return Number.isFinite(n)&&n>0?n.toLocaleString('en-US',{maximumFractionDigits:decimals,minimumFractionDigits:decimals}):'-'};
   const unique=items=>[...new Set(items.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
   const allSeries=catalog.series||[];
@@ -40,7 +46,7 @@
     const count=(series.modelIds||[]).length;
     const summary=firstText(series.description?.general)||series.title||'';
     return `<article class="series-card" data-series="${esc(series.id)}" role="link" tabindex="0">
-      <div class="series-card-image"><img src="${esc(series.media?.image||'')}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
+      <div class="series-card-image"><img src="${esc(assetPath(series.media?.image||''))}" alt="${esc(series.code)}" onerror="this.style.visibility='hidden'"></div>
       <div class="series-card-body">
         <div class="series-brand">${esc(displayBrand(series.manufacturer||''))}</div>
         <h2>${esc(series.code||series.title)}</h2>
@@ -139,8 +145,8 @@
   }
 
   function modelCard(model,series){
-    const image=model.media?.image||series.media?.image||'';
-    const dimensionImage=model.media?.dimensionImage||'';
+    const image=assetPath(model.media?.image||series.media?.image||'');
+    const dimensionImage=assetPath(model.media?.dimensionImage||'');
     return `<article class="model-card">
       <div class="model-card-head">
         <img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
@@ -208,7 +214,7 @@
       model:model.model||'',
       series:series.title||model.seriesTitle||'',
       manufacturer:series.manufacturer||model.manufacturer||'Vitlo',
-      image:product.media?.image||series.media?.image||model.image||'',
+      image:assetPath(product.media?.image||series.media?.image||model.image||''),
       nominalAirflow:Number(model.performance?.nominalAirflow)||0,
       required:null,
       selected:null,
