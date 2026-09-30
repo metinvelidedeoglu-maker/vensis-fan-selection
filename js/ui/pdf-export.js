@@ -4,15 +4,63 @@
   const renderer=window.VensisDatasheet||{};
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
   const attr=esc;
-  const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(Number(value)||0);
+  let renderLanguage='';
+  function baseLanguage(){
+    const value=window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
+    return value==='tr'?'tr':'en';
+  }
+  function language(){return renderLanguage||baseLanguage()}
+  function payloadLanguage(payload={}){
+    const value=String(payload.outputLanguage||payload.language||'').toLowerCase();
+    return value==='tr'||value==='en'?value:baseLanguage();
+  }
+  const fmt=(value,digits=0)=>new Intl.NumberFormat(language()==='tr'?'tr-TR':'en-GB',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(Number(value)||0);
   const positive=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?n:null};
   const obj=value=>value&&typeof value==='object'&&!Array.isArray(value)?value:{};
   const arr=value=>Array.isArray(value)?value.filter(Boolean):(value==null||value===''?[]:[value]);
-  const language=()=>window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
   const trText=value=>language()==='tr'?(window.VensisCatalogLanguage?.productTextToTr?.(value)||String(value??'')):String(value??'');
   const trTitle=value=>language()==='tr'?(window.VensisCatalogLanguage?.titleToTr?.(value)||trText(value)):String(value??'');
   const trCategory=value=>language()==='tr'?(window.VensisCatalogLanguage?.categoryToTr?.(value)||trText(value)):String(value??'');
   const unique=items=>[...new Set((items||[]).filter(Boolean).map(value=>String(value).trim()).filter(Boolean))];
+  const TEXT={
+    tr:{
+      emptyCurve:'Bu model için performans eğrisi verisi bulunmuyor.',
+      requiredShort:'İstenen',programShort:'Program Seçimi',curveLegend:'Fan Performans Eğrisi',
+      requiredPoint:'İstenen Nokta',programPoint:'Programın Seçtiği Nokta',
+      flowAxis:'Debi (m³/h)',pressureAxis:'Statik Basınç (Pa)',
+      controlLevel:'Kontrol Seviyesi',availableControls:'Mevcut Kontrol Seviyeleri',
+      selectedAirflow:'Seçilen Debi',nominalAirflow:'Nominal Debi',selectedPressure:'Seçilen Basınç',
+      motorPower:'Motor Gücü',current:'Akım',speed:'Devir',voltage:'Gerilim',soundLevel:'Ses Seviyesi',
+      fanType:'Fan Tipi',mount:'Montaj',ipClass:'IP Sınıfı',technicalInfo:'TEKNİK BİLGİLER',
+      noFeatures:'Bu ürün için genel özellik bilgisi bulunmuyor.',
+      drawingDimensions:'TEKNİK RESİM & ÖLÇÜLER',dimension:'Ölçü',value:'Değer',
+      close:'Kapat',printSave:'Yazdır / PDF Kaydet',productDatasheet:'ÜRÜN TEKNİK FÖYÜ',
+      brand:'Marka',generalFeatures:'GENEL ÖZELLİKLER',performanceCurve:'PERFORMANS EĞRİSİ',
+      footer:'Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.',
+      pageNote:'TEKNİK FÖY • SAYFA 1 / 1',titleSuffix:'Teknik Föy',
+      originalDrawing:'ORİJİNAL KATALOG TEKNİK ÇİZİMİ',modelDimensions:'MODEL ÖLÇÜLERİ',
+      dimensionReference:'Ölçü referansı',source:'Kaynak',catalogue:'Vitlo Genel Ürün Kataloğu'
+    },
+    en:{
+      emptyCurve:'Performance curve data is not available for this model.',
+      requiredShort:'Required',programShort:'Program Selection',curveLegend:'Fan Performance Curve',
+      requiredPoint:'Required Point',programPoint:'Program Selected Point',
+      flowAxis:'Flow (m³/h)',pressureAxis:'Static Pressure (Pa)',
+      controlLevel:'Control Level',availableControls:'Available Controls',
+      selectedAirflow:'Selected Airflow',nominalAirflow:'Nominal Airflow',selectedPressure:'Selected Pressure',
+      motorPower:'Motor Power',current:'Current',speed:'Speed',voltage:'Voltage',soundLevel:'Sound Level',
+      fanType:'Fan Type',mount:'Mounting',ipClass:'IP Class',technicalInfo:'TECHNICAL INFORMATION',
+      noFeatures:'General feature information is not available for this product.',
+      drawingDimensions:'TECHNICAL DRAWING & DIMENSIONS',dimension:'Dimension',value:'Value',
+      close:'Close',printSave:'Print / Save PDF',productDatasheet:'PRODUCT DATASHEET',
+      brand:'Brand',generalFeatures:'GENERAL FEATURES',performanceCurve:'PERFORMANCE CURVE',
+      footer:'Technical data is based on manufacturer catalogue information. Project suitability should be confirmed by Vensis.',
+      pageNote:'PRODUCT DATASHEET • PAGE 1 / 1',titleSuffix:'Datasheet',
+      originalDrawing:'ORIGINAL CATALOGUE TECHNICAL DRAWING',modelDimensions:'MODEL DIMENSIONS',
+      dimensionReference:'Dimension reference',source:'Source',catalogue:'Vitlo General Product Catalogue'
+    }
+  };
+  const tx=key=>TEXT[language()]?.[key]||TEXT.en[key]||key;
 
   function absoluteAssetUrl(value){
     const raw=String(value??'').trim();
@@ -123,6 +171,7 @@
     const dimensions=previewDimensions(product,model,series);
     return {
       mode:payload.mode||'catalog',
+      language:language(),
       model:model.model||product.model||model.display||'Ürün',
       title:trTitle(series.title||product.seriesTitle||model.catalogNameEn||model.seriesTitle||model.series||''),
       brand,
@@ -181,7 +230,7 @@
     const dense=pointsAsObjects(d.performance.points);
     const source=pointsAsObjects(d.performance.sourcePoints?.length?d.performance.sourcePoints:d.performance.points);
     const curve=dense.length>=2?dense:source;
-    if(curve.length<2)return '<div class="empty-curve">Bu model için performans eğrisi verisi bulunmuyor.</div>';
+    if(curve.length<2)return `<div class="empty-curve">${esc(tx('emptyCurve'))}</div>`;
 
     const required=d.mode==='selection'?d.required:null;
     const selected=d.mode==='selection'?d.selected:null;
@@ -215,12 +264,12 @@
       const labelY=isRequired?Math.max(T+18,py-(close?28:15)):Math.min(T+plotH-8,py+(close?34:22));
       const labelX=isRequired?Math.max(L+220,px-12):Math.min(L+plotW-250,px+12);
       const anchor=isRequired?'end':'start';
-      const title=isRequired?'İstenen':'Program Seçimi';
+      const title=isRequired?tx('requiredShort'):tx('programShort');
       return `<line x1="${px}" y1="${py}" x2="${px}" y2="${T+plotH}" stroke="${color}" stroke-width="2" stroke-dasharray="7 6"/><line x1="${L}" y1="${py}" x2="${px}" y2="${py}" stroke="${color}" stroke-width="2" stroke-dasharray="7 6"/><circle cx="${px}" cy="${py}" r="8" fill="${color}" stroke="#fff" stroke-width="2.5"/><rect x="${isRequired?labelX-240:labelX-5}" y="${labelY-17}" width="245" height="25" rx="5" fill="#fff" opacity=".92"/><text x="${labelX}" y="${labelY}" text-anchor="${anchor}" font-size="13" font-weight="700" fill="${color}">${title}: ${fmt(point.q)} m³/h @ ${fmt(point.p)} Pa</text><text x="${px}" y="${T+plotH+46}" text-anchor="middle" font-size="12" font-weight="700" fill="${color}">${fmt(point.q)}</text><text x="${L-13}" y="${py-7}" text-anchor="end" font-size="12" font-weight="700" fill="${color}">${fmt(point.p)}</text>`;
     }
 
-    const legend=`<g transform="translate(${L},${H-20})"><line x1="0" y1="0" x2="34" y2="0" stroke="#2368ad" stroke-width="4"/><circle cx="17" cy="0" r="4" fill="#2368ad"/><text x="43" y="4" font-size="11.5" fill="#334155">Fan Performans Eğrisi</text>${required?`<circle cx="245" cy="0" r="5" fill="#d63b32"/><text x="257" y="4" font-size="11.5" fill="#334155">İstenen Nokta</text>`:''}${selected?`<circle cx="385" cy="0" r="5" fill="#168451"/><text x="397" y="4" font-size="11.5" fill="#334155">Programın Seçtiği Nokta</text>`:''}</g>`;
-    return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Fan performans eğrisi"><rect width="${W}" height="${H}" fill="#fff"/>${grid.join('')}<line x1="${L}" y1="${T+plotH}" x2="${L+plotW}" y2="${T+plotH}" stroke="#354b52" stroke-width="1.7"/><line x1="${L}" y1="${T}" x2="${L}" y2="${T+plotH}" stroke="#354b52" stroke-width="1.7"/><path d="${path}" fill="none" stroke="#2368ad" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>${markers}${pointMarkup(required,'required')}${pointMarkup(selected,'selected')}<text x="${L+plotW/2}" y="${H-42}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033">Debi (m³/h)</text><text x="24" y="${T+plotH/2}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033" transform="rotate(-90 24 ${T+plotH/2})">Statik Basınç (Pa)</text>${legend}</svg>`;
+    const legend=`<g transform="translate(${L},${H-20})"><line x1="0" y1="0" x2="34" y2="0" stroke="#2368ad" stroke-width="4"/><circle cx="17" cy="0" r="4" fill="#2368ad"/><text x="43" y="4" font-size="11.5" fill="#334155">${esc(tx('curveLegend'))}</text>${required?`<circle cx="245" cy="0" r="5" fill="#d63b32"/><text x="257" y="4" font-size="11.5" fill="#334155">${esc(tx('requiredPoint'))}</text>`:''}${selected?`<circle cx="385" cy="0" r="5" fill="#168451"/><text x="397" y="4" font-size="11.5" fill="#334155">${esc(tx('programPoint'))}</text>`:''}</g>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Fan performans eğrisi"><rect width="${W}" height="${H}" fill="#fff"/>${grid.join('')}<line x1="${L}" y1="${T+plotH}" x2="${L+plotW}" y2="${T+plotH}" stroke="#354b52" stroke-width="1.7"/><line x1="${L}" y1="${T}" x2="${L}" y2="${T+plotH}" stroke="#354b52" stroke-width="1.7"/><path d="${path}" fill="none" stroke="#2368ad" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>${markers}${pointMarkup(required,'required')}${pointMarkup(selected,'selected')}<text x="${L+plotW/2}" y="${H-42}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033">${esc(tx('flowAxis'))}</text><text x="24" y="${T+plotH/2}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033" transform="rotate(-90 24 ${T+plotH/2})">${esc(tx('pressureAxis'))}</text>${legend}</svg>`;
   }
 
   function row(label,value,kind=''){
@@ -235,22 +284,22 @@
       items.push({label,value,kind});
     };
     if(d.mode==='selection'){
-      if(positive(d.required.q)&&positive(d.required.p))add('İstenen Nokta',`${fmt(d.required.q)} m³/h @ ${fmt(d.required.p)} Pa`,'required');
-      if(positive(d.selected.q)&&positive(d.selected.p))add('Programın Seçtiği Nokta',`${fmt(d.selected.q)} m³/h @ ${fmt(d.selected.p)} Pa`,'selected');
+      if(positive(d.required.q)&&positive(d.required.p))add(tx('requiredPoint'),`${fmt(d.required.q)} m³/h @ ${fmt(d.required.p)} Pa`,'required');
+      if(positive(d.selected.q)&&positive(d.selected.p))add(tx('programPoint'),`${fmt(d.selected.q)} m³/h @ ${fmt(d.selected.p)} Pa`,'selected');
     }
-    if(d.performance.control)add('Kontrol Seviyesi',d.performance.control);
-    if(d.performance.controls.length>1)add('Mevcut Kontrol Seviyeleri',d.performance.controls.join(' / '));
+    if(d.performance.control)add(tx('controlLevel'),d.performance.control);
+    if(d.performance.controls.length>1)add(tx('availableControls'),d.performance.controls.join(' / '));
     const flow=d.mode==='selection'?d.selected.q:d.performance.nominalAirflow;
-    if(positive(flow))add(d.mode==='selection'?'Seçilen Debi':'Nominal Debi',`${fmt(flow)} m³/h`);
-    if(d.mode==='selection'&&positive(d.selected.p))add('Seçilen Basınç',`${fmt(d.selected.p)} Pa`);
-    if(positive(d.motor.power))add('Motor Gücü',`${fmt(d.motor.power,2)} kW`);
-    if(positive(d.motor.current))add('Akım',`${fmt(d.motor.current,2)} A`);
-    if(positive(d.motor.speed))add('Devir',`${fmt(d.motor.speed)} rpm`);
-    if(d.motor.voltage)add('Gerilim',d.motor.voltage);
-    if(positive(d.motor.sound))add('Ses Seviyesi',`${fmt(d.motor.sound)} dB(A)`);
-    if(!d.performance.control&&!d.performance.controls.length&&d.technical.fanType)add('Fan Tipi',d.technical.fanType);
-    if(!d.performance.control&&!d.performance.controls.length&&d.technical.mountType)add('Montaj',d.technical.mountType);
-    if(d.technical.ipClass)add('IP Sınıfı',d.technical.ipClass);
+    if(positive(flow))add(d.mode==='selection'?tx('selectedAirflow'):tx('nominalAirflow'),`${fmt(flow)} m³/h`);
+    if(d.mode==='selection'&&positive(d.selected.p))add(tx('selectedPressure'),`${fmt(d.selected.p)} Pa`);
+    if(positive(d.motor.power))add(tx('motorPower'),`${fmt(d.motor.power,2)} kW`);
+    if(positive(d.motor.current))add(tx('current'),`${fmt(d.motor.current,2)} A`);
+    if(positive(d.motor.speed))add(tx('speed'),`${fmt(d.motor.speed)} rpm`);
+    if(d.motor.voltage)add(tx('voltage'),d.motor.voltage);
+    if(positive(d.motor.sound))add(tx('soundLevel'),`${fmt(d.motor.sound)} dB(A)`);
+    if(!d.performance.control&&!d.performance.controls.length&&d.technical.fanType)add(tx('fanType'),d.technical.fanType);
+    if(!d.performance.control&&!d.performance.controls.length&&d.technical.mountType)add(tx('mount'),d.technical.mountType);
+    if(d.technical.ipClass)add(tx('ipClass'),d.technical.ipClass);
     return items.slice(0,10);
   }
 
@@ -261,12 +310,12 @@
   function technicalGridHtml(d){
     const items=specItems(d);
     if(!items.length)return '';
-    return `<section class="technical-strip"><h3>TEKNİK BİLGİLER</h3><div class="technical-grid">${items.map(item=>`<div class="technical-cell ${item.kind||''}"><span>${esc(item.label)}</span><b>${esc(item.value)}</b></div>`).join('')}</div></section>`;
+    return `<section class="technical-strip"><h3>${esc(tx('technicalInfo'))}</h3><div class="technical-grid">${items.map(item=>`<div class="technical-cell ${item.kind||''}"><span>${esc(item.label)}</span><b>${esc(item.value)}</b></div>`).join('')}</div></section>`;
   }
 
   function featuresHtml(d){
     const items=unique([...(d.description.general||[]),...(d.description.motor||[]),...(d.description.applications||[])]);
-    if(!items.length)return '<p class="muted">Bu ürün için genel özellik bilgisi bulunmuyor.</p>';
+    if(!items.length)return `<p class="muted">${esc(tx('noFeatures'))}</p>`;
     return `<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`;
   }
 
@@ -341,9 +390,9 @@
   function dimensionPage(d){
     const dim=d.dimensions;
     if(!dim)return '';
-    const source=dim.sourceUrl?`<a href="${attr(dim.sourceUrl)}" target="_blank" rel="noopener">Vitlo Genel Ürün Kataloğu, s. ${esc(dim.catalogPage||'-')}</a>`:'Vitlo Genel Ürün Kataloğu';
+    const source=dim.sourceUrl?`<a href="${attr(dim.sourceUrl)}" target="_blank" rel="noopener">${esc(tx('catalogue'))}, ${language()==='tr'?'s.':'p.'} ${esc(dim.catalogPage||'-')}</a>`:tx('catalogue');
     const note='';
-    return `<main class="sheet dimension-sheet"><header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">TEKNİK RESİM &amp; ÖLÇÜLER</div></header><div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">Marka: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div><section class="dimension-layout"><div class="dimension-figure"><h3>ORİJİNAL KATALOG TEKNİK ÇİZİMİ</h3>${originalDrawingHtml(dim)}</div><div class="dimension-data"><h3>MODEL ÖLÇÜLERİ</h3><table><thead><tr><th>Ölçü</th><th>Değer</th></tr></thead><tbody>${dimensionRowsHtml(dim)}</tbody></table><div class="dimension-ref"><b>Ölçü referansı:</b> ${esc(dim.series)} ${esc(dim.referenceModel)}<br><b>Kaynak:</b> ${source}</div>${note}</div></section><footer class="footer">Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">TEKNİK FÖY • SAYFA 2 / 2</div></footer></main>`;
+    return `<main class="sheet dimension-sheet"><header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">${esc(tx('drawingDimensions'))}</div></header><div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">${esc(tx('brand'))}: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div><section class="dimension-layout"><div class="dimension-figure"><h3>${esc(tx('originalDrawing'))}</h3>${originalDrawingHtml(dim)}</div><div class="dimension-data"><h3>${esc(tx('modelDimensions'))}</h3><table><thead><tr><th>${esc(tx('dimension'))}</th><th>${esc(tx('value'))}</th></tr></thead><tbody>${dimensionRowsHtml(dim)}</tbody></table><div class="dimension-ref"><b>${esc(tx('dimensionReference'))}:</b> ${esc(dim.series)} ${esc(dim.referenceModel)}<br><b>${esc(tx('source'))}:</b> ${source}</div>${note}</div></section><footer class="footer">${esc(tx('footer'))}<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b></footer></main>`;
   }
 
   function dimensionValuesCompact(dim){
@@ -352,15 +401,17 @@
   }
 
   function classicHtml(payload){
+    const previousLanguage=renderLanguage;
+    renderLanguage=payloadLanguage(payload);
     const d=normalizedPayload(payload);
     const curve=curveSvg(d);
     const drawingContext=d.dimensions||{series:d.seriesCode};
     const drawingHtml=originalDrawingHtml(drawingContext);
     const dimensionPanel=(d.dimensions||drawingHtml)
-      ?`<section class="drawing-section"><h3 class="section-head">TEKNİK RESİM &amp; ÖLÇÜLER</h3><div class="dimension-panel${d.dimensions?'':' no-values'}">${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${d.dimensions?`<div class="dimension-table-wrap"><table class="dimension-table"><thead><tr><th>Ölçü</th><th>Değer</th></tr></thead><tbody>${dimensionRowsHtml(d.dimensions)}</tbody></table></div>`:''}</div></section>`
+      ?`<section class="drawing-section"><h3 class="section-head">${esc(tx('drawingDimensions'))}</h3><div class="dimension-panel${d.dimensions?'':' no-values'}">${drawingHtml?`<div class="dimension-drawing-wrap">${drawingHtml}</div>`:''}${d.dimensions?`<div class="dimension-table-wrap"><table class="dimension-table"><thead><tr><th>${esc(tx('dimension'))}</th><th>${esc(tx('value'))}</th></tr></thead><tbody>${dimensionRowsHtml(d.dimensions)}</tbody></table></div>`:''}</div></section>`
       :'';
 
-    return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} Teknik Föy</title><base href="${attr(new URL('.',window.location.href).href)}"><style>
+    const html=`<!doctype html><html lang="${language()}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} ${esc(tx('titleSuffix'))}</title><base href="${attr(new URL('.',window.location.href).href)}"><style>
 *{box-sizing:border-box}body{margin:0;background:#e9eff0;color:#162f33;font-family:Arial,Helvetica,sans-serif}.toolbar{max-width:210mm;margin:10px auto 0;display:flex;justify-content:flex-end;gap:8px}.toolbar button{border:0;border-radius:7px;padding:9px 13px;font-weight:800;cursor:pointer}.print{background:#087f4f;color:#fff}.close{background:#dfe8e9;color:#29484d}
 .sheet{width:210mm;height:297mm;min-height:297mm;max-height:297mm;margin:10px auto 22px;background:#fff;padding:6mm 9mm 5mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column;overflow:hidden}
 .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #087f4f;padding-bottom:4px}.logo{height:16mm;max-width:78mm;object-fit:contain}.doc-title{font-size:10.5px;color:#566b70;font-weight:800;margin-top:3px}
@@ -374,16 +425,18 @@
 @page{size:A4 portrait;margin:0}
 @media print{html,body{width:210mm!important;height:297mm!important;margin:0!important;padding:0!important;background:#fff!important;overflow:hidden!important}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.toolbar{display:none!important}.sheet{margin:0!important;box-shadow:none!important;width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;padding:6mm 9mm 5mm!important;overflow:hidden!important}.logo{height:14mm!important}.product-title{margin-top:2.5px!important}.product-title h1{font-size:23px!important}.product-title h2{font-size:13px!important}.top-grid{grid-template-columns:1fr 2fr!important;margin-top:2.3mm!important;gap:4mm!important}.product-image-wrap,.feature-card{height:48mm!important;min-height:48mm!important}.product-image{height:42mm!important}.feature-card{padding:2.3mm!important}.feature-card ul{font-size:8.1px!important;line-height:1.14!important;columns:2!important;column-gap:5mm!important}.feature-card li{margin-bottom:1px!important;break-inside:avoid-column!important}.technical-strip{margin-top:2.2mm!important;padding:2mm!important}.technical-strip h3{margin-bottom:1.4mm!important}.technical-grid{gap:1mm!important}.technical-cell{padding:1mm 1.2mm!important}.technical-cell span{font-size:6.8px!important}.technical-cell b{font-size:7.8px!important}.section{margin-top:2.4mm!important}.curve{height:72mm!important;padding:1mm!important}.drawing-section{margin-top:2.4mm!important}.dimension-panel{grid-template-columns:2fr 1fr!important;gap:2.5mm!important;height:66mm!important;min-height:66mm!important;padding:2.2mm!important}.dimension-drawing-wrap{height:60mm!important;min-height:60mm!important}.catalog-drawing-image{width:auto!important;height:auto!important;max-width:100%!important;max-height:58mm!important}.dimension-table th,.dimension-table td{padding:1.65mm 1.7mm!important;font-size:7.6px!important}.dimension-table thead th{font-size:7.2px!important}.footer{padding-top:1.4mm!important}}
 @media screen and (max-width:640px){.toolbar{padding:0 10px}.sheet{width:100%;height:auto;min-height:0;max-height:none;margin:8px 0;padding:16px;overflow:visible}.top-grid{grid-template-columns:1fr}.feature-card ul{columns:1}.technical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dimension-panel{grid-template-columns:1fr}.product-image{height:220px}.product-image-wrap{min-height:230px}.curve{height:auto}.dimension-drawing-wrap{height:260px}}
-</style></head><body><div class="toolbar"><button class="close" onclick="window.close()">Kapat</button><button id="printBtn" class="print" onclick="window.print()">Yazdır / PDF Kaydet</button></div>
+</style></head><body><div class="toolbar"><button class="close" onclick="window.close()">${esc(tx('close'))}</button><button id="printBtn" class="print" onclick="window.print()">${esc(tx('printSave'))}</button></div>
 <main class="sheet">
-<header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">ÜRÜN TEKNİK FÖYÜ</div></header>
-<div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">Marka: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div>
-<section class="top-grid"><div class="product-image-wrap">${d.image?`<img class="product-image" src="${attr(d.image)}" alt="${attr(d.model)}" onerror="this.style.visibility='hidden'">`:'<div></div>'}</div><section class="feature-card"><h3>GENEL ÖZELLİKLER</h3>${featuresHtml(d)}</section></section>
+<header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">${esc(tx('productDatasheet'))}</div></header>
+<div class="product-title"><h1>${esc(d.model)}</h1><div class="brand">${esc(tx('brand'))}: ${esc(d.brand)}</div><h2>${esc(d.title)}</h2></div>
+<section class="top-grid"><div class="product-image-wrap">${d.image?`<img class="product-image" src="${attr(d.image)}" alt="${attr(d.model)}" onerror="this.style.visibility='hidden'">`:'<div></div>'}</div><section class="feature-card"><h3>${esc(tx('generalFeatures'))}</h3>${featuresHtml(d)}</section></section>
 ${technicalGridHtml(d)}
-<section class="section"><h3 class="section-head">PERFORMANS EĞRİSİ</h3><div class="curve">${curve}</div></section>
+<section class="section"><h3 class="section-head">${esc(tx('performanceCurve'))}</h3><div class="curve">${curve}</div></section>
 ${dimensionPanel}
-<footer class="footer">Teknik veriler üretici katalog bilgilerine dayanmaktadır. Projeye uygunluk Vensis tarafından doğrulanmalıdır.<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">TEKNİK FÖY • SAYFA 1 / 1</div></footer>
+<footer class="footer">${esc(tx('footer'))}<b>Vensis Engineering Suite&nbsp;&nbsp; | &nbsp;&nbsp;Fan Selection&nbsp;&nbsp; | &nbsp;&nbsp;www.vensis.com.tr</b><div class="page-note">${esc(tx('pageNote'))}</div></footer>
 </main></body></html>`;
+    renderLanguage=previousLanguage;
+    return html;
   }
 
   function openClassic(payload){
