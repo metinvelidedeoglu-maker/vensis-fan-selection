@@ -1197,7 +1197,7 @@
     ["Roof-mounted air exhaust","çatı tipi hava egzozu"],
     ["Zone 1 gas atmospheres subject to full compatibility review","tam uygunluk kontrolü şartıyla Zone 1 gaz atmosferleri"],
     ["Zone 21 dust atmospheres subject to full compatibility review","tam uygunluk kontrolü şartıyla Zone 21 toz atmosferleri"]
-    ["Inline installation in indoor environments classified as ATEX.","ATEX olarak sınıflandırılmış kapalı ortamlarda kanal hattı uygulamaları"],
+    ["Inline installation in indoor environments classified as ATEX","ATEX olarak sınıflandırılmış kapalı ortamlarda kanal hattı uygulamaları"],
   ]);
 
   function joinTr(items){
