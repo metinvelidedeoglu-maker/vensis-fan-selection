@@ -16,6 +16,18 @@
   const extraById=new Map();
   const extraBySeries=new Map();
   const usedIds=new Set();
+  const verifiedSpecOverrides=new Map([
+    ['SLIMROOF ES|SLIMROOF 155 M ES',{speed:3950}],
+    ['SLIMROOF ES|SLIMROOF 190 M ES',{speed:3570}],
+    ['SLIMROOF ES|SLIMROOF 220 M ES',{speed:2600}],
+    ['SLIMROOF ES|SLIMROOF 250 M ES',{speed:2500}],
+    ['SLIMROOF ES|SLIMROOF 310 M ES',{speed:2350}],
+    ['SLIMROOF ES|SLIMROOF 355 T ES',{speed:2100}],
+    ['SLIMROOF ES|SLIMROOF 450 T ES',{speed:1450}],
+    ['SLIMROOF ES|SLIMROOF 500 T ES',{speed:1800}],
+    ['SLIMROOF ES|SLIMROOF 560 T ES',{speed:1520}],
+    ['SLIMROOF ES|SLIMROOF 630 T ES',{speed:1250}]
+  ]);
   const matched=[];
   const aliases=[];
   const unmatched=[];
@@ -57,8 +69,9 @@
     model.model=altModel;
     model.display=altModel;
     model.altModel=altModel;
+    const verified=verifiedSpecOverrides.get(`${text(row.series)}|${altModel}`)||{};
     const power=numeric(row.power);
-    const speed=numeric(row.speed);
+    const speed=numeric(verified.speed??row.speed);
     const sound=numeric(row.sound);
     const airflow=numeric(row.maxAirflow);
     model.motor.power=power||numeric(model.motor.power);
