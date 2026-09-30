@@ -121,7 +121,8 @@
     ['LINEO QUIET ES Low-Noise In-Line EC Mixed-Flow Fans','LINEO QUIET ES Düşük Sesli Kanal Tipi EC Karışık Akışlı Fanlar'],
     ['LINEO QUIET Low-Noise In-Line Mixed-Flow Fans','LINEO QUIET Düşük Sesli Kanal Tipi Karışık Akışlı Fanlar'],
     ['LINEO ES In-Line EC Mixed-Flow Fans','LINEO ES Kanal Tipi EC Karışık Akışlı Fanlar'],
-    ['LINEO In-Line Mixed-Flow Fans','LINEO Kanal Tipi Karışık Akışlı Fanlar']
+    ['LINEO In-Line Mixed-Flow Fans','LINEO Kanal Tipi Karışık Akışlı Fanlar'],
+    ['CMS ATEX Centrifugal Medium Pressure ATEX Fans','CMS ATEX Santrifüj Orta Basınçlı ATEX Fanlar']
   ]);
 
   const exactProductPairs=new Map([
@@ -924,6 +925,146 @@
   [
     "Not suitable for gas fires.",
     "Gaz yakıtlı şömineler için uygun değildir."
+  ],
+  [
+    "Low-noise in-line EC mixed-flow fan range for circular duct systems.",
+    "Dairesel kanal sistemleri için düşük sesli, kanal tipi EC karışık akışlı fan serisidir."
+  ],
+  [
+    "Low-noise in-line mixed-flow fan range for circular duct systems.",
+    "Dairesel kanal sistemleri için düşük sesli, kanal tipi karışık akışlı fan serisidir."
+  ],
+  [
+    "In-line mixed-flow fan range for circular duct systems.",
+    "Dairesel kanal sistemleri için kanal tipi karışık akışlı fan serisidir."
+  ],
+  [
+    "Extra-performance in-line mixed-flow duct fan range.",
+    "Yüksek performanslı kanal tipi karışık akışlı fan serisidir."
+  ],
+  [
+    "Roof-mounted mixed-flow exhaust fan range.",
+    "Çatı tipi karışık akışlı egzoz fanı serisidir."
+  ],
+  [
+    "EC centrifugal roof fan range.",
+    "EC motorlu santrifüj çatı fanı serisidir."
+  ],
+  [
+    "F400 smoke-extract centrifugal roof fan range.",
+    "F400 duman tahliye özellikli santrifüj çatı fanı serisidir."
+  ],
+  [
+    "Explosion-protected axial plate fan range for hazardous areas.",
+    "Tehlikeli bölgeler için patlamaya dayanıklı aksiyel plaka fan serisidir."
+  ],
+  [
+    "Medium-pressure centrifugal ATEX fan for Zone 1 hazardous-area ventilation.",
+    "Zone 1 tehlikeli bölge havalandırması için santrifüj orta basınçlı ATEX fandır."
+  ],
+  [
+    "Chimney-top extract fan range.",
+    "Baca üstü aspiratör serisidir."
+  ],
+  [
+    "Cabinet centrifugal fan range for commercial and industrial duct systems.",
+    "Ticari ve endüstriyel kanal sistemleri için hücreli santrifüj fan serisidir."
+  ],
+  [
+    "Residential centrifugal extract fan range.",
+    "Konut tipi santrifüj aspiratör serisidir."
+  ],
+  [
+    "Flush-mounted centrifugal extract fan range.",
+    "Gömme tip santrifüj aspiratör serisidir."
+  ],
+  [
+    "Centrifugal residential extract fan range.",
+    "Konut tipi santrifüj aspiratör serisidir."
+  ],
+  [
+    "Flush-mounted reversible axial fan range.",
+    "Gömme tip tersinir aksiyel fan serisidir."
+  ],
+  [
+    "Wall and window mounted axial fan range.",
+    "Duvar ve pencere tipi aksiyel fan serisidir."
+  ],
+  [
+    "Wall-mounted axial extract fan range.",
+    "Duvar tipi aksiyel aspiratör serisidir."
+  ],
+  [
+    "Decorative wall-mounted axial extract fan range.",
+    "Dekoratif duvar tipi aksiyel aspiratör serisidir."
+  ],
+  [
+    "Two-speed wall axial extract fan range.",
+    "Çift hızlı duvar tipi aksiyel aspiratör serisidir."
+  ],
+  [
+    "Axial duct extract fan range.",
+    "Aksiyel kanal tipi aspiratör serisidir."
+  ],
+  [
+    "Wall axial extract fan range.",
+    "Duvar tipi aksiyel aspiratör serisidir."
+  ],
+  [
+    "Low-profile wall axial extract fan range.",
+    "İnce tasarımlı duvar tipi aksiyel aspiratör serisidir."
+  ],
+  [
+    "Wall and window axial extract fan range.",
+    "Duvar ve pencere tipi aksiyel aspiratör serisidir."
+  ],
+  [
+    "Centrifugal medium pressure ATEX fan.",
+    "Santrifüj orta basınçlı ATEX fandır."
+  ],
+  [
+    "Rolling steel sheet housing with completely joined or welded construction.",
+    "Gövde, tamamen birleştirilmiş veya kaynaklı konstrüksiyona sahip haddelenmiş çelik sacdan üretilmiştir."
+  ],
+  [
+    "Galvanised steel sheet simple-inlet forward-curved impeller.",
+    "Tek emişli, öne eğik kanatlı çark galvanizli çelik sacdan üretilmiştir."
+  ],
+  [
+    "Polyester powder finishing coat.",
+    "Polyester toz boya son kat kaplamaya sahiptir."
+  ],
+  [
+    "Inlet sparkproof ring made of copper or aluminium.",
+    "Emiş tarafında bakır veya alüminyumdan imal edilmiş kıvılcım önleyici halka bulunur."
+  ],
+  [
+    "Suitable for totally clean air without dust.",
+    "Yalnızca tamamen temiz ve tozsuz hava için uygundur."
+  ],
+  [
+    "Ambient working temperature from -20 °C to +40 °C; transported-air temperature according to the ATEX classification.",
+    "Ortam çalışma sıcaklığı -20 °C ile +40 °C arasındadır; taşınan hava sıcaklığı ATEX sınıflandırmasına göre belirlenir."
+  ],
+  [
+    "ATEX standard asynchronous motor certified according to the zone.",
+    "Bölge sınıfına göre sertifikalandırılmış ATEX standardında asenkron motora sahiptir."
+  ],
+  [
+    "IP55 protection and insulation class F.",
+    "IP55 koruma sınıfında ve F izolasyon sınıfındadır."
+  ],
+  [
+    "Standard voltages: 230 V 50 Hz for single-phase motors, 230/400 V 50 Hz for three-phase motors up to 4 kW, and 400/690 V 50 Hz for higher powers.",
+    "Standart gerilimler; monofaze motorlarda 230 V 50 Hz, 4 kW'a kadar trifaze motorlarda 230/400 V 50 Hz, daha yüksek güçlerde 400/690 V 50 Hz'dir."
+  ],
+  [
+    "This 0.09 kW model is rated 1450 rpm and 0.46 A at 400 V.",
+    "Bu 0,09 kW model 1450 rpm devirde ve 400 V'ta 0,46 A akım değerindedir."
+  ],
+  [
+    "Zone 1 suitability must be checked against the project gas group and certification. Fan and motor have separate ATEX markings. The manufacturer states that the fan is suitable only for totally clean air without dust.",
+    "Zone 1 uygunluğu proje gaz grubu ve sertifikasyon şartlarına göre kontrol edilmelidir. Fan ve motorun ATEX işaretlemeleri ayrıdır. Üretici, fanın yalnızca tamamen temiz ve tozsuz hava için uygun olduğunu belirtmektedir."
   ]
 ]);
 
@@ -940,7 +1081,7 @@
     ['Flush-Mounted','Gömme Tip'],['In-Line Duct','Kanal Tipi'],['Roof-Mounted','Çatı Tipi'],
     ['Wall / Ceiling','Duvar / Tavan'],['Wall / Plate-Mounted','Duvar / Plaka Tipi'],['Wall / Window','Duvar / Pencere'],
     ['Chimney Fan','Baca Fanı'],['Explosion-Protected Axial Fan','Patlamaya Dayanıklı Aksiyel Fan'],
-    ['Residential Extract Fan','Konut Tipi Aspiratör'],['EU/current','AB / Güncel'],['Extra EU','AB Dışı'],['global','Global']
+    ['Residential Extract Fan','Konut Tipi Aspiratör'],['Scroll Housing','Salyangoz Gövde'],['ATEX Medium-Pressure Fan','ATEX Orta Basınçlı Fan'],['EU/current','AB / Güncel'],['Extra EU','AB Dışı'],['global','Global']
   ]);
 
   const phraseRules=[
@@ -1056,6 +1197,7 @@
     ["Roof-mounted air exhaust","çatı tipi hava egzozu"],
     ["Zone 1 gas atmospheres subject to full compatibility review","tam uygunluk kontrolü şartıyla Zone 1 gaz atmosferleri"],
     ["Zone 21 dust atmospheres subject to full compatibility review","tam uygunluk kontrolü şartıyla Zone 21 toz atmosferleri"]
+    ["Inline installation in indoor environments classified as ATEX.","ATEX olarak sınıflandırılmış kapalı ortamlarda kanal hattı uygulamaları"],
   ]);
 
   function joinTr(items){
