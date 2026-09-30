@@ -8,6 +8,11 @@
   const positive=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?n:null};
   const obj=value=>value&&typeof value==='object'&&!Array.isArray(value)?value:{};
   const arr=value=>Array.isArray(value)?value.filter(Boolean):(value==null||value===''?[]:[value]);
+  const language=()=>window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
+  const trText=value=>language()==='tr'?(window.VensisCatalogLanguage?.productTextToTr?.(value)||String(value??'')):String(value??'');
+  const trTitle=value=>language()==='tr'?(window.VensisCatalogLanguage?.titleToTr?.(value)||trText(value)):String(value??'');
+  const trCategory=value=>language()==='tr'?(window.VensisCatalogLanguage?.categoryToTr?.(value)||trText(value)):String(value??'');
+  const unique=items=>[...new Set((items||[]).filter(Boolean).map(value=>String(value).trim()).filter(Boolean))];
 
   function absoluteAssetUrl(value){
     const raw=String(value??'').trim();
@@ -99,8 +104,18 @@
     }
     const rawDescription=obj(product.description);
     const fallbackDescription=obj(model.catalogueInfo);
-    const general=arr(rawDescription.general?.length?rawDescription.general:fallbackDescription.general);
-    const applications=arr(rawDescription.applications?.length?rawDescription.applications:fallbackDescription.applications);
+    const brand=series.manufacturer||product.manufacturer||model.manufacturer||model.brand||'Vitlo';
+    const isTr=language()==='tr';
+    const rawGeneral=arr(rawDescription.general?.length?rawDescription.general:fallbackDescription.general);
+    const rawMotorInfo=arr(rawDescription.motor?.length?rawDescription.motor:fallbackDescription.motor);
+    const rawApplications=arr(rawDescription.applications?.length?rawDescription.applications:fallbackDescription.applications);
+    const general=isTr?rawGeneral.map(trText):rawGeneral;
+    const motorInfo=isTr?rawMotorInfo.map(trText):rawMotorInfo;
+    let applications=isTr?rawApplications.map(trText):rawApplications;
+    if(isTr&&String(brand).trim().toLowerCase()==='vitlo'&&rawApplications.length){
+      const sentence=window.VensisCatalogLanguage?.applicationSentenceToTr?.(rawApplications);
+      if(sentence)applications=[sentence];
+    }
     const rawControls=performance.controls??model.controls??[];
     const controls=arr(rawControls).map(String).filter(value=>value.toLowerCase()!=='nominal');
     const rawControl=String(model.control??performance.control??'');
@@ -109,8 +124,8 @@
     return {
       mode:payload.mode||'catalog',
       model:model.model||product.model||model.display||'Ürün',
-      title:series.title||product.seriesTitle||model.catalogNameEn||model.seriesTitle||model.series||'',
-      brand:series.manufacturer||product.manufacturer||model.manufacturer||model.brand||'Vitlo',
+      title:trTitle(series.title||product.seriesTitle||model.catalogNameEn||model.seriesTitle||model.series||''),
+      brand,
       image:previewImage(product,model,series),
       motor:{
         power:motor.power??model.kw,
@@ -120,8 +135,8 @@
         sound:motor.sound??model.spl
       },
       technical:{
-        fanType:technical.fanType||model.fanTypeEn||model.fanType||'',
-        mountType:technical.mountType||model.mountTypeEn||model.mountType||'',
+        fanType:trCategory(technical.fanType||model.fanTypeEn||model.fanType||''),
+        mountType:trCategory(technical.mountType||model.mountTypeEn||model.mountType||''),
         ipClass:technical.ipClass||model.ipClass||'',
         fireRating:technical.fireRating||model.fireRating||model.fire||''
       },
@@ -132,7 +147,7 @@
         control,
         controls
       },
-      description:{general,applications},
+      description:{general,motor:motorInfo,applications},
       seriesCode:series.code||model.seriesId||model.series||product.seriesCode||'',
       dimensions,
       required:obj(payload.required),
@@ -223,8 +238,8 @@
       if(positive(d.required.q)&&positive(d.required.p))add('İstenen Nokta',`${fmt(d.required.q)} m³/h @ ${fmt(d.required.p)} Pa`,'required');
       if(positive(d.selected.q)&&positive(d.selected.p))add('Programın Seçtiği Nokta',`${fmt(d.selected.q)} m³/h @ ${fmt(d.selected.p)} Pa`,'selected');
     }
-    if(d.performance.control)add('Control Level',d.performance.control);
-    if(d.performance.controls.length>1)add('Available Controls',d.performance.controls.join(' / '));
+    if(d.performance.control)add('Kontrol Seviyesi',d.performance.control);
+    if(d.performance.controls.length>1)add('Mevcut Kontrol Seviyeleri',d.performance.controls.join(' / '));
     const flow=d.mode==='selection'?d.selected.q:d.performance.nominalAirflow;
     if(positive(flow))add(d.mode==='selection'?'Seçilen Debi':'Nominal Debi',`${fmt(flow)} m³/h`);
     if(d.mode==='selection'&&positive(d.selected.p))add('Seçilen Basınç',`${fmt(d.selected.p)} Pa`);
@@ -250,7 +265,7 @@
   }
 
   function featuresHtml(d){
-    const items=[...d.description.general,...d.description.applications].filter(Boolean).slice(0,7);
+    const items=unique([...(d.description.general||[]),...(d.description.motor||[]),...(d.description.applications||[])]);
     if(!items.length)return '<p class="muted">Bu ürün için genel özellik bilgisi bulunmuyor.</p>';
     return `<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`;
   }
@@ -347,18 +362,18 @@
 
     return `<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(d.model)} Teknik Föy</title><base href="${attr(new URL('.',window.location.href).href)}"><style>
 *{box-sizing:border-box}body{margin:0;background:#e9eff0;color:#162f33;font-family:Arial,Helvetica,sans-serif}.toolbar{max-width:210mm;margin:10px auto 0;display:flex;justify-content:flex-end;gap:8px}.toolbar button{border:0;border-radius:7px;padding:9px 13px;font-weight:800;cursor:pointer}.print{background:#087f4f;color:#fff}.close{background:#dfe8e9;color:#29484d}
-.sheet{width:210mm;min-height:297mm;margin:10px auto 22px;background:#fff;padding:8mm 9mm 6mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column}
+.sheet{width:210mm;height:297mm;min-height:297mm;max-height:297mm;margin:10px auto 22px;background:#fff;padding:6mm 9mm 5mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column;overflow:hidden}
 .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #087f4f;padding-bottom:4px}.logo{height:16mm;max-width:78mm;object-fit:contain}.doc-title{font-size:10.5px;color:#566b70;font-weight:800;margin-top:3px}
 .product-title{margin:4px 0 0}.product-title h1{font-size:25px;line-height:1.02;color:#075e39;margin:0}.brand{margin-top:3px;color:#087f4f;font-weight:800;font-size:10px}.product-title h2{font-size:14px;line-height:1.12;margin:3px 0 0;color:#173033}
-.top-grid{display:grid;grid-template-columns:1fr 2fr;gap:4mm;align-items:stretch;margin-top:3mm}.product-image-wrap,.feature-card{border:1px solid #d7e3de;border-radius:8px;background:#fbfdfc;min-height:38mm}.product-image-wrap{display:flex;align-items:center;justify-content:center;padding:2mm}.product-image{width:100%;height:34mm;object-fit:contain}.feature-card{padding:3mm;overflow:hidden}.feature-card h3,.technical-strip h3{margin:0 0 2mm;color:#07633c;font-size:10.8px;font-weight:900;text-transform:uppercase}.feature-card ul{margin:0;padding-left:16px;font-size:9.2px;line-height:1.23}.feature-card li{margin-bottom:1.3px}.muted{font-size:8.8px;color:#64748b}
+.top-grid{display:grid;grid-template-columns:1fr 2fr;gap:4mm;align-items:stretch;margin-top:3mm}.product-image-wrap,.feature-card{border:1px solid #d7e3de;border-radius:8px;background:#fbfdfc;min-height:48mm;height:48mm}.product-image-wrap{display:flex;align-items:center;justify-content:center;padding:2mm}.product-image{width:100%;height:42mm;object-fit:contain}.feature-card{padding:2.5mm;overflow:hidden}.feature-card h3,.technical-strip h3{margin:0 0 1.6mm;color:#07633c;font-size:10.6px;font-weight:900;text-transform:uppercase}.feature-card ul{margin:0;padding-left:15px;font-size:8.1px;line-height:1.14;columns:2;column-gap:5mm}.feature-card li{margin:0 0 1.1px;break-inside:avoid-column}.muted{font-size:8.4px;color:#64748b}
 .technical-strip{margin-top:2.8mm;border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.5mm}.technical-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.2mm}.technical-cell{min-width:0;border:1px solid #d7e3de;border-radius:4px;background:#fff;padding:1.35mm 1.5mm}.technical-cell span,.technical-cell b{display:block}.technical-cell span{font-size:7.2px;color:#64748b;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.technical-cell b{margin-top:.5mm;font-size:8.3px;color:#173033;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.technical-cell.required{border-color:#d63b32;color:#b62e27}.technical-cell.required b{color:#b62e27}.technical-cell.selected{border-color:#168451}.technical-cell.selected b{color:#116b43}
-.section{margin-top:3mm}.section-head{font-size:11px;font-weight:900;color:#07633c;margin:0 0 2px;text-transform:uppercase}.curve{border:1px solid #8db3a2;border-radius:8px;padding:1.2mm;height:76mm;overflow:hidden;background:#fff}.curve svg{height:100%;width:100%;display:block}.empty-curve{padding:25px;text-align:center;color:#64748b}
-.drawing-section{margin-top:3mm}.dimension-panel{display:grid;grid-template-columns:2fr 1fr;gap:3mm;border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.5mm;min-height:64mm;overflow:hidden}.dimension-panel.no-values{grid-template-columns:1fr}.dimension-drawing-wrap{display:flex;align-items:center;justify-content:center;min-height:58mm;height:58mm;background:#fff;border:1px solid #e3e9e7;border-radius:6px;overflow:hidden}.catalog-drawing{position:relative;min-height:0!important;height:100%;width:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:0!important;border-radius:0!important;overflow:hidden}.catalog-drawing-image{display:block;width:auto;height:auto;max-width:100%;max-height:56mm!important;object-fit:contain;opacity:1}.catalog-drawing-canvas{display:none}.drawing-status{display:none!important}
+.section{margin-top:3mm}.section-head{font-size:11px;font-weight:900;color:#07633c;margin:0 0 2px;text-transform:uppercase}.curve{border:1px solid #8db3a2;border-radius:8px;padding:1.2mm;height:72mm;overflow:hidden;background:#fff}.curve svg{height:100%;width:100%;display:block}.empty-curve{padding:25px;text-align:center;color:#64748b}
+.drawing-section{margin-top:3mm}.dimension-panel{display:grid;grid-template-columns:2fr 1fr;gap:3mm;border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.5mm;height:66mm;min-height:66mm;overflow:hidden}.dimension-panel.no-values{grid-template-columns:1fr}.dimension-drawing-wrap{display:flex;align-items:center;justify-content:center;min-height:60mm;height:60mm;background:#fff;border:1px solid #e3e9e7;border-radius:6px;overflow:hidden}.catalog-drawing{position:relative;min-height:0!important;height:100%;width:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:0!important;border-radius:0!important;overflow:hidden}.catalog-drawing-image{display:block;width:auto;height:auto;max-width:100%;max-height:58mm!important;object-fit:contain;opacity:1}.catalog-drawing-canvas{display:none}.drawing-status{display:none!important}
 .dimension-table-wrap{display:flex;align-items:stretch;min-width:0}.dimension-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid #d7e3de;border-radius:6px;overflow:hidden;align-self:stretch}.dimension-table th,.dimension-table td{padding:2.1mm 2.2mm;border-top:1px solid #e1e9e6;font-size:8px;line-height:1.05}.dimension-table thead th{border-top:0;background:#edf6f1;color:#07633c;font-size:7.6px;text-transform:uppercase;text-align:left}.dimension-table th:first-child,.dimension-table td:first-child{width:34%;font-weight:800;color:#52666b}.dimension-table td:last-child{font-weight:800;color:#173033;text-align:right}.dimension-table tbody tr:first-child th,.dimension-table tbody tr:first-child td{border-top:0}
 .footer{margin-top:auto;padding-top:2.2mm;border-top:2px solid #087f4f;text-align:center;font-size:6.8px;color:#64748b}.footer b{display:block;margin-top:1mm;color:#087f4f;font-size:7.8px}.page-note{margin-top:1mm;padding-top:1mm;border-top:1px solid #d7e3e5;font-size:6.4px;color:#7b898d}
 @page{size:A4 portrait;margin:0}
-@media print{html,body{margin:0!important;padding:0!important;background:#fff!important}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.toolbar{display:none!important}.sheet{margin:0!important;box-shadow:none!important;width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;padding:6mm 9mm 5mm!important;overflow:hidden!important}.logo{height:14mm!important}.product-title{margin-top:2.5px!important}.product-title h1{font-size:23px!important}.product-title h2{font-size:13px!important}.top-grid{grid-template-columns:1fr 2fr!important;margin-top:2.3mm!important;gap:4mm!important}.product-image-wrap,.feature-card{min-height:35mm!important}.product-image{height:31mm!important}.feature-card{padding:2.2mm!important}.feature-card ul{font-size:8.7px!important;line-height:1.18!important}.feature-card li{margin-bottom:1px!important}.technical-strip{margin-top:2.2mm!important;padding:2mm!important}.technical-strip h3{margin-bottom:1.4mm!important}.technical-grid{gap:1mm!important}.technical-cell{padding:1mm 1.2mm!important}.technical-cell span{font-size:6.8px!important}.technical-cell b{font-size:7.8px!important}.section{margin-top:2.4mm!important}.curve{height:70mm!important;padding:1mm!important}.drawing-section{margin-top:2.4mm!important}.dimension-panel{grid-template-columns:2fr 1fr!important;gap:2.5mm!important;min-height:61mm!important;padding:2.2mm!important}.dimension-drawing-wrap{height:56mm!important;min-height:56mm!important}.catalog-drawing-image{width:auto!important;height:auto!important;max-width:100%!important;max-height:54mm!important}.dimension-table th,.dimension-table td{padding:1.65mm 1.7mm!important;font-size:7.6px!important}.dimension-table thead th{font-size:7.2px!important}.footer{padding-top:1.4mm!important}}
-@media screen and (max-width:640px){.toolbar{padding:0 10px}.sheet{width:100%;min-height:0;margin:8px 0;padding:16px}.top-grid{grid-template-columns:1fr}.technical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dimension-panel{grid-template-columns:1fr}.product-image{height:220px}.product-image-wrap{min-height:230px}.curve{height:auto}.dimension-drawing-wrap{height:260px}}
+@media print{html,body{width:210mm!important;height:297mm!important;margin:0!important;padding:0!important;background:#fff!important;overflow:hidden!important}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.toolbar{display:none!important}.sheet{margin:0!important;box-shadow:none!important;width:210mm!important;height:297mm!important;min-height:297mm!important;max-height:297mm!important;padding:6mm 9mm 5mm!important;overflow:hidden!important}.logo{height:14mm!important}.product-title{margin-top:2.5px!important}.product-title h1{font-size:23px!important}.product-title h2{font-size:13px!important}.top-grid{grid-template-columns:1fr 2fr!important;margin-top:2.3mm!important;gap:4mm!important}.product-image-wrap,.feature-card{height:48mm!important;min-height:48mm!important}.product-image{height:42mm!important}.feature-card{padding:2.3mm!important}.feature-card ul{font-size:8.1px!important;line-height:1.14!important;columns:2!important;column-gap:5mm!important}.feature-card li{margin-bottom:1px!important;break-inside:avoid-column!important}.technical-strip{margin-top:2.2mm!important;padding:2mm!important}.technical-strip h3{margin-bottom:1.4mm!important}.technical-grid{gap:1mm!important}.technical-cell{padding:1mm 1.2mm!important}.technical-cell span{font-size:6.8px!important}.technical-cell b{font-size:7.8px!important}.section{margin-top:2.4mm!important}.curve{height:72mm!important;padding:1mm!important}.drawing-section{margin-top:2.4mm!important}.dimension-panel{grid-template-columns:2fr 1fr!important;gap:2.5mm!important;height:66mm!important;min-height:66mm!important;padding:2.2mm!important}.dimension-drawing-wrap{height:60mm!important;min-height:60mm!important}.catalog-drawing-image{width:auto!important;height:auto!important;max-width:100%!important;max-height:58mm!important}.dimension-table th,.dimension-table td{padding:1.65mm 1.7mm!important;font-size:7.6px!important}.dimension-table thead th{font-size:7.2px!important}.footer{padding-top:1.4mm!important}}
+@media screen and (max-width:640px){.toolbar{padding:0 10px}.sheet{width:100%;height:auto;min-height:0;max-height:none;margin:8px 0;padding:16px;overflow:visible}.top-grid{grid-template-columns:1fr}.feature-card ul{columns:1}.technical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dimension-panel{grid-template-columns:1fr}.product-image{height:220px}.product-image-wrap{min-height:230px}.curve{height:auto}.dimension-drawing-wrap{height:260px}}
 </style></head><body><div class="toolbar"><button class="close" onclick="window.close()">Kapat</button><button id="printBtn" class="print" onclick="window.print()">Yazdır / PDF Kaydet</button></div>
 <main class="sheet">
 <header class="header"><img class="logo" src="assets/vensis-logo.png" alt="Vensis"><div class="doc-title">ÜRÜN TEKNİK FÖYÜ</div></header>
