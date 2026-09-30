@@ -10,7 +10,12 @@
     if(/^(?:data:|blob:|https?:|\/\/|\/)/i.test(raw))return raw;
     return raw.startsWith('assets/')?'/'+raw:raw;
   };
-  const catalogLanguage=()=>window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
+  const catalogLanguage=()=>{
+    const path=String(location.pathname||'').toLowerCase();
+    if(path==='/tr'||path.startsWith('/tr/'))return 'tr';
+    if(path==='/en'||path.startsWith('/en/'))return 'en';
+    return window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
+  };
   const featureText=value=>{
     const source=String(value??'').trim();
     if(catalogLanguage()!=='tr')return source;
