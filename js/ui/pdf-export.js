@@ -6,6 +6,9 @@
   const attr=esc;
   let renderLanguage='';
   function baseLanguage(){
+    const path=String(location.pathname||'').toLowerCase();
+    if(path==='/tr'||path.startsWith('/tr/'))return 'tr';
+    if(path==='/en'||path.startsWith('/en/'))return 'en';
     const value=window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
     return value==='tr'?'tr':'en';
   }
