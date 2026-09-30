@@ -10,6 +10,12 @@
     if(/^(?:data:|blob:|https?:|\/\/|\/)/i.test(raw))return raw;
     return raw.startsWith('assets/')?'/'+raw:raw;
   };
+  const catalogLanguage=()=>window.VensisI18n?.getLanguage?.()||(()=>{try{return localStorage.getItem('vensis_language_v1')||'en'}catch{return 'en'}})();
+  const featureText=value=>{
+    const source=String(value??'').trim();
+    if(catalogLanguage()!=='tr')return source;
+    return window.VensisCatalogLanguage?.productTextToTr?.(source)||source;
+  };
   const num=(value,decimals=0)=>{const n=Number(value);return Number.isFinite(n)&&n>0?n.toLocaleString('en-US',{maximumFractionDigits:decimals,minimumFractionDigits:decimals}):'-'};
   const unique=items=>[...new Set(items.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
   const allSeries=catalog.series||[];
@@ -245,7 +251,7 @@
     const featureApplications=[...(description.applications||[])].filter(Boolean);
     const unifiedFeaturesHtml=()=>{
       if(!featureGeneral.length&&!featureApplications.length)return '<p class="empty-note">No information available.</p>';
-      return `<ul>${featureGeneral.map(item=>`<li class="catalog-general">${esc(item)}</li>`).join('')}${featureApplications.map(item=>`<li class="catalog-application">${esc(item)}</li>`).join('')}</ul>`;
+      return `<ul>${featureGeneral.map(item=>`<li class="catalog-general" data-vensis-en="${esc(item)}">${esc(featureText(item))}</li>`).join('')}${featureApplications.map(item=>`<li class="catalog-application" data-vensis-en="${esc(item)}">${esc(featureText(item))}</li>`).join('')}</ul>`;
     };
     const seriesInfoHtml=unifiedFeatures
       ? `<div class="series-info-grid"><section class="detail-section" data-unified-features data-${brandKey}-features style="grid-column:1/-1"><h3>General Features</h3>${unifiedFeaturesHtml()}</section></div>`
