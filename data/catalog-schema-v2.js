@@ -27,7 +27,9 @@
     series.brand=text(series.manufacturer);
     series.descriptionParts=originalDescription;
     series.descriptionText=descriptionText;
-    series.description={text:descriptionText,general:descriptionText?[descriptionText]:[],motor:[],applications:[]};
+    series.description=isVitlo(series)
+      ? {text:descriptionText,general:[...originalDescription.general],motor:[...originalDescription.motor],applications:[...originalDescription.applications]}
+      : {text:descriptionText,general:descriptionText?[descriptionText]:[],motor:[],applications:[]};
     series.category=[...(series.categories||[])];
     series.image=text(series?.media?.image);
     series.catalogPdf=text(series?.catalogue?.pdf);
@@ -93,7 +95,18 @@
       if(series&&infoGrid&&infoGrid.dataset.schemaV2!=='1'){
         infoGrid.dataset.schemaV2='1';
         infoGrid.style.gridTemplateColumns='1fr';
-        infoGrid.innerHTML=`<section class="detail-section"><h3>Description</h3><p style="margin:0;line-height:1.65;color:#334155">${esc(series.descriptionText||'No information available.')}</p></section>`;
+        if(isVitlo(series)){
+          const parts=series.descriptionParts||series.description||{};
+          const general=uniqueText([parts.general||[],parts.motor||[]]);
+          const applications=uniqueText([parts.applications||[]]);
+          const items=[
+            ...general.map(value=>`<li class="vitlo-general">${esc(value)}</li>`),
+            ...applications.map(value=>`<li class="vitlo-application">${esc(value)}</li>`)
+          ].join('');
+          infoGrid.innerHTML=`<section class="detail-section" data-vitlo-features><h3>General Features</h3>${items?`<ul>${items}</ul>`:'<p class="empty-note">No information available.</p>'}</section>`;
+        }else{
+          infoGrid.innerHTML=`<section class="detail-section"><h3>Description</h3><p style="margin:0;line-height:1.65;color:#334155">${esc(series.descriptionText||'No information available.')}</p></section>`;
+        }
       }
       document.querySelectorAll('.model-card').forEach(card=>{
         if(card.dataset.schemaV2==='1')return;
