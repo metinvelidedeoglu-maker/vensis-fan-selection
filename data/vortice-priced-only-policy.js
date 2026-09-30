@@ -36,6 +36,21 @@
   );
   catalog.series.splice(0,catalog.series.length,...catalog.series.filter(series=>!removedSeriesIds.has(String(series?.id))));
 
+  // Rebuild Vortice series descriptions from the models that remain public.
+  for(const series of catalog.series){
+    if(!isVorticeSeries(series))continue;
+    const publicModels=catalog.models.filter(model=>String(model.seriesId)===String(series.id));
+    const collect=key=>[...new Set(publicModels.flatMap(model=>model.description?.[key]||[]).map(value=>String(value||'').trim()).filter(Boolean))];
+    const description={
+      general:collect('general'),
+      motor:collect('motor'),
+      applications:collect('applications')
+    };
+    series.description=description;
+    series.descriptionParts={general:[...description.general],motor:[...description.motor],applications:[...description.applications]};
+    series.descriptionText=[...new Set([...description.general,...description.motor,...description.applications])].join(' ');
+  }
+
   // Guard direct lookups too, so removed products cannot reappear through an old ID.
   if(typeof catalog.getModel==='function'){
     const originalGetModel=catalog.getModel.bind(catalog);
