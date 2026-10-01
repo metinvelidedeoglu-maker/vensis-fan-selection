@@ -1,0 +1,41 @@
+name: Build Nicotra Public ZIP
+on:
+  push:
+    branches:
+      - nicotra-site-v1
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start local site
+        run: |
+          node nicotra-site/server.js > /tmp/nicotra.log 2>&1 &
+          echo $! > /tmp/nicotra.pid
+          for i in {1..20}; do
+            curl -fsS http://127.0.0.1:3000/ >/dev/null && break
+            sleep 1
+          done
+      - name: Export static public folder
+        run: |
+          mkdir -p public/urunler public/uygulamalar public/hakkimizda public/iletisim
+          curl -fsS http://127.0.0.1:3000/ -o public/index.html
+          curl -fsS http://127.0.0.1:3000/urunler -o public/urunler/index.html
+          curl -fsS http://127.0.0.1:3000/uygulamalar -o public/uygulamalar/index.html
+          curl -fsS http://127.0.0.1:3000/hakkimizda -o public/hakkimizda/index.html
+          curl -fsS http://127.0.0.1:3000/iletisim -o public/iletisim/index.html
+          for slug in copra rlm-evo ddmp at rzm rzr rer q2m; do
+            mkdir -p "public/urunler/$slug"
+            curl -fsS "http://127.0.0.1:3000/urunler/$slug" -o "public/urunler/$slug/index.html"
+          done
+          curl -fsS http://127.0.0.1:3000/robots.txt -o public/robots.txt
+          curl -fsS http://127.0.0.1:3000/sitemap.xml -o public/sitemap.xml
+          touch public/.nojekyll
+          kill $(cat /tmp/nicotra.pid) || true
+          zip -r nicotra-public.zip public
+      - name: Upload public ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: nicotra-public
+          path: nicotra-public.zip
+          if-no-files-found: error
