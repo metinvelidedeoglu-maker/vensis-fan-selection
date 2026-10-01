@@ -1,0 +1,12 @@
+{
+  "name": "nicotra-turkiye-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nicotra Gebhardt Türkiye - Vensis tanıtım ve ürün sitesi",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
