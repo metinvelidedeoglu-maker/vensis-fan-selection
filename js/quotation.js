@@ -56,11 +56,18 @@
     const voltage=String(item.voltage||model?.motor?.voltage||'').trim();
     return voltage?`<span class="technical">${escapeHtml(voltage)}</span>`:'-';
   }
+  function localizedModelName(item){
+    const raw=String(item?.model||'').trim();
+    const english=quotationLanguage(activeQuotation,activeQuotation?.settings)==='en';
+    if(english&&/\bPASLANMAZ\s*316\b/i.test(raw))return raw.replace(/\bPASLANMAZ\s*316\b/ig,'STAINLESS STEEL 316');
+    if(!english&&/\bSTAINLESS\s+STEEL\s*316\b/i.test(raw))return raw.replace(/\bSTAINLESS\s+STEEL\s*316\b/ig,'PASLANMAZ 316');
+    return raw;
+  }
   function productMarkup(item){
-    const image=`<i class="product-image-slot"${item.image?'':` aria-hidden="true"`}>${item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model||'Product')}" onerror="this.remove()">`:''}</i>`;
+    const image=`<i class="product-image-slot"${item.image?'':` aria-hidden="true"`}>${item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(localizedModelName(item)||'Product')}" onerror="this.remove()">`:''}</i>`;
     const description=String(item.description||'').trim();
     const safety=String(item.safetyWarning||'').trim();
-    return `<div class="product">${image}<div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:9.5px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${description?`<em class="product-description">${escapeHtml(description)}</em>`:''}</div></div>`;
+    return `<div class="product">${image}<div><strong>${escapeHtml(localizedModelName(item)||'-')}</strong><span>${escapeHtml(item.series||'')}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:9.5px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${description?`<em class="product-description">${escapeHtml(description)}</em>`:''}</div></div>`;
   }
   function fanRow(item,currency){
     const model=modelFor(item);
