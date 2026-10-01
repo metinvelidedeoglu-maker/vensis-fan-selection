@@ -32,6 +32,39 @@ if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='vitlo'){
   );
 }
 
+
+(function addCrsAtex45Stainless316(){
+  const rows=Array.isArray(window.models)?window.models:[];
+  const key='CRS/ATEX|CRS/ATEX 45-4T PASLANMAZ 316|7800|22|SS316';
+  if(rows.some(row=>String(row?.key||'')===key))return;
+  const base=rows.find(row=>String(row?.series||'').trim()==='CRS/ATEX'&&String(row?.model||'').trim()==='CRS/ATEX 45-4T');
+  if(!base)return;
+  const language=(()=>{
+    const pathname=String(location.pathname||'').toLowerCase();
+    if(/(^|\/)en(\/|$)/.test(pathname))return 'en';
+    if(/(^|\/)tr(\/|$)/.test(pathname))return 'tr';
+    const active=String(window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'').toLowerCase();
+    if(active==='en'||active==='tr')return active;
+    try{return localStorage.getItem('vensis_language_v1')==='en'?'en':'tr'}catch{return 'tr'}
+  })();
+  const variant=JSON.parse(JSON.stringify(base));
+  const modelTr='CRS/ATEX 45-4T PASLANMAZ 316';
+  const modelEn='CRS/ATEX 45-4T STAINLESS STEEL 316';
+  variant.key=key;
+  variant.model=language==='en'?modelEn:modelTr;
+  variant.modelTr=modelTr;
+  variant.modelEn=modelEn;
+  variant.display=(language==='en'?modelEn:modelTr)+' (7800 m³/h)';
+  variant.displayTr=modelTr+' (7800 m³/h)';
+  variant.displayEn=modelEn+' (7800 m³/h)';
+  variant.material='Paslanmaz 316';
+  variant.materialEn='Stainless Steel 316';
+  variant.price=10000;
+  variant.priceCurrency='EUR';
+  variant.priceSource='Vensis CRS/ATEX AISI 316 stainless variant 2026-10-01';
+  rows.push(variant);
+})();
+
 if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='sp'){
   document.write(
     '<script src="data/sp-silent-workbook-policy.js?v=20260908-silent-no-controller-r1"><\/script>',
