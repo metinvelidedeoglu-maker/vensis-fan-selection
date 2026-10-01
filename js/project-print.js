@@ -109,6 +109,13 @@
     return point(item.selected);
   }
 
+  function localizedModelName(item){
+    const raw=String(item?.model||'').trim();
+    if(OUTPUT_LANGUAGE==='en'&&/\bPASLANMAZ\s*316\b/i.test(raw))return raw.replace(/\bPASLANMAZ\s*316\b/ig,'STAINLESS STEEL 316');
+    if(OUTPUT_LANGUAGE==='tr'&&/\bSTAINLESS\s+STEEL\s*316\b/i.test(raw))return raw.replace(/\bSTAINLESS\s+STEEL\s*316\b/ig,'PASLANMAZ 316');
+    return raw;
+  }
+
   function overviewRow(item){
     const model=modelFor(item);
     const motor=resolvedMotor(item,model);
@@ -116,7 +123,7 @@
     const description=String(item.description||'').trim();
     const safety=String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
     return `<tr>
-      <td><div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(item.model||'Fan')}" onerror="this.remove()">`:''}</i><div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div></td>
+      <td><div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(localizedModelName(item)||'Fan')}" onerror="this.remove()">`:''}</i><div><strong>${esc(localizedModelName(item)||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div></td>
       <td class="technical-point">${esc(sourceText(item))}</td>
       <td class="technical-point">${esc(selectedText(item))}</td>
       <td>${supplyText(item,model)}</td>
@@ -144,8 +151,10 @@
     const baseModel=modelFor(item);
     const product=productFor(item,baseModel);
     const model=modelAtControl(item,baseModel);
-    const fallbackModel=model||{
-      model:item.model||'',
+    const localizedModel=localizedModelName(item);
+    const localizedProduct={...product,model:localizedModel||product?.model||''};
+    const fallbackModel=model?{...model,model:localizedModel||model.model}:{
+      model:localizedModel||'',
       manufacturer:item.manufacturer||'Vitlo',
       motor:product.motor,
       performance:product.performance,
@@ -155,7 +164,7 @@
     return {
       mode:item.mode==='catalog'?'catalog':'selection',
       outputLanguage:OUTPUT_LANGUAGE,
-      product,
+      product:localizedProduct,
       model:fallbackModel,
       required:item.mode==='catalog'?null:item.required,
       selected:item.mode==='catalog'?null:item.selected
