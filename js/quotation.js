@@ -151,7 +151,10 @@
   }
   function settingsFor(quotation){
     const format=formats.detect(quotation?.items||[],quotation?.format||'auto');
-    const value=quotation?.settings||window.VensisQuotationSettings?.forFormat?.(format)||window.VensisQuotationSettings?.read?.()||window.VensisQuotationSettings?.defaults||{};
+    const value=clone(quotation?.settings||window.VensisQuotationSettings?.forFormat?.(format)||window.VensisQuotationSettings?.read?.()||window.VensisQuotationSettings?.defaults||{});
+    value.summary=value.summary||{};
+    if(['8 hafta','8 weeks'].includes(String(value.summary.deliveryTime||'').trim()))value.summary.deliveryTime='';
+    if(['Vensis depo teslim','Ex Vensis warehouse'].includes(String(value.summary.deliveryPlace||'').trim()))value.summary.deliveryPlace='';
     return ensureWarranty(quotation,value);
   }
   function renderSettings(settings){
@@ -161,7 +164,10 @@
     const terms=settings.terms||{};
     const cards=pages[0]?.querySelectorAll('.term-card b')||[];
     const deliveryTime=summary.deliveryTime===undefined?window.VensisQuotationSettings?.defaults?.summary?.deliveryTime:summary.deliveryTime;
-    [summary.payment,summary.exchangeRate,summary.validity,deliveryTime,summary.deliveryPlace,summary.vat,summary.commissioning].forEach((value,index)=>{if(cards[index])cards[index].textContent=value||'-'});
+    [summary.payment,summary.exchangeRate,summary.validity,deliveryTime,summary.deliveryPlace,summary.vat,summary.commissioning].forEach((value,index)=>{
+      if(!cards[index])return;
+      cards[index].textContent=(index===3||index===4)?String(value??''):(value||'-');
+    });
     const firstNote=pages[0]?.querySelector('.quote-note');
     if(firstNote)firstNote.innerHTML=`<b>Teklif Notu</b>${escapeHtml(summary.quotationNote||'').replace(/\n/g,'<br>')}`;
     const scopeBodies=pages[1]?.querySelectorAll('.content-block .body')||[];
