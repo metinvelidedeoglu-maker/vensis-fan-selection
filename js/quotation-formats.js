@@ -54,8 +54,8 @@
       payment:'Cash in advance with order',
       exchangeRate:'The Türkiye Vakıflar Bankası Euro selling rate on the invoice date shall apply.',
       validity:'7 days',
-      deliveryTime:'8 weeks',
-      deliveryPlace:'Ex Vensis warehouse',
+      deliveryTime:'',
+      deliveryPlace:'',
       vat:'VAT is not included in our prices.',
       commissioning:'Commissioning service is not included in the quotation price.',
       quotationNote:'Our quotation has been prepared based on the survey and technical information provided to us. The customer is responsible for verifying that the offered products are suitable for the project and application conditions.'
