@@ -6,8 +6,8 @@
       payment:'Siparişte peşin',
       exchangeRate:'Fatura tarihindeki Türkiye Vakıflar Bankası Euro satış kuru esas alınacaktır.',
       validity:'7 gün',
-      deliveryTime:'8 hafta',
-      deliveryPlace:'Vensis depo teslim',
+      deliveryTime:'',
+      deliveryPlace:'',
       vat:'Fiyatlarımıza KDV dahil değildir.',
       commissioning:'Devreye alma hizmeti teklif fiyatına dahil değildir.',
       quotationNote:'Teklifimiz tarafımıza iletilen keşif ve teknik bilgilere göre hazırlanmıştır. Teklif edilen ürünlerin proje ve uygulama koşullarına uygunluğunun müşteri tarafından kontrol edilmesi gerekmektedir.'
