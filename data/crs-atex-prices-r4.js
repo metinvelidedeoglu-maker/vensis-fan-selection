@@ -2,6 +2,8 @@
   'use strict';
 
   const prices = {
+    'CRS31-2T-2': 2300,
+    'CRS31-2T-2-ATEX': 2300,
     'CRS40-2T-5.5': 4300,
     'CRS50-2T-15': 6720,
     'CRS80-4T-25': 10700
