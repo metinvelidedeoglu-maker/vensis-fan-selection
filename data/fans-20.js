@@ -124,21 +124,27 @@ window.models.push(...[
     ],
     "catalogueInfo": {
       "general": [
+        "Anti-corrosion polypropylene centrifugal fan, direct drive; nominal suction/discharge diameter 200 mm.",
         "SEAT 25 centrifugal fan, AS 50 Hz three-phase motor.",
         "Fan size 25, outlet diameter 200 mm.",
-        "Catalogue includes selectable left/right discharge orientations."
+        "Catalogue includes selectable left/right discharge orientations.",
+        "SEAT 25 manufacturer dimensional table: motor-axis heights can vary with installed motor; optional metal stand not included."
       ],
       "motor": [
         "Three-phase asynchronous motor, IP55, 230/400 V, 50 Hz, 0.37 kW, 1450 rpm.",
         "Rated current 1.85 A at 230 V and 1.06 A at 400 V.",
-        "Weight 11.3 kg."
+        "Weight 11.3 kg.",
+        "Performance curve shown in this application is a provisional manually digitized approximation pending engineering confirmation."
       ],
       "applications": [
         "Centrifugal ventilation applications according to the manufacturer's technical requirements."
       ]
     },
     "atex": false,
-    "pricePending": false
+    "pricePending": false,
+    "image": "https://seat-ventilation.com/cdn/shop/files/preview_images/seat25.jpg?v=1737486877&width=1214",
+    "dimensionImage": "assets/products/seat/seat25-dimensions.svg",
+    "material": "Polypropylene"
   },
   {
     "key": "SEAT-SEAT25-ATEX|51252003",
@@ -266,14 +272,17 @@ window.models.push(...[
     ],
     "catalogueInfo": {
       "general": [
+        "Anti-corrosion polypropylene centrifugal fan, direct drive; nominal suction/discharge diameter 200 mm.",
         "SEAT 25 centrifugal fan, AS 50 Hz three-phase motor.",
         "Fan size 25, outlet diameter 200 mm.",
-        "Catalogue includes selectable left/right discharge orientations."
+        "Catalogue includes selectable left/right discharge orientations.",
+        "SEAT 25 manufacturer dimensional table: motor-axis heights can vary with installed motor; optional metal stand not included."
       ],
       "motor": [
         "Three-phase asynchronous motor, IP55, 230/400 V, 50 Hz, 0.37 kW, 1450 rpm.",
         "Rated current 1.94 A at 230 V and 1.12 A at 400 V.",
-        "Weight 12.3 kg."
+        "Weight 12.3 kg.",
+        "Performance curve shown in this application is a provisional manually digitized approximation pending engineering confirmation."
       ],
       "applications": [
         "ATEX version; verify actual Ex marking, zone and gas/dust classification from manufacturer certificate before specifying."
@@ -283,7 +292,10 @@ window.models.push(...[
       "status": "manufacturer_ATEX_variant_marking_not_given_in_datasheet"
     },
     "safetyWarning": "ATEX marking / group / temperature class and certificates are not specified in the supplied two-page sheet. Confirm suitability with manufacturer before selection for hazardous zones.",
-    "pricePending": false
+    "pricePending": false,
+    "image": "https://seat-ventilation.com/cdn/shop/files/preview_images/seat25.jpg?v=1737486877&width=1214",
+    "dimensionImage": "assets/products/seat/seat25-dimensions.svg",
+    "material": "Polypropylene"
   },
   {
     "key": "SEAT-SEAT25|51253000",
@@ -397,21 +409,27 @@ window.models.push(...[
     ],
     "catalogueInfo": {
       "general": [
+        "Anti-corrosion polypropylene centrifugal fan, direct drive; nominal suction/discharge diameter 200 mm.",
         "SEAT 25 centrifugal fan, AS 50 Hz three-phase motor.",
         "Fan size 25, outlet diameter 200 mm.",
-        "Catalogue includes selectable left/right discharge orientations."
+        "Catalogue includes selectable left/right discharge orientations.",
+        "SEAT 25 manufacturer dimensional table: motor-axis heights can vary with installed motor; optional metal stand not included."
       ],
       "motor": [
         "Three-phase asynchronous motor, IP55, 230/400 V, 50 Hz, 2.2 kW, 2870 rpm.",
         "Rated current 7.56 A at 230 V and 4.35 A at 400 V.",
-        "Weight 23.9 kg."
+        "Weight 23.9 kg.",
+        "Performance curve shown in this application is a provisional manually digitized approximation pending engineering confirmation."
       ],
       "applications": [
         "Centrifugal ventilation applications according to the manufacturer's technical requirements."
       ]
     },
     "atex": false,
-    "pricePending": false
+    "pricePending": false,
+    "image": "https://seat-ventilation.com/cdn/shop/files/preview_images/seat25.jpg?v=1737486877&width=1214",
+    "dimensionImage": "assets/products/seat/seat25-dimensions.svg",
+    "material": "Polypropylene"
   },
   {
     "key": "SEAT-SEAT25-ATEX|51253003",
@@ -527,14 +545,17 @@ window.models.push(...[
     ],
     "catalogueInfo": {
       "general": [
+        "Anti-corrosion polypropylene centrifugal fan, direct drive; nominal suction/discharge diameter 200 mm.",
         "SEAT 25 centrifugal fan, AS 50 Hz three-phase motor.",
         "Fan size 25, outlet diameter 200 mm.",
-        "Catalogue includes selectable left/right discharge orientations."
+        "Catalogue includes selectable left/right discharge orientations.",
+        "SEAT 25 manufacturer dimensional table: motor-axis heights can vary with installed motor; optional metal stand not included."
       ],
       "motor": [
         "Three-phase asynchronous motor, IP55, 230/400 V, 50 Hz, 2.2 kW, 2870 rpm.",
         "Rated current 8.7 A at 230 V and 5 A at 400 V.",
-        "Weight 20.9 kg."
+        "Weight 20.9 kg.",
+        "Performance curve shown in this application is a provisional manually digitized approximation pending engineering confirmation."
       ],
       "applications": [
         "ATEX version; verify actual Ex marking, zone and gas/dust classification from manufacturer certificate before specifying."
@@ -544,6 +565,9 @@ window.models.push(...[
       "status": "manufacturer_ATEX_variant_marking_not_given_in_datasheet"
     },
     "safetyWarning": "ATEX marking / group / temperature class and certificates are not specified in the supplied two-page sheet. Confirm suitability with manufacturer before selection for hazardous zones.",
-    "pricePending": false
+    "pricePending": false,
+    "image": "https://seat-ventilation.com/cdn/shop/files/preview_images/seat25.jpg?v=1737486877&width=1214",
+    "dimensionImage": "assets/products/seat/seat25-dimensions.svg",
+    "material": "Polypropylene"
   }
 ]);
