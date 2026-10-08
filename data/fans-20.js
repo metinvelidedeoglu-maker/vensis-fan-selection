@@ -68,100 +68,46 @@ window.models.push(...[
       "sourceCatalogue": "seat-25-fiche-technique-gb-03-2024-1710493913.pdf",
       "sourcePage": 2,
       "sourceMethod": "approximate manual digitization of printed 50 Hz AS motor curve; motor power-limited section only",
-      "caution": "Full chart curve is displayed in documents; selectable duty points restricted to motor-specific range pending engineering verification."
+      "caution": "Graph resolution and motor-power boundary warrant independent curve verification before use for a technical offer."
     },
     "curves": [
       {
         "control": "nominal",
         "sourcePage": 2,
-        "sourceMethod": "Manually digitized from supplied SEAT 25 catalogue, p.15; plotted full fan curve, selection truncated at conservative nominal motor-power changeover",
+        "sourceMethod": "approximate manual reading of published graph, truncated to selected motor-power region",
         "interpolation": "linear",
         "sourcePoints": [
           [
-            378,
-            250
-          ],
-          [
-            371,
-            500
-          ],
-          [
-            367,
-            750
-          ],
-          [
-            371,
-            1000
-          ],
-          [
-            370,
-            1200
-          ],
-          [
-            359,
-            1350
-          ],
-          [
-            343,
-            1500
-          ]
-        ],
-        "displaySourcePoints": [
-          [
             380,
-            0
+            100
           ],
           [
-            378,
-            250
+            375,
+            300
           ],
           [
-            371,
-            500
+            365,
+            550
           ],
           [
-            367,
-            750
+            368,
+            850
           ],
           [
-            371,
-            1000
+            365,
+            1050
           ],
           [
-            370,
+            351,
             1200
           ],
           [
-            359,
+            335,
             1350
           ],
           [
-            343,
-            1500
-          ],
-          [
-            324,
-            1650
-          ],
-          [
-            292,
-            1800
-          ],
-          [
-            258,
-            1950
-          ],
-          [
-            219,
-            2100
-          ],
-          [
-            175,
-            2250
-          ],
-          [
-            158,
-            2450
+            320,
+            1470
           ]
         ]
       }
@@ -178,27 +124,21 @@ window.models.push(...[
     ],
     "catalogueInfo": {
       "general": [
-        "Anti-corrosion polypropylene centrifugal fan, direct drive; nominal suction/discharge diameter 200 mm.",
         "SEAT 25 centrifugal fan, AS 50 Hz three-phase motor.",
         "Fan size 25, outlet diameter 200 mm.",
-        "Catalogue includes selectable left/right discharge orientations.",
-        "SEAT 25 manufacturer dimensional table: motor-axis heights can vary with installed motor; optional metal stand not included."
+        "Catalogue includes selectable left/right discharge orientations."
       ],
       "motor": [
         "Three-phase asynchronous motor, IP55, 230/400 V, 50 Hz, 0.37 kW, 1450 rpm.",
         "Rated current 1.85 A at 230 V and 1.06 A at 400 V.",
-        "Weight 11.3 kg.",
-        "Performance curve shown in this application is a provisional manually digitized approximation pending engineering confirmation."
+        "Weight 11.3 kg."
       ],
       "applications": [
         "Centrifugal ventilation applications according to the manufacturer's technical requirements."
       ]
     },
     "atex": false,
-    "pricePending": false,
-    "image": "assets/products/seat/seat25-dimensions.svg",
-    "dimensionImage": "assets/products/seat/seat25-dimensions.svg",
-    "material": "Polypropylene"
+    "pricePending": false
   },
   {
     "key": "SEAT-SEAT25-ATEX|51252003",
@@ -270,100 +210,46 @@ window.models.push(...[
       "sourceCatalogue": "seat-25-fiche-technique-gb-03-2024-1710493913.pdf",
       "sourcePage": 2,
       "sourceMethod": "approximate manual digitization of printed 50 Hz AS motor curve; motor power-limited section only",
-      "caution": "Full chart curve is displayed in documents; selectable duty points restricted to motor-specific range pending engineering verification."
+      "caution": "Graph resolution and motor-power boundary warrant independent curve verification before use for a technical offer."
     },
     "curves": [
       {
         "control": "nominal",
         "sourcePage": 2,
-        "sourceMethod": "Manually digitized from supplied SEAT 25 catalogue, p.15; plotted full fan curve, selection truncated at conservative nominal motor-power changeover",
+        "sourceMethod": "approximate manual reading of published graph, truncated to selected motor-power region",
         "interpolation": "linear",
         "sourcePoints": [
           [
-            378,
-            250
-          ],
-          [
-            371,
-            500
-          ],
-          [
-            367,
-            750
-          ],
-          [
-            371,
-            1000
-          ],
-          [
-            370,
-            1200
-          ],
-          [
-            359,
-            1350
-          ],
-          [
-            343,
-            1500
-          ]
-        ],
-        "displaySourcePoints": [
-          [
             380,
-            0
+            100
           ],
           [
-            378,
-            250
+            375,
+            300
           ],
           [
-            371,
-            500
+            365,
+            550
           ],
           [
-            367,
-            750
+            368,
+            850
           ],
           [
-            371,
-            1000
+            365,
+            1050
           ],
           [
-            370,
+            351,
             1200
           ],
           [
-            359,
+            335,
             1350
           ],
           [
-            343,
-            1500
-          ],
-          [
-            324,
-            1650
-          ],
-          [
-            292,
-            1800
-          ],
-          [
-            258,
-            1950
-          ],
-          [
-            219,
-            2100
-          ],
-          [
-            175,
-            2250
-          ],
-          [
-            158,
-            2450
+            320,
+            1470
           ]
         ]
       }
@@ -380,17 +266,14 @@ window.models.push(...[
     ],
     "catalogueInfo": {
       "general": [
-        "Anti-corrosion polypropylene centrifugal fan, direct drive; nominal suction/discharge diameter 200 mm.",
         "SEAT 25 centrifugal fan, AS 50 Hz three-phase motor.",
         "Fan size 25, outlet diameter 200 mm.",
-        "Catalogue includes selectable left/right discharge orientations.",
-        "SEAT 25 manufacturer dimensional table: motor-axis heights can vary with installed motor; optional metal stand not included."
+        "Catalogue includes selectable left/right discharge orientations."
       ],
       "motor": [
         "Three-phase asynchronous motor, IP55, 230/400 V, 50 Hz, 0.37 kW, 1450 rpm.",
         "Rated current 1.94 A at 230 V and 1.12 A at 400 V.",
-        "Weight 12.3 kg.",
-        "Performance curve shown in this application is a provisional manually digitized approximation pending engineering confirmation."
+        "Weight 12.3 kg."
       ],
       "applications": [
         "ATEX version; verify actual Ex marking, zone and gas/dust classification from manufacturer certificate before specifying."
@@ -400,10 +283,7 @@ window.models.push(...[
       "status": "manufacturer_ATEX_variant_marking_not_given_in_datasheet"
     },
     "safetyWarning": "ATEX marking / group / temperature class and certificates are not specified in the supplied two-page sheet. Confirm suitability with manufacturer before selection for hazardous zones.",
-    "pricePending": false,
-    "image": "assets/products/seat/seat25-dimensions.svg",
-    "dimensionImage": "assets/products/seat/seat25-dimensions.svg",
-    "material": "Polypropylene"
+    "pricePending": false
   },
   {
     "key": "SEAT-SEAT25|51253000",
@@ -462,7 +342,7 @@ window.models.push(...[
       "X2": 390
     },
     "dimensionsUnit": "mm",
-    "spl": 72,
+    "spl": 0,
     "price": 2500,
     "priceCurrency": "EUR",
     "sourceCatalogue": "seat-25-fiche-technique-gb-03-2024-1710493913.pdf",
@@ -473,104 +353,34 @@ window.models.push(...[
       "sourceCatalogue": "seat-25-fiche-technique-gb-03-2024-1710493913.pdf",
       "sourcePage": 2,
       "sourceMethod": "approximate manual digitization of printed 50 Hz AS motor curve; motor power-limited section only",
-      "caution": "Full chart curve is displayed in documents; selectable duty points restricted to motor-specific range pending engineering verification."
+      "caution": "Graph resolution and motor-power boundary warrant independent curve verification before use for a technical offer."
     },
     "curves": [
       {
         "control": "nominal",
         "sourcePage": 2,
-        "sourceMethod": "Manually digitized from supplied SEAT 25 catalogue, p.15; plotted full fan curve, selection truncated at conservative nominal motor-power changeover",
+        "sourceMethod": "approximate manual reading of published graph, truncated to selected motor-power region",
         "interpolation": "linear",
         "sourcePoints": [
           [
-            1500,
-            800
-          ],
-          [
-            1488,
-            1000
-          ],
-          [
-            1470,
-            1200
-          ],
-          [
-            1451,
-            1400
-          ],
-          [
-            1443,
-            1600
-          ],
-          [
-            1443,
-            1800
+            1450,
+            1050
           ],
           [
             1450,
-            2000
-          ]
-        ],
-        "displaySourcePoints": [
-          [
-            1500,
-            800
+            1250
           ],
           [
-            1488,
-            1000
+            1440,
+            1500
           ],
           [
-            1470,
-            1200
+            1435,
+            1750
           ],
           [
-            1451,
-            1400
-          ],
-          [
-            1443,
-            1600
-          ],
-          [
-            1443,
-            1800
-          ],
-          [
-            1450,
-            2000
-          ],
-          [
-            1456,
-            2200
-          ],
-          [
-            1457,
-            2400
-          ],
-          [
-            1445,
-            2600
-          ],
-          [
-            1426,
-            2800
-          ],
-          [
-            1390,
-            3000
-          ],
-          [
-            1340,
-            3200
-          ],
-          [
-            1280,
-            3400
-          ],
-          [
-            1200,
-            3700
+            1430,
+            1950
           ]
         ]
       }
@@ -587,27 +397,21 @@ window.models.push(...[
     ],
     "catalogueInfo": {
       "general": [
-        "Anti-corrosion polypropylene centrifugal fan, direct drive; nominal suction/discharge diameter 200 mm.",
         "SEAT 25 centrifugal fan, AS 50 Hz three-phase motor.",
         "Fan size 25, outlet diameter 200 mm.",
-        "Catalogue includes selectable left/right discharge orientations.",
-        "SEAT 25 manufacturer dimensional table: motor-axis heights can vary with installed motor; optional metal stand not included."
+        "Catalogue includes selectable left/right discharge orientations."
       ],
       "motor": [
         "Three-phase asynchronous motor, IP55, 230/400 V, 50 Hz, 2.2 kW, 2870 rpm.",
         "Rated current 7.56 A at 230 V and 4.35 A at 400 V.",
-        "Weight 23.9 kg.",
-        "Performance curve shown in this application is a provisional manually digitized approximation pending engineering confirmation."
+        "Weight 23.9 kg."
       ],
       "applications": [
         "Centrifugal ventilation applications according to the manufacturer's technical requirements."
       ]
     },
     "atex": false,
-    "pricePending": false,
-    "image": "assets/products/seat/seat25-dimensions.svg",
-    "dimensionImage": "assets/products/seat/seat25-dimensions.svg",
-    "material": "Polypropylene"
+    "pricePending": false
   },
   {
     "key": "SEAT-SEAT25-ATEX|51253003",
@@ -668,7 +472,7 @@ window.models.push(...[
       "X2": 390
     },
     "dimensionsUnit": "mm",
-    "spl": 72,
+    "spl": 0,
     "price": 2750,
     "priceCurrency": "EUR",
     "sourceCatalogue": "seat-25-fiche-technique-gb-03-2024-1710493913.pdf",
@@ -679,104 +483,34 @@ window.models.push(...[
       "sourceCatalogue": "seat-25-fiche-technique-gb-03-2024-1710493913.pdf",
       "sourcePage": 2,
       "sourceMethod": "approximate manual digitization of printed 50 Hz AS motor curve; motor power-limited section only",
-      "caution": "Full chart curve is displayed in documents; selectable duty points restricted to motor-specific range pending engineering verification."
+      "caution": "Graph resolution and motor-power boundary warrant independent curve verification before use for a technical offer."
     },
     "curves": [
       {
         "control": "nominal",
         "sourcePage": 2,
-        "sourceMethod": "Manually digitized from supplied SEAT 25 catalogue, p.15; plotted full fan curve, selection truncated at conservative nominal motor-power changeover",
+        "sourceMethod": "approximate manual reading of published graph, truncated to selected motor-power region",
         "interpolation": "linear",
         "sourcePoints": [
           [
-            1500,
-            800
-          ],
-          [
-            1488,
-            1000
-          ],
-          [
-            1470,
-            1200
-          ],
-          [
-            1451,
-            1400
-          ],
-          [
-            1443,
-            1600
-          ],
-          [
-            1443,
-            1800
+            1450,
+            1050
           ],
           [
             1450,
-            2000
-          ]
-        ],
-        "displaySourcePoints": [
-          [
-            1500,
-            800
+            1250
           ],
           [
-            1488,
-            1000
+            1440,
+            1500
           ],
           [
-            1470,
-            1200
+            1435,
+            1750
           ],
           [
-            1451,
-            1400
-          ],
-          [
-            1443,
-            1600
-          ],
-          [
-            1443,
-            1800
-          ],
-          [
-            1450,
-            2000
-          ],
-          [
-            1456,
-            2200
-          ],
-          [
-            1457,
-            2400
-          ],
-          [
-            1445,
-            2600
-          ],
-          [
-            1426,
-            2800
-          ],
-          [
-            1390,
-            3000
-          ],
-          [
-            1340,
-            3200
-          ],
-          [
-            1280,
-            3400
-          ],
-          [
-            1200,
-            3700
+            1430,
+            1950
           ]
         ]
       }
@@ -793,17 +527,14 @@ window.models.push(...[
     ],
     "catalogueInfo": {
       "general": [
-        "Anti-corrosion polypropylene centrifugal fan, direct drive; nominal suction/discharge diameter 200 mm.",
         "SEAT 25 centrifugal fan, AS 50 Hz three-phase motor.",
         "Fan size 25, outlet diameter 200 mm.",
-        "Catalogue includes selectable left/right discharge orientations.",
-        "SEAT 25 manufacturer dimensional table: motor-axis heights can vary with installed motor; optional metal stand not included."
+        "Catalogue includes selectable left/right discharge orientations."
       ],
       "motor": [
         "Three-phase asynchronous motor, IP55, 230/400 V, 50 Hz, 2.2 kW, 2870 rpm.",
         "Rated current 8.7 A at 230 V and 5 A at 400 V.",
-        "Weight 20.9 kg.",
-        "Performance curve shown in this application is a provisional manually digitized approximation pending engineering confirmation."
+        "Weight 20.9 kg."
       ],
       "applications": [
         "ATEX version; verify actual Ex marking, zone and gas/dust classification from manufacturer certificate before specifying."
@@ -813,9 +544,6 @@ window.models.push(...[
       "status": "manufacturer_ATEX_variant_marking_not_given_in_datasheet"
     },
     "safetyWarning": "ATEX marking / group / temperature class and certificates are not specified in the supplied two-page sheet. Confirm suitability with manufacturer before selection for hazardous zones.",
-    "pricePending": false,
-    "image": "assets/products/seat/seat25-dimensions.svg",
-    "dimensionImage": "assets/products/seat/seat25-dimensions.svg",
-    "material": "Polypropylene"
+    "pricePending": false
   }
 ]);
