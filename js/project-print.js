@@ -161,6 +161,18 @@
       technical:{},
       seriesTitle:item.series||''
     };
+    // SEAT 25: show the manufacturer's complete characteristic curve in the
+    // technical project PDF, while Fan Selection keeps the motor-power-limited
+    // part of the characteristic for calculating candidate duty points.
+    const rawSeat=(window.models||[]).find(row=>
+      String(row?.manufacturer||'').toUpperCase()==='SEAT'&&
+      (String(row?.productCode||'')===String(item.orderCode||'')||
+       String(row?.key||'')===String(item.productKey||'')));
+    const displayPoints=rawSeat?.curves?.[0]?.displaySourcePoints;
+    if(Array.isArray(displayPoints)&&displayPoints.length>2){
+      fallbackModel.performance={...fallbackModel.performance,
+        sourcePoints:displayPoints,points:displayPoints,precomputed:true,interpolation:'linear'};
+    }
     return {
       mode:item.mode==='catalog'?'catalog':'selection',
       outputLanguage:OUTPUT_LANGUAGE,
