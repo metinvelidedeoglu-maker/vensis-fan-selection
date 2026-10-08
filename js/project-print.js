@@ -161,6 +161,18 @@
       technical:{},
       seriesTitle:item.series||''
     };
+    // SEAT 25: show the manufacturer's complete characteristic curve in the
+    // technical project PDF, while Fan Selection keeps the motor-power-limited
+    // part of the characteristic for calculating candidate duty points.
+    const rawSeat=(window.models||[]).find(row=>
+      String(row?.manufacturer||'').toUpperCase()==='SEAT'&&
+      (String(row?.productCode||'')===String(item.orderCode||'')||
+       String(row?.key||'')===String(item.productKey||'')));
+    const displayPoints=rawSeat?.curves?.[0]?.displaySourcePoints;
+    if(Array.isArray(displayPoints)&&displayPoints.length>2){
+      fallbackModel.performance={...fallbackModel.performance,
+        sourcePoints:displayPoints,points:displayPoints,precomputed:true,interpolation:'linear'};
+    }
     return {
       mode:item.mode==='catalog'?'catalog':'selection',
       outputLanguage:OUTPUT_LANGUAGE,
@@ -192,12 +204,13 @@
       performance:model?.performance||{}
     })||null;
     const drawing=String(
-      model?.media?.dimensionImage||
+      model?.dimensionImage||model?.media?.dimensionImage||
       window.VensisVitloTechnicalDrawings?.resolve?.(seriesCode)?.asset||
       info?.drawing?.asset||
       ''
     ).trim();
-    if(!drawing&&!info)return;
+    const rawDimensions=model?.dimensions&&typeof model.dimensions==='object'?model.dimensions:null;
+    if(!drawing&&!info&&!rawDimensions)return;
 
     const box=doc.createElement('section');
     box.className='info-box dimension-box';
@@ -219,6 +232,17 @@
       box.appendChild(img);
     }
 
+    if(rawDimensions&&!info){
+      const values=doc.createElement('div');
+      values.className='dimension-values';
+      for(const [key,value] of Object.entries(rawDimensions)){
+        const cell=doc.createElement('div');cell.className='dimension-value';
+        const label=doc.createElement('span');label.textContent=key;
+        const number=doc.createElement('b');number.textContent=String(value)+' mm';
+        cell.append(label,number);values.appendChild(cell);
+      }
+      box.appendChild(values);
+    }
     if(info?.headers?.length){
       const values=doc.createElement('div');
       values.className='dimension-values';
