@@ -71,11 +71,17 @@ validation and CSRF protection for writes.
 
 `api/agent/` contains a separately authenticated, least-privilege integration
 for read-only fan selection and non-binding quotation drafts. It does not reuse
-the browser Edit Mode session and cannot write projects, customers or orders.
+the browser Edit Mode session. Erman cannot directly write projects, customers
+or orders or send/publish quotations, but can submit those exact actions for
+approval by a separate identity.
 Selection results are short-lived and signed; catalog prices cannot be supplied
 by the caller; unverified engineering curves are excluded; accessory matches
-remain review-required. The example identity has only `fan:select` and
-`quote:draft` scopes and a zero discount ceiling. See `api/agent/README.md` for
+remain review-required. The example Erman identity has `fan:select`,
+`quote:draft` and `approval:request` scopes with a zero discount ceiling. A
+separate, disabled-by-default reviewer identity owns `approval:review`. Approval
+requests are available for project/customer/order writes and quotation
+send/publish actions; requests and decisions never execute those actions by
+themselves. See `api/agent/README.md` for
 the deployment approval boundary and private server configuration.
 
 ## Vitlo Catalogue Data

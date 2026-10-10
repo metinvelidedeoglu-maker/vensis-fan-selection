@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: Vensis Selection Suite - Erman Draft API
-  version: 1.0.0
-  description: Read-only fan selection and non-binding quotation draft integration. It never sends a quotation or writes a customer/project/order.
+  version: 1.1.0
+  description: Fan selection and non-binding quotation drafting with a separate, payload-bound approval gate for privileged actions. Approval endpoints never execute an action.
 servers:
   - url: https://select.vensis.com.tr/api/agent
 security:
@@ -43,6 +43,45 @@ paths:
         '409': {description: Catalog, price or engineering-review conflict.}
         '422': {description: Invalid or expired selection token.}
         '429': {description: Rate limit exceeded.}
+  /approval-request.php:
+    post:
+      operationId: requestPrivilegedActionApproval
+      summary: Ask for approval of one exact project, customer, order, quotation-send or quotation-publish action without executing it.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ApprovalRequest'}
+      responses:
+        '202': {description: Pending approval request recorded; no action executed.}
+        '401': {description: Invalid API identity.}
+        '403': {description: Request scope denied.}
+        '422': {description: Unsupported action or invalid request.}
+  /approval-status.php:
+    post:
+      operationId: getApprovalStatus
+      summary: Read an approval request; approved requests return a short-lived, one-use, payload-bound grant.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ApprovalStatusRequest'}
+      responses:
+        '200': {description: Current status and, when eligible, an approval grant. No action executed.}
+        '404': {description: Request not found or not visible to this identity.}
+  /approval-review.php:
+    post:
+      operationId: reviewPrivilegedActionApproval
+      summary: Approve or reject a request using a separate reviewer identity; no action is executed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ApprovalReviewRequest'}
+      responses:
+        '200': {description: Decision recorded; no action executed.}
+        '403': {description: Review scope denied or self-approval attempted.}
+        '409': {description: Request expired or already reviewed.}
 components:
   securitySchemes:
     bearerAuth:
@@ -113,3 +152,31 @@ components:
                   properties:
                     id: {type: string}
                     quantity: {type: integer, minimum: 1}
+    ApprovalRequest:
+      type: object
+      additionalProperties: false
+      required: [action, summary, reason, payload]
+      properties:
+        action:
+          type: string
+          enum: [project.write, customer.write, order.write, quotation.send, quotation.publish]
+        summary: {type: string, maxLength: 500}
+        reason: {type: string, maxLength: 2000}
+        payload:
+          type: object
+          description: Exact proposed operation; the approval grant is bound to its canonical SHA-256 hash.
+        idempotencyKey: {type: string, maxLength: 160}
+    ApprovalStatusRequest:
+      type: object
+      additionalProperties: false
+      required: [requestId]
+      properties:
+        requestId: {type: string}
+    ApprovalReviewRequest:
+      type: object
+      additionalProperties: false
+      required: [requestId, decision]
+      properties:
+        requestId: {type: string}
+        decision: {type: string, enum: [approved, rejected]}
+        note: {type: string, maxLength: 2000}

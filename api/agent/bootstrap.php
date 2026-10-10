@@ -74,6 +74,8 @@ function agent_config(): array
         'identities' => [],
         'signing_key' => '',
         'selection_token_ttl_seconds' => 1800,
+        'approval_grant_ttl_seconds' => 900,
+        'approval_request_ttl_seconds' => 604800,
         'rate_limit_requests' => 60,
         'rate_limit_window_seconds' => 60,
         'maximum_discount_percent' => 0,
@@ -90,6 +92,8 @@ function agent_config(): array
     }
     $config = array_replace($defaults, $local);
     $config['selection_token_ttl_seconds'] = max(300, min(3600, (int) $config['selection_token_ttl_seconds']));
+    $config['approval_grant_ttl_seconds'] = max(60, min(3600, (int) $config['approval_grant_ttl_seconds']));
+    $config['approval_request_ttl_seconds'] = max(3600, min(2592000, (int) $config['approval_request_ttl_seconds']));
     $config['rate_limit_requests'] = max(5, min(600, (int) $config['rate_limit_requests']));
     $config['rate_limit_window_seconds'] = max(10, min(3600, (int) $config['rate_limit_window_seconds']));
     $config['maximum_discount_percent'] = max(0.0, min(100.0, (float) $config['maximum_discount_percent']));
@@ -202,7 +206,7 @@ function agent_rate_limit(array $config, string $identityId): void
     }
 }
 
-function agent_authorize(string $requiredScope): array
+function agent_authorize_any(array $requiredScopes): array
 {
     agent_require_post();
     $config = agent_config();
@@ -223,11 +227,17 @@ function agent_authorize(string $requiredScope): array
         throw new AgentApiException('Unauthorized.', 401);
     }
     $scopes = is_array($identity['scopes'] ?? null) ? $identity['scopes'] : [];
-    if (!in_array($requiredScope, $scopes, true)) {
+    $matchedScopes = array_values(array_intersect($requiredScopes, $scopes));
+    if (!$matchedScopes) {
         throw new AgentApiException('This API identity does not have the required scope.', 403);
     }
     agent_rate_limit($config, $identityId);
-    return ['id' => $identityId, 'identity' => $identity, 'config' => $config];
+    return ['id' => $identityId, 'identity' => $identity, 'config' => $config, 'matchedScopes' => $matchedScopes];
+}
+
+function agent_authorize(string $requiredScope): array
+{
+    return agent_authorize_any([$requiredScope]);
 }
 
 function agent_audit(string $identityId, string $action, array $request, array $details = []): void

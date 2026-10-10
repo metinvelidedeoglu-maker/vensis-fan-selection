@@ -435,7 +435,7 @@ function agent_quote_draft(array $request, string $identityId, array $identity, 
     $draftLines = [];
     $total = 0.0;
     $currency = '';
-    $warnings = ['Draft only: no customer communication, project write, order creation or price-policy change was performed.'];
+    $warnings = ['Draft only: no customer communication, project write, order creation or price-policy change was performed. These actions may be submitted for separate approval.'];
     foreach ($lines as $index => $line) {
         if (!is_array($line)) {
             throw new AgentApiException("lines.{$index} is invalid.", 422);
@@ -532,7 +532,12 @@ function agent_quote_draft(array $request, string $identityId, array $identity, 
         'lines' => $draftLines,
         'totals' => ['currency' => $currency, 'netTotal' => $total],
         'warnings' => array_values(array_unique($warnings)),
-        'nextAction' => 'Review technical suitability, accessory compatibility and commercial terms; obtain user approval before sending or publishing.',
+        'approvalRequestOptions' => [
+            'endpoint' => '/api/agent/approval-request.php',
+            'actions' => ['project.write', 'customer.write', 'order.write', 'quotation.send', 'quotation.publish'],
+            'executionPolicy' => 'An approval request does not execute the action. A separate connector must atomically consume the matching short-lived, one-use approval grant before execution.',
+        ],
+        'nextAction' => 'Review technical suitability, accessory compatibility and commercial terms; submit the exact proposed write, send or publish action for user approval.',
     ];
 }
 
