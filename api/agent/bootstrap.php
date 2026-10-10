@@ -148,7 +148,10 @@ function agent_configured(array $config): bool
             return false;
         }
         $hashInfo = password_get_info((string) ($identity['secret_hash'] ?? ''));
-        if (!empty($identity['active']) && empty($hashInfo['algo'])) {
+        $sha256 = (string) ($identity['secret_sha256'] ?? '');
+        $hasPasswordHash = !empty($hashInfo['algo']);
+        $hasSha256 = preg_match('/^[a-f0-9]{64}$/', $sha256) === 1;
+        if (!empty($identity['active']) && !$hasPasswordHash && !$hasSha256) {
             return false;
         }
     }
@@ -223,7 +226,12 @@ function agent_authorize_any(array $requiredScopes): array
     }
     $identityId = $matches[1];
     $identity = $config['identities'][$identityId] ?? null;
-    if (!is_array($identity) || empty($identity['active']) || !password_verify($matches[2], (string) ($identity['secret_hash'] ?? ''))) {
+    $secret = $matches[2];
+    $passwordHash = is_array($identity) ? (string) ($identity['secret_hash'] ?? '') : '';
+    $sha256 = is_array($identity) ? (string) ($identity['secret_sha256'] ?? '') : '';
+    $passwordValid = $passwordHash !== '' && password_verify($secret, $passwordHash);
+    $sha256Valid = preg_match('/^[a-f0-9]{64}$/', $sha256) === 1 && hash_equals($sha256, hash('sha256', $secret));
+    if (!is_array($identity) || empty($identity['active']) || (!$passwordValid && !$sha256Valid)) {
         throw new AgentApiException('Unauthorized.', 401);
     }
     $scopes = is_array($identity['scopes'] ?? null) ? $identity['scopes'] : [];

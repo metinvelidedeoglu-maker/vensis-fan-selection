@@ -48,6 +48,8 @@ test('agent API keeps Erman separate and least-privileged',()=>{
 
   assert.match(bootstrap,/Bearer\\s\+\(\[a-z\]/);
   assert.match(bootstrap,/password_verify/);
+  assert.match(bootstrap,/secret_sha256/);
+  assert.match(bootstrap,/hash_equals\(\$sha256, hash\('sha256', \$secret\)\)/);
   assert.match(bootstrap,/agent-rate-/);
   assert.match(bootstrap,/agent-audit\.jsonl/);
   assert.match(bootstrap,/\.vensis-edit/);
@@ -66,6 +68,7 @@ test('agent API keeps Erman separate and least-privileged',()=>{
   assert.match(example,/'erman'[\s\S]*'approval:request'/);
   assert.match(example,/'metin_approver'[\s\S]*'approval:review'/);
   assert.match(example,/'metin_approver'[\s\S]*'active'\s*=>\s*false/);
+  assert.match(example,/'secret_sha256'/);
   assert.match(example,/'maximum_discount_percent'\s*=>\s*0/);
   assert.match(protection,/catalog-v1\\\.json/);
 });

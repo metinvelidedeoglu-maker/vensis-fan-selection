@@ -20,7 +20,7 @@ This API is deliberately separate from Edit Mode, Project Cloud and Customer Clo
 
 1. Run `node scripts/build-agent-catalog.mjs` and the complete test suite.
 2. Copy `config.example.php` to `.vensis-edit/agent-config.php` outside `public_html`.
-3. Generate unique, unrelated secrets for Erman and the Metin approver; store only their password hashes and independently generate the signing key.
+3. Generate unique, unrelated high-entropy secrets for Erman and the Metin approver; store only their password hashes or SHA-256 digests and independently generate the signing key. Never use a human password with `secret_sha256`.
 4. Keep the configured discount ceiling at `0` unless Metin approves another limit.
 5. Deploy the reviewed commit to a staging or production target only after explicit approval.
 6. Verify HTTPS, unauthorized/forbidden/rate-limit behavior, selection parity, token expiry, requester/reviewer separation, payload-bound approval grants, audit logging and a draft-only response before enabling a connector.
