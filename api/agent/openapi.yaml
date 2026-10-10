@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: Vensis Selection Suite - Erman Draft API
-  version: 1.1.0
-  description: Fan selection and non-binding quotation drafting with a separate, payload-bound approval gate for privileged actions. Approval endpoints never execute an action.
+  version: 1.2.0
+  description: Fan selection and non-binding quotation drafting with a separate, payload-bound approval gate. Approval endpoints never execute an action; only the dedicated project-write endpoint can consume an approved one-use grant.
 servers:
   - url: https://select.vensis.com.tr/api/agent
 security:
@@ -82,6 +82,20 @@ paths:
         '200': {description: Decision recorded; no action executed.}
         '403': {description: Review scope denied or self-approval attempted.}
         '409': {description: Request expired or already reviewed.}
+  /project-write.php:
+    post:
+      operationId: executeApprovedProjectWrite
+      summary: Save the exact approved project by consuming its short-lived, one-use grant.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ApprovedProjectWriteRequest'}
+      responses:
+        '201': {description: Exact approved project stored and grant consumed.}
+        '403': {description: Scope denied, grant mismatch, order data present, or non-zero discount present.}
+        '409': {description: Grant already used or no longer valid.}
+        '422': {description: Invalid project or approval grant.}
 components:
   securitySchemes:
     bearerAuth:
@@ -180,3 +194,17 @@ components:
         requestId: {type: string}
         decision: {type: string, enum: [approved, rejected]}
         note: {type: string, maxLength: 2000}
+    ApprovedProjectWriteRequest:
+      type: object
+      additionalProperties: false
+      required: [approvalGrant, payload]
+      properties:
+        approvalGrant:
+          type: string
+          description: Short-lived one-use grant returned only after a separate reviewer approved the request.
+        payload:
+          type: object
+          required: [project]
+          description: Must be equivalent after canonicalization to the payload approved earlier.
+          properties:
+            project: {type: object}

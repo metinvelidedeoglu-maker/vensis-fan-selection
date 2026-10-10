@@ -9,7 +9,7 @@ return [
         'erman' => [
             'active' => true,
             'secret_sha256' => 'PASTE_64_CHARACTER_SHA256_DIGEST_HERE',
-            'scopes' => ['fan:select', 'quote:draft', 'approval:request'],
+            'scopes' => ['fan:select', 'quote:draft', 'approval:request', 'project:write'],
             // Keep zero until Metin explicitly approves a commercial discount ceiling.
             'maximum_discount_percent' => 0,
         ],

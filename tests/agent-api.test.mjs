@@ -43,6 +43,7 @@ test('agent API keeps Erman separate and least-privileged',()=>{
   const approvalRequest=fs.readFileSync(path.join(root,'api/agent/approval-request.php'),'utf8');
   const approvalReview=fs.readFileSync(path.join(root,'api/agent/approval-review.php'),'utf8');
   const approvalStatus=fs.readFileSync(path.join(root,'api/agent/approval-status.php'),'utf8');
+  const projectWrite=fs.readFileSync(path.join(root,'api/agent/project-write.php'),'utf8');
   const example=fs.readFileSync(path.join(root,'api/agent/config.example.php'),'utf8');
   const protection=fs.readFileSync(path.join(root,'api/agent/.htaccess'),'utf8');
 
@@ -59,13 +60,21 @@ test('agent API keeps Erman separate and least-privileged',()=>{
   assert.match(approvalRequest,/agent_authorize\('approval:request'\)/);
   assert.match(approvalReview,/agent_authorize\('approval:review'\)/);
   assert.match(approvalStatus,/agent_authorize_any\(\['approval:request', 'approval:review'\]\)/);
+  assert.match(projectWrite,/agent_authorize\('project:write'\)/);
+  assert.match(projectWrite,/agent_consume_approval_grant\(\$approvalGrant, \$auth\['id'\], 'project\.write', \$payload/);
+  assert.match(projectWrite,/project_store_mutate/);
+  assert.match(projectWrite,/'executed'\s*=>\s*true/);
+  assert.match(projectWrite,/cannot create or change orders/);
+  assert.match(projectWrite,/only save a draft project/);
+  assert.match(projectWrite,/cannot apply (?:a global|an item) discount/);
   assert.match(domain,/hash_hmac\('sha256'/);
   assert.match(domain,/quoteEligible/);
   assert.match(domain,/approvalRequired'\s*=>\s*true/);
   assert.match(domain,/maximumDiscountPercent/);
-  assert.doesNotMatch(select+quote+approval+approvalRequest+approvalReview+approvalStatus,/projects\/save|customers\/sync|mail\s*\(|github/i);
+  assert.doesNotMatch(select+quote+approval+approvalRequest+approvalReview+approvalStatus+projectWrite,/projects\/save|customers\/sync|mail\s*\(|github/i);
   assert.match(example,/'erman'/);
   assert.match(example,/'erman'[\s\S]*'approval:request'/);
+  assert.match(example,/'erman'[\s\S]*'project:write'/);
   assert.match(example,/'metin_approver'[\s\S]*'approval:review'/);
   assert.match(example,/'metin_approver'[\s\S]*'active'\s*=>\s*false/);
   assert.match(example,/'secret_sha256'/);
@@ -73,7 +82,7 @@ test('agent API keeps Erman separate and least-privileged',()=>{
   assert.match(protection,/catalog-v1\\\.json/);
 });
 
-test('approval workflow is separate, payload-bound and non-executing',()=>{
+test('approval workflow is separate and payload-bound; only project write has an executor',()=>{
   const approval=fs.readFileSync(path.join(root,'api/agent/approval.php'),'utf8');
   const domain=fs.readFileSync(path.join(root,'api/agent/domain.php'),'utf8');
   assert.match(approval,/project\.write.*customer\.write.*order\.write.*quotation\.send.*quotation\.publish/);
@@ -85,6 +94,9 @@ test('approval workflow is separate, payload-bound and non-executing',()=>{
   assert.match(approval,/agent_consume_approval_grant/);
   assert.match(approval,/status'\]\s*=\s*'consumed'/);
   assert.match(approval,/executed'\s*=>\s*false/g);
+  const projectWrite=fs.readFileSync(path.join(root,'api/agent/project-write.php'),'utf8');
+  assert.match(projectWrite,/agent_consume_approval_grant/);
+  assert.doesNotMatch(projectWrite,/customer\.write|order\.write|quotation\.send|quotation\.publish/);
   assert.match(domain,/approvalRequestOptions/);
   assert.match(domain,/An approval request does not execute the action/);
 });
@@ -96,6 +108,7 @@ test('OpenAPI publishes selection, draft and approval-gate operations',()=>{
   assert.match(specification,/\/approval-request\.php:/);
   assert.match(specification,/\/approval-status\.php:/);
   assert.match(specification,/\/approval-review\.php:/);
+  assert.match(specification,/\/project-write\.php:/);
   assert.match(specification,/never execute|no action executed/i);
   assert.doesNotMatch(specification,/\/projects|\/customers|\/orders|sendEmail/i);
 });
