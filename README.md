@@ -67,6 +67,17 @@ authenticated customer API; it is no longer shipped as a public browser script.
 Customer API reads and writes require the authenticated session, same-origin
 validation and CSRF protection for writes.
 
+## Erman Selection and Quotation Draft API
+
+`api/agent/` contains a separately authenticated, least-privilege integration
+for read-only fan selection and non-binding quotation drafts. It does not reuse
+the browser Edit Mode session and cannot write projects, customers or orders.
+Selection results are short-lived and signed; catalog prices cannot be supplied
+by the caller; unverified engineering curves are excluded; accessory matches
+remain review-required. The example identity has only `fan:select` and
+`quote:draft` scopes and a zero discount ceiling. See `api/agent/README.md` for
+the deployment approval boundary and private server configuration.
+
 ## Vitlo Catalogue Data
 
 Vitlo performance curves are stored as verified catalogue points in

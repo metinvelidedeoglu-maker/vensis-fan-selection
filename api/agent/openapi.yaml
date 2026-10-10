@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Vensis Selection Suite - Erman Draft API
+  version: 1.0.0
+  description: Read-only fan selection and non-binding quotation draft integration. It never sends a quotation or writes a customer/project/order.
+servers:
+  - url: https://select.vensis.com.tr/api/agent
+security:
+  - bearerAuth: []
+paths:
+  /select.php:
+    post:
+      operationId: selectFans
+      summary: Select verified fan candidates and return short-lived signed selection tokens.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectionRequest'
+      responses:
+        '200':
+          description: Ranked, verified candidates with review-required accessory suggestions.
+        '401': {description: Invalid API identity.}
+        '403': {description: Scope or transport denied.}
+        '422': {description: Invalid selection request.}
+        '429': {description: Rate limit exceeded.}
+  /quote-draft.php:
+    post:
+      operationId: createQuotationDraft
+      summary: Build a non-binding quotation draft from signed fan selections and server catalog prices.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuotationDraftRequest'
+      responses:
+        '201':
+          description: Draft created in memory and returned; nothing is saved or sent.
+        '401': {description: Invalid API identity.}
+        '403': {description: Scope or discount ceiling denied.}
+        '409': {description: Catalog, price or engineering-review conflict.}
+        '422': {description: Invalid or expired selection token.}
+        '429': {description: Rate limit exceeded.}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: identity.secret
+  schemas:
+    SelectionRequest:
+      type: object
+      additionalProperties: false
+      required: [airflowM3h, pressurePa]
+      properties:
+        airflowM3h: {type: number, exclusiveMinimum: 0}
+        pressurePa: {type: number, exclusiveMinimum: 0}
+        tolerance:
+          type: object
+          additionalProperties: false
+          properties:
+            airflowMinPercent: {type: number, default: -10}
+            airflowMaxPercent: {type: number, default: 20}
+            pressureMinPercent: {type: number, default: -10}
+            pressureMaxPercent: {type: number, default: 20}
+        filters:
+          type: object
+          additionalProperties: false
+          properties:
+            manufacturers: {type: array, items: {type: string}}
+            categories: {type: array, items: {type: string}}
+            series: {type: array, items: {type: string}}
+        limit: {type: integer, minimum: 1, maximum: 25, default: 10}
+    QuotationDraftRequest:
+      type: object
+      additionalProperties: false
+      required: [lines]
+      properties:
+        project:
+          type: object
+          properties:
+            name: {type: string}
+            reference: {type: string}
+            contact: {type: string}
+        customer:
+          type: object
+          properties:
+            name: {type: string}
+            contact: {type: string}
+            email: {type: string}
+        notes: {type: string}
+        lines:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            type: object
+            additionalProperties: false
+            required: [selectionToken]
+            properties:
+              selectionToken: {type: string}
+              quantity: {type: integer, minimum: 1, default: 1}
+              discountPercent: {type: number, minimum: 0, default: 0}
+              accessories:
+                type: array
+                maxItems: 20
+                items:
+                  type: object
+                  additionalProperties: false
+                  required: [id]
+                  properties:
+                    id: {type: string}
+                    quantity: {type: integer, minimum: 1}

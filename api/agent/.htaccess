@@ -1,0 +1,9 @@
+Options -Indexes
+
+<FilesMatch "^(bootstrap|domain|config\.example)\.php$|^catalog-v1\.json$|^openapi\.yaml$|^README\.md$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>
