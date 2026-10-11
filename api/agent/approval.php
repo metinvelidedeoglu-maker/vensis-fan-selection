@@ -194,7 +194,9 @@ function agent_approval_status(array $request, string $identityId, array $matche
         }
         return [$store, $record, false];
     });
-    $result = ['ok' => true, 'executed' => false, 'approval' => agent_approval_public($record, $isReviewer)];
+    // The requester may read only their own request (checked above). Return its
+    // exact payload so an executor never has to reconstruct approved data.
+    $result = ['ok' => true, 'executed' => false, 'approval' => agent_approval_public($record, true)];
     if (($record['status'] ?? '') === 'approved') {
         $expires = (int) ($record['reviewedUnix'] ?? 0) + (int) $config['approval_grant_ttl_seconds'];
         if ($expires >= time()) {
