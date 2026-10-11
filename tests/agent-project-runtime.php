@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 require $argv[1] . '/api/agent/project-domain.php';
+set_exception_handler(static function(Throwable $error): void {
+    fwrite(STDERR, get_class($error) . ': ' . $error->getMessage() . "\n" . $error->getTraceAsString() . "\n");
+    exit(1);
+});
 $config = ['signing_key' => str_repeat('test-key-', 8), 'selection_token_ttl_seconds' => 1800,
     'approval_grant_ttl_seconds' => 900, 'approval_request_ttl_seconds' => 604800, 'maximum_discount_percent' => 0];
 $checks = 0;

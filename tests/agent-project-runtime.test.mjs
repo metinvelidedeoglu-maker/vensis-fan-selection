@@ -15,7 +15,7 @@ test('project creation, legacy approval recovery, persistent quotes and guarded 
       env: { ...process.env, VENSIS_AGENT_PRIVATE_DIR: join(dir, '.vensis-edit') }, encoding: 'utf8',
     });
     const result = JSON.parse(output);
-    assert.ok(result.passed >= 25);
+    assert.ok(result.passed >= 25, output);
     assert.equal(result.projects, 1);
     assert.equal(result.drafts, 2);
   } finally { rmSync(dir, { recursive: true, force: true }); }
