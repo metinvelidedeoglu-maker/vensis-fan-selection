@@ -33,6 +33,8 @@ check($prepared['project']['meta']['preparedBy'] === 'deneme', 'preparer is pres
 check($prepared['quoteDraft']['customer']['name'] === 'deneme', 'customer is preserved');
 check($prepared['project']['items'][0]['required'] === ['q' => 1500, 'p' => 100], 'required duty is mapped');
 check(agent_prepare_project_write($flat, 'erman', $config)['project']['id'] === $prepared['project']['id'], 'retry uses the same ID');
+check(agent_payload_hash(['q' => 1500.0]) === agent_payload_hash(['q' => 1500]), 'integer and integral float JSON numbers have the same hash');
+check(agent_prepare_project_write(json_decode(json_encode($prepared), true), 'erman', $config)['project']['id'] === $prepared['project']['id'], 'draft proof survives JSON transport');
 
 // Reproduce an already-approved legacy payload, without rewriting its hash.
 $oldId = 'apr_legacy0000000000000001';

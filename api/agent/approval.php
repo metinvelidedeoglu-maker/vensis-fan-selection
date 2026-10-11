@@ -11,6 +11,12 @@ function agent_approval_actions(): array
 function agent_canonicalize(mixed $value): mixed
 {
     if (!is_array($value)) {
+        // JSON clients and disk storage may encode 1500.0 as 1500. These
+        // represent the same number and must retain the same approval hash.
+        if (is_float($value) && is_finite($value) && floor($value) === $value
+            && $value > PHP_INT_MIN && $value < PHP_INT_MAX) {
+            return (int) $value;
+        }
         return $value;
     }
     $isList = $value === [] || array_keys($value) === range(0, count($value) - 1);

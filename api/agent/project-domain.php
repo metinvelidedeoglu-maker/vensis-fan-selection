@@ -199,6 +199,9 @@ function agent_store_project_write(array $prepared, array $originalPayload, stri
             $saved['createdAt'] = $existing['createdAt'];
         }
         $saved['updatedAt'] = (new DateTimeImmutable())->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d\TH:i:s.v\Z');
+        if (is_array($existing) && strcmp($saved['updatedAt'], $existing['updatedAt']) <= 0) {
+            $saved['updatedAt'] = (new DateTimeImmutable($existing['updatedAt']))->modify('+1 millisecond')->format('Y-m-d\TH:i:s.v\Z');
+        }
         $state['projects'][$id] = $saved;
         $draftId = null;
         if (isset($prepared['quoteDraft'])) {
