@@ -415,6 +415,7 @@ function project_record(mixed $value): array
             'name' => $name,
             'reference' => $reference,
             'contact' => $contact,
+            'preparedBy' => project_text($metaSource['preparedBy'] ?? $value['preparedBy'] ?? '', 'preparedBy', 240),
             'globalDiscount' => $globalDiscount,
             'status' => $status,
             'lastQuotationNumber' => $lastQuotationNumber,

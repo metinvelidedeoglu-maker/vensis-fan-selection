@@ -1,0 +1,32 @@
+name: Agent project storage checks
+on:
+  push:
+    paths:
+      - 'api/agent/**'
+      - 'api/projects/bootstrap.php'
+      - 'tests/agent-*'
+      - '.github/workflows/agent-project-checks.yml'
+  pull_request:
+    paths:
+      - 'api/agent/**'
+      - 'api/projects/bootstrap.php'
+      - 'tests/agent-*'
+      - '.github/workflows/agent-project-checks.yml'
+permissions:
+  contents: read
+jobs:
+  project-storage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: PHP syntax
+        run: |
+          php --version
+          find api/agent api/projects -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Project persistence and authorization
+        run: node --test tests/agent-project-runtime.test.mjs
+      - name: Agent scope and API checks
+        run: node --test --test-name-pattern='agent API|approval workflow|OpenAPI' tests/agent-api.test.mjs
