@@ -226,7 +226,25 @@ function agent_read_project(array $request, string $identityId): array
         && (($projectId !== null && ($receipt['projectId'] ?? '') === $projectId)
             || ($requestId !== null && ($receipt['requestId'] ?? '') === $requestId))));
     if (!$receipts) {
-        throw new AgentApiException('Saved project was not found or is not visible to this identity.', 404);
+        // Older successful executions predate receipts. A consumed approval
+        // belonging to this requester is the same narrow read authority.
+        $legacy = agent_approval_store(static function(array $store) use ($identityId, $projectId, $requestId): array {
+            foreach ($store['requests'] as $record) {
+                $oldId = $record['payload']['project']['id'] ?? null;
+                if (($record['requestedBy'] ?? '') === $identityId && ($record['status'] ?? '') === 'consumed'
+                    && ($record['action'] ?? '') === 'project.write' && is_string($oldId)
+                    && (($projectId !== null && $oldId === $projectId) || ($requestId !== null && $record['requestId'] === $requestId))) {
+                    return [$store, ['requestId' => $record['requestId'], 'projectId' => $oldId, 'draftId' => null,
+                        'requestedBy' => $identityId, 'payloadHash' => $record['payloadHash'],
+                        'storedAt' => $record['consumedAt'] ?? '', 'legacy' => true], false];
+                }
+            }
+            return [$store, null, false];
+        });
+        if (!is_array($legacy)) {
+            throw new AgentApiException('Saved project was not found or is not visible to this identity.', 404);
+        }
+        $receipts[] = $legacy;
     }
     $receipt = $receipts[count($receipts) - 1];
     $project = $state['projects'][$receipt['projectId']] ?? null;

@@ -51,6 +51,9 @@ check($read['project']['id'] === $prepared['project']['id'], 'project is indepen
 check($read['draftId'] === $prepared['quoteDraft']['draftId'], 'persistent draft is read back');
 check($read['quoteDraft']['totals']['netTotal'] === 1244.8, 'persistent quote total matches');
 check(count(project_store_read()['projects']) === 1, 'only one project exists');
+$oldFull=$legacyRecord;$oldFull['requestId']='apr_oldfull000000000000001';$oldFull['status']='consumed';$oldFull['payload']=['project'=>$read['project']];
+agent_approval_store(static function(array $s) use($oldFull): array { $s['requests'][$oldFull['requestId']]=$oldFull; return [$s,[],true]; });
+check(agent_read_project(['requestId'=>$oldFull['requestId']],'erman')['project']['id']===$read['project']['id'], 'older approved projects can be read for updates');
 denied(fn() => agent_store_project_write($prepared, $flat, $grant, 'erman', $config), 409, 'single-use grant replay');
 check(count(project_store_read()['projects']) === 1, 'replay creates no duplicate');
 denied(fn() => agent_read_project(['projectId' => $prepared['project']['id']], 'another_user'), 404, 'other identity cannot read');
