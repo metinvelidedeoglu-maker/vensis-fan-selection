@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/approval.php';
+require_once __DIR__ . '/project-domain.php';
 
 $auth = agent_authorize('approval:request');
 $request = agent_request_json(147456);

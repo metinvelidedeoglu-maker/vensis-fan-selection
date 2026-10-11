@@ -13,7 +13,7 @@ This API is deliberately separate from Edit Mode, Project Cloud and Customer Clo
 - The default and example discount ceiling is zero. A higher ceiling must be explicitly approved and configured outside the repository.
 - Models marked `needs_engineering_review` are excluded from selection and cannot enter a draft.
 - Accessory matches are suggestions marked `review-required`; they are never treated as technically approved.
-- These endpoints do not themselves save projects or customers, create orders, send email or publish documents. They provide the approval gate that a separately reviewed execution connector must enforce.
+- Only `project-write.php` can save a draft project and its quote snapshot after consuming a separately approved, payload-bound, one-use grant. Customers, orders, email and publication remain outside this connector.
 - Requests are rate-limited and written to a private audit log without storing raw request bodies.
 
 ## Deployment preparation (do not perform without approval)
@@ -28,3 +28,34 @@ This API is deliberately separate from Edit Mode, Project Cloud and Customer Clo
 An approval decision is not an instruction to deploy. Production deployment and the future execution connector still require explicit user approval.
 
 The OpenAPI file is blocked from public HTTP access by the directory `.htaccess`; use the repository copy when configuring an approved connector.
+
+## Project creation and update (v1.3)
+
+1. Select a fan and create a quote with signed selection tokens. `quote-draft.php`
+   returns `projectWritePayload`, including a valid, deterministic `prj_` ID and
+   a signed quote snapshot. It does not persist a project or quote.
+2. Request `project.write` approval with this payload unchanged and a stable
+   `idempotencyKey`. Validation runs before asking a person to approve. Read the
+   returned `approval.payload`; never reconstruct it from the summary.
+3. Metin explicitly reviews the visible summary through the separate connector.
+   The existing 15-minute grant, identity separation and zero-discount limits
+   remain in effect. Expired grants require a newly approved request.
+4. Execute `approval.payload` unchanged. Project, quotation snapshot and receipt
+   are written in the same private Project Cloud transaction. The quote remains
+   a draft; no email, published quotation or order is created.
+5. Read `project-read.php` using `projectId` or `requestId`. Only projects with an
+   execution receipt belonging to this API identity are visible.
+
+To update, pass the existing `project.id` and its exact `expectedUpdatedAt` to the
+quote tool. A stale version, deletion, missing project, commercial status, order
+or discount blocks the write before approval is consumed. Create never overwrites
+an existing project. A repeated ID cannot produce a duplicate.
+
+Already-approved legacy flat project summaries are converted from verified
+catalogue data after verifying their **original** payload hash. Their original
+quote ID is retained as `sourceDraftId`; the regenerated signed quote's `draftId`
+is returned and stored. The legacy memory-only draft is not represented as an
+independently recovered stored quotation.
+
+Validation: `PHP_BIN=/path/to/php node --test tests/agent-project-runtime.test.mjs`
+executes isolated PHP storage tests. It never touches production projects.

@@ -43,7 +43,7 @@ test('agent API keeps Erman separate and least-privileged',()=>{
   const approvalRequest=fs.readFileSync(path.join(root,'api/agent/approval-request.php'),'utf8');
   const approvalReview=fs.readFileSync(path.join(root,'api/agent/approval-review.php'),'utf8');
   const approvalStatus=fs.readFileSync(path.join(root,'api/agent/approval-status.php'),'utf8');
-  const projectWrite=fs.readFileSync(path.join(root,'api/agent/project-write.php'),'utf8');
+  const projectWrite=fs.readFileSync(path.join(root,'api/agent/project-write.php'),'utf8')+fs.readFileSync(path.join(root,'api/agent/project-domain.php'),'utf8');
   const example=fs.readFileSync(path.join(root,'api/agent/config.example.php'),'utf8');
   const protection=fs.readFileSync(path.join(root,'api/agent/.htaccess'),'utf8');
 
@@ -61,7 +61,7 @@ test('agent API keeps Erman separate and least-privileged',()=>{
   assert.match(approvalReview,/agent_authorize\('approval:review'\)/);
   assert.match(approvalStatus,/agent_authorize_any\(\['approval:request', 'approval:review'\]\)/);
   assert.match(projectWrite,/agent_authorize\('project:write'\)/);
-  assert.match(projectWrite,/agent_consume_approval_grant\(\$approvalGrant, \$auth\['id'\], 'project\.write', \$payload/);
+  assert.match(projectWrite,/agent_consume_approval_grant\(\$token, \$identityId, 'project\.write', \$originalPayload/);
   assert.match(projectWrite,/project_store_mutate/);
   assert.match(projectWrite,/'executed'\s*=>\s*true/);
   assert.match(projectWrite,/cannot create or change orders/);
@@ -94,7 +94,7 @@ test('approval workflow is separate and payload-bound; only project write has an
   assert.match(approval,/agent_consume_approval_grant/);
   assert.match(approval,/status'\]\s*=\s*'consumed'/);
   assert.match(approval,/executed'\s*=>\s*false/g);
-  const projectWrite=fs.readFileSync(path.join(root,'api/agent/project-write.php'),'utf8');
+  const projectWrite=fs.readFileSync(path.join(root,'api/agent/project-write.php'),'utf8')+fs.readFileSync(path.join(root,'api/agent/project-domain.php'),'utf8');
   assert.match(projectWrite,/agent_consume_approval_grant/);
   assert.doesNotMatch(projectWrite,/customer\.write|order\.write|quotation\.send|quotation\.publish/);
   assert.match(domain,/approvalRequestOptions/);
