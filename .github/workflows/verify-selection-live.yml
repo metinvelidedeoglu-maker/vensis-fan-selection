@@ -1,0 +1,59 @@
+name: Verify Selection Suite production inventory endpoint
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-selection-live.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  production-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Compare existing and new public API routes (without credentials)
+        shell: bash
+        run: |
+          set -uo pipefail
+          base="https://select.vensis.com.tr"
+          body='{"from":"2026-09-14","to":"2026-10-13"}'
+          probe() {
+            local route="$1"
+            local response_file="$2"
+            local status
+            status="$(curl --silent --show-error --location --connect-timeout 10 --max-time 25 \
+              --header 'Content-Type: application/json' \
+              --data "$body" \
+              --output "$response_file" --write-out '%{http_code}' \
+              "$base/$route")" || status="connection_error"
+            printf '%s' "$status"
+          }
+          old="$(probe api/agent/project-read.php /tmp/old-route.txt)"
+          new="$(probe api/agent/project-list.php /tmp/new-route.txt)"
+          echo "Previously deployed API (unauthenticated POST): HTTP $old"
+          echo "New scoped inventory API (unauthenticated POST): HTTP $new"
+          product_status="$(curl --silent --show-error --location --connect-timeout 10 --max-time 25 \
+            --output /tmp/product.js --write-out '%{http_code}' \
+            "$base/data/crs-31-stainless-316.js?verify=$GITHUB_SHA")" || product_status="connection_error"
+          echo "Previously committed stainless AISI 316 product JS: HTTP $product_status"
+          if [[ "$product_status" == 200 ]] && grep -Fq 'variant.price=5750;' /tmp/product.js; then
+            echo 'Confirmed prior product price-change commit visible on public server.'
+          else
+            echo 'Could not confirm previous product change at public URL.'
+          fi
+          if [[ "$old" == 401 && "$new" == 401 ]]; then
+            echo 'PASS: existing and new PHP endpoints both enforce unauthenticated access.'
+          elif [[ "$new" == 404 ]]; then
+            echo 'FAIL: new endpoint returns 404; deploy main to production.'
+            exit 1
+          elif [[ "$new" == 200 ]]; then
+            echo 'FAIL: new endpoint unexpectedly returned 200 without credentials.'
+            exit 1
+          else
+            echo 'INCONCLUSIVE: public probe cannot establish deployment; check Hostinger Git deployment history and auth-gated route.'
+            exit 2
+          fi
