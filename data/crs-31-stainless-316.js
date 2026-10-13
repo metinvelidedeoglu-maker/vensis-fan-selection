@@ -32,6 +32,13 @@
   variant.material='Paslanmaz 316';
   variant.materialEn='Stainless Steel 316';
   variant.materialGrade='AISI 316';
+  // Approved price rule: 2.5 × the 2,300 EUR baseline CRS31-2T-2-ATEX
+  // list price recorded in data/crs-atex-prices-r4.js.
+  variant.baseListPrice=2300;
+  variant.priceMultiplier=2.5;
+  variant.price=5750;
+  variant.priceCurrency='EUR';
+  variant.priceSource='Vensis CRS/ATEX baseline list price 2026-08-24 × 2.5 (Metin approval 2026-10-13)';
   variant.constructionMaterials={
     casing:'AISI 316 stainless steel',
     impeller:'AISI 316 stainless steel',
