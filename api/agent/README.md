@@ -59,3 +59,42 @@ independently recovered stored quotation.
 
 Validation: `PHP_BIN=/path/to/php node --test tests/agent-project-runtime.test.mjs`
 executes isolated PHP storage tests. It never touches production projects.
+
+
+## Read-only project inventory for date-range reporting (v1.4)
+
+`project-list.php` lists Project Cloud **projects**, not a complete register of quotations.
+It is a POST operation requiring the new, separately granted `project:list` scope
+(and the same HTTPS, bearer authentication, rate limits and audit trail as existing
+agent endpoints). **Do not grant this scope to the default integration identity
+automatically**: it allows access to project names, customer references and last
+quotation numbers across the entire Project Cloud, including projects created
+outside the agent connector. Keep it restricted to an explicitly authorized
+reporting identity.
+
+Request example:
+
+```json
+{"from":"2026-09-14","to":"2026-10-13","dateField":"createdAt","limit":100,"offset":0}
+```
+
+Dates are inclusive Europe/Istanbul days; the filter uses a **project creation
+or update timestamp**, not the quotation issue or send date. The response
+contains `total`, `snapshot`, `nextOffset` and `projects`. To collect every
+record, continue while `nextOffset` is not null, sending the same dates,
+dateField and returned `snapshot` on each page. An inventory change produces
+409 and requires restarting at offset zero. Do not declare a list complete
+unless all pages were read and the totals match. Sorting is deterministic.
+
+This endpoint makes a complete *project* inventory available for read-only
+reconciliation; it does **not** recover unsynced browser-only projects or
+historic quotation documents/revisions. The current quotation editor stores
+its active quotation in browser storage, while the project record holds the
+last quotation number. A separate versioned, server-persisted quotation ledger
+and send/issue status are required before calling any date-range report an
+exhaustive record of *issued offers*.
+
+Deploy only after review, server test and explicit production approval, then
+provision the new reporting scope in the PRIVATE agent configuration and
+register the endpoint as a connector action. Updating this repository alone
+does not deploy the service or extend the installed ChatGPT connector.
