@@ -46,7 +46,7 @@
     ...variant.catalogueInfo,
     general:(variant.catalogueInfo?.general||[]).map(text=>{
       if(/fan casing is produced from hard steel/i.test(text))
-        return 'Fan casing, impeller and metallic air-contact fan components are specified as AISI 316 stainless steel.';
+        return 'The fan casing is manufactured from high-strength stainless steel.';
       if(/Suction cone is made of copper/i.test(text))
         return 'Suction cone is specified as AISI 316 stainless steel; ATEX non-sparking design must be validated.';
       if(/It is ex-proof as a complete device/i.test(text))
@@ -54,6 +54,8 @@
       return text;
     })
   };
+  // Model-only catalog/quotation description; leave the CRS/ATEX series unchanged.
+  variant.productDescription=JSON.parse(JSON.stringify(variant.catalogueInfo));
   variant.sourceNote=(base.sourceNote||'')+
     ' Stainless AISI 316 custom-copy specification requested 2026-10-13. Baseline motor, dimensions, airflow, curve, acoustics and proposed ATEX marking are unchanged as data assumptions, not independently re-tested. The original ATEX certification must not be treated as approval of the stainless variant; manufacturer assessment is required, particularly for the former copper inlet cone.';
   rows.push(variant);

@@ -170,6 +170,10 @@
     "Fan gövdesi yüksek dayanımlı çelikten üretilir ve standart olarak sıcak daldırma galvaniz kaplanır"
   ],
   [
+    "The fan casing is manufactured from high-strength stainless steel.",
+    "Fan gövdesi yüksek dayanımlı paslanmaz çelikten üretilir."
+  ],
+  [
     "The fan casing is produced from hard steel and it is coated electrostatic powder coating as standart",
     "Fan gövdesi yüksek dayanımlı çelikten üretilir ve standart olarak elektrostatik toz boya ile kaplanır"
   ],

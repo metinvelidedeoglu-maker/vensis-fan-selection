@@ -151,6 +151,11 @@
       model,
       display:row?.display||model,
       catalogOnly:Boolean(row?.catalogOnly),
+      description:row?.productDescription&&Array.isArray(row.productDescription.general)?{
+        general:[...row.productDescription.general],
+        motor:[...(row.productDescription.motor||[])],
+        applications:[...(row.productDescription.applications||[])]
+      }:null,
       pole:Number(row?.pole)||0,
       pricing:pricingFor(row),
       media:{image:override.useSeriesImageForModels?series.media?.image||'':row?.image||row?.imagePath||row?.image_path||series.media?.image||'',dimensionImage:row?.dimensionImage||row?.dimension_image_path||window.VensisVitloTechnicalDrawings?.resolve?.(code)?.asset||'',gallery:[]},
@@ -224,7 +229,7 @@
       catalogOnly:Boolean(model.catalogOnly),
       series:{id:series.id||model.seriesId,code:series.code||model.seriesId,title:series.title||model.seriesId,manufacturer:series.manufacturer||'Vitlo',categories:series.categories||[]},
       media:model.media?.image?model.media:(series.media||{image:'',gallery:[]}),catalogue:series.catalogue||{},
-      description:series.description||{general:[],motor:[],applications:[]},
+      description:model.description||series.description||{general:[],motor:[],applications:[]},
       pricing:model.pricing,motor:model.motor,technical:model.technical,performance:model.performance,source:model.source
     };
   }
