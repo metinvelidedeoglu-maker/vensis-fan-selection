@@ -101,14 +101,20 @@ test('approval workflow is separate and payload-bound; only project write has an
   assert.match(domain,/An approval request does not execute the action/);
 });
 
-test('agent API inventory OpenAPI documents independent scope and filters',()=>{
+test('agent API inventory OpenAPI documents a single scoped route and complete schema',()=>{
   const specification=fs.readFileSync(path.join(root,'api/agent/openapi.yaml'),'utf8');
   assert.match(specification,/\/project-list\.php:/);
   assert.match(specification,/operationId: listSavedProjects/);
   assert.match(specification,/project:list scope/);
   assert.match(specification,/dateField:.*createdAt.*updatedAt/);
-  assert.match(specification,/snapshot/);
-  assert.match(specification,/not a quotation history/);
+  assert.match(specification,/not historical quotations/);
+  assert.equal((specification.match(/^paths:/gm)||[]).length,1);
+  assert.equal((specification.match(/^components:/gm)||[]).length,1);
+  assert.equal((specification.match(/^  \/project-list\.php:/gm)||[]).length,1);
+  assert.equal((specification.match(/^  \/project-write\.php:/gm)||[]).length,1);
+  assert.ok(specification.indexOf('  /project-list.php:')<specification.indexOf('  /project-write.php:'));
+  assert.ok(specification.indexOf('  /project-write.php:')<specification.indexOf('components:'));
+  assert.ok(specification.includes("snapshot: {type: string, pattern: '^[a-f0-9]{64}$'}"));
 });
 
 test('OpenAPI publishes selection, draft and approval-gate operations',()=>{
