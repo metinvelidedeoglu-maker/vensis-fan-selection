@@ -28,7 +28,8 @@ if(!window.VensisCatalogBrand||window.VensisCatalogBrand==='vitlo'){
     '<script src="data/fans-17.js?v=20260902-crs-crh-63-r1"><\/script>',
     '<script src="data/fans-18.js?v=20260908-axw-atex-4m-r1"><\/script>',
     '<script src="data/cr-family-matrix.js?v=20260902-cr-matrix-r1"><\/script>',
-    '<script src="data/vitlo-price-fill-20260903.js?v=20260903-price-fill-r1"><\/script>'
+    '<script src="data/vitlo-price-fill-20260903.js?v=20260903-price-fill-r1"><\/script>',
+    '<script src="data/crs-31-stainless-316.js?v=20261013-crs31-ss316-r1"><\/script>'
   );
 }
 
