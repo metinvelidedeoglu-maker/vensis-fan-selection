@@ -18,11 +18,11 @@ foreach (array_keys($request) as $key) {
 $timezone = new DateTimeZone('Europe/Istanbul');
 $parseDate = static function (mixed $value, string $field) use ($timezone): DateTimeImmutable {
     if (!is_string($value) || preg_match('/^\d{4}-\d{2}-\d{2}$/', $value) !== 1) {
-        throw new AgentApiException("Invalid ${field} date. Use YYYY-MM-DD.", 422);
+        throw new AgentApiException("Invalid {$field} date. Use YYYY-MM-DD.", 422);
     }
     $date = DateTimeImmutable::createFromFormat('!Y-m-d', $value, $timezone);
     if (!$date || $date->format('Y-m-d') !== $value) {
-        throw new AgentApiException("Invalid ${field} date.", 422);
+        throw new AgentApiException("Invalid {$field} date.", 422);
     }
     return $date;
 };
