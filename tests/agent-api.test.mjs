@@ -101,6 +101,16 @@ test('approval workflow is separate and payload-bound; only project write has an
   assert.match(domain,/An approval request does not execute the action/);
 });
 
+test('agent API inventory OpenAPI documents independent scope and filters',()=>{
+  const specification=fs.readFileSync(path.join(root,'api/agent/openapi.yaml'),'utf8');
+  assert.match(specification,/\/project-list\.php:/);
+  assert.match(specification,/operationId: listSavedProjects/);
+  assert.match(specification,/project:list scope/);
+  assert.match(specification,/dateField:.*createdAt.*updatedAt/);
+  assert.match(specification,/snapshot/);
+  assert.match(specification,/not a quotation history/);
+});
+
 test('OpenAPI publishes selection, draft and approval-gate operations',()=>{
   const specification=fs.readFileSync(path.join(root,'api/agent/openapi.yaml'),'utf8');
   assert.match(specification,/\/select\.php:/);
@@ -111,4 +121,21 @@ test('OpenAPI publishes selection, draft and approval-gate operations',()=>{
   assert.match(specification,/\/project-write\.php:/);
   assert.match(specification,/never execute|no action executed/i);
   assert.doesNotMatch(specification,/\/projects|\/customers|\/orders|sendEmail/i);
+});
+
+
+test('agent API project inventory is scoped, paginated, and read-only',()=>{
+  const inventory=fs.readFileSync(path.join(root,'api/agent/project-list.php'),'utf8');
+  const docs=fs.readFileSync(path.join(root,'api/agent/README.md'),'utf8');
+  assert.match(inventory,/agent_authorize\('project:list'\)/);
+  assert.match(inventory,/agent_request_json\(4096\)/);
+  assert.match(inventory,/project_store_read\(\)/);
+  assert.match(inventory,/Europe\/Istanbul/);
+  assert.match(inventory,/createdAt.*updatedAt/);
+  assert.match(inventory,/nextOffset/);
+  assert.match(inventory,/hash_equals\(\$snapshot, \$expectedSnapshot\)/);
+  assert.match(inventory,/notQuotationHistory'\s*=>\s*true/);
+  assert.doesNotMatch(inventory,/project_store_mutate|project_store_save|file_put_contents|mail\s*\(/);
+  assert.match(docs,/not.*complete.*register of quotations/);
+  assert.match(docs,/PRIVATE agent configuration/);
 });
