@@ -34,8 +34,10 @@ jobs:
           }
           old="$(probe api/agent/project-read.php /tmp/old-route.txt)"
           new="$(probe api/agent/project-list.php /tmp/new-route.txt)"
+          absent="$(probe api/agent/not-a-route-20261013.php /tmp/absent-route.txt)"
           echo "Previously deployed API (unauthenticated POST): HTTP $old"
           echo "New scoped inventory API (unauthenticated POST): HTTP $new"
+          echo "Nonexistent PHP comparison route: HTTP $absent"
           product_status="$(curl --silent --show-error --location --connect-timeout 10 --max-time 25 \
             --output /tmp/product.js --write-out '%{http_code}' \
             "$base/data/crs-31-stainless-316.js?verify=$GITHUB_SHA")" || product_status="connection_error"
@@ -45,8 +47,8 @@ jobs:
           else
             echo 'Could not confirm previous product change at public URL.'
           fi
-          if [[ "$old" == 401 && "$new" == 401 ]]; then
-            echo 'PASS: existing and new PHP endpoints both enforce unauthenticated access.'
+          if [[ "$old" == 401 && "$new" == 401 && "$absent" == 404 ]]; then
+            echo 'PASS: existing and new PHP endpoints both enforce unauthenticated access; nonexistent endpoint gives 404.'
           elif [[ "$new" == 404 ]]; then
             echo 'FAIL: new endpoint returns 404; deploy main to production.'
             exit 1
