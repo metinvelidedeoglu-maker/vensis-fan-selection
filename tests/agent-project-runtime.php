@@ -143,6 +143,43 @@ check(agent_payload_hash([
     'status' => $repaired['project']['status'], 'description' => $repaired['project']['items'][0]['description'],
 ]) === $protectedBefore, 'presentation repair preserves commercial, duty, status and free-note data');
 
+// User-supplied product notes use a separate, narrow update mode. This allows
+// project ATEX requirements to be shown without treating them as catalogued
+// certificate evidence or changing any commercial/selection field.
+$catalogForNote = agent_catalog();
+$noteModelMatches = array_values(array_filter($catalogForNote['models'], static fn(array $model): bool => $model['model'] === 'AXW/ATEX 35-4M-0.18'));
+check(count($noteModelMatches) === 1, 'line-note fixture model is unique');
+$noteModel = $noteModelMatches[0];
+$noteToken = agent_selection_token([
+    'sub' => 'erman', 'modelId' => $noteModel['id'], 'catalog' => $catalogForNote['sourceHash'],
+    'required' => ['airflowM3h' => 1500, 'pressurePa' => 100],
+    'selected' => ['airflowM3h' => 1500, 'pressurePa' => 100],
+    'exp' => time() + (int) $config['selection_token_ttl_seconds'],
+], $config);
+$atexRequirement = "ATEX (project requirement): Zone 1 Gas / Zone 21 Dust\nII 2G Ex db IIC T4 Gb\nII 2D Ex tb IIIC T125°C Db\nFinal equipment marking must be verified against the manufacturer's certificate before order.";
+$noteDraft = agent_quote_draft([
+    'project' => ['name' => $repaired['project']['name']],
+    'customer' => ['name' => 'deneme'],
+    'lines' => [[
+        'selectionToken' => $noteToken, 'quantity' => 2, 'discountPercent' => 0,
+        'description' => $atexRequirement,
+    ]],
+], 'erman', ['maximum_discount_percent' => 0], $config);
+check($noteDraft['lines'][0]['description'] === $atexRequirement, 'quote draft preserves the user-supplied line note');
+$notePayload = agent_project_from_draft($noteDraft, 'erman', $config, [
+    'id' => $repaired['project']['id'], 'expectedUpdatedAt' => $repaired['project']['updatedAt'], 'updateMode' => 'line-description',
+]);
+check($notePayload['project']['items'][0]['description'] === $atexRequirement, 'line-description update changes the product note');
+$noteProtected = $notePayload['project'];
+$noteProtected['items'][0]['description'] = $repaired['project']['items'][0]['description'];
+$noteProtected['updatedAt'] = $repaired['project']['updatedAt'];
+check(agent_payload_hash($noteProtected) === agent_payload_hash($repaired['project']), 'line-description update preserves every other project field');
+$noteApproval = approval($notePayload, $config, 'line-description-update');
+$np = $noteApproval['approval']['payload'];
+$noted = agent_store_project_write(agent_prepare_project_write($np, 'erman', $config), $np, $noteApproval['approvalGrant'], 'erman', $config);
+check($noted['project']['items'][0]['description'] === $atexRequirement, 'approved line description is stored');
+check($noted['project']['status'] === 'quoted' && $noted['project']['items'][0]['quantity'] === 2, 'line description update preserves status and quantity');
+
 // Mirror the ten Ford Otosan AXD/ATEX lines from the reported production record.
 $fordSpecs = [
     ['AXD/ATEX 40-2T-1', 4000, 300, 4339, 353, 1529.6],

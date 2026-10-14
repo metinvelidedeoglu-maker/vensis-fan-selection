@@ -42,6 +42,15 @@
   #quotationContent>.quote-page:first-child .quote-note{margin-top:3mm;padding:2.5mm;font-size:8px;line-height:1.3}
   #quotationContent>.quote-page:first-child .quote-note b{margin-bottom:2px;font-size:8px}
   #quotationContent>.quote-page:first-child .footer{padding-top:2mm;font-size:7px}
+  #quotationContent>.quote-page.has-line-descriptions:first-child .quote-table td{padding:1px 4px}
+  #quotationContent>.quote-page.has-line-descriptions:first-child .product-image-slot{width:26px;height:26px;flex-basis:26px}
+  #quotationContent>.quote-page.has-line-descriptions:first-child .product strong{font-size:8.5px}
+  #quotationContent>.quote-page.has-line-descriptions:first-child .product span,
+  #quotationContent>.quote-page.has-line-descriptions:first-child .product small{font-size:7px}
+  #quotationContent>.quote-page.has-line-descriptions:first-child .product-description{font-size:6.7px;line-height:1.08}
+  #quotationContent>.quote-page.has-line-descriptions:first-child .totals{margin-top:2mm}
+  #quotationContent>.quote-page.has-line-descriptions:first-child .commercial-summary{margin-top:2mm}
+  #quotationContent>.quote-page.has-line-descriptions:first-child .quote-note{margin-top:2mm;padding:2mm}
 }
 `;
     document.head.appendChild(style);

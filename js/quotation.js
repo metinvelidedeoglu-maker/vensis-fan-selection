@@ -218,6 +218,7 @@
     byId('quoteDate').textContent=dateText(dateValue(quotation));
     byId('quoteCurrency').textContent=currency;
     byId('quotationProductTables').innerHTML=productTables(quotation.items||[],currency,format);
+    document.querySelector('#quotationContent>.quote-page:first-child')?.classList.toggle('has-line-descriptions',(quotation.items||[]).some(item=>String(item?.description||'').trim()));
     byId('quoteUnits').textContent=fmt(total.units);
     byId('quoteTotal').textContent=total.hasPrice?money(total.total,currency):'-';
     renderSettings(settingsFor(quotation));

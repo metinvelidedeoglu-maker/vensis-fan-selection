@@ -449,6 +449,7 @@ function agent_quote_draft(array $request, string $identityId, array $identity, 
         }
         $quantity = (int) agent_number($line['quantity'] ?? 1, "lines.{$index}.quantity", 1, 100000);
         $discount = agent_number($line['discountPercent'] ?? 0, "lines.{$index}.discountPercent", 0, 100);
+        $description = agent_text($line['description'] ?? '', "lines.{$index}.description", 5000);
         if ($discount > $discountCeiling + 1e-9) {
             throw new AgentApiException("lines.{$index}.discountPercent exceeds this identity's approved ceiling.", 403);
         }
@@ -468,6 +469,7 @@ function agent_quote_draft(array $request, string $identityId, array $identity, 
             'type' => 'fan', 'modelId' => $model['id'], 'productKey' => $model['productKey'],
             'model' => $model['model'], 'manufacturer' => $model['manufacturer'],
             'series' => $model['series'], 'seriesTitle' => $model['seriesTitle'], 'image' => $model['image'],
+            'description' => $description,
             'quantity' => $quantity, 'listUnitPrice' => $price, 'discountPercent' => $discount,
             'netUnitPrice' => $netUnit, 'lineTotal' => $lineTotal, 'currency' => $currency,
             'requiredDuty' => $payload['required'], 'selectedDuty' => $payload['selected'],

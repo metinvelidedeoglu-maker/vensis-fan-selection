@@ -80,8 +80,11 @@ test('agent API keeps Erman separate and least-privileged',()=>{
   assert.match(domain,/maximumDiscountPercent/);
   assert.match(domain,/'image'\s*=>\s*\$model\['image'\]/);
   assert.match(domain,/'seriesTitle'\s*=>\s*\$model\['seriesTitle'\]/);
+  assert.match(domain,/'description'\s*=>\s*\$description/);
   assert.match(projectWrite,/catalog-presentation/);
+  assert.match(projectWrite,/line-description/);
   assert.match(projectWrite,/agent_project_with_catalog_presentation/);
+  assert.match(projectWrite,/agent_project_with_line_descriptions/);
   assert.doesNotMatch(select+quote+approval+approvalRequest+approvalReview+approvalStatus+projectWrite,/projects\/save|customers\/sync|mail\s*\(|github/i);
   assert.match(example,/'erman'/);
   assert.match(example,/'erman'[\s\S]*'approval:request'/);
@@ -114,6 +117,8 @@ test('approval workflow is separate and payload-bound; only project write has an
 
 test('agent API inventory OpenAPI documents a single scoped route and complete schema',()=>{
   const specification=fs.readFileSync(path.join(root,'api/agent/openapi.yaml'),'utf8');
+  assert.match(specification,/enum: \[catalog-presentation, line-description\]/);
+  assert.match(specification,/description: \{type: string, maxLength: 5000/);
   assert.match(specification,/\/project-list\.php:/);
   assert.match(specification,/operationId: listSavedProjects/);
   assert.match(specification,/project:list scope/);

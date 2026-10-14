@@ -189,7 +189,7 @@ components:
           properties:
             id: {type: string, pattern: "^prj_[A-Za-z0-9_-]{6,120}$"}
             expectedUpdatedAt: {type: string}
-            updateMode: {type: string, enum: [catalog-presentation], description: Preserve stored commercial and duty data while refreshing only catalog presentation fields.}
+            updateMode: {type: string, enum: [catalog-presentation, line-description], description: Preserve stored commercial and duty data while refreshing only catalog presentation fields or user-supplied line descriptions.}
             preparedBy: {type: string}
             name: {type: string}
             reference: {type: string}
@@ -213,6 +213,7 @@ components:
               selectionToken: {type: string}
               quantity: {type: integer, minimum: 1, default: 1}
               discountPercent: {type: number, minimum: 0, default: 0}
+              description: {type: string, maxLength: 5000, description: User-supplied line note. ATEX or other certification text must be labeled as a project requirement unless backed by verified catalogue certificate data.}
               accessories:
                 type: array
                 maxItems: 20
@@ -265,4 +266,4 @@ components:
           description: Use approval.payload unchanged. New projects use a server-generated ID; updates require expectedUpdatedAt. catalog-presentation updates preserve stored commercial and duty data. A project and its signed quote snapshot are stored atomically.
           properties:
             project: {type: object}
-            updateMode: {type: string, enum: [catalog-presentation]}
+            updateMode: {type: string, enum: [catalog-presentation, line-description]}

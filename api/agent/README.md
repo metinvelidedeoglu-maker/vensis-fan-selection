@@ -55,6 +55,12 @@ status and metadata are retained. A stale version, deletion, missing project,
 order or discount blocks the write before approval is consumed. Create never
 overwrites an existing project. A repeated ID cannot produce a duplicate.
 
+For a separately approved product-note-only update, pass
+`project.updateMode: line-description`. This mode changes only the user-supplied
+line descriptions while retaining every other saved project field. ATEX or other
+certification text supplied through this field must be labelled as a project
+requirement unless matching verified catalogue certificate data is available.
+
 Already-approved legacy flat project summaries are converted from verified
 catalogue data after verifying their **original** payload hash. Their original
 quote ID is retained as `sourceDraftId`; the regenerated signed quote's `draftId`
