@@ -13,6 +13,44 @@ function agent_draft_snapshot(array $draft): array
     ]));
 }
 
+function agent_project_item_identity(array $item): array
+{
+    return array_intersect_key($item, array_flip([
+        'id', 'productKey', 'model', 'quantity', 'price', 'priceCurrency',
+        'discountPercent', 'required',
+    ]));
+}
+
+function agent_project_with_catalog_presentation(array $existing, array $candidate): array
+{
+    if (count($existing['items'] ?? []) !== count($candidate['items'] ?? [])) {
+        throw new AgentApiException('Catalog presentation repair cannot add or remove project lines.', 409);
+    }
+    $fields = ['series', 'seriesCode', 'seriesTitle', 'manufacturer', 'image', 'nominalAirflow', 'noise', 'safetyWarning'];
+    $items = [];
+    foreach ($existing['items'] as $index => $storedItem) {
+        $candidateItem = $candidate['items'][$index];
+        if (agent_payload_hash(agent_project_item_identity($storedItem)) !== agent_payload_hash(agent_project_item_identity($candidateItem))) {
+            throw new AgentApiException('Catalog presentation repair does not match the stored project lines.', 409);
+        }
+        $merged = $storedItem;
+        foreach ($fields as $field) {
+            if (!array_key_exists($field, $candidateItem)) {
+                continue;
+            }
+            $value = $candidateItem[$field];
+            if ((is_string($value) && trim($value) === '' && $field !== 'safetyWarning') || ($value === null)) {
+                continue;
+            }
+            $merged[$field] = $value;
+        }
+        $items[] = $merged;
+    }
+    $result = $existing;
+    $result['items'] = $items;
+    return project_record($result);
+}
+
 function agent_project_from_draft(array $draft, string $identityId, array $config, array $options = []): array
 {
     $snapshot = agent_draft_snapshot($draft);
@@ -28,11 +66,16 @@ function agent_project_from_draft(array $draft, string $identityId, array $confi
         $items[] = [
             'itemKey' => 'line-' . ($index + 1), 'mode' => 'selection', 'productType' => 'fan',
             'id' => $line['modelId'], 'productKey' => $line['productKey'],
-            'model' => $line['model'], 'manufacturer' => $line['manufacturer'], 'series' => $line['series'],
+            'model' => $line['model'], 'manufacturer' => $line['manufacturer'],
+            'series' => ($line['seriesTitle'] ?? '') ?: $line['series'], 'seriesCode' => $line['series'],
+            'seriesTitle' => ($line['seriesTitle'] ?? '') ?: $line['series'], 'image' => $line['image'] ?? '',
             'quantity' => $line['quantity'], 'price' => $line['listUnitPrice'], 'priceCurrency' => $line['currency'],
             'discountPercent' => $line['discountPercent'],
             'required' => ['q' => $line['requiredDuty']['airflowM3h'], 'p' => $line['requiredDuty']['pressurePa']],
             'selected' => ['q' => $line['selectedDuty']['airflowM3h'], 'p' => $line['selectedDuty']['pressurePa']],
+            'nominalAirflow' => $line['technical']['nominalAirflowM3h'] ?? 0,
+            'noise' => $line['technical']['soundDbA'] ?? 0,
+            'safetyWarning' => $line['technical']['safetyWarning'] ?? '',
             'motorPower' => $line['motor']['powerKw'], 'speed' => $line['motor']['speedRpm'],
             'current' => $line['motor']['currentA'], 'voltage' => $line['motor']['voltage'],
             'frequency' => $line['motor']['frequency'],
@@ -48,11 +91,26 @@ function agent_project_from_draft(array $draft, string $identityId, array $confi
         ],
         'items' => $items,
     ]);
+    $updateMode = agent_text($options['updateMode'] ?? '', 'project.updateMode', 80);
+    if ($providedId !== '' && $updateMode !== '') {
+        if ($updateMode !== 'catalog-presentation') {
+            throw new AgentApiException('Project update mode is invalid.', 422);
+        }
+        $expectedUpdatedAt = project_timestamp($options['expectedUpdatedAt'] ?? null, 'expectedUpdatedAt');
+        $stored = agent_read_project(['projectId' => $id], $identityId)['project'];
+        if (($stored['updatedAt'] ?? '') !== $expectedUpdatedAt) {
+            throw new AgentApiException('Project changed or expectedUpdatedAt is stale. Read it again before preparing a repair.', 409);
+        }
+        $project = agent_project_with_catalog_presentation($stored, $project);
+    }
     $result = [
         'operation' => $providedId === '' ? 'create' : 'update', 'project' => $project,
         'quoteDraft' => $snapshot,
         'quoteDraftSignature' => hash_hmac('sha256', $identityId . '|' . agent_payload_hash($snapshot), (string) $config['signing_key']),
     ];
+    if ($updateMode !== '') {
+        $result['updateMode'] = $updateMode;
+    }
     if ($providedId !== '') {
         $result['expectedUpdatedAt'] = project_timestamp($options['expectedUpdatedAt'] ?? null, 'expectedUpdatedAt');
     }
@@ -120,11 +178,23 @@ function agent_prepare_project_write(array $payload, string $identityId, array $
             $source = $payload['project'];
         }
         $project = project_record($source);
+        $operation = $payload['operation'] ?? 'save';
+        if (!in_array($operation, ['create', 'update', 'save'], true)) {
+            throw new AgentApiException('Project operation is invalid.', 422);
+        }
+        $updateMode = agent_text($payload['updateMode'] ?? '', 'project.updateMode', 80);
+        if ($updateMode !== '' && ($operation !== 'update' || $updateMode !== 'catalog-presentation')) {
+            throw new AgentApiException('Project update mode is invalid.', 422);
+        }
+        $isPresentationRepair = $operation === 'update' && $updateMode === 'catalog-presentation';
         if (($project['meta']['orders'] ?? []) !== []) {
             throw new AgentApiException('Project approval cannot create or change orders.', 403);
         }
-        if ($project['status'] !== 'draft') {
+        if (!$isPresentationRepair && $project['status'] !== 'draft') {
             throw new AgentApiException('Project approval can only save a draft project.', 403);
+        }
+        if ($isPresentationRepair && !in_array($project['status'], ['draft', 'quoted'], true)) {
+            throw new AgentApiException('Catalog presentation repair is limited to draft or quoted projects.', 403);
         }
         if ((float) $project['meta']['globalDiscount'] !== 0.0) {
             throw new AgentApiException('Project approval cannot apply a global discount.', 403);
@@ -144,15 +214,12 @@ function agent_prepare_project_write(array $payload, string $identityId, array $
             if (($payload['operation'] ?? '') === 'update') {
                 $options['id'] = $project['id'];
                 $options['expectedUpdatedAt'] = $payload['expectedUpdatedAt'] ?? null;
+                $options['updateMode'] = $updateMode;
             }
             $expected = agent_project_from_draft($snapshot, $identityId, $config, $options);
             if (agent_payload_hash($expected['project']) !== agent_payload_hash($project)) {
                 throw new AgentApiException('Project does not match the signed quotation draft.', 403);
             }
-        }
-        $operation = $payload['operation'] ?? 'save';
-        if (!in_array($operation, ['create', 'update', 'save'], true)) {
-            throw new AgentApiException('Project operation is invalid.', 422);
         }
         if ($operation === 'update') {
             $payload['expectedUpdatedAt'] = project_timestamp($payload['expectedUpdatedAt'] ?? null, 'expectedUpdatedAt');
@@ -183,13 +250,20 @@ function agent_store_project_write(array $prepared, array $originalPayload, stri
             throw new AgentApiException('The project to update was not found.', 404);
         }
         if (is_array($existing)) {
-            if (($existing['status'] ?? '') !== 'draft' || ($existing['meta']['orders'] ?? []) !== []
+            $isPresentationRepair = $operation === 'update' && ($prepared['updateMode'] ?? '') === 'catalog-presentation';
+            if ((!$isPresentationRepair && ($existing['status'] ?? '') !== 'draft')
+                || ($isPresentationRepair && !in_array($existing['status'] ?? '', ['draft', 'quoted'], true))
+                || ($existing['meta']['orders'] ?? []) !== []
                 || (float) ($existing['meta']['globalDiscount'] ?? 0) !== 0.0
                 || array_filter($existing['items'] ?? [], static fn(array $item): bool => (float) ($item['discountPercent'] ?? 0) !== 0.0)) {
                 throw new AgentApiException('Existing commercial status, discounts or orders cannot be overwritten by this connector.', 403);
             }
             if (($prepared['expectedUpdatedAt'] ?? '') !== ($existing['updatedAt'] ?? '')) {
                 throw new AgentApiException('Project changed or expectedUpdatedAt is missing. Read it again before requesting an update.', 409);
+            }
+            if ($isPresentationRepair
+                && agent_payload_hash(agent_project_with_catalog_presentation($existing, $project)) !== agent_payload_hash($project)) {
+                throw new AgentApiException('Catalog presentation repair attempted to change protected project data.', 403);
             }
         }
         // Conflicts and validation are checked before consuming the one-use grant.

@@ -46,10 +46,14 @@ The OpenAPI file is blocked from public HTTP access by the directory `.htaccess`
 5. Read `project-read.php` using `projectId` or `requestId`. Only projects with an
    execution receipt belonging to this API identity are visible.
 
-To update, pass the existing `project.id` and its exact `expectedUpdatedAt` to the
-quote tool. A stale version, deletion, missing project, commercial status, order
-or discount blocks the write before approval is consumed. Create never overwrites
-an existing project. A repeated ID cannot produce a duplicate.
+To update a draft, pass the existing `project.id` and its exact `expectedUpdatedAt`
+to the quote tool. For a narrow catalogue presentation repair, also pass
+`project.updateMode: catalog-presentation`. That mode can refresh only the title,
+series code, catalogue image and other non-commercial presentation fields of a
+visible draft or quoted project; stored quantities, prices, discounts, duty points,
+status and metadata are retained. A stale version, deletion, missing project,
+order or discount blocks the write before approval is consumed. Create never
+overwrites an existing project. A repeated ID cannot produce a duplicate.
 
 Already-approved legacy flat project summaries are converted from verified
 catalogue data after verifying their **original** payload hash. Their original

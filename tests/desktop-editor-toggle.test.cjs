@@ -9,7 +9,7 @@ const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 test('access gate loads the desktop editor toggle only on project documents',()=>{
   const access=read('js/access-gate.js');
   assert.match(access,/desktopEditorPages=\['\/project\.html','\/quotation\.html'\]/);
-  assert.match(access,/js\/desktop-editor-toggle\.js\?v=20260902-r1/);
+  assert.match(access,/js\/desktop-editor-toggle\.js\?v=20261014-verified-atex-r1/);
   assert.match(access,/data\.vensisDesktopEditorToggle|dataset\.vensisDesktopEditorToggle/);
 });
 

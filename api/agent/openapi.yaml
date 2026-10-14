@@ -189,6 +189,7 @@ components:
           properties:
             id: {type: string, pattern: "^prj_[A-Za-z0-9_-]{6,120}$"}
             expectedUpdatedAt: {type: string}
+            updateMode: {type: string, enum: [catalog-presentation], description: Preserve stored commercial and duty data while refreshing only catalog presentation fields.}
             preparedBy: {type: string}
             name: {type: string}
             reference: {type: string}
@@ -261,6 +262,7 @@ components:
         payload:
           type: object
           required: [project]
-          description: Use approval.payload unchanged. New projects use a server-generated ID; updates require expectedUpdatedAt. A project and its signed quote snapshot are stored atomically.
+          description: Use approval.payload unchanged. New projects use a server-generated ID; updates require expectedUpdatedAt. catalog-presentation updates preserve stored commercial and duty data. A project and its signed quote snapshot are stored atomically.
           properties:
             project: {type: object}
+            updateMode: {type: string, enum: [catalog-presentation]}

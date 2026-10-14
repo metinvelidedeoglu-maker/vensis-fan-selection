@@ -28,6 +28,13 @@ test('agent catalog is reproducible and mirrors the active selection catalog',()
   assert.ok(verified.selectionPoints.length>=2);
   assert.ok(verified.pricing.listPrice>0);
 
+  const axdAtex=catalog.models.find(model=>model.model==='AXD/ATEX 40-2T-1');
+  assert.ok(axdAtex,'known AXD/ATEX model is missing');
+  assert.equal(axdAtex.series,'AXD/ATEX');
+  assert.equal(axdAtex.seriesTitle,'Axial Duct Type Ex-proof Fan');
+  assert.equal(axdAtex.image,'assets/products/AXD-ATEX.webp');
+  assert.equal(axdAtex.technical.hazardousArea,null,'unverified AXD/ATEX certificate data must stay absent');
+
   const provisional=catalog.models.filter(model=>model.series==='SEAT 25');
   assert.ok(provisional.length>0,'known engineering-review models are missing');
   assert.ok(provisional.every(model=>model.verification.status==='needs_engineering_review'));
@@ -71,6 +78,10 @@ test('agent API keeps Erman separate and least-privileged',()=>{
   assert.match(domain,/quoteEligible/);
   assert.match(domain,/approvalRequired'\s*=>\s*true/);
   assert.match(domain,/maximumDiscountPercent/);
+  assert.match(domain,/'image'\s*=>\s*\$model\['image'\]/);
+  assert.match(domain,/'seriesTitle'\s*=>\s*\$model\['seriesTitle'\]/);
+  assert.match(projectWrite,/catalog-presentation/);
+  assert.match(projectWrite,/agent_project_with_catalog_presentation/);
   assert.doesNotMatch(select+quote+approval+approvalRequest+approvalReview+approvalStatus+projectWrite,/projects\/save|customers\/sync|mail\s*\(|github/i);
   assert.match(example,/'erman'/);
   assert.match(example,/'erman'[\s\S]*'approval:request'/);

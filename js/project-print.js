@@ -115,6 +115,10 @@
     if(OUTPUT_LANGUAGE==='tr'&&/\bSTAINLESS\s+STEEL\s*316\b/i.test(raw))return raw.replace(/\bSTAINLESS\s+STEEL\s*316\b/ig,'PASLANMAZ 316');
     return raw;
   }
+  function localizedSeriesTitle(item,model){
+    const raw=String(item?.seriesTitle||item?.series||model?.seriesTitle||'').trim();
+    return window.VensisI18n?.t?.(raw,OUTPUT_LANGUAGE)||raw;
+  }
 
   function overviewRow(item){
     const model=modelFor(item);
@@ -123,7 +127,7 @@
     const description=String(item.description||'').trim();
     const safety=String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
     return `<tr>
-      <td><div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(localizedModelName(item)||'Fan')}" onerror="this.remove()">`:''}</i><div><strong>${esc(localizedModelName(item)||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div></td>
+      <td><div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(localizedModelName(item)||'Fan')}" onerror="this.remove()">`:''}</i><div><strong>${esc(localizedModelName(item)||'-')}</strong><span>${esc(localizedSeriesTitle(item,model))}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div></td>
       <td class="technical-point">${esc(sourceText(item))}</td>
       <td class="technical-point">${esc(selectedText(item))}</td>
       <td>${supplyText(item,model)}</td>

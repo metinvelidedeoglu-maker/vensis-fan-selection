@@ -29,6 +29,12 @@ $flat = ['project' => ['name' => 'deneme', 'customerName' => 'deneme', 'prepared
 $prepared = agent_prepare_project_write($flat, 'erman', $config);
 check(preg_match('/^prj_[a-f0-9]{24}$/', $prepared['project']['id']) === 1, 'new project gets a valid server ID');
 check($prepared['project']['items'][0]['price'] === 1244.8, 'price comes from catalogue');
+check($prepared['quoteDraft']['lines'][0]['seriesTitle'] === 'Axial Wall Type Ex-proof Fans', 'draft preserves the catalogue series title');
+check($prepared['quoteDraft']['lines'][0]['image'] === 'assets/products/AXW-ATEX.webp', 'draft preserves the catalogue image');
+check($prepared['project']['items'][0]['series'] === 'Axial Wall Type Ex-proof Fans', 'project uses the descriptive product title');
+check($prepared['project']['items'][0]['seriesCode'] === 'AXW/ATEX', 'project separately preserves the technical series code');
+check($prepared['project']['items'][0]['seriesTitle'] === 'Axial Wall Type Ex-proof Fans', 'project preserves seriesTitle');
+check($prepared['project']['items'][0]['image'] === 'assets/products/AXW-ATEX.webp', 'project preserves the catalogue image');
 check($prepared['project']['meta']['preparedBy'] === 'deneme', 'preparer is preserved');
 check($prepared['quoteDraft']['customer']['name'] === 'deneme', 'customer is preserved');
 check($prepared['project']['items'][0]['required'] === ['q' => 1500, 'p' => 100], 'required duty is mapped');
@@ -93,4 +99,110 @@ denied(fn()=>agent_verify_approval_grant($expiredToken,'erman','project.write',$
 denied(fn()=>agent_verify_approval_grant($grant,'another_user','project.write',$flat,$config),403,'identity-bound grant');
 $wrong=$flat;$wrong['project']['quantity']=10;
 denied(fn()=>agent_verify_approval_grant($grant,'erman','project.write',$wrong,$config),403,'payload-bound grant');
+
+// Reproduce the historical plug-in record shape, then repair presentation only.
+$broken = project_store_mutate(static function(array &$state) use($prepared): array {
+    $id = $prepared['project']['id'];
+    $project = $state['projects'][$id];
+    $project['status'] = 'quoted';
+    $project['meta']['status'] = 'quoted';
+    $project['items'][0]['series'] = 'AXW/ATEX';
+    $project['items'][0]['description'] = 'Existing free note';
+    $project['items'][0]['safetyWarning'] = 'ATEX: Zone 1 Gas / Zone 21 Dust';
+    unset($project['items'][0]['seriesCode'], $project['items'][0]['seriesTitle'], $project['items'][0]['image']);
+    $project['updatedAt'] = (new DateTimeImmutable($project['updatedAt']))->modify('+1 millisecond')->format('Y-m-d\TH:i:s.v\Z');
+    $state['projects'][$id] = $project;
+    return $project;
+});
+$protectedBefore = agent_payload_hash([
+    'quantity' => $broken['items'][0]['quantity'], 'price' => $broken['items'][0]['price'],
+    'discountPercent' => $broken['items'][0]['discountPercent'], 'required' => $broken['items'][0]['required'],
+    'selected' => $broken['items'][0]['selected'], 'motorPower' => $broken['items'][0]['motorPower'],
+    'status' => $broken['status'], 'description' => $broken['items'][0]['description'],
+]);
+$repairSource = $flat;
+$repairSource['project']['quantity'] = 2;
+$repairDraft = agent_legacy_project_draft($repairSource['project'], 'erman', $config);
+$repairPayload = agent_project_from_draft($repairDraft, 'erman', $config, [
+    'id' => $broken['id'], 'expectedUpdatedAt' => $broken['updatedAt'], 'updateMode' => 'catalog-presentation',
+]);
+check($repairPayload['updateMode'] === 'catalog-presentation', 'presentation repair is explicit');
+check($repairPayload['project']['status'] === 'quoted', 'presentation repair preserves quoted status');
+check($repairPayload['project']['items'][0]['series'] === 'Axial Wall Type Ex-proof Fans', 'presentation repair replaces code-only display');
+check($repairPayload['project']['items'][0]['seriesCode'] === 'AXW/ATEX', 'presentation repair retains the technical code');
+check($repairPayload['project']['items'][0]['image'] === 'assets/products/AXW-ATEX.webp', 'presentation repair restores the image');
+check($repairPayload['project']['items'][0]['safetyWarning'] === '', 'presentation repair removes an unverified legacy ATEX claim');
+$repairApproval = approval($repairPayload, $config, 'presentation-repair');
+$rp = $repairApproval['approval']['payload'];
+$repaired = agent_store_project_write(agent_prepare_project_write($rp, 'erman', $config), $rp, $repairApproval['approvalGrant'], 'erman', $config);
+check(count(project_store_read()['projects']) === 1, 'presentation repair does not duplicate the project');
+check(agent_payload_hash([
+    'quantity' => $repaired['project']['items'][0]['quantity'], 'price' => $repaired['project']['items'][0]['price'],
+    'discountPercent' => $repaired['project']['items'][0]['discountPercent'], 'required' => $repaired['project']['items'][0]['required'],
+    'selected' => $repaired['project']['items'][0]['selected'], 'motorPower' => $repaired['project']['items'][0]['motorPower'],
+    'status' => $repaired['project']['status'], 'description' => $repaired['project']['items'][0]['description'],
+]) === $protectedBefore, 'presentation repair preserves commercial, duty, status and free-note data');
+
+// Mirror the ten Ford Otosan AXD/ATEX lines from the reported production record.
+$fordSpecs = [
+    ['AXD/ATEX 40-2T-1', 4000, 300, 4339, 353, 1529.6],
+    ['AXD/ATEX 50-2T-3', 10000, 350, 10358, 376, 2062.4],
+    ['AXD/ATEX 56-2T-4', 11000, 400, 12097, 484, 2456.0],
+    ['AXD/ATEX 63-2T-5,5', 14000, 400, 15324, 479, 3059.2],
+    ['AXD/ATEX 56-2T-4', 12000, 400, 12699, 448, 2456.0],
+    ['AXD/ATEX 56-2T-4', 12000, 450, 12296, 472, 2456.0],
+    ['AXD/ATEX 50-2T-3', 9000, 350, 9796, 415, 2062.4],
+    ['AXD/ATEX 40-2T-1.5', 6000, 300, 6000, 300, 1636.8],
+    ['AXD/ATEX 50-2T-3', 9000, 350, 9796, 415, 2062.4],
+    ['AXD/ATEX 45-2T-2', 7000, 300, 7863, 379, 1888.0],
+];
+$catalog = agent_catalog();
+$fordLines = [];
+foreach ($fordSpecs as [$modelName, $rq, $rp, $sq, $sp, $price]) {
+    $matches = array_values(array_filter($catalog['models'], static fn(array $model): bool => $model['model'] === $modelName));
+    check(count($matches) === 1, 'Ford fixture model is unique: ' . $modelName);
+    $model = $matches[0];
+    check(abs((float) $model['pricing']['listPrice'] - $price) < 0.0001, 'Ford fixture price matches catalogue: ' . $modelName);
+    $fordLines[] = ['selectionToken' => agent_selection_token([
+        'sub' => 'erman', 'modelId' => $model['id'], 'catalog' => $catalog['sourceHash'],
+        'required' => ['airflowM3h' => $rq, 'pressurePa' => $rp],
+        'selected' => ['airflowM3h' => $sq, 'pressurePa' => $sp],
+        'exp' => time() + (int) $config['selection_token_ttl_seconds'],
+    ], $config), 'quantity' => 1, 'discountPercent' => 0];
+}
+$fordDraft = agent_quote_draft([
+    'project' => ['name' => 'Ford Otosan Exproof Fan'],
+    'customer' => ['name' => 'Javenis'], 'lines' => $fordLines,
+], 'erman', ['maximum_discount_percent' => 0], $config);
+$fordPayload = agent_project_from_draft($fordDraft, 'erman', $config);
+check(count($fordDraft['lines']) === 10 && count($fordPayload['project']['items']) === 10, 'Ford fixture keeps all ten lines');
+check(abs((float) $fordDraft['totals']['netTotal'] - 21668.8) < 0.0001, 'Ford fixture total remains EUR 21,668.80');
+check(array_column($fordPayload['project']['items'], 'model') === array_column($fordSpecs, 0), 'Ford fixture model order is unchanged');
+$fordBroken = $fordPayload['project'];
+$fordBroken['status'] = 'quoted';
+$fordBroken['meta']['status'] = 'quoted';
+foreach ($fordBroken['items'] as &$item) {
+    $item['series'] = 'AXD/ATEX';
+    $item['safetyWarning'] = 'ATEX: Zone 1 Gas / Zone 21 Dust';
+    unset($item['seriesCode'], $item['seriesTitle'], $item['image']);
+}
+unset($item);
+$protectedProject = static function(array $project): array {
+    foreach ($project['items'] as &$item) {
+        foreach (['series', 'seriesCode', 'seriesTitle', 'manufacturer', 'image', 'nominalAirflow', 'noise', 'safetyWarning'] as $field) {
+            unset($item[$field]);
+        }
+    }
+    unset($item);
+    return $project;
+};
+$fordFixed = agent_project_with_catalog_presentation($fordBroken, $fordPayload['project']);
+check(agent_payload_hash($protectedProject($fordFixed)) === agent_payload_hash($protectedProject($fordBroken)), 'Ford repair changes presentation fields only');
+check(count(array_filter($fordFixed['items'], static fn(array $item): bool =>
+    $item['series'] === 'Axial Duct Type Ex-proof Fan'
+    && $item['seriesCode'] === 'AXD/ATEX'
+    && $item['seriesTitle'] === 'Axial Duct Type Ex-proof Fan'
+    && $item['image'] === 'assets/products/AXD-ATEX.webp'
+    && $item['safetyWarning'] === ''
+)) === 10, 'Ford repair restores descriptive titles and catalogue images without unverified ATEX text');
 echo json_encode(['passed'=>$checks,'projects'=>count(project_store_read()['projects']),'drafts'=>count(project_store_read()['agentDrafts'])]), PHP_EOL;

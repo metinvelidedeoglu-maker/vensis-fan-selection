@@ -380,6 +380,7 @@ function agent_select(array $request, string $identityId, array $config): array
                 'id' => $model['id'], 'productKey' => $model['productKey'], 'name' => $model['model'],
                 'control' => $model['control'], 'manufacturer' => $model['manufacturer'],
                 'series' => $model['series'], 'seriesTitle' => $model['seriesTitle'], 'categories' => $model['categories'],
+                'image' => $model['image'],
                 'motor' => $model['motor'], 'technical' => $model['technical'], 'verification' => $model['verification'],
                 'pricing' => $model['pricing'], 'sourcePage' => $model['sourcePage'],
             ],
@@ -465,7 +466,8 @@ function agent_quote_draft(array $request, string $identityId, array $identity, 
         $total += $lineTotal;
         $draftLine = [
             'type' => 'fan', 'modelId' => $model['id'], 'productKey' => $model['productKey'],
-            'model' => $model['model'], 'manufacturer' => $model['manufacturer'], 'series' => $model['series'],
+            'model' => $model['model'], 'manufacturer' => $model['manufacturer'],
+            'series' => $model['series'], 'seriesTitle' => $model['seriesTitle'], 'image' => $model['image'],
             'quantity' => $quantity, 'listUnitPrice' => $price, 'discountPercent' => $discount,
             'netUnitPrice' => $netUnit, 'lineTotal' => $lineTotal, 'currency' => $currency,
             'requiredDuty' => $payload['required'], 'selectedDuty' => $payload['selected'],
