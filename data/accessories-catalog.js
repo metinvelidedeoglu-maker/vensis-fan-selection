@@ -4,8 +4,8 @@
     source:'AVenS Ürün Fiyat Kataloğu 2026 • 2',
     currency:'EUR',
     items:[
-      // Henüz fiyatlandırılmamış proje aksesuarı; ATEX ve fan uyumu teknik onay bekliyor.
-      {id:'jaluzi-geri-tepme-duvar',model:'Geri Tepme Klapeli Jaluzi Panjur — Duvar Tipi Fan',category:'Jaluzi / Panjur',manufacturer:'Tedarikçi teyidi bekleniyor',price:null,quoteEnabled:false,technicalApprovalRequired:true,specs:'Geri tepme önleyici hareketli kanatlı panjur. AXW/ATEX fanıyla montaj ölçüsü, basınç kaybı, hidrojen/Zone uygunluğu, malzeme ve sertifikasyon üretici tarafından doğrulanmalı.',sourceNote:'Proje opsiyonu — fiyat ve teknik teyit bekleniyor'},
+      // Metin'in 16.10.2026 beyan ettiği liste fiyatı; ATEX/hidrojen uyumu henüz doğrulanmadı.
+      {id:'jaluzi-geri-tepme-duvar',model:'Geri Tepme Klapeli Jaluzi Panjur 500×500 mm',category:'Jaluzi / Panjur',manufacturer:'Tedarikçi teyidi bekleniyor',price:300,priceCurrency:'EUR',priceSource:'Metin tarafından bildirilen liste fiyatı — 16.10.2026',quoteEnabled:true,technicalApprovalRequired:true,specs:'500×500 mm • Geri tepme önleyici hareketli kanatlı panjur. AXW/ATEX fanıyla montaj uyumu, basınç kaybı, hidrojen/Zone için malzeme ve teknik uygunluk üretici tarafından teyit edilmelidir.',sourceNote:'Liste fiyatı: Metin beyanı (16.10.2026) • ATEX/uyumluluk teknik teyidi bekleniyor'},
       {id:'cr5n',model:'CR5N Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:66,specs:'100 W • 1.2 A • 5 kademeli • çift yön kontrolü',sourcePage:16},
       {id:'c15',model:'C 1,5 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:63,specs:'200 W • 1.5 A',sourcePage:18},
       {id:'c25',model:'C 2,5 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:66,specs:'450 W • 2.5 A',sourcePage:24},
