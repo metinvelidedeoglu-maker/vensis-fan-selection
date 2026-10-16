@@ -49,4 +49,15 @@ assert.ok(catalog.items.every(item=>!/^\d+-/.test(String(item.id||''))),'interna
 assert.equal(new Set(catalog.items.map(item=>item.id)).size,catalog.items.length,'accessory ids must stay unique');
 assert.equal(catalog.items.some(item=>/quadro\s*evo/i.test(`${item.model} ${item.specs||''}`)),false,'QUADRO EVO accessories must stay out of this catalog');
 
+const backdraftLouver=catalog.items.find(item=>item.id==='jaluzi-geri-tepme-duvar');
+assert.ok(backdraftLouver,'backdraft louver must be visible in accessory catalog');
+assert.equal(backdraftLouver.price,null,'unknown accessory price must not be represented as 0 EUR');
+assert.equal(backdraftLouver.quoteEnabled,false,'unpriced backdraft louver must not be quoteable');
+assert.equal(backdraftLouver.technicalApprovalRequired,true,'hydrogen/Zone use must not be asserted without review');
+const fs=require('node:fs');
+const path=require('node:path');
+const accessoryPage=fs.readFileSync(path.resolve(__dirname,'../js/accessories-page.js'),'utf8');
+assert.match(accessoryPage,/enabled&&canQuote\\(item\\)/,'pending accessory must disable project-add button');
+assert.match(accessoryPage,/!accessory\\|\\|!canQuote\\(accessory\\)/,'pending accessory must be rejected server-side of UI click logic');
+
 console.log('Accessory workflow tests passed.');
