@@ -14,8 +14,8 @@ const verified={
   'CRK 35-4T':1280,
   'CRK 40-4T':1530,
   'CRK 45-2T-10':4900,
-  'CRK/ATEX 35-4T':2960,
-  'CRK/ATEX 40-4T-1':2560,
+  'CRK/ATEX 35-4T':2760,
+  'CRK/ATEX 40-4T':2960,
   'CRK/ATEX 71-4T-15':8360,
   'CRK/ATEX 80-4T-25':12700,
   'CRS 45-2T-10':1960,
@@ -60,16 +60,16 @@ test('normalizes comma decimals but never overwrites an existing positive price'
   assert.equal(rows[1].price,9999);
 });
 
-test('applies the user-selected values for the two former source conflicts',()=>{
+test('applies the latest user-selected values for the two former source conflicts',()=>{
   const rows=[
     {brand:'Vitlo',model:'CRK/ATEX 35-4T'},
     {brand:'Vitlo',model:'CRS 50-4T'}
   ];
   const window=run(rows);
-  assert.equal(rows[0].price,2960);
+  assert.equal(rows[0].price,2760);
   assert.equal(rows[1].price,1600);
   assert.deepEqual(
     Array.from(window.VensisVitloPriceFill20260903Report.resolvedConflicts,entry=>[entry.model,entry.price,Array.from(entry.discarded)]),
-    [['CRK/ATEX 35-4T',2960,[2720]],['CRS 50-4T',1600,[1400]]]
+    [['CRK/ATEX 35-4T',2760,[2960,2720]],['CRS 50-4T',1600,[1400]]]
   );
 });

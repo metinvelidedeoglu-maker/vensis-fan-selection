@@ -15,8 +15,8 @@
     'CRK 35-4T':1280,
     'CRK 40-4T':1530,
     'CRK 45-2T-10':4900,
-    'CRK/ATEX 35-4T':2960,
-    'CRK/ATEX 40-4T-1':2560,
+    'CRK/ATEX 35-4T':2760,
+    'CRK/ATEX 40-4T':2960,
     'CRK/ATEX 71-4T-15':8360,
     'CRK/ATEX 80-4T-25':12700,
     'CRS 45-2T-10':1960,
@@ -32,11 +32,10 @@
     'CRS/ATEX 71-4T-15':6900
   };
 
-  // The worksheet contained two historical same-model price conflicts. The user
-  // explicitly selected the values below on 2026-09-04, so they are now safe to
-  // apply while retaining the discarded alternatives for auditability.
+  // Retain superseded values for auditability when the user explicitly resolves
+  // or later revises a historical same-model price conflict.
   const resolvedConflicts={
-    'CRK/ATEX 35-4T':{price:2960,discarded:[2720]},
+    'CRK/ATEX 35-4T':{price:2760,discarded:[2960,2720]},
     'CRS 50-4T':{price:1600,discarded:[1400]}
   };
 
