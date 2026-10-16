@@ -51,13 +51,16 @@ assert.equal(catalog.items.some(item=>/quadro\s*evo/i.test(`${item.model} ${item
 
 const backdraftLouver=catalog.items.find(item=>item.id==='jaluzi-geri-tepme-duvar');
 assert.ok(backdraftLouver,'backdraft louver must be visible in accessory catalog');
-assert.equal(backdraftLouver.price,null,'unknown accessory price must not be represented as 0 EUR');
-assert.equal(backdraftLouver.quoteEnabled,false,'unpriced backdraft louver must not be quoteable');
-assert.equal(backdraftLouver.technicalApprovalRequired,true,'hydrogen/Zone use must not be asserted without review');
+assert.equal(backdraftLouver.model,'Geri Tepme Klapeli Jaluzi Panjur 500×500 mm');
+assert.equal(backdraftLouver.price,300,'500x500 mm backdraft louver list price should be 300 EUR');
+assert.equal(backdraftLouver.priceCurrency,'EUR');
+assert.match(backdraftLouver.priceSource,/Metin/);
+assert.equal(backdraftLouver.quoteEnabled,true,'Metin-priced accessory can be added to draft projects');
+assert.equal(backdraftLouver.technicalApprovalRequired,true,'hydrogen/Zone application still requires engineering review');
 const fs=require('node:fs');
 const path=require('node:path');
 const accessoryPage=fs.readFileSync(path.resolve(__dirname,'../js/accessories-page.js'),'utf8');
-assert.ok(accessoryPage.includes('enabled&&canQuote(item)'),'pending accessory must disable project-add button');
-assert.ok(accessoryPage.includes('!accessory||!canQuote(accessory)'),'pending accessory must be rejected by project-add logic');
+assert.ok(accessoryPage.includes('enabled&&canQuote(item)'),'add button must honor quoteable status');
+assert.ok(accessoryPage.includes('!accessory||!canQuote(accessory)'),'project-add logic must reject unquoteable accessories');
 
 console.log('Accessory workflow tests passed.');
