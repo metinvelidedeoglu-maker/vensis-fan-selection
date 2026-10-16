@@ -4,6 +4,8 @@
     source:'AVenS Ürün Fiyat Kataloğu 2026 • 2',
     currency:'EUR',
     items:[
+      // Henüz fiyatlandırılmamış proje aksesuarı; ATEX ve fan uyumu teknik onay bekliyor.
+      {id:'jaluzi-geri-tepme-duvar',model:'Geri Tepme Klapeli Jaluzi Panjur — Duvar Tipi Fan',category:'Jaluzi / Panjur',manufacturer:'Tedarikçi teyidi bekleniyor',price:null,quoteEnabled:false,technicalApprovalRequired:true,specs:'Geri tepme önleyici hareketli kanatlı panjur. AXW/ATEX fanıyla montaj ölçüsü, basınç kaybı, hidrojen/Zone uygunluğu, malzeme ve sertifikasyon üretici tarafından doğrulanmalı.',sourceNote:'Proje opsiyonu — fiyat ve teknik teyit bekleniyor'},
       {id:'cr5n',model:'CR5N Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:66,specs:'100 W • 1.2 A • 5 kademeli • çift yön kontrolü',sourcePage:16},
       {id:'c15',model:'C 1,5 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:63,specs:'200 W • 1.5 A',sourcePage:18},
       {id:'c25',model:'C 2,5 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:66,specs:'450 W • 2.5 A',sourcePage:24},
