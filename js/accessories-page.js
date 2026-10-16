@@ -10,6 +10,7 @@
   const byId=id=>document.getElementById(id);
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
   const money=value=>`€${new Intl.NumberFormat('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(value)||0)}`;
+  const canQuote=item=>item?.quoteEnabled!==false&&typeof item?.price==='number'&&Number.isFinite(item.price)&&item.price>0;
   let activeCategory='Tümü';
 
   function projectItems(){return store?.readItems?.(projectId)||[]}
@@ -55,12 +56,12 @@
     const rows=filteredItems();
     const enabled=validTarget();
     if(!rows.length){grid.innerHTML='<div class="empty">Aramanıza uygun aksesuar bulunamadı.</div>';return}
-    grid.innerHTML=rows.map(item=>`<article class="card" data-accessory-id="${esc(item.id)}"><div class="card-head"><b class="price">${money(item.price)}</b></div><h2>${esc(item.model)}</h2><div class="category">${esc(item.category)}</div><p class="specs">${esc(item.specs||'')}</p><div class="meta">${esc(item.manufacturer||'')} • Katalog s. ${esc(item.sourcePage||'-')}</div><button class="add" type="button" data-add-accessory="${esc(item.id)}" ${enabled?'':'disabled'}>+ Projeye Ekle</button></article>`).join('');
+    grid.innerHTML=rows.map(item=>`<article class="card" data-accessory-id="${esc(item.id)}"><div class="card-head"><b class="price">${canQuote(item)?money(item.price):'Fiyat / teknik teyit bekleniyor'}</b></div><h2>${esc(item.model)}</h2><div class="category">${esc(item.category)}</div><p class="specs">${esc(item.specs||'')}</p><div class="meta">${esc(item.manufacturer||'')}${item.sourceNote?` • ${esc(item.sourceNote)}`:` • Katalog s. ${esc(item.sourcePage||'-')}`}</div><button class="add" type="button" data-add-accessory="${esc(item.id)}" ${enabled&&canQuote(item)?'':'disabled'}>${canQuote(item)?'+ Projeye Ekle':'Teklif için teyit gerekli'}</button></article>`).join('');
   }
 
   function addAccessory(id){
     if(!validTarget()||!core||!store)return;
-    const accessory=(catalog.items||[]).find(item=>String(item.id)===String(id));if(!accessory)return;
+    const accessory=(catalog.items||[]).find(item=>String(item.id)===String(id));if(!accessory||!canQuote(accessory))return;
     const items=projectItems();
     const meta=store.readMeta?.(projectId)||{};
     const inserted=core.insertAccessory(items,parentItemKey,accessory,{discountPercent:Number(meta.globalDiscount)||0,quantity:1});
