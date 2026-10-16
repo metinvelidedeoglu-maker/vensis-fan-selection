@@ -57,7 +57,7 @@ assert.equal(backdraftLouver.technicalApprovalRequired,true,'hydrogen/Zone use m
 const fs=require('node:fs');
 const path=require('node:path');
 const accessoryPage=fs.readFileSync(path.resolve(__dirname,'../js/accessories-page.js'),'utf8');
-assert.match(accessoryPage,/enabled&&canQuote\\(item\\)/,'pending accessory must disable project-add button');
-assert.match(accessoryPage,/!accessory\\|\\|!canQuote\\(accessory\\)/,'pending accessory must be rejected server-side of UI click logic');
+assert.ok(accessoryPage.includes('enabled&&canQuote(item)'),'pending accessory must disable project-add button');
+assert.ok(accessoryPage.includes('!accessory||!canQuote(accessory)'),'pending accessory must be rejected by project-add logic');
 
 console.log('Accessory workflow tests passed.');
