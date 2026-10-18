@@ -55,11 +55,11 @@ test('existing manufacturer drawings and dimensions reach the shared preview',()
     const model=C.models.find(m=>series.has(m.seriesId)&&m.dimensions);
     assert.ok(model,brand.name);
     const html=w.VensisDirectPreview.html({product:C.product(model.id),model});
-    assert.match(html,/<table class="dimension-table">/);
+    assert.match(html,/<table class="dimension-table(?: split-values)?">/);
     if(model.media.dimensionImage)assert.ok(html.includes(model.media.dimensionImage));
   }
   const v=C.models.find(m=>m.model==='CA 100 MD EXTRA EU');
-  assert.match(w.VensisDirectPreview.html({product:C.product(v.id),model:v}),/dimensions_ca_md\.png/);
+  assert.match(w.VensisDirectPreview.html({product:C.product(v.id),model:v}),/vortice-dimensions\/ca-md-extra-eu\.png/);
 });
 test('missing data is not replaced by another manufacturer drawing or invented dimensions',()=>{
   const {window:w}=harness();
@@ -96,4 +96,39 @@ test('legacy URLs redirect to the single catalog while retaining query context',
     const html=read(file);assert.match(html,/location\.replace\(target\)/);assert.match(html,/URLSearchParams\(location.search\)/);
     assert.doesNotMatch(html,/VensisCatalogBrand|vortice-manifest-catalog|products\/registry|fileBySeries/);
   }
+});
+
+
+test('all 156 VORTICE products have a source-traceable, local original dimension drawing',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const series=C.series.filter(s=>s.manufacturer==='VORTICE');
+  const ids=new Set(series.map(s=>s.id)),models=C.models.filter(m=>ids.has(m.seriesId));
+  assert.equal(series.length,23);assert.equal(models.length,156);
+  for(const m of models){
+    assert.ok(fs.existsSync(path.join(root,m.media.dimensionImage)),m.model);
+    assert.ok(m.dimensions.source.catalogue,m.model);assert.ok(m.dimensions.source.page>0,m.model);
+    const html=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    assert.match(html,/data-original-catalog-drawing/,m.model);
+    assert.equal(html.includes('<table class="dimension-table'),m.dimensions.headers.length>0,m.model);
+  }
+});
+test('LINEO dimensions follow the exact manufacturer row, with decimal values preserved',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const get=name=>C.models.find(m=>m.model===name);
+  const basic=get('LINEO 100'),compact=get('LINEO 100 Q'),quiet=get('LINEO 100 QUIET'),ec=get('LINEO 100 QUIET ES');
+  assert.equal(basic.dimensions.values.A,188.5);assert.equal(basic.dimensions.values.B,211);
+  assert.equal(compact.dimensions.values.A,156);assert.equal(compact.dimensions.values.C,231);
+  assert.equal(quiet.dimensions.values.C,639);assert.equal(quiet.dimensions.values['ØD'],97);assert.equal(quiet.dimensions.values.B,294.5);
+  assert.equal(ec.dimensions.values.C,639);assert.equal(ec.dimensions.values['ØD'],97);
+  for(const [lang,value] of [['en','188.5 mm'],['tr','188,5 mm']]){
+    const html=w.VensisDirectPreview.html({product:C.product(basic.id),model:basic,language:lang});
+    assert.ok(html.includes(value));assert.ok(!html.includes('189 mm</td></tr><tr><th>B'));
+    assert.match(html,/<th>ØD<\/th>/);assert.match(html,lang==='tr'?/<th>Değer<\/th>/:/<th>Value<\/th>/);
+  }
+});
+test('dimension-only data has a compact full-width table, without an empty drawing column',()=>{
+  const {window:w}=harness();
+  const html=w.VensisDirectPreview.html({product:{dimensions:{headers:['A'],values:{A:12.5}}},model:{model:'No drawing'}});
+  assert.match(html,/class="dimension-panel values-only"/);
+  assert.doesNotMatch(html,/data-original-catalog-drawing/);
 });
