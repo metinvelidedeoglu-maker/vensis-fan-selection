@@ -3,7 +3,7 @@
   const PROJECT_KEY=window.VensisAccess?.storageKey?.('vensis_project_items_v1')||'vensis_project_items_v1';
   const selected={manufacturers:new Set(),categories:new Set()};
   const esc=value=>String(value??'').replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
-  const displayBrand=value=>String(value??'').trim().toLowerCase()==='vortice'?'VORTICE':value;
+  const displayBrand=value=>value;
   const num=(value,decimals=0)=>{const n=Number(value);return Number.isFinite(n)&&n>0?n.toLocaleString('en-US',{maximumFractionDigits:decimals,minimumFractionDigits:decimals}):'-'};
   const unique=items=>[...new Set(items.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
   const allSeries=catalog.series||[];
@@ -11,12 +11,27 @@
   const manufacturers=unique(allSeries.map(series=>series.manufacturer));
   const categories=unique(allSeries.flatMap(series=>series.categories||[]));
 
+  const params=new URLSearchParams(location.search);
+  for(const key of [params.get('brand'),...(params.get('brands')||'').split(',')]){
+    const brand=catalog.brand?.(key);if(brand)selected.manufacturers.add(brand.name);
+  }
+  for(const category of params.getAll('category'))if(categories.includes(category))selected.categories.add(category);
+  function syncFilters(){
+    const q=new URLSearchParams(location.search);for(const key of ['brand','brands','category','series','model','lang'])q.delete(key);
+    const brands=[...selected.manufacturers].map(name=>catalog.brand(name).slug);
+    if(brands.length)q.set(brands.length===1?'brand':'brands',brands.join(','));
+    for(const category of selected.categories)q.append('category',category);
+    const lang=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'en';
+    history.replaceState(history.state,'','/'+lang+'/catalog.html'+(q.size?'?'+q.toString():''));
+    window.VensisVentilationRoutes?.apply();
+  }
+
   function checkedList(id,items,set){
     const box=document.getElementById(id);if(!box)return;
     box.innerHTML=items.map(item=>`<label class="check-row"><input type="checkbox" value="${esc(item)}" ${set.has(item)?'checked':''}><span>${esc(item)}</span></label>`).join('')||'<div class="empty-note">No data</div>';
     box.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{
       input.checked?set.add(input.value):set.delete(input.value);
-      renderSeries();
+      renderSeries();syncFilters();
     }));
   }
 
@@ -34,7 +49,7 @@
   }
 
   function firstText(items){return Array.isArray(items)&&items.length?items[0]:''}
-  function seriesUrl(id){return `${location.pathname}?series=${encodeURIComponent(id)}`}
+  function seriesUrl(id){const query=new URLSearchParams(location.search);query.set('series',id);query.delete('model');return window.VensisVentilationRoutes?.navigationUrl(catalog.getSeries(id))||'/catalog.html?'+query.toString()}
 
   function seriesCard(series){
     const count=(series.modelIds||[]).length;
@@ -76,59 +91,19 @@
   }
 
   function modelFields(model){
-    const rawControls=(model.performance?.controls||[]).filter(Boolean);
-    const controls=rawControls.length===1&&String(rawControls[0]).toLowerCase()==='nominal'?[]:rawControls;
-    const primaryOperating=(model.performance?.operatingPoints||[]).at(-1)||null;
-    const technical=model.technical||{};
-    const atex=technical.atex;
-    const temperatureMinimum=Number(technical.operatingTemperatureMinC);
-    const temperatureMaximum=Number(technical.operatingTemperatureMaxC);
-    const temperatureRange=Number.isFinite(temperatureMinimum)&&Number.isFinite(temperatureMaximum)&&(temperatureMinimum!==0||temperatureMaximum!==0)
-      ? `${temperatureMinimum.toLocaleString('en-US')} to ${temperatureMaximum>0?'+':''}${temperatureMaximum.toLocaleString('en-US')} °C`
-      : '';
-    const ductWidth=Number(technical.dimensions?.ductWidthMm);
-    const ductHeight=Number(technical.dimensions?.ductHeightMm);
-    const ductConnection=ductWidth>0&&ductHeight>0?`${num(ductWidth)} × ${num(ductHeight)} mm`:'';
+    const info=model.standard||{};
     const fields=[
-      ...(technical.productCode?[['Product Code',technical.productCode]]:[]),
-      ...(technical.availabilityRegion?[['Availability',technical.availabilityRegion]]:[]),
-      ...(controls.length?[['Control Levels',controls.join(' / ')]]:[]),
-      ...(model.performance?.sourcePoints?.length?[['Performance Curve','Available · selection ready']]:[]),
-      ...(technical.nominalDuctMm>0?[['Duct Ø',`${num(technical.nominalDuctMm)} mm`]]:[]),
-      ...(ductConnection?[['Duct Connection',ductConnection]]:[]),
-      ...(technical.phase?[['Phase',technical.phase]]:[]),
-      ...(technical.poles>0?[['Poles',String(technical.poles)]]:[]),
-      ['Power',`${num(model.motor?.power,2)} kW`],
-      ['Speed',`${num(model.motor?.speed)} rpm`],
-      ['Current',`${num(model.motor?.current,2)} A`],
-      ['Voltage',model.motor?.voltage||'-'],
-      ['Frequency',model.motor?.frequency||'-'],
-      ['Airflow',`${num(model.performance?.nominalAirflow)} m³/h`],
-      ...(primaryOperating?.maxPressure>0?[['Max Pressure',`${num(primaryOperating.maxPressure)} Pa`]]:[]),
-      ['Noise',`${num(model.motor?.sound)} dB(A)`],
-      ...(technical.soundInletDbA1_5m>0?[['Noise · Inlet',`${num(technical.soundInletDbA1_5m)} dB(A) at 1.5 m`]]:[]),
-      ...(technical.soundRadiatedDbA1_5m>0?[['Noise · Radiated',`${num(technical.soundRadiatedDbA1_5m)} dB(A) at 1.5 m`]]:[]),
-      ...(technical.soundOutletDbA1_5m>0?[['Noise · Outlet',`${num(technical.soundOutletDbA1_5m)} dB(A) at 1.5 m`]]:[]),
-      ...(technical.weight>0?[['Weight',`${num(technical.weight)} kg`]]:[]),
-      ['Fire Rating',technical.fireRating||'-'],
-      ...(technical.continuousAirTemperatureC>0?[['Continuous Air Limit',`${num(technical.continuousAirTemperatureC)} °C`]]:[]),
-      ...(temperatureRange?[['Operating Temperature',temperatureRange]]:[]),
-      ...(technical.approximateContinuousAirTemperatureC>0?[['Approx. Air Temperature',`${num(technical.approximateContinuousAirTemperatureC)} °C`]]:[]),
-      ...(technical.inletDiameterMm>0?[['Inlet Ø',`${num(technical.inletDiameterMm)} mm`]]:[]),
-      ...(atex?.gas_marking?[['ATEX Gas Marking',atex.gas_marking]]:[]),
-      ...(atex?.dust_marking?[['ATEX Dust Marking',atex.dust_marking]]:[]),
-      ...(atex?[['Hazardous Area',hazardousAreaSummary(atex)]]:[]),
-      ...(technical.speedControllerIncluded?[['Speed Controller',technical.speedControllerIncluded]]:[]),
-      ...(technical.timerVariant?[['Timer','Yes']]:[]),
-      ...(technical.humiditySensor?[['Humidity Sensor','Yes']]:[]),
-      ...(technical.presenceSensor?[['Presence Sensor','Yes']]:[]),
-      ...(technical.longLife?[['Long-Life Motor','Yes']]:[]),
-      ...(technical.reversible?[['Reversible','Yes']]:[]),
-      ['Fan Type',technical.fanType||'-'],
-      ['Mount Type',technical.mountType||'-'],
-      ['IP Class',technical.ipClass||'-'],
-      ['Price',model.pricing?.listPrice>0?`€${num(model.pricing.listPrice,2)}`:'-']
+      ['Motor Power',info.motorPower>0?`${num(info.motorPower,2)} kW`:'-'],
+      ['Speed',info.speed>0?`${num(info.speed)} rpm`:'-'],
+      ['Voltage',info.voltage||'-'],
+      ['Max. Airflow',info.maxAirflow>0?`${num(info.maxAirflow)} m³/h`:'-'],
+      ['Sound',info.sound>0?`${num(info.sound)} dB(A)`:'-'],
+      ['Price',info.price>0?`${num(info.price,2)} ${model.pricing?.currency||'EUR'}`:'-']
     ];
+    const lang=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'en';
+    const features=model.features?.[lang]||model.features?.en;
+    if(features)fields.push(['Features',features]);
+    if(model.technical?.timerVariant)fields.push(['Timer','Yes']);
     return fields.map(([label,value])=>`<div class="model-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
   }
 
@@ -141,7 +116,7 @@
   function modelCard(model,series){
     const image=model.media?.image||series.media?.image||'';
     const dimensionImage=model.media?.dimensionImage||'';
-    return `<article class="model-card">
+    return `<article class="model-card" data-model-id="${esc(model.id)}">
       <div class="model-card-head">
         <img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
         <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?'<span class="model-catalog-only">Catalog only</span>':'<span class="model-catalog-only" style="background:#e8f6ef;color:#087f4f">Curve available · selection ready</span>'}</div>
@@ -149,7 +124,7 @@
       <div class="model-grid">${modelFields(model)}</div>
       ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> ${esc(model.technical.safetyWarning)}</div>`:''}
       ${dimensionImage?`<details class="model-dimension"><summary>Dimension Drawing</summary><img src="${esc(dimensionImage)}" alt="${esc(model.model)} dimension drawing" loading="lazy" onerror="this.closest('details').hidden=true"></details>`:''}
-      ${operatingPointsTable(model)}
+
       <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px;gap:8px;margin-top:13px">
         <button class="model-datasheet-btn" style="margin-top:0" type="button" data-model-datasheet="${esc(model.id)}">Preview</button>
         <button class="model-datasheet-btn" style="margin-top:0;font-size:22px;padding:0" type="button" data-add-catalog-project="${esc(model.id)}" title="Add to project" aria-label="Add to project">+</button>
@@ -207,7 +182,7 @@
       productKey,
       model:model.model||'',
       series:series.title||model.seriesTitle||'',
-      manufacturer:series.manufacturer||model.manufacturer||'Vitlo',
+      manufacturer:series.manufacturer||model.manufacturer||'',
       image:product.media?.image||series.media?.image||model.image||'',
       nominalAirflow:Number(model.performance?.nominalAirflow)||0,
       required:null,
@@ -232,21 +207,9 @@
     const series=catalog.getSeries?catalog.getSeries(id):allSeries.find(item=>item.id===id);if(!series)return;
     const models=catalog.modelsForSeries?catalog.modelsForSeries(id):allModels.filter(model=>model.seriesId===id);
     const pdf=series.catalogue?.pdf;
-    const isVitlo=String(series.manufacturer||'').trim().toLowerCase()==='vitlo';
     const description=series.description||{};
-    const vitloGeneral=[...(description.general||[]),...(description.motor||[])].filter(Boolean);
-    const vitloApplications=[...(description.applications||[])].filter(Boolean);
-    const vitloFeaturesHtml=()=>{
-      if(!vitloGeneral.length&&!vitloApplications.length)return '<p class="empty-note">No information available.</p>';
-      return `<ul>${vitloGeneral.map(item=>`<li class="vitlo-general">${esc(item)}</li>`).join('')}${vitloApplications.map(item=>`<li class="vitlo-application">${esc(item)}</li>`).join('')}</ul>`;
-    };
-    const seriesInfoHtml=isVitlo
-      ? `<div class="series-info-grid"><section class="detail-section" data-vitlo-features style="grid-column:1/-1"><h3>General Features</h3>${vitloFeaturesHtml()}</section></div>`
-      : `<div class="series-info-grid">
-          <section class="detail-section"><h3>General Features</h3>${bullets(description.general)}</section>
-          <section class="detail-section"><h3>Motor</h3>${bullets(description.motor)}</section>
-          <section class="detail-section"><h3>Areas of Usage</h3>${bullets(description.applications)}</section>
-        </div>`;
+    const features=[...(description.general||[]),...(description.motor||[]),...(description.applications||[])];
+    const seriesInfoHtml=`<div class="series-info-grid"><section class="detail-section" data-product-features style="grid-column:1/-1"><h3>General Features</h3>${bullets([...new Set(features)])}</section></div>`;
     document.getElementById('catalogLayout').hidden=true;
     const detail=document.getElementById('detailPage');
     detail.hidden=false;
@@ -275,11 +238,12 @@
     window.scrollTo({top:0,behavior:'auto'});
   }
 
-  function back(){location.assign(location.pathname)}
-  function reset(){selected.manufacturers.clear();selected.categories.clear();renderFilters();renderSeries()}
+  function back(){const q=new URLSearchParams(location.search);q.delete('series');q.delete('model');location.assign('/catalog.html'+(q.toString()?'?'+q.toString():''))}
+  function reset(){selected.manufacturers.clear();selected.categories.clear();renderFilters();renderSeries();syncFilters()}
 
   window.Catalog={render:renderSeries,reset,showSeries,saveModelPdf,addCatalogToProject,back};
   renderFilters();
-  const requestedSeries=new URLSearchParams(location.search).get('series');
+  const requestedValue=new URLSearchParams(location.search).get('series');
+  const requestedSeries=catalog.resolveSeries?.(requestedValue,params.get('brand'))?.id||requestedValue;
   if(requestedSeries)showSeries(requestedSeries);else renderSeries();
 })();

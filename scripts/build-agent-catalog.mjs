@@ -8,8 +8,8 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const html=fs.readFileSync(path.join(root,'fan-selection.html'),'utf8');
 const sources=[...html.matchAll(/<script\s+src="([^"]+)"/g)]
   .map(match=>match[1].split('?')[0]);
-const firstCatalogScript=sources.indexOf('data/fans-01.js');
-const lastCatalogScript=sources.indexOf('data/read-only-ui-policy.js');
+const firstCatalogScript=sources.indexOf('products/ventilation-loader.js');
+const lastCatalogScript=firstCatalogScript;
 if(firstCatalogScript<0||lastCatalogScript<firstCatalogScript)throw new Error('Fan Selection catalog script boundary was not found.');
 
 const context={
@@ -54,15 +54,7 @@ for(const source of sources.slice(firstCatalogScript,lastCatalogScript+1))run(so
 run('js/core/utils.js');
 run('js/core/state.js');
 
-const rawVerification=new Map();
-for(const {relative,source} of evaluated.filter(item=>/^data\/fans-\d+\.js$/.test(item.relative))){
-  const sandbox={window:{models:[]}};
-  vm.createContext(sandbox);
-  vm.runInContext(source,sandbox,{filename:relative});
-  for(const row of sandbox.window.models){
-    rawVerification.set(String(row.key||row.model||''),row.curveVerification||null);
-  }
-}
+const rawVerification=new Map(context.window.VensisCatalog.models.map(model=>[model.id,model.verification||null]));
 
 const accessoriesContext={};
 vm.createContext(accessoriesContext);

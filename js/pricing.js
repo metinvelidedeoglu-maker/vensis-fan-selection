@@ -8,7 +8,6 @@
   const text=value=>String(value??'').trim();
 
   function refreshCatalogPolicies(){
-    try{window.VensisSPSilentPolicy20260908?.applyCatalog?.()}catch{}
   }
 
   function modelFor(item){

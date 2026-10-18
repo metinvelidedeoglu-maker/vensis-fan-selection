@@ -5,34 +5,24 @@
   const path=(location.pathname||'').toLowerCase();
   const localeMatch=path.match(/^\/(tr|en)(?:\/|$)/);
   const pathLanguage=localeMatch?.[1]||'';
-  const cleanFanMatch=path.match(/^\/(tr|en)\/fan\/(vitlo|soler-palau|vortice)(?:\/([^/?#]+))?(?:\/([^/?#]+))?\/?$/i);
-  const vorticeSeriesBySlug={
-    'lineo-quiet-es':'LINEO QUIET ES','lineo-quiet':'LINEO QUIET','lineo-es':'LINEO ES','lineo':'LINEO',
-    'ca-md':'CA MD','ca-md-extra-eu':'CA MD EXTRA EU','ca-md-e-rf':'CA MD E RF',
-    'slimroof-es':'SLIMROOF ES','heatmaster-f400':'HEATMASTER F400','e-atex':'E-ATEX','tiracamino':'TIRACAMINO',
-    'vort-quadro-evo':'VORT QUADRO EVO','vort-quadro-i':'VORT QUADRO I','vort-quadro':'VORT QUADRO',
-    'vortice-vario-i':'VORTICE VARIO I','vortice-vario':'VORTICE VARIO',
-    'punto-evo-flexo':'PUNTO EVO FLEXO','punto-evo-gold':'PUNTO EVO GOLD','punto-evo-es':'PUNTO EVO ES','punto-evo':'PUNTO EVO',
-    'punto-ghost':'PUNTO GHOST','punto-four':'PUNTO FOUR','punto-filo':'PUNTO FILO','punto':'PUNTO',
-    'vort-qbk-sal-kc-evo':'VORT QBK SAL-KC EVO'
-  };
+  const cleanFanMatch=path.match(/^\/(tr|en)\/fan\/([^/?#]+)(?:\/([^/?#]+))?(?:\/([^/?#]+))?\/?$/i);
   let cleanFanRoute=null;
   if(cleanFanMatch){
     const language=cleanFanMatch[1].toLowerCase();
     const brandSlug=cleanFanMatch[2].toLowerCase();
-    const brandKey=brandSlug==='soler-palau'?'sp':brandSlug;
+    const brandKey=brandSlug;
     const seriesSlug=String(cleanFanMatch[3]||'').toLowerCase();
     const modelSlug=String(cleanFanMatch[4]||'').toLowerCase();
     cleanFanRoute={language,brandSlug,brandKey,seriesSlug,modelSlug,pathname:location.pathname};
     window.VENSIS_CLEAN_FAN_ROUTE=cleanFanRoute;
 
     // Existing catalog code reads query parameters while booting. Inject a
-    // temporary compatibility query, then catalog-clean-routes.js removes it
-    // after the current catalog engine has resolved the route.
+    // compatibility query. The common route controller uses the same values
+    // for legacy links and clean URLs.
     const bootParams=new URLSearchParams(location.search);
-    if(brandKey==='vitlo'||brandKey==='sp')bootParams.set('brand',brandKey);
+    bootParams.set('brand',brandKey);
     if(seriesSlug){
-      const seriesValue=brandKey==='vortice'?(vorticeSeriesBySlug[seriesSlug]||seriesSlug):seriesSlug;
+      const seriesValue=seriesSlug;
       bootParams.set('series',seriesValue);
     }
     if(modelSlug)bootParams.set('model',modelSlug);
@@ -56,7 +46,8 @@
     '/catalog-hub.html','/catalog-ventilation.html','/catalog-brand.html',
     '/catalog-vortice-stable.html','/catalog-vortice.html','/electrical/index.html'
   ];
-  const isPublicCatalog=Boolean(cleanFanRoute)||publicCatalogPaths.some(item=>path.endsWith(item));
+  const isUnifiedCatalog=Boolean(cleanFanRoute)||path.endsWith('/catalog.html');
+  const isPublicCatalog=isUnifiedCatalog||publicCatalogPaths.some(item=>path.endsWith(item));
   if(isPublicCatalog){
     const languageParams=new URLSearchParams(location.search);
     const requestedLanguage=languageParams.get('lang');
@@ -94,35 +85,35 @@
   robots.name='robots';
   robots.content=isPublicCatalog?'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1':'noindex,nofollow';
   document.head.appendChild(robots);
-  if(isPublicCatalog&&!document.querySelector('script[data-vensis-seo-language]')){
+  if(isPublicCatalog&&!isUnifiedCatalog&&!document.querySelector('script[data-vensis-seo-language]')){
     const seoLanguage=document.createElement('script');
     seoLanguage.async=false;
     seoLanguage.src=base+'js/seo-bilingual.js?v=20260902-r1';
     seoLanguage.dataset.vensisSeoLanguage='1';
     document.head.appendChild(seoLanguage);
   }
-  if(isPublicCatalog&&!document.querySelector('script[data-vensis-visible-seo]')){
+  if(isPublicCatalog&&!isUnifiedCatalog&&!document.querySelector('script[data-vensis-visible-seo]')){
     const visibleSeo=document.createElement('script');
     visibleSeo.async=false;
     visibleSeo.src=base+'js/catalog-visible-seo.js?v=20260902-r1';
     visibleSeo.dataset.vensisVisibleSeo='1';
     document.head.appendChild(visibleSeo);
   }
-  if(isPublicCatalog&&!document.querySelector('script[data-vensis-seo]')){
+  if(isPublicCatalog&&!isUnifiedCatalog&&!document.querySelector('script[data-vensis-seo]')){
     const seo=document.createElement('script');
     seo.async=false;
     seo.src=base+'js/catalog-seo.js?v=20260901-seo-r1';
     seo.dataset.vensisSeo='1';
     document.head.appendChild(seo);
   }
-  if(isPublicCatalog&&!document.querySelector('script[data-vensis-locale-urls]')){
+  if(isPublicCatalog&&!isUnifiedCatalog&&!document.querySelector('script[data-vensis-locale-urls]')){
     const localeUrls=document.createElement('script');
     localeUrls.async=false;
     localeUrls.src=base+'js/seo-locale-paths.js?v=20260902-r1';
     localeUrls.dataset.vensisLocaleUrls='1';
     document.head.appendChild(localeUrls);
   }
-  if(cleanFanRoute&&!document.querySelector('script[data-vensis-clean-fan-routes]')){
+  if(cleanFanRoute&&!isUnifiedCatalog&&!document.querySelector('script[data-vensis-clean-fan-routes]')){
     const cleanRoutes=document.createElement('script');
     cleanRoutes.async=false;
     cleanRoutes.src=base+'js/catalog-clean-routes.js?v=20260904-r1';

@@ -54,9 +54,9 @@ test('AXW/ATEX 50-4M contains English catalog metadata',()=>{
   assert.ok(row.catalogueInfo.general.some(text=>text.includes('230V-50Hz')));
 });
 
-test('Vitlo catalog loader and fan sitemap automatically include fans-18',()=>{
-  const overrides=read('data/series-overrides.js');
-  const sitemap=read('sitemap-fans.php');
-  assert.match(overrides,/data\/fans-18\.js\?v=20260908-axw-atex-4m-r1/);
-  assert.match(sitemap,/glob\(__DIR__\s*\.\s*'\/data\/fans-\*\.js'\)/);
+test('common catalog and sitemap include the AXW ATEX single-phase additions',()=>{
+  const context={window:{}};vm.runInNewContext(read('data/ventilation-catalog.js'),context);
+  const rows=context.window.VensisVentilationData.models;
+  assert.ok(rows.some(m=>m.model.includes('AXW/ATEX')&&m.model.includes('4M')));
+  assert.match(read('sitemap-fans.php'),/data\/ventilation-catalog\.js/);
 });

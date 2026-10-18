@@ -100,8 +100,10 @@ test('SILENT authority is loaded before the S&P workbook chunks',()=>{
 test('fan sitemap uses only the authoritative SILENT model source',()=>{
   const sitemap=read('sitemap-fans.php');
   const authority=read('data/soler-palau-catalog-silent.js');
-  assert.match(sitemap,/soler-palau-catalog-silent\.js/);
-  assert.match(sitemap,/!\$isSilentAuthority && is_sp_silent_row\(\$row\)/);
+  assert.match(sitemap,/data\/ventilation-catalog\.js/);
+  const common={window:{}};vm.runInNewContext(read('data/ventilation-catalog.js'),common);
+  const models=common.window.VensisVentilationData.models.filter(m=>m.seriesId==='SILENT');
+  assert.deepEqual(Array.from(models,m=>m.model).sort(),expected.map(row=>row[0]).sort());
   const context={window:{models:[]}};vm.createContext(context);vm.runInContext(authority,context);
   assert.deepEqual(Array.from(context.window.models,row=>row.model),expected.map(row=>row[0]));
 });

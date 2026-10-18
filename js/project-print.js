@@ -189,15 +189,9 @@
 
     const model=modelFor(item);
     const seriesCode=String(model?.seriesId||item.series||model?.seriesTitle||'').trim();
-    const info=window.VensisVitloDimensions?.resolve?.(seriesCode,{
-      ...(model||{}),
-      model:model?.model||item.model||'',
-      motor:model?.motor||{},
-      performance:model?.performance||{}
-    })||null;
+    const info=window.VensisDimensions?.resolve?.({},model||{})||null;
     const drawing=String(
       model?.media?.dimensionImage||
-      window.VensisVitloTechnicalDrawings?.resolve?.(seriesCode)?.asset||
       info?.drawing?.asset||
       ''
     ).trim();
@@ -214,7 +208,7 @@
       img.className='dimension-drawing';
       img.src=drawing;
       img.alt=(item.model||model?.model||'Fan')+' technical drawing';
-      const fallback=window.VensisVitloTechnicalDrawings?.resolve?.(seriesCode)?.fallback||info?.drawing?.fallback||'';
+      const fallback=info?.drawing?.fallback||'';
       if(fallback)img.dataset.fallback=fallback;
       img.onerror=function(){
         if(this.dataset.fallback&&this.src.indexOf(this.dataset.fallback)<0)this.src=this.dataset.fallback;

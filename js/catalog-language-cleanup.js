@@ -740,10 +740,8 @@
     return cleanText.slice(cleanCode.length).replace(/^\s*[-–—:|\/]?\s*/,'').trim()||cleanText;
   }
 
-  function cleanVorticeTitles(scope){
+  function cleanSeriesTitles(scope){
     const clean=(container,codeSelector,titleSelector)=>{
-      const brand=String(container.querySelector('.series-brand')?.textContent||'').trim();
-      if(brand.toLocaleLowerCase('en-US')!=='vortice')return;
       const code=String(container.querySelector(codeSelector)?.textContent||'').trim();
       const title=container.querySelector(titleSelector);
       if(!title)return;
@@ -770,9 +768,9 @@
     observer.observe(document.documentElement,{childList:true,subtree:true});
   }
 
-  function consolidateVitloApplications(scope){
-    scope.querySelectorAll?.('[data-vitlo-features]').forEach(section=>{
-      const apps=[...section.querySelectorAll('.vitlo-application')];
+  function consolidateApplications(scope){
+    scope.querySelectorAll?.('[data-product-features]').forEach(section=>{
+      const apps=[...section.querySelectorAll('.product-application')];
       if(!apps.length)return;
       apps.forEach(node=>sourceText(node,'product'));
       if(language()==='tr'){
@@ -799,10 +797,10 @@
       const scope=root?.querySelectorAll?root:document;
       scope.querySelectorAll('.detail-back,.series-card-footer span,.model-catalog-only,.model-operating-title,.model-dimension summary,.model-safety-warning b,.empty-note,.empty-state,.model-datasheet-btn,.detail-section h3,.models-section h2,.catalog-pdf').forEach(node=>renderNode(node,'ui'));
       scope.querySelectorAll('.series-title,.series-hero-copy h2').forEach(node=>renderNode(node,'title'));
-      cleanVorticeTitles(scope);
+      cleanSeriesTitles(scope);
       scope.querySelectorAll('.series-badges span,.check-row span').forEach(node=>renderNode(node,'category'));
       scope.querySelectorAll('.series-card p,.series-info-grid p,.series-info-grid li,.detail-section p,.detail-section li').forEach(node=>renderNode(node,'product'));
-      consolidateVitloApplications(scope);
+      consolidateApplications(scope);
 
       scope.querySelectorAll('.model-field').forEach(field=>{
         const label=field.querySelector('span');

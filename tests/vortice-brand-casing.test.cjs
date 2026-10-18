@@ -7,19 +7,16 @@ const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 
-test('uppercase Vortice brand labels keep the official ASCII spelling',()=>{
-  for(const file of ['js/catalog.js','js/vortice-manifest-catalog.js']){
-    const source=read(file);
-    assert.match(source,/toLowerCase\(\)==='vortice'\?'VORTICE'/,file);
-    assert.match(source,/series-brand[^\n]+displayBrand/,file);
-  }
+test('official brand casing comes from shared data for all catalog views',()=>{
+  const window={};vm.runInNewContext(read('data/ventilation-catalog.js'),{window});
+  assert.ok(window.VensisVentilationData.series.some(s=>s.manufacturer==='VORTICE'));
+  assert.ok(window.VensisVentilationData.series.every(s=>s.manufacturer.toLowerCase()!=='vortice'||s.manufacturer==='VORTICE'));
+  assert.match(read('js/catalog.js'),/series-brand[^\n]+displayBrand/);
+  assert.doesNotMatch(read('js/catalog.js'),/==='vortice'/);
 });
-
-test('catalog pages cache-bust the corrected brand renderers',()=>{
-  assert.match(read('catalog-vortice-stable.html'),/vortice-manifest-catalog\.js\?v=20260908-vortice-casing-r1/);
-  for(const file of ['catalog.html','catalog-brand.html','catalog-vortice.html']){
-    assert.match(read(file),/catalog\.js\?v=20260908-vortice-casing-r1/,file);
-  }
+test('legacy brand pages redirect to the common cache-busted renderer',()=>{
+  assert.match(read('catalog.html'),/catalog\.js\?v=20261018-unified-r1/);
+  for(const file of ['catalog-brand.html','catalog-vortice.html','catalog-vortice-stable.html'])assert.match(read(file),/location\.replace/);
 });
 
 test('Vortice detail headings remove the series code after translation',()=>{
@@ -41,7 +38,5 @@ test('Vortice detail headings remove the series code after translation',()=>{
     requestAnimationFrame:callback=>callback()
   });
   assert.equal(title.textContent,'Düşük Sesli Kanal Tipi Karışık Akışlı Fanlar');
-  for(const file of ['catalog.html','catalog-brand.html','catalog-vortice.html']){
-    assert.match(read(file),/catalog-language-cleanup\.js\?v=20260908-vortice-title-r1/,file);
-  }
+  assert.match(read('catalog.html'),/catalog-language-cleanup\.js\?v=20261018-unified-r1/);
 });

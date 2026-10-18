@@ -30,7 +30,6 @@ test('fan ProductGroup keeps variant Product URLs linked to the series',()=>{
 
 test('fan sitemap uses the same product-code-first model identity',()=>{
   const source=read('sitemap-fans.php');
-  assert.match(source,/\$productCode = trim/);
-  assert.match(source,/\$model = \$productCode !== '' \? \$productCode : \$modelName/);
-  assert.match(source,/productCode' => stripcslashes/);
+  assert.ok(source.includes("$identity = $model['technical']['productCode'] ?? ''"));
+  assert.ok(source.includes("if ($identity === '') $identity = $model['model']"));
 });
