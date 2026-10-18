@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
-        run: node --test tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs
+        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs
@@ -40,9 +40,26 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: node tests/ventilation-browser.mjs
+      - name: Complete Soler & Palau drawing and print verification
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: |
+          node tests/sp-dimensions-browser.mjs
+          python3 -m pip install --quiet pypdf
+          python3 - <<'PYCODE'
+          from pathlib import Path
+          from pypdf import PdfReader
+          files=list(Path('test-results/sp-dimensions').glob('*.pdf'))
+          assert len(files)==163, len(files)
+          bad=[(p.name,len(PdfReader(p).pages)) for p in files if len(PdfReader(p).pages)!=1]
+          assert not bad, bad
+          print('PASS: all 163 Soler & Palau model PDFs have exactly one page.')
+          PYCODE
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: ventilation-previews
-          path: test-results/ventilation/
+          path: |
+            test-results/ventilation/
+            test-results/sp-dimensions/
           if-no-files-found: ignore
