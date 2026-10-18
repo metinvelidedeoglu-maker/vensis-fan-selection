@@ -9,10 +9,9 @@ const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 
 test('catalogue pricing refreshes stale SILENT prices but preserves manual quote prices',()=>{
   const source=read('js/pricing.js');
-  const model={id:'silent-200-crz',model:'SILENT-200 CRZ',pricing:{listPrice:90.3,currency:'EUR',catalogue:'catalog'}};
+  const model={id:'silent-200-crz',model:'SILENT-200 CRZ',pricing:{listPrice:129,currency:'EUR',catalogue:'catalog'}};
   const window={
-    VensisCatalog:{models:[model],getModel:key=>key==='silent-200-crz'?model:null},
-    VensisSPSilentPolicy20260908:{applyCatalog(){model.pricing.listPrice=129;}}
+    VensisCatalog:{models:[model],getModel:key=>key==='silent-200-crz'?model:null}
   };
   vm.runInNewContext(source,{window});
 
@@ -30,9 +29,9 @@ test('catalogue pricing refreshes stale SILENT prices but preserves manual quote
 });
 
 test('quotation loads the SILENT correction layer with cache-busted URL',()=>{
-  const overrides=read('data/series-overrides.js');
-  assert.match(overrides,/quotation\\\.html/);
-  assert.match(overrides,/js\/quotation-silent-fix\.js\?v=20260908-no-controller-r1/);
+  const page=read('quotation.html');
+  assert.match(page,/js\/quotation-silent-fix\.js\?v=20261018-unified-r1/);
+  assert.doesNotMatch(read('js/pricing.js'),/applyCatalog/);
 });
 
 test('quotation SILENT correction omits controller note and compacts first printed page',()=>{

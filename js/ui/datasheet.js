@@ -115,24 +115,18 @@
     const rawControls=(performance.controls||[]).filter(Boolean);
     const controls=rawControls.length===1&&String(rawControls[0]).toLowerCase()==='nominal'?[]:rawControls;
     const seriesCode=series.code||model.seriesId||model.series||'';
-    const resolvedDimension=window.VensisVitloDimensions?.resolve?.(seriesCode,{
-      ...model,
-      model:model.model||product.model||model.display||'',
-      motor,
-      performance
-    })||null;
-    const resolvedDrawing=window.VensisVitloTechnicalDrawings?.resolve?.(seriesCode)||null;
+    const resolvedDimension=window.VensisDimensions?.resolve?.(product,model)||null;
     return {
       mode:payload.mode||'catalog',
       model:model.model||product.model||model.display||'',
       title:series.title||model.seriesTitle||model.series||'',
-      brand:series.manufacturer||model.manufacturer||'Vitlo',
+      brand:series.manufacturer||model.manufacturer||'',
       image:product.media?.image||model.media?.image||model.image||'',
       seriesCode,
       dimension:{
         info:resolvedDimension,
-        image:model.media?.dimensionImage||product.media?.dimensionImage||resolvedDimension?.drawing?.asset||resolvedDrawing?.asset||'',
-        fallback:resolvedDimension?.drawing?.fallback||resolvedDrawing?.fallback||''
+        image:model.media?.dimensionImage||product.media?.dimensionImage||resolvedDimension?.drawing?.asset||'',
+        fallback:resolvedDimension?.drawing?.fallback||''
       },
       motor:{power:motor.power??model.kw,speed:motor.speed??model.rpm,current:motor.current??model.amps,voltage:motor.voltage??model.voltage,sound:motor.sound??model.spl},
       technical:{

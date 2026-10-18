@@ -28,11 +28,11 @@ function fan_slug($value) {
 }
 
 function fan_brand_slug($brand) {
-    $brandLower = strtolower(trim((string)$brand));
-    if ($brandLower === 'vitlo') return 'vitlo';
-    if (strpos($brandLower, 'soler') !== false || $brandLower === 'sp') return 'soler-palau';
-    if ($brandLower === 'vortice') return 'vortice';
-    return '';
+    global $catalogBrands;
+    foreach ($catalogBrands as $entry) {
+        if (strcasecmp((string)($entry['name'] ?? ''), (string)$brand) === 0) return $entry['slug'];
+    }
+    return fan_slug($brand);
 }
 
 function fan_lang_url($loc, $lang) {
@@ -53,135 +53,38 @@ function fan_route($site, $brand, $series, $model = '') {
     return $route;
 }
 
-function add_row_routes(&$urls, $site, $row, $timestamp) {
-    if (!is_array($row)) return;
-    $brand = trim((string)($row['brand'] ?? $row['manufacturer'] ?? ''));
-    $series = trim((string)($row['series'] ?? $row['family'] ?? ''));
-    $productCode = trim((string)($row['productCode'] ?? ''));
-    $modelName = trim((string)($row['model'] ?? ''));
-    $model = $productCode !== '' ? $productCode : $modelName;
-    if ($brand === '' || $series === '') return;
-
-    // Vortice public catalog is filtered by the 2026 price-list policy.
-    // Raw Vortice files contain unpriced products that are intentionally hidden,
-    // so Vortice routes are added separately from the authoritative priced list.
-    if (strtolower($brand) === 'vortice') return;
-
-    add_fan_url($urls, fan_route($site, $brand, $series), $timestamp);
-    if ($model !== '') add_fan_url($urls, fan_route($site, $brand, $series, $model), $timestamp);
+// Same authoritative records as catalog, selection, projects and quotations.
+$file = __DIR__ . '/data/ventilation-catalog.js';
+$source = file_get_contents($file);
+$prefix = 'window.VensisVentilationData=';
+$offset = strpos($source, $prefix);
+if ($offset === false) { http_response_code(503); exit; }
+$json = preg_replace('/;\s*$/', '', trim(substr($source, $offset + strlen($prefix))));
+$catalog = json_decode($json, true);
+if (!is_array($catalog) || ($catalog['schemaVersion'] ?? null) !== 3) { http_response_code(503); exit; }
+$catalogBrands = $catalog['brands'] ?? [];
+$timestamp = filemtime($file) ?: time();
+$seriesById = [];
+foreach ($catalog['series'] as $series) {
+    $seriesById[$series['id']] = $series;
+    add_fan_url($urls, fan_route($site, $series['manufacturer'], $series['code']), $timestamp);
 }
-
-function is_sp_silent_row($row) {
-    if (!is_array($row)) return false;
-    $brand = strtolower(trim((string)($row['brand'] ?? $row['manufacturer'] ?? '')));
-    $series = strtoupper(trim((string)($row['series'] ?? $row['family'] ?? '')));
-    $isSp = strpos($brand, 'soler') !== false || $brand === 'sp';
-    return $isSp && $series === 'SILENT';
+$routeCounts = [];
+foreach ($catalog['models'] as $model) {
+    $baseIdentity = $model['technical']['productCode'] ?? '';
+    if ($baseIdentity === '') $baseIdentity = $model['model'];
+    $key = $model['seriesId'] . '|' . fan_slug($baseIdentity);
+    $routeCounts[$key] = ($routeCounts[$key] ?? 0) + 1;
 }
-
-function parse_json_push_rows($source) {
-    if (!preg_match('/window\.models\.push\(\.\.\.(\[[\s\S]*\])\s*\);?/', $source, $match)) return [];
-    $decoded = json_decode($match[1], true);
-    return is_array($decoded) ? $decoded : [];
+foreach ($catalog['models'] as $model) {
+    $series = $seriesById[$model['seriesId']] ?? null;
+    if (!$series) continue;
+    $identity = $model['technical']['productCode'] ?? '';
+    if ($identity === '') $identity = $model['model'];
+    $key = $model['seriesId'] . '|' . fan_slug($identity);
+    if ($routeCounts[$key] > 1) $identity = $model['id'];
+    add_fan_url($urls, fan_route($site, $series['manufacturer'], $series['code'], $identity), $timestamp);
 }
-
-function parse_object_literal_rows($source) {
-    $rows = [];
-
-    // Standalone object-literal rows that repeat brand/series/productCode.
-    preg_match_all("/key:'[^']+'[\\s\\S]*?model:'([^']+)'[\\s\\S]*?brand:'([^']+)'[\\s\\S]*?series:'([^']+)'[\\s\\S]*?productCode:'([^']+)'/", $source, $matches, PREG_SET_ORDER);
-    foreach ($matches as $match) {
-        $rows[] = [
-            'model' => stripcslashes($match[1]),
-            'brand' => stripcslashes($match[2]),
-            'series' => stripcslashes($match[3]),
-            'productCode' => stripcslashes($match[4])
-        ];
-    }
-    if ($rows) return $rows;
-
-    // Newer CR additions use a shared `const base={brand:'Vitlo', ...}` and spread
-    // that base into each row, so brand is not repeated inside every object.
-    $baseBrand = '';
-    if (preg_match("/const\\s+base\\s*=\\s*\\{[\\s\\S]*?brand:'([^']+)'/", $source, $brandMatch)) {
-        $baseBrand = stripcslashes($brandMatch[1]);
-    } elseif (preg_match("/const\\s+base\\s*=\\s*\\{[\\s\\S]*?manufacturer:'([^']+)'/", $source, $brandMatch)) {
-        $baseBrand = stripcslashes($brandMatch[1]);
-    }
-    if ($baseBrand === '') return [];
-
-    preg_match_all("/key:'[^']+'[\\s\\S]*?model:'([^']+)'[\\s\\S]*?series:'([^']+)'[\\s\\S]*?productCode:'([^']+)'/", $source, $spreadMatches, PREG_SET_ORDER);
-    foreach ($spreadMatches as $match) {
-        $rows[] = [
-            'model' => stripcslashes($match[1]),
-            'brand' => $baseBrand,
-            'series' => stripcslashes($match[2]),
-            'productCode' => stripcslashes($match[3])
-        ];
-    }
-    return $rows;
-}
-
-function parse_assigned_json_object($source, $assignment) {
-    $offset = strpos($source, $assignment);
-    if ($offset === false) return [];
-    $json = trim(substr($source, $offset + strlen($assignment)));
-    $json = preg_replace('/;\s*$/', '', $json);
-    $decoded = json_decode($json, true);
-    return is_array($decoded) ? $decoded : [];
-}
-
-function add_priced_vortice_routes(&$urls, $site, $priceListPath) {
-    if (!is_file($priceListPath)) return;
-    $source = file_get_contents($priceListPath);
-    if ($source === false) return;
-    $priceList = parse_assigned_json_object($source, 'window.VensisVorticePriceList2026_1=');
-    $timestamp = filemtime($priceListPath) ?: time();
-
-    foreach (($priceList['entries'] ?? []) as $entry) {
-        if (!is_array($entry) || (float)($entry['listPrice'] ?? 0) <= 0) continue;
-        $series = trim((string)($entry['series'] ?? ''));
-        $productCode = trim((string)($entry['productCode'] ?? ''));
-        $model = trim((string)($entry['model'] ?? ''));
-        if ($series === '') continue;
-
-        add_fan_url($urls, fan_route($site, 'vortice', $series), $timestamp);
-        $identity = $productCode !== '' ? $productCode : $model;
-        if ($identity !== '') add_fan_url($urls, fan_route($site, 'vortice', $series, $identity), $timestamp);
-    }
-}
-
-function add_cr_matrix_series_routes(&$urls, $site, $matrixPath) {
-    if (!is_file($matrixPath)) return;
-    $timestamp = filemtime($matrixPath) ?: time();
-    $series = ['CRS','CRS/ATEX','CRK','CRK/ATEX','CRD','CRD/ATEX','CRH','CRH/ATEX'];
-    foreach ($series as $code) add_fan_url($urls, fan_route($site, 'vitlo', $code), $timestamp);
-}
-
-$files = array_merge(
-    glob(__DIR__ . '/data/fans-*.js') ?: [],
-    glob(__DIR__ . '/data/soler-palau-catalog*.js') ?: [],
-    glob(__DIR__ . '/data/sp-roof*.js') ?: []
-);
-$files = array_values(array_unique($files));
-sort($files);
-
-foreach ($files as $file) {
-    if (!is_file($file)) continue;
-    $source = file_get_contents($file);
-    if ($source === false) continue;
-    $timestamp = filemtime($file) ?: time();
-    $rows = parse_json_push_rows($source);
-    if (!$rows) $rows = parse_object_literal_rows($source);
-    $isSilentAuthority = basename($file) === 'soler-palau-catalog-silent.js';
-    foreach ($rows as $row) {
-        if (!$isSilentAuthority && is_sp_silent_row($row)) continue;
-        add_row_routes($urls, $site, $row, $timestamp);
-    }
-}
-
-add_cr_matrix_series_routes($urls, $site, __DIR__ . '/data/cr-family-matrix.js');
-add_priced_vortice_routes($urls, $site, __DIR__ . '/data/vortice-prices-2026-1.js');
 
 ksort($urls);
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";

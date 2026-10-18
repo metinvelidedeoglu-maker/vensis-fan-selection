@@ -1,0 +1,48 @@
+name: Unified ventilation checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'data/ventilation-catalog.js'
+      - 'products/ventilation*.js'
+      - 'js/ventilation-routes.js'
+      - 'js/catalog.js'
+      - 'js/ui/pdf-export.js'
+      - 'tests/ventilation*'
+      - 'tests/unified-ventilation.test.cjs'
+      - '.github/workflows/unified-ventilation.yml'
+permissions:
+  contents: read
+jobs:
+  unified-catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Shared registry, routes, data and compatibility checks
+        run: node --test tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs
+      - name: Agent snapshot is generated from the same product source
+        run: |
+          node scripts/build-agent-catalog.mjs
+          git diff --exit-code -- api/agent/catalog-v1.json
+      - name: PHP syntax and server
+        run: |
+          php -l sitemap-fans.php
+          php -l tests/ventilation-router.php
+          php -S 127.0.0.1:8123 tests/ventilation-router.php > /tmp/ventilation-server.log 2>&1 &
+      - name: Browser dependencies
+        run: npm install --no-save --package-lock=false playwright@1.62.1
+      - name: Chromium integration and print verification
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/ventilation-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ventilation-previews
+          path: test-results/ventilation/
+          if-no-files-found: ignore

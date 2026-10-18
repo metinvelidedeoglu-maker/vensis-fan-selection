@@ -10,7 +10,7 @@ test('private application pages receive a server-level X-Robots noindex header',
   const htaccess=read('.htaccess');
   assert.match(htaccess,/SetEnvIf Request_URI/);
   assert.match(htaccess,/X-Robots-Tag "noindex, nofollow"/);
-  for(const name of ['index','fan-selection','catalog','projects','project','customers','custom-products','quotation','order','project-print','detail']){
+  for(const name of ['index','fan-selection','projects','project','customers','custom-products','quotation','order','project-print','detail']){
     assert.match(htaccess,new RegExp(`\\b${name.replace('-','\\-')}\\b`),name);
   }
 });
@@ -21,7 +21,7 @@ test('root-only private-page rule does not noindex public catalogs',()=>{
   const matcher=new RegExp(rule);
   assert.equal(matcher.test('/index.html'),true);
   assert.equal(matcher.test('/project.html'),true);
-  assert.equal(matcher.test('/catalog.html'),true);
+  assert.equal(matcher.test('/catalog.html'),false);
   for(const publicPath of ['/catalog-hub.html','/catalog-ventilation.html','/catalog-brand.html','/catalog-vortice-stable.html','/catalog-vortice.html','/electrical/index.html']){
     assert.equal(matcher.test(publicPath),false,publicPath);
   }

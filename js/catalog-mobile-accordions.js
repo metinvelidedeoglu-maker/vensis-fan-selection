@@ -273,17 +273,13 @@
     return cleanText.slice(cleanCode.length).replace(/^\s*[-–—:|/]?\s*/,'').trim()||cleanText;
   }
 
-  function cleanVorticeTitles(root=document){
+  function cleanSeriesTitles(root=document){
     root.querySelectorAll?.('.series-card').forEach(card=>{
-      const brand=String(card.querySelector('.series-brand')?.textContent||'').trim();
-      if(brand.toLocaleLowerCase('en-US')!=='vortice')return;
       const code=String(card.querySelector('h2')?.textContent||'').trim();
       const title=card.querySelector('.series-title');
       if(title){const cleaned=withoutRepeatedCode(code,title.textContent);if(cleaned!==title.textContent)title.textContent=cleaned}
     });
     root.querySelectorAll?.('.series-hero-copy').forEach(hero=>{
-      const brand=String(hero.querySelector('.series-brand')?.textContent||'').trim();
-      if(brand.toLocaleLowerCase('en-US')!=='vortice')return;
       const code=String(hero.querySelector('h1')?.textContent||'').trim();
       const title=hero.querySelector('h2');
       if(title){const cleaned=withoutRepeatedCode(code,title.textContent);if(cleaned!==title.textContent)title.textContent=cleaned}
@@ -295,17 +291,17 @@
     mountFilterAccordion();
     mountSeriesAccordion();
     enforceDetailVisibility();
-    cleanVorticeTitles(document);
+    cleanSeriesTitles(document);
     refreshLabels();
     window.addEventListener('vensis-language-changed',refreshLabels);
     const grid=document.getElementById('catalogGrid');
-    if(grid)new MutationObserver(()=>cleanVorticeTitles(grid)).observe(grid,{childList:true,subtree:true});
+    if(grid)new MutationObserver(()=>cleanSeriesTitles(grid)).observe(grid,{childList:true,subtree:true});
     const detail=document.getElementById('detailPage');
     if(detail){
       new MutationObserver(()=>{
         mountSeriesAccordion();
         enforceDetailVisibility();
-        cleanVorticeTitles(detail);
+        cleanSeriesTitles(detail);
         refreshLabels();
       }).observe(detail,{childList:true,subtree:false,attributes:true,attributeFilter:['hidden']});
     }

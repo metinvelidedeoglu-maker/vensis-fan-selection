@@ -56,13 +56,8 @@
     document.head.appendChild(style);
   }
 
-  function refresh(){
-    try{root.VensisSPSilentPolicy20260908?.applyCatalog?.()}catch{}
-  }
   function start(){
     installPrintStyle();
-    refresh();
-    root.addEventListener?.('beforeprint',refresh);
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();

@@ -8,7 +8,9 @@ Industrial fan selection application.
 - `fan-selection.html` — fan selection application shell
 - `css/app.css` — interface styles
 - `js/` — selection, catalogue, project and secure Edit Mode logic
-- `data/fans-*.js` — fan catalogue chunks
+- `data/ventilation-catalog.js` — authoritative catalog for every ventilation manufacturer
+- `products/ventilation.js` — common catalog, product and dimensions API
+- `data/fans-*.js` and legacy workbook files — archived import sources
 - `assets/vensis-logo.png` — VENSIS logo
 - `project.html` — separate selection project page
 - `detail.html` — detail fallback page
@@ -17,6 +19,54 @@ Industrial fan selection application.
 ## Deployment
 
 Hostinger deploys the `main` branch to `public_html/select`.
+
+## Unified ventilation catalog
+
+All manufacturers now use one product system. `catalog.html`, fan selection,
+projects, quotations, project printing, product previews, PDFs and the agent
+catalog consume `products/ventilation-loader.js`. Brand is a filter and display
+attribute; it must not select a different loader, renderer or calculation path.
+
+The authoritative source is `data/ventilation-catalog.js` (schema version 3).
+The initial migration contains 89 series and 1,022 products: Vitlo 699,
+VORTICE 156, Soler & Palau 163 and the existing SEAT products 4. Stable series
+and product IDs are retained for saved projects. Prices and original performance
+arrays are preserved from the resolved legacy catalog. Existing dimensions,
+drawings and structured feature lists are materialized as shared fields.
+Missing source information remains missing.
+
+To add or update a product, edit the common data, preserving `id` and `seriesId`.
+Every series has `id`, `code`, `manufacturer`, `title`, `categories`,
+`description: {general: [], motor: [], applications: []}` and `media`.
+Every model has `id`, `seriesId`, `model`, `motor`, `technical`, `performance`,
+`pricing`, `media` and optional `dimensions`/`features`/description overrides.
+Dimensions use `{headers: [], values: {}, unit: "mm"}`; a drawing goes in
+`media.dimensionImage`. Performance metadata retains its interpolation mode,
+original point order and separate controls. A catalog-only product remains
+excluded from selection. No curves or dimensions may be inferred from another
+model or manufacturer. Add optional brand metadata to `brands` to choose the
+public slug; unlisted manufacturers are otherwise discovered from series.
+
+After catalog changes, regenerate the read-only agent snapshot and run checks:
+
+```bash
+node scripts/build-agent-catalog.mjs
+node --test tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs
+```
+
+The Unified ventilation checks workflow also runs real Chromium page, preview
+and print checks, and compares PHP sitemap routes with the same catalog.
+Legacy catalog URLs redirect to the common page while retaining project context.
+Clean localized URLs use `/en/fan/{brand}/{series}/{model}/` (or `/tr/`).
+
+`scripts/migrate-ventilation-catalog.mjs` documents the one-time migration from
+commit `cb6827462403eb755c0035e167eb7166a85c81eb`. Its `--verify` mode reproduces
+that initial conversion; it is not a routine rebuild command after product edits.
+Legacy brand imports, patches and registry remain only for migration provenance.
+They are not loaded by live pages. The importer examples below describe those
+archived sources: importing into them alone no longer changes the live catalog.
+Product-edit API endpoints are currently disabled; the older setup description
+below is historical and does not enable catalog writes.
 
 ## Secure Edit Mode
 
