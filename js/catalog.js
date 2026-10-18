@@ -6,7 +6,11 @@
   const displayBrand=value=>value;
   const num=(value,decimals=0)=>{const n=Number(value);return Number.isFinite(n)&&n>0?n.toLocaleString('en-US',{maximumFractionDigits:decimals,minimumFractionDigits:decimals}):'-'};
   const unique=items=>[...new Set(items.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b)));
-  const allSeries=catalog.series||[];
+  const seriesOrder=new Intl.Collator('tr',{sensitivity:'base',numeric:true});
+  const allSeries=[...(catalog.series||[])].sort((a,b)=>
+    seriesOrder.compare(a.code||a.title||'',b.code||b.title||'')||
+    seriesOrder.compare(a.manufacturer||'',b.manufacturer||'')
+  );
   const allModels=catalog.models||[];
   const manufacturers=unique(allSeries.map(series=>series.manufacturer));
   const categories=unique(allSeries.flatMap(series=>series.categories||[]));
