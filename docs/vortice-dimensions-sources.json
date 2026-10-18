@@ -1,0 +1,985 @@
+{
+  "date": "2026-10-18",
+  "scope": "23 active VORTICE series / 156 models",
+  "sources": [
+    {
+      "filename": "CMS-ATEX-14-5-T4-0-09KW-2026.pdf",
+      "sha256": "31d9d9352ef505ad5e6c5a047d9ea7871fd5ccdff4b9be92775030a817d5020a",
+      "pdfPages": 5
+    },
+    {
+      "filename": "Doc_Pubblicita_E-ATEX_Range_187721(1).pdf",
+      "sha256": "7edd786a6a51b40c0a1114bbba1bd04aa67cfa154a9fd1852bb17ce23f37f6ee",
+      "pdfPages": 16
+    },
+    {
+      "filename": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "sha256": "3800129aef4b21c9e78f6fff431b3f0e80e988132f9e24994504785fad3bba88",
+      "pdfPages": 40
+    },
+    {
+      "filename": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "sha256": "45a3f2edd581a3917510b83cc84ce5de33b9d74648f34f7f4b63199a342be6f7",
+      "pdfPages": 112
+    },
+    {
+      "filename": "Doc_Pubblicita_Vort_QBK_SAL-KC_EVO_190829(1).pdf",
+      "sha256": "892f4e1efad05a5179120f4f2099518649198c64ee6641c0623dc3f5e198e766",
+      "pdfPages": 20
+    },
+    {
+      "filename": "Tiracamino(1).pdf",
+      "sha256": "4f5a5fb91c67a95bd7fa0cbdc21643c8c060897f62f13027298cd39572b77068",
+      "pdfPages": 1
+    },
+    {
+      "filename": "vortice_ca_md.pdf",
+      "sha256": "a4f38b8901b30121e008df88baa8d2c81c8eb2db03f7919b36ba6f7a014ab667",
+      "pdfPages": 8
+    },
+    {
+      "filename": "vortice_ca_md_e_rf.pdf",
+      "sha256": "db924314fb485e65997e6d4f753482bf59585c7537500d31b1f7a46086330f3d",
+      "pdfPages": 5
+    },
+    {
+      "filename": "vortice_heatmaster.pdf",
+      "sha256": "ec6a6f47e5eaeefcfe7a90ba04b2cf5f4a04e1ee398a8c08a1dd88b8bd84bcec",
+      "pdfPages": 8
+    },
+    {
+      "filename": "vortice_slimroof.pdf",
+      "sha256": "842745889a1e1e921b4a3294f0ff6cb128692dec8e263532f50b2790cc25433d",
+      "pdfPages": 6
+    }
+  ],
+  "drawings": [
+    {
+      "asset": "assets/products/vortice-dimensions/punto.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 9,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        310
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/punto-filo.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 14,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        340
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/punto-four.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 18,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        290
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/punto-ghost.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 22,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        290
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/punto-evo-flexo.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 26,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        380
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/punto-evo.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 31,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        390
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/punto-evo-gold.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 40,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        390
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/vortice-vario.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 43,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        330
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/vortice-vario-i.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 51,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        330
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/vort-quadro.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 85,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        745
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/vort-quadro-i.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 91,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        715
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/vort-quadro-evo.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "pdfPage": 100,
+      "cropPoints": [
+        30,
+        95,
+        565,
+        725
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/ca-md-extra-eu.png",
+      "catalogue": "vortice_ca_md.pdf",
+      "pdfPage": 4,
+      "cropPoints": [
+        48,
+        461,
+        550,
+        610
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/slimroof-es.png",
+      "catalogue": "vortice_slimroof.pdf",
+      "pdfPage": 4,
+      "cropPoints": [
+        85,
+        120,
+        530,
+        307
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/heatmaster-f400.png",
+      "catalogue": "vortice_heatmaster.pdf",
+      "pdfPage": 4,
+      "cropPoints": [
+        85,
+        120,
+        530,
+        325
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/e-atex.png",
+      "catalogue": "Doc_Pubblicita_E-ATEX_Range_187721(1).pdf",
+      "pdfPage": 8,
+      "cropPoints": [
+        85,
+        120,
+        550,
+        398
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/tiracamino.png",
+      "catalogue": "Tiracamino(1).pdf",
+      "pdfPage": 1,
+      "cropPoints": [
+        30,
+        574,
+        294,
+        674
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/vort-qbk-sal-kc-evo.png",
+      "catalogue": "Doc_Pubblicita_Vort_QBK_SAL-KC_EVO_190829(1).pdf",
+      "pdfPage": 8,
+      "cropPoints": [
+        85,
+        120,
+        550,
+        374
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/cms-atex.png",
+      "catalogue": "CMS-ATEX-14-5-T4-0-09KW-2026.pdf",
+      "pdfPage": 4,
+      "cropPoints": [
+        95,
+        80,
+        505,
+        431
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/ca-md-e-rf-a.png",
+      "catalogue": "vortice_ca_md_e_rf.pdf",
+      "pdfPage": 3,
+      "cropPoints": [
+        95,
+        132,
+        500,
+        348
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/ca-md-e-rf-b.png",
+      "catalogue": "vortice_ca_md_e_rf.pdf",
+      "pdfPage": 3,
+      "cropPoints": [
+        95,
+        350,
+        500,
+        562
+      ],
+      "invertedForWhitePaper": false
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/lineo-all.png",
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "pdfPage": 29,
+      "cropPoints": [
+        25,
+        440,
+        580,
+        805
+      ],
+      "invertedForWhitePaper": true
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/lineo-quiet-a.png",
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "pdfPage": 19,
+      "cropPoints": [
+        25,
+        374,
+        580,
+        580
+      ],
+      "invertedForWhitePaper": true
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/lineo-quiet-b.png",
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "pdfPage": 19,
+      "cropPoints": [
+        25,
+        590,
+        580,
+        805
+      ],
+      "invertedForWhitePaper": true
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/lineo-quiet-es-a.png",
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "pdfPage": 13,
+      "cropPoints": [
+        25,
+        272,
+        580,
+        440
+      ],
+      "invertedForWhitePaper": true
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/lineo-quiet-es-b.png",
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "pdfPage": 13,
+      "cropPoints": [
+        25,
+        445,
+        580,
+        630
+      ],
+      "invertedForWhitePaper": true
+    },
+    {
+      "asset": "assets/products/vortice-dimensions/lineo-quiet-es-c.png",
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "pdfPage": 13,
+      "cropPoints": [
+        25,
+        637,
+        580,
+        805
+      ],
+      "invertedForWhitePaper": true
+    }
+  ],
+  "series": {
+    "PUNTO": {
+      "asset": "assets/products/vortice-dimensions/punto.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 9
+    },
+    "PUNTO FILO": {
+      "asset": "assets/products/vortice-dimensions/punto-filo.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 14
+    },
+    "PUNTO FOUR": {
+      "asset": "assets/products/vortice-dimensions/punto-four.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 18
+    },
+    "PUNTO GHOST": {
+      "asset": "assets/products/vortice-dimensions/punto-ghost.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 22
+    },
+    "PUNTO EVO FLEXO": {
+      "asset": "assets/products/vortice-dimensions/punto-evo-flexo.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 26
+    },
+    "PUNTO EVO": {
+      "asset": "assets/products/vortice-dimensions/punto-evo.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 31
+    },
+    "PUNTO EVO GOLD": {
+      "asset": "assets/products/vortice-dimensions/punto-evo-gold.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 40
+    },
+    "VORTICE VARIO": {
+      "asset": "assets/products/vortice-dimensions/vortice-vario.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 43
+    },
+    "VORTICE VARIO I": {
+      "asset": "assets/products/vortice-dimensions/vortice-vario-i.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 51
+    },
+    "VORT QUADRO": {
+      "asset": "assets/products/vortice-dimensions/vort-quadro.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 85
+    },
+    "VORT QUADRO I": {
+      "asset": "assets/products/vortice-dimensions/vort-quadro-i.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 91
+    },
+    "VORT QUADRO EVO": {
+      "asset": "assets/products/vortice-dimensions/vort-quadro-evo.png",
+      "catalogue": "Doc_Pubblicita_Residential_Ventilation2024_186926.pdf",
+      "page": 100
+    },
+    "CA MD EXTRA EU": {
+      "asset": "assets/products/vortice-dimensions/ca-md-extra-eu.png",
+      "catalogue": "vortice_ca_md.pdf",
+      "page": 4
+    },
+    "SLIMROOF ES": {
+      "asset": "assets/products/vortice-dimensions/slimroof-es.png",
+      "catalogue": "vortice_slimroof.pdf",
+      "page": 4
+    },
+    "HEATMASTER F400": {
+      "asset": "assets/products/vortice-dimensions/heatmaster-f400.png",
+      "catalogue": "vortice_heatmaster.pdf",
+      "page": 4
+    },
+    "E-ATEX": {
+      "asset": "assets/products/vortice-dimensions/e-atex.png",
+      "catalogue": "Doc_Pubblicita_E-ATEX_Range_187721(1).pdf",
+      "page": 8
+    },
+    "TIRACAMINO": {
+      "asset": "assets/products/vortice-dimensions/tiracamino.png",
+      "catalogue": "Tiracamino(1).pdf",
+      "page": 1
+    },
+    "VORT QBK SAL-KC EVO": {
+      "asset": "assets/products/vortice-dimensions/vort-qbk-sal-kc-evo.png",
+      "catalogue": "Doc_Pubblicita_Vort_QBK_SAL-KC_EVO_190829(1).pdf",
+      "page": 8
+    },
+    "CMS ATEX": {
+      "asset": "assets/products/vortice-dimensions/cms-atex.png",
+      "catalogue": "CMS-ATEX-14-5-T4-0-09KW-2026.pdf",
+      "page": 4
+    },
+    "CA MD E RF": {
+      "catalogue": "vortice_ca_md_e_rf.pdf",
+      "page": 3,
+      "variants": {
+        "A": "assets/products/vortice-dimensions/ca-md-e-rf-a.png",
+        "B": "assets/products/vortice-dimensions/ca-md-e-rf-b.png"
+      }
+    },
+    "LINEO": {
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "page": 29,
+      "rows": {
+        "17144": {
+          "values": {
+            "A": 188.5,
+            "B": 211.0,
+            "C": 303.0,
+            "ØD": 96.0,
+            "E": 101.5,
+            "F": 189.0,
+            "G": 90.0,
+            "H": 60.0,
+            "L": 80.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17185": {
+          "values": {
+            "A": 188.5,
+            "B": 211.0,
+            "C": 303.0,
+            "ØD": 96.0,
+            "E": 101.5,
+            "F": 189.0,
+            "G": 90.0,
+            "H": 60.0,
+            "L": 80.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17143": {
+          "values": {
+            "A": 156.0,
+            "B": 174.0,
+            "C": 231.0,
+            "ØD": 96.0,
+            "E": 82.0,
+            "F": 152.0,
+            "G": 95.0,
+            "H": 51.5,
+            "L": 47.5,
+            "ØM": 4.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17184": {
+          "values": {
+            "A": 156.0,
+            "B": 174.0,
+            "C": 231.0,
+            "ØD": 96.0,
+            "E": 82.0,
+            "F": 152.0,
+            "G": 95.0,
+            "H": 51.5,
+            "L": 47.5,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17145": {
+          "values": {
+            "A": 188.5,
+            "B": 211.0,
+            "C": 258.0,
+            "ØD": 122.0,
+            "E": 101.5,
+            "F": 189.0,
+            "G": 90.0,
+            "H": 60.0,
+            "L": 80.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17186": {
+          "values": {
+            "A": 188.5,
+            "B": 211.0,
+            "C": 258.0,
+            "ØD": 122.0,
+            "E": 101.5,
+            "F": 189.0,
+            "G": 90.0,
+            "H": 60.0,
+            "L": 80.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17146": {
+          "values": {
+            "A": 214.5,
+            "B": 234.0,
+            "C": 294.0,
+            "ØD": 146.0,
+            "E": 112.5,
+            "F": 212.0,
+            "G": 110.0,
+            "H": 60.0,
+            "L": 80.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17187": {
+          "values": {
+            "A": 214.5,
+            "B": 234.0,
+            "C": 294.0,
+            "ØD": 146.0,
+            "E": 112.5,
+            "F": 212.0,
+            "G": 110.0,
+            "H": 60.0,
+            "L": 80.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17147": {
+          "values": {
+            "A": 214.5,
+            "B": 234.0,
+            "C": 272.5,
+            "ØD": 156.0,
+            "E": 112.5,
+            "F": 212.0,
+            "G": 110.0,
+            "H": 60.0,
+            "L": 80.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17180": {
+          "values": {
+            "A": 270.0,
+            "B": 373.0,
+            "C": 396.0,
+            "ØD": 194.5,
+            "E": 195.0,
+            "F": 330.0,
+            "G": 190.0,
+            "H": 120.0,
+            "L": 155.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17177": {
+          "values": {
+            "A": 270.0,
+            "B": 373.0,
+            "C": 396.0,
+            "ØD": 194.5,
+            "E": 195.0,
+            "F": 330.0,
+            "G": 190.0,
+            "H": 120.0,
+            "L": 155.0,
+            "ØM": 5.5,
+            "N": 280.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17148": {
+          "values": {
+            "A": 234.5,
+            "B": 266.0,
+            "C": 300.0,
+            "ØD": 196.0,
+            "E": 125.5,
+            "F": 235.0,
+            "G": 140.0,
+            "H": 94.0,
+            "L": 100.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17189": {
+          "values": {
+            "A": 300.0,
+            "B": 322.0,
+            "C": 385.0,
+            "ØD": 247.0,
+            "E": 152.5,
+            "F": 292.0,
+            "G": 176.5,
+            "H": 140.0,
+            "L": 145.0,
+            "ØM": 5.5,
+            "N": 174.5
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17181": {
+          "values": {
+            "A": 300.0,
+            "B": 378.0,
+            "C": 322.0,
+            "ØD": 243.0,
+            "E": 190.0,
+            "F": 329.0,
+            "G": 200.0,
+            "H": 70.0,
+            "L": 170.0,
+            "ØM": 5.5,
+            "N": 174.5
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17149": {
+          "values": {
+            "A": 300.0,
+            "B": 322.0,
+            "C": 385.0,
+            "ØD": 247.0,
+            "E": 152.5,
+            "F": 292.0,
+            "G": 176.5,
+            "H": 140.0,
+            "L": 145.0,
+            "ØM": 5.5,
+            "N": "-"
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        },
+        "17182": {
+          "values": {
+            "A": 373.0,
+            "B": 446.0,
+            "C": 420.0,
+            "ØD": 307.0,
+            "E": 224.0,
+            "F": 398.0,
+            "G": 309.0,
+            "H": 110.0,
+            "L": 255.0,
+            "ØM": 8.5,
+            "N": 259.5
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-all.png"
+        }
+      }
+    },
+    "LINEO QUIET": {
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "page": 19,
+      "rows": {
+        "17160": {
+          "values": {
+            "A": 210.0,
+            "B": 294.5,
+            "C": 639.0,
+            "ØD": 97.0,
+            "E": 130.0,
+            "F": 235.0,
+            "G": 135.0,
+            "H": 120.0,
+            "L": 67.5,
+            "ØM": 5.5,
+            "N": 320.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-a.png"
+        },
+        "17161": {
+          "values": {
+            "A": 210.0,
+            "B": 294.6,
+            "C": 504.5,
+            "ØD": 122.0,
+            "E": 130.0,
+            "F": 235.0,
+            "G": 135.0,
+            "H": 120.0,
+            "L": 67.5,
+            "ØM": 5.5,
+            "N": 320.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-a.png"
+        },
+        "17162": {
+          "values": {
+            "A": 232.0,
+            "B": 320.5,
+            "C": 685.0,
+            "ØD": 147.0,
+            "E": 145.0,
+            "F": 261.5,
+            "G": 170.0,
+            "H": 132.0,
+            "L": 85.0,
+            "ØM": 5.5,
+            "N": 360.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-a.png"
+        },
+        "17163": {
+          "values": {
+            "A": 232.0,
+            "B": 320.5,
+            "C": 570.0,
+            "ØD": 156.5,
+            "E": 145.0,
+            "F": 261.5,
+            "G": 170.0,
+            "H": 135.0,
+            "L": 85.0,
+            "ØM": 5.5,
+            "N": 360.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-a.png"
+        },
+        "17164": {
+          "values": {
+            "A": 322.5,
+            "B": 417.5,
+            "C": 625.5,
+            "ØD": 194.5,
+            "E": 195.0,
+            "F": 363.5,
+            "G": 190.0,
+            "H": 120.0,
+            "L": 155.0,
+            "ØM": 5.5,
+            "N": 510.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-b.png"
+        },
+        "17165": {
+          "values": {
+            "A": 318.0,
+            "B": 412.0,
+            "C": 751.5,
+            "ØD": 243.0,
+            "E": 189.5,
+            "F": 363.5,
+            "G": 200.0,
+            "H": 70.0,
+            "L": 170.0,
+            "ØM": 6.5,
+            "N": 604.5
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-b.png"
+        },
+        "17166": {
+          "values": {
+            "A": 415.5,
+            "B": 496.5,
+            "C": 940.0,
+            "ØD": 307.0,
+            "E": 244.0,
+            "F": 441.0,
+            "G": 309.0,
+            "H": 110.0,
+            "L": 255.0,
+            "ØM": 8.5,
+            "N": 780.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-b.png"
+        }
+      }
+    },
+    "LINEO QUIET ES": {
+      "catalogue": "Doc_Pubblicita_Lineo_Range_177682(1).pdf",
+      "page": 13,
+      "rows": {
+        "17170": {
+          "values": {
+            "A": 210.0,
+            "B": 294.6,
+            "C": 639.0,
+            "ØD": 97.0,
+            "E": 130.0,
+            "F": 235.0,
+            "G": 135.0,
+            "H": 120.0,
+            "L": 67.5,
+            "ØM": 5.5,
+            "N": 320.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-es-a.png"
+        },
+        "17171": {
+          "values": {
+            "A": 210.0,
+            "B": 294.6,
+            "C": 504.5,
+            "ØD": 122.0,
+            "E": 130.0,
+            "F": 235.0,
+            "G": 135.0,
+            "H": 120.0,
+            "L": 67.5,
+            "ØM": 5.5,
+            "N": 320.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-es-a.png"
+        },
+        "17172": {
+          "values": {
+            "A": 232.0,
+            "B": 320.6,
+            "C": 685.0,
+            "ØD": 147.0,
+            "E": 145.0,
+            "F": 261.5,
+            "G": 170.0,
+            "H": 132.0,
+            "L": 85.0,
+            "ØM": 5.5,
+            "N": 360.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-es-a.png"
+        },
+        "17173": {
+          "values": {
+            "A": 232.0,
+            "B": 320.6,
+            "C": 570.0,
+            "ØD": 156.5,
+            "E": 145.0,
+            "F": 261.5,
+            "G": 170.0,
+            "H": 135.0,
+            "L": 85.0,
+            "ØM": 5.5,
+            "N": 360.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-es-a.png"
+        },
+        "17174": {
+          "values": {
+            "A": 322.5,
+            "B": 417.6,
+            "C": 625.5,
+            "ØD": 194.5,
+            "E": 195.0,
+            "F": 363.5,
+            "G": 190.0,
+            "H": 120.0,
+            "L": 155.0,
+            "ØM": 5.5,
+            "N": 510.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-es-b.png"
+        },
+        "17175": {
+          "values": {
+            "A": 318.0,
+            "B": 411.9,
+            "C": 751.5,
+            "ØD": 243.0,
+            "E": 189.5,
+            "F": 363.5,
+            "G": 200.0,
+            "H": 70.0,
+            "L": 170.0,
+            "ØM": 6.5,
+            "N": 604.5
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-es-b.png"
+        },
+        "17176": {
+          "values": {
+            "A": 415.5,
+            "B": 557.8,
+            "C": 940.0,
+            "ØD": 307.0,
+            "E": 234.0,
+            "F": 441.0,
+            "G": 309.0,
+            "H": 110.0,
+            "L": 255.0,
+            "ØM": 8.5,
+            "N": 780.0
+          },
+          "asset": "assets/products/vortice-dimensions/lineo-quiet-es-c.png"
+        }
+      }
+    }
+  }
+}

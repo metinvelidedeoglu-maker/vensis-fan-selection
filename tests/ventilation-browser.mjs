@@ -45,6 +45,23 @@ try{
     assert.ok(await popup.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+2),'mobile overflow: '+brand.name);
     await popup.close();
   }
+  // Every active VORTICE drawing variant must render without blank columns or stretched rows.
+  const dimensionSamples=await page.evaluate(()=>{
+    const C=window.VensisCatalog,ids=new Set(C.series.filter(s=>s.manufacturer==='VORTICE').map(s=>s.id));
+    return [...new Map(C.models.filter(m=>ids.has(m.seriesId)).map(m=>[m.media.dimensionImage,m.id])).values()];
+  });
+  for(const id of dimensionSamples){
+    const html=await page.evaluate(id=>window.VensisDirectPreview.html({product:window.VensisCatalog.product(id),model:window.VensisCatalog.getModel(id),language:'tr'}),id);
+    const preview=await context.newPage();await preview.setContent(html,{waitUntil:'networkidle'});
+    assert.equal(await preview.locator('[data-original-catalog-drawing] img').evaluate(img=>img.complete&&img.naturalWidth>0),true,id);
+    assert.equal(await preview.locator('.dimension-panel.values-only').count(),0,id);
+    const rowHeights=await preview.locator('.dimension-table tbody tr').evaluateAll(rows=>rows.map(r=>r.getBoundingClientRect().height));
+    assert.ok(rowHeights.every(h=>h<35),'stretched dimension rows: '+id);
+    const file=id.replace(/[^a-z0-9]+/gi,'-').toLowerCase();
+    await preview.pdf({path:'test-results/ventilation/dimensions-'+file+'.pdf',format:'A4',printBackground:true});
+    await preview.screenshot({path:'test-results/ventilation/dimensions-'+file+'.png',fullPage:true});
+    await preview.close();
+  }
   await page.goto(base+'/catalog.html?brand=vortice');
   await page.locator('#catalogManufacturers input[value="Vitlo"]').check();
   await page.reload();
