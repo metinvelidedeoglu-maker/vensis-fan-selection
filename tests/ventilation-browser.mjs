@@ -15,12 +15,18 @@ try{
   await page.goto(base+'/catalog.html');
   await page.waitForFunction(()=>window.VensisCatalog?.models.length===1022);
   assert.equal(await page.locator('.series-card').count(),89);
+  async function assertSeriesOrder(){
+    const labels=await page.locator('.series-card h2').allTextContents();
+    assert.deepEqual(labels,[...labels].sort(new Intl.Collator('tr',{sensitivity:'base',numeric:true}).compare));
+  }
+  await assertSeriesOrder();
   const brands=await page.evaluate(()=>window.VensisCatalog.brands);
   for(const brand of brands){
     await page.goto(base+'/catalog.html?brand='+brand.slug);
     await page.waitForSelector('.series-card');
     const count=await page.evaluate(()=>window.VensisCatalog.series.filter(s=>s.manufacturer===window.VensisCatalog.brand(new URLSearchParams(location.search).get('brand')).name).length);
     assert.equal(await page.locator('.series-card').count(),count,brand.name);
+    await assertSeriesOrder();
     const sample=await page.evaluate(name=>{
       const C=window.VensisCatalog,s=C.series.find(s=>s.manufacturer===name&&C.modelsForSeries(s.id).some(m=>m.dimensions)),m=C.modelsForSeries(s.id).find(m=>m.dimensions);
       return {series:s.id,id:m.id,name:m.model};

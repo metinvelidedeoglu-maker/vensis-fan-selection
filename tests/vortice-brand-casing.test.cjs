@@ -15,7 +15,7 @@ test('official brand casing comes from shared data for all catalog views',()=>{
   assert.doesNotMatch(read('js/catalog.js'),/==='vortice'/);
 });
 test('legacy brand pages redirect to the common cache-busted renderer',()=>{
-  assert.match(read('catalog.html'),/catalog\.js\?v=20261018-unified-r1/);
+  assert.match(read('catalog.html'),/catalog\.js\?v=20261018-series-az/);
   for(const file of ['catalog-brand.html','catalog-vortice.html','catalog-vortice-stable.html'])assert.match(read(file),/location\.replace/);
 });
 
