@@ -47,9 +47,13 @@ try{
   await page.goto(base+'/catalog-vortice.html?series=CA%20MD%20EXTRA%20EU&project=regression-project');
   await page.waitForSelector('.model-card');
   assert.equal(new URL(page.url()).searchParams.get('project'),'regression-project');
+  await page.goto(base+'/projects.html');
+  await page.waitForFunction(()=>Boolean(window.VensisProjects?.create));
+  const projectId=await page.evaluate(()=>window.VensisProjects.create({name:'Ventilation integration fixture'}).id);
   for(const file of ['fan-selection.html','project.html','quotation.html','project-print.html']){
-    await page.goto(base+'/'+file);
-    await page.waitForFunction(()=>window.VensisCatalog?.models.length===1022);
+    console.log('Checking consumer:',file);
+    await page.goto(base+'/'+file+'?project='+encodeURIComponent(projectId));
+    await page.waitForFunction(()=>window.VensisCatalog?.models.length===1022).catch(error=>{throw new Error(file+': '+error.message)});
     assert.equal(await page.evaluate(()=>Boolean(window.VensisDimensions?.resolve)),true,file);
   }
   await page.goto(base+'/catalog.html');
