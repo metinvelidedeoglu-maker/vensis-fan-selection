@@ -45,9 +45,9 @@ try{
     assert.ok(await popup.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+2),'mobile overflow: '+brand.name);
     await popup.close();
   }
-  // Every active VORTICE drawing variant must render without blank columns or stretched rows.
+  // Every active VORTICE and S&P drawing variant must render without blank columns or stretched rows.
   const dimensionSamples=await page.evaluate(()=>{
-    const C=window.VensisCatalog,ids=new Set(C.series.filter(s=>s.manufacturer==='VORTICE').map(s=>s.id));
+    const C=window.VensisCatalog,ids=new Set(C.series.filter(s=>['VORTICE','Soler & Palau'].includes(s.manufacturer)).map(s=>s.id));
     const samples=new Map();for(const m of C.models.filter(m=>ids.has(m.seriesId)))if(!samples.has(m.media.dimensionImage))samples.set(m.media.dimensionImage,m.id);return [...samples.values()];
   });
   for(const id of dimensionSamples){

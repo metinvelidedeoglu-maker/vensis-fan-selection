@@ -1,0 +1,4354 @@
+{
+  "date": "2026-10-18",
+  "scope": "28 active Soler & Palau series / 163 models",
+  "sources": [
+    {
+      "filename": "crhb-n-crht-n.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+      "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642",
+      "pdfPages": 39
+    },
+    {
+      "filename": "crvb-n-crvt-n.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+      "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642",
+      "pdfPages": 39
+    },
+    {
+      "filename": "ctvb-ctvt.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+      "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b",
+      "pdfPages": 44
+    },
+    {
+      "filename": "hctb-hctt.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+      "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551",
+      "pdfPages": 11
+    },
+    {
+      "filename": "hdt-atex.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/hdt-atex-0.pdf",
+      "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d",
+      "pdfPages": 3
+    },
+    {
+      "filename": "hv.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hv-styvent-0.pdf",
+      "sha256": "e206d1527f02b72f5d66ad45c0e7d5e0a49ee20fca70c90bb27346c2943ecd58",
+      "pdfPages": 7
+    },
+    {
+      "filename": "hxbr-hxtr.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxbr-hxtr-4.pdf",
+      "sha256": "f218ab3f4803ccfb6fe7661ba6c0a6c2f906a8ebbc4b4833a463649f694cb900",
+      "pdfPages": 14
+    },
+    {
+      "filename": "hxm.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxm-3.pdf",
+      "sha256": "01a728ad4e37621c5edbd1b0ba5596384170ed66047c5dea1fa6520082ac62bb",
+      "pdfPages": 4
+    },
+    {
+      "filename": "ilbilt.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+      "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8",
+      "pdfPages": 17
+    },
+    {
+      "filename": "ilt-atex.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/ilt-atex-4-6a3a1c726c9da.pdf",
+      "sha256": "799ea62fe93eb92b2bde4674c951b3c01147e4201ea4b02c126d55a25262ce33",
+      "pdfPages": 5
+    },
+    {
+      "filename": "irb-irt.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+      "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23",
+      "pdfPages": 14
+    },
+    {
+      "filename": "td-atex.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/td-atex-0.pdf",
+      "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860",
+      "pdfPages": 4
+    },
+    {
+      "filename": "en-selector.pdf",
+      "url": "https://statics.solerpalau.com/media/import/documentation/Product_Selector_Price_List_Issue.pdf",
+      "sha256": "9b1283435fb94106cc0a6987b76bc145afc85c30d0ed078790c84532dd160d43",
+      "pdfPages": 138
+    },
+    {
+      "filename": "th-mixvent.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/th-mixvent-0.pdf",
+      "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8",
+      "pdfPages": 6
+    },
+    {
+      "filename": "cab.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/cab-0.pdf",
+      "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+      "pdfPages": 5
+    },
+    {
+      "filename": "hcm.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hcm-0.pdf",
+      "sha256": "c75188f6b85a8dbaa137473737472633a9cb10a7831c8033969344628283932c",
+      "pdfPages": 1
+    },
+    {
+      "filename": "jetline.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+      "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+      "pdfPages": 7
+    },
+    {
+      "filename": "silentub.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silentub-0.pdf",
+      "sha256": "a5c6334013cec74691969f6aabce0932e30d6c9d3c4f3b04b2100f805f4a256a",
+      "pdfPages": 2
+    },
+    {
+      "filename": "td-evo.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-evo-3.pdf",
+      "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e",
+      "pdfPages": 11
+    },
+    {
+      "filename": "td.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+      "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+      "pdfPages": 12
+    },
+    {
+      "filename": "td-silent.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+      "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67",
+      "pdfPages": 13
+    },
+    {
+      "filename": "tdm.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/tdm-0.pdf",
+      "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40",
+      "pdfPages": 2
+    },
+    {
+      "filename": "vent-nk.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+      "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833",
+      "pdfPages": 10
+    },
+    {
+      "filename": "edm.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/edm-0.pdf",
+      "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+      "pdfPages": 7
+    },
+    {
+      "filename": "decor.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-0.pdf",
+      "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+      "pdfPages": 7
+    },
+    {
+      "filename": "decordesign.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-design-0.pdf",
+      "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+      "pdfPages": 6
+    },
+    {
+      "filename": "silent-design.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silent-design-0.pdf",
+      "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+      "pdfPages": 9
+    },
+    {
+      "filename": "silent.pdf",
+      "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+      "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+      "pdfPages": 9
+    },
+    {
+      "filename": "en-cab.pdf",
+      "url": "https://statics.solerpalau.com/media/import/documentation/EN_CAB.pdf",
+      "sha256": "1ab2d2fbacde7349328a72e9c7b5ccbb876dfdc688245faf328a3d88e860d669",
+      "pdfPages": 8
+    }
+  ],
+  "drawings": [
+    {
+      "asset": "assets/products/sp-dimensions/crhb.png",
+      "catalogue": "crhb-n-crht-n.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+      "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642",
+      "pdfPage": 3,
+      "cropPoints": [
+        42,
+        661,
+        299,
+        799
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/crvb.png",
+      "catalogue": "crvb-n-crvt-n.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+      "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642",
+      "pdfPage": 4,
+      "cropPoints": [
+        42,
+        662,
+        299,
+        800
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/ctv.png",
+      "catalogue": "ctvb-ctvt.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+      "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b",
+      "pdfPage": 41,
+      "cropPoints": [
+        42,
+        457,
+        571,
+        634
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/hct.png",
+      "catalogue": "hctb-hctt.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+      "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551",
+      "pdfPage": 9,
+      "cropPoints": [
+        42,
+        96,
+        210,
+        274
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/hdt.png",
+      "catalogue": "hdt-atex.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/hdt-atex-0.pdf",
+      "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        473,
+        293,
+        631
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/hv.png",
+      "catalogue": "hv.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hv-styvent-0.pdf",
+      "sha256": "e206d1527f02b72f5d66ad45c0e7d5e0a49ee20fca70c90bb27346c2943ecd58",
+      "pdfPage": 4,
+      "cropPoints": [
+        42,
+        383,
+        259,
+        518
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/hx.png",
+      "catalogue": "hxbr-hxtr.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxbr-hxtr-4.pdf",
+      "sha256": "f218ab3f4803ccfb6fe7661ba6c0a6c2f906a8ebbc4b4833a463649f694cb900",
+      "pdfPage": 4,
+      "cropPoints": [
+        294,
+        93,
+        554,
+        290
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/hxm-small.png",
+      "catalogue": "hxm.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxm-3.pdf",
+      "sha256": "01a728ad4e37621c5edbd1b0ba5596384170ed66047c5dea1fa6520082ac62bb",
+      "pdfPage": 2,
+      "cropPoints": [
+        25,
+        407,
+        281,
+        564
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/hxm-400.png",
+      "catalogue": "hxm.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxm-3.pdf",
+      "sha256": "01a728ad4e37621c5edbd1b0ba5596384170ed66047c5dea1fa6520082ac62bb",
+      "pdfPage": 2,
+      "cropPoints": [
+        297,
+        407,
+        554,
+        564
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/il.png",
+      "catalogue": "ilbilt.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+      "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8",
+      "pdfPage": 2,
+      "cropPoints": [
+        25,
+        574,
+        193,
+        789
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/il-atex.png",
+      "catalogue": "ilt-atex.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/ilt-atex-4-6a3a1c726c9da.pdf",
+      "sha256": "799ea62fe93eb92b2bde4674c951b3c01147e4201ea4b02c126d55a25262ce33",
+      "pdfPage": 2,
+      "cropPoints": [
+        25,
+        282,
+        554,
+        431
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/ir.png",
+      "catalogue": "irb-irt.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+      "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        538,
+        571,
+        702
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/td-atex.png",
+      "catalogue": "td-atex.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/td-atex-0.pdf",
+      "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        231,
+        571,
+        552
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/th-atex.png",
+      "catalogue": "en-selector.pdf",
+      "sourceUrl": "https://statics.solerpalau.com/media/import/documentation/Product_Selector_Price_List_Issue.pdf",
+      "sha256": "9b1283435fb94106cc0a6987b76bc145afc85c30d0ed078790c84532dd160d43",
+      "pdfPage": 68,
+      "cropPoints": [
+        42,
+        631,
+        298,
+        801
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/th.png",
+      "catalogue": "th-mixvent.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/th-mixvent-0.pdf",
+      "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        372,
+        299,
+        543
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/cab.png",
+      "catalogue": "cab.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/cab-0.pdf",
+      "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        592,
+        302,
+        707
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/hcm.png",
+      "catalogue": "hcm.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hcm-0.pdf",
+      "sha256": "c75188f6b85a8dbaa137473737472633a9cb10a7831c8033969344628283932c",
+      "pdfPage": 1,
+      "cropPoints": [
+        403,
+        424,
+        571,
+        526
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/jetline.png",
+      "catalogue": "jetline.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+      "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+      "pdfPage": 2,
+      "cropPoints": [
+        25,
+        298,
+        554,
+        652
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/silentub.png",
+      "catalogue": "silentub.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silentub-0.pdf",
+      "sha256": "a5c6334013cec74691969f6aabce0932e30d6c9d3c4f3b04b2100f805f4a256a",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        196,
+        391,
+        355
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/evo.png",
+      "catalogue": "td-evo.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-evo-3.pdf",
+      "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e",
+      "pdfPage": 4,
+      "cropPoints": [
+        25,
+        264,
+        554,
+        538
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/td.png",
+      "catalogue": "td.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+      "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+      "pdfPage": 5,
+      "cropPoints": [
+        296,
+        105,
+        554,
+        243
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/td-big.png",
+      "catalogue": "td.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+      "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+      "pdfPage": 5,
+      "cropPoints": [
+        296,
+        263,
+        554,
+        401
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/td-silent-160.png",
+      "catalogue": "td-silent.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+      "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67",
+      "pdfPage": 5,
+      "cropPoints": [
+        25,
+        93,
+        374,
+        233
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/td-silent.png",
+      "catalogue": "td-silent.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+      "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67",
+      "pdfPage": 5,
+      "cropPoints": [
+        25,
+        242,
+        554,
+        442
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/td-silent-big.png",
+      "catalogue": "td-silent.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+      "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67",
+      "pdfPage": 5,
+      "cropPoints": [
+        25,
+        553,
+        554,
+        800
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/tdm.png",
+      "catalogue": "tdm.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/tdm-0.pdf",
+      "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        94,
+        391,
+        252
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/tdm-300.png",
+      "catalogue": "tdm.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/tdm-0.pdf",
+      "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        260,
+        391,
+        419
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/vent.png",
+      "catalogue": "vent-nk.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+      "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        353,
+        267,
+        513
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/vent-big.png",
+      "catalogue": "vent-nk.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+      "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833",
+      "pdfPage": 2,
+      "cropPoints": [
+        273,
+        353,
+        571,
+        513
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/edm-80.png",
+      "catalogue": "edm.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/edm-0.pdf",
+      "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+      "pdfPage": 2,
+      "cropPoints": [
+        25,
+        356,
+        203,
+        514
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/edm-100.png",
+      "catalogue": "edm.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/edm-0.pdf",
+      "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+      "pdfPage": 4,
+      "cropPoints": [
+        25,
+        449,
+        374,
+        613
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/edm-200.png",
+      "catalogue": "edm.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/edm-0.pdf",
+      "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+      "pdfPage": 7,
+      "cropPoints": [
+        42,
+        379,
+        391,
+        510
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/decor-100.png",
+      "catalogue": "decor.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-0.pdf",
+      "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        366,
+        391,
+        525
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/decor-200.png",
+      "catalogue": "decor.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-0.pdf",
+      "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+      "pdfPage": 5,
+      "cropPoints": [
+        25,
+        339,
+        374,
+        497
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/decor-300.png",
+      "catalogue": "decor.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-0.pdf",
+      "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+      "pdfPage": 7,
+      "cropPoints": [
+        25,
+        337,
+        374,
+        504
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/decor-design-100.png",
+      "catalogue": "decordesign.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-design-0.pdf",
+      "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        319,
+        391,
+        458
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/decor-design-200.png",
+      "catalogue": "decordesign.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-design-0.pdf",
+      "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+      "pdfPage": 4,
+      "cropPoints": [
+        42,
+        310,
+        391,
+        462
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/decor-design-300.png",
+      "catalogue": "decordesign.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-design-0.pdf",
+      "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+      "pdfPage": 6,
+      "cropPoints": [
+        42,
+        309,
+        391,
+        460
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/silent-design-100.png",
+      "catalogue": "silent-design.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silent-design-0.pdf",
+      "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+      "pdfPage": 3,
+      "cropPoints": [
+        42,
+        461,
+        571,
+        612
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/silent-design-200.png",
+      "catalogue": "silent-design.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silent-design-0.pdf",
+      "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+      "pdfPage": 7,
+      "cropPoints": [
+        42,
+        373,
+        571,
+        543
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/silent-design-300.png",
+      "catalogue": "silent-design.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silent-design-0.pdf",
+      "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+      "pdfPage": 9,
+      "cropPoints": [
+        42,
+        389,
+        571,
+        558
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/silent-100.png",
+      "catalogue": "silent.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+      "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+      "pdfPage": 2,
+      "cropPoints": [
+        42,
+        408,
+        571,
+        596
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/silent-200.png",
+      "catalogue": "silent.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+      "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+      "pdfPage": 7,
+      "cropPoints": [
+        25,
+        363,
+        554,
+        538
+      ]
+    },
+    {
+      "asset": "assets/products/sp-dimensions/silent-300.png",
+      "catalogue": "silent.pdf",
+      "sourceUrl": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+      "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+      "pdfPage": 9,
+      "cropPoints": [
+        25,
+        376,
+        554,
+        550
+      ]
+    }
+  ],
+  "models": {
+    "SP|CRHB/2-250N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHB/2-250N",
+      "drawing": "crhb",
+      "sourceRow": "250",
+      "values": {
+        "ØA": 570.0,
+        "B": 245.0,
+        "C": 326.0,
+        "ØD": 204.0,
+        "E": 35.0,
+        "F": 209.0,
+        "ØG": 10.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHB/4-280N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHB/4-280N",
+      "drawing": "crhb",
+      "sourceRow": "280",
+      "values": {
+        "ØA": 640.0,
+        "B": 330.0,
+        "C": 435.0,
+        "ØD": 228.0,
+        "E": 40.0,
+        "F": 273.5,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHB/4-315N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHB/4-315N",
+      "drawing": "crhb",
+      "sourceRow": "315",
+      "values": {
+        "ØA": 895.0,
+        "B": 450.0,
+        "C": 560.0,
+        "ØD": 257.0,
+        "E": 40.0,
+        "F": 324.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHB/4-355N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHB/4-355N",
+      "drawing": "crhb",
+      "sourceRow": "355",
+      "values": {
+        "ØA": 895.0,
+        "B": 450.0,
+        "C": 560.0,
+        "ØD": 289.0,
+        "E": 40.0,
+        "F": 349.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHB/4-400N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHB/4-400N",
+      "drawing": "crhb",
+      "sourceRow": "400",
+      "values": {
+        "ØA": 1150.0,
+        "B": 535.0,
+        "C": 630.0,
+        "ØD": 326.0,
+        "E": 40.0,
+        "F": 363.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHB/4-450N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHB/4-450N",
+      "drawing": "crhb",
+      "sourceRow": "450",
+      "values": {
+        "ØA": 1150.0,
+        "B": 535.0,
+        "C": 630.0,
+        "ØD": 367.0,
+        "E": 40.0,
+        "F": 409.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHB/4-500N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHB/4-500N",
+      "drawing": "crhb",
+      "sourceRow": "500",
+      "values": {
+        "ØA": 1150.0,
+        "B": 590.0,
+        "C": 710.0,
+        "ØD": 407.0,
+        "E": 40.0,
+        "F": 435.0,
+        "ØG": 14.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHT/4-400N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHT/4-400N",
+      "drawing": "crhb",
+      "sourceRow": "400",
+      "values": {
+        "ØA": 1150.0,
+        "B": 535.0,
+        "C": 630.0,
+        "ØD": 326.0,
+        "E": 40.0,
+        "F": 363.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHT/4-450N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHT/4-450N",
+      "drawing": "crhb",
+      "sourceRow": "450",
+      "values": {
+        "ØA": 1150.0,
+        "B": 535.0,
+        "C": 630.0,
+        "ØD": 367.0,
+        "E": 40.0,
+        "F": 409.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHT/4-500N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHT/4-500N",
+      "drawing": "crhb",
+      "sourceRow": "500",
+      "values": {
+        "ØA": 1150.0,
+        "B": 590.0,
+        "C": 710.0,
+        "ØD": 407.0,
+        "E": 40.0,
+        "F": 435.0,
+        "ØG": 14.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRHT/4-560N": {
+      "seriesId": "CRHB-N / CRHT-N",
+      "model": "CRHT/4-560N",
+      "drawing": "crhb",
+      "sourceRow": "560",
+      "values": {
+        "ØA": 1150.0,
+        "B": 750.0,
+        "C": 900.0,
+        "ØD": 455.0,
+        "E": 40.0,
+        "F": 486.0,
+        "ØG": 14.0
+      },
+      "source": {
+        "catalogue": "crhb-n-crht-n.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crhb-n-crht-n-4-68de39e46ac42.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRVB/2-250N": {
+      "seriesId": "CRVB-N / CRVT-N",
+      "model": "CRVB/2-250N",
+      "drawing": "crvb",
+      "sourceRow": "250",
+      "values": {
+        "ØA": 434.0,
+        "B": 245.0,
+        "C": 326.0,
+        "ØD": 204.0,
+        "E": 35.0,
+        "F": 260.0,
+        "ØG": 10.0
+      },
+      "source": {
+        "catalogue": "crvb-n-crvt-n.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRVB/4-280N": {
+      "seriesId": "CRVB-N / CRVT-N",
+      "model": "CRVB/4-280N",
+      "drawing": "crvb",
+      "sourceRow": "280",
+      "values": {
+        "ØA": 560.0,
+        "B": 330.0,
+        "C": 435.0,
+        "ØD": 228.0,
+        "E": 40.0,
+        "F": 335.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crvb-n-crvt-n.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRVB/4-315N": {
+      "seriesId": "CRVB-N / CRVT-N",
+      "model": "CRVB/4-315N",
+      "drawing": "crvb",
+      "sourceRow": "315",
+      "values": {
+        "ØA": 754.0,
+        "B": 450.0,
+        "C": 560.0,
+        "ØD": 257.0,
+        "E": 40.0,
+        "F": 395.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crvb-n-crvt-n.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRVB/4-355N": {
+      "seriesId": "CRVB-N / CRVT-N",
+      "model": "CRVB/4-355N",
+      "drawing": "crvb",
+      "sourceRow": "355",
+      "values": {
+        "ØA": 754.0,
+        "B": 450.0,
+        "C": 560.0,
+        "ØD": 289.0,
+        "E": 40.0,
+        "F": 395.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crvb-n-crvt-n.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRVT/4-400N": {
+      "seriesId": "CRVB-N / CRVT-N",
+      "model": "CRVT/4-400N",
+      "drawing": "crvb",
+      "sourceRow": "400",
+      "values": {
+        "ØA": 857.0,
+        "B": 535.0,
+        "C": 630.0,
+        "ØD": 326.0,
+        "E": 40.0,
+        "F": 459.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crvb-n-crvt-n.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRVT/4-450N": {
+      "seriesId": "CRVB-N / CRVT-N",
+      "model": "CRVT/4-450N",
+      "drawing": "crvb",
+      "sourceRow": "450",
+      "values": {
+        "ØA": 857.0,
+        "B": 535.0,
+        "C": 630.0,
+        "ØD": 367.0,
+        "E": 40.0,
+        "F": 459.0,
+        "ØG": 12.0
+      },
+      "source": {
+        "catalogue": "crvb-n-crvt-n.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRVT/4-500N": {
+      "seriesId": "CRVB-N / CRVT-N",
+      "model": "CRVT/4-500N",
+      "drawing": "crvb",
+      "sourceRow": "500",
+      "values": {
+        "ØA": 950.0,
+        "B": 590.0,
+        "C": 710.0,
+        "ØD": 407.0,
+        "E": 40.0,
+        "F": 530.0,
+        "ØG": 14.0
+      },
+      "source": {
+        "catalogue": "crvb-n-crvt-n.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CRVT/4-560N": {
+      "seriesId": "CRVB-N / CRVT-N",
+      "model": "CRVT/4-560N",
+      "drawing": "crvb",
+      "sourceRow": "560",
+      "values": {
+        "ØA": 1216.0,
+        "B": 750.0,
+        "C": 900.0,
+        "ØD": 455.0,
+        "E": 40.0,
+        "F": 580.0,
+        "ØG": 14.0
+      },
+      "source": {
+        "catalogue": "crvb-n-crvt-n.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/crvb-n-crvt-n-2.pdf",
+        "sha256": "d8347fa6475f2fd273478b81a6c2dd55018bf1b6d4d0eb8549159727cd5cd642"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CTVB/4-180": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVB/4-180",
+      "drawing": "ctv",
+      "sourceRow": "180",
+      "values": {
+        "ØAV": 431.0,
+        "BV": 378.0,
+        "C": 300.0,
+        "ØD": 212.0,
+        "E": 245.0,
+        "ØF": 10.0,
+        "G": 35.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVB/4-225": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVB/4-225",
+      "drawing": "ctv",
+      "sourceRow": "225",
+      "values": {
+        "ØAV": 560.0,
+        "BV": 453.0,
+        "C": 435.0,
+        "ØD": 261.0,
+        "E": 330.0,
+        "ØF": 12.0,
+        "G": 40.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVB/4-250": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVB/4-250",
+      "drawing": "ctv",
+      "sourceRow": "250",
+      "values": {
+        "ØAV": 750.0,
+        "BV": 504.0,
+        "C": 560.0,
+        "ØD": 289.0,
+        "E": 450.0,
+        "ØF": 12.0,
+        "G": 40.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVB/4-315": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVB/4-315",
+      "drawing": "ctv",
+      "sourceRow": "315",
+      "values": {
+        "ØAV": 750.0,
+        "BV": 545.0,
+        "C": 560.0,
+        "ØD": 326.0,
+        "E": 450.0,
+        "ØF": 12.0,
+        "G": 40.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVT/4-315": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVT/4-315",
+      "drawing": "ctv",
+      "sourceRow": "315",
+      "values": {
+        "ØAV": 750.0,
+        "BV": 545.0,
+        "C": 560.0,
+        "ØD": 326.0,
+        "E": 450.0,
+        "ØF": 12.0,
+        "G": 40.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVT/4-400": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVT/4-400",
+      "drawing": "ctv",
+      "sourceRow": "400",
+      "values": {
+        "ØAV": 857.0,
+        "BV": 605.0,
+        "C": 630.0,
+        "ØD": 420.0,
+        "E": 535.0,
+        "ØF": 12.0,
+        "G": 40.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVT/4-450": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVT/4-450",
+      "drawing": "ctv",
+      "sourceRow": "450",
+      "values": {
+        "ØAV": 950.0,
+        "BV": 741.0,
+        "C": 710.0,
+        "ØD": 457.0,
+        "E": 590.0,
+        "ØF": 14.0,
+        "G": 40.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVT/6-560": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVT/6-560",
+      "drawing": "ctv",
+      "sourceRow": "560",
+      "values": {
+        "ØAV": 1216.0,
+        "BV": 832.0,
+        "C": 905.0,
+        "ØD": 569.0,
+        "E": 750.0,
+        "ØF": 14.0,
+        "G": 50.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVT/6-630": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVT/6-630",
+      "drawing": "ctv",
+      "sourceRow": "630",
+      "values": {
+        "ØAV": 1327.0,
+        "BV": 1053.0,
+        "C": 1100.0,
+        "ØD": 639.0,
+        "E": 840.0,
+        "ØF": 14.0,
+        "G": 50.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|CTVT/6-710": {
+      "seriesId": "CTVB / CTVT",
+      "model": "CTVT/6-710",
+      "drawing": "ctv",
+      "sourceRow": "710",
+      "values": {
+        "ØAV": 1485.0,
+        "BV": 1161.0,
+        "C": 1100.0,
+        "ØD": 720.0,
+        "E": 840.0,
+        "ØF": 14.0,
+        "G": 50.0
+      },
+      "source": {
+        "catalogue": "ctvb-ctvt.pdf",
+        "page": 41,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/ctvb-ctvt-3-69031dba2256c.pdf",
+        "sha256": "2555a5929c2cbbcf9f41fff56b6c782efef2047b903f810304c2ed837aa0750b"
+      },
+      "directNumericDrawing": false,
+      "note": "CTVB/CTVT vertical-discharge table; N size row, not CTHB/CTHT horizontal-discharge table."
+    },
+    "SP|HCTB/4-400-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTB/4-400-B",
+      "drawing": "hct",
+      "sourceRow": "400",
+      "values": {
+        "ØA": 760.0,
+        "B": 630.0,
+        "C": 535.0,
+        "ØD": 400.0,
+        "ØE": 12.0,
+        "F": 40.0,
+        "G": 80.0,
+        "H": 372.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCTB/4-450-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTB/4-450-B",
+      "drawing": "hct",
+      "sourceRow": "450",
+      "values": {
+        "ØA": 895.0,
+        "B": 710.0,
+        "C": 590.0,
+        "ØD": 450.0,
+        "ØE": 14.0,
+        "F": 40.0,
+        "G": 110.0,
+        "H": 416.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCTB/4-500-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTB/4-500-B",
+      "drawing": "hct",
+      "sourceRow": "500",
+      "values": {
+        "ØA": 895.0,
+        "B": 710.0,
+        "C": 590.0,
+        "ØD": 500.0,
+        "ØE": 14.0,
+        "F": 40.0,
+        "G": 110.0,
+        "H": 436.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCTB/4-560-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTB/4-560-B",
+      "drawing": "hct",
+      "sourceRow": "560",
+      "values": {
+        "ØA": 1150.0,
+        "B": 905.0,
+        "C": 750.0,
+        "ØD": 560.0,
+        "ØE": 14.0,
+        "F": 50.0,
+        "G": 165.0,
+        "H": 508.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCTB/4-630-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTB/4-630-B",
+      "drawing": "hct",
+      "sourceRow": "630",
+      "values": {
+        "ØA": 1150.0,
+        "B": 905.0,
+        "C": 750.0,
+        "ØD": 630.0,
+        "ØE": 14.0,
+        "F": 50.0,
+        "G": 165.0,
+        "H": 508.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCTT/4-710-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTT/4-710-B",
+      "drawing": "hct",
+      "sourceRow": "710",
+      "values": {
+        "ØA": 1350.0,
+        "B": 1100.0,
+        "C": 840.0,
+        "ØD": 710.0,
+        "ØE": 14.0,
+        "F": 50.0,
+        "G": 200.0,
+        "H": 549.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCTT/4-800-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTT/4-800-B",
+      "drawing": "hct",
+      "sourceRow": "800",
+      "values": {
+        "ØA": 1350.0,
+        "B": 1100.0,
+        "C": 840.0,
+        "ØD": 800.0,
+        "ØE": 14.0,
+        "F": 50.0,
+        "G": 200.0,
+        "H": 729.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCTT/4-900-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTT/4-900-B",
+      "drawing": "hct",
+      "sourceRow": "900",
+      "values": {
+        "ØA": 1580.0,
+        "B": 1250.0,
+        "C": 950.0,
+        "ØD": 900.0,
+        "ØE": 14.0,
+        "F": 50.0,
+        "G": 200.0,
+        "H": 763.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCTT/4-1000-B": {
+      "seriesId": "HCTB / HCTT",
+      "model": "HCTT/4-1000-B",
+      "drawing": "hct",
+      "sourceRow": "1000",
+      "values": {
+        "ØA": 1580.0,
+        "B": 1250.0,
+        "C": 950.0,
+        "ØD": 1000.0,
+        "ØE": 14.0,
+        "F": 50.0,
+        "G": 200.0,
+        "H": 763.0
+      },
+      "source": {
+        "catalogue": "hctb-hctt.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/hctb-hctt-4-67f3c03ef10a7.pdf",
+        "sha256": "ad37df64e714cfe3b4d3dc75060ba4de58ff4aa9e4c28f5ab46b75f344a7a551"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HDT/4-315": {
+      "seriesId": "HDB / HDT ATEX",
+      "model": "HDT/4-315",
+      "drawing": "hdt",
+      "sourceRow": "315",
+      "values": {
+        "A": 400.0,
+        "B": 330.0,
+        "C": 323.0,
+        "ØD": 315.0,
+        "ØE": 10.0,
+        "F": 85.0,
+        "G": 329.0
+      },
+      "source": {
+        "catalogue": "hdt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/hdt-atex-0.pdf",
+        "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d"
+      },
+      "directNumericDrawing": false,
+      "note": "C uses /4 pole column."
+    },
+    "SP|HDT/4-355": {
+      "seriesId": "HDB / HDT ATEX",
+      "model": "HDT/4-355",
+      "drawing": "hdt",
+      "sourceRow": "355",
+      "values": {
+        "A": 450.0,
+        "B": 380.0,
+        "C": 325.0,
+        "ØD": 355.0,
+        "ØE": 10.0,
+        "F": 87.0,
+        "G": 371.0
+      },
+      "source": {
+        "catalogue": "hdt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/hdt-atex-0.pdf",
+        "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d"
+      },
+      "directNumericDrawing": false,
+      "note": "C uses /4 pole column."
+    },
+    "SP|HDT/4-400": {
+      "seriesId": "HDB / HDT ATEX",
+      "model": "HDT/4-400",
+      "drawing": "hdt",
+      "sourceRow": "400",
+      "values": {
+        "A": 500.0,
+        "B": 420.0,
+        "C": 336.0,
+        "ØD": 400.0,
+        "ØE": 10.0,
+        "F": 90.0,
+        "G": 422.0
+      },
+      "source": {
+        "catalogue": "hdt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/hdt-atex-0.pdf",
+        "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d"
+      },
+      "directNumericDrawing": false,
+      "note": "C uses /4 pole column."
+    },
+    "SP|HDT/4-450": {
+      "seriesId": "HDB / HDT ATEX",
+      "model": "HDT/4-450",
+      "drawing": "hdt",
+      "sourceRow": "450",
+      "values": {
+        "A": 560.0,
+        "B": 480.0,
+        "C": 360.0,
+        "ØD": 450.0,
+        "ØE": 10.0,
+        "F": 106.0,
+        "G": 476.0
+      },
+      "source": {
+        "catalogue": "hdt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/hdt-atex-0.pdf",
+        "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d"
+      },
+      "directNumericDrawing": false,
+      "note": "C uses /4 pole column."
+    },
+    "SP|HDT/4-560": {
+      "seriesId": "HDB / HDT ATEX",
+      "model": "HDT/4-560",
+      "drawing": "hdt",
+      "sourceRow": "560",
+      "values": {
+        "A": 710.0,
+        "B": 630.0,
+        "C": 435.0,
+        "ØD": 560.0,
+        "ØE": 10.0,
+        "F": 112.0,
+        "G": 596.0
+      },
+      "source": {
+        "catalogue": "hdt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/hdt-atex-0.pdf",
+        "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d"
+      },
+      "directNumericDrawing": false,
+      "note": "C uses /4 pole column."
+    },
+    "SP|HV-150 AE": {
+      "seriesId": "HV-STYLVENT",
+      "model": "HV-150 AE",
+      "drawing": "hv",
+      "sourceRow": "150",
+      "values": {
+        "A": 230.0,
+        "B": 251.0,
+        "C": 109.0,
+        "ØD_min": 187.0,
+        "ØD_max": 190.0,
+        "E_min": 3.0,
+        "E_max": 25.0,
+        "F_min": 22.0,
+        "G": 160.0,
+        "H_min": 150.0
+      },
+      "source": {
+        "catalogue": "hv.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hv-styvent-0.pdf",
+        "sha256": "e206d1527f02b72f5d66ad45c0e7d5e0a49ee20fca70c90bb27346c2943ecd58"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HV-230 A": {
+      "seriesId": "HV-STYLVENT",
+      "model": "HV-230 A",
+      "drawing": "hv",
+      "sourceRow": "230",
+      "values": {
+        "A": 300.0,
+        "B": 325.0,
+        "C": 142.0,
+        "ØD_min": 259.0,
+        "ØD_max": 262.0,
+        "E_min": 3.0,
+        "E_max": 25.0,
+        "F_min": 22.0,
+        "G": 200.0,
+        "H_min": 185.0
+      },
+      "source": {
+        "catalogue": "hv.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hv-styvent-0.pdf",
+        "sha256": "e206d1527f02b72f5d66ad45c0e7d5e0a49ee20fca70c90bb27346c2943ecd58"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HV-300 A": {
+      "seriesId": "HV-STYLVENT",
+      "model": "HV-300 A",
+      "drawing": "hv",
+      "sourceRow": "300",
+      "values": {
+        "A": 368.0,
+        "B": 403.0,
+        "C": 150.0,
+        "ØD_min": 327.0,
+        "ØD_max": 330.0,
+        "E_min": 3.0,
+        "E_max": 25.0,
+        "F_min": 22.0,
+        "G": 230.0,
+        "H_min": 220.0
+      },
+      "source": {
+        "catalogue": "hv.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hv-styvent-0.pdf",
+        "sha256": "e206d1527f02b72f5d66ad45c0e7d5e0a49ee20fca70c90bb27346c2943ecd58"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HXTR/4-500": {
+      "seriesId": "HXBR / HXTR",
+      "model": "HXTR/4-500",
+      "drawing": "hx",
+      "sourceRow": "500",
+      "values": {
+        "A": 630.0,
+        "B": 560.0,
+        "C": 450.0,
+        "ØD": 500.0,
+        "ØD1": 512.0,
+        "ØD2": 536.0,
+        "ØE": 10.0,
+        "F": 13.0,
+        "HT": 176.0,
+        "J": 60.0,
+        "K": 97.0,
+        "L": 12.0,
+        "M": 79.0
+      },
+      "source": {
+        "catalogue": "hxbr-hxtr.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxbr-hxtr-4.pdf",
+        "sha256": "f218ab3f4803ccfb6fe7661ba6c0a6c2f906a8ebbc4b4833a463649f694cb900"
+      },
+      "directNumericDrawing": false,
+      "note": "F, HT and M use the three-phase column; /4 for 500/560/630, /6 for 710."
+    },
+    "SP|HXTR/4-560": {
+      "seriesId": "HXBR / HXTR",
+      "model": "HXTR/4-560",
+      "drawing": "hx",
+      "sourceRow": "560",
+      "values": {
+        "A": 710.0,
+        "B": 630.0,
+        "C": 510.0,
+        "ØD": 560.0,
+        "ØD1": 570.0,
+        "ØD2": 596.0,
+        "ØE": 10.0,
+        "F": 20.0,
+        "HT": 188.0,
+        "J": 70.0,
+        "K": 99.0,
+        "L": 12.0,
+        "M": 89.0
+      },
+      "source": {
+        "catalogue": "hxbr-hxtr.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxbr-hxtr-4.pdf",
+        "sha256": "f218ab3f4803ccfb6fe7661ba6c0a6c2f906a8ebbc4b4833a463649f694cb900"
+      },
+      "directNumericDrawing": false,
+      "note": "F, HT and M use the three-phase column; /4 for 500/560/630, /6 for 710."
+    },
+    "SP|HXTR/4-630": {
+      "seriesId": "HXBR / HXTR",
+      "model": "HXTR/4-630",
+      "drawing": "hx",
+      "sourceRow": "630",
+      "values": {
+        "A": 800.0,
+        "B": 710.0,
+        "C": 580.0,
+        "ØD": 630.0,
+        "ØD1": 640.0,
+        "ØD2": 674.0,
+        "ØE": 12.0,
+        "F": 25.0,
+        "HT": 182.0,
+        "J": 60.0,
+        "K": 103.0,
+        "L": 12.0,
+        "M": 79.0
+      },
+      "source": {
+        "catalogue": "hxbr-hxtr.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxbr-hxtr-4.pdf",
+        "sha256": "f218ab3f4803ccfb6fe7661ba6c0a6c2f906a8ebbc4b4833a463649f694cb900"
+      },
+      "directNumericDrawing": false,
+      "note": "F, HT and M use the three-phase column; /4 for 500/560/630, /6 for 710."
+    },
+    "SP|HXTR/6-710": {
+      "seriesId": "HXBR / HXTR",
+      "model": "HXTR/6-710",
+      "drawing": "hx",
+      "sourceRow": "710",
+      "values": {
+        "A": 900.0,
+        "B": 800.0,
+        "C": 637.0,
+        "ØD": 710.0,
+        "ØD1": 720.0,
+        "ØD2": 733.0,
+        "ØE": 12.0,
+        "F": 11.0,
+        "HT": 206.0,
+        "J": 115.0,
+        "K": 92.0,
+        "L": 17.0,
+        "M": 115.0
+      },
+      "source": {
+        "catalogue": "hxbr-hxtr.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxbr-hxtr-4.pdf",
+        "sha256": "f218ab3f4803ccfb6fe7661ba6c0a6c2f906a8ebbc4b4833a463649f694cb900"
+      },
+      "directNumericDrawing": false,
+      "note": "F, HT and M use the three-phase column; /4 for 500/560/630, /6 for 710."
+    },
+    "SP|HXM-350": {
+      "seriesId": "HXM",
+      "model": "HXM-350",
+      "drawing": "hxm-small",
+      "sourceRow": "350",
+      "values": {
+        "A": 390.5,
+        "B": 465.0,
+        "ØC": 10.5,
+        "ØD": 361.0,
+        "E": 106.0,
+        "F": 34.5,
+        "ØG": 371.0
+      },
+      "source": {
+        "catalogue": "hxm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxm-3.pdf",
+        "sha256": "01a728ad4e37621c5edbd1b0ba5596384170ed66047c5dea1fa6520082ac62bb"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HXM-400": {
+      "seriesId": "HXM",
+      "model": "HXM-400",
+      "drawing": "hxm-400",
+      "sourceRow": "400",
+      "values": {},
+      "source": {
+        "catalogue": "hxm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxm-3.pdf",
+        "sha256": "01a728ad4e37621c5edbd1b0ba5596384170ed66047c5dea1fa6520082ac62bb"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|HXM-200": {
+      "seriesId": "HXM",
+      "model": "HXM-200",
+      "drawing": "hxm-small",
+      "sourceRow": "200",
+      "values": {
+        "A": 222.5,
+        "B": 266.0,
+        "ØC": 9.5,
+        "ØD": 205.0,
+        "E": 88.0,
+        "F": 19.5,
+        "ØG": 211.0
+      },
+      "source": {
+        "catalogue": "hxm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxm-3.pdf",
+        "sha256": "01a728ad4e37621c5edbd1b0ba5596384170ed66047c5dea1fa6520082ac62bb"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HXM-250": {
+      "seriesId": "HXM",
+      "model": "HXM-250",
+      "drawing": "hxm-small",
+      "sourceRow": "250",
+      "values": {
+        "A": 275.5,
+        "B": 333.0,
+        "ØC": 9.5,
+        "ØD": 255.0,
+        "E": 99.0,
+        "F": 31.5,
+        "ØG": 261.0
+      },
+      "source": {
+        "catalogue": "hxm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxm-3.pdf",
+        "sha256": "01a728ad4e37621c5edbd1b0ba5596384170ed66047c5dea1fa6520082ac62bb"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HXM-300": {
+      "seriesId": "HXM",
+      "model": "HXM-300",
+      "drawing": "hxm-small",
+      "sourceRow": "300",
+      "values": {
+        "A": 336.5,
+        "B": 400.0,
+        "ØC": 10.5,
+        "ØD": 305.0,
+        "E": 99.0,
+        "F": 35.5,
+        "ØG": 311.0
+      },
+      "source": {
+        "catalogue": "hxm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/aksiyel-fanlar/hxm-3.pdf",
+        "sha256": "01a728ad4e37621c5edbd1b0ba5596384170ed66047c5dea1fa6520082ac62bb"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILB/4-200": {
+      "seriesId": "ILB / ILT",
+      "model": "ILB/4-200",
+      "drawing": "il",
+      "sourceRow": "200",
+      "values": {
+        "A": 505.0,
+        "B": 400.0,
+        "C": 198.0,
+        "D": 420.0,
+        "E": 220.0,
+        "F": 440.0,
+        "G": 240.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILB/4-225": {
+      "seriesId": "ILB / ILT",
+      "model": "ILB/4-225",
+      "drawing": "il",
+      "sourceRow": "225",
+      "values": {
+        "A": 535.0,
+        "B": 500.0,
+        "C": 248.0,
+        "D": 520.0,
+        "E": 270.0,
+        "F": 540.0,
+        "G": 290.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILB/4-250": {
+      "seriesId": "ILB / ILT",
+      "model": "ILB/4-250",
+      "drawing": "il",
+      "sourceRow": "250",
+      "values": {
+        "A": 565.0,
+        "B": 500.0,
+        "C": 298.0,
+        "D": 520.0,
+        "E": 320.0,
+        "F": 540.0,
+        "G": 340.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILB/6-285": {
+      "seriesId": "ILB / ILT",
+      "model": "ILB/6-285",
+      "drawing": "il",
+      "sourceRow": "285",
+      "values": {
+        "A": 645.0,
+        "B": 600.0,
+        "C": 298.0,
+        "D": 620.0,
+        "E": 320.0,
+        "F": 640.0,
+        "G": 340.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILB/6-355": {
+      "seriesId": "ILB / ILT",
+      "model": "ILB/6-355",
+      "drawing": "il",
+      "sourceRow": "355",
+      "values": {
+        "A": 785.0,
+        "B": 700.0,
+        "C": 398.0,
+        "D": 720.0,
+        "E": 420.0,
+        "F": 740.0,
+        "G": 440.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/4-250": {
+      "seriesId": "ILB / ILT",
+      "model": "ILT/4-250",
+      "drawing": "il",
+      "sourceRow": "250",
+      "values": {
+        "A": 565.0,
+        "B": 500.0,
+        "C": 298.0,
+        "D": 520.0,
+        "E": 320.0,
+        "F": 540.0,
+        "G": 340.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/4-285": {
+      "seriesId": "ILB / ILT",
+      "model": "ILT/4-285",
+      "drawing": "il",
+      "sourceRow": "285",
+      "values": {
+        "A": 645.0,
+        "B": 600.0,
+        "C": 298.0,
+        "D": 620.0,
+        "E": 320.0,
+        "F": 640.0,
+        "G": 340.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/4-315": {
+      "seriesId": "ILB / ILT",
+      "model": "ILT/4-315",
+      "drawing": "il",
+      "sourceRow": "315",
+      "values": {
+        "A": 725.0,
+        "B": 600.0,
+        "C": 348.0,
+        "D": 620.0,
+        "E": 370.0,
+        "F": 640.0,
+        "G": 390.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/4-400": {
+      "seriesId": "ILB / ILT",
+      "model": "ILT/4-400",
+      "drawing": "il",
+      "sourceRow": "400",
+      "values": {
+        "A": 885.0,
+        "B": 800.0,
+        "C": 498.0,
+        "D": 820.0,
+        "E": 520.0,
+        "F": 840.0,
+        "G": 540.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/6-355": {
+      "seriesId": "ILB / ILT",
+      "model": "ILT/6-355",
+      "drawing": "il",
+      "sourceRow": "355",
+      "values": {
+        "A": 785.0,
+        "B": 700.0,
+        "C": 398.0,
+        "D": 720.0,
+        "E": 420.0,
+        "F": 740.0,
+        "G": 440.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/6-400": {
+      "seriesId": "ILB / ILT",
+      "model": "ILT/6-400",
+      "drawing": "il",
+      "sourceRow": "400",
+      "values": {
+        "A": 885.0,
+        "B": 800.0,
+        "C": 498.0,
+        "D": 820.0,
+        "E": 520.0,
+        "F": 840.0,
+        "G": 540.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/6-450": {
+      "seriesId": "ILB / ILT",
+      "model": "ILT/6-450",
+      "drawing": "il",
+      "sourceRow": "450",
+      "values": {
+        "A": 985.0,
+        "B": 1000.0,
+        "C": 498.0,
+        "D": 1020.0,
+        "E": 520.0,
+        "F": 1040.0,
+        "G": 540.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/8-400": {
+      "seriesId": "ILB / ILT",
+      "model": "ILT/8-400",
+      "drawing": "il",
+      "sourceRow": "400",
+      "values": {
+        "A": 885.0,
+        "B": 800.0,
+        "C": 498.0,
+        "D": 820.0,
+        "E": 520.0,
+        "F": 840.0,
+        "G": 540.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilbilt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/ilb-ilt-0.pdf",
+        "sha256": "395ee9effb5f658e2ee0ec2dd16093997d78e3fa4a91e18b2784c4709b865ca8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/4-225 EX": {
+      "seriesId": "ILT ATEX",
+      "model": "ILT/4-225 EX",
+      "drawing": "il-atex",
+      "sourceRow": "225",
+      "values": {
+        "A": 535.0,
+        "B": 500.0,
+        "C": 248.0,
+        "D": 520.0,
+        "E": 270.0,
+        "F": 540.0,
+        "G": 290.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/ilt-atex-4-6a3a1c726c9da.pdf",
+        "sha256": "799ea62fe93eb92b2bde4674c951b3c01147e4201ea4b02c126d55a25262ce33"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/4-250 EX": {
+      "seriesId": "ILT ATEX",
+      "model": "ILT/4-250 EX",
+      "drawing": "il-atex",
+      "sourceRow": "250",
+      "values": {
+        "A": 565.0,
+        "B": 500.0,
+        "C": 298.0,
+        "D": 520.0,
+        "E": 320.0,
+        "F": 540.0,
+        "G": 340.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/ilt-atex-4-6a3a1c726c9da.pdf",
+        "sha256": "799ea62fe93eb92b2bde4674c951b3c01147e4201ea4b02c126d55a25262ce33"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/4-285 EX": {
+      "seriesId": "ILT ATEX",
+      "model": "ILT/4-285 EX",
+      "drawing": "il-atex",
+      "sourceRow": "285",
+      "values": {
+        "A": 645.0,
+        "B": 600.0,
+        "C": 298.0,
+        "D": 620.0,
+        "E": 320.0,
+        "F": 640.0,
+        "G": 340.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/ilt-atex-4-6a3a1c726c9da.pdf",
+        "sha256": "799ea62fe93eb92b2bde4674c951b3c01147e4201ea4b02c126d55a25262ce33"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|ILT/4-315 EX": {
+      "seriesId": "ILT ATEX",
+      "model": "ILT/4-315 EX",
+      "drawing": "il-atex",
+      "sourceRow": "315",
+      "values": {
+        "A": 725.0,
+        "B": 600.0,
+        "C": 348.0,
+        "D": 620.0,
+        "E": 370.0,
+        "F": 640.0,
+        "G": 390.0,
+        "ØH": 9.0
+      },
+      "source": {
+        "catalogue": "ilt-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/ilt-atex-4-6a3a1c726c9da.pdf",
+        "sha256": "799ea62fe93eb92b2bde4674c951b3c01147e4201ea4b02c126d55a25262ce33"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRB/4-225": {
+      "seriesId": "IRB / IRT",
+      "model": "IRB/4-225",
+      "drawing": "ir",
+      "sourceRow": "225",
+      "values": {
+        "A1": 500.0,
+        "A2": 250.0,
+        "B1": 520.0,
+        "B2": 270.0,
+        "C1": 540.0,
+        "C2": 290.0,
+        "H1": 300.0,
+        "H2": 730.0,
+        "L": 530.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRB/4-315 A": {
+      "seriesId": "IRB / IRT",
+      "model": "IRB/4-315 A",
+      "drawing": "ir",
+      "sourceRow": "315",
+      "values": {
+        "A1": 600.0,
+        "A2": 350.0,
+        "B1": 620.0,
+        "B2": 370.0,
+        "C1": 640.0,
+        "C2": 390.0,
+        "H1": 405.0,
+        "H2": 1020.0,
+        "L": 720.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRB/4-315 B": {
+      "seriesId": "IRB / IRT",
+      "model": "IRB/4-315 B",
+      "drawing": "ir",
+      "sourceRow": "315",
+      "values": {
+        "A1": 600.0,
+        "A2": 350.0,
+        "B1": 620.0,
+        "B2": 370.0,
+        "C1": 640.0,
+        "C2": 390.0,
+        "H1": 405.0,
+        "H2": 1020.0,
+        "L": 720.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRB/6-355": {
+      "seriesId": "IRB / IRT",
+      "model": "IRB/6-355",
+      "drawing": "ir",
+      "sourceRow": "355",
+      "values": {
+        "A1": 700.0,
+        "A2": 400.0,
+        "B1": 720.0,
+        "B2": 420.0,
+        "C1": 740.0,
+        "C2": 440.0,
+        "H1": 460.0,
+        "H2": 1135.0,
+        "L": 790.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRB/6-400": {
+      "seriesId": "IRB / IRT",
+      "model": "IRB/6-400",
+      "drawing": "ir",
+      "sourceRow": "400",
+      "values": {
+        "A1": 800.0,
+        "A2": 500.0,
+        "B1": 820.0,
+        "B2": 520.0,
+        "C1": 845.0,
+        "C2": 545.0,
+        "H1": 565.0,
+        "H2": 1330.0,
+        "L": 880.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRB/6-450": {
+      "seriesId": "IRB / IRT",
+      "model": "IRB/6-450",
+      "drawing": "ir",
+      "sourceRow": "450",
+      "values": {
+        "A1": 1000.0,
+        "A2": 500.0,
+        "B1": 1020.0,
+        "B2": 520.0,
+        "C1": 1045.0,
+        "C2": 545.0,
+        "H1": 565.0,
+        "H2": 1430.0,
+        "L": 980.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRT/4-315 A": {
+      "seriesId": "IRB / IRT",
+      "model": "IRT/4-315 A",
+      "drawing": "ir",
+      "sourceRow": "315",
+      "values": {
+        "A1": 600.0,
+        "A2": 350.0,
+        "B1": 620.0,
+        "B2": 370.0,
+        "C1": 640.0,
+        "C2": 390.0,
+        "H1": 405.0,
+        "H2": 1020.0,
+        "L": 720.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRT/4-315 B": {
+      "seriesId": "IRB / IRT",
+      "model": "IRT/4-315 B",
+      "drawing": "ir",
+      "sourceRow": "315",
+      "values": {
+        "A1": 600.0,
+        "A2": 350.0,
+        "B1": 620.0,
+        "B2": 370.0,
+        "C1": 640.0,
+        "C2": 390.0,
+        "H1": 405.0,
+        "H2": 1020.0,
+        "L": 720.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRT/4-355": {
+      "seriesId": "IRB / IRT",
+      "model": "IRT/4-355",
+      "drawing": "ir",
+      "sourceRow": "355",
+      "values": {
+        "A1": 700.0,
+        "A2": 400.0,
+        "B1": 720.0,
+        "B2": 420.0,
+        "C1": 740.0,
+        "C2": 440.0,
+        "H1": 460.0,
+        "H2": 1135.0,
+        "L": 790.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRT/4-400 A": {
+      "seriesId": "IRB / IRT",
+      "model": "IRT/4-400 A",
+      "drawing": "ir",
+      "sourceRow": "400",
+      "values": {
+        "A1": 800.0,
+        "A2": 500.0,
+        "B1": 820.0,
+        "B2": 520.0,
+        "C1": 845.0,
+        "C2": 545.0,
+        "H1": 565.0,
+        "H2": 1330.0,
+        "L": 880.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRT/4-450": {
+      "seriesId": "IRB / IRT",
+      "model": "IRT/4-450",
+      "drawing": "ir",
+      "sourceRow": "450",
+      "values": {
+        "A1": 1000.0,
+        "A2": 500.0,
+        "B1": 1020.0,
+        "B2": 520.0,
+        "C1": 1045.0,
+        "C2": 545.0,
+        "H1": 565.0,
+        "H2": 1430.0,
+        "L": 980.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|IRT/6-450": {
+      "seriesId": "IRB / IRT",
+      "model": "IRT/6-450",
+      "drawing": "ir",
+      "sourceRow": "450",
+      "values": {
+        "A1": 1000.0,
+        "A2": 500.0,
+        "B1": 1020.0,
+        "B2": 520.0,
+        "C1": 1045.0,
+        "C2": 545.0,
+        "H1": 565.0,
+        "H2": 1430.0,
+        "L": 980.0
+      },
+      "source": {
+        "catalogue": "irb-irt.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/dikdortgen-kanal-tipi-fanlar/irb-irt-0.pdf",
+        "sha256": "ffa41f75f22caa08247e4f812d1771513bc36c19fb012959e1a99b4694330d23"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-800/200 EX": {
+      "seriesId": "TD ATEX",
+      "model": "TD-800/200 EX",
+      "drawing": "td-atex",
+      "sourceRow": "800",
+      "values": {
+        "A": 302.0,
+        "B": 255.0,
+        "C": 232.5,
+        "ØD": 198.0,
+        "E": 140.0,
+        "F": 100.0,
+        "G": 94.0,
+        "H": 124.0,
+        "I": 228.4
+      },
+      "source": {
+        "catalogue": "td-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/td-atex-0.pdf",
+        "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-1100/250 EX": {
+      "seriesId": "TD ATEX",
+      "model": "TD-1100/250 EX",
+      "drawing": "td-atex",
+      "sourceRow": "1100",
+      "values": {
+        "A": 386.0,
+        "B": 324.0,
+        "C": 291.0,
+        "ØD": 248.0,
+        "E": 168.0,
+        "F": 145.0,
+        "G": 140.0,
+        "H": 155.0,
+        "I": 339.0
+      },
+      "source": {
+        "catalogue": "td-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/td-atex-0.pdf",
+        "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-1200/315 EX": {
+      "seriesId": "TD ATEX",
+      "model": "TD-1200/315 EX",
+      "drawing": "td-atex",
+      "sourceRow": "1200",
+      "values": {
+        "A": 450.0,
+        "B": 392.0,
+        "C": 356.0,
+        "ØD": 312.0,
+        "E": 210.0,
+        "F": 182.0,
+        "G": 178.0,
+        "H": 188.0,
+        "I": 371.0
+      },
+      "source": {
+        "catalogue": "td-atex.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/ex-proof-fanlar/td-atex-0.pdf",
+        "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TH-800/200 EX": {
+      "seriesId": "TH ATEX",
+      "model": "TH-800/200 EX",
+      "drawing": "th-atex",
+      "sourceRow": "800",
+      "values": {
+        "ØA": 400.0,
+        "B": 371.0,
+        "C": 300.0,
+        "ØD": 198.0,
+        "E": 245.0,
+        "ØF": 10.0,
+        "G": 20.0,
+        "H": 306.0,
+        "I": 36.0
+      },
+      "source": {
+        "catalogue": "en-selector.pdf",
+        "page": 68,
+        "url": "https://statics.solerpalau.com/media/import/documentation/Product_Selector_Price_List_Issue.pdf",
+        "sha256": "9b1283435fb94106cc0a6987b76bc145afc85c30d0ed078790c84532dd160d43"
+      },
+      "directNumericDrawing": false,
+      "note": "Legacy TH-ATEX geometry from the manufacturer selector matching all three EX model names. Do not substitute the newer two-model geometry."
+    },
+    "SP|TH-1100/250 EX": {
+      "seriesId": "TH ATEX",
+      "model": "TH-1100/250 EX",
+      "drawing": "th-atex",
+      "sourceRow": "1100",
+      "values": {
+        "ØA": 546.0,
+        "B": 457.0,
+        "C": 435.0,
+        "ØD": 248.0,
+        "E": 330.0,
+        "ØF": 12.0,
+        "G": 20.0,
+        "H": 372.0,
+        "I": 42.0
+      },
+      "source": {
+        "catalogue": "en-selector.pdf",
+        "page": 68,
+        "url": "https://statics.solerpalau.com/media/import/documentation/Product_Selector_Price_List_Issue.pdf",
+        "sha256": "9b1283435fb94106cc0a6987b76bc145afc85c30d0ed078790c84532dd160d43"
+      },
+      "directNumericDrawing": false,
+      "note": "Legacy TH-ATEX geometry from the manufacturer selector matching all three EX model names. Do not substitute the newer two-model geometry."
+    },
+    "SP|TH-1200/315 EX": {
+      "seriesId": "TH ATEX",
+      "model": "TH-1200/315 EX",
+      "drawing": "th-atex",
+      "sourceRow": "1200",
+      "values": {
+        "ØA": 735.0,
+        "B": 544.0,
+        "C": 560.0,
+        "ØD": 312.0,
+        "E": 450.0,
+        "ØF": 12.0,
+        "G": 20.0,
+        "H": 450.0,
+        "I": 50.0
+      },
+      "source": {
+        "catalogue": "en-selector.pdf",
+        "page": 68,
+        "url": "https://statics.solerpalau.com/media/import/documentation/Product_Selector_Price_List_Issue.pdf",
+        "sha256": "9b1283435fb94106cc0a6987b76bc145afc85c30d0ed078790c84532dd160d43"
+      },
+      "directNumericDrawing": false,
+      "note": "Legacy TH-ATEX geometry from the manufacturer selector matching all three EX model names. Do not substitute the newer two-model geometry."
+    },
+    "SP|TH-500/150": {
+      "seriesId": "TH-MIXVENT",
+      "model": "TH-500/150",
+      "drawing": "th",
+      "sourceRow": "500",
+      "values": {
+        "ØA": 400.0,
+        "B": 349.0,
+        "C": 300.0,
+        "ØD": 150.0,
+        "E": 245.0,
+        "ØF": 10.0,
+        "G": 20.0,
+        "H": 274.0,
+        "I": 33.0
+      },
+      "source": {
+        "catalogue": "th-mixvent.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/th-mixvent-0.pdf",
+        "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TH-800": {
+      "seriesId": "TH-MIXVENT",
+      "model": "TH-800",
+      "drawing": "th",
+      "sourceRow": "800",
+      "values": {
+        "ØA": 400.0,
+        "B": 371.0,
+        "C": 300.0,
+        "ØD": 198.0,
+        "E": 245.0,
+        "ØF": 10.0,
+        "G": 20.0,
+        "H": 306.0,
+        "I": 36.0
+      },
+      "source": {
+        "catalogue": "th-mixvent.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/th-mixvent-0.pdf",
+        "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TH-1300": {
+      "seriesId": "TH-MIXVENT",
+      "model": "TH-1300",
+      "drawing": "th",
+      "sourceRow": "1300",
+      "values": {
+        "ØA": 546.0,
+        "B": 457.0,
+        "C": 435.0,
+        "ØD": 248.0,
+        "E": 330.0,
+        "ØF": 12.0,
+        "G": 20.0,
+        "H": 372.0,
+        "I": 42.0
+      },
+      "source": {
+        "catalogue": "th-mixvent.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/th-mixvent-0.pdf",
+        "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TH-2000": {
+      "seriesId": "TH-MIXVENT",
+      "model": "TH-2000",
+      "drawing": "th",
+      "sourceRow": "2000",
+      "values": {
+        "ØA": 735.0,
+        "B": 544.0,
+        "C": 560.0,
+        "ØD": 312.0,
+        "E": 450.0,
+        "ØF": 12.0,
+        "G": 20.0,
+        "H": 450.0,
+        "I": 50.0
+      },
+      "source": {
+        "catalogue": "th-mixvent.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/cati-tipi-fanlar/th-mixvent-0.pdf",
+        "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CAB-125": {
+      "seriesId": "CAB",
+      "model": "CAB-125",
+      "drawing": "cab",
+      "sourceRow": "125",
+      "values": {
+        "A": 273.0,
+        "B": 388.0,
+        "C": 395.0,
+        "ØD": 125.0,
+        "E": 125.0,
+        "F": 162.0,
+        "G": 505.0
+      },
+      "source": {
+        "catalogue": "cab.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/cab-0.pdf",
+        "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CAB-200": {
+      "seriesId": "CAB",
+      "model": "CAB-200",
+      "drawing": "cab",
+      "sourceRow": "200",
+      "values": {
+        "A": 328.0,
+        "B": 430.0,
+        "C": 365.0,
+        "ØD": 200.0,
+        "E": 216.0,
+        "F": 210.0,
+        "G": 475.0
+      },
+      "source": {
+        "catalogue": "cab.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/cab-0.pdf",
+        "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CAB-250N": {
+      "seriesId": "CAB",
+      "model": "CAB-250N",
+      "drawing": "cab",
+      "sourceRow": "250",
+      "values": {
+        "A": 383.0,
+        "B": 525.0,
+        "C": 450.0,
+        "ØD": 250.0,
+        "E": 263.0,
+        "F": 237.0,
+        "G": 560.0
+      },
+      "source": {
+        "catalogue": "cab.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/cab-0.pdf",
+        "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+        "tableCatalogue": "en-cab.pdf",
+        "tablePage": 2,
+        "tableUrl": "https://statics.solerpalau.com/media/import/documentation/EN_CAB.pdf",
+        "tableSha256": "1ab2d2fbacde7349328a72e9c7b5ccbb876dfdc688245faf328a3d88e860d669"
+      },
+      "directNumericDrawing": false,
+      "note": "CAB-250N row verified in EN_CAB.pdf page 2; matches the 250 housing in the Turkish drawing."
+    },
+    "SP|CAB-315": {
+      "seriesId": "CAB",
+      "model": "CAB-315",
+      "drawing": "cab",
+      "sourceRow": "315",
+      "values": {
+        "A": 443.0,
+        "B": 600.0,
+        "C": 505.0,
+        "ØD": 315.0,
+        "E": 301.0,
+        "F": 264.0,
+        "G": 615.0
+      },
+      "source": {
+        "catalogue": "cab.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/cab-0.pdf",
+        "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CAB-355": {
+      "seriesId": "CAB",
+      "model": "CAB-355",
+      "drawing": "cab",
+      "sourceRow": "355",
+      "values": {
+        "A": 513.0,
+        "B": 660.0,
+        "C": 600.0,
+        "ØD": 355.0,
+        "E": 331.0,
+        "F": 292.0,
+        "G": 710.0
+      },
+      "source": {
+        "catalogue": "cab.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/cab-0.pdf",
+        "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|CAB-400": {
+      "seriesId": "CAB",
+      "model": "CAB-400",
+      "drawing": "cab",
+      "sourceRow": "400",
+      "values": {
+        "A": 513.0,
+        "B": 660.0,
+        "C": 600.0,
+        "ØD": 400.0,
+        "E": 331.0,
+        "F": 292.0,
+        "G": 710.0
+      },
+      "source": {
+        "catalogue": "cab.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/cab-0.pdf",
+        "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|EDM-80 N": {
+      "seriesId": "EDM",
+      "model": "EDM-80 N",
+      "drawing": "edm-80",
+      "sourceRow": "80",
+      "values": {},
+      "source": {
+        "catalogue": "edm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/edm-0.pdf",
+        "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|EDM-100": {
+      "seriesId": "EDM",
+      "model": "EDM-100",
+      "drawing": "edm-100",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "edm.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/edm-0.pdf",
+        "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|EDM-200": {
+      "seriesId": "EDM",
+      "model": "EDM-200",
+      "drawing": "edm-200",
+      "sourceRow": "200",
+      "values": {},
+      "source": {
+        "catalogue": "edm.pdf",
+        "page": 7,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/edm-0.pdf",
+        "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|HCM-150 N": {
+      "seriesId": "HCM-N",
+      "model": "HCM-150 N",
+      "drawing": "hcm",
+      "sourceRow": "150",
+      "values": {
+        "ØA": 214.0,
+        "ØB": 174.0,
+        "C": 60.0,
+        "D": 88.0,
+        "E": 35.0,
+        "F": 98.0
+      },
+      "source": {
+        "catalogue": "hcm.pdf",
+        "page": 1,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hcm-0.pdf",
+        "sha256": "c75188f6b85a8dbaa137473737472633a9cb10a7831c8033969344628283932c"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCM-180 N": {
+      "seriesId": "HCM-N",
+      "model": "HCM-180 N",
+      "drawing": "hcm",
+      "sourceRow": "180",
+      "values": {
+        "ØA": 255.0,
+        "ØB": 205.0,
+        "C": 86.0,
+        "D": 120.0,
+        "E": 35.0,
+        "F": 135.0
+      },
+      "source": {
+        "catalogue": "hcm.pdf",
+        "page": 1,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hcm-0.pdf",
+        "sha256": "c75188f6b85a8dbaa137473737472633a9cb10a7831c8033969344628283932c"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|HCM-225 N": {
+      "seriesId": "HCM-N",
+      "model": "HCM-225 N",
+      "drawing": "hcm",
+      "sourceRow": "225",
+      "values": {
+        "ØA": 298.0,
+        "ØB": 248.0,
+        "C": 89.0,
+        "D": 119.0,
+        "E": 35.0,
+        "F": 125.0
+      },
+      "source": {
+        "catalogue": "hcm.pdf",
+        "page": 1,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/hcm-0.pdf",
+        "sha256": "c75188f6b85a8dbaa137473737472633a9cb10a7831c8033969344628283932c"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|JETLINE-315": {
+      "seriesId": "JETLINE",
+      "model": "JETLINE-315",
+      "drawing": "jetline",
+      "sourceRow": "315",
+      "values": {
+        "A": 369.0,
+        "B1": 20.0,
+        "B2": 33.0,
+        "C1": 322.0,
+        "C2": 331.0,
+        "ØD": 310.0,
+        "E": 357.5,
+        "F": 407.0,
+        "G": 120.0,
+        "H": 170.0,
+        "I": 50.0,
+        "ØJ": 15.0,
+        "K": 6.5
+      },
+      "source": {
+        "catalogue": "jetline.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+        "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|JETLINE-100": {
+      "seriesId": "JETLINE",
+      "model": "JETLINE-100",
+      "drawing": "jetline",
+      "sourceRow": "100",
+      "values": {
+        "A": 276.0,
+        "B1": 15.0,
+        "B2": 15.0,
+        "C1": 181.0,
+        "C2": 190.0,
+        "ØD": 95.0,
+        "E": 256.0,
+        "F": 306.0,
+        "G": 70.0,
+        "H": 98.0,
+        "I": "-",
+        "ØJ": 15.0,
+        "K": 6.5
+      },
+      "source": {
+        "catalogue": "jetline.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+        "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|JETLINE-125": {
+      "seriesId": "JETLINE",
+      "model": "JETLINE-125",
+      "drawing": "jetline",
+      "sourceRow": "125",
+      "values": {
+        "A": 279.0,
+        "B1": 15.0,
+        "B2": 15.0,
+        "C1": 206.0,
+        "C2": 214.0,
+        "ØD": 120.0,
+        "E": 265.0,
+        "F": 315.0,
+        "G": 70.0,
+        "H": 111.0,
+        "I": "-",
+        "ØJ": 15.0,
+        "K": 6.5
+      },
+      "source": {
+        "catalogue": "jetline.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+        "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|JETLINE-150": {
+      "seriesId": "JETLINE",
+      "model": "JETLINE-150",
+      "drawing": "jetline",
+      "sourceRow": "150",
+      "values": {
+        "A": 323.0,
+        "B1": 20.0,
+        "B2": 20.0,
+        "C1": 243.5,
+        "C2": 252.0,
+        "ØD": 145.0,
+        "E": 298.5,
+        "F": 348.0,
+        "G": 70.0,
+        "H": 130.0,
+        "I": "-",
+        "ØJ": 15.0,
+        "K": 6.5
+      },
+      "source": {
+        "catalogue": "jetline.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+        "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|JETLINE-160": {
+      "seriesId": "JETLINE",
+      "model": "JETLINE-160",
+      "drawing": "jetline",
+      "sourceRow": "160",
+      "values": {
+        "A": 323.0,
+        "B1": 20.0,
+        "B2": 20.0,
+        "C1": 243.5,
+        "C2": 252.0,
+        "ØD": 155.0,
+        "E": 298.5,
+        "F": 348.0,
+        "G": 70.0,
+        "H": 130.0,
+        "I": "-",
+        "ØJ": 15.0,
+        "K": 6.5
+      },
+      "source": {
+        "catalogue": "jetline.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+        "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|JETLINE-200": {
+      "seriesId": "JETLINE",
+      "model": "JETLINE-200",
+      "drawing": "jetline",
+      "sourceRow": "200",
+      "values": {
+        "A": 322.0,
+        "B1": 30.0,
+        "B2": 30.0,
+        "C1": 273.0,
+        "C2": 281.0,
+        "ØD": 195.0,
+        "E": 320.0,
+        "F": 369.0,
+        "G": 70.0,
+        "H": 144.5,
+        "I": "-",
+        "ØJ": 15.0,
+        "K": 6.5
+      },
+      "source": {
+        "catalogue": "jetline.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+        "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|JETLINE-250": {
+      "seriesId": "JETLINE",
+      "model": "JETLINE-250",
+      "drawing": "jetline",
+      "sourceRow": "250",
+      "values": {
+        "A": 329.0,
+        "B1": 20.0,
+        "B2": 30.0,
+        "C1": 293.0,
+        "C2": 301.0,
+        "ØD": 245.0,
+        "E": 326.0,
+        "F": 375.0,
+        "G": 120.0,
+        "H": 154.3,
+        "I": 50.0,
+        "ØJ": 15.0,
+        "K": 6.5
+      },
+      "source": {
+        "catalogue": "jetline.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/jetline-3.pdf",
+        "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|SILENTUB-100": {
+      "seriesId": "SILENTUB",
+      "model": "SILENTUB-100",
+      "drawing": "silentub",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "silentub.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silentub-0.pdf",
+        "sha256": "a5c6334013cec74691969f6aabce0932e30d6c9d3c4f3b04b2100f805f4a256a"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|DECOR-100 DESIGN": {
+      "seriesId": "DECOR DESIGN",
+      "model": "DECOR-100 DESIGN",
+      "drawing": "decor-design-100",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "decordesign.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-design-0.pdf",
+        "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|DECOR-200 DESIGN": {
+      "seriesId": "DECOR DESIGN",
+      "model": "DECOR-200 DESIGN",
+      "drawing": "decor-design-200",
+      "sourceRow": "200",
+      "values": {},
+      "source": {
+        "catalogue": "decordesign.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-design-0.pdf",
+        "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|DECOR-300 DESIGN": {
+      "seriesId": "DECOR DESIGN",
+      "model": "DECOR-300 DESIGN",
+      "drawing": "decor-design-300",
+      "sourceRow": "300",
+      "values": {},
+      "source": {
+        "catalogue": "decordesign.pdf",
+        "page": 6,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-design-0.pdf",
+        "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|DECOR-100": {
+      "seriesId": "DECOR",
+      "model": "DECOR-100",
+      "drawing": "decor-100",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "decor.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-0.pdf",
+        "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|DECOR-200": {
+      "seriesId": "DECOR",
+      "model": "DECOR-200",
+      "drawing": "decor-200",
+      "sourceRow": "200",
+      "values": {},
+      "source": {
+        "catalogue": "decor.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-0.pdf",
+        "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|DECOR-300": {
+      "seriesId": "DECOR",
+      "model": "DECOR-300",
+      "drawing": "decor-300",
+      "sourceRow": "300",
+      "values": {},
+      "source": {
+        "catalogue": "decor.pdf",
+        "page": 7,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/decor-0.pdf",
+        "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|SILENT-100 DESIGN": {
+      "seriesId": "SILENT DESIGN",
+      "model": "SILENT-100 DESIGN",
+      "drawing": "silent-design-100",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "silent-design.pdf",
+        "page": 3,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silent-design-0.pdf",
+        "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|SILENT-200 DESIGN": {
+      "seriesId": "SILENT DESIGN",
+      "model": "SILENT-200 DESIGN",
+      "drawing": "silent-design-200",
+      "sourceRow": "200",
+      "values": {},
+      "source": {
+        "catalogue": "silent-design.pdf",
+        "page": 7,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silent-design-0.pdf",
+        "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|SILENT-300 DESIGN": {
+      "seriesId": "SILENT DESIGN",
+      "model": "SILENT-300 DESIGN",
+      "drawing": "silent-design-300",
+      "sourceRow": "300",
+      "values": {},
+      "source": {
+        "catalogue": "silent-design.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/silent-design-0.pdf",
+        "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|TD EVO-100": {
+      "seriesId": "TD-EVO",
+      "model": "TD EVO-100",
+      "drawing": "evo",
+      "sourceRow": "100",
+      "values": {
+        "A": 302.0,
+        "B": 181.0,
+        "C": 201.0,
+        "ØD": 97.0,
+        "E": 28.5,
+        "F": 107.0,
+        "G": 133.0,
+        "H": 100.0,
+        "I": 168.0,
+        "J": 100.0,
+        "ØK": 4.5,
+        "L": 89.0,
+        "M": 189.0
+      },
+      "source": {
+        "catalogue": "td-evo.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-evo-3.pdf",
+        "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD EVO-125": {
+      "seriesId": "TD-EVO",
+      "model": "TD EVO-125",
+      "drawing": "evo",
+      "sourceRow": "125",
+      "values": {
+        "A": 302.0,
+        "B": 191.0,
+        "C": 221.0,
+        "ØD": 122.5,
+        "E": 28.5,
+        "F": 117.0,
+        "G": 132.0,
+        "H": 100.0,
+        "I": 172.0,
+        "J": 104.5,
+        "ØK": 4.5,
+        "L": 91.0,
+        "M": 209.0
+      },
+      "source": {
+        "catalogue": "td-evo.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-evo-3.pdf",
+        "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD EVO-150": {
+      "seriesId": "TD-EVO",
+      "model": "TD EVO-150",
+      "drawing": "evo",
+      "sourceRow": "150",
+      "values": {
+        "A": 306.0,
+        "B": 221.0,
+        "C": 240.0,
+        "ØD": 147.0,
+        "E": 25.0,
+        "F": 126.0,
+        "G": 165.0,
+        "H": 120.0,
+        "I": 170.0,
+        "J": 142.0,
+        "ØK": 5.5,
+        "L": 121.0,
+        "M": 229.0
+      },
+      "source": {
+        "catalogue": "td-evo.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-evo-3.pdf",
+        "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD EVO-200": {
+      "seriesId": "TD-EVO",
+      "model": "TD EVO-200",
+      "drawing": "evo",
+      "sourceRow": "200",
+      "values": {
+        "A": 346.0,
+        "B": 238.0,
+        "C": 263.0,
+        "ØD": 197.0,
+        "E": 28.0,
+        "F": 137.0,
+        "G": 190.0,
+        "H": 124.0,
+        "I": 211.0,
+        "J": 161.0,
+        "ØK": 5.5,
+        "L": 161.0,
+        "M": 253.0
+      },
+      "source": {
+        "catalogue": "td-evo.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-evo-3.pdf",
+        "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD EVO-250": {
+      "seriesId": "TD-EVO",
+      "model": "TD EVO-250",
+      "drawing": "evo",
+      "sourceRow": "250",
+      "values": {
+        "A": 390.0,
+        "B": 289.0,
+        "C": 306.0,
+        "ØD": 247.0,
+        "E": 40.0,
+        "F": 159.0,
+        "G": 230.0,
+        "H": 155.0,
+        "I": 231.0,
+        "J": 194.0,
+        "ØK": 7.0,
+        "L": 182.0,
+        "M": 295.0
+      },
+      "source": {
+        "catalogue": "td-evo.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-evo-3.pdf",
+        "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD EVO-315": {
+      "seriesId": "TD-EVO",
+      "model": "TD EVO-315",
+      "drawing": "evo",
+      "sourceRow": "315",
+      "values": {
+        "A": 485.0,
+        "B": 353.0,
+        "C": 371.0,
+        "ØD": 312.0,
+        "E": 40.0,
+        "F": 192.0,
+        "G": 278.0,
+        "H": 188.0,
+        "I": 317.0,
+        "J": 242.0,
+        "ØK": 7.0,
+        "L": 206.0,
+        "M": 358.0
+      },
+      "source": {
+        "catalogue": "td-evo.pdf",
+        "page": 4,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-evo-3.pdf",
+        "sha256": "d2103fe55a4768c4dd7fd1973a9996aa59377aa6d2d3abb8d56f115ece13533e"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-250/100": {
+      "seriesId": "TD-MIXVENT",
+      "model": "TD-250/100",
+      "drawing": "td",
+      "sourceRow": "250",
+      "values": {
+        "X": 188.0,
+        "A": 303.0,
+        "ØB": 176.0,
+        "C": 115.0,
+        "ØD": 97.0,
+        "E": 100.0,
+        "F": 90.0,
+        "G": 80.0,
+        "H": 60.0
+      },
+      "source": {
+        "catalogue": "td.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+        "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-350/125": {
+      "seriesId": "TD-MIXVENT",
+      "model": "TD-350/125",
+      "drawing": "td",
+      "sourceRow": "350",
+      "values": {
+        "X": 188.0,
+        "A": 258.0,
+        "ØB": 176.0,
+        "C": 115.0,
+        "ØD": 123.0,
+        "E": 100.0,
+        "F": 90.0,
+        "G": 80.0,
+        "H": 60.0
+      },
+      "source": {
+        "catalogue": "td.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+        "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-500/150": {
+      "seriesId": "TD-MIXVENT",
+      "model": "TD-500/150",
+      "drawing": "td",
+      "sourceRow": "500",
+      "values": {
+        "X": 212.0,
+        "A": 295.0,
+        "ØB": 200.0,
+        "C": 127.0,
+        "ØD": 147.0,
+        "E": 112.0,
+        "F": 130.0,
+        "G": 80.0,
+        "H": 60.0
+      },
+      "source": {
+        "catalogue": "td.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+        "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-800/200": {
+      "seriesId": "TD-MIXVENT",
+      "model": "TD-800/200",
+      "drawing": "td",
+      "sourceRow": "800",
+      "values": {
+        "X": 232.5,
+        "A": 302.0,
+        "ØB": 217.0,
+        "C": 141.0,
+        "ØD": 198.0,
+        "E": 124.0,
+        "F": 140.0,
+        "G": 100.0,
+        "H": 94.0
+      },
+      "source": {
+        "catalogue": "td.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+        "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-4000/355": {
+      "seriesId": "TD-MIXVENT",
+      "model": "TD-4000/355",
+      "drawing": "td-big",
+      "sourceRow": "4000",
+      "values": {
+        "A": 377.0,
+        "B": 238.0,
+        "C": 249.0,
+        "D": 224.0,
+        "ØE": 426.0,
+        "ØF": 354.0,
+        "G": 160.0,
+        "H": 368.0,
+        "I": 474.0,
+        "J": 340.0,
+        "ØK": 8.5
+      },
+      "source": {
+        "catalogue": "td.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+        "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-6000/400": {
+      "seriesId": "TD-MIXVENT",
+      "model": "TD-6000/400",
+      "drawing": "td-big",
+      "sourceRow": "6000",
+      "values": {
+        "A": 407.0,
+        "B": 249.0,
+        "C": 249.0,
+        "D": 267.0,
+        "ØE": 487.0,
+        "ØF": 399.0,
+        "G": 160.0,
+        "H": 425.0,
+        "I": 547.0,
+        "J": 370.0,
+        "ØK": 8.5
+      },
+      "source": {
+        "catalogue": "td.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-0.pdf",
+        "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-160/100N SILENT": {
+      "seriesId": "TD-SILENT",
+      "model": "TD-160/100N SILENT",
+      "drawing": "td-silent-160",
+      "sourceRow": "160",
+      "values": {},
+      "source": {
+        "catalogue": "td-silent.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|TD-250/100 SILENT": {
+      "seriesId": "TD-SILENT",
+      "model": "TD-250/100 SILENT",
+      "drawing": "td-silent",
+      "sourceRow": "250",
+      "values": {
+        "A": 575.0,
+        "ØB": 97.0,
+        "C": 252.0,
+        "ØD": 204.0,
+        "E": 100.0,
+        "F": 250.0,
+        "G": 83.0,
+        "H": 121.0
+      },
+      "source": {
+        "catalogue": "td-silent.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-350/125 SILENT": {
+      "seriesId": "TD-SILENT",
+      "model": "TD-350/125 SILENT",
+      "drawing": "td-silent",
+      "sourceRow": "350",
+      "values": {
+        "A": 462.0,
+        "ØB": 123.0,
+        "C": 252.0,
+        "ØD": 204.0,
+        "E": 100.0,
+        "F": 250.0,
+        "G": 83.0,
+        "H": 121.0
+      },
+      "source": {
+        "catalogue": "td-silent.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-500/150 SILENT": {
+      "seriesId": "TD-SILENT",
+      "model": "TD-500/150 SILENT",
+      "drawing": "td-silent",
+      "sourceRow": "500",
+      "values": {
+        "A": 484.0,
+        "ØB": 147.0,
+        "C": 274.0,
+        "ØD": 221.0,
+        "E": 116.0,
+        "F": 250.0,
+        "G": 96.0,
+        "H": 134.0
+      },
+      "source": {
+        "catalogue": "td-silent.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67"
+      },
+      "directNumericDrawing": false,
+      "note": "150 mm configuration; manufacturer also supplies a gasket for 160 mm ducts."
+    },
+    "SP|TD-800/200 SILENT": {
+      "seriesId": "TD-SILENT",
+      "model": "TD-800/200 SILENT",
+      "drawing": "td-silent",
+      "sourceRow": "800",
+      "values": {
+        "A": 568.0,
+        "ØB": 198.0,
+        "C": 327.0,
+        "ØD": 264.0,
+        "E": 145.0,
+        "F": 340.0,
+        "G": 129.0,
+        "H": 164.0
+      },
+      "source": {
+        "catalogue": "td-silent.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-1000/200 SILENT": {
+      "seriesId": "TD-SILENT",
+      "model": "TD-1000/200 SILENT",
+      "drawing": "td-silent",
+      "sourceRow": "1000",
+      "values": {
+        "A": 568.0,
+        "ØB": 198.0,
+        "C": 327.0,
+        "ØD": 264.0,
+        "E": 145.0,
+        "F": 340.0,
+        "G": 129.0,
+        "H": 164.0
+      },
+      "source": {
+        "catalogue": "td-silent.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-1300/250 SILENT": {
+      "seriesId": "TD-SILENT",
+      "model": "TD-1300/250 SILENT",
+      "drawing": "td-silent-big",
+      "sourceRow": "1300",
+      "values": {
+        "A": 680.0,
+        "ØB": 248.0,
+        "C": 331.0,
+        "ØD": 387.0,
+        "E": 140.0,
+        "F": 200.0,
+        "G": 280.0,
+        "H": 171.0
+      },
+      "source": {
+        "catalogue": "td-silent.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TD-2000/315 SILENT": {
+      "seriesId": "TD-SILENT",
+      "model": "TD-2000/315 SILENT",
+      "drawing": "td-silent-big",
+      "sourceRow": "2000",
+      "values": {
+        "A": 825.0,
+        "ØB": 312.0,
+        "C": 373.0,
+        "ØD": 432.0,
+        "E": 152.0,
+        "F": 260.0,
+        "G": 335.0,
+        "H": 192.0
+      },
+      "source": {
+        "catalogue": "td-silent.pdf",
+        "page": 5,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/td-silent-4-67f3bcbcc206d.pdf",
+        "sha256": "e219f27255f939cbc79f4505c50571e80d08a0c38a409ffd03d2471c190adb67"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TDM-300": {
+      "seriesId": "TDM",
+      "model": "TDM-300",
+      "drawing": "tdm-300",
+      "sourceRow": "300",
+      "values": {},
+      "source": {
+        "catalogue": "tdm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/tdm-0.pdf",
+        "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40"
+      },
+      "directNumericDrawing": true
+    },
+    "SP|TDM-100": {
+      "seriesId": "TDM",
+      "model": "TDM-100",
+      "drawing": "tdm",
+      "sourceRow": "100",
+      "values": {
+        "ØD": 99,
+        "L": 67.5
+      },
+      "source": {
+        "catalogue": "tdm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/tdm-0.pdf",
+        "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|TDM-200": {
+      "seriesId": "TDM",
+      "model": "TDM-200",
+      "drawing": "tdm",
+      "sourceRow": "200",
+      "values": {
+        "ØD": 118,
+        "L": 78
+      },
+      "source": {
+        "catalogue": "tdm.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyel-fanlar/tdm-0.pdf",
+        "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-100NK": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-100NK",
+      "drawing": "vent",
+      "sourceRow": "100",
+      "values": {
+        "A": 195.0,
+        "B": 23.0,
+        "ØC": 243.0,
+        "ØD": 98.0
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-125NK": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-125NK",
+      "drawing": "vent",
+      "sourceRow": "125",
+      "values": {
+        "A": 197.0,
+        "B": 27.0,
+        "ØC": 243.0,
+        "ØD": 123.0
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-150NK": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-150NK",
+      "drawing": "vent",
+      "sourceRow": "150",
+      "values": {
+        "A": 213.0,
+        "B": 22.0,
+        "ØC": 333.0,
+        "ØD": 147.0
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-160NK": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-160NK",
+      "drawing": "vent",
+      "sourceRow": "160",
+      "values": {
+        "A": 220.0,
+        "B": 27.0,
+        "ØC": 333.0,
+        "ØD": 157.0
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-200NK": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-200NK",
+      "drawing": "vent",
+      "sourceRow": "200",
+      "values": {
+        "A": 223.0,
+        "B": 25.0,
+        "ØC": 333.0,
+        "ØD": 198.0
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-250NK": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-250NK",
+      "drawing": "vent",
+      "sourceRow": "250",
+      "values": {
+        "A": 205.0,
+        "B": 27.0,
+        "ØC": 333.0,
+        "ØD": 248.0
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-315NK": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-315NK",
+      "drawing": "vent",
+      "sourceRow": "315",
+      "values": {
+        "A": 232.0,
+        "B": 25.0,
+        "ØC": 401.0,
+        "ØD": 312.0
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-355N": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-355N",
+      "drawing": "vent-big",
+      "sourceRow": "355",
+      "values": {
+        "A": 410.0,
+        "B": 25.0,
+        "ØC": 508.0,
+        "ØD": 354.0,
+        "ØD2": 314.0,
+        "E": 552.0,
+        "F": 100.0,
+        "G": 170.0,
+        "H": 587.0,
+        "ØJ": 10.5
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP|VENT-400N": {
+      "seriesId": "VENT-NK / VENT-N",
+      "model": "VENT-400N",
+      "drawing": "vent-big",
+      "sourceRow": "400",
+      "values": {
+        "A": 431.0,
+        "B": 25.0,
+        "ØC": 568.0,
+        "ØD": 399.0,
+        "ØD2": 354.0,
+        "E": 628.0,
+        "F": 100.0,
+        "G": 185.0,
+        "H": 647.0,
+        "ØJ": 10.5
+      },
+      "source": {
+        "catalogue": "vent-nk.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/yuvarlak-kanal-tipi-fanlar/vent-nk-0.pdf",
+        "sha256": "42ae980b3140d048472f6099af4e513f42c394b0787a47bda3d0cdf1f1fcc833"
+      },
+      "directNumericDrawing": false
+    },
+    "SP-WORKBOOK-2026-2|SILENT|156": {
+      "seriesId": "SILENT",
+      "model": "SILENT-100 CZ",
+      "drawing": "silent-100",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "silent.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+        "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e"
+      },
+      "directNumericDrawing": true
+    },
+    "SP-WORKBOOK-2026-2|SILENT|157": {
+      "seriesId": "SILENT",
+      "model": "SILENT-100 CRZ",
+      "drawing": "silent-100",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "silent.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+        "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e"
+      },
+      "directNumericDrawing": true
+    },
+    "SP-WORKBOOK-2026-2|SILENT|158": {
+      "seriesId": "SILENT",
+      "model": "SILENT-100 CZ SILVER",
+      "drawing": "silent-100",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "silent.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+        "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e"
+      },
+      "directNumericDrawing": true
+    },
+    "SP-WORKBOOK-2026-2|SILENT|159": {
+      "seriesId": "SILENT",
+      "model": "SILENT-100 CRZ SILVER",
+      "drawing": "silent-100",
+      "sourceRow": "100",
+      "values": {},
+      "source": {
+        "catalogue": "silent.pdf",
+        "page": 2,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+        "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e"
+      },
+      "directNumericDrawing": true
+    },
+    "SP-WORKBOOK-2026-2|SILENT|160": {
+      "seriesId": "SILENT",
+      "model": "SILENT-200 CZ",
+      "drawing": "silent-200",
+      "sourceRow": "200",
+      "values": {},
+      "source": {
+        "catalogue": "silent.pdf",
+        "page": 7,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+        "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e"
+      },
+      "directNumericDrawing": true
+    },
+    "SP-WORKBOOK-2026-2|SILENT|161": {
+      "seriesId": "SILENT",
+      "model": "SILENT-200 CRZ",
+      "drawing": "silent-200",
+      "sourceRow": "200",
+      "values": {},
+      "source": {
+        "catalogue": "silent.pdf",
+        "page": 7,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+        "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e"
+      },
+      "directNumericDrawing": true
+    },
+    "SP-WORKBOOK-2026-2|SILENT|162": {
+      "seriesId": "SILENT",
+      "model": "SILENT-300 CZ",
+      "drawing": "silent-300",
+      "sourceRow": "300",
+      "values": {},
+      "source": {
+        "catalogue": "silent.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+        "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e"
+      },
+      "directNumericDrawing": true
+    },
+    "SP-WORKBOOK-2026-2|SILENT|163": {
+      "seriesId": "SILENT",
+      "model": "SILENT-300 CRZ",
+      "drawing": "silent-300",
+      "sourceRow": "300",
+      "values": {},
+      "source": {
+        "catalogue": "silent.pdf",
+        "page": 9,
+        "url": "https://www.solerpalau.com.tr/img/urunlerpdf/fanlar/mini-aksiyal-fanlar/silent-4-69aeb6f4ad3c8.pdf",
+        "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e"
+      },
+      "directNumericDrawing": true
+    }
+  }
+}
