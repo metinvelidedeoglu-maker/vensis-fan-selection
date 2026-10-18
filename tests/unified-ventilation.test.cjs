@@ -55,7 +55,7 @@ test('existing manufacturer drawings and dimensions reach the shared preview',()
     const model=C.models.find(m=>series.has(m.seriesId)&&m.dimensions);
     assert.ok(model,brand.name);
     const html=w.VensisDirectPreview.html({product:C.product(model.id),model});
-    assert.match(html,/<table class="dimension-table">/);
+    assert.match(html,/<table class="dimension-table(?: split-values)?">/);
     if(model.media.dimensionImage)assert.ok(html.includes(model.media.dimensionImage));
   }
   const v=C.models.find(m=>m.model==='CA 100 MD EXTRA EU');
@@ -109,7 +109,7 @@ test('all 156 VORTICE products have a source-traceable, local original dimension
     assert.ok(m.dimensions.source.catalogue,m.model);assert.ok(m.dimensions.source.page>0,m.model);
     const html=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
     assert.match(html,/data-original-catalog-drawing/,m.model);
-    assert.equal(html.includes('<table class="dimension-table">'),m.dimensions.headers.length>0,m.model);
+    assert.equal(html.includes('<table class="dimension-table'),m.dimensions.headers.length>0,m.model);
   }
 });
 test('LINEO dimensions follow the exact manufacturer row, with decimal values preserved',()=>{

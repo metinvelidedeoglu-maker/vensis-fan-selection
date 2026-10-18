@@ -48,7 +48,7 @@ try{
   // Every active VORTICE drawing variant must render without blank columns or stretched rows.
   const dimensionSamples=await page.evaluate(()=>{
     const C=window.VensisCatalog,ids=new Set(C.series.filter(s=>s.manufacturer==='VORTICE').map(s=>s.id));
-    return [...new Map(C.models.filter(m=>ids.has(m.seriesId)).map(m=>[m.media.dimensionImage,m.id])).values()];
+    const samples=new Map();for(const m of C.models.filter(m=>ids.has(m.seriesId)))if(!samples.has(m.media.dimensionImage))samples.set(m.media.dimensionImage,m.id);return [...samples.values()];
   });
   for(const id of dimensionSamples){
     const html=await page.evaluate(id=>window.VensisDirectPreview.html({product:window.VensisCatalog.product(id),model:window.VensisCatalog.getModel(id),language:'tr'}),id);
