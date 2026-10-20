@@ -12,6 +12,34 @@
     seriesOrder.compare(a.manufacturer||'',b.manufacturer||'')
   );
   const allModels=catalog.models||[];
+  const modelsBySeries=new Map();
+  for(const model of allModels){
+    if(!modelsBySeries.has(model.seriesId))modelsBySeries.set(model.seriesId,[]);
+    modelsBySeries.get(model.seriesId).push(model);
+  }
+  const normalizeSearch=value=>String(value||'').normalize('NFKD').replace(/[ıİ]/g,'i').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+  let searchText=String(new URLSearchParams(location.search).get('q')||'').trim();
+  const matchesSearch=(value,term)=>{
+    const haystack=normalizeSearch(value);
+    return haystack.includes(term)||term.split(' ').every(word=>haystack.includes(word));
+  };
+  function matchingModels(series,term){
+    if(!term)return [];
+    return (modelsBySeries.get(series.id)||[]).filter(model=>matchesSearch([model.model,model.id,model.technical?.productCode].join(' '),term));
+  }
+  function modelSearchUrl(series,model){
+    const routed=window.VensisVentilationRoutes?.navigationUrl?.(series,model);
+    if(routed)return routed;
+    const q=new URLSearchParams(location.search);q.set('series',series.id);q.set('model',model.id);
+    return '/catalog.html?'+q.toString();
+  }
+  function searchResultHtml(series,term){
+    if(!term)return '';
+    const matches=matchingModels(series,term);
+    if(!matches.length)return '';
+    const result=matches.slice(0,6).map(model=>'<a class="catalog-search-result" href="'+esc(modelSearchUrl(series,model))+'">↳ '+esc(model.model)+'</a>').join('');
+    return '<div class="catalog-search-results">'+result+(matches.length>6?'<span class="catalog-search-result-note">+'+(matches.length-6)+' model daha</span>':'')+'</div>';
+  }
   const manufacturers=unique(allSeries.map(series=>series.manufacturer));
   const categories=unique(allSeries.flatMap(series=>series.categories||[]));
 
@@ -21,10 +49,11 @@
   }
   for(const category of params.getAll('category'))if(categories.includes(category))selected.categories.add(category);
   function syncFilters(){
-    const q=new URLSearchParams(location.search);for(const key of ['brand','brands','category','series','model','lang'])q.delete(key);
+    const q=new URLSearchParams(location.search);for(const key of ['brand','brands','category','series','model','lang','q'])q.delete(key);
     const brands=[...selected.manufacturers].map(name=>catalog.brand(name).slug);
     if(brands.length)q.set(brands.length===1?'brand':'brands',brands.join(','));
     for(const category of selected.categories)q.append('category',category);
+    if(searchText)q.set('q',searchText);
     const lang=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'en';
     history.replaceState(history.state,'','/'+lang+'/catalog.html'+(q.size?'?'+q.toString():''));
     window.VensisVentilationRoutes?.apply();
@@ -48,6 +77,8 @@
     return allSeries.filter(series=>{
       if(selected.manufacturers.size&&!selected.manufacturers.has(series.manufacturer))return false;
       if(selected.categories.size&&![...selected.categories].every(category=>(series.categories||[]).includes(category)))return false;
+      const term=normalizeSearch(searchText);
+      if(term&&!matchesSearch([series.manufacturer,series.code,series.title,(series.categories||[]).join(' ')].join(' '),term)&&!matchingModels(series,term).length)return false;
       return true;
     });
   }
@@ -66,6 +97,7 @@
         <div class="series-title">${esc(series.title||'')}</div>
         ${summary&&summary!==series.title?`<p>${esc(summary)}</p>`:''}
         <div class="series-card-footer"><b>${count} Models</b><span>View Series →</span></div>
+        ${searchResultHtml(series,normalizeSearch(searchText))}
       </div>
     </article>`;
   }
@@ -76,8 +108,8 @@
     document.getElementById('catalogGrid').innerHTML=rows.map(seriesCard).join('')||'<div class="empty-state">No series matches these filters.</div>';
     document.querySelectorAll('[data-series]').forEach(card=>{
       const open=()=>location.assign(seriesUrl(card.dataset.series));
-      card.addEventListener('click',()=>open());
-      card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}});
+      card.addEventListener('click',event=>{if(!event.target.closest('.catalog-search-result'))open()});
+      card.addEventListener('keydown',event=>{if(event.target.closest('.catalog-search-result'))return;if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}});
     });
   }
 
@@ -94,20 +126,22 @@
     return [zones?`Zone ${zones}`:'',groups,temperatures,epl?`EPL ${epl}`:'',atex.special_conditions_X?'X special conditions':''].filter(Boolean).join(' · ');
   }
 
+  function modelFeatures(model){
+    const lang=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'tr';
+    const tags=window.VensisCatalogFeatureTags?.(model,lang)||[];
+    return '<div class="model-feature-section"><div class="model-feature-heading">'+(lang==='tr'?'Özellikler':'Features')+'</div><div class="model-feature-tags">'+
+      (tags.length?tags.map(tag=>'<span class="model-feature-tag">'+esc(tag)+'</span>').join(''):'<span class="model-feature-empty">-</span>')+'</div></div>';
+  }
   function modelFields(model){
     const info=model.standard||{};
     const fields=[
-      ['Motor Power',info.motorPower>0?`${num(info.motorPower,2)} kW`:'-'],
+      ['Motor Power',info.motorPower>0?`${num(info.motorPower,3)} kW`:'-'],
       ['Speed',info.speed>0?`${num(info.speed)} rpm`:'-'],
       ['Voltage',info.voltage||'-'],
       ['Max. Airflow',info.maxAirflow>0?`${num(info.maxAirflow)} m³/h`:'-'],
-      ['Sound',info.sound>0?`${num(info.sound)} dB(A)`:'-'],
-      ['Price',info.price>0?`${num(info.price,2)} ${model.pricing?.currency||'EUR'}`:'-']
+      ['Price',info.price>0?`${num(info.price,2)} ${model.pricing?.currency||'EUR'}`:'-'],
+      ['Phase',model.technical?.phase||model.motor?.phase||'-']
     ];
-    const lang=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'en';
-    const features=model.features?.[lang]||model.features?.en;
-    if(features)fields.push(['Features',features]);
-    if(model.technical?.timerVariant)fields.push(['Timer','Yes']);
     return fields.map(([label,value])=>`<div class="model-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
   }
 
@@ -126,6 +160,7 @@
         <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?'<span class="model-catalog-only">Catalog only</span>':'<span class="model-catalog-only" style="background:#e8f6ef;color:#087f4f">Curve available · selection ready</span>'}</div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
+      ${modelFeatures(model)}
       ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> ${esc(model.technical.safetyWarning)}</div>`:''}
       ${dimensionImage?`<details class="model-dimension"><summary>Dimension Drawing</summary><img src="${esc(dimensionImage)}" alt="${esc(model.model)} dimension drawing" loading="lazy" onerror="this.closest('details').hidden=true"></details>`:''}
 
@@ -243,11 +278,14 @@
   }
 
   function back(){const q=new URLSearchParams(location.search);q.delete('series');q.delete('model');location.assign('/catalog.html'+(q.toString()?'?'+q.toString():''))}
-  function reset(){selected.manufacturers.clear();selected.categories.clear();renderFilters();renderSeries();syncFilters()}
+  function reset(){selected.manufacturers.clear();selected.categories.clear();searchText='';const box=document.getElementById('catalogSearch');if(box)box.value='';renderFilters();renderSeries();syncFilters()}
 
   window.Catalog={render:renderSeries,reset,showSeries,saveModelPdf,addCatalogToProject,back};
   renderFilters();
+  const searchInput=document.getElementById('catalogSearch');
+  if(searchInput){searchInput.value=searchText;searchInput.addEventListener('input',()=>{searchText=searchInput.value.trim();renderSeries();syncFilters()});}
   const requestedValue=new URLSearchParams(location.search).get('series');
   const requestedSeries=catalog.resolveSeries?.(requestedValue,params.get('brand'))?.id||requestedValue;
   if(requestedSeries)showSeries(requestedSeries);else renderSeries();
+  window.addEventListener('vensis-language-changed',()=>{if(requestedSeries)showSeries(requestedSeries);else renderSeries()});
 })();

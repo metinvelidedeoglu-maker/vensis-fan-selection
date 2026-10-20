@@ -30,7 +30,7 @@
       flowAxis:'Debi (m³/h)',pressureAxis:'Statik Basınç (Pa)',
       controlLevel:'Kontrol Seviyesi',availableControls:'Mevcut Kontrol Seviyeleri',
       selectedAirflow:'Seçilen Debi',nominalAirflow:'Nominal Debi',selectedPressure:'Seçilen Basınç',
-      motorPower:'Motor Gücü',current:'Akım',speed:'Devir',voltage:'Gerilim',soundLevel:'Ses Seviyesi',
+      motorPower:'Motor Gücü',current:'Akım',speed:'Devir',voltage:'Gerilim',soundLevel:'Ses Seviyesi',maxAirflow:'Maksimum Debi',phase:'Faz',frequency:'Frekans',weight:'Ağırlık',workingTemperature:'Çalışma Sıcaklığı',featureTags:'ÖZELLİKLER',safety:'Güvenlik',
       fanType:'Fan Tipi',mount:'Montaj',ipClass:'IP Sınıfı',technicalInfo:'TEKNİK BİLGİLER',
       noFeatures:'Bu ürün için genel özellik bilgisi bulunmuyor.',
       drawingDimensions:'TEKNİK RESİM & ÖLÇÜLER',dimension:'Ölçü',value:'Değer',
@@ -48,7 +48,7 @@
       flowAxis:'Flow (m³/h)',pressureAxis:'Static Pressure (Pa)',
       controlLevel:'Control Level',availableControls:'Available Controls',
       selectedAirflow:'Selected Airflow',nominalAirflow:'Nominal Airflow',selectedPressure:'Selected Pressure',
-      motorPower:'Motor Power',current:'Current',speed:'Speed',voltage:'Voltage',soundLevel:'Sound Level',
+      motorPower:'Motor Power',current:'Current',speed:'Speed',voltage:'Voltage',soundLevel:'Sound Level',maxAirflow:'Maximum Airflow',phase:'Phase',frequency:'Frequency',weight:'Weight',workingTemperature:'Operating Temperature',featureTags:'FEATURES',safety:'Safety',
       fanType:'Fan Type',mount:'Mounting',ipClass:'IP Class',technicalInfo:'TECHNICAL INFORMATION',
       noFeatures:'General feature information is not available for this product.',
       drawingDimensions:'TECHNICAL DRAWING & DIMENSIONS',dimension:'Dimension',value:'Value',
@@ -174,22 +174,30 @@
         current:motor.current??model.amps,
         speed:motor.speed??model.rpm,
         voltage:motor.voltage??model.voltage,
-        sound:motor.sound??model.spl
+        sound:motor.sound??model.spl,
+        frequency:motor.frequency??technical.frequency??model.frequency
       },
       technical:{
         fanType:trCategory(technical.fanType||model.fanTypeEn||model.fanType||''),
         mountType:trCategory(technical.mountType||model.mountTypeEn||model.mountType||''),
         ipClass:technical.ipClass||model.ipClass||'',
-        fireRating:technical.fireRating||model.fireRating||model.fire||''
+        fireRating:technical.fireRating||model.fireRating||model.fire||'',
+        phase:technical.phase??motor.phase??model.phase??'',
+        weight:technical.weight??model.weight,
+        operatingTemperatureMinC:technical.operatingTemperatureMinC??model.operatingTemperatureMinC,
+        operatingTemperatureMaxC:technical.operatingTemperatureMaxC??model.operatingTemperatureMaxC,
+        safetyWarning:technical.safetyWarning||model.safetyWarning||''
       },
       performance:{
         nominalAirflow:performance.nominalAirflow??model.nominal,
+        maxAirflow:performance.maxAirflow??model.standard?.maxAirflow,
         points,
         sourcePoints,
         control,
         controls
       },
       description:{general,motor:motorInfo,applications},
+      featureTags:window.VensisCatalogFeatureTags?.(model,language())||[],
       seriesCode:series.code||model.seriesId||model.series||product.seriesCode||'',
       dimensions,
       required:obj(payload.required),
@@ -282,16 +290,25 @@
     }
     if(d.performance.control)add(tx('controlLevel'),d.performance.control);
     if(d.performance.controls.length>1)add(tx('availableControls'),d.performance.controls.join(' / '));
-    const flow=d.mode==='selection'?d.selected.q:d.performance.nominalAirflow;
-    if(positive(flow))add(d.mode==='selection'?tx('selectedAirflow'):tx('nominalAirflow'),`${fmt(flow)} m³/h`);
-    if(d.mode==='selection'&&positive(d.selected.p))add(tx('selectedPressure'),`${fmt(d.selected.p)} Pa`);
-    if(positive(d.motor.power))add(tx('motorPower'),`${fmt(d.motor.power,2)} kW`);
-
+    if(d.mode==='selection'){
+      if(positive(d.selected.q))add(tx('selectedAirflow'),`${fmt(d.selected.q)} m³/h`);
+      if(positive(d.selected.p))add(tx('selectedPressure'),`${fmt(d.selected.p)} Pa`);
+    }else if(positive(d.performance.maxAirflow))add(tx('maxAirflow'),`${fmt(d.performance.maxAirflow)} m³/h`);
+    else if(positive(d.performance.nominalAirflow))add(tx('nominalAirflow'),`${fmt(d.performance.nominalAirflow)} m³/h`);
+    if(positive(d.motor.power))add(tx('motorPower'),`${fmt(d.motor.power,3)} kW`);
     if(positive(d.motor.speed))add(tx('speed'),`${fmt(d.motor.speed)} rpm`);
     if(d.motor.voltage)add(tx('voltage'),d.motor.voltage);
-    if(positive(d.motor.sound))add(tx('soundLevel'),`${fmt(d.motor.sound)} dB(A)`);
-    if(!d.performance.control&&!d.performance.controls.length&&d.technical.fanType)add(tx('fanType'),d.technical.fanType);
-    if(!d.performance.control&&!d.performance.controls.length&&d.technical.mountType)add(tx('mount'),d.technical.mountType);
+    if(positive(d.motor.sound))add(tx('soundLevel'),`${fmt(d.motor.sound,1)} dB(A)`);
+    if(d.mode==='catalog'){
+      if(d.technical.phase)add(tx('phase'),String(d.technical.phase));
+      if(d.motor.frequency){const v=String(d.motor.frequency).trim();add(tx('frequency'),/hz$/i.test(v)?v:v+' Hz')}
+      if(positive(d.technical.weight))add(tx('weight'),`${fmt(d.technical.weight,2)} kg`);
+      if(positive(d.motor.current))add(tx('current'),`${fmt(d.motor.current,2)} A`);
+      const min=d.technical.operatingTemperatureMinC,max=d.technical.operatingTemperatureMaxC;
+      const hasMin=min!==null&&min!==undefined&&min!==''&&Number.isFinite(Number(min));
+      const hasMax=max!==null&&max!==undefined&&max!==''&&Number.isFinite(Number(max));
+      if(hasMin||hasMax)add(tx('workingTemperature'),(hasMin&&hasMax?`${fmt(min)} – ${fmt(max)}`:fmt(hasMin?min:max))+' °C');
+    }
     if(d.technical.ipClass)add(tx('ipClass'),d.technical.ipClass);
     return items;
   }
@@ -308,8 +325,10 @@
 
   function featuresHtml(d){
     const items=unique([...(d.description.general||[]),...(d.description.motor||[]),...(d.description.applications||[])]);
-    if(!items.length)return `<p class="muted">${esc(tx('noFeatures'))}</p>`;
-    return `<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`;
+    const tags=d.mode==='catalog'&&d.featureTags.length?'<div class="feature-tags">'+d.featureTags.map(tag=>'<span class="feature-tag">'+esc(tag)+'</span>').join('')+'</div>':'';
+    const warning=d.technical.safetyWarning?'<p class="feature-warning"><b>'+esc(tx('safety'))+':</b> '+esc(d.technical.safetyWarning)+'</p>':'';
+    const details=items.length?`<ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`:tags||warning?'':`<p class="muted">${esc(tx('noFeatures'))}</p>`;
+    return tags+warning+details;
   }
 
   function dimensionDisplayValue(value,header){
@@ -414,7 +433,7 @@
 .sheet{width:210mm;min-height:297mm;height:auto;margin:10px auto 22px;background:#fff;padding:6mm 9mm 5mm;box-shadow:0 8px 30px rgba(18,52,59,.14);display:flex;flex-direction:column;overflow:hidden}
 .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #087f4f;padding-bottom:4px}.logo{height:16mm;max-width:78mm;object-fit:contain}.doc-title{font-size:10.5px;color:#566b70;font-weight:800;margin-top:3px}
 .product-title{margin:4px 0 0}.product-title h1{font-size:25px;line-height:1.02;color:#075e39;margin:0}.brand{margin-top:3px;color:#087f4f;font-weight:800;font-size:10px}.product-title h2{font-size:14px;line-height:1.12;margin:3px 0 0;color:#173033}
-.top-grid{display:grid;grid-template-columns:1fr 2fr;gap:4mm;align-items:stretch;margin-top:3mm}.product-image-wrap,.feature-card{border:1px solid #d7e3de;border-radius:8px;background:#fbfdfc;min-height:48mm;height:auto}.product-image-wrap{display:flex;align-items:center;justify-content:center;padding:2mm}.product-image{width:100%;height:42mm;object-fit:contain}.feature-card{padding:2.5mm;overflow:visible}.feature-card h3,.technical-strip h3{margin:0 0 1.6mm;color:#07633c;font-size:10.6px;font-weight:900;text-transform:uppercase}.feature-card ul{margin:0;padding-left:15px;font-size:8.1px;line-height:1.14;columns:2;column-gap:5mm}.feature-card li{margin:0 0 1.1px;break-inside:avoid-column}.muted{font-size:8.4px;color:#64748b}
+.top-grid{display:grid;grid-template-columns:1fr 2fr;gap:4mm;align-items:stretch;margin-top:3mm}.product-image-wrap,.feature-card{border:1px solid #d7e3de;border-radius:8px;background:#fbfdfc;min-height:48mm;height:auto}.product-image-wrap{display:flex;align-items:center;justify-content:center;padding:2mm}.product-image{width:100%;height:42mm;object-fit:contain}.feature-card{padding:2.5mm;overflow:visible}.feature-card h3,.technical-strip h3{margin:0 0 1.6mm;color:#07633c;font-size:10.6px;font-weight:900;text-transform:uppercase}.feature-card ul{margin:0;padding-left:15px;font-size:8.1px;line-height:1.14;columns:2;column-gap:5mm}.feature-card li{margin:0 0 1.1px;break-inside:avoid-column}.feature-tags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:3px}.feature-tag{font-size:8px;font-weight:800;background:#eaf6ee;color:#075e39;border:1px solid #cce6d6;border-radius:100px;padding:3px 6px}.feature-warning{font-size:8px;font-weight:700;background:#fff7e9;color:#8a500a;padding:4px;border-radius:4px;margin:3px 0}.muted{font-size:8.4px;color:#64748b}
 .technical-strip{margin-top:2.8mm;border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.5mm}.technical-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1.2mm}.technical-cell{break-inside:avoid;min-width:0;border:1px solid #d7e3de;border-radius:4px;background:#fff;padding:1.35mm 1.5mm}.technical-cell span,.technical-cell b{display:block}.technical-cell span{font-size:7.2px;color:#64748b;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.technical-cell b{margin-top:.5mm;font-size:8.3px;color:#173033;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.technical-cell.required{border-color:#d63b32;color:#b62e27}.technical-cell.required b{color:#b62e27}.technical-cell.selected{border-color:#168451}.technical-cell.selected b{color:#116b43}
 .section{margin-top:3mm}.section-head{font-size:11px;font-weight:900;color:#07633c;margin:0 0 2px;text-transform:uppercase}.curve{border:1px solid #8db3a2;border-radius:8px;padding:1.2mm;height:72mm;overflow:hidden;background:#fff}.curve svg{height:100%;width:100%;display:block}.empty-curve{padding:25px;text-align:center;color:#64748b}
 .drawing-section{break-inside:avoid;margin-top:3mm}.dimension-panel{display:grid;grid-template-columns:2fr 1fr;gap:3mm;border:1px solid #8db3a2;border-radius:8px;background:#fbfdfc;padding:2.5mm;min-height:66mm;height:auto;overflow:visible}.dimension-panel.no-values,.dimension-panel.values-only{grid-template-columns:1fr}.dimension-panel.values-only{min-height:0}.dimension-panel.no-values .dimension-drawing-wrap{height:90mm;min-height:0}.dimension-panel.no-values .catalog-drawing-image{max-height:88mm!important}.dimension-source{font-size:7px;color:#64748b;margin-top:1mm}.dimension-drawing-wrap{display:flex;align-items:center;justify-content:center;min-height:60mm;height:60mm;background:#fff;border:1px solid #e3e9e7;border-radius:6px;overflow:hidden}.catalog-drawing{position:relative;min-height:0!important;height:100%;width:100%;display:flex;align-items:center;justify-content:center;background:#fff;border:0!important;border-radius:0!important;overflow:hidden}.catalog-drawing-image{display:block;width:auto;height:auto;max-width:100%;max-height:58mm!important;object-fit:contain;opacity:1}.catalog-drawing-canvas{display:none}.drawing-status{display:none!important}
