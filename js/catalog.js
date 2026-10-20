@@ -128,7 +128,7 @@
 
   function modelFeatures(model){
     const lang=window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'tr';
-    const tags=catalog.featureTags?.(model,lang)||[];
+    const tags=window.VensisCatalogFeatureTags?.(model,lang)||[];
     return '<div class="model-feature-section"><div class="model-feature-heading">'+(lang==='tr'?'Özellikler':'Features')+'</div><div class="model-feature-tags">'+
       (tags.length?tags.map(tag=>'<span class="model-feature-tag">'+esc(tag)+'</span>').join(''):'<span class="model-feature-empty">-</span>')+'</div></div>';
   }

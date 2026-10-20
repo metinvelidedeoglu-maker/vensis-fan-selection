@@ -197,7 +197,7 @@
         controls
       },
       description:{general,motor:motorInfo,applications},
-      featureTags:window.VensisCatalog?.featureTags?.(model,language())||[],
+      featureTags:window.VensisCatalogFeatureTags?.(model,language())||[],
       seriesCode:series.code||model.seriesId||model.series||product.seriesCode||'',
       dimensions,
       required:obj(payload.required),
