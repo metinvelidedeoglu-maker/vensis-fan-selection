@@ -23,6 +23,35 @@
     model.standard={altModel:model.model,motorPower:number(model.motor.power),speed:number(model.motor.speed),voltage:text(model.motor.voltage),maxAirflow:number(model.performance.maxAirflow??model.performance.nominalAirflow),sound:number(model.motor.sound),price:number(model.pricing.listPrice)};
     modelMap.set(model.id,model);series.modelIds.push(model.id);series.submodels.push(model.model);
   }
+  // One source of model-specific, verified feature labels for cards and printable previews.
+  function featureTags(model,lang='tr'){
+    if(!model)return [];
+    const tr=String(lang).toLowerCase().startsWith('tr');
+    const technical=model.technical||{};
+    const result=[],seen=new Set();
+    const add=value=>{const s=text(value);if(!s)return;const key=slug(s);if(key&&!seen.has(key)){seen.add(key);result.push(s)}};
+    const localize=value=>{
+      const s=text(value);
+      if(/^(timer|zamanlayıcı)$/i.test(s))return tr?'Zamanlayıcı':'Timer';
+      if(/^(humidity sensor|nem sensörü)$/i.test(s))return tr?'Nem Sensörü':'Humidity Sensor';
+      if(/^(presence sensor|varlık sensörü)$/i.test(s))return tr?'Varlık Sensörü':'Presence Sensor';
+      if(/^(long.life motor|uzun ömürlü motor)$/i.test(s))return tr?'Uzun Ömürlü Motor':'Long-Life Motor';
+      return s;
+    };
+    const raw=model.features?.[tr?'tr':'en']||model.features?.en||model.features?.tr||technical[tr?'silentFeaturesTr':'silentFeaturesEn']||'';
+    const fragments=Array.isArray(raw)?raw.flatMap(v=>String(v).split(/[,;|]/)):String(raw).split(/[,;|]/);
+    fragments.forEach(s=>add(localize(s)));
+    if(technical.timerVariant)add(tr?'Zamanlayıcı':'Timer');
+    if(technical.humiditySensor)add(tr?'Nem Sensörü':'Humidity Sensor');
+    if(technical.presenceSensor)add(tr?'Varlık Sensörü':'Presence Sensor');
+    if(technical.longLife)add(tr?'Uzun Ömürlü Motor':'Long-Life Motor');
+    const fire=String(technical.fireRating||'').match(/\bF(?:300|400|600)\b/gi)||[];
+    fire.forEach(s=>add(s.toUpperCase()));
+    const atex=technical.atex;
+    const cert=String(model.atexCertificationStatus||'');
+    if(atex&&(atex.gas_marking||atex.dust_marking)&&!model.technicalApprovalRequired&&!/pending|unverified|unknown|not approved|bekliyor/i.test(cert))add('ATEX');
+    return result;
+  }
   const routeCounts=new Map();
   const baseModelSlug=model=>slug(model.technical?.productCode||model.model||model.id);
   for(const model of modelMap.values()){
@@ -66,8 +95,8 @@
     return image||headers.length?{headers,values,unit:'mm',drawing:{asset:image}}:null;
   }
   window.VensisCatalog={
-    schemaVersion:3,brands,brand,resolveSeries,slug,modelSlug,
-    standard:{seriesFields:['modelName','brand','description','category','image','submodels','catalogPdf'],submodelFields:['altModel','motorPower','speed','voltage','maxAirflow','sound','price']},
+    schemaVersion:3,brands,brand,resolveSeries,slug,modelSlug,featureTags,
+    standard:{seriesFields:['modelName','brand','description','category','image','submodels','catalogPdf'],submodelFields:['altModel','motorPower','speed','voltage','maxAirflow','price','phase']},
     series:[...seriesMap.values()],models:[...modelMap.values()],
     getSeries:id=>seriesMap.get(text(id))||resolveSeries(id),getModel:id=>modelMap.get(text(id))||null,
     product,modelsForSeries:id=>(seriesMap.get(text(id))?.modelIds||[]).map(key=>modelMap.get(key))
