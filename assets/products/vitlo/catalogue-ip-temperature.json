@@ -1,0 +1,4333 @@
+{
+  "schemaVersion": 1,
+  "status": "source-pages-visually-verified-2026-10-21",
+  "source": {
+    "catalogue": "Vitlo 2022 Tr-Eng  Catalog FZ(4).pdf",
+    "sha256": "4ab6811a59763ee92248210c307ab74c65143c061687a59adfde9a55a9241b9f",
+    "pages": 60,
+    "origin": "user-supplied-manufacturer-catalogue"
+  },
+  "policy": {
+    "exactModelTableMatchRequired": true,
+    "existingValuesPreserved": true,
+    "unknownLowerLimit": null,
+    "newSafetyCertificationInferred": false
+  },
+  "summary": {
+    "series": 35,
+    "matchedModels": 623,
+    "excludedModels": 76
+  },
+  "series": {
+    "AXF": {
+      "featurePage": 4,
+      "modelTablePage": 5,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, H izolasyon sınıfındadır.",
+          "normalTemperature": "•\tS1 normal havalandırma zamanı sürekli olarak -20°C/+55°C sıcaklık aralığında,"
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in H insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range (S1) -20°C/+55°C and the fire conditions (S2)  200°C/2h,"
+        }
+      }
+    },
+    "AXJ": {
+      "featurePage": 6,
+      "modelTablePage": 6,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\t2/4 kutuplu, IP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, H izolasyon sınıfındadır.",
+          "normalTemperature": "•\tS1 normal havalandırma zamanı sürekli olarak -20°C/+55°C sıcaklık aralığında,"
+        },
+        "en": {
+          "motorIP": "•\tIt is 2/4 poles, IP 55 protection, IE2/3 high efficiency self lubricating bearing, fully closed type, in H insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range (S1) -20°C/+55°C and the fire conditions (S2)  200°C/2h,"
+        }
+      }
+    },
+    "TUNEL-AXF": {
+      "featurePage": 8,
+      "modelTablePage": 9,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, H izolasyon sınıfındadır.",
+          "normalTemperature": "•\tS1 normal havalandırma zamanı sürekli olarak -20°C/+55°C sıcaklık aralığında,"
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in H insulation class",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range (S1) -20°C/+55°C and the fire conditions (S2)  200°C/2h,"
+        }
+      }
+    },
+    "BOX-AXF": {
+      "featurePage": 10,
+      "modelTablePage": 11,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, H izolasyon sınıfındadır.",
+          "normalTemperature": "•\tS1 normal havalandırma zamanı sürekli olarak -20°C/+55°C sıcaklık aralığında,"
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in H insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "AXW/ATEX": {
+      "featurePage": 14,
+      "modelTablePage": 15,
+      "ipClass": "IP65",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 65 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 65 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C"
+        }
+      }
+    },
+    "AXD/ATEX": {
+      "featurePage": 16,
+      "modelTablePage": 17,
+      "ipClass": "IP65",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 65 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 65 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "MOB-AXD/ATEX": {
+      "featurePage": 18,
+      "modelTablePage": 19,
+      "ipClass": "IP65",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 65 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 65 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "AXR/ATEX": {
+      "featurePage": 20,
+      "modelTablePage": 21,
+      "ipClass": "IP65",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 65 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 65 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "CRH/ATEX": {
+      "featurePage": 22,
+      "modelTablePage": 23,
+      "ipClass": "IP65",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 65 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 65 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "CRD/ATEX": {
+      "featurePage": 24,
+      "modelTablePage": 24,
+      "ipClass": "IP65",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 65 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 65 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "CRS/ATEX": {
+      "featurePage": 25,
+      "modelTablePage": 25,
+      "ipClass": "IP65",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 65 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 65 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "AXD": {
+      "featurePage": 26,
+      "modelTablePage": 27,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "AXD/MOB": {
+      "featurePage": 28,
+      "modelTablePage": 29,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "AXS": {
+      "featurePage": 30,
+      "modelTablePage": 31,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "AXW": {
+      "featurePage": 32,
+      "modelTablePage": 33,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "AXB": {
+      "featurePage": 34,
+      "modelTablePage": 35,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "AXH": {
+      "featurePage": 36,
+      "modelTablePage": 37,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C"
+        }
+      }
+    },
+    "CD": {
+      "featurePage": 38,
+      "modelTablePage": 38,
+      "ipClass": "IP44",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 44 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 44 motor protection is available.",
+          "normalTemperature": "•\tSuitable for continuously operation at +50°C."
+        }
+      }
+    },
+    "CRB": {
+      "featurePage": 39,
+      "modelTablePage": 39,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for continuously operation at +50°C."
+        }
+      }
+    },
+    "CRD": {
+      "featurePage": 40,
+      "modelTablePage": 40,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "CRK": {
+      "featurePage": 41,
+      "modelTablePage": 41,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "CRC": {
+      "featurePage": 42,
+      "modelTablePage": 42,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for continuously operation at +50°C."
+        }
+      }
+    },
+    "CRS": {
+      "featurePage": 43,
+      "modelTablePage": 43,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "CR": {
+      "featurePage": 44,
+      "modelTablePage": 44,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for continuously operation at +50°C."
+        }
+      }
+    },
+    "CRH": {
+      "featurePage": 45,
+      "modelTablePage": 45,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "CRV": {
+      "featurePage": 46,
+      "modelTablePage": 46,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 120,
+      "continuousAirTemperatureC": 120,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+120°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+120°C."
+        }
+      }
+    },
+    "CRU": {
+      "featurePage": 47,
+      "modelTablePage": 47,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for continuously operation at +50°C."
+        }
+      }
+    },
+    "AXR": {
+      "featurePage": 48,
+      "modelTablePage": 49,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "AXV": {
+      "featurePage": 50,
+      "modelTablePage": 51,
+      "ipClass": "IP55",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": -20,
+      "operatingTemperatureMaxC": 55,
+      "continuousAirTemperatureC": 55,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": true,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 55 korumalı, IE2/3 yüksek verimli kendinden yağlanan rulmanlı tam kapalı tipte, F izolasyon sınıfındadır.",
+          "normalTemperature": "•\t-20°C/+55°C sıcaklık aralığında çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 55 protected, IE2/3 high efficiency and with self lubricating bearing, fully enclosed type, in F insulation class.",
+          "normalTemperature": "•\tIt is suitable for operation in temperature range -20°C/+55°C."
+        }
+      }
+    },
+    "CR-EC": {
+      "featurePage": 52,
+      "modelTablePage": 52,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for permanent operation at +50°C."
+        }
+      }
+    },
+    "CRU-EC": {
+      "featurePage": 53,
+      "modelTablePage": 53,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for permanent operation at +50°C."
+        }
+      }
+    },
+    "CRB-EC": {
+      "featurePage": 54,
+      "modelTablePage": 54,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for permanent operation at +50°C."
+        }
+      }
+    },
+    "CRC-EC": {
+      "featurePage": 55,
+      "modelTablePage": 55,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for permanent operation at +50°C."
+        }
+      }
+    },
+    "VHR": {
+      "featurePage": 56,
+      "modelTablePage": 56,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for continuously operation at +50°C."
+        }
+      }
+    },
+    "CRR": {
+      "featurePage": 57,
+      "modelTablePage": 57,
+      "ipClass": "IP54",
+      "ipBasis": "motor-protection-not-junction-box",
+      "operatingTemperatureMinC": null,
+      "operatingTemperatureMaxC": 50,
+      "continuousAirTemperatureC": 50,
+      "temperatureBasis": "normal-continuous-operation-not-fire-S2",
+      "lowerLimitSpecified": false,
+      "sourceExcerpts": {
+        "tr": {
+          "motorIP": "•\tIP 54 motor koruması mevcuttur.",
+          "normalTemperature": "•\t+50°C sıcaklıkta daimi çalışmaya uygundur."
+        },
+        "en": {
+          "motorIP": "•\tIP 54 motor protection is available.",
+          "normalTemperature": "•\tSuitable for continuously operation at +50°C."
+        }
+      }
+    }
+  },
+  "models": [
+    {
+      "id": "AXF|AXF 35-2T-1|4000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 35-2T-1"
+    },
+    {
+      "id": "AXF|AXF 35-2T-1|4600|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 35-2T-1"
+    },
+    {
+      "id": "AXF|AXF 35-2T-1|5000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 35-2T-1"
+    },
+    {
+      "id": "AXF|AXF 35-2T-1|5800|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 35-2T-1"
+    },
+    {
+      "id": "AXF|AXF 40-2T-1|6500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 40-2T-1"
+    },
+    {
+      "id": "AXF|AXF 40-2T-2|7820|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 40-2T-2"
+    },
+    {
+      "id": "AXF|AXF 40-2T-2|9780|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 40-2T-2"
+    },
+    {
+      "id": "AXF|AXF 45-2T-2|11000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 45-2T-2"
+    },
+    {
+      "id": "AXF|AXF 45-2T-3|12100|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 45-2T-3"
+    },
+    {
+      "id": "AXF|AXF 45-2T-4|15000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 45-2T-4"
+    },
+    {
+      "id": "AXF|AXF 50-2T-3|14000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 50-2T-3"
+    },
+    {
+      "id": "AXF|AXF 50-2T-4|15600|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 50-2T-4"
+    },
+    {
+      "id": "AXF|AXF 50-2T-5,5|18200|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 50-2T-5,5"
+    },
+    {
+      "id": "AXF|AXF 56-2T-3|14000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 56-2T-3"
+    },
+    {
+      "id": "AXF|AXF 56-2T-4|17600|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 56-2T-4"
+    },
+    {
+      "id": "AXF|AXF 56-2T-5,5|20300|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 56-2T-5,5"
+    },
+    {
+      "id": "AXF|AXF 56-2T-7,5|22500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 56-2T-7,5"
+    },
+    {
+      "id": "AXF|AXF 63-2T-7.5|24500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 63-2T-7,5"
+    },
+    {
+      "id": "AXF|AXF 63-2T-10|28000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 63-2T-10"
+    },
+    {
+      "id": "AXF|AXF 71-2T-7,5|28500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 71-2T-7,5"
+    },
+    {
+      "id": "AXF|AXF 71-2T-10|35000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 71-2T-10"
+    },
+    {
+      "id": "AXF|AXF 71-2T-15|40000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 71-2T-15"
+    },
+    {
+      "id": "AXF|AXF 71-2T-20|41300|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 71-2T-20"
+    },
+    {
+      "id": "AXF|AXF 56-4T-2|11000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 56-4T-2"
+    },
+    {
+      "id": "AXF|AXF 56-4T-3|12800|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 56-4T-3"
+    },
+    {
+      "id": "AXF|AXF 63-4T-2|16000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 63-4T-2"
+    },
+    {
+      "id": "AXF|AXF 63-4T-3|18500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 63-4T-3"
+    },
+    {
+      "id": "AXF|AXF 63-4T-4|20000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 63-4T-4"
+    },
+    {
+      "id": "AXF|AXF 71-4T-3|23400|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 71-4T-3"
+    },
+    {
+      "id": "AXF|AXF 71-4T-4|26600|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 71-4T-4"
+    },
+    {
+      "id": "AXF|AXF 80-4T-4|30000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 80-4T-4"
+    },
+    {
+      "id": "AXF|AXF 80-4T-5,5|34100|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 80-4T-5,5"
+    },
+    {
+      "id": "AXF|AXF 80-4T-7,5|38500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 80-4T-7,5"
+    },
+    {
+      "id": "AXF|AXF 90-4T-5,5|38500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 90-4T-5,5"
+    },
+    {
+      "id": "AXF|AXF 90-4T-7,5|45800|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 90-4T-7,5"
+    },
+    {
+      "id": "AXF|AXF 90-4T-10|52000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 90-4T-10"
+    },
+    {
+      "id": "AXF|AXF 100-4T-7,5|49500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 100-4T-7,5"
+    },
+    {
+      "id": "AXF|AXF 100-4T-10|58000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 100-4T-10"
+    },
+    {
+      "id": "AXF|AXF 100-4T-15|66500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 100-4T-15"
+    },
+    {
+      "id": "AXF|AXF 100-4T-20|68500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 100-4T-20"
+    },
+    {
+      "id": "AXF|AXF 112-4T-15|61000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 112-4T-15"
+    },
+    {
+      "id": "AXF|AXF 112-4T-20|74000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 112-4T-20"
+    },
+    {
+      "id": "AXF|AXF 112-4T-25|86500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 112-4T-25"
+    },
+    {
+      "id": "AXF|AXF 112-4T-30|92500|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 112-4T-30"
+    },
+    {
+      "id": "AXF|AXF 125-4T-20|73000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 125-4T-20"
+    },
+    {
+      "id": "AXF|AXF 125-4T-25|83000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 125-4T-25"
+    },
+    {
+      "id": "AXF|AXF 125-4T-30|93200|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 125-4T-30"
+    },
+    {
+      "id": "AXF|AXF 125-4T-40|112000|4",
+      "seriesId": "AXF",
+      "catalogueModel": "AXF 125-4T-40"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 35-2T-1|4000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 35-2T-1"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 35-2T-1|4600|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 35-2T-1"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 35-2T-1|5000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 35-2T-1"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 35-2T-1|5800|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 35-2T-1"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 40-2T-1|6500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 40-2T-1"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 40-2T-2|7820|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 40-2T-2"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 40-2T-2|9780|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 40-2T-2"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 45-2T-2|11000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 45-2T-2"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 45-2T-3|12100|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 45-2T-3"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 45-2T-4|15000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 45-2T-4"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 50-2T-3|14000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 50-2T-3"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 50-2T-4|15600|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 50-2T-4"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 50-2T-5,5|18200|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 50-2T-5,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 56-2T-3|14000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 56-2T-3"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 56-2T-4|17600|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 56-2T-4"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 56-2T-5,5|20300|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 56-2T-5,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 56-2T-7,5|22500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 56-2T-7,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 63-2T-7.5|24500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 63-2T-7,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 63-2T-10|28000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 63-2T-10"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 71-2T-7,5|28500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 71-2T-7,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 71-2T-10|35000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 71-2T-10"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 71-2T-15|40000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 71-2T-15"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 71-2T-20|41300|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 71-2T-20"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 56-4T-2|11000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 56-4T-2"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 56-4T-3|12800|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 56-4T-3"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 63-4T-2|16000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 63-4T-2"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 63-4T-3|18500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 63-4T-3"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 63-4T-4|20000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 63-4T-4"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 71-4T-3|23400|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 71-4T-3"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 71-4T-4|26600|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 71-4T-4"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 80-4T-4|30000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 80-4T-4"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 80-4T-5,5|34100|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 80-4T-5,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 80-4T-7,5|38500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 80-4T-7,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 90-4T-5,5|38500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 90-4T-5,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 90-4T-7,5|45800|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 90-4T-7,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 90-4T-10|52000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 90-4T-10"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 100-4T-7,5|49500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 100-4T-7,5"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 100-4T-10|58000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 100-4T-10"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 100-4T-15|66500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 100-4T-15"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 100-4T-20|68500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 100-4T-20"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 112-4T-15|61000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 112-4T-15"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 112-4T-20|74000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 112-4T-20"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 112-4T-25|86500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 112-4T-25"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 112-4T-30|92500|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 112-4T-30"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 125-4T-20|73000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 125-4T-20"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 125-4T-25|83000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 125-4T-25"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 125-4T-30|93200|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 125-4T-30"
+    },
+    {
+      "id": "BOX-AXF|BOX-AXF 125-4T-40|112000|10",
+      "seriesId": "BOX-AXF",
+      "catalogueModel": "BOX-AXF 125-4T-40"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 35-4T-0.27|2860|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 35-4T-0,18"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 40-4T-0.37|4200|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 40-4T-0,27"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 40-4T-0.37|4800|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 40-4T-0,37"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 45-4T-0.55|6730|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 45-4T-0,55"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 50-4T-0.55|7600|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 50-4T-0,55"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 50-4T-0.75|8920|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 50-4T-0,75"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 56-4T-0.75|9670|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 56-4T-0,75"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 56-4T-1|11000|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 56-4T-1"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 56-4T-1.5|12800|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 56-4T-1,5"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 63-4T-1|13600|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 63-4T-1"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 63-4T-1.5|16000|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 63-4T-1,5"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 63-4T-2|18500|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 63-4T-2"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 63-4T-3|20000|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 63-4T-3"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 71-4T-3|23400|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 71-4T-3"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 71-4T-4|26600|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 71-4T-4"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 80-4T-4|30000|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 80-4T-4"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 80-4T-5,5|34100|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 80-4T-5,5"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 80-4T-7,5|38500|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 80-4T-7,5"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 90-4T-5,5|38500|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 90-4T-5,5"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 90-4T-7,5|45800|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 90-4T-7,5"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 90-4T-10|52000|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 90-4T-10"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 100-4T-7,5|49500|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 100-4T-7,5"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 100-4T-10|58000|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 100-4T-10"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 100-4T-15|66500|12",
+      "seriesId": "AXW/ATEX",
+      "catalogueModel": "AXW/ATEX 100-4T-15"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 35-4T-0.27|2860|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 35-4T-0,18"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 40-4T-0.37|4200|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 40-4T-0,27"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 40-4T-0.37|4800|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 40-4T-0,37"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 45-4T-0.55|6730|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 45-4T-0,55"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 50-4T-0.55|7600|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 50-4T-0,55"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 50-4T-0.75|8920|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 50-4T-0,75"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 56-4T-0.75|9670|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 56-4T-0,75"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 56-4T-1|11000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 56-4T-1"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 56-4T-1.5|12800|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 56-4T-1,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 63-4T-1|13600|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 63-4T-1"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 63-4T-1.5|16000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 63-4T-1,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 63-4T-2|18500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 63-4T-2"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 35-2T-0.37|4000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 35-2T-0,37"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 35-2T-0.55|4600|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 35-2T-0,55"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 35-2T-0.75|5000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 35-2T-0,75"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 40-2T-1|6500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 40-2T-1"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 40-2T-1.5|7820|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 40-2T-1,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 45-2T-2|11000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 45-2T-2"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 50-2T-3|14000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 50-2T-3"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 56-2T-4|17600|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 56-2T-4"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 63-2T-5,5|18900|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 63-2T-5,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 63-4T-3|20000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 63-4T-3"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 71-4T-3|23400|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 71-4T-3"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 71-4T-4|26600|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 71-4T-4"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 80-4T-4|30000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 80-4T-4"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 80-4T-5,5|34100|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 80-4T-5,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 80-4T-7,5|38500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 80-4T-7,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 90-4T-5,5|38500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 90-4T-5,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 90-4T-7,5|45800|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 90-4T-7,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 90-4T-10|52000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 90-4T-10"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 100-4T-7,5|49500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 100-4T-7,5"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 100-4T-10|58000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 100-4T-10"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 100-4T-15|66500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 100-4T-15"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 100-4T-20|68500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 100-4T-20"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 112-4T-15|61000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 112-4T-15"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 112-4T-20|74000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 112-4T-20"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 112-4T-25|86500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 112-4T-25"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 112-4T-30|92500|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 112-4T-30"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 125-4T-20|73000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 125-4T-20"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 125-4T-25|83000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 125-4T-25"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 125-4T-30|93200|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 125-4T-30"
+    },
+    {
+      "id": "AXD/ATEX|AXD/ATEX 125-4T-40|112000|14",
+      "seriesId": "AXD/ATEX",
+      "catalogueModel": "AXD/ATEX 125-4T-40"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 35-2M-0.75|5000|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 35-2T-0,75"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 40-2M-1|6500|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 40-2T-1"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 40-2M-1.5|7820|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 40-2T-1,5"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 45-2M-2|11000|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 45-2T-2"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 45-2M-3|12100|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 45-2T-3"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 50-2M-3|14000|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 50-2T-3"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 63-4M-2|17000|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 63-4T-2"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 71-4M-3|23400|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 71-4T-3"
+    },
+    {
+      "id": "MOB-AXD/ATEX|MOB-AXD/ATEX 80-4M-4|30000|16",
+      "seriesId": "MOB-AXD/ATEX",
+      "catalogueModel": "MOB-AXD/ATEX 80-4T-4"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 35-4T-0.27|2600|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 35-4T-0,18"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 40-4T-0.37|3950|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 40-4T-0,27"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 40-4T-0.37|4450|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 40-4T-0,37"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 45-4T-0.55|6350|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 45-4T-0,55"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 50-4T-0.55|7200|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 50-4T-0,55"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 50-4T-0.75|8450|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 50-4T-0,75"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 56-4T-0.75|9300|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 56-4T-0,75"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 56-4T-1|10600|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 56-4T-1"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 56-4T-1.5|12400|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 56-4T-1,5"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX63-4T-1|13000|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX63-4T-1"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 63-4T-1.5|15400|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 63-4T-1,5"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 63-4T-2|18000|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 63-4T-2"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 63-4T-3|18000|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 63-4T-3"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 71-4T-3|21000|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 71-4T-3"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 71-4T-4|24300|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 71-4T-4"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 80-4T-4|27100|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 80-4T-4"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 80-4T-5,5|31400|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 80-4T-5,5"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 80-4T-7,5|35400|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 80-4T-7,5"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 90-4T-5,5|35600|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 90-4T-5,5"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 90-4T-7,5|42300|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 90-4T-7,5"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 90-4T-10|48600|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 90-4T-10"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 100-4T-7,5|45900|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 100-4T-7,5"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 100-4T-10|54200|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 100-4T-10"
+    },
+    {
+      "id": "AXR/ATEX|AXR/ATEX 100-4T-15|61800|18",
+      "seriesId": "AXR/ATEX",
+      "catalogueModel": "AXR/ATEX 100-4T-15"
+    },
+    {
+      "id": "CRH/ATEX|CRH/ATEX 31-4T|2400|20",
+      "seriesId": "CRH/ATEX",
+      "catalogueModel": "CRH/ATEX 31-4T"
+    },
+    {
+      "id": "CRH/ATEX|CRH/ATEX 35-4T|3600|20",
+      "seriesId": "CRH/ATEX",
+      "catalogueModel": "CRH/ATEX 35-4T"
+    },
+    {
+      "id": "CRH/ATEX|CRH/ATEX 40-4T|5000|20",
+      "seriesId": "CRH/ATEX",
+      "catalogueModel": "CRH/ATEX 40-4T"
+    },
+    {
+      "id": "CRH/ATEX|CRH/ATEX 45-4T|7800|20",
+      "seriesId": "CRH/ATEX",
+      "catalogueModel": "CRH/ATEX 45-4T"
+    },
+    {
+      "id": "CRH/ATEX|CRH/ATEX 50-4T|10600|20",
+      "seriesId": "CRH/ATEX",
+      "catalogueModel": "CRH/ATEX 50-4T"
+    },
+    {
+      "id": "CRH/ATEX|CRH/ATEX 56-4T|13000|20",
+      "seriesId": "CRH/ATEX",
+      "catalogueModel": "CRH/ATEX 56-4T"
+    },
+    {
+      "id": "CRH/ATEX|CRH/ATEX 63-4T|18000|20",
+      "seriesId": "CRH/ATEX",
+      "catalogueModel": "CRH/ATEX 63-4T"
+    },
+    {
+      "id": "CRH/ATEX|CRH/ATEX 71-4T|26000|20",
+      "seriesId": "CRH/ATEX",
+      "catalogueModel": "CRH/ATEX 71-4T"
+    },
+    {
+      "id": "CRD/ATEX|CRD/ATEX 31-4T|2400|21",
+      "seriesId": "CRD/ATEX",
+      "catalogueModel": "CRD/ATEX 31-4T"
+    },
+    {
+      "id": "CRD/ATEX|CRD/ATEX 35-4T|3600|21",
+      "seriesId": "CRD/ATEX",
+      "catalogueModel": "CRD/ATEX 35-4T"
+    },
+    {
+      "id": "CRD/ATEX|CRD/ATEX 40-4T|5000|21",
+      "seriesId": "CRD/ATEX",
+      "catalogueModel": "CRD/ATEX 40-4T"
+    },
+    {
+      "id": "CRD/ATEX|CRD/ATEX 45-4T|7800|21",
+      "seriesId": "CRD/ATEX",
+      "catalogueModel": "CRD/ATEX 45-4T"
+    },
+    {
+      "id": "CRD/ATEX|CRD/ATEX 50-4T|10600|21",
+      "seriesId": "CRD/ATEX",
+      "catalogueModel": "CRD/ATEX 50-4T"
+    },
+    {
+      "id": "CRD/ATEX|CRD/ATEX 56-4T|13000|21",
+      "seriesId": "CRD/ATEX",
+      "catalogueModel": "CRD/ATEX 56-4T"
+    },
+    {
+      "id": "CRD/ATEX|CRD/ATEX 63-4T|18000|21",
+      "seriesId": "CRD/ATEX",
+      "catalogueModel": "CRD/ATEX 63-4T"
+    },
+    {
+      "id": "CRD/ATEX|CRD/ATEX 71-4T|26000|21",
+      "seriesId": "CRD/ATEX",
+      "catalogueModel": "CRD/ATEX 71-4T"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 31-4T|2400|22",
+      "seriesId": "CRS/ATEX",
+      "catalogueModel": "CRS/ATEX 31-4T"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 35-4T|3600|22",
+      "seriesId": "CRS/ATEX",
+      "catalogueModel": "CRS/ATEX 35-4T"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 40-4T|5000|22",
+      "seriesId": "CRS/ATEX",
+      "catalogueModel": "CRS/ATEX 40-4T"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 45-4T|7800|22",
+      "seriesId": "CRS/ATEX",
+      "catalogueModel": "CRS/ATEX 45-4T"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 50-4T|10600|22",
+      "seriesId": "CRS/ATEX",
+      "catalogueModel": "CRS/ATEX 50-4T"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 56-4T|13000|22",
+      "seriesId": "CRS/ATEX",
+      "catalogueModel": "CRS/ATEX 56-4T"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 63-4T|18000|22",
+      "seriesId": "CRS/ATEX",
+      "catalogueModel": "CRS/ATEX 63-4T"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 71-4T|26000|22",
+      "seriesId": "CRS/ATEX",
+      "catalogueModel": "CRS/ATEX 71-4T"
+    },
+    {
+      "id": "AXD|AXD 35-4T-0.27|2860|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 35-4T-0,18"
+    },
+    {
+      "id": "AXD|AXD 40-4T-0.37|4200|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 40-4T-0,27"
+    },
+    {
+      "id": "AXD|AXD 40-4T-0.37|4800|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 40-4T-0,37"
+    },
+    {
+      "id": "AXD|AXD 45-4T-0.55|6730|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 45-4T-0,55"
+    },
+    {
+      "id": "AXD|AXD 50-4T-0.55|7600|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 50-4T-0,55"
+    },
+    {
+      "id": "AXD|AXD 50-4T-0.75|8920|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 50-4T-0,75"
+    },
+    {
+      "id": "AXD|AXD 56-4T-0.75|9670|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 56-4T-0,75"
+    },
+    {
+      "id": "AXD|AXD 56-4T-1|11000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 56-4T-1"
+    },
+    {
+      "id": "AXD|AXD 56-4T-1.5|12800|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 56-4T-1,5"
+    },
+    {
+      "id": "AXD|AXD 63-4T-1|13600|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 63-4T-1"
+    },
+    {
+      "id": "AXD|AXD 63-4T-1.5|16000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 63-4T-1,5"
+    },
+    {
+      "id": "AXD|AXD 63-4T-2|18500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 63-4T-2"
+    },
+    {
+      "id": "AXD|AXD 35-2T-0.37|4000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 35-2T-0,37"
+    },
+    {
+      "id": "AXD|AXD 35-2T-0.55|4600|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 35-2T-0,55"
+    },
+    {
+      "id": "AXD|AXD 35-2T-0.75|5000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 35-2T-0,75"
+    },
+    {
+      "id": "AXD|AXD 35-2T-1|5800|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 35-2T-1"
+    },
+    {
+      "id": "AXD|AXD 40-2T-1|6500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 40-2T-1"
+    },
+    {
+      "id": "AXD|AXD 40-2T-1.5|7820|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 40-2T-1,5"
+    },
+    {
+      "id": "AXD|AXD 40-2T-2|9780|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 40-2T-2"
+    },
+    {
+      "id": "AXD|AXD 45-2T-2|11000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 45-2T-2"
+    },
+    {
+      "id": "AXD|AXD 45-2T-3|12100|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 45-2T-3"
+    },
+    {
+      "id": "AXD|AXD 45-2T-4|15000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 45-2T-4"
+    },
+    {
+      "id": "AXD|AXD 50-2T-3|14000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 50-2T-3"
+    },
+    {
+      "id": "AXD|AXD 50-2T-4|15600|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 50-2T-4"
+    },
+    {
+      "id": "AXD|AXD 50-2T-5,5|18200|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 50-2T-5,5"
+    },
+    {
+      "id": "AXD|AXD 56-2T-3|14000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 56-2T-3"
+    },
+    {
+      "id": "AXD|AXD 56-2T-4|17600|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 56-2T-4"
+    },
+    {
+      "id": "AXD|AXD 56-2T-5,5|20300|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 56-2T-5,5"
+    },
+    {
+      "id": "AXD|AXD 56-2T-7,5|23500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 56-2T-7,5"
+    },
+    {
+      "id": "AXD|AXD 63-2T-7.5|24500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 63-2T-7,5"
+    },
+    {
+      "id": "AXD|AXD 63-2T-10|28000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 63-2T-10"
+    },
+    {
+      "id": "AXD|AXD 71-2T-7,5|28500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 71-2T-7,5"
+    },
+    {
+      "id": "AXD|AXD 71-2T-10|35000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 71-2T-10"
+    },
+    {
+      "id": "AXD|AXD 71-2T-15|40000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 71-2T-15"
+    },
+    {
+      "id": "AXD|AXD 71-2T-20|41300|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 71-2T-20"
+    },
+    {
+      "id": "AXD|AXD 63-4T-3|20000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 63-4T-3"
+    },
+    {
+      "id": "AXD|AXD 71-4T-3|23400|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 71-4T-3"
+    },
+    {
+      "id": "AXD|AXD 71-4T-4|26600|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 71-4T-4"
+    },
+    {
+      "id": "AXD|AXD 80-4T-4|30000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 80-4T-4"
+    },
+    {
+      "id": "AXD|AXD 80-4T-5,5|34100|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 80-4T-5,5"
+    },
+    {
+      "id": "AXD|AXD 80-4T-7,5|38500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 80-4T-7,5"
+    },
+    {
+      "id": "AXD|AXD 90-4T-5,5|38500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 90-4T-5,5"
+    },
+    {
+      "id": "AXD|AXD 90-4T-7,5|45800|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 90-4T-7,5"
+    },
+    {
+      "id": "AXD|AXD 90-4T-10|52000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 90-4T-10"
+    },
+    {
+      "id": "AXD|AXD 100-4T-7,5|49500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 100-4T-7,5"
+    },
+    {
+      "id": "AXD|AXD 100-4T-10|58000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 100-4T-10"
+    },
+    {
+      "id": "AXD|AXD 100-4T-15|66500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 100-4T-15"
+    },
+    {
+      "id": "AXD|AXD 100-4T-20|68500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 100-4T-20"
+    },
+    {
+      "id": "AXD|AXD 112-4T-15|61000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 112-4T-15"
+    },
+    {
+      "id": "AXD|AXD 112-4T-20|74000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 112-4T-20"
+    },
+    {
+      "id": "AXD|AXD 112-4T-25|86500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 112-4T-25"
+    },
+    {
+      "id": "AXD|AXD 112-4T-30|92500|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 112-4T-30"
+    },
+    {
+      "id": "AXD|AXD 125-4T-20|73000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 125-4T-20"
+    },
+    {
+      "id": "AXD|AXD 125-4T-25|83000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 125-4T-25"
+    },
+    {
+      "id": "AXD|AXD 125-4T-30|93200|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 125-4T-30"
+    },
+    {
+      "id": "AXD|AXD 125-4T-40|112000|24",
+      "seriesId": "AXD",
+      "catalogueModel": "AXD 125-4T-40"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 35-2M-0.75|5000|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 35-2M-0,75"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 40-2M-1|6500|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 40-2M-1"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 40-2M-1.5|7820|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 40-2M-1,5"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 40-2M-2|9780|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 40-2M-2"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 45-2M-2|11000|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 45-2M-2"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 45-2M-3|12100|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 45-2M-3"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 50-2M-3|14000|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 50-2M-3"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 63-4M-2|17000|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 63-4M-2"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 71-4M-3|23400|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 71-4M-3"
+    },
+    {
+      "id": "AXD/MOB|AXD/MOB 80-4M-4|30000|26",
+      "seriesId": "AXD/MOB",
+      "catalogueModel": "AXD/MOB 80-4M-4"
+    },
+    {
+      "id": "AXS|AXS 35-4T-0.27|2860|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 35-4T-0,18"
+    },
+    {
+      "id": "AXS|AXS 40-4T-0.37|4200|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 40-4T-0,27"
+    },
+    {
+      "id": "AXS|AXS 40-4T-0.37|4800|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 40-4T-0,37"
+    },
+    {
+      "id": "AXS|AXS 45-4T-0.55|6730|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 45-4T-0,55"
+    },
+    {
+      "id": "AXS|AXS 50-4T-0.55|7600|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 50-4T-0,55"
+    },
+    {
+      "id": "AXS|AXS 50-4T-0.75|8920|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 50-4T-0,75"
+    },
+    {
+      "id": "AXS|AXS 56-4T-0.75|9670|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 56-4T-0,75"
+    },
+    {
+      "id": "AXS|AXS 56-4T-1|11000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 56-4T-1"
+    },
+    {
+      "id": "AXS|AXS 56-4T-1.5|12800|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 56-4T-1,5"
+    },
+    {
+      "id": "AXS|AXS 63-4T-1|13600|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 63-4T-1"
+    },
+    {
+      "id": "AXS|AXS 63-4T-1.5|16000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 63-4T-1,5"
+    },
+    {
+      "id": "AXS|AXS 63-4T-2|18500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 63-4T-2"
+    },
+    {
+      "id": "AXS|AXS 35-2T-0.37|4000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 35-2T-0,37"
+    },
+    {
+      "id": "AXS|AXS 35-2T-0.55|4600|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 35-2T-0,55"
+    },
+    {
+      "id": "AXS|AXS 35-2T-0.75|5000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 35-2T-0,75"
+    },
+    {
+      "id": "AXS|AXS 35-2T-1|5800|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 35-2T-1"
+    },
+    {
+      "id": "AXS|AXS 40-2T-1|6500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 40-2T-1"
+    },
+    {
+      "id": "AXS|AXS 40-2T-1.5|7820|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 40-2T-1,5"
+    },
+    {
+      "id": "AXS|AXS 40-2T-2|9780|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 40-2T-2"
+    },
+    {
+      "id": "AXS|AXS 45-2T-2|11000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 45-2T-2"
+    },
+    {
+      "id": "AXS|AXS 45-2T-3|12100|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 45-2T-3"
+    },
+    {
+      "id": "AXS|AXS 45-2T-4|15000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 45-2T-4"
+    },
+    {
+      "id": "AXS|AXS 50-2T-3|14000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 50-2T-3"
+    },
+    {
+      "id": "AXS|AXS 50-2T-4|15600|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 50-2T-4"
+    },
+    {
+      "id": "AXS|AXS 50-2T-5,5|18200|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 50-2T-5,5"
+    },
+    {
+      "id": "AXS|AXS 56-2T-3|14000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 56-2T-3"
+    },
+    {
+      "id": "AXS|AXS 56-2T-4|17600|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 56-2T-4"
+    },
+    {
+      "id": "AXS|AXS 56-2T-5,5|20300|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 56-2T-5,5"
+    },
+    {
+      "id": "AXS|AXS 56-2T-7,5|23500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 56-2T-7,5"
+    },
+    {
+      "id": "AXS|AXS 63-2T-7.5|24500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 63-2T-7,5"
+    },
+    {
+      "id": "AXS|AXS 63-2T-10|28000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 63-2T-10"
+    },
+    {
+      "id": "AXS|AXS 71-2T-7,5|28500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 71-2T-7,5"
+    },
+    {
+      "id": "AXS|AXS 71-2T-10|35000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 71-2T-10"
+    },
+    {
+      "id": "AXS|AXS 71-2T-15|40000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 71-2T-15"
+    },
+    {
+      "id": "AXS|AXS 71-2T-20|41300|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 71-2T-20"
+    },
+    {
+      "id": "AXS|AXS 63-4T-3|20000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 63-4T-3"
+    },
+    {
+      "id": "AXS|AXS 71-4T-3|23400|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 71-4T-3"
+    },
+    {
+      "id": "AXS|AXS 71-4T-4|26600|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 71-4T-4"
+    },
+    {
+      "id": "AXS|AXS 80-4T-4|30000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 80-4T-4"
+    },
+    {
+      "id": "AXS|AXS 80-4T-5,5|34100|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 80-4T-5,5"
+    },
+    {
+      "id": "AXS|AXS 80-4T-7,5|38500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 80-4T-7,5"
+    },
+    {
+      "id": "AXS|AXS 90-4T-5,5|38500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 90-4T-5,5"
+    },
+    {
+      "id": "AXS|AXS 90-4T-7,5|45800|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 90-4T-7,5"
+    },
+    {
+      "id": "AXS|AXS 90-4T-10|52000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 90-4T-10"
+    },
+    {
+      "id": "AXS|AXS 100-4T-7,5|49500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 100-4T-7,5"
+    },
+    {
+      "id": "AXS|AXS 100-4T-10|58000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 100-4T-10"
+    },
+    {
+      "id": "AXS|AXS 100-4T-15|66500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 100-4T-15"
+    },
+    {
+      "id": "AXS|AXS 100-4T-20|68500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 100-4T-20"
+    },
+    {
+      "id": "AXS|AXS 112-4T-15|61000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 112-4T-15"
+    },
+    {
+      "id": "AXS|AXS 112-4T-20|74000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 112-4T-20"
+    },
+    {
+      "id": "AXS|AXS 112-4T-25|86500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 112-4T-25"
+    },
+    {
+      "id": "AXS|AXS 112-4T-30|92500|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 112-4T-30"
+    },
+    {
+      "id": "AXS|AXS 125-4T-20|73000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 125-4T-20"
+    },
+    {
+      "id": "AXS|AXS 125-4T-25|83000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 125-4T-25"
+    },
+    {
+      "id": "AXS|AXS 125-4T-30|93200|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 125-4T-30"
+    },
+    {
+      "id": "AXS|AXS 125-4T-40|112000|28",
+      "seriesId": "AXS",
+      "catalogueModel": "AXS 125-4T-40"
+    },
+    {
+      "id": "AXW|AXW 35-4T-0.27|2860|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 35-4T-0,18"
+    },
+    {
+      "id": "AXW|AXW 40-4T-0.37|4200|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 40-4T-0,27"
+    },
+    {
+      "id": "AXW|AXW 40-4T-0.37|4800|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 40-4T-0,37"
+    },
+    {
+      "id": "AXW|AXW 45-4T-0.55|6730|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 45-4T-0,55"
+    },
+    {
+      "id": "AXW|AXW 50-4T-0.55|7600|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 50-4T-0,55"
+    },
+    {
+      "id": "AXW|AXW 50-4T-0.75|8920|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 50-4T-0,75"
+    },
+    {
+      "id": "AXW|AXW 56-4T-0.75|9670|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 56-4T-0,75"
+    },
+    {
+      "id": "AXW|AXW 56-4T-1|11000|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 56-4T-1"
+    },
+    {
+      "id": "AXW|AXW 56-4T-1.5|12800|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 56-4T-1,5"
+    },
+    {
+      "id": "AXW|AXW 63-4T-1|13600|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 63-4T-1"
+    },
+    {
+      "id": "AXW|AXW 63-4T-1.5|16000|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 63-4T-1,5"
+    },
+    {
+      "id": "AXW|AXW 63-4T-2|18500|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 63-4T-2"
+    },
+    {
+      "id": "AXW|AXW 63-4T-3|20000|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 63-4T-3"
+    },
+    {
+      "id": "AXW|AXW 71-4T-3|23400|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 71-4T-3"
+    },
+    {
+      "id": "AXW|AXW 71-4T-4|26600|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 71-4T-4"
+    },
+    {
+      "id": "AXW|AXW 80-4T-4|30000|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 80-4T-4"
+    },
+    {
+      "id": "AXW|AXW 80-4T-5,5|34100|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 80-4T-5,5"
+    },
+    {
+      "id": "AXW|AXW 80-4T-7,5|38500|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 80-4T-7,5"
+    },
+    {
+      "id": "AXW|AXW 90-4T-5,5|38500|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 90-4T-5,5"
+    },
+    {
+      "id": "AXW|AXW 90-4T-7,5|45800|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 90-4T-7,5"
+    },
+    {
+      "id": "AXW|AXW 90-4T-10|52000|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 90-4T-10"
+    },
+    {
+      "id": "AXW|AXW 100-4T-7,5|49500|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 100-4T-7,5"
+    },
+    {
+      "id": "AXW|AXW 100-4T-10|58000|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 100-4T-10"
+    },
+    {
+      "id": "AXW|AXW 100-4T-15|66500|30",
+      "seriesId": "AXW",
+      "catalogueModel": "AXW 100-4T-15"
+    },
+    {
+      "id": "AXB|AXB 45-4T-0.55|6200|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 45-4T-0,75"
+    },
+    {
+      "id": "AXB|AXB 50-4T-0.75|8250|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 50-4T-1"
+    },
+    {
+      "id": "AXB|AXB 56-4T-1.5|11500|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 56-4T-1,5"
+    },
+    {
+      "id": "AXB|AXB 63-4T-1.5|14400|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 63-4T-1,5"
+    },
+    {
+      "id": "AXB|AXB 63-4T-2|16700|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 63-4T-2"
+    },
+    {
+      "id": "AXB|AXB 63-4T-3|18000|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 63-4T-3"
+    },
+    {
+      "id": "AXB|AXB 71-4T-3|21000|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 71-4T-3"
+    },
+    {
+      "id": "AXB|AXB 71-4T-4|24300|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 71-4T-4"
+    },
+    {
+      "id": "AXB|AXB 80-4T-4|27100|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 80-4T-4"
+    },
+    {
+      "id": "AXB|AXB 80-4T-5,5|31400|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 80-4T-5,5"
+    },
+    {
+      "id": "AXB|AXB 80-4T-7,5|35400|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 80-4T-7,5"
+    },
+    {
+      "id": "AXB|AXB 90-4T-5,5|35600|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 90-4T-5,5"
+    },
+    {
+      "id": "AXB|AXB 90-4T-7,5|42300|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 90-4T-7,5"
+    },
+    {
+      "id": "AXB|AXB 90-4T-10|48600|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 90-4T-10"
+    },
+    {
+      "id": "AXB|AXB 100-4T-7,5|45900|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 100-4T-7,5"
+    },
+    {
+      "id": "AXB|AXB 100-4T-10|54200|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 100-4T-10"
+    },
+    {
+      "id": "AXB|AXB 100-4T-15|61800|32",
+      "seriesId": "AXB",
+      "catalogueModel": "AXB 100-4T-15"
+    },
+    {
+      "id": "AXH|AXH 35-4T-0.27|2860|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 35-4T-0,18"
+    },
+    {
+      "id": "AXH|AXH 40-4T-0.37|4200|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 40-4T-0,27"
+    },
+    {
+      "id": "AXH|AXH 40-4T-0.37|4800|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 40-4T-0,37"
+    },
+    {
+      "id": "AXH|AXH 45-4T-0.55|6730|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 45-4T-0,55"
+    },
+    {
+      "id": "AXH|AXH 50-4T-0.55|7600|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 50-4T-0,55"
+    },
+    {
+      "id": "AXH|AXH 50-4T-0.75|8920|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 50-4T-0,75"
+    },
+    {
+      "id": "AXH|AXH 56-4T-0.75|9670|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 56-4T-0,75"
+    },
+    {
+      "id": "AXH|AXH 56-4T-1|11000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 56-4T-1"
+    },
+    {
+      "id": "AXH|AXH 56-4T-1.5|12800|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 56-4T-1,5"
+    },
+    {
+      "id": "AXH|AXH 63-4T-1|13600|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 63-4T-1"
+    },
+    {
+      "id": "AXH|AXH 63-4T-1.5|16000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 63-4T-1,5"
+    },
+    {
+      "id": "AXH|AXH 63-4T-2|18500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 63-4T-2"
+    },
+    {
+      "id": "AXH|AXH 35-2T-0.37|4000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 35-2T-0,37"
+    },
+    {
+      "id": "AXH|AXH 35-2T-0.55|4600|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 35-2T-0,55"
+    },
+    {
+      "id": "AXH|AXH 35-2T-0.75|5000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 35-2T-0,75"
+    },
+    {
+      "id": "AXH|AXH 35-2T-1|5800|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 35-2T-1"
+    },
+    {
+      "id": "AXH|AXH 40-2T-1|6500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 40-2T-1"
+    },
+    {
+      "id": "AXH|AXH 40-2T-1.5|7820|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 40-2T-1,5"
+    },
+    {
+      "id": "AXH|AXH 40-2T-2|9780|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 40-2T-2"
+    },
+    {
+      "id": "AXH|AXH 45-2T-2|11000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 45-2T-2"
+    },
+    {
+      "id": "AXH|AXH 45-2T-3|12100|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 45-2T-3"
+    },
+    {
+      "id": "AXH|AXH 45-2T-4|15000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 45-2T-4"
+    },
+    {
+      "id": "AXH|AXH 50-2T-3|14000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 50-2T-3"
+    },
+    {
+      "id": "AXH|AXH 50-2T-4|15600|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 50-2T-4"
+    },
+    {
+      "id": "AXH|AXH 50-2T-5,5|18200|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 50-2T-5,5"
+    },
+    {
+      "id": "AXH|AXH 56-2T-3|14000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 56-2T-3"
+    },
+    {
+      "id": "AXH|AXH 56-2T-4|17600|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 56-2T-4"
+    },
+    {
+      "id": "AXH|AXH 56-2T-5,5|20300|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 56-2T-5,5"
+    },
+    {
+      "id": "AXH|AXH 56-2T-7,5|23500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 56-2T-7,5"
+    },
+    {
+      "id": "AXH|AXH 63-2T-7.5|24500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 63-2T-7,5"
+    },
+    {
+      "id": "AXH|AXH 63-2T-10|28000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 63-2T-10"
+    },
+    {
+      "id": "AXH|AXH 71-2T-7,5|28500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 71-2T-7,5"
+    },
+    {
+      "id": "AXH|AXH 71-2T-10|35000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 71-2T-10"
+    },
+    {
+      "id": "AXH|AXH 71-2T-15|40000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 71-2T-15"
+    },
+    {
+      "id": "AXH|AXH 71-2T-20|41300|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 71-2T-20"
+    },
+    {
+      "id": "AXH|AXH 63-4T-3|20000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 63-4T-3"
+    },
+    {
+      "id": "AXH|AXH 71-4T-3|23400|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 71-4T-3"
+    },
+    {
+      "id": "AXH|AXH 71-4T-4|26600|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 71-4T-4"
+    },
+    {
+      "id": "AXH|AXH 80-4T-4|30000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 80-4T-4"
+    },
+    {
+      "id": "AXH|AXH 80-4T-5,5|34100|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 80-4T-5,5"
+    },
+    {
+      "id": "AXH|AXH 80-4T-7,5|38500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 80-4T-7,5"
+    },
+    {
+      "id": "AXH|AXH 90-4T-5,5|38500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 90-4T-5,5"
+    },
+    {
+      "id": "AXH|AXH 90-4T-7,5|45800|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 90-4T-7,5"
+    },
+    {
+      "id": "AXH|AXH 90-4T-10|52000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 90-4T-10"
+    },
+    {
+      "id": "AXH|AXH 100-4T-7,5|49500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 100-4T-7,5"
+    },
+    {
+      "id": "AXH|AXH 100-4T-10|58000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 100-4T-10"
+    },
+    {
+      "id": "AXH|AXH 100-4T-15|66500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 100-4T-15"
+    },
+    {
+      "id": "AXH|AXH 100-4T-20|68500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 100-4T-20"
+    },
+    {
+      "id": "AXH|AXH 112-4T-15|61000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 112-4T-15"
+    },
+    {
+      "id": "AXH|AXH 112-4T-20|74000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 112-4T-20"
+    },
+    {
+      "id": "AXH|AXH 112-4T-25|86500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 112-4T-25"
+    },
+    {
+      "id": "AXH|AXH 112-4T-30|92500|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 112-4T-30"
+    },
+    {
+      "id": "AXH|AXH 125-4T-20|73000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 125-4T-20"
+    },
+    {
+      "id": "AXH|AXH 125-4T-25|83000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 125-4T-25"
+    },
+    {
+      "id": "AXH|AXH 125-4T-30|93200|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 125-4T-30"
+    },
+    {
+      "id": "AXH|AXH 125-4T-40|112000|34",
+      "seriesId": "AXH",
+      "catalogueModel": "AXH 125-4T-40"
+    },
+    {
+      "id": "CD|CD 100|450|35",
+      "seriesId": "CD",
+      "catalogueModel": "CD 100"
+    },
+    {
+      "id": "CD|CD 125|450|35",
+      "seriesId": "CD",
+      "catalogueModel": "CD 125"
+    },
+    {
+      "id": "CD|CD 150|530|35",
+      "seriesId": "CD",
+      "catalogueModel": "CD 150"
+    },
+    {
+      "id": "CD|CD 200|1100|35",
+      "seriesId": "CD",
+      "catalogueModel": "CD 200"
+    },
+    {
+      "id": "CD|CD 250|1400|35",
+      "seriesId": "CD",
+      "catalogueModel": "CD 250"
+    },
+    {
+      "id": "CD|CD 315|1900|35",
+      "seriesId": "CD",
+      "catalogueModel": "CD 315"
+    },
+    {
+      "id": "CRB|CRB 400X200|1100|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 400X200"
+    },
+    {
+      "id": "CRB|CRB 500X250|1450|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 500X250"
+    },
+    {
+      "id": "CRB|CRB 500X300|1900|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 500X300"
+    },
+    {
+      "id": "CRB|CRB 600X350|2550|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 600X350"
+    },
+    {
+      "id": "CRB|CRB 600X400|3300|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 600X400"
+    },
+    {
+      "id": "CRB|CRB 700X400|4400|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 700X400"
+    },
+    {
+      "id": "CRB|CRB 700X500|5800|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 700X500"
+    },
+    {
+      "id": "CRB|CRB 800X600|9500|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 800X600"
+    },
+    {
+      "id": "CRB|CRB 1000X700|12000|36",
+      "seriesId": "CRB",
+      "catalogueModel": "CRB 1000X700"
+    },
+    {
+      "id": "CRD|CRD 31-4T|2400|37",
+      "seriesId": "CRD",
+      "catalogueModel": "CRD 31-4T"
+    },
+    {
+      "id": "CRD|CRD 35-4T|3600|37",
+      "seriesId": "CRD",
+      "catalogueModel": "CRD 35-4T"
+    },
+    {
+      "id": "CRD|CRD 40-4T|5000|37",
+      "seriesId": "CRD",
+      "catalogueModel": "CRD 40-4T"
+    },
+    {
+      "id": "CRD|CRD 45-4T|7800|37",
+      "seriesId": "CRD",
+      "catalogueModel": "CRD 45-4T"
+    },
+    {
+      "id": "CRD|CRD 50-4T|10600|37",
+      "seriesId": "CRD",
+      "catalogueModel": "CRD 50-4T"
+    },
+    {
+      "id": "CRD|CRD 56-4T|13000|37",
+      "seriesId": "CRD",
+      "catalogueModel": "CRD 56-4T"
+    },
+    {
+      "id": "CRD|CRD 63-4T|18000|37",
+      "seriesId": "CRD",
+      "catalogueModel": "CRD 63-4T"
+    },
+    {
+      "id": "CRD|CRD 71-4T|26000|37",
+      "seriesId": "CRD",
+      "catalogueModel": "CRD 71-4T"
+    },
+    {
+      "id": "CRK|CRK 31-4T|2400|38",
+      "seriesId": "CRK",
+      "catalogueModel": "CRK 31-4T"
+    },
+    {
+      "id": "CRK|CRK 35-4T|3600|38",
+      "seriesId": "CRK",
+      "catalogueModel": "CRK 35-4T"
+    },
+    {
+      "id": "CRK|CRK 40-4T|5000|38",
+      "seriesId": "CRK",
+      "catalogueModel": "CRK 40-4T"
+    },
+    {
+      "id": "CRK|CRK 45-4T|7800|38",
+      "seriesId": "CRK",
+      "catalogueModel": "CRK 45-4T"
+    },
+    {
+      "id": "CRK|CRK 50-4T|10600|38",
+      "seriesId": "CRK",
+      "catalogueModel": "CRK 50-4T"
+    },
+    {
+      "id": "CRK|CRK 56-4T|13000|38",
+      "seriesId": "CRK",
+      "catalogueModel": "CRK 56-4T"
+    },
+    {
+      "id": "CRK|CRK 63-4T|18000|38",
+      "seriesId": "CRK",
+      "catalogueModel": "CRK 63-4T"
+    },
+    {
+      "id": "CRK|CRK 71-4T|26000|38",
+      "seriesId": "CRK",
+      "catalogueModel": "CRK 71-4T"
+    },
+    {
+      "id": "CRC|CRC 20-2M|1100|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 20-2M"
+    },
+    {
+      "id": "CRC|CRC 25-2M|1450|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 25-2M"
+    },
+    {
+      "id": "CRC|CRC 28-2M|1900|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 28-2M"
+    },
+    {
+      "id": "CRC|CRC 31-4M|2550|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 31-4M"
+    },
+    {
+      "id": "CRC|CRC 35-4M|3300|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 35-4M"
+    },
+    {
+      "id": "CRC|CRC 40-4M|4400|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 40-4M"
+    },
+    {
+      "id": "CRC|CRC 45-4M|5800|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 45-4M"
+    },
+    {
+      "id": "CRC|CRC 50-4T|9500|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 50-4T"
+    },
+    {
+      "id": "CRC|CRC 56-4T|12000|39",
+      "seriesId": "CRC",
+      "catalogueModel": "CRC 56-4T"
+    },
+    {
+      "id": "CRS|CRS 31-4T|2400|40",
+      "seriesId": "CRS",
+      "catalogueModel": "CRS 31-4T"
+    },
+    {
+      "id": "CRS|CRS 35-4T|3600|40",
+      "seriesId": "CRS",
+      "catalogueModel": "CRS 35-4T"
+    },
+    {
+      "id": "CRS|CRS 40-4T|5000|40",
+      "seriesId": "CRS",
+      "catalogueModel": "CRS 40-4T"
+    },
+    {
+      "id": "CRS|CRS 45-4T|7800|40",
+      "seriesId": "CRS",
+      "catalogueModel": "CRS 45-4T"
+    },
+    {
+      "id": "CRS|CRS 50-4T|10600|40",
+      "seriesId": "CRS",
+      "catalogueModel": "CRS 50-4T"
+    },
+    {
+      "id": "CRS|CRS 56-4T|13000|40",
+      "seriesId": "CRS",
+      "catalogueModel": "CRS 56-4T"
+    },
+    {
+      "id": "CRS|CRS 63-4T|18000|40",
+      "seriesId": "CRS",
+      "catalogueModel": "CRS 63-4T"
+    },
+    {
+      "id": "CRS|CRS 71-4T|26000|40",
+      "seriesId": "CRS",
+      "catalogueModel": "CRS 71-4T"
+    },
+    {
+      "id": "CR|CR 20-2M|1100|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 20-2M"
+    },
+    {
+      "id": "CR|CR 25-2M|1450|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 25-2M"
+    },
+    {
+      "id": "CR|CR 28-2M|1900|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 28-2M"
+    },
+    {
+      "id": "CR|CR 31-4M|2550|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 31-4M"
+    },
+    {
+      "id": "CR|CR 35-4M|3300|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 35-4M"
+    },
+    {
+      "id": "CR|CR 40-4M|4400|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 40-4M"
+    },
+    {
+      "id": "CR|CR 45-4M|5800|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 45-4M"
+    },
+    {
+      "id": "CR|CR 50-4T|9500|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 50-4T"
+    },
+    {
+      "id": "CR|CR 56-4T|12000|41",
+      "seriesId": "CR",
+      "catalogueModel": "CR 56-4T"
+    },
+    {
+      "id": "CRH|CRH 31-4T|2400|42",
+      "seriesId": "CRH",
+      "catalogueModel": "CRH 31-4T"
+    },
+    {
+      "id": "CRH|CRH 35-4T|3600|42",
+      "seriesId": "CRH",
+      "catalogueModel": "CRH 35-4T"
+    },
+    {
+      "id": "CRH|CRH 40-4T|5000|42",
+      "seriesId": "CRH",
+      "catalogueModel": "CRH 40-4T"
+    },
+    {
+      "id": "CRH|CRH 45-4T|7800|42",
+      "seriesId": "CRH",
+      "catalogueModel": "CRH 45-4T"
+    },
+    {
+      "id": "CRH|CRH 50-4T|10600|42",
+      "seriesId": "CRH",
+      "catalogueModel": "CRH 50-4T"
+    },
+    {
+      "id": "CRH|CRH 56-4T|13000|42",
+      "seriesId": "CRH",
+      "catalogueModel": "CRH 56-4T"
+    },
+    {
+      "id": "CRH|CRH 63-4T|18000|42",
+      "seriesId": "CRH",
+      "catalogueModel": "CRH 63-4T"
+    },
+    {
+      "id": "CRH|CRH 71-4T|26000|42",
+      "seriesId": "CRH",
+      "catalogueModel": "CRH 71-4T"
+    },
+    {
+      "id": "CRV|CRV 31-4T|2400|43",
+      "seriesId": "CRV",
+      "catalogueModel": "CRV 31-4T"
+    },
+    {
+      "id": "CRV|CRV 35-4T|3600|43",
+      "seriesId": "CRV",
+      "catalogueModel": "CRV 35-4T"
+    },
+    {
+      "id": "CRV|CRV 40-4T|5000|43",
+      "seriesId": "CRV",
+      "catalogueModel": "CRV 40-4T"
+    },
+    {
+      "id": "CRV|CRV 45-4T|7800|43",
+      "seriesId": "CRV",
+      "catalogueModel": "CRV 45-4T"
+    },
+    {
+      "id": "CRV|CRV 50-4T|10600|43",
+      "seriesId": "CRV",
+      "catalogueModel": "CRV 50-4T"
+    },
+    {
+      "id": "CRV|CRV 56-4T|13000|43",
+      "seriesId": "CRV",
+      "catalogueModel": "CRV 56-4T"
+    },
+    {
+      "id": "CRV|CRV 63-4T|18000|43",
+      "seriesId": "CRV",
+      "catalogueModel": "CRV 63-4T"
+    },
+    {
+      "id": "CRV|CRV 71-4T|26000|43",
+      "seriesId": "CRV",
+      "catalogueModel": "CRV 71-4T"
+    },
+    {
+      "id": "CRU|CRU 20-2M|1100|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 20-2M"
+    },
+    {
+      "id": "CRU|CRU 25-2M|1450|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 25-2M"
+    },
+    {
+      "id": "CRU|CRU 28-2M|1900|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 28-2M"
+    },
+    {
+      "id": "CRU|CRU 31-4M|2550|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 31-4M"
+    },
+    {
+      "id": "CRU|CRU 35-4M|3300|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 35-4M"
+    },
+    {
+      "id": "CRU|CRU 40-4M|4400|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 40-4M"
+    },
+    {
+      "id": "CRU|CRU 45-4M|5800|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 45-4M"
+    },
+    {
+      "id": "CRU|CRU 50-4T|9500|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 50-4T"
+    },
+    {
+      "id": "CRU|CRU 56-4T|12000|44",
+      "seriesId": "CRU",
+      "catalogueModel": "CRU 56-4T"
+    },
+    {
+      "id": "AXR|AXR 35-4T-0.27|2600|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 35-4T-0,18"
+    },
+    {
+      "id": "AXR|AXR 40-4T-0.37|3950|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 40-4T-0,27"
+    },
+    {
+      "id": "AXR|AXR 40-4T-0.37|4450|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 40-4T-0,37"
+    },
+    {
+      "id": "AXR|AXR 45-4T-0.55|6350|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 45-4T-0,55"
+    },
+    {
+      "id": "AXR|AXR 50-4T-0.55|7200|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 50-4T-0,55"
+    },
+    {
+      "id": "AXR|AXR 50-4T-0.75|8450|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 50-4T-0,75"
+    },
+    {
+      "id": "AXR|AXR 56-4T-0.75|9300|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 56-4T-0,75"
+    },
+    {
+      "id": "AXR|AXR 56-4T-1|10600|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 56-4T-1"
+    },
+    {
+      "id": "AXR|AXR 56-4T-1.5|12400|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 56-4T-1,5"
+    },
+    {
+      "id": "AXR|AXR 63-4T-1|13000|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 63-4T-1"
+    },
+    {
+      "id": "AXR|AXR 63-4T-1.5|15400|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 63-4T-1,5"
+    },
+    {
+      "id": "AXR|AXR 63-4T-2|18000|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 63-4T-2"
+    },
+    {
+      "id": "AXR|AXR 63-4T-3|18000|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 63-4T-3"
+    },
+    {
+      "id": "AXR|AXR 71-4T-3|21000|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 71-4T-3"
+    },
+    {
+      "id": "AXR|AXR 71-4T-4|24300|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 71-4T-4"
+    },
+    {
+      "id": "AXR|AXR 80-4T-4|27100|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 80-4T-4"
+    },
+    {
+      "id": "AXR|AXR 80-4T-5,5|31400|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 80-4T-5,5"
+    },
+    {
+      "id": "AXR|AXR 80-4T-7,5|35400|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 80-4T-7,5"
+    },
+    {
+      "id": "AXR|AXR 90-4T-5,5|35600|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 90-4T-5,5"
+    },
+    {
+      "id": "AXR|AXR 90-4T-7,5|42300|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 90-4T-7,5"
+    },
+    {
+      "id": "AXR|AXR 90-4T-10|48600|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 90-4T-10"
+    },
+    {
+      "id": "AXR|AXR 100-4T-7,5|45900|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 100-4T-7,5"
+    },
+    {
+      "id": "AXR|AXR 100-4T-10|54200|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 100-4T-10"
+    },
+    {
+      "id": "AXR|AXR 100-4T-15|61800|46",
+      "seriesId": "AXR",
+      "catalogueModel": "AXR 100-4T-15"
+    },
+    {
+      "id": "AXV|AXV 35-4T-0.27|2600|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 35-4T-0,18"
+    },
+    {
+      "id": "AXV|AXV 40-4T-0.37|3950|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 40-4T-0,27"
+    },
+    {
+      "id": "AXV|AXV 40-4T-0.37|4450|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 40-4T-0,37"
+    },
+    {
+      "id": "AXV|AXV 45-4T-0.55|6350|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 45-4T-0,55"
+    },
+    {
+      "id": "AXV|AXV 50-4T-0.55|7200|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 50-4T-0,55"
+    },
+    {
+      "id": "AXV|AXV 50-4T-0.75|8450|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 50-4T-0,75"
+    },
+    {
+      "id": "AXV|AXV 56-4T-0.75|9300|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 56-4T-0,75"
+    },
+    {
+      "id": "AXV|AXV 56-4T-1|10600|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 56-4T-1"
+    },
+    {
+      "id": "AXV|AXV 56-4T-1.5|12400|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 56-4T-1,5"
+    },
+    {
+      "id": "AXV|AXV 63-4T-1|13000|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 63-4T-1"
+    },
+    {
+      "id": "AXV|AXV 63-4T-1.5|15400|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 63-4T-1,5"
+    },
+    {
+      "id": "AXV|AXV 63-4T-2|18000|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 63-4T-2"
+    },
+    {
+      "id": "AXV|AXV 63-4T-3|18000|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 63-4T-3"
+    },
+    {
+      "id": "AXV|AXV 71-4T-3|21000|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 71-4T-3"
+    },
+    {
+      "id": "AXV|AXV 71-4T-4|24300|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 71-4T-4"
+    },
+    {
+      "id": "AXV|AXV 80-4T-4|27100|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 80-4T-4"
+    },
+    {
+      "id": "AXV|AXV 80-4T-5,5|31400|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 80-4T-5,5"
+    },
+    {
+      "id": "AXV|AXV 80-4T-7,5|35400|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 80-4T-7,5"
+    },
+    {
+      "id": "AXV|AXV 90-4T-5,5|35600|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 90-4T-5,5"
+    },
+    {
+      "id": "AXV|AXV 90-4T-7,5|42300|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 90-4T-7,5"
+    },
+    {
+      "id": "AXV|AXV 90-4T-10|48600|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 90-4T-10"
+    },
+    {
+      "id": "AXV|AXV 100-4T-7,5|45900|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 100-4T-7,5"
+    },
+    {
+      "id": "AXV|AXV 100-4T-10|54200|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 100-4T-10"
+    },
+    {
+      "id": "AXV|AXR 100-4T-15|61800|48",
+      "seriesId": "AXV",
+      "catalogueModel": "AXV 100-4T-15"
+    },
+    {
+      "id": "VHR|VHR-1|1000|53",
+      "seriesId": "VHR",
+      "catalogueModel": "VHR-1"
+    },
+    {
+      "id": "VHR|VHR-2|1400|53",
+      "seriesId": "VHR",
+      "catalogueModel": "VHR-2"
+    },
+    {
+      "id": "VHR|VHR-3|1900|53",
+      "seriesId": "VHR",
+      "catalogueModel": "VHR-3"
+    },
+    {
+      "id": "VHR|VHR-4|3100|53",
+      "seriesId": "VHR",
+      "catalogueModel": "VHR-4"
+    },
+    {
+      "id": "VHR|VHR-5|4100|53",
+      "seriesId": "VHR",
+      "catalogueModel": "VHR-5"
+    },
+    {
+      "id": "VHR|VHR-6|5600|53",
+      "seriesId": "VHR",
+      "catalogueModel": "VHR-6"
+    },
+    {
+      "id": "CRR|CRR 400X200|900|54",
+      "seriesId": "CRR",
+      "catalogueModel": "CRR 400X200"
+    },
+    {
+      "id": "CRR|CRR 500X250|1200|54",
+      "seriesId": "CRR",
+      "catalogueModel": "CRR 500X250"
+    },
+    {
+      "id": "CRR|CRR 500X300|1850|54",
+      "seriesId": "CRR",
+      "catalogueModel": "CRR 500X300"
+    },
+    {
+      "id": "CRR|CRR 600X400|2700|54",
+      "seriesId": "CRR",
+      "catalogueModel": "CRR 600X400"
+    },
+    {
+      "id": "CRR|CRR 700X400|3800|54",
+      "seriesId": "CRR",
+      "catalogueModel": "CRR 700X400"
+    },
+    {
+      "id": "CRR|CRR 700X500|5000|54",
+      "seriesId": "CRR",
+      "catalogueModel": "CRR 700X500"
+    },
+    {
+      "id": "AXJ|AXJ 31-2/4T|4800|5",
+      "seriesId": "AXJ",
+      "catalogueModel": "AXJ 31-2/4T"
+    },
+    {
+      "id": "AXJ|AXJ 35-2/4T|6800|5",
+      "seriesId": "AXJ",
+      "catalogueModel": "AXJ 35-2/4T"
+    },
+    {
+      "id": "AXJ|AXJ 40-2/4T|9600|5",
+      "seriesId": "AXJ",
+      "catalogueModel": "AXJ 40-2/4T"
+    },
+    {
+      "id": "AXJ|AXJ 40-2/4T|10500|5",
+      "seriesId": "AXJ",
+      "catalogueModel": "AXJ 40-2/4T"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 56-2T-5,5|20300|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 56-2T-5,5"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 56-2T-7,5|22500|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 56-2T-7,5"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 63-2T-10|28000|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 63-2T-10"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 71-2T-10|35000|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 71-2T-10"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 71-2T-15|40000|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 71-2T-15"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 63-4T-4|20000|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 63-4T-4"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 71-4T-4|26600|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 71-4T-4"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 80-4T-5,5|34100|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 80-4T-5,5"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 90-4T-7,5|45800|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 90-4T-7,5"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 90-4T-10|52000|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 90-4T-10"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 100-4T-15|66500|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 100-4T-15"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 112-4T-20|74000|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 112-4T-20"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 112-4T-25|86500|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 112-4T-25"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 112-4T-30|92500|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 112-4T-30"
+    },
+    {
+      "id": "TUNEL-AXF|TUNEL-AXF 125-4T-40|112000|8",
+      "seriesId": "TUNEL-AXF",
+      "catalogueModel": "TUNEL-AXF 125-4T-40"
+    },
+    {
+      "id": "CR-EC|CR 20EC|1200|49",
+      "seriesId": "CR-EC",
+      "catalogueModel": "CR 20EC"
+    },
+    {
+      "id": "CR-EC|CR 25EC|1450|49",
+      "seriesId": "CR-EC",
+      "catalogueModel": "CR 25EC"
+    },
+    {
+      "id": "CR-EC|CR 28EC|2250|49",
+      "seriesId": "CR-EC",
+      "catalogueModel": "CR 28EC"
+    },
+    {
+      "id": "CR-EC|CR 31EC|2800|49",
+      "seriesId": "CR-EC",
+      "catalogueModel": "CR 31EC"
+    },
+    {
+      "id": "CR-EC|CR 35EC|3100|49",
+      "seriesId": "CR-EC",
+      "catalogueModel": "CR 35EC"
+    },
+    {
+      "id": "CR-EC|CR 40EC|3400|49",
+      "seriesId": "CR-EC",
+      "catalogueModel": "CR 40EC"
+    },
+    {
+      "id": "CRU-EC|CRU 20EC|1200|50",
+      "seriesId": "CRU-EC",
+      "catalogueModel": "CRU 20EC"
+    },
+    {
+      "id": "CRU-EC|CRU 25EC|1450|50",
+      "seriesId": "CRU-EC",
+      "catalogueModel": "CRU 25EC"
+    },
+    {
+      "id": "CRU-EC|CRU 28EC|2250|50",
+      "seriesId": "CRU-EC",
+      "catalogueModel": "CRU 28EC"
+    },
+    {
+      "id": "CRU-EC|CRU 31EC|2800|50",
+      "seriesId": "CRU-EC",
+      "catalogueModel": "CRU 31EC"
+    },
+    {
+      "id": "CRU-EC|CRU 35EC|3100|50",
+      "seriesId": "CRU-EC",
+      "catalogueModel": "CRU 35EC"
+    },
+    {
+      "id": "CRU-EC|CRU 40EC|3400|50",
+      "seriesId": "CRU-EC",
+      "catalogueModel": "CRU 40EC"
+    },
+    {
+      "id": "CRB-EC|CRB 20EC|1200|51",
+      "seriesId": "CRB-EC",
+      "catalogueModel": "CRB 20EC"
+    },
+    {
+      "id": "CRB-EC|CRB 25EC|1450|51",
+      "seriesId": "CRB-EC",
+      "catalogueModel": "CRB 25EC"
+    },
+    {
+      "id": "CRB-EC|CRB 28EC|2250|51",
+      "seriesId": "CRB-EC",
+      "catalogueModel": "CRB 28EC"
+    },
+    {
+      "id": "CRB-EC|CRB 31EC|2800|51",
+      "seriesId": "CRB-EC",
+      "catalogueModel": "CRB 31EC"
+    },
+    {
+      "id": "CRB-EC|CRB 35EC|3100|51",
+      "seriesId": "CRB-EC",
+      "catalogueModel": "CRB 35EC"
+    },
+    {
+      "id": "CRB-EC|CRB 40EC|3400|51",
+      "seriesId": "CRB-EC",
+      "catalogueModel": "CRB 40EC"
+    },
+    {
+      "id": "CRC-EC|CRC 20EC|1200|52",
+      "seriesId": "CRC-EC",
+      "catalogueModel": "CRC 20EC"
+    },
+    {
+      "id": "CRC-EC|CRC 25EC|1450|52",
+      "seriesId": "CRC-EC",
+      "catalogueModel": "CRC 25EC"
+    },
+    {
+      "id": "CRC-EC|CRC 28EC|2250|52",
+      "seriesId": "CRC-EC",
+      "catalogueModel": "CRC 28EC"
+    },
+    {
+      "id": "CRC-EC|CRC 31EC|2800|52",
+      "seriesId": "CRC-EC",
+      "catalogueModel": "CRC 31EC"
+    },
+    {
+      "id": "CRC-EC|CRC 35EC|3100|52",
+      "seriesId": "CRC-EC",
+      "catalogueModel": "CRC 35EC"
+    },
+    {
+      "id": "CRC-EC|CRC 40EC|3400|52",
+      "seriesId": "CRC-EC",
+      "catalogueModel": "CRC 40EC"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "AXW/ATEX|AXW/ATEX 35-4M-0.18|2860|15",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 35-4M-0.18",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 35-2T-0.37|4000|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 35-2T-0.37",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 35-2T-0.55|4600|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 35-2T-0.55",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 35-2T-0.75|5000|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 35-2T-0.75",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 40-2T-1|6500|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 40-2T-1",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 40-2T-1.5|7820|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 40-2T-1.5",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 45-2T-2|11000|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 45-2T-2",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 50-2T-3|14000|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 50-2T-3",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 56-2T-4|17600|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 56-2T-4",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS-ATEX|CRS/ATEX 40-2T-5.5",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 40-2T-5.5",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS|CRS 40-2T-5.5",
+      "seriesId": "CRS",
+      "model": "CRS 40-2T-5.5",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS-ATEX|CRS/ATEX 45-2T-10",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 45-2T-10",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS|CRS 45-2T-10",
+      "seriesId": "CRS",
+      "model": "CRS 45-2T-10",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS-ATEX|CRS/ATEX 50-2T-15",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 50-2T-15",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS|CRS 50-2T-15",
+      "seriesId": "CRS",
+      "model": "CRS 50-2T-15",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS-ATEX|CRS/ATEX 56-2T-20",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 56-2T-20",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS|CRS 56-2T-20",
+      "seriesId": "CRS",
+      "model": "CRS 56-2T-20",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS-ATEX|CRS/ATEX 80-4T-25",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 80-4T-25",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS|CRS 80-4T-25",
+      "seriesId": "CRS",
+      "model": "CRS 80-4T-25",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS-ATEX|CRS/ATEX 31-2T-2",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 31-2T-2",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS|CRS 31-2T-2",
+      "seriesId": "CRS",
+      "model": "CRS 31-2T-2",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRH|CRH 31-2T-2",
+      "seriesId": "CRH",
+      "model": "CRH 31-2T-2",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRH-ATEX|CRH/ATEX 31-2T-2",
+      "seriesId": "CRH/ATEX",
+      "model": "CRH/ATEX 31-2T-2",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS-ATEX|CRS/ATEX 63-2T-40",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 63-2T-40",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS|CRS 63-2T-40",
+      "seriesId": "CRS",
+      "model": "CRS 63-2T-40",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRH|CRH 63-2T-40",
+      "seriesId": "CRH",
+      "model": "CRH 63-2T-40",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRH-ATEX|CRH/ATEX 63-2T-40",
+      "seriesId": "CRH/ATEX",
+      "model": "CRH/ATEX 63-2T-40",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "AXW/ATEX|AXW/ATEX 50-4M-0.75|8920|12",
+      "seriesId": "AXW/ATEX",
+      "model": "AXW/ATEX 50-4M-0.75",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 31-4T",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 31-4T",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 35-4T",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 35-4T",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 40-4T",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 40-4T",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 45-4T",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 45-4T",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 50-4T",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 50-4T",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 56-4T",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 56-4T",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 63-4T",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 63-4T",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 71-4T",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 71-4T",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRK|CRK 40-2T-5.5",
+      "seriesId": "CRK",
+      "model": "CRK 40-2T-5.5",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 40-2T-5.5",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 40-2T-5.5",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRD|CRD 40-2T-5.5",
+      "seriesId": "CRD",
+      "model": "CRD 40-2T-5.5",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 40-2T-5.5",
+      "seriesId": "CRD/ATEX",
+      "model": "CRD/ATEX 40-2T-5.5",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH|CRH 40-2T-5.5",
+      "seriesId": "CRH",
+      "model": "CRH 40-2T-5.5",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH/ATEX|CRH/ATEX 40-2T-5.5",
+      "seriesId": "CRH/ATEX",
+      "model": "CRH/ATEX 40-2T-5.5",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK|CRK 45-2T-10",
+      "seriesId": "CRK",
+      "model": "CRK 45-2T-10",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 45-2T-10",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 45-2T-10",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRD|CRD 45-2T-10",
+      "seriesId": "CRD",
+      "model": "CRD 45-2T-10",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 45-2T-10",
+      "seriesId": "CRD/ATEX",
+      "model": "CRD/ATEX 45-2T-10",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH|CRH 45-2T-10",
+      "seriesId": "CRH",
+      "model": "CRH 45-2T-10",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH/ATEX|CRH/ATEX 45-2T-10",
+      "seriesId": "CRH/ATEX",
+      "model": "CRH/ATEX 45-2T-10",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK|CRK 50-2T-15",
+      "seriesId": "CRK",
+      "model": "CRK 50-2T-15",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 50-2T-15",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 50-2T-15",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRD|CRD 50-2T-15",
+      "seriesId": "CRD",
+      "model": "CRD 50-2T-15",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 50-2T-15",
+      "seriesId": "CRD/ATEX",
+      "model": "CRD/ATEX 50-2T-15",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH|CRH 50-2T-15",
+      "seriesId": "CRH",
+      "model": "CRH 50-2T-15",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH/ATEX|CRH/ATEX 50-2T-15",
+      "seriesId": "CRH/ATEX",
+      "model": "CRH/ATEX 50-2T-15",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK|CRK 56-2T-20",
+      "seriesId": "CRK",
+      "model": "CRK 56-2T-20",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 56-2T-20",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 56-2T-20",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRD|CRD 56-2T-20",
+      "seriesId": "CRD",
+      "model": "CRD 56-2T-20",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 56-2T-20",
+      "seriesId": "CRD/ATEX",
+      "model": "CRD/ATEX 56-2T-20",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH|CRH 56-2T-20",
+      "seriesId": "CRH",
+      "model": "CRH 56-2T-20",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH/ATEX|CRH/ATEX 56-2T-20",
+      "seriesId": "CRH/ATEX",
+      "model": "CRH/ATEX 56-2T-20",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK|CRK 80-4T-25",
+      "seriesId": "CRK",
+      "model": "CRK 80-4T-25",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 80-4T-25",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 80-4T-25",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRD|CRD 80-4T-25",
+      "seriesId": "CRD",
+      "model": "CRD 80-4T-25",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 80-4T-25",
+      "seriesId": "CRD/ATEX",
+      "model": "CRD/ATEX 80-4T-25",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH|CRH 80-4T-25",
+      "seriesId": "CRH",
+      "model": "CRH 80-4T-25",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRH/ATEX|CRH/ATEX 80-4T-25",
+      "seriesId": "CRH/ATEX",
+      "model": "CRH/ATEX 80-4T-25",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK|CRK 31-2T-2",
+      "seriesId": "CRK",
+      "model": "CRK 31-2T-2",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 31-2T-2",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 31-2T-2",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRD|CRD 31-2T-2",
+      "seriesId": "CRD",
+      "model": "CRD 31-2T-2",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 31-2T-2",
+      "seriesId": "CRD/ATEX",
+      "model": "CRD/ATEX 31-2T-2",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK|CRK 63-2T-40",
+      "seriesId": "CRK",
+      "model": "CRK 63-2T-40",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 63-2T-40",
+      "seriesId": "CRK/ATEX",
+      "model": "CRK/ATEX 63-2T-40",
+      "reason": "series-not-in-supplied-catalogue"
+    },
+    {
+      "id": "MATRIX-CRD|CRD 63-2T-40",
+      "seriesId": "CRD",
+      "model": "CRD 63-2T-40",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 63-2T-40",
+      "seriesId": "CRD/ATEX",
+      "model": "CRD/ATEX 63-2T-40",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "VITLO-CRS-ATEX|CRS/ATEX 31-2T-2|SS316",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 31-2T-2 STAINLESS STEEL 316",
+      "reason": "exact-variant-not-listed-in-series-table"
+    },
+    {
+      "id": "CRS/ATEX|CRS/ATEX 45-4T PASLANMAZ 316|7800|22|SS316",
+      "seriesId": "CRS/ATEX",
+      "model": "CRS/ATEX 45-4T STAINLESS STEEL 316",
+      "reason": "exact-variant-not-listed-in-series-table"
+    }
+  ]
+}

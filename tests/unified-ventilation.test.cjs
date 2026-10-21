@@ -46,12 +46,28 @@ test('Vitlo model-code phase reaches 13-field cards and previews without adding 
     assert.doesNotMatch(card,/<span>(?:Poles|Pole Count|Timer)<\/span>/);
     const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
     assert.ok(preview.includes('<span>Phase</span><b>'+phase+'</b>'),name);
-    assert.doesNotMatch(preview,/<span>(?:Poles|Pole Count|Operating Temperature)<\/span>/);
+    assert.doesNotMatch(preview,/<span>(?:Poles|Pole Count)<\/span>/);
   }
   const unknown=C.models.find(m=>m.seriesId==='CD');
   assert.ok(unknown);
   assert.match(renderCards(w,C.getSeries(unknown.seriesId),[unknown]),/model-field-missing"><span>Phase<\/span><b>-<\/b>/);
   assert.doesNotMatch(w.VensisDirectPreview.html({product:C.product(unknown.id),model:unknown}),/<span>Phase<\/span>/);
+});
+
+test('all 623 verified Vitlo operating conditions reach cards and previews with unknown lower bounds retained',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const evidence=JSON.parse(read('assets/products/vitlo/catalogue-ip-temperature.json'));
+  for(const row of evidence.models){
+    const m=C.getModel(row.id),condition=evidence.series[row.seriesId];
+    const temperature=condition.operatingTemperatureMinC===null?'≤ 50 °C':`-20 – ${condition.operatingTemperatureMaxC} °C`;
+    const card=renderCards(w,C.getSeries(m.seriesId),[m]);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,13,m.id);
+    assert.ok(card.includes('<span>IP Class</span><b>'+condition.ipClass+'</b>'),m.id);
+    assert.ok(card.includes('<span>Operating Temperature</span><b>'+temperature+'</b>'),m.id);
+    const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    assert.ok(preview.includes('<span>IP Class</span><b>'+condition.ipClass+'</b>'),m.id);
+    assert.ok(preview.includes('<span>Operating Temperature</span><b>'+temperature+'</b>'),m.id);
+  }
 });
 
 test('all 1022 card badges agree with real selection curves despite the 43 stale Vitlo flags',()=>{
@@ -183,7 +199,7 @@ test('previews omit unspecified temperatures, preserve verified limits and use t
     assert.doesNotMatch(html,/<span>Operating Temperature<\/span>/,m.id);
     unspecified++;
   }
-  assert.equal(unspecified,926); // Forty S&P roof/duct-fan rows now have source-verified limits.
+  assert.equal(unspecified,303); // Forty S&P and 623 catalogue-matched Vitlo rows have source-verified limits.
   const heat=C.getModel('VORTICE-ROOF|15301');
   const original=JSON.stringify(C.getSeries(heat.seriesId).description);
   const html=w.VensisDirectPreview.html({product:C.product(heat.id),model:heat});
