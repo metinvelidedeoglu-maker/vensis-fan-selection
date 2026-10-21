@@ -73,6 +73,16 @@
   }
   function displayTemperature(technical={},format=String){
     const valid=value=>value!=null&&text(value)!==''&&typeof value!=='boolean'&&Number.isFinite(Number(value));
+    const byFrequency=technical.operatingTemperatureByFrequencyC;
+    if(byFrequency&&typeof byFrequency==='object'&&!Array.isArray(byFrequency)){
+      const limits=Object.entries(byFrequency).filter(([hz,range])=>valid(hz)&&Number(hz)>0&&range&&typeof range==='object')
+        .sort(([a],[b])=>Number(a)-Number(b))
+        .map(([hz,range])=>{
+          const value=displayTemperature({operatingTemperatureMinC:range.min,operatingTemperatureMaxC:range.max},format);
+          return value?`${value} (${format(Number(hz))} Hz)`:'';
+        }).filter(Boolean);
+      if(limits.length)return limits.join(' / ');
+    }
     const min=technical.operatingTemperatureMinC,max=technical.operatingTemperatureMaxC;
     const hasMin=valid(min),hasMax=valid(max);
     // Imported 0/0 limits mean unspecified, not a verified zero-degree range.

@@ -139,6 +139,7 @@
         phase:technical.phase||model.phase||'',
         operatingTemperatureMinC:technical.operatingTemperatureMinC??model.operatingTemperatureMinC,
         operatingTemperatureMaxC:technical.operatingTemperatureMaxC??model.operatingTemperatureMaxC,
+        operatingTemperatureByFrequencyC:technical.operatingTemperatureByFrequencyC??model.operatingTemperatureByFrequencyC,
         continuousAirTemperatureC:technical.continuousAirTemperatureC??model.continuousAirTemperatureC,
         approximateContinuousAirTemperatureC:technical.approximateContinuousAirTemperatureC??model.approximateContinuousAirTemperatureC,
         atex:technical.atex||model.hazardousArea||null,

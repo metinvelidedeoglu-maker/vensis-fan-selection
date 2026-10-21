@@ -1,0 +1,1769 @@
+{
+  "schemaVersion": 1,
+  "status": "source-pages-visually-verified-2026-10-21",
+  "sourceArchive": {
+    "name": "Desktop(3).zip",
+    "sha256": "692021f9ec6a54d26c1b1f14162ee730ad7078486d7e4c73b110dc4ddb55306b"
+  },
+  "sources": {
+    "vortice-vario.pdf": {
+      "sha256": "d2b408be8c5a1e998f2baee19c797e8b4f82b040264ec168bc31ce6a8011f9e1",
+      "pages": 3,
+      "featurePage": 1,
+      "modelTablePage": 1,
+      "printedTablePage": 42,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "editionYear": null
+    },
+    "vortice-vario-i.pdf": {
+      "sha256": "35de5b64788986db801a715e9b5be3f5b1c634417a1c6136d773a74fb93ed61c",
+      "pages": 3,
+      "featurePage": 1,
+      "modelTablePage": 1,
+      "printedTablePage": 50,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "editionYear": null
+    },
+    "lineo.pdf": {
+      "sha256": "fb8aaef62f53780acce389699372f5ae07db9af0c6617838bf4ccc5d723d0186",
+      "pages": 5,
+      "featurePage": 1,
+      "modelTablePage": 1,
+      "printedTablePage": 24,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "editionYear": null
+    },
+    "lineo-quiet.pdf": {
+      "sha256": "41972583a437c0a749caafd78c7f9b48bc6032776f6377b1c0cfdb6c8047a169",
+      "pages": 3,
+      "featurePage": 1,
+      "modelTablePage": 1,
+      "printedTablePage": 16,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "editionYear": null
+    },
+    "ca-md.pdf": {
+      "sha256": "a4f38b8901b30121e008df88baa8d2c81c8eb2db03f7919b36ba6f7a014ab667",
+      "pages": 8,
+      "featurePage": 1,
+      "modelTablePage": 2,
+      "printedTablePage": 41,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "editionYear": null
+    },
+    "heatmaster.pdf": {
+      "sha256": "ec6a6f47e5eaeefcfe7a90ba04b2cf5f4a04e1ee398a8c08a1dd88b8bd84bcec",
+      "pages": 8,
+      "featurePage": 2,
+      "modelTablePage": 3,
+      "printedTablePage": 6,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "editionYear": null
+    },
+    "slimroof.pdf": {
+      "sha256": "842745889a1e1e921b4a3294f0ff6cb128692dec8e263532f50b2790cc25433d",
+      "pages": 6,
+      "featurePage": 2,
+      "modelTablePage": 3,
+      "printedTablePage": 28,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "editionYear": null
+    }
+  },
+  "policy": {
+    "exactCodeAndModelRequired": true,
+    "fillMissingOnly": true,
+    "motorAndSelectionDataChanged": false,
+    "optionalSensorsAreNotIncludedFeatures": true,
+    "unknownLowerLimit": null,
+    "phaseRequiresExplicitModelSupplyStatement": true
+  },
+  "summary": {
+    "series": 7,
+    "matchedModels": 46,
+    "excludedModels": 110
+  },
+  "models": [
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:14615:VORTICE 150/6 AR LL S",
+      "seriesId": "VORTICE VARIO",
+      "productCode": "14615",
+      "catalogueModel": "VORTICE 150/6” AR LL S",
+      "source": "vortice-vario.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 2.07,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "VORTICE 150/6” AR LL S\n14615\n220-240\n35\n0.17\n2110(2)\n2520(1)\n380(2)\n215(1)\n105.6(2)\n59.7(1)\n49.6\n50\n2.07"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:12455:VORTICE 230/9 AR LL S",
+      "seriesId": "VORTICE VARIO",
+      "productCode": "12455",
+      "catalogueModel": "VORTICE 230/9” AR LL S",
+      "source": "vortice-vario.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 3.45,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "VORTICE 230/9” AR LL S\n12455\n220-240\n35 (50 Hz)\n40 (60 Hz)\n0.19\n1200(1)\n1300(2)\n700(1)\n370(2) \n194.4(1)\n102.8(2) \n43.6\n50\n3.45"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:12415:VORTICE 300/12 AR LL S",
+      "seriesId": "VORTICE VARIO",
+      "productCode": "12415",
+      "catalogueModel": "VORTICE 300/12” AR LL S",
+      "source": "vortice-vario.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 6.13,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": null,
+        "operatingTemperatureByFrequencyC": {
+          "50": {
+            "min": null,
+            "max": 50
+          },
+          "60": {
+            "min": null,
+            "max": 40
+          }
+        }
+      },
+      "temperatureBasis": "frequency-specific-maximum-no-lower-limit-specified",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "VORTICE 300/12” AR LL S\n12415\n220-240\n75 (50 Hz)\n90 (60 Hz)\n0.41\n1215(1)\n1280(2)\n1650(1)\n920(2) \n458.3(1)\n255.6(2) \n53.6\n50 (50 Hz)\n40 (60 Hz)\n6.13"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12616:VORTICE 150/6 ARI LL S",
+      "seriesId": "VORTICE VARIO I",
+      "productCode": "12616",
+      "catalogueModel": "VORTICE 150/6” ARI LL S",
+      "source": "vortice-vario-i.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 2.52,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "VORTICE 150/6” ARI LL S \n12616\n220-240\n35\n0.17\n2080(1)\n2460(2) \n350(1)\n200(2) \n97.2(1)\n55.6(2) \n49.1\n50\n2.52"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12456:VORTICE 230/9 ARI LL S",
+      "seriesId": "VORTICE VARIO I",
+      "productCode": "12456",
+      "catalogueModel": "VORTICE 230/9” ARI LL S",
+      "source": "vortice-vario-i.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 3.88,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "VORTICE 230/9” ARI LL S\n12456\n220-240\n35 (50 Hz)\n40 (60 Hz)\n0.19\n1160(1)\n1260(2) \n680(1)\n350(2) \n188.9(1)\n97.2(2) \n45.3\n50\n3.88"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12416:VORTICE 300/12 ARI LL S",
+      "seriesId": "VORTICE VARIO I",
+      "productCode": "12416",
+      "catalogueModel": "VORTICE 300/12” ARI LL S",
+      "source": "vortice-vario-i.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 7.2,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": null,
+        "operatingTemperatureByFrequencyC": {
+          "50": {
+            "min": null,
+            "max": 50
+          },
+          "60": {
+            "min": null,
+            "max": 40
+          }
+        }
+      },
+      "temperatureBasis": "frequency-specific-maximum-no-lower-limit-specified",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "VORTICE 300/12” ARI LL S\n12416\n220-240\n75 (50 Hz)\n90 (60 Hz)\n0.41\n1230(1)\n1310(2) \n1750(1)\n1000(2) \n486.1(1)\n277.7(2) \n53.5\n50 (50 Hz)\n40 (60 Hz)\n7.20"
+    },
+    {
+      "id": "VORTICE-LINEO|17144|LINEO 100",
+      "seriesId": "LINEO",
+      "productCode": "17144",
+      "catalogueModel": "LINEO 100",
+      "source": "lineo.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 1.8,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 60
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 100\n17144\n220-240\n20\n0.09\n1520\n180\n50\n13\n127.5\n30.7\nIP44\n60\n1 8"
+    },
+    {
+      "id": "VORTICE-LINEO|17143|LINEO 100 Q",
+      "seriesId": "LINEO",
+      "productCode": "17143",
+      "catalogueModel": "LINEO 100 Q",
+      "source": "lineo.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 1.8,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 60
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 100 Q\n17143\n220-240\n12\n0.05\n1860\n155\n43.1\n6.5\n63.8\n29.4\nIP44\n60\n1 8"
+    },
+    {
+      "id": "VORTICE-LINEO|17145|LINEO 125",
+      "seriesId": "LINEO",
+      "productCode": "17145",
+      "catalogueModel": "LINEO 125",
+      "source": "lineo.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 1.8,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 60
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 125\n17145\n220-240\n25\n0.11\n1570\n250\n69.4\n13\n127.5\n33.9\nIP44\n60\n1 8"
+    },
+    {
+      "id": "VORTICE-LINEO|17146|LINEO 150",
+      "seriesId": "LINEO",
+      "productCode": "17146",
+      "catalogueModel": "LINEO 150",
+      "source": "lineo.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 2.5,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 60
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 150\n17146\n220-240\n40\n0.18\n1580\n385\n106.9\n21\n206\n41.4\nIP44\n60\n2 5"
+    },
+    {
+      "id": "VORTICE-LINEO|17180|LINEO 200",
+      "seriesId": "LINEO",
+      "productCode": "17180",
+      "catalogueModel": "LINEO 200",
+      "source": "lineo.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX5",
+        "weight": 4.9,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 200\n17180\n220 - 240\n80\n95\n0.34\n0 42\n1925\n2450\n815\n1025\n226.4\n284 7\n21.5\n273\n210.9\n2677\nIPX5\n50\n4 9\nNEW"
+    },
+    {
+      "id": "VORTICE-LINEO|17181|LINEO 250",
+      "seriesId": "LINEO",
+      "productCode": "17181",
+      "catalogueModel": "LINEO 250",
+      "source": "lineo.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX5",
+        "weight": 5.3,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 250\n17181\n220 - 240\n90\n120\n145\n0.41\n0.54\n0 63\n1500\n2240\n2730\n725\n1145\n1440\n201\n318\n400\n13.9\n29\n372\n136.5\n284.4\n364 8\nIPX5\n50\n5,3\nNEW"
+    },
+    {
+      "id": "VORTICE-LINEO|17182|LINEO 315",
+      "seriesId": "LINEO",
+      "productCode": "17182",
+      "catalogueModel": "LINEO 315",
+      "source": "lineo.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX5",
+        "weight": 9.5,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 315\n17182\n220 - 240\n190\n260\n360\n1.14\n1.57\n1 60\n1770\n2300\n2690\n1590\n2115\n2590\n442\n588\n719\n27.1\n42.2\n55 4\n265.8\n413.9\n543 3\nIPX5\n50\n9,5\nNEW"
+    },
+    {
+      "id": "VORTICE-LINEO|17160|LINEO 100 QUIET",
+      "seriesId": "LINEO QUIET",
+      "productCode": "17160",
+      "catalogueModel": "LINEO 100 QUIET",
+      "source": "lineo-quiet.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP45",
+        "weight": 3.8,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 45
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 100 QUIET\n17160\n220 240\n11\n24\n0.09\n011\n1455\n1880\n150\n200\n41.7\n55 6\n9\n11 5\n88.3\n112 8\nIP45\n45\n3 8"
+    },
+    {
+      "id": "VORTICE-LINEO|17161|LINEO 125 QUIET",
+      "seriesId": "LINEO QUIET",
+      "productCode": "17161",
+      "catalogueModel": "LINEO 125 QUIET",
+      "source": "lineo-quiet.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP45",
+        "weight": 3.6,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 45
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 125 QUIET\n17161\n220 240\n11\n24\n0.09\n011\n1125\n1475\n190\n250\n52.8\n69 4\n8\n10\n78.5\n981\nIP45\n45\n3 6"
+    },
+    {
+      "id": "VORTICE-LINEO|17162|LINEO 150 QUIET",
+      "seriesId": "LINEO QUIET",
+      "productCode": "17162",
+      "catalogueModel": "LINEO 150 QUIET",
+      "source": "lineo-quiet.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP45",
+        "weight": 5.4,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 55
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 150 QUIET\n17162\n220 240\n24\n37\n0.14\n017\n1040\n1430\n255\n350\n70.8\n972\n10.5\n15 5\n103\n152\nIP45\n55\n5 4"
+    },
+    {
+      "id": "VORTICE-LINEO|17164|LINEO 200 QUIET",
+      "seriesId": "LINEO QUIET",
+      "productCode": "17164",
+      "catalogueModel": "LINEO 200 QUIET",
+      "source": "lineo-quiet.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX5",
+        "weight": 8.6,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 200 QUIET\n17164\n220 240\n50\n80\n0.34\n0 42\n1880\n2380\n805\n1045\n223.6\n290 3\n20.6\n26 3\n202\n2579\nIPX5\n50\n8 6"
+    },
+    {
+      "id": "VORTICE-LINEO|17165|LINEO 250 QUIET",
+      "seriesId": "LINEO QUIET",
+      "productCode": "17165",
+      "catalogueModel": "LINEO 250 QUIET",
+      "source": "lineo-quiet.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX5",
+        "weight": 13.4,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 250 QUIET\n17165\n220-240\n95\n125\n150\n0.42\n0.55\n0 65\n1640\n2320\n2750\n960\n1340\n1550\n266.7\n372.2\n430 6\n20.2\n30.3\n34 6\n198.1\n297.2\n339 3\nIPX5\n50\n13,4"
+    },
+    {
+      "id": "VORTICE-LINEO|17166|LINEO 315 QUIET",
+      "seriesId": "LINEO QUIET",
+      "productCode": "17166",
+      "catalogueModel": "LINEO 315 QUIET",
+      "source": "lineo-quiet.pdf",
+      "modelTablePage": 1,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IPX5",
+        "weight": 28.3,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "maximum-operating-temperature-no-lower-limit-specified",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "LINEO 315 QUIET\n17166\n220-240\n215\n270\n360\n0.95\n1.15\n1 55\n1930\n2360\n2705\n2070\n2530\n2890\n575\n702,8\n802 8\n30.6\n43.3\n53 6\n300.1\n424.6\n525 7\nIPX5\n50\n28,3"
+    },
+    {
+      "id": "VORTICE-CA-MD|16107",
+      "seriesId": "CA MD EXTRA EU",
+      "productCode": "16107",
+      "catalogueModel": "CA 100 MD*",
+      "source": "ca-md.pdf",
+      "modelTablePage": 2,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 2.97,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "continuous-operating-range",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "CA 100 MD*\n16107\n220-240\n60\n85\n0.30\n0.40\n1730\n2450\n220\n340\n61\n94\n30\n39\n294\n383\n32.2**\n43.2**\n50\n2.97"
+    },
+    {
+      "id": "VORTICE-CA-MD|16108",
+      "seriesId": "CA MD EXTRA EU",
+      "productCode": "16108",
+      "catalogueModel": "CA 125 MD*",
+      "source": "ca-md.pdf",
+      "modelTablePage": 2,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 3,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "continuous-operating-range",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "CA 125 MD*\n16108\n220-240\n60\n85\n0.30\n0.40\n1580\n2380\n280\n450\n78\n125\n27\n37\n265\n363\n30.8**\n45.9**\n50\n3.0"
+    },
+    {
+      "id": "VORTICE-CA-MD|16153",
+      "seriesId": "CA MD EXTRA EU",
+      "productCode": "16153",
+      "catalogueModel": "CA 150 MD*",
+      "source": "ca-md.pdf",
+      "modelTablePage": 2,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 5.52,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "continuous-operating-range",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "CA 150 MD*\n16153\n220-240\n110\n155\n0.50\n0.70\n1815\n2080\n570\n770\n188\n214\n44\n54\n432\n530\n40.7\n48.0\n50\n5.52"
+    },
+    {
+      "id": "VORTICE-CA-MD|16109",
+      "seriesId": "CA MD EXTRA EU",
+      "productCode": "16109",
+      "catalogueModel": "CA 150 Q MD*",
+      "source": "ca-md.pdf",
+      "modelTablePage": 2,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 2.98,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "continuous-operating-range",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "CA 150 Q MD*\n16109\n220-240\n60\n85\n0.30\n0.40\n1430\n2350\n300\n500\n83\n139\n21\n35\n206\n343\n34.7**\n48.1**\n50\n2.98"
+    },
+    {
+      "id": "VORTICE-CA-MD|16155",
+      "seriesId": "CA MD EXTRA EU",
+      "productCode": "16155",
+      "catalogueModel": "CA 200 MD*",
+      "source": "ca-md.pdf",
+      "modelTablePage": 2,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 5.43,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "continuous-operating-range",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "CA 200 MD* \n16155\n220-240\n110\n155\n0.55\n070\n1700\n2100\n820\n1050\n228\n292\n37\n48\n363\n471\n43.8\n49.6\n50\n5.43"
+    },
+    {
+      "id": "VORTICE-CA-MD|16156",
+      "seriesId": "CA MD EXTRA EU",
+      "productCode": "16156",
+      "catalogueModel": "CA 250 MD*",
+      "source": "ca-md.pdf",
+      "modelTablePage": 2,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 6.55,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "continuous-operating-range",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "CA 250 MD*\n16156\n220-240\n115\n200\n0.55\n0.90\n1800\n2420\n950\n1300\n264\n361\n42\n56\n412\n549\n46.7\n55.9\n50\n6.55"
+    },
+    {
+      "id": "VORTICE-CA-MD|16157",
+      "seriesId": "CA MD EXTRA EU",
+      "productCode": "16157",
+      "catalogueModel": "CA 315 MD*",
+      "source": "ca-md.pdf",
+      "modelTablePage": 2,
+      "featurePage": 1,
+      "technical": {
+        "ipClass": "IP44",
+        "weight": 9.47,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 50
+      },
+      "temperatureBasis": "continuous-operating-range",
+      "ipBasis": "ducted-appliance",
+      "sourceRowExcerpt": "CA 315 MD*\n16157\n220-240\n190\n280\n0.85\n1.25\n1940\n2500\n1350\n1800\n375\n500\n52\n72\n510\n706\n52.4\n57.7\n50\n9.47"
+    },
+    {
+      "id": "VORTICE-ROOF|15301",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15301",
+      "catalogueModel": "HEATMASTER F400 315 M4 0.25KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 35.5,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Single-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 315 M4 0.25KW\n15301\n315\n50\n230\n2,580\n290\n80\nIP55\n35.5"
+    },
+    {
+      "id": "VORTICE-ROOF|15261",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15261",
+      "catalogueModel": "HEATMASTER F400 315 T4 0.25KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 35.5,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 315 T4 0.25KW\n15261\n315\n50\n400\n2,590\n220\n80\nIP55\n35.5"
+    },
+    {
+      "id": "VORTICE-ROOF|15302",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15302",
+      "catalogueModel": "HEATMASTER F400 355 M4 0.25KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 41,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Single-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 355 M4 0.25KW\n15302\n355\n50\n230\n3,610\n400\n80\nIP55\n41"
+    },
+    {
+      "id": "VORTICE-ROOF|15262",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15262",
+      "catalogueModel": "HEATMASTER F400 355 T4 0.25KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 41,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 355 T4 0.25KW\n15262\n355\n50\n400\n3,610\n330\n80\nIP55\n41"
+    },
+    {
+      "id": "VORTICE-ROOF|15303",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15303",
+      "catalogueModel": "HEATMASTER F400 400 M4 0.55KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 45,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Single-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 400 M4 0.55KW\n15303\n400\n50\n230\n5,340\n620\n80\nIP55\n45"
+    },
+    {
+      "id": "VORTICE-ROOF|15263",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15263",
+      "catalogueModel": "HEATMASTER F400 400 T4 0.55KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 45,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 400 T4 0.55KW\n15263\n400\n50\n400\n7,870\n560\n80\nIP55\n45"
+    },
+    {
+      "id": "VORTICE-ROOF|15264",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15264",
+      "catalogueModel": "HEATMASTER F400 450 T4 1.1KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 85,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 450 T4 1.1KW\n15264\n450\n50\n400\n7,870\n1,120\n80\nIP55\n85"
+    },
+    {
+      "id": "VORTICE-ROOF|15265",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15265",
+      "catalogueModel": "HEATMASTER F400 500 T4 1.5KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 96,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 500 T4 1.5KW\n15265\n500\n50\n400\n10,430\n1,840\n80\nIP55\n96"
+    },
+    {
+      "id": "VORTICE-ROOF|15266",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15266",
+      "catalogueModel": "HEATMASTER F400 560 T4 3KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 104,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "HEATMASTER F400 560 T4 3KW\n15266\n560\n50\n400\n15,040\n3,200\n80\nIP55\n104"
+    },
+    {
+      "id": "VORTICE-ROOF|15267",
+      "seriesId": "HEATMASTER F400",
+      "productCode": "15267",
+      "catalogueModel": "HEATMASTER F400 630 T4 5.5KW",
+      "source": "heatmaster.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP55",
+        "weight": 140,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "operating-environment-range-not-treated-air-S1-or-fire-S2",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "6\nHEATMASTER F400 630 T4 5.5KW\n15267\n630\n50\n680\n22,550\n6,100\n80\nIP55\n140"
+    },
+    {
+      "id": "VORTICE-ROOF|15271",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15271",
+      "catalogueModel": "SLIMROOF 155 M ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 5,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Single-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 155 M ES\n15271\n50/60\n460\n55\n-25°C/+60°C\nIP54\n5"
+    },
+    {
+      "id": "VORTICE-ROOF|15272",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15272",
+      "catalogueModel": "SLIMROOF 190 M ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 5,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Single-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 190 M ES\n15272\n50/60\n760\n90\n-25°C/+60°C\nIP54\n5"
+    },
+    {
+      "id": "VORTICE-ROOF|15273",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15273",
+      "catalogueModel": "SLIMROOF 220 M ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 7,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Single-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 220 M ES\n15273\n50/60\n870\n75\n-25°C/+60°C\nIP54\n7"
+    },
+    {
+      "id": "VORTICE-ROOF|15274",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15274",
+      "catalogueModel": "SLIMROOF 250 M ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 9,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Single-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 250 M ES\n15274\n50/60\n1,640\n145\n-25°C/+60°C\nIP54\n9"
+    },
+    {
+      "id": "VORTICE-ROOF|15275",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15275",
+      "catalogueModel": "SLIMROOF 310 M ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 16,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Single-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 310 M ES\n15275\n50/60\n3,160\n360\n-25°C/+60°C\nIP54\n16"
+    },
+    {
+      "id": "VORTICE-ROOF|15276",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15276",
+      "catalogueModel": "SLIMROOF 355 T ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 17.5,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 355 T ES\n15276\n50/60\n4,890\n990\n-25°C/+60°C\nIP54\n17.5"
+    },
+    {
+      "id": "VORTICE-ROOF|15277",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15277",
+      "catalogueModel": "SLIMROOF 450 T ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 19,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 450 T ES\n15277\n50/60\n6,955\n1,006\n-25°C/+60°C\nIP54\n19"
+    },
+    {
+      "id": "VORTICE-ROOF|15278",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15278",
+      "catalogueModel": "SLIMROOF 500 T ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 73,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 500 T ES\n15278\n50/60\n13,850\n3,000\n-25°C/+60°C\nIP54\n73"
+    },
+    {
+      "id": "VORTICE-ROOF|15279",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15279",
+      "catalogueModel": "SLIMROOF 560 T ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 85,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60,
+        "phase": "Three-phase"
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 560 T ES\n15279\n50/60\n16,100\n2,770\n-25°C/+60°C\nIP54\n85"
+    },
+    {
+      "id": "VORTICE-ROOF|15311",
+      "seriesId": "SLIMROOF ES",
+      "productCode": "15311",
+      "catalogueModel": "SLIMROOF 630 T ES",
+      "source": "slimroof.pdf",
+      "modelTablePage": 3,
+      "featurePage": 2,
+      "technical": {
+        "ipClass": "IP54",
+        "weight": 100,
+        "operatingTemperatureMinC": -25,
+        "operatingTemperatureMaxC": 60
+      },
+      "temperatureBasis": "model-table-operating-range-overrides-general-family-range",
+      "ipBasis": "manufacturer-table-or-motor-protection",
+      "sourceRowExcerpt": "SLIMROOF 630 T ES\n15311\n50/60\n18,600\n2,700\n-25°C/+60°C\nIP54\n100"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "VORTICE-LINEO|17170|LINEO 100 QUIET ES",
+      "seriesId": "LINEO QUIET ES",
+      "model": "LINEO 100 QUIET ES",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-LINEO|17171|LINEO 125 QUIET ES",
+      "seriesId": "LINEO QUIET ES",
+      "model": "LINEO 125 QUIET ES",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-LINEO|17172|LINEO 150 QUIET ES",
+      "seriesId": "LINEO QUIET ES",
+      "model": "LINEO 150 QUIET ES",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-LINEO|17174|LINEO 200 QUIET ES",
+      "seriesId": "LINEO QUIET ES",
+      "model": "LINEO 200 QUIET ES",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-LINEO|17175|LINEO 250 QUIET ES",
+      "seriesId": "LINEO QUIET ES",
+      "model": "LINEO 250 QUIET ES",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-LINEO|17176|LINEO 315 QUIET ES",
+      "seriesId": "LINEO QUIET ES",
+      "model": "LINEO 315 QUIET ES",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-CA-MD|16140",
+      "seriesId": "CA MD E RF",
+      "model": "CA 100 MD E RF",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-CA-MD|16141",
+      "seriesId": "CA MD E RF",
+      "model": "CA 125 MD E RF",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-CA-MD|16183",
+      "seriesId": "CA MD E RF",
+      "model": "CA 150 MD E RF",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-CA-MD|16185",
+      "seriesId": "CA MD E RF",
+      "model": "CA 200 MD E RF",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-CA-MD|16186",
+      "seriesId": "CA MD E RF",
+      "model": "CA 250 MD E RF",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-CA-MD|16187",
+      "seriesId": "CA MD E RF",
+      "model": "CA 315 MD E RF",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40320",
+      "seriesId": "E-ATEX",
+      "model": "E 254 M ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40321",
+      "seriesId": "E-ATEX",
+      "model": "E 304 M ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40322",
+      "seriesId": "E-ATEX",
+      "model": "E 354 M ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40323",
+      "seriesId": "E-ATEX",
+      "model": "E 404 M ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40324",
+      "seriesId": "E-ATEX",
+      "model": "E 454 M ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40325",
+      "seriesId": "E-ATEX",
+      "model": "E 254 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40326",
+      "seriesId": "E-ATEX",
+      "model": "E 304 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40327",
+      "seriesId": "E-ATEX",
+      "model": "E 354 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40328",
+      "seriesId": "E-ATEX",
+      "model": "E 404 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40329",
+      "seriesId": "E-ATEX",
+      "model": "E 454 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40330",
+      "seriesId": "E-ATEX",
+      "model": "E 504 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40333",
+      "seriesId": "E-ATEX",
+      "model": "E 506 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40331",
+      "seriesId": "E-ATEX",
+      "model": "E 604 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|40332",
+      "seriesId": "E-ATEX",
+      "model": "E 606 T ATEX",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-EATEX-TIRACAMINO|15000",
+      "seriesId": "TIRACAMINO",
+      "model": "Tiracamino",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11201:M 100/4",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 100/4",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11211:M 100/4 T",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 100/4 T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11221:M 100/4 A",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 100/4 A",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11301:M 120/5",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 120/5",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11311:M 120/5 T",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 120/5 T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11321:M 120/5 A",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 120/5 A",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11401:M 150/6",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 150/6",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11411:M 150/6 T",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 150/6 T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO:11421:M 150/6 A",
+      "seriesId": "PUNTO",
+      "model": "PUNTO M 150/6 A",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO FILO:11123:MF 100/4",
+      "seriesId": "PUNTO FILO",
+      "model": "PUNTO FILO MF 100/4",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO FILO:11124:MF 120/5",
+      "seriesId": "PUNTO FILO",
+      "model": "PUNTO FILO MF 120/5",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO FILO:11125:MF 150/6",
+      "seriesId": "PUNTO FILO",
+      "model": "PUNTO FILO MF 150/6",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO FOUR:11143:MFO 90/3.5",
+      "seriesId": "PUNTO FOUR",
+      "model": "PUNTO FOUR MFO 90/3.5",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO FOUR:11145:MFO 100/4",
+      "seriesId": "PUNTO FOUR",
+      "model": "PUNTO FOUR MFO 100/4",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO FOUR:11147:MFO 120/5",
+      "seriesId": "PUNTO FOUR",
+      "model": "PUNTO FOUR MFO 120/5",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO GHOST:11110:MG 90/3.5",
+      "seriesId": "PUNTO GHOST",
+      "model": "PUNTO GHOST MG 90/3.5",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO GHOST:11116:MG 120/5",
+      "seriesId": "PUNTO GHOST",
+      "model": "PUNTO GHOST MG 120/5",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO GHOST:11117:MG 150/6",
+      "seriesId": "PUNTO GHOST",
+      "model": "PUNTO GHOST MG 150/6",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO FLEXO:11313:MEX 100/4 LL 1S",
+      "seriesId": "PUNTO EVO FLEXO",
+      "model": "PUNTO EVO FLEXO MEX 100/4 LL 1S",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO FLEXO:11314:MEX 100/4 LL 1S T",
+      "seriesId": "PUNTO EVO FLEXO",
+      "model": "PUNTO EVO FLEXO MEX 100/4 LL 1S T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO FLEXO:11333:MEX 120/5 LL 1S",
+      "seriesId": "PUNTO EVO FLEXO",
+      "model": "PUNTO EVO FLEXO MEX 120/5 LL 1S",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO FLEXO:11334:MEX 120/5 LL 1S T",
+      "seriesId": "PUNTO EVO FLEXO",
+      "model": "PUNTO EVO FLEXO MEX 120/5 LL 1S T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11260:ME 100/4 LL",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 100/4 LL",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11264:ME 100/4 LL T",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 100/4 LL T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11261:ME 100/4 LL TP",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 100/4 LL TP",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11262:ME 100/4 LL TP HCS",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 100/4 LL TP HCS",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11263:ME 100/4 LL PIR",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 100/4 LL PIR",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11270:ME 120/5 LL",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 120/5 LL",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11274:ME 120/5 LL T",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 120/5 LL T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11271:ME 120/5 LL TP",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 120/5 LL TP",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11272:ME 120/5 LL TP HCS",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 120/5 LL TP HCS",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO:11273:ME 120/5 LL PIR",
+      "seriesId": "PUNTO EVO",
+      "model": "PUNTO EVO ME 120/5 LL PIR",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO GOLD:11306:ME 100/4 LL WHITE GOLD",
+      "seriesId": "PUNTO EVO GOLD",
+      "model": "PUNTO EVO GOLD ME 100/4 LL WHITE GOLD",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO GOLD:11307:ME 100/4 LL YELLOW GOLD",
+      "seriesId": "PUNTO EVO GOLD",
+      "model": "PUNTO EVO GOLD ME 100/4 LL YELLOW GOLD",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO GOLD:11308:ME 100/4 LL PINK GOLD",
+      "seriesId": "PUNTO EVO GOLD",
+      "model": "PUNTO EVO GOLD ME 100/4 LL PINK GOLD",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO GOLD:11309:ME 100/4 LL BLACK GOLD",
+      "seriesId": "PUNTO EVO GOLD",
+      "model": "PUNTO EVO GOLD ME 100/4 LL BLACK GOLD",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO GOLD:11316:ME 100/4 LL T WHITE GOLD",
+      "seriesId": "PUNTO EVO GOLD",
+      "model": "PUNTO EVO GOLD ME 100/4 LL T WHITE GOLD",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO GOLD:11317:ME 100/4 LL T YELLOW GOLD",
+      "seriesId": "PUNTO EVO GOLD",
+      "model": "PUNTO EVO GOLD ME 100/4 LL T YELLOW GOLD",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO GOLD:11318:ME 100/4 LL T PINK GOLD",
+      "seriesId": "PUNTO EVO GOLD",
+      "model": "PUNTO EVO GOLD ME 100/4 LL T PINK GOLD",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|PUNTO EVO GOLD:11319:ME 100/4 LL T BLACK GOLD",
+      "seriesId": "PUNTO EVO GOLD",
+      "model": "PUNTO EVO GOLD ME 100/4 LL T BLACK GOLD",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO:11936:MICRO 100",
+      "seriesId": "VORT QUADRO",
+      "model": "VORT QUADRO MICRO 100",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO:11944:MEDIO",
+      "seriesId": "VORT QUADRO",
+      "model": "VORT QUADRO MEDIO",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO:11952:SUPER",
+      "seriesId": "VORT QUADRO",
+      "model": "VORT QUADRO SUPER",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO I:12017:MICRO 100 I",
+      "seriesId": "VORT QUADRO I",
+      "model": "VORT QUADRO I MICRO 100 I",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO I:12018:MICRO 100 I T",
+      "seriesId": "VORT QUADRO I",
+      "model": "VORT QUADRO I MICRO 100 I T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO I:12020:MEDIO I",
+      "seriesId": "VORT QUADRO I",
+      "model": "VORT QUADRO I MEDIO I",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO I:12021:MEDIO I T",
+      "seriesId": "VORT QUADRO I",
+      "model": "VORT QUADRO I MEDIO I T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO I:12023:SUPER I",
+      "seriesId": "VORT QUADRO I",
+      "model": "VORT QUADRO I SUPER I",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO I:12024:SUPER I T",
+      "seriesId": "VORT QUADRO I",
+      "model": "VORT QUADRO I SUPER I T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11521:QE 60 LL",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60 LL",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11526:QE 60 LL T",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60 LL T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11532:QE 60 LL TP",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60 LL TP",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11537:QE 60 LL TP HCS",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60 LL TP HCS",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11544:QE 60 LL T PIR",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60 LL T PIR",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11523:QE 60/35 LL",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60/35 LL",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11528:QE 60/35 LL T",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60/35 LL T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11534:QE 60/35 LL TP",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60/35 LL TP",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11541:QE 60/35 LL TP HCS",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60/35 LL TP HCS",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11546:QE 60/35 LL T PIR",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 60/35 LL T PIR",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11522:QE 100 LL",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100 LL",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11527:QE 100 LL T",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100 LL T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11533:QE 100 LL TP",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100 LL TP",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11538:QE 100 LL TP HCS",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100 LL TP HCS",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11545:QE 100 LL T PIR",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100 LL T PIR",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11524:QE 100/60 LL",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100/60 LL",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11531:QE 100/60 LL T",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100/60 LL T",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11535:QE 100/60 LL TP",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100/60 LL TP",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11542:QE 100/60 LL TP HCS",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100/60 LL TP HCS",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11547:QE 100/60 LL T PIR",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100/60 LL T PIR",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11525:QE 100/60/35 LL",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100/60/35 LL",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11536:QE 100/60/35 LL TP",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100/60/35 LL TP",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORT QUADRO EVO:11543:QE 100/60/35 LL TP HCS",
+      "seriesId": "VORT QUADRO EVO",
+      "model": "VORT QUADRO EVO QE 100/60/35 LL TP HCS",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43151",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 315 M4 0.25KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43153",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 315 T4 0.25KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43154",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 355 M4 0.25KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43155",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 355 T4 0.25KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43156",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 400 M4 0.55KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43157",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 400 T4 0.55KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43158",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 450 T4 1.1KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43159",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 500 T4 1.5KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43161",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 560 T4 3KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-QBK-SAL-KC-EVO|43163",
+      "seriesId": "VORT QBK SAL-KC EVO",
+      "model": "VORT QBK SAL-KC EVO 630 T4 5.5KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    },
+    {
+      "id": "VORTICE-CMS-ATEX|30172",
+      "seriesId": "CMS ATEX",
+      "model": "CMS ATEX 14/5 T4 0,09KW",
+      "reason": "exact-series-or-product-code-not-in-supplied-seven-PDFs"
+    }
+  ],
+  "existingValueConflicts": [
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:14615:VORTICE 150/6 AR LL S",
+      "field": "motor.power",
+      "existing": 0.018,
+      "sourceValueAt50Hz": 0.035,
+      "source": "vortice-vario.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:14615:VORTICE 150/6 AR LL S",
+      "field": "motor.current",
+      "existing": 0.1,
+      "sourceValueAt50Hz": 0.17,
+      "source": "vortice-vario.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:12455:VORTICE 230/9 AR LL S",
+      "field": "motor.power",
+      "existing": 0.022,
+      "sourceValueAt50Hz": 0.035,
+      "source": "vortice-vario.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:12455:VORTICE 230/9 AR LL S",
+      "field": "motor.current",
+      "existing": 0.1,
+      "sourceValueAt50Hz": 0.19,
+      "source": "vortice-vario.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:12415:VORTICE 300/12 AR LL S",
+      "field": "motor.power",
+      "existing": 0.045,
+      "sourceValueAt50Hz": 0.075,
+      "source": "vortice-vario.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:12415:VORTICE 300/12 AR LL S",
+      "field": "motor.current",
+      "existing": 0.21,
+      "sourceValueAt50Hz": 0.41,
+      "source": "vortice-vario.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12616:VORTICE 150/6 ARI LL S",
+      "field": "motor.power",
+      "existing": 0.025,
+      "sourceValueAt50Hz": 0.035,
+      "source": "vortice-vario-i.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12616:VORTICE 150/6 ARI LL S",
+      "field": "motor.current",
+      "existing": 0.11,
+      "sourceValueAt50Hz": 0.17,
+      "source": "vortice-vario-i.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12456:VORTICE 230/9 ARI LL S",
+      "field": "motor.power",
+      "existing": 0.026,
+      "sourceValueAt50Hz": 0.035,
+      "source": "vortice-vario-i.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12456:VORTICE 230/9 ARI LL S",
+      "field": "motor.current",
+      "existing": 0.13,
+      "sourceValueAt50Hz": 0.19,
+      "source": "vortice-vario-i.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12416:VORTICE 300/12 ARI LL S",
+      "field": "motor.power",
+      "existing": 0.045,
+      "sourceValueAt50Hz": 0.075,
+      "source": "vortice-vario-i.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12416:VORTICE 300/12 ARI LL S",
+      "field": "motor.current",
+      "existing": 0.21,
+      "sourceValueAt50Hz": 0.41,
+      "source": "vortice-vario-i.pdf",
+      "page": 1,
+      "action": "preserved-pending-coordinated-motor-direction-and-curve-review"
+    },
+    {
+      "id": "VORTICE-LINEO|17145|LINEO 125",
+      "field": "motor.sound",
+      "existing": 33.9,
+      "sourceValueAtMaximumSpeed": 43,
+      "source": "lineo.pdf",
+      "page": 1,
+      "action": "preserved-pending-operating-point-and-sound-basis-review"
+    },
+    {
+      "id": "VORTICE-LINEO|17146|LINEO 150",
+      "field": "motor.sound",
+      "existing": 41.4,
+      "sourceValueAtMaximumSpeed": 50.5,
+      "source": "lineo.pdf",
+      "page": 1,
+      "action": "preserved-pending-operating-point-and-sound-basis-review"
+    }
+  ],
+  "openSourceIssues": [
+    {
+      "source": "slimroof.pdf",
+      "page": 2,
+      "code": "15311",
+      "issue": "Supply paragraph names 610 T ES; model table names 630 T ES. Phase remains unspecified for 15311."
+    },
+    {
+      "source": "heatmaster.pdf",
+      "page": 3,
+      "code": "15267",
+      "issue": "Voltage column prints 680; page 2 describes 400-690 V by size. Existing voltage retained pending manufacturer confirmation."
+    },
+    {
+      "source": "vortice-vario.pdf / vortice-vario-i.pdf",
+      "page": 1,
+      "issue": "Two directional RPM/airflow values; no single RPM filled independently of the existing curves and motor data."
+    },
+    {
+      "source": "lineo.pdf",
+      "page": 1,
+      "issue": "17180/17181/17182 table is 50 Hz, existing motor frequency is 50/60 Hz. Preserved pending exact model supply verification."
+    }
+  ]
+}

@@ -70,6 +70,28 @@ test('all 623 verified Vitlo operating conditions reach cards and previews with 
   }
 });
 
+test('verified VORTICE details reach all 46 cards and previews with frequency qualifiers',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const evidence=JSON.parse(read('assets/products/vortice/catalogue-details.json'));
+  for(const row of evidence.models){
+    const m=C.getModel(row.id),temperature=w.VensisVentilationDisplay.temperature(m.technical);
+    const card=renderCards(w,C.getSeries(m.seriesId),[m]);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,12,m.id);
+    assert.ok(card.includes('<span>IP Class</span><b>'+row.technical.ipClass+'</b>'),m.id);
+    assert.ok(card.includes('<span>Operating Temperature</span><b>'+temperature+'</b>'),m.id);
+    const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    assert.ok(preview.includes('<span>Operating Temperature</span><b>'+temperature+'</b>'),m.id);
+    assert.doesNotMatch(preview,/<span>Fire Rating<\/span>/);
+    if(row.technical.operatingTemperatureByFrequencyC){
+      assert.equal(temperature,'≤ 50 °C (50 Hz) / ≤ 40 °C (60 Hz)');
+      assert.match(preview,/technical-cell temperature/);
+    }
+  }
+  const slim=C.models.find(m=>m.technical.productCode==='15311');
+  assert.match(renderCards(w,C.getSeries(slim.seriesId),[slim]),/model-field-missing"><span>Phase<\/span><b>-<\/b>/);
+  assert.doesNotMatch(w.VensisDirectPreview.html({product:C.product(slim.id),model:slim}),/<span>Phase<\/span>/);
+});
+
 test('all 1022 card badges agree with real selection curves despite the 43 stale Vitlo flags',()=>{
   const {window:w}=harness(),C=w.VensisCatalog;
   const ready=new Set(w.VensisState.models.filter(m=>!m.catalogOnly&&w.VensisState.pointsFor(m).length>=2).map(m=>m.productKey));
@@ -216,7 +238,7 @@ test('previews omit unspecified temperatures, preserve verified limits and use t
     assert.doesNotMatch(html,/<span>Operating Temperature<\/span>/,m.id);
     unspecified++;
   }
-  assert.equal(unspecified,303); // Forty S&P and 623 catalogue-matched Vitlo rows have source-verified limits.
+  assert.equal(unspecified,267); // Includes 36 newly verified VORTICE limits; unknown ranges stay hidden.
   const heat=C.getModel('VORTICE-ROOF|15301');
   const original=JSON.stringify(C.getSeries(heat.seriesId).description);
   const html=w.VensisDirectPreview.html({product:C.product(heat.id),model:heat});
