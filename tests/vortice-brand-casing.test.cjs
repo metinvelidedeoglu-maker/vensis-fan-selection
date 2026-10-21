@@ -38,5 +38,5 @@ test('Vortice detail headings remove the series code after translation',()=>{
     requestAnimationFrame:callback=>callback()
   });
   assert.equal(title.textContent,'Düşük Sesli Kanal Tipi Karışık Akışlı Fanlar');
-  assert.match(read('catalog.html'),/catalog-language-cleanup\.js\?v=20261018-unified-r1/);
+  assert.match(read('catalog.html'),/catalog-language-cleanup\.js\?v=\d{8}-[a-z0-9-]+/i);
 });

@@ -21,6 +21,54 @@ function harness(extra=false){
   return {window,context,values,run};
 }
 
+function renderCards(w,series,models){
+  const nodes={catalogLayout:{hidden:false},detailPage:{hidden:true,innerHTML:'',querySelectorAll:()=>[]},
+    catalogManufacturers:{innerHTML:'',querySelectorAll:()=>[]},catalogCategories:{innerHTML:'',querySelectorAll:()=>[]},
+    catalogCount:{textContent:''},catalogGrid:{innerHTML:''}};
+  const document={documentElement:{lang:'en'},getElementById:id=>nodes[id]||null,querySelectorAll:()=>[],title:''};
+  const location={search:'?series='+encodeURIComponent(series.id),assign(){},href:'https://select.vensis.com.tr/catalog.html',pathname:'/catalog.html'};
+  const catalog={...w.VensisCatalog,series:[series],models,getSeries:()=>series,modelsForSeries:()=>models};
+  const window={VensisCatalog:catalog,VensisVentilationDisplay:w.VensisVentilationDisplay,scrollTo(){},addEventListener(){}};
+  vm.runInNewContext(read('js/catalog.js'),{window,document,location,URLSearchParams,Intl,console,setTimeout:()=>0},{filename:'js/catalog.js'});
+  return nodes.detailPage.innerHTML;
+}
+
+test('all 1022 card badges agree with real selection curves despite the 43 stale Vitlo flags',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const ready=new Set(w.VensisState.models.filter(m=>!m.catalogOnly&&w.VensisState.pointsFor(m).length>=2).map(m=>m.productKey));
+  let missing=0,available=0,staleVitlo=0;
+  for(const series of C.series){
+    const models=C.modelsForSeries(series.id),html=renderCards(w,series,models);
+    const cards=[...html.matchAll(/<article class="model-card"[^>]*>([\s\S]*?)<\/article>/g)];
+    assert.equal(cards.length,models.length);
+    cards.forEach((card,index)=>{
+      const m=models[index],status=card[1].match(/data-selection-status="([^"]+)"/)[1];
+      assert.equal(status,ready.has(m.id)?'ready':'missing-curve',m.id);
+      if(status==='ready')available++;
+      else{
+        missing++;
+        assert.match(card[1],/Curve data missing · unavailable for fan selection/);
+        assert.doesNotMatch(card[1],/selection ready/);
+        if(series.manufacturer==='Vitlo'&&!m.catalogOnly)staleVitlo++;
+      }
+    });
+  }
+  assert.equal(available,965);assert.equal(missing,57);assert.equal(staleVitlo,43);
+});
+
+test('readiness needs a valid curve and still respects explicit catalogue-only exclusions',()=>{
+  const {window:w}=harness(),sample=w.VensisCatalog.models[0],series=w.VensisCatalog.getSeries(sample.seriesId);
+  const status=(performance,catalogOnly=false)=>renderCards(w,series,[{...sample,performance,catalogOnly}]).match(/data-selection-status="([^"]+)"/)[1];
+  const points=[[100,0],[0,100]];
+  assert.equal(status({sourcePoints:points}),'ready','legitimate zero endpoints are valid');
+  assert.equal(status({points}),'ready');
+  assert.equal(status({curves:[{sourcePoints:points}]}),'ready','a source control curve is enough');
+  assert.equal(status({sourcePoints:points},true),'catalog-only','valid data does not override the explicit exclusion');
+  for(const sourcePoints of [[],[[100,0]],[[100,0],[100,0]],[[null,0],[0,100]],[[NaN,0],[0,100]],[[100,-1],[0,100]]]){
+    assert.equal(status({sourcePoints}),'missing-curve');
+  }
+});
+
 test('ventilation model cards always show 13 selected technical fields and use dash for missing sources',()=>{
   const {window:w}=harness();
   const sample=w.VensisCatalog.models[0];

@@ -6,6 +6,7 @@
     ['← Back to Series','← Serilere Dön'],
     ['View Series →','Seriyi Gör →'],
     ['Curve available · selection ready','Eğri mevcut · seçime hazır'],
+    ['Curve data missing · unavailable for fan selection','Eğri verisi eksik · fan seçimine uygun değil'],
     ['Available · selection ready','Mevcut · seçime hazır'],
     ['Catalog only','Yalnızca katalog'],
     ['Catalog Only','Yalnızca Katalog'],
