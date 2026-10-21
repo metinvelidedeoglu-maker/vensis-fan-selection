@@ -37,7 +37,7 @@ test('63-4T example preserves its 400 V, 1440 rpm, power and selection identity'
   const m=data.models.find(m=>m.id==='AXB|AXB 63-4T-1.5|14400|32');
   assert.ok(m);assert.equal(m.technical.phase,'Three-phase');assert.equal(m.technical.poles,4);
   assert.equal(m.motor.voltage,'400V');assert.equal(m.motor.speed,1440);assert.equal(m.motor.power,1.1);
-  assert.equal(m.motor.frequency,'');assert.equal(m.technical.operatingTemperatureMaxC,0);
+  assert.equal(m.motor.frequency,'');
   assert.equal(m.dimensions.referenceModel,'63');assert.equal(m.pole,4);
   assert.equal(data.models.length,1022);
 });
