@@ -40,7 +40,7 @@
       rpm:Number(operatingPoint?.speed??model.motor?.speed)||0,
       amps:Number(operatingPoint?.current??model.motor?.current)||0,
       voltage:model.motor?.voltage||'',
-      frequency:model.motor?.frequency||'',
+      frequency:curve?.sourceFrequencyHz?`${curve.sourceFrequencyHz} Hz`:model.motor?.frequency||'',
       spl:operatingPoint?Number(operatingPoint.sound)||0:Number(model.motor?.sound)||0,
       weight:Number(model.technical?.weight)||0,
       ipClass:model.technical?.ipClass||'',

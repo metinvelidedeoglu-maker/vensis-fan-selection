@@ -118,9 +118,16 @@
     const S=window.VensisState,U=window.VensisUtils;
     const row=S?.results?.[Number(index)];
     if(!row)return null;
+    const product=productForSelection(row);
+    // Selection rows carry the chosen control's motor data. Preserve explicit
+    // zeros (unspecified) instead of showing the nominal motor at every level.
+    const selectedProduct={...product,motor:{...product.motor,power:row.kw??product.motor?.power,
+      speed:row.rpm??product.motor?.speed,current:row.amps??product.motor?.current,
+      voltage:row.voltage||product.motor?.voltage,frequency:row.frequency||product.motor?.frequency,
+      sound:row.spl??product.motor?.sound}};
     return {
       mode:'selection',
-      product:productForSelection(row),
+      product:selectedProduct,
       model:row,
       required:{q:typeof U?.number==='function'?U.number('q'):0,p:typeof U?.number==='function'?U.number('p'):0},
       selected:{q:Number(row.qq)||0,p:Number(row.pp)||0}
@@ -187,6 +194,9 @@
         weight:technical.weight??model.weight,
         operatingTemperatureMinC:technical.operatingTemperatureMinC??model.operatingTemperatureMinC,
         operatingTemperatureMaxC:technical.operatingTemperatureMaxC??model.operatingTemperatureMaxC,
+        powerBasis:technical.powerBasis,
+        soundBasis:technical.soundBasis,
+        currentReferenceVoltageV:technical.currentReferenceVoltageV,
         safetyWarning:technical.safetyWarning||model.safetyWarning||''
       },
       performance:{
@@ -296,15 +306,19 @@
       if(positive(d.selected.p))add(tx('selectedPressure'),`${fmt(d.selected.p)} Pa`);
     }else if(positive(d.performance.maxAirflow))add(tx('maxAirflow'),`${fmt(d.performance.maxAirflow)} m³/h`);
     else if(positive(d.performance.nominalAirflow))add(tx('nominalAirflow'),`${fmt(d.performance.nominalAirflow)} m³/h`);
-    if(positive(d.motor.power))add(tx('motorPower'),`${fmt(d.motor.power,3)} kW`);
+    const measurement=(value,unit,field)=>{
+      const note=window.VensisVentilationDisplay?.measurementNote(d.technical,field,d.language);
+      return `${value} ${unit}${note?' ('+note+')':''}`;
+    };
+    if(positive(d.motor.power))add(tx('motorPower'),measurement(fmt(d.motor.power,3),'kW','power'));
     if(positive(d.motor.speed))add(tx('speed'),`${fmt(d.motor.speed)} rpm`);
     if(d.motor.voltage)add(tx('voltage'),d.motor.voltage);
-    if(positive(d.motor.sound))add(tx('soundLevel'),`${fmt(d.motor.sound,1)} dB(A)`);
+    if(positive(d.motor.sound))add(tx('soundLevel'),measurement(fmt(d.motor.sound,1),'dB(A)','sound'));
     if(d.mode==='catalog'){
       if(d.technical.phase)add(tx('phase'),String(d.technical.phase));
       if(d.motor.frequency){const v=String(d.motor.frequency).trim();add(tx('frequency'),/hz$/i.test(v)?v:v+' Hz')}
       if(positive(d.technical.weight))add(tx('weight'),`${fmt(d.technical.weight,2)} kg`);
-      if(positive(d.motor.current))add(tx('current'),`${fmt(d.motor.current,2)} A`);
+      if(positive(d.motor.current))add(tx('current'),measurement(fmt(d.motor.current,2),'A','current'));
       const temperature=window.VensisVentilationDisplay?.temperature(d.technical,value=>fmt(value));
       if(temperature)add(tx('workingTemperature'),temperature);
     }
