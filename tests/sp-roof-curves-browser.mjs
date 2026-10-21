@@ -32,8 +32,8 @@ try{
     const card=page.locator('.model-card:not([hidden])');
     await card.locator('.vensis-preview-classic').waitFor();
     await page.waitForFunction(()=>Boolean(window.VensisDatasheet?.__noCurrentPolicy));
-    assert.equal(await card.locator('.model-field').count(),13,id);
-    const missing=series==='CRVB-N / CRVT-N'||['SP|CTVB/4-180','SP|CTVT/4-450'].includes(id)?1:0;
+    assert.equal(await card.locator('.model-field').count(),12,id);
+    const missing=id==='SP|CTVT/4-450'?1:0;
     assert.equal(await card.locator('.model-field-missing').count(),missing,id);
     const text=await card.innerText();
     assert.match(text,/P1 maks\./);assert.match(text,/Atış, 3 m/);assert.match(text,series==='CRVB-N / CRVT-N'?/IP54/:/IP55/);
@@ -79,5 +79,5 @@ try{
   assert.ok(!reducedHtml.includes('<span>Motor Gücü</span>'),'unspecified reduced power is hidden');
   assert.ok(!reducedHtml.includes('<span>Devir</span>'),'unspecified reduced rpm is hidden');
   assert.deepEqual(errors,[]);
-  console.log('PASS: 18 models, 13 fields, 72 source curves, F400 exception, 390/430px mobile, source notes, drawings and PDFs.');
+  console.log('PASS: 18 models, 12 fields, 72 source curves, F400 exception, 390/430px mobile, source notes, drawings and PDFs.');
 }finally{await browser.close();}

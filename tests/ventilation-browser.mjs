@@ -36,7 +36,7 @@ try{
     assert.equal(await page.locator('.model-card:not([hidden])').count(),1);
     // Allow the deferred legacy policy to run before counting the rendered fields.
     await page.waitForFunction(()=>Boolean(window.VensisDatasheet?.__noCurrentPolicy));
-    assert.equal(await page.locator('.model-card:not([hidden]) .model-field').count(),13,brand.name);
+    assert.equal(await page.locator('.model-card:not([hidden]) .model-field').count(),12,brand.name);
     assert.ok((await page.locator('.model-card:not([hidden]) .model-grid').innerText()).includes('Current'),brand.name);
     await page.setViewportSize({width:390,height:844});
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+2),'mobile card overflow: '+brand.name);

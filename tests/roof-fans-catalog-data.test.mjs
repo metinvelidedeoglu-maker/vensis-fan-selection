@@ -159,7 +159,7 @@ test('roof datasheets keep separate continuous-air and smoke duties',()=>{
   assert.equal(densifyCount(),before);
   assert.match(html,/Continuous air-temperature limit: 80 °C/);
   assert.match(html,/Emergency smoke duty: F400 \(400 °C \/ 120 minutes\)/);
-  assert.match(html,/Fire Rating<\/span><b>F400 \/ 120 min/);
+  assert.doesNotMatch(html,/<span>Fire Rating<\/span>/);
   assert.match(product.media.dimensionImage,/heatmaster_dimensions\.png$/);
 });
 

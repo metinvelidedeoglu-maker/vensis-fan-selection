@@ -162,8 +162,7 @@
       ['Current',measurement(motor.current,2,'A','current')],
       ['IP Class',known(technical.ipClass)?String(technical.ipClass).trim():'-'],
       ['Weight',positiveValue(technical.weight,2,'kg')],
-      ['Operating Temperature',temperature],
-      ['Fire Rating',known(technical.fireRating)?String(technical.fireRating).trim():'-']
+      ['Operating Temperature',temperature]
     ];
     return fields.map(([label,value])=>`<div class="model-field${value==='-'?' model-field-missing':''}"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
   }
