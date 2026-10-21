@@ -17,19 +17,19 @@ function harness(extra=false){
     window.VensisVentilationData.series.push({id:'TEST-FOURTH|AXF',code:'AXF',manufacturer:'Fourth Manufacturer',title:'Test fan',categories:['Duct Fan'],description:{general:['Test feature'],motor:['Test motor'],applications:['Test use']},media:{image:'assets/vensis-logo.png'}});
     window.VensisVentilationData.models.push({id:'TEST-FOURTH|1',seriesId:'TEST-FOURTH|AXF',model:'AXF TEST 1',motor:{power:0.1,speed:1000,voltage:'230 V'},media:{image:'assets/vensis-logo.png',dimensionImage:'assets/products/AXF-technical-drawing.webp'},dimensions:{headers:['A','B'],values:{A:123,B:456},unit:'mm'},pricing:{listPrice:123,currency:'EUR'},performance:{nominalAirflow:200,sourcePoints:[[100,0],[50,100],[0,200]],interpolation:'linear',precomputed:true}});
   }
-  for(const f of ['products/ventilation.js','js/core/utils.js','js/core/state.js','js/core/selection-engine.js','js/ui/datasheet.js','js/ui/pdf-export.js'])run(f);
+  for(const f of ['products/ventilation.js','js/catalog-feature-tags.js','js/core/utils.js','js/core/state.js','js/core/selection-engine.js','js/ui/datasheet.js','js/ui/pdf-export.js'])run(f);
   return {window,context,values,run};
 }
 
 test('ventilation model cards always show 13 selected technical fields and use dash for missing sources',()=>{
   const {window:w}=harness();
   const sample=w.VensisCatalog.models[0];
-  const series=w.VensisCatalog.getSeries(sample.seriesId);
+  const series={...w.VensisCatalog.getSeries(sample.seriesId),description:{general:[],motor:['400 V, 50 Hz.'],applications:[]}};
   const model={
     ...sample,id:'TEST-13-CARD',model:'Verified Example',
     standard:{motorPower:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:98},
     pricing:{currency:'EUR'},
-    motor:{phase:'1',frequency:'50 Hz',current:0.12},
+    motor:{phase:'1',frequency:'50 Hz',current:0.12,voltage:'230 V'},
     technical:{ipClass:'IPX4',weight:1.5,operatingTemperatureMinC:-10,operatingTemperatureMaxC:40,fireRating:'F300'},
     media:{image:''},catalogOnly:true
   };
@@ -43,9 +43,9 @@ test('ventilation model cards always show 13 selected technical fields and use d
       catalogGrid:{innerHTML:''}
     };
     const document={documentElement:{lang:'en'},getElementById:id=>nodes[id]||null,querySelectorAll:()=>[],title:''};
-    const location={search:'?series='+encodeURIComponent(series.id),assign(){},href:'https://select.vensis.com.tr/catalog.html',pathname:'/catalog.html'};
+    const location={search:'?series='+encodeURIComponent(series.id)+'&model='+encodeURIComponent(entry.id),assign(){},href:'https://select.vensis.com.tr/catalog.html',pathname:'/catalog.html'};
     const catalog={...w.VensisCatalog,series:[series],models:[entry],getSeries:()=>series,modelsForSeries:()=>[entry]};
-    const window={VensisCatalog:catalog,VensisCatalogFeatureTags:()=>['F300'],scrollTo(){},addEventListener(){}};
+    const window={VensisCatalog:catalog,VensisVentilationDisplay:w.VensisVentilationDisplay,VensisCatalogFeatureTags:()=>['F300'],scrollTo(){},addEventListener(){}};
     vm.runInNewContext(read('js/catalog.js'),{
       window,document,location,URLSearchParams,Intl,console,setTimeout:()=>0
     },{filename:'js/catalog.js'});
@@ -61,11 +61,77 @@ test('ventilation model cards always show 13 selected technical fields and use d
   assert.equal(values['Operating Temperature'],'-10 – 40 °C');
   assert.equal(values['Fire Rating'],'F300');
   assert.match(html,/model-feature-tag">F300/);
+  assert.match(html,/<li>230 V, 50 Hz\.<\/li>/);
+  assert.doesNotMatch(html,/<li>400 V, 50 Hz\.<\/li>/);
   assert.doesNotMatch(html,/<span>Timer<\/span>|<span>Max Pressure<\/span>/);
   const noData=render({...model,standard:{},motor:{},technical:{},pricing:{}});
   const missing=[...noData.matchAll(/class="model-field model-field-missing"><span>[^<]+<\/span><b>-<\/b><\/div>/g)];
-  assert.equal(missing.length,13,'all selected fields must remain visible without values');
+  assert.equal(missing.length,12,'frequency uses the approved 50 Hz display default; the other empty fields remain visible');
+  assert.match(noData,/<span>Frequency<\/span><b>50 Hz<\/b>/);
   assert.doesNotMatch(noData,/<span>ATEX Marking<\/span>|<span>Mount Type<\/span>/);
+});
+
+test('the legacy current policy preserves unified ventilation card fields after its deferred pass',async()=>{
+  async function policy(schemaVersion){
+    let removed=false;
+    const field={querySelector:()=>({textContent:'Akım'}),remove(){removed=true}};
+    const document={readyState:'complete',documentElement:{},getElementById:()=>null,
+      querySelectorAll:selector=>selector==='.model-field'?[field]:[]};
+    const window={VensisCatalog:{schemaVersion,models:[]}};
+    vm.runInNewContext(read('data/no-current-policy.js'),{window,document,setInterval:()=>0,clearInterval(){},MutationObserver:class{observe(){}}});
+    await Promise.resolve();
+    return removed;
+  }
+  assert.equal(await policy(3),false,'the live observer must not undo the 13-field decision');
+  assert.equal(await policy(2),true,'unrelated legacy policy remains scoped as before');
+});
+
+test('display frequency defaults to 50 Hz without overwriting a supplied frequency or raw record',()=>{
+  const {window:w}=harness(),display=w.VensisVentilationDisplay;
+  for(const value of [undefined,null,'',' ','-','—',0,'0 Hz'])assert.equal(display.frequency({motor:{frequency:value}}),'50 Hz');
+  assert.equal(display.frequency({motor:{frequency:'60 Hz'}}),'60 Hz');
+  assert.equal(display.frequency({motor:{frequency:'50/60Hz'}}),'50/60Hz');
+  assert.equal(display.frequency({motor:{frequency:''},technical:{frequency:'60'}}),'60 Hz');
+  const m=w.VensisCatalog.models.find(m=>!m.motor.frequency),before=JSON.stringify(m);
+  const html=w.VensisDirectPreview.html({product:w.VensisCatalog.product(m.id),model:m});
+  assert.match(html,/<span>Frequency<\/span><b>50 Hz<\/b>/);
+  assert.equal(JSON.stringify(m),before,'the default is presentation only');
+});
+
+test('previews omit unspecified temperatures, preserve verified limits and use the selected model voltage',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const temp=t=>w.VensisVentilationDisplay.temperature(t);
+  assert.equal(temp({}), '');
+  assert.equal(temp({operatingTemperatureMinC:0,operatingTemperatureMaxC:0}), '');
+  assert.equal(temp({operatingTemperatureMinC:0,operatingTemperatureMaxC:40}), '0 – 40 °C');
+  assert.equal(temp({operatingTemperatureMinC:-20,operatingTemperatureMaxC:40}), '-20 – 40 °C');
+  assert.equal(temp({operatingTemperatureMaxC:60}), '≤ 60 °C');
+  assert.equal(temp({operatingTemperatureMinC:-10}), '≥ -10 °C');
+  let unspecified=0;
+  for(const m of C.models){
+    if(m.technical.operatingTemperatureMinC!==0||m.technical.operatingTemperatureMaxC!==0)continue;
+    const html=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    assert.doesNotMatch(html,/<span>Operating Temperature<\/span>/,m.id);
+    unspecified++;
+  }
+  assert.equal(unspecified,966);
+  const heat=C.getModel('VORTICE-ROOF|15301');
+  const original=JSON.stringify(C.getSeries(heat.seriesId).description);
+  const html=w.VensisDirectPreview.html({product:C.product(heat.id),model:heat});
+  assert.match(html,/<li>230 V, 50 Hz\.<\/li>/);
+  assert.doesNotMatch(html,/<li>400 V, 50 Hz\.<\/li>/);
+  assert.equal(JSON.stringify(C.getSeries(heat.seriesId).description),original);
+});
+
+test('feature tags stay model-specific and pending ATEX approval cannot become a verified tag',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const get=name=>C.models.find(m=>m.model===name);
+  assert.ok(w.VensisCatalogFeatureTags(get('SILENT-100 CRZ'),'tr').includes('Zamanlayıcı'));
+  assert.ok(!w.VensisCatalogFeatureTags(get('SILENT-100 CZ'),'tr').includes('Zamanlayıcı'));
+  assert.ok(w.VensisCatalogFeatureTags(get('E 254 M ATEX'),'tr').includes('ATEX'));
+  assert.ok(w.VensisCatalogFeatureTags(C.getModel('VORTICE-ROOF|15301'),'tr').includes('F400'));
+  assert.ok(!w.VensisCatalogFeatureTags(get('CRS 50-2T-15'),'tr').includes('ATEX'));
+  assert.ok(!w.VensisCatalogFeatureTags({features:{en:'ATEX'},technicalApprovalRequired:true,technical:{atex:{gas_marking:'II 2G'}}}).includes('ATEX'));
 });
 
 test('all consumers load one catalog and no manufacturer-specific runtime import',()=>{

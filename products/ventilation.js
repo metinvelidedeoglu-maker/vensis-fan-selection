@@ -65,6 +65,32 @@
     const headers=Object.keys(values).filter(key=>typeof values[key]==='number'||typeof values[key]==='string');
     return image||headers.length?{headers,values,unit:'mm',drawing:{asset:image}}:null;
   }
+  // Display defaults never overwrite manufacturer records or selection inputs.
+  function displayFrequency(model={}){
+    const values=[model.motor?.frequency,model.technical?.frequency,model.frequency];
+    const value=values.map(text).find(v=>v&&!/^(?:[-—]|0(?:\s*hz)?|n\/?a)$/i.test(v));
+    return value?(/hz\b/i.test(value)?value:value+' Hz'):'50 Hz';
+  }
+  function displayTemperature(technical={},format=String){
+    const valid=value=>value!=null&&text(value)!==''&&typeof value!=='boolean'&&Number.isFinite(Number(value));
+    const min=technical.operatingTemperatureMinC,max=technical.operatingTemperatureMaxC;
+    const hasMin=valid(min),hasMax=valid(max);
+    // Imported 0/0 limits mean unspecified, not a verified zero-degree range.
+    if(hasMin&&hasMax)return Number(min)===0&&Number(max)===0?'':`${format(Number(min))} – ${format(Number(max))} °C`;
+    if(hasMin)return `≥ ${format(Number(min))} °C`;
+    if(hasMax)return `≤ ${format(Number(max))} °C`;
+    return '';
+  }
+  function modelMotorDescription(value,model={}){
+    const line=text(value);
+    // A series may contain both single- and three-phase models. A standalone
+    // supply line must use the selected model's voltage, never the series default.
+    if(!/^\d+(?:\.\d+)?(?:\s*[-–/]\s*\d+(?:\.\d+)?)*\s*V\s*[,;–-]\s*\d+(?:\s*\/\s*\d+)?\s*Hz[.!]?$/i.test(line))return value;
+    const voltage=text(model.motor?.voltage);
+    if(!voltage)return '';
+    return `${/v\b/i.test(voltage)?voltage:voltage+' V'}, ${displayFrequency(model)}.`;
+  }
+  window.VensisVentilationDisplay={frequency:displayFrequency,temperature:displayTemperature,motorDescription:modelMotorDescription};
   window.VensisCatalog={
     schemaVersion:3,brands,brand,resolveSeries,slug,modelSlug,
     standard:{seriesFields:['modelName','brand','description','category','image','submodels','catalogPdf'],submodelFields:['altModel','motorPower','speed','voltage','maxAirflow','sound','price']},

@@ -148,7 +148,8 @@
     const brand=series.manufacturer||product.manufacturer||model.manufacturer||model.brand||'';
     const isTr=language()==='tr';
     const rawGeneral=arr(rawDescription.general?.length?rawDescription.general:fallbackDescription.general);
-    const rawMotorInfo=arr(rawDescription.motor?.length?rawDescription.motor:fallbackDescription.motor);
+    const rawMotorInfo=arr(rawDescription.motor?.length?rawDescription.motor:fallbackDescription.motor)
+      .map(line=>window.VensisVentilationDisplay?.motorDescription(line,{motor,technical})??line).filter(Boolean);
     const rawApplications=arr(rawDescription.applications?.length?rawDescription.applications:fallbackDescription.applications);
     const general=isTr?rawGeneral.map(trText):rawGeneral;
     const motorInfo=isTr?rawMotorInfo.map(trText):rawMotorInfo;
@@ -175,7 +176,7 @@
         speed:motor.speed??model.rpm,
         voltage:motor.voltage??model.voltage,
         sound:motor.sound??model.spl,
-        frequency:motor.frequency??technical.frequency??model.frequency
+        frequency:window.VensisVentilationDisplay?.frequency({motor,technical,frequency:model.frequency})??motor.frequency??technical.frequency??model.frequency
       },
       technical:{
         fanType:trCategory(technical.fanType||model.fanTypeEn||model.fanType||''),
@@ -304,10 +305,8 @@
       if(d.motor.frequency){const v=String(d.motor.frequency).trim();add(tx('frequency'),/hz$/i.test(v)?v:v+' Hz')}
       if(positive(d.technical.weight))add(tx('weight'),`${fmt(d.technical.weight,2)} kg`);
       if(positive(d.motor.current))add(tx('current'),`${fmt(d.motor.current,2)} A`);
-      const min=d.technical.operatingTemperatureMinC,max=d.technical.operatingTemperatureMaxC;
-      const hasMin=min!==null&&min!==undefined&&min!==''&&Number.isFinite(Number(min));
-      const hasMax=max!==null&&max!==undefined&&max!==''&&Number.isFinite(Number(max));
-      if(hasMin||hasMax)add(tx('workingTemperature'),(hasMin&&hasMax?`${fmt(min)} – ${fmt(max)}`:fmt(hasMin?min:max))+' °C');
+      const temperature=window.VensisVentilationDisplay?.temperature(d.technical,value=>fmt(value));
+      if(temperature)add(tx('workingTemperature'),temperature);
     }
     if(d.technical.ipClass)add(tx('ipClass'),d.technical.ipClass);
     return items;
