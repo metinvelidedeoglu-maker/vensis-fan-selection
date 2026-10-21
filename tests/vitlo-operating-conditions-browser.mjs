@@ -31,7 +31,7 @@ try{
     await page.goto(base+'/catalog.html?brand=vitlo&series='+encodeURIComponent(series)+'&model='+encodeURIComponent(row.id));
     const card=page.locator('.model-card:not([hidden])');await card.locator('.vensis-preview-classic').waitFor();
     await page.waitForFunction(()=>Boolean(window.VensisDatasheet?.__noCurrentPolicy));
-    assert.equal(await card.locator('.model-field').count(),13,series);
+    assert.equal(await card.locator('.model-field').count(),12,series);
     assert.equal(await card.locator('.model-field').filter({hasText:'IP Sınıfı'}).locator('b').innerText(),condition.ipClass,series);
     const temperature=condition.operatingTemperatureMinC===null?'≤ 50 °C':`-20 – ${condition.operatingTemperatureMaxC} °C`;
     assert.equal(await card.locator('.model-field').filter({hasText:'Çalışma Sıcaklığı'}).locator('b').innerText(),temperature,series);
@@ -61,7 +61,7 @@ try{
   await page.goto(base+'/catalog.html?brand=vitlo&series='+encodeURIComponent(excluded.seriesId)+'&model='+encodeURIComponent(excluded.id));
   const card=page.locator('.model-card:not([hidden])');await card.locator('.vensis-preview-classic').waitFor();
   for(const name of ['IP Sınıfı','Çalışma Sıcaklığı'])assert.equal(await card.locator('.model-field').filter({hasText:name}).locator('b').innerText(),'-');
-  assert.equal(await card.locator('.model-field').count(),13);
+  assert.equal(await card.locator('.model-field').count(),12);
   assert.deepEqual(errors,[]);
-  console.log('PASS: 35 Vitlo series, source IP/normal temperatures, 13 fields, retained unknowns, 390/430px, drawings, source curves and PDFs.');
+  console.log('PASS: 35 Vitlo series, source IP/normal temperatures, 12 fields, retained unknowns, 390/430px, drawings, source curves and PDFs.');
 }finally{await browser.close();}

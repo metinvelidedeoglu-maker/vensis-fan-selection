@@ -32,9 +32,9 @@ try{
     const card=page.locator('.model-card:not([hidden])');
     await card.locator('.vensis-preview-classic').waitFor();
     await page.waitForFunction(()=>Boolean(window.VensisDatasheet?.__noCurrentPolicy));
-    assert.equal(await card.locator('.model-field').count(),13,id);
-    assert.equal(await card.locator('.model-field-missing').count(),1,id);
-    assert.match(await card.locator('.model-field').filter({hasText:'Yangın Dayanımı'}).locator('b').innerText(),/^[-—]$/);
+    assert.equal(await card.locator('.model-field').count(),12,id);
+    assert.equal(await card.locator('.model-field-missing').count(),0,id);
+    assert.equal(await card.locator('.model-field').filter({hasText:'Yangın Dayanımı'}).count(),0,id);
     assert.equal(await card.locator('.model-feature-tag').count(),0,id+' standard model must not acquire ATEX/F400');
     const text=await card.innerText();
     assert.match(text,hct?/Emiş, 1,5 m/:/Kanallı, 1 m/);
@@ -80,5 +80,5 @@ try{
   assert.ok(reducedHtml.includes('140V'));
   for(const label of ['Motor Gücü','Devir','Akım','Ses Seviyesi'])assert.ok(!reducedHtml.includes('<span>'+label+'</span>'),'unspecified reduced '+label+' is hidden');
   assert.deepEqual(errors,[]);
-  console.log('PASS: 22 HCT/IL models, 13 fields, 71 source curves, no false ATEX/fire tags, mobile, source notes, drawings and PDFs.');
+  console.log('PASS: 22 HCT/IL models, 12 fields, 71 source curves, no false ATEX/fire tags, mobile, source notes, drawings and PDFs.');
 }finally{await browser.close();}

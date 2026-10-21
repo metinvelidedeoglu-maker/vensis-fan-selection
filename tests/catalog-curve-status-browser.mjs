@@ -39,7 +39,7 @@ try{
     assert.equal(await badges.count(),series.count,series.id);
     assert.equal(await page.locator('[data-selection-status="ready"]').count(),0,series.id);
     await page.waitForFunction(()=>[...document.querySelectorAll('[data-selection-status="missing-curve"]')].every(n=>n.textContent==='Eğri verisi eksik · fan seçimine uygun değil'));
-    assert.equal(await page.locator('.model-field').count(),series.count*13,series.id);
+    assert.equal(await page.locator('.model-field').count(),series.count*12,series.id);
     for(const width of [390,430]){
       await page.setViewportSize({width,height:844});
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'mobile overflow '+series.id);
@@ -63,5 +63,5 @@ try{
     assert.ok(await page.locator('[data-selection-status="ready"]').count()>0,series);
   }
   assert.deepEqual(errors,[]);
-  console.log('PASS: all 57 missing-curve badges across 9 series, TR/EN switching, 13 fields, mobile and ready-series regression.');
+  console.log('PASS: all 57 missing-curve badges across 9 series, TR/EN switching, 12 fields, mobile and ready-series regression.');
 }finally{await browser.close();}

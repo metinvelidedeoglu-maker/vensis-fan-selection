@@ -28,12 +28,12 @@ function renderCards(w,series,models){
   const document={documentElement:{lang:'en'},getElementById:id=>nodes[id]||null,querySelectorAll:()=>[],title:''};
   const location={search:'?series='+encodeURIComponent(series.id),assign(){},href:'https://select.vensis.com.tr/catalog.html',pathname:'/catalog.html'};
   const catalog={...w.VensisCatalog,series:[series],models,getSeries:()=>series,modelsForSeries:()=>models};
-  const window={VensisCatalog:catalog,VensisVentilationDisplay:w.VensisVentilationDisplay,scrollTo(){},addEventListener(){}};
+  const window={VensisCatalog:catalog,VensisVentilationDisplay:w.VensisVentilationDisplay,VensisCatalogFeatureTags:w.VensisCatalogFeatureTags,scrollTo(){},addEventListener(){}};
   vm.runInNewContext(read('js/catalog.js'),{window,document,location,URLSearchParams,Intl,console,setTimeout:()=>0},{filename:'js/catalog.js'});
   return nodes.detailPage.innerHTML;
 }
 
-test('Vitlo model-code phase reaches 13-field cards and previews without adding a pole box',()=>{
+test('Vitlo model-code phase reaches 12-field cards and previews without adding a pole box',()=>{
   const {window:w}=harness(),C=w.VensisCatalog;
   for(const [name,phase] of [
     ['AXB 63-4T-1.5','Three-phase'],['AXD/MOB 35-2M-0.75','Single-phase'],
@@ -41,7 +41,7 @@ test('Vitlo model-code phase reaches 13-field cards and previews without adding 
   ]){
     const m=C.models.find(m=>m.model===name);assert.ok(m,name);
     const card=renderCards(w,C.getSeries(m.seriesId),[m]);
-    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,13,name);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,12,name);
     assert.ok(card.includes('<span>Phase</span><b>'+phase+'</b>'),name);
     assert.doesNotMatch(card,/<span>(?:Poles|Pole Count|Timer)<\/span>/);
     const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
@@ -61,7 +61,7 @@ test('all 623 verified Vitlo operating conditions reach cards and previews with 
     const m=C.getModel(row.id),condition=evidence.series[row.seriesId];
     const temperature=condition.operatingTemperatureMinC===null?'≤ 50 °C':`-20 – ${condition.operatingTemperatureMaxC} °C`;
     const card=renderCards(w,C.getSeries(m.seriesId),[m]);
-    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,13,m.id);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,12,m.id);
     assert.ok(card.includes('<span>IP Class</span><b>'+condition.ipClass+'</b>'),m.id);
     assert.ok(card.includes('<span>Operating Temperature</span><b>'+temperature+'</b>'),m.id);
     const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
@@ -80,6 +80,11 @@ test('all 1022 card badges agree with real selection curves despite the 43 stale
     assert.equal(cards.length,models.length);
     cards.forEach((card,index)=>{
       const m=models[index],status=card[1].match(/data-selection-status="([^"]+)"/)[1];
+      assert.equal((card[1].match(/class="model-field(?: model-field-missing)?"/g)||[]).length,12,m.id);
+      assert.doesNotMatch(card[1],/<span>(?:Fire Rating|Yangın Dayanımı)<\/span>/,m.id);
+      for(const tag of String(m.technical?.fireRating||'').match(/\bF(?:300|400|600)\b/gi)||[]){
+        assert.ok(card[1].includes('model-feature-tag">'+tag.toUpperCase()+'</span>'),m.id+' must retain its verified fire feature');
+      }
       assert.equal(status,ready.has(m.id)?'ready':'missing-curve',m.id);
       if(status==='ready')available++;
       else{
@@ -106,12 +111,12 @@ test('readiness needs a valid curve and still respects explicit catalogue-only e
   }
 });
 
-test('ventilation model cards always show 13 selected technical fields and use dash for missing sources',()=>{
+test('ventilation model cards always show 12 technical fields and keep fire ratings only in Features',()=>{
   const {window:w}=harness();
   const sample=w.VensisCatalog.models[0];
   const series={...w.VensisCatalog.getSeries(sample.seriesId),description:{general:[],motor:['400 V, 50 Hz.'],applications:[]}};
   const model={
-    ...sample,id:'TEST-13-CARD',model:'Verified Example',
+    ...sample,id:'TEST-12-CARD',model:'Verified Example',
     standard:{motorPower:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:98},
     pricing:{currency:'EUR'},
     motor:{phase:'1',frequency:'50 Hz',current:0.12,voltage:'230 V'},
@@ -138,20 +143,32 @@ test('ventilation model cards always show 13 selected technical fields and use d
   };
   const html=render(model);
   const fieldRows=[...html.matchAll(/<div class="model-field(?: model-field-missing)?"><span>([^<]+)<\/span><b>([^<]+)<\/b><\/div>/g)];
-  const expected=['Motor Power','Speed','Voltage','Max. Airflow','Sound','Price','Phase','Frequency','Current','IP Class','Weight','Operating Temperature','Fire Rating'];
+  const expected=['Motor Power','Speed','Voltage','Max. Airflow','Sound','Price','Phase','Frequency','Current','IP Class','Weight','Operating Temperature'];
   assert.deepEqual(fieldRows.map(row=>row[1]),expected);
   const values=Object.fromEntries(fieldRows.map(row=>[row[1],row[2]]));
   assert.equal(values.Sound,'26.5 dB(A)');
   assert.equal(values.Frequency,'50 Hz');
   assert.equal(values['Operating Temperature'],'-10 – 40 °C');
-  assert.equal(values['Fire Rating'],'F300');
+  assert.doesNotMatch(html,/<span>(?:Fire Rating|Yangın Dayanımı)<\/span>/);
   assert.match(html,/model-feature-tag">F300/);
+  const legacyContext={window:{},Intl};
+  vm.runInNewContext(read('js/ui/datasheet.js'),legacyContext);
+  for(const fire of ['F300','F400']){
+    const entry={...model,technical:{...model.technical,fireRating:fire}};
+    const legacy=legacyContext.window.VensisDatasheet.html({product:{series},model:entry});
+    assert.doesNotMatch(legacy,/<span>Fire Rating<\/span>/);
+    assert.match(legacy,new RegExp('General Features [\\s\\S]*?class="feature-tag"[^>]*>'+fire+'<\\/span><\\/h3>'));
+    const preview=w.VensisDirectPreview.html({product:{series},model:entry});
+    assert.doesNotMatch(preview,/<span>(?:Fire Rating|Yangın Dayanımı)<\/span>/);
+    assert.ok(preview.includes('class="feature-tag">'+fire+'</span>'));
+    assert.equal(entry.technical.fireRating,fire);
+  }
   assert.match(html,/<li>230 V, 50 Hz\.<\/li>/);
   assert.doesNotMatch(html,/<li>400 V, 50 Hz\.<\/li>/);
   assert.doesNotMatch(html,/<span>Timer<\/span>|<span>Max Pressure<\/span>/);
   const noData=render({...model,standard:{},motor:{},technical:{},pricing:{}});
   const missing=[...noData.matchAll(/class="model-field model-field-missing"><span>[^<]+<\/span><b>-<\/b><\/div>/g)];
-  assert.equal(missing.length,12,'frequency uses the approved 50 Hz display default; the other empty fields remain visible');
+  assert.equal(missing.length,11,'frequency uses the approved 50 Hz display default; the other empty fields remain visible');
   assert.match(noData,/<span>Frequency<\/span><b>50 Hz<\/b>/);
   assert.doesNotMatch(noData,/<span>ATEX Marking<\/span>|<span>Mount Type<\/span>/);
 });
@@ -167,7 +184,7 @@ test('the legacy current policy preserves unified ventilation card fields after 
     await Promise.resolve();
     return removed;
   }
-  assert.equal(await policy(3),false,'the live observer must not undo the 13-field decision');
+  assert.equal(await policy(3),false,'the live observer must not undo the 12-field decision');
   assert.equal(await policy(2),true,'unrelated legacy policy remains scoped as before');
 });
 
