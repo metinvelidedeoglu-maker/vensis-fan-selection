@@ -92,7 +92,10 @@
   }
   function measurementNote(technical={},field,lang='tr'){
     if(field==='power'&&technical.powerBasis==='maximum-electrical-input-P1')return lang==='tr'?'P1 maks.':'P1 max.';
+    if(field==='power'&&technical.powerBasis==='nominal-motor-power')return lang==='tr'?'Nominal':'Rated';
     if(field==='sound'&&technical.soundBasis==='outlet-sound-pressure-3m-operating-point-2')return lang==='tr'?'Atış, 3 m':'Outlet, 3 m';
+    if(field==='sound'&&technical.soundBasis==='inlet-sound-pressure-1_5m-free-field')return lang==='tr'?'Emiş, 1,5 m':'Inlet, 1.5 m';
+    if(field==='sound'&&technical.soundBasis==='sound-pressure-1m-free-field-with-ducts')return lang==='tr'?'Kanallı, 1 m':'Ducted, 1 m';
     if(field==='current'&&Number(technical.currentReferenceVoltageV)>0)return `${Number(technical.currentReferenceVoltageV)} V`;
     return '';
   }

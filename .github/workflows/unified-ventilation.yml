@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
-        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs
+        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs
@@ -44,6 +44,10 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: node tests/sp-roof-curves-browser.mjs
+      - name: S&P HCT and IL source curves, mobile and print verification
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/sp-hct-il-curves-browser.mjs
       - name: Complete Soler & Palau drawing and print verification
         env:
           CHROME_PATH: /usr/bin/google-chrome
@@ -62,6 +66,10 @@ jobs:
           assert len(crvb)==18, len(crvb)
           assert all(len(PdfReader(p).pages)==1 for p in crvb), 'CRVB/CRVT PDF pagination changed'
           print('PASS: all 18 S&P roof-fan model PDFs have exactly one page.')
+          hct_il=list(Path('test-results/sp-hct-il-curves').glob('*.pdf'))
+          assert len(hct_il)==22, len(hct_il)
+          assert all(len(PdfReader(p).pages)==1 for p in hct_il), 'HCT/IL PDF pagination changed'
+          print('PASS: all 22 HCT/IL model PDFs have exactly one page.')
           PYCODE
       - uses: actions/upload-artifact@v4
         if: always()
@@ -71,4 +79,5 @@ jobs:
             test-results/ventilation/
             test-results/sp-dimensions/
             test-results/sp-roof-curves/
+            test-results/sp-hct-il-curves/
           if-no-files-found: ignore
