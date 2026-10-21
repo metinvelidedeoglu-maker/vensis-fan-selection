@@ -174,13 +174,28 @@
     return `<div class="model-operating-points"><div class="model-operating-title">Catalog Operating Points</div><div class="model-operating-scroll"><table><thead><tr><th>Control</th><th>kW</th><th>rpm</th><th>A</th><th>m³/h</th><th>Pa</th><th>dB(A)</th></tr></thead><tbody>${points.map(point=>`<tr><td><b>${esc(point.control||'-')}</b></td><td>${num(point.power,3)}</td><td>${num(point.speed)}</td><td>${num(point.current,2)}</td><td>${num(point.nominalAirflow)}</td><td>${num(point.maxPressure)}</td><td>${num(point.sound,1)}</td></tr>`).join('')}</tbody></table></div></div>`;
   }
 
+  function selectionBadge(model){
+    const performance=model.performance||{};
+    const hasCurve=points=>{
+      if(!Array.isArray(points))return false;
+      const valid=points.filter(p=>Array.isArray(p)&&p.length>=2&&p.slice(0,2).every(v=>typeof v==='number'&&Number.isFinite(v)&&v>=0));
+      return valid.length>=2&&valid.some(p=>p[0]!==valid[0][0]||p[1]!==valid[0][1]);
+    };
+    const available=hasCurve(performance.points)||hasCurve(performance.sourcePoints)||
+      (Array.isArray(performance.curves)&&performance.curves.some(curve=>hasCurve(curve?.sourcePoints)));
+    const status=!available?'missing-curve':model.catalogOnly?'catalog-only':'ready';
+    const label=status==='missing-curve'?'Curve data missing · unavailable for fan selection':
+      status==='catalog-only'?'Catalog only':'Curve available · selection ready';
+    return `<span class="model-catalog-only model-selection-status model-selection-${status}" data-selection-status="${status}">${label}</span>`;
+  }
+
   function modelCard(model,series){
     const image=model.media?.image||series.media?.image||'';
     const dimensionImage=model.media?.dimensionImage||'';
     return `<article class="model-card" data-model-id="${esc(model.id)}">
       <div class="model-card-head">
         <img src="${esc(image)}" alt="${esc(model.model)}" onerror="this.style.visibility='hidden'">
-        <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${model.catalogOnly?'<span class="model-catalog-only">Catalog only</span>':'<span class="model-catalog-only" style="background:#e8f6ef;color:#087f4f">Curve available · selection ready</span>'}</div>
+        <div><div class="series-brand">${esc(series.code||'')}</div><h3>${esc(model.model)}</h3>${selectionBadge(model)}</div>
       </div>
       <div class="model-grid">${modelFields(model)}</div>
       ${modelFeatures(model)}
