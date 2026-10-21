@@ -33,6 +33,27 @@ function renderCards(w,series,models){
   return nodes.detailPage.innerHTML;
 }
 
+test('Vitlo model-code phase reaches 13-field cards and previews without adding a pole box',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  for(const [name,phase] of [
+    ['AXB 63-4T-1.5','Three-phase'],['AXD/MOB 35-2M-0.75','Single-phase'],
+    ['CR 31-4M','Single-phase'],['AXF 35-2T-1','Three-phase'],['AXJ 31-2/4T','Three-phase']
+  ]){
+    const m=C.models.find(m=>m.model===name);assert.ok(m,name);
+    const card=renderCards(w,C.getSeries(m.seriesId),[m]);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,13,name);
+    assert.ok(card.includes('<span>Phase</span><b>'+phase+'</b>'),name);
+    assert.doesNotMatch(card,/<span>(?:Poles|Pole Count|Timer)<\/span>/);
+    const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    assert.ok(preview.includes('<span>Phase</span><b>'+phase+'</b>'),name);
+    assert.doesNotMatch(preview,/<span>(?:Poles|Pole Count|Operating Temperature)<\/span>/);
+  }
+  const unknown=C.models.find(m=>m.seriesId==='CD');
+  assert.ok(unknown);
+  assert.match(renderCards(w,C.getSeries(unknown.seriesId),[unknown]),/model-field-missing"><span>Phase<\/span><b>-<\/b>/);
+  assert.doesNotMatch(w.VensisDirectPreview.html({product:C.product(unknown.id),model:unknown}),/<span>Phase<\/span>/);
+});
+
 test('all 1022 card badges agree with real selection curves despite the 43 stale Vitlo flags',()=>{
   const {window:w}=harness(),C=w.VensisCatalog;
   const ready=new Set(w.VensisState.models.filter(m=>!m.catalogOnly&&w.VensisState.pointsFor(m).length>=2).map(m=>m.productKey));
