@@ -142,16 +142,9 @@
       const n=Number(value);
       return known(value)&&Number.isFinite(n)&&n>0?`${num(n,decimals)} ${unit}`:'-';
     };
-    const frequency=known(motor.frequency)?String(motor.frequency).trim():'';
+    const frequency=window.VensisVentilationDisplay?.frequency(model)||motor.frequency||technical.frequency||'50 Hz';
     const celsius=value=>Number(value).toLocaleString('en-US',{maximumFractionDigits:1});
-    const tempValue=value=>known(value)&&Number.isFinite(Number(value));
-    const min=technical.operatingTemperatureMinC,max=technical.operatingTemperatureMaxC;
-    const minKnown=tempValue(min),maxKnown=tempValue(max);
-    // Some imported records use 0/0 for unspecified temperature limits.
-    const temperature=minKnown&&maxKnown&&(Number(min)!==0||Number(max)!==0)
-      ?`${celsius(min)} – ${celsius(max)} °C`
-      :minKnown&&Number(min)!==0?`≥ ${celsius(min)} °C`
-      :maxKnown&&Number(max)!==0?`≤ ${celsius(max)} °C`:'-';
+    const temperature=window.VensisVentilationDisplay?.temperature(technical,celsius)||'-';
     const fields=[
       ['Motor Power',positiveValue(info.motorPower,3,'kW')],
       ['Speed',positiveValue(info.speed,0,'rpm')],
@@ -160,7 +153,7 @@
       ['Sound',positiveValue(info.sound,1,'dB(A)')],
       ['Price',positiveValue(info.price,2,model.pricing?.currency||'EUR')],
       ['Phase',known(technical.phase)&&String(technical.phase).trim()!=='0'?String(technical.phase).trim():known(motor.phase)&&String(motor.phase).trim()!=='0'?String(motor.phase).trim():'-'],
-      ['Frequency',frequency&&frequency!=='0'?(/hz\b/i.test(frequency)?frequency:frequency+' Hz'):'-'],
+      ['Frequency',frequency],
       ['Current',positiveValue(motor.current,2,'A')],
       ['IP Class',known(technical.ipClass)?String(technical.ipClass).trim():'-'],
       ['Weight',positiveValue(technical.weight,2,'kg')],
@@ -271,8 +264,11 @@
     const series=catalog.getSeries?catalog.getSeries(id):allSeries.find(item=>item.id===id);if(!series)return;
     const models=catalog.modelsForSeries?catalog.modelsForSeries(id):allModels.filter(model=>model.seriesId===id);
     const pdf=series.catalogue?.pdf;
-    const description=series.description||{};
-    const features=[...(description.general||[]),...(description.motor||[]),...(description.applications||[])];
+    const requestedModel=params.get('model');
+    const selectedModel=requestedModel?models.find(model=>[model.id,model.model,model.technical?.productCode,catalog.modelSlug?.(model)].includes(requestedModel)):null;
+    const description=selectedModel?.description||series.description||{};
+    const motorDescription=(description.motor||[]).map(line=>selectedModel?window.VensisVentilationDisplay?.motorDescription(line,selectedModel)??line:line).filter(Boolean);
+    const features=[...(description.general||[]),...motorDescription,...(description.applications||[])];
     const seriesInfoHtml=`<div class="series-info-grid"><section class="detail-section" data-product-features style="grid-column:1/-1"><h3>General Features</h3>${bullets([...new Set(features)])}</section></div>`;
     document.getElementById('catalogLayout').hidden=true;
     const detail=document.getElementById('detailPage');

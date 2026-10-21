@@ -35,6 +35,8 @@
   }
 
   function pruneCatalogCurrentFields(){
+    // Unified ventilation cards explicitly include Current in their 13 fields.
+    if(catalog?.schemaVersion===3)return;
     document.querySelectorAll('.model-field').forEach(field=>{
       const label=field.querySelector('span')?.textContent||'';
       if(isCurrentLabel(label))field.remove();

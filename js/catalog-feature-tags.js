@@ -7,6 +7,7 @@
     if(!model)return [];
     const tr=String(lang).toLowerCase().startsWith('tr');
     const technical=model.technical||{};
+    const approvalPending=model.technicalApprovalRequired||/pending|unverified|unknown|not approved|bekliyor/i.test(String(model.atexCertificationStatus||''));
     const result=[],seen=new Set();
     const add=value=>{const s=text(value);if(!s)return;const key=slug(s);if(key&&!seen.has(key)){seen.add(key);result.push(s)}};
     const localize=value=>{
@@ -19,7 +20,7 @@
     };
     const raw=model.features?.[tr?'tr':'en']||model.features?.en||model.features?.tr||technical[tr?'silentFeaturesTr':'silentFeaturesEn']||'';
     const fragments=Array.isArray(raw)?raw.flatMap(v=>String(v).split(/[,;|]/)):String(raw).split(/[,;|]/);
-    fragments.forEach(s=>add(localize(s)));
+    fragments.forEach(s=>{if(!(approvalPending&&/^ATEX$/i.test(text(s))))add(localize(s))});
     if(technical.timerVariant)add(tr?'Zamanlayıcı':'Timer');
     if(technical.humiditySensor)add(tr?'Nem Sensörü':'Humidity Sensor');
     if(technical.presenceSensor)add(tr?'Varlık Sensörü':'Presence Sensor');
@@ -27,8 +28,7 @@
     const fire=String(technical.fireRating||'').match(/\bF(?:300|400|600)\b/gi)||[];
     fire.forEach(s=>add(s.toUpperCase()));
     const atex=technical.atex;
-    const cert=String(model.atexCertificationStatus||'');
-    if(atex&&(atex.gas_marking||atex.dust_marking)&&!model.technicalApprovalRequired&&!/pending|unverified|unknown|not approved|bekliyor/i.test(cert))add('ATEX');
+    if(atex&&(atex.gas_marking||atex.dust_marking)&&!approvalPending)add('ATEX');
     return result;
   }
   window.VensisCatalogFeatureTags=featureTags;
