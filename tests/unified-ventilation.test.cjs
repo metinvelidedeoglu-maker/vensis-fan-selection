@@ -20,6 +20,54 @@ function harness(extra=false){
   for(const f of ['products/ventilation.js','js/core/utils.js','js/core/state.js','js/core/selection-engine.js','js/ui/datasheet.js','js/ui/pdf-export.js'])run(f);
   return {window,context,values,run};
 }
+
+test('ventilation model cards always show 13 selected technical fields and use dash for missing sources',()=>{
+  const {window:w}=harness();
+  const sample=w.VensisCatalog.models[0];
+  const series=w.VensisCatalog.getSeries(sample.seriesId);
+  const model={
+    ...sample,id:'TEST-13-CARD',model:'Verified Example',
+    standard:{motorPower:0.008,speed:2400,voltage:'230 V',maxAirflow:95,sound:26.5,price:98},
+    pricing:{currency:'EUR'},
+    motor:{phase:'1',frequency:'50 Hz',current:0.12},
+    technical:{ipClass:'IPX4',weight:1.5,operatingTemperatureMinC:-10,operatingTemperatureMaxC:40,fireRating:'F300'},
+    media:{image:''},catalogOnly:true
+  };
+  const render=entry=>{
+    const nodes={
+      catalogLayout:{hidden:false},
+      detailPage:{hidden:true,innerHTML:'',querySelectorAll:()=>[]},
+      catalogManufacturers:{innerHTML:'',querySelectorAll:()=>[]},
+      catalogCategories:{innerHTML:'',querySelectorAll:()=>[]},
+      catalogCount:{textContent:''},
+      catalogGrid:{innerHTML:''}
+    };
+    const document={documentElement:{lang:'en'},getElementById:id=>nodes[id]||null,querySelectorAll:()=>[],title:''};
+    const location={search:'?series='+encodeURIComponent(series.id),assign(){},href:'https://select.vensis.com.tr/catalog.html',pathname:'/catalog.html'};
+    const catalog={...w.VensisCatalog,series:[series],models:[entry],getSeries:()=>series,modelsForSeries:()=>[entry]};
+    const window={VensisCatalog:catalog,VensisCatalogFeatureTags:()=>['F300'],scrollTo(){},addEventListener(){}};
+    vm.runInNewContext(read('js/catalog.js'),{
+      window,document,location,URLSearchParams,Intl,console,setTimeout:()=>0
+    },{filename:'js/catalog.js'});
+    return nodes.detailPage.innerHTML;
+  };
+  const html=render(model);
+  const fieldRows=[...html.matchAll(/<div class="model-field(?: model-field-missing)?"><span>([^<]+)<\/span><b>([^<]+)<\/b><\/div>/g)];
+  const expected=['Motor Power','Speed','Voltage','Max. Airflow','Sound','Price','Phase','Frequency','Current','IP Class','Weight','Operating Temperature','Fire Rating'];
+  assert.deepEqual(fieldRows.map(row=>row[1]),expected);
+  const values=Object.fromEntries(fieldRows.map(row=>[row[1],row[2]]));
+  assert.equal(values.Sound,'26.5 dB(A)');
+  assert.equal(values.Frequency,'50 Hz');
+  assert.equal(values['Operating Temperature'],'-10 – 40 °C');
+  assert.equal(values['Fire Rating'],'F300');
+  assert.match(html,/model-feature-tag">F300/);
+  assert.doesNotMatch(html,/<span>Timer<\/span>|<span>Max Pressure<\/span>/);
+  const noData=render({...model,standard:{},motor:{},technical:{},pricing:{}});
+  const missing=[...noData.matchAll(/class="model-field model-field-missing"><span>[^<]+<\/span><b>-<\/b><\/div>/g)];
+  assert.equal(missing.length,13,'all selected fields must remain visible without values');
+  assert.doesNotMatch(noData,/<span>ATEX Marking<\/span>|<span>Mount Type<\/span>/);
+});
+
 test('all consumers load one catalog and no manufacturer-specific runtime import',()=>{
   for(const file of ['catalog.html','fan-selection.html','project.html','quotation.html','project-print.html']){
     const html=read(file);

@@ -134,15 +134,40 @@
   }
   function modelFields(model){
     const info=model.standard||{};
+    const motor=model.motor||{};
+    const technical=model.technical||{};
+    // Every chosen field stays visible, including rows that need source-data completion.
+    const known=value=>value!=null&&String(value).trim()!==''&&String(value).trim()!=='-';
+    const positiveValue=(value,decimals,unit)=>{
+      const n=Number(value);
+      return known(value)&&Number.isFinite(n)&&n>0?`${num(n,decimals)} ${unit}`:'-';
+    };
+    const frequency=known(motor.frequency)?String(motor.frequency).trim():'';
+    const celsius=value=>Number(value).toLocaleString('en-US',{maximumFractionDigits:1});
+    const tempValue=value=>known(value)&&Number.isFinite(Number(value));
+    const min=technical.operatingTemperatureMinC,max=technical.operatingTemperatureMaxC;
+    const minKnown=tempValue(min),maxKnown=tempValue(max);
+    // Some imported records use 0/0 for unspecified temperature limits.
+    const temperature=minKnown&&maxKnown&&(Number(min)!==0||Number(max)!==0)
+      ?`${celsius(min)} – ${celsius(max)} °C`
+      :minKnown&&Number(min)!==0?`≥ ${celsius(min)} °C`
+      :maxKnown&&Number(max)!==0?`≤ ${celsius(max)} °C`:'-';
     const fields=[
-      ['Motor Power',info.motorPower>0?`${num(info.motorPower,3)} kW`:'-'],
-      ['Speed',info.speed>0?`${num(info.speed)} rpm`:'-'],
-      ['Voltage',info.voltage||'-'],
-      ['Max. Airflow',info.maxAirflow>0?`${num(info.maxAirflow)} m³/h`:'-'],
-      ['Price',info.price>0?`${num(info.price,2)} ${model.pricing?.currency||'EUR'}`:'-'],
-      ['Phase',model.technical?.phase||model.motor?.phase||'-']
+      ['Motor Power',positiveValue(info.motorPower,3,'kW')],
+      ['Speed',positiveValue(info.speed,0,'rpm')],
+      ['Voltage',known(info.voltage)?String(info.voltage).trim():'-'],
+      ['Max. Airflow',positiveValue(info.maxAirflow,0,'m³/h')],
+      ['Sound',positiveValue(info.sound,1,'dB(A)')],
+      ['Price',positiveValue(info.price,2,model.pricing?.currency||'EUR')],
+      ['Phase',known(technical.phase)&&String(technical.phase).trim()!=='0'?String(technical.phase).trim():known(motor.phase)&&String(motor.phase).trim()!=='0'?String(motor.phase).trim():'-'],
+      ['Frequency',frequency&&frequency!=='0'?(/hz\b/i.test(frequency)?frequency:frequency+' Hz'):'-'],
+      ['Current',positiveValue(motor.current,2,'A')],
+      ['IP Class',known(technical.ipClass)?String(technical.ipClass).trim():'-'],
+      ['Weight',positiveValue(technical.weight,2,'kg')],
+      ['Operating Temperature',temperature],
+      ['Fire Rating',known(technical.fireRating)?String(technical.fireRating).trim():'-']
     ];
-    return fields.map(([label,value])=>`<div class="model-field"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
+    return fields.map(([label,value])=>`<div class="model-field${value==='-'?' model-field-missing':''}"><span>${esc(label)}</span><b>${esc(value)}</b></div>`).join('');
   }
 
   function operatingPointsTable(model){
