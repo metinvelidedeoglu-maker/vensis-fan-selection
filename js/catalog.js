@@ -145,16 +145,21 @@
     const frequency=window.VensisVentilationDisplay?.frequency(model)||motor.frequency||technical.frequency||'50 Hz';
     const celsius=value=>Number(value).toLocaleString('en-US',{maximumFractionDigits:1});
     const temperature=window.VensisVentilationDisplay?.temperature(technical,celsius)||'-';
+    const measurement=(value,decimals,unit,field)=>{
+      const formatted=positiveValue(value,decimals,unit);
+      const note=window.VensisVentilationDisplay?.measurementNote(technical,field,window.VensisI18n?.getLanguage?.()||document.documentElement.lang||'tr');
+      return formatted!=='-'&&note?`${formatted} (${note})`:formatted;
+    };
     const fields=[
-      ['Motor Power',positiveValue(info.motorPower,3,'kW')],
+      ['Motor Power',measurement(info.motorPower,3,'kW','power')],
       ['Speed',positiveValue(info.speed,0,'rpm')],
       ['Voltage',known(info.voltage)?String(info.voltage).trim():'-'],
       ['Max. Airflow',positiveValue(info.maxAirflow,0,'m³/h')],
-      ['Sound',positiveValue(info.sound,1,'dB(A)')],
+      ['Sound',measurement(info.sound,1,'dB(A)','sound')],
       ['Price',positiveValue(info.price,2,model.pricing?.currency||'EUR')],
       ['Phase',known(technical.phase)&&String(technical.phase).trim()!=='0'?String(technical.phase).trim():known(motor.phase)&&String(motor.phase).trim()!=='0'?String(motor.phase).trim():'-'],
       ['Frequency',frequency],
-      ['Current',positiveValue(motor.current,2,'A')],
+      ['Current',measurement(motor.current,2,'A','current')],
       ['IP Class',known(technical.ipClass)?String(technical.ipClass).trim():'-'],
       ['Weight',positiveValue(technical.weight,2,'kg')],
       ['Operating Temperature',temperature],

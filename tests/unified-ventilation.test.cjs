@@ -114,7 +114,7 @@ test('previews omit unspecified temperatures, preserve verified limits and use t
     assert.doesNotMatch(html,/<span>Operating Temperature<\/span>/,m.id);
     unspecified++;
   }
-  assert.equal(unspecified,966);
+  assert.equal(unspecified,948); // Eighteen S&P roof-fan rows now have source-verified limits.
   const heat=C.getModel('VORTICE-ROOF|15301');
   const original=JSON.stringify(C.getSeries(heat.seriesId).description);
   const html=w.VensisDirectPreview.html({product:C.product(heat.id),model:heat});

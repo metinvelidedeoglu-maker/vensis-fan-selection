@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
-        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs
+        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs
@@ -40,6 +40,10 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: node tests/ventilation-browser.mjs
+      - name: S&P roof-fan curves, mobile cards and print verification
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/sp-roof-curves-browser.mjs
       - name: Complete Soler & Palau drawing and print verification
         env:
           CHROME_PATH: /usr/bin/google-chrome
@@ -54,6 +58,10 @@ jobs:
           bad=[(p.name,len(PdfReader(p).pages)) for p in files if len(PdfReader(p).pages)!=1]
           assert not bad, bad
           print('PASS: all 163 Soler & Palau model PDFs have exactly one page.')
+          crvb=list(Path('test-results/sp-roof-curves').glob('*.pdf'))
+          assert len(crvb)==18, len(crvb)
+          assert all(len(PdfReader(p).pages)==1 for p in crvb), 'CRVB/CRVT PDF pagination changed'
+          print('PASS: all 18 S&P roof-fan model PDFs have exactly one page.')
           PYCODE
       - uses: actions/upload-artifact@v4
         if: always()
@@ -62,4 +70,5 @@ jobs:
           path: |
             test-results/ventilation/
             test-results/sp-dimensions/
+            test-results/sp-roof-curves/
           if-no-files-found: ignore

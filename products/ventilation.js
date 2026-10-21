@@ -90,7 +90,13 @@
     if(!voltage)return '';
     return `${/v\b/i.test(voltage)?voltage:voltage+' V'}, ${displayFrequency(model)}.`;
   }
-  window.VensisVentilationDisplay={frequency:displayFrequency,temperature:displayTemperature,motorDescription:modelMotorDescription};
+  function measurementNote(technical={},field,lang='tr'){
+    if(field==='power'&&technical.powerBasis==='maximum-electrical-input-P1')return lang==='tr'?'P1 maks.':'P1 max.';
+    if(field==='sound'&&technical.soundBasis==='outlet-sound-pressure-3m-operating-point-2')return lang==='tr'?'Atış, 3 m':'Outlet, 3 m';
+    if(field==='current'&&Number(technical.currentReferenceVoltageV)>0)return `${Number(technical.currentReferenceVoltageV)} V`;
+    return '';
+  }
+  window.VensisVentilationDisplay={frequency:displayFrequency,temperature:displayTemperature,motorDescription:modelMotorDescription,measurementNote};
   window.VensisCatalog={
     schemaVersion:3,brands,brand,resolveSeries,slug,modelSlug,
     standard:{seriesFields:['modelName','brand','description','category','image','submodels','catalogPdf'],submodelFields:['altModel','motorPower','speed','voltage','maxAirflow','sound','price']},
