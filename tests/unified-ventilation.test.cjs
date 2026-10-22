@@ -92,6 +92,56 @@ test('verified VORTICE details reach all 46 cards and previews with frequency qu
   assert.doesNotMatch(w.VensisDirectPreview.html({product:C.product(slim.id),model:slim}),/<span>Phase<\/span>/);
 });
 
+test('16 S&P source-completed cards have all 12 boxes and preserve model-specific ATEX and sound context',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const evidence=JSON.parse(read('assets/products/soler-palau/four-catalogue-details.json'));
+  assert.equal(evidence.models.length,16);
+  for(const row of evidence.models){
+    const m=C.getModel(row.id),card=renderCards(w,C.getSeries(m.seriesId),[m]);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,12,m.id);
+    assert.doesNotMatch(card,/model-field-missing/,m.id);
+    const atex=['HDB / HDT ATEX','ILT ATEX'].includes(m.seriesId);
+    assert.equal(card.includes('model-feature-tag">ATEX</span>'),atex,m.id);
+    assert.doesNotMatch(card,/<span>(?:Fire Rating|Timer)<\/span>/);
+    const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    assert.ok(preview.includes(row.technical.ipClass),m.id);
+    const note=w.VensisVentilationDisplay.measurementNote(m.technical,'sound','en');
+    assert.ok(preview.includes(note),m.id+' sound measurement context');
+    if(atex)assert.ok(preview.includes(m.technical.safetyWarning.replace(/&/g,'&amp;')),m.id+' safety warning');
+    for(const selected of w.VensisState.models.filter(s=>s.productKey===m.id)){
+      if(m.catalogOnly)continue;
+      assert.equal(selected.rpm,m.motor.speed,m.id+' selection RPM');
+      assert.equal(selected.kw,m.motor.power,m.id+' selection power');
+      assert.equal(selected.amps,m.motor.current,m.id+' selection current');
+    }
+  }
+});
+
+test('six VARIO models show only their highest catalogue RPM in cards, previews and selection metadata',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const evidence=JSON.parse(read('assets/products/vortice/vario-maximum-rpm.json'));
+  const expected={'14615':2520,'12455':1300,'12415':1280,'12616':2460,'12456':1260,'12416':1310};
+  assert.equal(evidence.models.length,6);
+  for(const row of evidence.models){
+    const m=C.getModel(row.id),rpm=expected[row.productCode];
+    assert.equal(row.displayRpm,rpm);
+    assert.equal(row.displayRpm,Math.max(...Object.values(row.directionalRpm)));
+    assert.equal(m.motor.speed,rpm);assert.equal(m.standard.speed,rpm);
+    assert.equal(m.performance.operatingPoints[0].speed,rpm);
+    assert.equal(m.verification.catalogueSpeed.basis,'maximum-of-catalogue-directional-rpm');
+    const card=renderCards(w,C.getSeries(m.seriesId),[m]);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,12,m.id);
+    assert.ok(card.includes('<span>Speed</span><b>'+rpm.toLocaleString('en-US')+' rpm</b>'),m.id);
+    const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    assert.ok(preview.includes('<span>Speed</span><b>'+rpm.toLocaleString('en-US')+' rpm</b>'),m.id+' catalogue preview');
+    const selected=w.VensisState.models.filter(s=>s.productKey===m.id);
+    assert.equal(selected.length,1,m.id);
+    assert.equal(selected[0].rpm,rpm,m.id+' nominal selection');
+    const selectionPreview=w.VensisDirectPreview.html({mode:'selection',product:C.product(m.id),model:selected[0]});
+    assert.ok(selectionPreview.includes('<span>Speed</span><b>'+rpm.toLocaleString('en-US')+' rpm</b>'),m.id+' selection preview');
+  }
+});
+
 test('all 133 user-confirmed single-phase models show phase in 12-field cards and previews',()=>{
   const {window:w}=harness(),C=w.VensisCatalog;
   const models=C.models.filter(m=>m.verification?.userConfirmedSupply);
@@ -252,13 +302,28 @@ test('previews omit unspecified temperatures, preserve verified limits and use t
     assert.doesNotMatch(html,/<span>Operating Temperature<\/span>/,m.id);
     unspecified++;
   }
-  assert.equal(unspecified,267); // Includes 36 newly verified VORTICE limits; unknown ranges stay hidden.
+  assert.equal(unspecified,251); // Includes the 16 newly verified S&P ranges; unknown ranges stay hidden.
   const heat=C.getModel('VORTICE-ROOF|15301');
   const original=JSON.stringify(C.getSeries(heat.seriesId).description);
   const html=w.VensisDirectPreview.html({product:C.product(heat.id),model:heat});
-  assert.match(html,/<li>230 V, 50 Hz\.<\/li>/);
+  assert.match(html,/<span>Voltage<\/span><b>230 V<\/b>/);
   assert.doesNotMatch(html,/<li>400 V, 50 Hz\.<\/li>/);
   assert.equal(JSON.stringify(C.getSeries(heat.seriesId).description),original);
+});
+
+test('source-matched construction tags reach 685 twelve-field cards and previews',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const evidence=JSON.parse(read('assets/products/catalogue-content-details.json'));
+  for(const row of evidence.models){
+    const m=C.getModel(row.id),s=C.getSeries(row.seriesId);
+    const tags=w.VensisCatalogFeatureTags(m,'en');
+    const card=renderCards(w,s,[m]);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,12,m.id);
+    for(const tag of tags)assert.ok(card.includes('model-feature-tag">'+tag+'</span>'),m.id+' card '+tag);
+    const html=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    for(const tag of tags)assert.ok(html.includes('feature-tag">'+tag+'</span>'),m.id+' preview '+tag);
+    assert.doesNotMatch(html,/<span>(?:Timer|Fire Rating)<\/span>/,m.id);
+  }
 });
 
 test('feature tags stay model-specific and pending ATEX approval cannot become a verified tag',()=>{

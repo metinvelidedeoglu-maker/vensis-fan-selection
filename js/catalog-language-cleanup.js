@@ -695,6 +695,8 @@
   function productTextToTr(value){
     const source=String(value||'').replace(/\s+/g,' ').trim();
     if(!source)return source;
+    const verified=window.VensisVentilationData?.contentTranslations?.[source];
+    if(verified)return verified;
     if(titlePairs.has(source))return titlePairs.get(source);
     if(categoryPairs.has(source))return categoryPairs.get(source);
     let output=source;
