@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
-        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs
+        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs
@@ -60,6 +60,10 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: node tests/vortice-catalogue-details-browser.mjs
+      - name: Confirmed single-phase families, mobile cards and print verification
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/confirmed-single-phase-browser.mjs
       - name: Complete Soler & Palau drawing and print verification
         env:
           CHROME_PATH: /usr/bin/google-chrome
@@ -90,6 +94,10 @@ jobs:
           assert len(vortice)==46, len(vortice)
           assert all(len(PdfReader(p).pages)==1 for p in vortice), 'VORTICE PDF pagination changed'
           print('PASS: all 46 VORTICE catalogue model PDFs have exactly one page.')
+          single_phase=list(Path('test-results/confirmed-single-phase').glob('*.pdf'))
+          assert len(single_phase)==23, len(single_phase)
+          assert all(len(PdfReader(p).pages)==1 for p in single_phase), 'Single-phase family PDF pagination changed'
+          print('PASS: all 23 single-phase family PDFs have exactly one page.')
           PYCODE
       - uses: actions/upload-artifact@v4
         if: always()
@@ -103,4 +111,5 @@ jobs:
             test-results/sp-hct-il-curves/
             test-results/vitlo-operating-conditions/
             test-results/vortice-catalogue-details/
+            test-results/confirmed-single-phase/
           if-no-files-found: ignore
