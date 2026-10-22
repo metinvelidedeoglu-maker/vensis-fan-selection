@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
-        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs
+        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs tests/sp-td-th-details.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs
@@ -72,6 +72,10 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: node tests/catalogue-content-browser.mjs
+      - name: TD and TH source technical data, acoustic context and ATEX verification
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/sp-td-th-details-browser.mjs
       - name: Complete Soler & Palau drawing and print verification
         env:
           CHROME_PATH: /usr/bin/google-chrome
@@ -116,6 +120,10 @@ jobs:
           assert len(content)==expected, (len(content), expected)
           assert all(len(PdfReader(p).pages)==1 for p in content), 'Product copy PDF pagination changed'
           print(f'PASS: all {expected} bilingual product-copy PDFs have exactly one page.')
+          td_th=list(Path('test-results/sp-td-th-details').glob('*.pdf'))
+          assert len(td_th)==20, len(td_th)
+          assert all(len(PdfReader(p).pages)==1 for p in td_th), 'TD/TH PDF pagination changed'
+          print('PASS: all 20 TD/TH bilingual model PDFs have exactly one page.')
           PYCODE
       - uses: actions/upload-artifact@v4
         if: always()
@@ -132,4 +140,5 @@ jobs:
             test-results/confirmed-single-phase/
             test-results/sp-four-catalogue-details/
             test-results/catalogue-content/
+            test-results/sp-td-th-details/
           if-no-files-found: ignore

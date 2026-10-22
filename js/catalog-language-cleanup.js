@@ -665,6 +665,10 @@
   }
 
   function applicationSentenceToTr(items){
+    // Complete, source-reviewed sentences already have an exact translation.
+    // Keep their punctuation before the legacy phrase-to-sentence fallback.
+    const reviewed=(items||[]).map(value=>window.VensisVentilationData?.contentTranslations?.[String(value||'').replace(/\s+/g,' ').trim()]);
+    if(reviewed.length&&reviewed.every(Boolean))return reviewed.join(' ');
     const phrases=(items||[]).map(value=>{
       const source=String(value||'').replace(/\s+/g,' ').replace(/[.,]+\s*$/,'').trim();
       const phrase=applicationPhrasePairs.get(source)||productTextToTr(source).replace(/[.!?]+$/,'');
