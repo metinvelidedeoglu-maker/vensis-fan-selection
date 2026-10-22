@@ -1,0 +1,4445 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-10-22",
+  "sources": {
+    "td-atex-0.pdf": {
+      "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860",
+      "pages": 4,
+      "tablePage": 2,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-22"
+    },
+    "th-atex-0.pdf": {
+      "sha256": "a3a04f5176a4aefa6ff2e6e6cb4c2dd4206aad49c932a0a77a67f3edf9f29580",
+      "pages": 3,
+      "tablePage": 1,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-22"
+    },
+    "th-mixvent-0.pdf": {
+      "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8",
+      "pages": 6,
+      "tablePage": 2,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-22"
+    }
+  },
+  "models": [
+    {
+      "id": "SP|TD-800/200 EX",
+      "model": "TD-800/200 EX",
+      "seriesId": "TD ATEX",
+      "productCode": "TD800200EX",
+      "source": "td-atex-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TD-800/200 ATEX",
+      "sourceRowValues": [
+        2450,
+        130,
+        0.54,
+        1020,
+        53,
+        43,
+        55,
+        5
+      ],
+      "extractionMethod": "PDF-table-and-page-image-cross-check",
+      "motor": {
+        "power": 0.13,
+        "speed": 2450,
+        "current": 0.54,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 43
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.54,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "radiated-sound-pressure-3m-free-field-operating-point-B",
+        "soundRadiatedDbA3m": 43,
+        "soundInletDbA": 53,
+        "soundOutletDbA": 55,
+        "soundOperatingPoint": "B",
+        "externalTerminalBoxIpClass": "IP55",
+        "weight": 5,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundMeasurementDistanceM": 3,
+        "atex": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 08 ATEX 2052 X Ek 2"
+        },
+        "safetyWarning": "Katalogdaki ATEX işaretlemesi: II 2G Ex eb IIB T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      "features": {
+        "en": [
+          "Removable Motor Assembly",
+          "External Terminal Box"
+        ],
+        "tr": [
+          "Sökülebilir Motor Grubu",
+          "Harici Bağlantı Kutusu"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow duct fans for potentially explosive gas extraction.",
+          "The motor and impeller assembly can be removed without disconnecting the ducts.",
+          "The 800 model has an antistatic plastic casing; the 1100 and 1200 models use polyester-coated steel.",
+          "An accessible external terminal box, ATEX capacitor and earth connection are provided."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz motors with IP44 protection and class B insulation.",
+          "The catalogue specifies an operating temperature range of -20 to +40 °C."
+        ],
+        "applications": [
+          "Match the equipment marking, certificate and installation conditions to the hazardous-area assessment."
+        ]
+      },
+      "controls": {},
+      "sourceMaxAirflow": 1020
+    },
+    {
+      "id": "SP|TD-1100/250 EX",
+      "model": "TD-1100/250 EX",
+      "seriesId": "TD ATEX",
+      "productCode": "TD1100250EX",
+      "source": "td-atex-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TD-1100/250 ATEX",
+      "sourceRowValues": [
+        2630,
+        197,
+        0.81,
+        1130,
+        59,
+        46,
+        65,
+        20
+      ],
+      "extractionMethod": "PDF-table-and-page-image-cross-check",
+      "motor": {
+        "power": 0.197,
+        "speed": 2630,
+        "current": 0.81,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 46
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.81,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "radiated-sound-pressure-3m-free-field-operating-point-B",
+        "soundRadiatedDbA3m": 46,
+        "soundInletDbA": 59,
+        "soundOutletDbA": 65,
+        "soundOperatingPoint": "B",
+        "externalTerminalBoxIpClass": "IP55",
+        "weight": 20,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundMeasurementDistanceM": 3,
+        "atex": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 11 ATEX 2021 X Ek 1"
+        },
+        "safetyWarning": "Katalogdaki ATEX işaretlemesi: II 2G Ex eb IIB T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      "features": {
+        "en": [
+          "Removable Motor Assembly",
+          "External Terminal Box"
+        ],
+        "tr": [
+          "Sökülebilir Motor Grubu",
+          "Harici Bağlantı Kutusu"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow duct fans for potentially explosive gas extraction.",
+          "The motor and impeller assembly can be removed without disconnecting the ducts.",
+          "The 800 model has an antistatic plastic casing; the 1100 and 1200 models use polyester-coated steel.",
+          "An accessible external terminal box, ATEX capacitor and earth connection are provided."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz motors with IP44 protection and class B insulation.",
+          "The catalogue specifies an operating temperature range of -20 to +40 °C."
+        ],
+        "applications": [
+          "Match the equipment marking, certificate and installation conditions to the hazardous-area assessment."
+        ]
+      },
+      "controls": {},
+      "sourceMaxAirflow": 1130
+    },
+    {
+      "id": "SP|TD-1200/315 EX",
+      "model": "TD-1200/315 EX",
+      "seriesId": "TD ATEX",
+      "productCode": "TD1200315EX",
+      "source": "td-atex-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TD-1200/315 ATEX",
+      "sourceRowValues": [
+        2600,
+        170,
+        0.71,
+        1320,
+        56,
+        44,
+        59,
+        25
+      ],
+      "extractionMethod": "PDF-table-and-page-image-cross-check",
+      "motor": {
+        "power": 0.17,
+        "speed": 2600,
+        "current": 0.71,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 44
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.71,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "radiated-sound-pressure-3m-free-field-operating-point-B",
+        "soundRadiatedDbA3m": 44,
+        "soundInletDbA": 56,
+        "soundOutletDbA": 59,
+        "soundOperatingPoint": "B",
+        "externalTerminalBoxIpClass": "IP55",
+        "weight": 25,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundMeasurementDistanceM": 3,
+        "atex": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 11 ATEX 2021 X Ek 1"
+        },
+        "safetyWarning": "Katalogdaki ATEX işaretlemesi: II 2G Ex eb IIB T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      "features": {
+        "en": [
+          "Removable Motor Assembly",
+          "External Terminal Box"
+        ],
+        "tr": [
+          "Sökülebilir Motor Grubu",
+          "Harici Bağlantı Kutusu"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow duct fans for potentially explosive gas extraction.",
+          "The motor and impeller assembly can be removed without disconnecting the ducts.",
+          "The 800 model has an antistatic plastic casing; the 1100 and 1200 models use polyester-coated steel.",
+          "An accessible external terminal box, ATEX capacitor and earth connection are provided."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz motors with IP44 protection and class B insulation.",
+          "The catalogue specifies an operating temperature range of -20 to +40 °C."
+        ],
+        "applications": [
+          "Match the equipment marking, certificate and installation conditions to the hazardous-area assessment."
+        ]
+      },
+      "controls": {},
+      "sourceMaxAirflow": 1320
+    },
+    {
+      "id": "SP|TH-800/200 EX",
+      "model": "TH-800/200 EX",
+      "seriesId": "TH ATEX",
+      "productCode": "TH800200EX",
+      "source": "th-atex-0.pdf",
+      "tablePage": 1,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TH-800/200 EX",
+      "sourceRowValues": [
+        2450,
+        120,
+        0.5,
+        800,
+        58,
+        59,
+        8
+      ],
+      "extractionMethod": "page-image-transcription-cross-checked-with-OCR",
+      "motor": {
+        "power": 0.12,
+        "speed": 2450,
+        "current": 0.5,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 58
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.5,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "inlet-sound-pressure-3m-free-field-operating-point-A",
+        "soundInletDbA3m": 58,
+        "soundOutletDbA3m": 59,
+        "soundOperatingPoint": "A",
+        "externalTerminalBoxIpClass": "IP55",
+        "weight": 8,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundMeasurementDistanceM": 3,
+        "atex": {
+          "gas_marking": "IIG Exe IIC T3 Gb",
+          "gas_group": "IIC",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 08 ATEX 2052 X Ek 2"
+        },
+        "safetyWarning": "Katalogdaki ATEX işaretlemesi: IIG Exe IIC T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      "features": {
+        "en": [
+          "Bird Protection",
+          "Removable Motor Assembly"
+        ],
+        "tr": [
+          "Kuş Koruması",
+          "Sökülebilir Motor Grubu"
+        ]
+      },
+      "description": {
+        "general": [
+          "Roof-mounted mixed-flow fans for extraction of hazardous and potentially explosive gases.",
+          "Bird protection is provided, and the fan unit can be removed without disconnecting the duct.",
+          "The 800/200 version uses antistatic plastic; the larger models have epoxy-polyester-coated steel construction.",
+          "The accessible external electrical connection box is IP55; the motor protection rating is IP44."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz motors with class B insulation; operation from -20 to +40 °C."
+        ],
+        "applications": [
+          "Verify the original equipment marking and certificate against the project requirements before installation."
+        ]
+      },
+      "controls": {},
+      "sourceMaxAirflow": 800
+    },
+    {
+      "id": "SP|TH-1100/250 EX",
+      "model": "TH-1100/250 EX",
+      "seriesId": "TH ATEX",
+      "productCode": "TH1100250EX",
+      "source": "th-atex-0.pdf",
+      "tablePage": 1,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TH-1100/250 EX",
+      "sourceRowValues": [
+        2630,
+        197,
+        0.85,
+        965,
+        55,
+        63,
+        22
+      ],
+      "extractionMethod": "page-image-transcription-cross-checked-with-OCR",
+      "motor": {
+        "power": 0.197,
+        "speed": 2630,
+        "current": 0.85,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 55
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.85,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "inlet-sound-pressure-3m-free-field-operating-point-A",
+        "soundInletDbA3m": 55,
+        "soundOutletDbA3m": 63,
+        "soundOperatingPoint": "A",
+        "externalTerminalBoxIpClass": "IP55",
+        "weight": 22,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundMeasurementDistanceM": 3,
+        "atex": {
+          "gas_marking": "IIG Exe IIC T3 Gb",
+          "gas_group": "IIC",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 11 ATEX 2021 X Ek 1"
+        },
+        "safetyWarning": "Katalogdaki ATEX işaretlemesi: IIG Exe IIC T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      "features": {
+        "en": [
+          "Bird Protection",
+          "Removable Motor Assembly"
+        ],
+        "tr": [
+          "Kuş Koruması",
+          "Sökülebilir Motor Grubu"
+        ]
+      },
+      "description": {
+        "general": [
+          "Roof-mounted mixed-flow fans for extraction of hazardous and potentially explosive gases.",
+          "Bird protection is provided, and the fan unit can be removed without disconnecting the duct.",
+          "The 800/200 version uses antistatic plastic; the larger models have epoxy-polyester-coated steel construction.",
+          "The accessible external electrical connection box is IP55; the motor protection rating is IP44."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz motors with class B insulation; operation from -20 to +40 °C."
+        ],
+        "applications": [
+          "Verify the original equipment marking and certificate against the project requirements before installation."
+        ]
+      },
+      "controls": {},
+      "sourceMaxAirflow": 965
+    },
+    {
+      "id": "SP|TH-1200/315 EX",
+      "model": "TH-1200/315 EX",
+      "seriesId": "TH ATEX",
+      "productCode": "TH1200315EX",
+      "source": "th-atex-0.pdf",
+      "tablePage": 1,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TH-1200/315 EX",
+      "sourceRowValues": [
+        2600,
+        170,
+        0.74,
+        1150,
+        52,
+        56,
+        28
+      ],
+      "extractionMethod": "page-image-transcription-cross-checked-with-OCR",
+      "motor": {
+        "power": 0.17,
+        "speed": 2600,
+        "current": 0.74,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 52
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.74,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "inlet-sound-pressure-3m-free-field-operating-point-A",
+        "soundInletDbA3m": 52,
+        "soundOutletDbA3m": 56,
+        "soundOperatingPoint": "A",
+        "externalTerminalBoxIpClass": "IP55",
+        "weight": 28,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundMeasurementDistanceM": 3,
+        "atex": {
+          "gas_marking": "IIG Exe IIC T3 Gb",
+          "gas_group": "IIC",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 11 ATEX 2021 X Ek 1"
+        },
+        "safetyWarning": "Katalogdaki ATEX işaretlemesi: IIG Exe IIC T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      "features": {
+        "en": [
+          "Bird Protection",
+          "Removable Motor Assembly"
+        ],
+        "tr": [
+          "Kuş Koruması",
+          "Sökülebilir Motor Grubu"
+        ]
+      },
+      "description": {
+        "general": [
+          "Roof-mounted mixed-flow fans for extraction of hazardous and potentially explosive gases.",
+          "Bird protection is provided, and the fan unit can be removed without disconnecting the duct.",
+          "The 800/200 version uses antistatic plastic; the larger models have epoxy-polyester-coated steel construction.",
+          "The accessible external electrical connection box is IP55; the motor protection rating is IP44."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz motors with class B insulation; operation from -20 to +40 °C."
+        ],
+        "applications": [
+          "Verify the original equipment marking and certificate against the project requirements before installation."
+        ]
+      },
+      "controls": {},
+      "sourceMaxAirflow": 1150
+    },
+    {
+      "id": "SP|TH-500/150",
+      "model": "TH-500/150",
+      "seriesId": "TH-MIXVENT",
+      "productCode": "TH500150",
+      "source": "th-mixvent-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TH-500/150",
+      "sourceRowValues": [
+        2450,
+        1800,
+        50,
+        45,
+        0.23,
+        0.18,
+        470,
+        355,
+        49.5,
+        3.8,
+        -20
+      ],
+      "extractionMethod": "PDF-table-and-page-image-cross-check",
+      "motor": {
+        "power": 0.05,
+        "speed": 2450,
+        "current": 0.23,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 49.5
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.23,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "sound-pressure-3m-high-speed-exhaust",
+        "thermalProtection": true,
+        "weight": 3.8,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundMeasurementDistanceM": 3
+      },
+      "features": {
+        "en": [
+          "Two Speeds",
+          "Thermal Protection",
+          "Bird Protection",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "İki Hız",
+          "Termal Koruma",
+          "Kuş Koruması",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+          "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+          "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+          "Two clamps release the motor and impeller assembly for maintenance.",
+          "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+          "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+          "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+        ],
+        "applications": [
+          "Exhaust ventilation through circular rigid or flexible ducts."
+        ]
+      },
+      "controls": {
+        "HS": {
+          "power": 0.05,
+          "speed": 2450,
+          "current": 0.23,
+          "sound": 49.5
+        },
+        "LS": {
+          "power": 0.045,
+          "speed": 1800,
+          "current": 0.18
+        }
+      },
+      "sourceMaxAirflow": 470
+    },
+    {
+      "id": "SP|TH-800",
+      "model": "TH-800",
+      "seriesId": "TH-MIXVENT",
+      "productCode": "TH800",
+      "source": "th-mixvent-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TH-800",
+      "sourceRowValues": [
+        2500,
+        2100,
+        120,
+        118,
+        0.52,
+        0.5,
+        775,
+        620,
+        53,
+        5.6,
+        -20
+      ],
+      "extractionMethod": "PDF-table-and-page-image-cross-check",
+      "motor": {
+        "power": 0.12,
+        "speed": 2500,
+        "current": 0.52,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 53
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.52,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "sound-pressure-3m-high-speed-exhaust",
+        "thermalProtection": true,
+        "weight": 5.6,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundMeasurementDistanceM": 3
+      },
+      "features": {
+        "en": [
+          "Two Speeds",
+          "Thermal Protection",
+          "Bird Protection",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "İki Hız",
+          "Termal Koruma",
+          "Kuş Koruması",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+          "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+          "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+          "Two clamps release the motor and impeller assembly for maintenance.",
+          "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+          "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+          "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+        ],
+        "applications": [
+          "Exhaust ventilation through circular rigid or flexible ducts."
+        ]
+      },
+      "controls": {
+        "HS": {
+          "power": 0.12,
+          "speed": 2500,
+          "current": 0.52,
+          "sound": 53
+        },
+        "LS": {
+          "power": 0.118,
+          "speed": 2100,
+          "current": 0.5
+        }
+      },
+      "sourceMaxAirflow": 775
+    },
+    {
+      "id": "SP|TH-1300",
+      "model": "TH-1300",
+      "seriesId": "TH-MIXVENT",
+      "productCode": "TH1300",
+      "source": "th-mixvent-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TH-1300",
+      "sourceRowValues": [
+        2400,
+        1800,
+        170,
+        120,
+        0.83,
+        0.52,
+        1100,
+        780,
+        59.5,
+        11.2,
+        -40
+      ],
+      "extractionMethod": "PDF-table-and-page-image-cross-check",
+      "motor": {
+        "power": 0.17,
+        "speed": 2400,
+        "current": 0.83,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 59.5
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 0.83,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "sound-pressure-3m-high-speed-exhaust",
+        "thermalProtection": true,
+        "weight": 11.2,
+        "operatingTemperatureMinC": -40,
+        "operatingTemperatureMaxC": 60,
+        "soundMeasurementDistanceM": 3
+      },
+      "features": {
+        "en": [
+          "Two Speeds",
+          "Thermal Protection",
+          "Bird Protection",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "İki Hız",
+          "Termal Koruma",
+          "Kuş Koruması",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+          "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+          "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+          "Two clamps release the motor and impeller assembly for maintenance.",
+          "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+          "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+          "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+        ],
+        "applications": [
+          "Exhaust ventilation through circular rigid or flexible ducts."
+        ]
+      },
+      "controls": {
+        "HS": {
+          "power": 0.17,
+          "speed": 2400,
+          "current": 0.83,
+          "sound": 59.5
+        },
+        "LS": {
+          "power": 0.12,
+          "speed": 1800,
+          "current": 0.52
+        }
+      },
+      "sourceMaxAirflow": 1100
+    },
+    {
+      "id": "SP|TH-2000",
+      "model": "TH-2000",
+      "seriesId": "TH-MIXVENT",
+      "productCode": "TH2000",
+      "source": "th-mixvent-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TH-2000",
+      "sourceRowValues": [
+        2480,
+        1750,
+        255,
+        160,
+        1.27,
+        0.79,
+        1725,
+        1200,
+        67,
+        17.2,
+        -40
+      ],
+      "extractionMethod": "PDF-table-and-page-image-cross-check",
+      "motor": {
+        "power": 0.255,
+        "speed": 2480,
+        "current": 1.27,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 67
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "powerBasis": "maximum-electrical-input-P1",
+        "current230A": 1.27,
+        "currentReferenceVoltageV": 230,
+        "soundBasis": "sound-pressure-3m-high-speed-exhaust",
+        "thermalProtection": true,
+        "weight": 17.2,
+        "operatingTemperatureMinC": -40,
+        "operatingTemperatureMaxC": 60,
+        "soundMeasurementDistanceM": 3
+      },
+      "features": {
+        "en": [
+          "Two Speeds",
+          "Thermal Protection",
+          "Bird Protection",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "İki Hız",
+          "Termal Koruma",
+          "Kuş Koruması",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+          "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+          "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+          "Two clamps release the motor and impeller assembly for maintenance.",
+          "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+          "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+          "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+        ],
+        "applications": [
+          "Exhaust ventilation through circular rigid or flexible ducts."
+        ]
+      },
+      "controls": {
+        "HS": {
+          "power": 0.255,
+          "speed": 2480,
+          "current": 1.27,
+          "sound": 67
+        },
+        "LS": {
+          "power": 0.16,
+          "speed": 1750,
+          "current": 0.79
+        }
+      },
+      "sourceMaxAirflow": 1725
+    }
+  ],
+  "series": {
+    "TD ATEX": {
+      "general": {
+        "en": [
+          "Low-profile mixed-flow duct fans for potentially explosive gas extraction.",
+          "The motor and impeller assembly can be removed without disconnecting the ducts.",
+          "The 800 model has an antistatic plastic casing; the 1100 and 1200 models use polyester-coated steel.",
+          "An accessible external terminal box, ATEX capacitor and earth connection are provided."
+        ],
+        "tr": [
+          "Potansiyel patlayıcı gazların tahliyesi için düşük profilli, kanal tipi karma akışlı fanlardır.",
+          "Motor ve pervane grubu, kanal bağlantıları sökülmeden çıkarılabilir.",
+          "800 modelinde antistatik plastik gövde; 1100 ve 1200 modellerinde polyester boyalı çelik gövde kullanılır.",
+          "Kolay erişilen harici bağlantı kutusu, ATEX kondansatör ve topraklama bağlantısı bulunur."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz motors with IP44 protection and class B insulation.",
+          "The catalogue specifies an operating temperature range of -20 to +40 °C."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motorlar IP44 koruma ve B yalıtım sınıfına sahiptir.",
+          "Katalogda çalışma sıcaklığı aralığı -20 ile +40 °C olarak belirtilir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Match the equipment marking, certificate and installation conditions to the hazardous-area assessment."
+        ],
+        "tr": [
+          "Ürün işaretlemesi, sertifika ve montaj koşulları tehlikeli alan değerlendirmesiyle eşleştirilmelidir."
+        ]
+      }
+    },
+    "TH ATEX": {
+      "general": {
+        "en": [
+          "Roof-mounted mixed-flow fans for extraction of hazardous and potentially explosive gases.",
+          "Bird protection is provided, and the fan unit can be removed without disconnecting the duct.",
+          "The 800/200 version uses antistatic plastic; the larger models have epoxy-polyester-coated steel construction.",
+          "The accessible external electrical connection box is IP55; the motor protection rating is IP44."
+        ],
+        "tr": [
+          "Tehlikeli ve potansiyel patlayıcı gazların tahliyesi için çatı tipi karma akışlı fanlardır.",
+          "Kuş koruması bulunur; fan ünitesi kanal bağlantısı sökülmeden çıkarılabilir.",
+          "800/200 versiyonunda antistatik plastik; büyük modellerde epoksi-polyester boyalı çelik yapı kullanılır.",
+          "Kolay erişilen harici elektrik bağlantı kutusu IP55, motor koruma sınıfı ise IP44’tür."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz motors with class B insulation; operation from -20 to +40 °C."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz ve B yalıtım sınıfı motorlarla -20 ile +40 °C arasında çalışır."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Verify the original equipment marking and certificate against the project requirements before installation."
+        ],
+        "tr": [
+          "Montajdan önce ürünün orijinal işaretlemesi ve sertifikası proje gereklilikleriyle doğrulanmalıdır."
+        ]
+      }
+    },
+    "TH-MIXVENT": {
+      "general": {
+        "en": [
+          "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+          "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+          "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+          "Two clamps release the motor and impeller assembly for maintenance.",
+          "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+        ],
+        "tr": [
+          "Standart olarak egzoz düzeninde sunulan çatı tipi karma akışlı fanlardır.",
+          "500 ve 800 gövdeleri takviyeli kalıplanmış plastikten; 1300 ve 2000 gövdeleri preslenmiş çelikten üretilir.",
+          "Tüm modellerde çelik montaj kaidesi, kuş koruması ve kablo rakoru bulunur; metal parçalar dış hava koşullarına dayanıklı siyah epoksi-polyester boyalıdır.",
+          "İki kelepçe sayesinde motor ve pervane grubu bakım için çıkarılabilir.",
+          "Besleme kullanımı için motor ve fan grubu 180 derece döndürülür; bu düzenin performans değerleri egzozdan farklıdır."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+          "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+          "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motorlar IP44, B yalıtım sınıfı, termal koruma ve uzun ömürlü rulman yataklara sahiptir.",
+          "Çift devir bağlantısı bulunur; elektronik veya ototransformatörlü voltaj kontrolüyle de hız ayarı yapılabilir.",
+          "Kartta yüksek devir egzoz verileri kullanılır; sıcaklık sınırları modele göre değişir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Exhaust ventilation through circular rigid or flexible ducts."
+        ],
+        "tr": [
+          "Yuvarlak rijit veya esnek kanallarla egzoz havalandırması için kullanılır."
+        ]
+      }
+    }
+  },
+  "policy": {
+    "cardDuty": "high-speed-exhaust",
+    "preserveSelectionGeometry": true,
+    "preservePricesAndDimensions": true,
+    "motorIp44NotTerminalBoxIp55": true,
+    "tdRadiatedLpA3mBNotLwA": true,
+    "thInletLpA3mANotLwA": true,
+    "lowSpeedSoundNotInferred": true,
+    "thOriginalAtexMarkingPreserved": true
+  },
+  "sourceCaveats": [
+    "TH-MIXVENT page 1 lists a 1200 cap-material version although its table has TH-1300; this unsupported material detail is not copied.",
+    "TH ATEX original image marking is IIG Exe IIC T3 Gb; its literal text is retained and label/certificate verification is required."
+  ],
+  "preservation": {
+    "baseCommit": "fa9bb277c98b1039dedd819da6ef36dac7c6965f",
+    "modelChanges": [
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.13
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2450
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.54
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 43
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.54
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-operating-point-B"
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "soundRadiatedDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 43
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "soundInletDbA"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 53
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "soundOutletDbA"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 55
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "soundOperatingPoint"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "externalTerminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 5
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "atex"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 08 ATEX 2052 X Ek 2"
+        }
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "technical",
+          "safetyWarning"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Katalogdaki ATEX işaretlemesi: II 2G Ex eb IIB T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Removable Motor Assembly",
+            "External Terminal Box"
+          ],
+          "tr": [
+            "Sökülebilir Motor Grubu",
+            "Harici Bağlantı Kutusu"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow duct fans for potentially explosive gas extraction.",
+            "The motor and impeller assembly can be removed without disconnecting the ducts.",
+            "The 800 model has an antistatic plastic casing; the 1100 and 1200 models use polyester-coated steel.",
+            "An accessible external terminal box, ATEX capacitor and earth connection are provided."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz motors with IP44 protection and class B insulation.",
+            "The catalogue specifies an operating temperature range of -20 to +40 °C."
+          ],
+          "applications": [
+            "Match the equipment marking, certificate and installation conditions to the hazardous-area assessment."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.13
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2450
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.54
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 43
+      },
+      {
+        "id": "SP|TD-800/200 EX",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "td-atex-0.pdf",
+          "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.197
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2630
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.81
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 46
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.81
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-operating-point-B"
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "soundRadiatedDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 46
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "soundInletDbA"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 59
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "soundOutletDbA"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 65
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "soundOperatingPoint"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "externalTerminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 20
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "atex"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 11 ATEX 2021 X Ek 1"
+        }
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "technical",
+          "safetyWarning"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Katalogdaki ATEX işaretlemesi: II 2G Ex eb IIB T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Removable Motor Assembly",
+            "External Terminal Box"
+          ],
+          "tr": [
+            "Sökülebilir Motor Grubu",
+            "Harici Bağlantı Kutusu"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow duct fans for potentially explosive gas extraction.",
+            "The motor and impeller assembly can be removed without disconnecting the ducts.",
+            "The 800 model has an antistatic plastic casing; the 1100 and 1200 models use polyester-coated steel.",
+            "An accessible external terminal box, ATEX capacitor and earth connection are provided."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz motors with IP44 protection and class B insulation.",
+            "The catalogue specifies an operating temperature range of -20 to +40 °C."
+          ],
+          "applications": [
+            "Match the equipment marking, certificate and installation conditions to the hazardous-area assessment."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.197
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2630
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.81
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 46
+      },
+      {
+        "id": "SP|TD-1100/250 EX",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "td-atex-0.pdf",
+          "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.17
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2600
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.71
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 44
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.71
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-operating-point-B"
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "soundRadiatedDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 44
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "soundInletDbA"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 56
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "soundOutletDbA"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 59
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "soundOperatingPoint"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "externalTerminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 25
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "atex"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 11 ATEX 2021 X Ek 1"
+        }
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "technical",
+          "safetyWarning"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Katalogdaki ATEX işaretlemesi: II 2G Ex eb IIB T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Removable Motor Assembly",
+            "External Terminal Box"
+          ],
+          "tr": [
+            "Sökülebilir Motor Grubu",
+            "Harici Bağlantı Kutusu"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow duct fans for potentially explosive gas extraction.",
+            "The motor and impeller assembly can be removed without disconnecting the ducts.",
+            "The 800 model has an antistatic plastic casing; the 1100 and 1200 models use polyester-coated steel.",
+            "An accessible external terminal box, ATEX capacitor and earth connection are provided."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz motors with IP44 protection and class B insulation.",
+            "The catalogue specifies an operating temperature range of -20 to +40 °C."
+          ],
+          "applications": [
+            "Match the equipment marking, certificate and installation conditions to the hazardous-area assessment."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.17
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2600
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.71
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 44
+      },
+      {
+        "id": "SP|TD-1200/315 EX",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "td-atex-0.pdf",
+          "sha256": "24e45310124fc1774d4a8cd3a7e0119278c7cab243a34a4b3c965bee13771860",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.12
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2450
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.5
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 58
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.5
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "inlet-sound-pressure-3m-free-field-operating-point-A"
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "soundInletDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 58
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "soundOutletDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 59
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "soundOperatingPoint"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "A"
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "externalTerminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 8
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "atex"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "gas_marking": "IIG Exe IIC T3 Gb",
+          "gas_group": "IIC",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 08 ATEX 2052 X Ek 2"
+        }
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "technical",
+          "safetyWarning"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Katalogdaki ATEX işaretlemesi: IIG Exe IIC T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Bird Protection",
+            "Removable Motor Assembly"
+          ],
+          "tr": [
+            "Kuş Koruması",
+            "Sökülebilir Motor Grubu"
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans for extraction of hazardous and potentially explosive gases.",
+            "Bird protection is provided, and the fan unit can be removed without disconnecting the duct.",
+            "The 800/200 version uses antistatic plastic; the larger models have epoxy-polyester-coated steel construction.",
+            "The accessible external electrical connection box is IP55; the motor protection rating is IP44."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz motors with class B insulation; operation from -20 to +40 °C."
+          ],
+          "applications": [
+            "Verify the original equipment marking and certificate against the project requirements before installation."
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.12
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2450
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.5
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 58
+      },
+      {
+        "id": "SP|TH-800/200 EX",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "th-atex-0.pdf",
+          "sha256": "a3a04f5176a4aefa6ff2e6e6cb4c2dd4206aad49c932a0a77a67f3edf9f29580",
+          "tablePage": 1,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.197
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2630
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.85
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 55
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.85
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "inlet-sound-pressure-3m-free-field-operating-point-A"
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "soundInletDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 55
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "soundOutletDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 63
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "soundOperatingPoint"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "A"
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "externalTerminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 22
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "atex"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "gas_marking": "IIG Exe IIC T3 Gb",
+          "gas_group": "IIC",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 11 ATEX 2021 X Ek 1"
+        }
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "technical",
+          "safetyWarning"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Katalogdaki ATEX işaretlemesi: IIG Exe IIC T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Bird Protection",
+            "Removable Motor Assembly"
+          ],
+          "tr": [
+            "Kuş Koruması",
+            "Sökülebilir Motor Grubu"
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans for extraction of hazardous and potentially explosive gases.",
+            "Bird protection is provided, and the fan unit can be removed without disconnecting the duct.",
+            "The 800/200 version uses antistatic plastic; the larger models have epoxy-polyester-coated steel construction.",
+            "The accessible external electrical connection box is IP55; the motor protection rating is IP44."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz motors with class B insulation; operation from -20 to +40 °C."
+          ],
+          "applications": [
+            "Verify the original equipment marking and certificate against the project requirements before installation."
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.197
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2630
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.85
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 55
+      },
+      {
+        "id": "SP|TH-1100/250 EX",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "th-atex-0.pdf",
+          "sha256": "a3a04f5176a4aefa6ff2e6e6cb4c2dd4206aad49c932a0a77a67f3edf9f29580",
+          "tablePage": 1,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.17
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2600
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.74
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 52
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.74
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "inlet-sound-pressure-3m-free-field-operating-point-A"
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "soundInletDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 52
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "soundOutletDbA3m"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 56
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "soundOperatingPoint"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "A"
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "externalTerminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 28
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "atex"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "gas_marking": "IIG Exe IIC T3 Gb",
+          "gas_group": "IIC",
+          "temperature_class": "T3",
+          "epl": "Gb",
+          "certificate": "LOM 11 ATEX 2021 X Ek 1"
+        }
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "technical",
+          "safetyWarning"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Katalogdaki ATEX işaretlemesi: IIG Exe IIC T3 Gb. Ürün etiketi, sertifika ve proje koşullarıyla doğrulayın; bağlantı kutusunun IP55 değeri motorun IP44 koruma sınıfını değiştirmez."
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Bird Protection",
+            "Removable Motor Assembly"
+          ],
+          "tr": [
+            "Kuş Koruması",
+            "Sökülebilir Motor Grubu"
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans for extraction of hazardous and potentially explosive gases.",
+            "Bird protection is provided, and the fan unit can be removed without disconnecting the duct.",
+            "The 800/200 version uses antistatic plastic; the larger models have epoxy-polyester-coated steel construction.",
+            "The accessible external electrical connection box is IP55; the motor protection rating is IP44."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz motors with class B insulation; operation from -20 to +40 °C."
+          ],
+          "applications": [
+            "Verify the original equipment marking and certificate against the project requirements before installation."
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.17
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2600
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.74
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 52
+      },
+      {
+        "id": "SP|TH-1200/315 EX",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "th-atex-0.pdf",
+          "sha256": "a3a04f5176a4aefa6ff2e6e6cb4c2dd4206aad49c932a0a77a67f3edf9f29580",
+          "tablePage": 1,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.05
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2450
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.23
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 49.5
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.23
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-high-speed-exhaust"
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 3.8
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Two Speeds",
+            "Thermal Protection",
+            "Bird Protection",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "İki Hız",
+            "Termal Koruma",
+            "Kuş Koruması",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+            "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+            "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+            "Two clamps release the motor and impeller assembly for maintenance.",
+            "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+            "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+            "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+          ],
+          "applications": [
+            "Exhaust ventilation through circular rigid or flexible ducts."
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.045
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1800
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.18
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.05
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2450
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.23
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 49.5
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "performance",
+          "maxAirflow"
+        ],
+        "previousPresent": true,
+        "previous": 500,
+        "value": 470
+      },
+      {
+        "id": "SP|TH-500/150",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "th-mixvent-0.pdf",
+          "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.12
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2500
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.52
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 53
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.52
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-high-speed-exhaust"
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 5.6
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Two Speeds",
+            "Thermal Protection",
+            "Bird Protection",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "İki Hız",
+            "Termal Koruma",
+            "Kuş Koruması",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+            "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+            "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+            "Two clamps release the motor and impeller assembly for maintenance.",
+            "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+            "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+            "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+          ],
+          "applications": [
+            "Exhaust ventilation through circular rigid or flexible ducts."
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.118
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2100
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.5
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.12
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2500
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.52
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 53
+      },
+      {
+        "id": "SP|TH-800",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "th-mixvent-0.pdf",
+          "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.17
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2400
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.83
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 59.5
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.83
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-high-speed-exhaust"
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 11.2
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -40
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Two Speeds",
+            "Thermal Protection",
+            "Bird Protection",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "İki Hız",
+            "Termal Koruma",
+            "Kuş Koruması",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+            "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+            "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+            "Two clamps release the motor and impeller assembly for maintenance.",
+            "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+            "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+            "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+          ],
+          "applications": [
+            "Exhaust ventilation through circular rigid or flexible ducts."
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.12
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1800
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.52
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.17
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2400
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.83
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 59.5
+      },
+      {
+        "id": "SP|TH-1300",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "th-mixvent-0.pdf",
+          "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.255
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2480
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "motor",
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1.27
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 67
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "current230A"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1.27
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-high-speed-exhaust"
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 17.2
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -40
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Two Speeds",
+            "Thermal Protection",
+            "Bird Protection",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "İki Hız",
+            "Termal Koruma",
+            "Kuş Koruması",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+            "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+            "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+            "Two clamps release the motor and impeller assembly for maintenance.",
+            "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+            "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+            "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+          ],
+          "applications": [
+            "Exhaust ventilation through circular rigid or flexible ducts."
+          ]
+        }
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.16
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1750
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.79
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.255
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2480
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "current"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1.27
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "performance",
+          "operatingPoints",
+          1,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 67
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "performance",
+          "maxAirflow"
+        ],
+        "previousPresent": true,
+        "previous": 1720,
+        "value": 1725
+      },
+      {
+        "id": "SP|TH-2000",
+        "path": [
+          "verification",
+          "tdThCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/td-th-catalogue-details.json",
+          "source": "th-mixvent-0.pdf",
+          "sha256": "b543b4b48e9c44a6b26f473bd94ed308f6930c421c58a53d72f63a8575a9b5d8",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-22"
+        }
+      }
+    ],
+    "seriesChanges": [
+      {
+        "id": "TD ATEX",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Kanal Tipi Ex-Proof Karma Akışlı Fanlar",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Low-profile mixed-flow duct fans for potentially explosive gas extraction.",
+            "The motor and impeller assembly can be removed without disconnecting the ducts.",
+            "The 800 model has an antistatic plastic casing; the 1100 and 1200 models use polyester-coated steel.",
+            "An accessible external terminal box, ATEX capacitor and earth connection are provided."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz motors with IP44 protection and class B insulation.",
+            "The catalogue specifies an operating temperature range of -20 to +40 °C."
+          ],
+          "applications": [
+            "Match the equipment marking, certificate and installation conditions to the hazardous-area assessment."
+          ]
+        }
+      },
+      {
+        "id": "TH ATEX",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Yatay Atışlı Çatı Tipi Ex-Proof Fanlar",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans for extraction of hazardous and potentially explosive gases.",
+            "Bird protection is provided, and the fan unit can be removed without disconnecting the duct.",
+            "The 800/200 version uses antistatic plastic; the larger models have epoxy-polyester-coated steel construction.",
+            "The accessible external electrical connection box is IP55; the motor protection rating is IP44."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz motors with class B insulation; operation from -20 to +40 °C."
+          ],
+          "applications": [
+            "Verify the original equipment marking and certificate against the project requirements before installation."
+          ]
+        }
+      },
+      {
+        "id": "TH-MIXVENT",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Yatay Atışlı Çatı Tipi Karma Akışlı Fanlar",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Roof-mounted mixed-flow fans supplied in the standard exhaust configuration.",
+            "The 500 and 800 bodies are reinforced moulded plastic; the 1300 and 2000 bodies are pressed steel.",
+            "All models have a steel mounting base, bird protection and a cable gland; metal parts have a weather-resistant black epoxy-polyester coating.",
+            "Two clamps release the motor and impeller assembly for maintenance.",
+            "Supply operation requires rotating the motor and fan assembly by 180 degrees; its performance values differ from exhaust duty."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IP44 class B motors with thermal protection and long-life ball bearings.",
+            "Two-speed connections are provided; electronic or autotransformer voltage control is also supported.",
+            "The card uses high-speed exhaust data; the temperature limits are specific to each model."
+          ],
+          "applications": [
+            "Exhaust ventilation through circular rigid or flexible ducts."
+          ]
+        }
+      }
+    ]
+  }
+}

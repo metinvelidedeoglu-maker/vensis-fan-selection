@@ -302,7 +302,7 @@ test('previews omit unspecified temperatures, preserve verified limits and use t
     assert.doesNotMatch(html,/<span>Operating Temperature<\/span>/,m.id);
     unspecified++;
   }
-  assert.equal(unspecified,251); // Includes the 16 newly verified S&P ranges; unknown ranges stay hidden.
+  assert.equal(unspecified,241); // Ten TD/TH ranges are now source-verified; remaining unknown ranges stay hidden.
   const heat=C.getModel('VORTICE-ROOF|15301');
   const original=JSON.stringify(C.getSeries(heat.seriesId).description);
   const html=w.VensisDirectPreview.html({product:C.product(heat.id),model:heat});
