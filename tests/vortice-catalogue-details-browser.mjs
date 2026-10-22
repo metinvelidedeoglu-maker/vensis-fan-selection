@@ -6,6 +6,7 @@ import {createRequire} from 'node:module';
 const {chromium}=createRequire(import.meta.url)('playwright');
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const evidence=JSON.parse(fs.readFileSync(path.join(root,'assets/products/vortice/catalogue-details.json'),'utf8'));
+const varioSpeeds=new Map(JSON.parse(fs.readFileSync(path.join(root,'assets/products/vortice/vario-maximum-rpm.json'),'utf8')).models.map(m=>[m.productCode,m.displayRpm]));
 const base=process.env.VENSIS_TEST_URL||'http://vensis.test';
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||undefined,headless:true,args:['--no-sandbox']});
 const context=await browser.newContext({viewport:{width:1440,height:1000}});
@@ -41,6 +42,7 @@ try{
       assert.equal(await card.locator('.model-field').filter({hasText:label}).locator('b').innerText(),value,code+' '+label);
     }
     assert.equal(await card.locator('.model-field').filter({hasText:'Yangın Dayanımı'}).count(),0,code);
+    if(varioSpeeds.has(code))assert.equal(await card.locator('.model-field').filter({hasText:/^Devir/}).locator('b').innerText(),varioSpeeds.get(code).toLocaleString('en-US')+' rpm',code+' highest RPM');
     if(row.seriesId==='HEATMASTER F400')assert.equal(await card.locator('.model-feature-tag').filter({hasText:/^F400$/}).count(),1,code);
     for(const width of [390,430]){
       await page.setViewportSize({width,height:844});
@@ -48,6 +50,7 @@ try{
     }
     if(sampleCodes.has(code))await card.screenshot({path:out+'/'+code+'-card.png'});
     await page.getByRole('button',{name:'English',exact:true}).click();
+    if(varioSpeeds.has(code))assert.equal(await card.locator('.model-field').filter({hasText:/^Speed/}).locator('b').innerText(),varioSpeeds.get(code).toLocaleString('en-US')+' rpm',code+' EN highest RPM');
     assert.equal(await card.locator('.model-field').filter({hasText:'Operating Temperature'}).locator('b').innerText(),temp,code+' EN temperature');
     await page.getByRole('button',{name:'Türkçe',exact:true}).click();
     await page.setViewportSize({width:1440,height:1000});
@@ -59,6 +62,7 @@ try{
       assert.equal(await preview.locator('.technical-cell').filter({hasText:label}).locator('b').innerText(),value,code+' preview '+label);
     }
     assert.equal(await preview.locator('.technical-cell').filter({hasText:'Yangın Dayanımı'}).count(),0,code);
+    if(varioSpeeds.has(code))assert.equal(await preview.locator('.technical-cell').filter({hasText:/^Devir/}).locator('b').innerText(),varioSpeeds.get(code).toLocaleString('tr-TR')+' rpm',code+' preview highest RPM');
     if(code==='15311')assert.equal(await preview.locator('.technical-cell').filter({hasText:'Faz'}).count(),0,code+' unknown phase stays hidden');
     const clipped=await preview.locator('.technical-cell b').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1).map(n=>n.textContent));
     assert.deepEqual(clipped,[],code+' clipped values');

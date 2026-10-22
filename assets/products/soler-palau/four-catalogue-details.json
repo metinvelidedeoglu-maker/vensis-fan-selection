@@ -1,0 +1,726 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-10-22",
+  "sources": {
+    "hdt-atex-0.pdf": {
+      "sha256": "b2f6c9e71b56119f5fbc7fe416ef973eef2b56c766d2aa11ca4c3d35c0cf8e9d",
+      "pages": 3,
+      "tablePage": 2,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-22"
+    },
+    "hv-styvent-0.pdf": {
+      "sha256": "e206d1527f02b72f5d66ad45c0e7d5e0a49ee20fca70c90bb27346c2943ecd58",
+      "pages": 7,
+      "tablePage": 4,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-22"
+    },
+    "hxbr-hxtr-4.pdf": {
+      "sha256": "f218ab3f4803ccfb6fe7661ba6c0a6c2f906a8ebbc4b4833a463649f694cb900",
+      "pages": 14,
+      "tablePage": 2,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-22"
+    },
+    "ilt-atex-4-6a3a1c726c9da.pdf": {
+      "sha256": "799ea62fe93eb92b2bde4674c951b3c01147e4201ea4b02c126d55a25262ce33",
+      "pages": 5,
+      "tablePage": 2,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-22"
+    }
+  },
+  "models": [
+    {
+      "id": "SP|HDT/4-315",
+      "model": "HDT/4-315",
+      "seriesId": "HDB / HDT ATEX",
+      "productCode": "HDT4315",
+      "source": "hdt-atex-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HDT/4-315\nIIBT5\nIICT4\n1330\n0,12\n0,9\n0,52\n2.240\n56\n9,5",
+      "motor": {
+        "power": 0.12,
+        "speed": 1330,
+        "current": 0.52,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 56
+      },
+      "technical": {
+        "current230A": 0.9,
+        "current400A": 0.52,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "nominal-motor-power",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "atex": {
+          "gas_marking": "II 2G EExd IIB T5",
+          "gas_group": "IIB",
+          "temperature_class": "T5"
+        },
+        "safetyWarning": "ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın. IIC T4 motor seçeneği standart teslimata dahil kabul edilmemelidir.",
+        "phase": "Three-phase",
+        "weight": 9.5,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 2240
+    },
+    {
+      "id": "SP|HDT/4-355",
+      "model": "HDT/4-355",
+      "seriesId": "HDB / HDT ATEX",
+      "productCode": "HDT4355",
+      "source": "hdt-atex-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HDT/4-355\nIIBT5\nIICT4\n1340\n0,18\n1,14\n0,66\n3.120\n60\n11",
+      "motor": {
+        "power": 0.18,
+        "speed": 1340,
+        "current": 0.66,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 60
+      },
+      "technical": {
+        "current230A": 1.14,
+        "current400A": 0.66,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "nominal-motor-power",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "atex": {
+          "gas_marking": "II 2G EExd IIB T5",
+          "gas_group": "IIB",
+          "temperature_class": "T5"
+        },
+        "safetyWarning": "ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın. IIC T4 motor seçeneği standart teslimata dahil kabul edilmemelidir.",
+        "phase": "Three-phase",
+        "weight": 11,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 3120
+    },
+    {
+      "id": "SP|HDT/4-400",
+      "model": "HDT/4-400",
+      "seriesId": "HDB / HDT ATEX",
+      "productCode": "HDT4400",
+      "source": "hdt-atex-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HDT/4-400\nIIBT5\nIICT4\n1370\n0,37\n1,9\n1,1\n4.780\n65\n15",
+      "motor": {
+        "power": 0.37,
+        "speed": 1370,
+        "current": 1.1,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 65
+      },
+      "technical": {
+        "current230A": 1.9,
+        "current400A": 1.1,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "nominal-motor-power",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "atex": {
+          "gas_marking": "II 2G EExd IIB T5",
+          "gas_group": "IIB",
+          "temperature_class": "T5"
+        },
+        "safetyWarning": "ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın. IIC T4 motor seçeneği standart teslimata dahil kabul edilmemelidir.",
+        "phase": "Three-phase",
+        "weight": 15,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 4780
+    },
+    {
+      "id": "SP|HDT/4-450",
+      "model": "HDT/4-450",
+      "seriesId": "HDB / HDT ATEX",
+      "productCode": "HDT4450",
+      "source": "hdt-atex-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HDT/4-450\nIIBT5\nIICT4\n1380\n0,55\n2,6\n1,5\n8.000\n66\n20",
+      "motor": {
+        "power": 0.55,
+        "speed": 1380,
+        "current": 1.5,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 66
+      },
+      "technical": {
+        "current230A": 2.6,
+        "current400A": 1.5,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "nominal-motor-power",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "atex": {
+          "gas_marking": "II 2G EExd IIB T5",
+          "gas_group": "IIB",
+          "temperature_class": "T5"
+        },
+        "safetyWarning": "ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın. IIC T4 motor seçeneği standart teslimata dahil kabul edilmemelidir.",
+        "phase": "Three-phase",
+        "weight": 20,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 8000
+    },
+    {
+      "id": "SP|HDT/4-560",
+      "model": "HDT/4-560",
+      "seriesId": "HDB / HDT ATEX",
+      "productCode": "HDT4560",
+      "source": "hdt-atex-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HDT/4-560\nIIBT5\nIICT4\n1390\n1,1\n5,02\n2,9\n13.700\n73\n29\nTRİFAZE 6 KUTUP",
+      "motor": {
+        "power": 1.1,
+        "speed": 1390,
+        "current": 2.9,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 73
+      },
+      "technical": {
+        "current230A": 5.02,
+        "current400A": 2.9,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "nominal-motor-power",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "atex": {
+          "gas_marking": "II 2G EExd IIB T5",
+          "gas_group": "IIB",
+          "temperature_class": "T5"
+        },
+        "safetyWarning": "ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın. IIC T4 motor seçeneği standart teslimata dahil kabul edilmemelidir.",
+        "phase": "Three-phase",
+        "weight": 29,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 13700
+    },
+    {
+      "id": "SP|HV-150 AE",
+      "model": "HV-150 AE",
+      "seriesId": "HV-STYLVENT",
+      "productCode": "HV150AE",
+      "source": "hv-styvent-0.pdf",
+      "tablePage": 4,
+      "featurePages": [
+        1,
+        2,
+        3
+      ],
+      "sourceRowExcerpt": "HV-150 AE\n2350\n30\n0,19\n238\n-\n-\n39\n-\n2,0\n11",
+      "motor": {
+        "power": 0.03,
+        "speed": 2350,
+        "current": 0.19,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 39
+      },
+      "technical": {
+        "current230A": 0.19,
+        "insulationClass": "II",
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-high-speed",
+        "soundMeasurementDistanceM": 3,
+        "reversible": false,
+        "phase": "Single-phase",
+        "weight": 2,
+        "ipClass": "IPX4",
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 45,
+        "currentReferenceVoltageV": 230
+      },
+      "sourceMaxAirflow": 238
+    },
+    {
+      "id": "SP|HV-230 A",
+      "model": "HV-230 A",
+      "seriesId": "HV-STYLVENT",
+      "productCode": "HV230A",
+      "source": "hv-styvent-0.pdf",
+      "tablePage": 4,
+      "featurePages": [
+        1,
+        2,
+        3
+      ],
+      "sourceRowExcerpt": "HV-230 A\n1140\n28\n0,11\n489\n430\n296\n40\n39\n3,5\n29",
+      "motor": {
+        "power": 0.028,
+        "speed": 1140,
+        "current": 0.11,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 40
+      },
+      "technical": {
+        "current230A": 0.11,
+        "insulationClass": "II",
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-high-speed",
+        "soundMeasurementDistanceM": 3,
+        "reversible": true,
+        "phase": "Single-phase",
+        "weight": 3.5,
+        "ipClass": "IPX4",
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 45,
+        "currentReferenceVoltageV": 230
+      },
+      "sourceMaxAirflow": 489
+    },
+    {
+      "id": "SP|HV-300 A",
+      "model": "HV-300 A",
+      "seriesId": "HV-STYLVENT",
+      "productCode": "HV300A",
+      "source": "hv-styvent-0.pdf",
+      "tablePage": 4,
+      "featurePages": [
+        1,
+        2,
+        3
+      ],
+      "sourceRowExcerpt": "HV-300 A\n1150\n68\n0,30\n1100\n750\n700\n46\n38\n5,1\n26, 27, 28",
+      "motor": {
+        "power": 0.068,
+        "speed": 1150,
+        "current": 0.3,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "sound": 46
+      },
+      "technical": {
+        "current230A": 0.3,
+        "insulationClass": "II",
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-high-speed",
+        "soundMeasurementDistanceM": 3,
+        "reversible": true,
+        "phase": "Single-phase",
+        "weight": 5.1,
+        "ipClass": "IPX4",
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 45,
+        "currentReferenceVoltageV": 230
+      },
+      "sourceMaxAirflow": 1100
+    },
+    {
+      "id": "SP|HXTR/4-500",
+      "model": "HXTR/4-500",
+      "seriesId": "HXBR / HXTR",
+      "productCode": "HXTR4500",
+      "source": "hxbr-hxtr-4.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HXTR/4-500\n1410\n400V 50Hz\n943\n–\n1,9\n67\n9.490\n-40\n+70\n16\n–\nRMT-2,5 Tri 0,55 VFKB-45",
+      "motor": {
+        "power": 0.943,
+        "speed": 1410,
+        "current": 1.9,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 67
+      },
+      "technical": {
+        "current400A": 1.9,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3D-minimum-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "phase": "Three-phase",
+        "weight": 16,
+        "ipClass": "IP54",
+        "operatingTemperatureMinC": -40,
+        "operatingTemperatureMaxC": 70,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 9490
+    },
+    {
+      "id": "SP|HXTR/4-560",
+      "model": "HXTR/4-560",
+      "seriesId": "HXBR / HXTR",
+      "productCode": "HXTR4560",
+      "source": "hxbr-hxtr-4.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HXTR/4-560\n1410\n400V 50Hz\n1218\n–\n2,4\n69\n11.990\n-40\n+70\n21,5\n–\n–\nTri 0,75 VFKB-45",
+      "motor": {
+        "power": 1.218,
+        "speed": 1410,
+        "current": 2.4,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 69
+      },
+      "technical": {
+        "current400A": 2.4,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3D-minimum-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.68,
+        "phase": "Three-phase",
+        "weight": 21.5,
+        "ipClass": "IP54",
+        "operatingTemperatureMinC": -40,
+        "operatingTemperatureMaxC": 70,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 11990
+    },
+    {
+      "id": "SP|HXTR/4-630",
+      "model": "HXTR/4-630",
+      "seriesId": "HXBR / HXTR",
+      "productCode": "HXTR4630",
+      "source": "hxbr-hxtr-4.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HXTR/4-630\n1420\n400V 50Hz\n1216\n–\n2,3\n67\n13.540\n-40\n+60\n24\n–\n–\nTri 0,75 VFKB-45\nTRİFAZE 6 KUTUP",
+      "motor": {
+        "power": 1.216,
+        "speed": 1420,
+        "current": 2.3,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 67
+      },
+      "technical": {
+        "current400A": 2.3,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3D-minimum-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.89,
+        "phase": "Three-phase",
+        "weight": 24,
+        "ipClass": "IP54",
+        "operatingTemperatureMinC": -40,
+        "operatingTemperatureMaxC": 60,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 13540
+    },
+    {
+      "id": "SP|HXTR/6-710",
+      "model": "HXTR/6-710",
+      "seriesId": "HXBR / HXTR",
+      "productCode": "HXTR6710",
+      "source": "hxbr-hxtr-4.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "HXTR/6-710\n930\n400V 50Hz\n1116\n–\n2,4\n62\n15.710\n-40\n+40\n27\n–\n–\nTri 0,75 VFKB-45",
+      "motor": {
+        "power": 1.116,
+        "speed": 930,
+        "current": 2.4,
+        "voltage": "400 V",
+        "frequency": "50 Hz",
+        "sound": 62
+      },
+      "technical": {
+        "current400A": 2.4,
+        "insulationClass": "F",
+        "poles": 6,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3D-minimum-1_5m-free-field",
+        "soundMeasurementDistanceM": 2.13,
+        "phase": "Three-phase",
+        "weight": 27,
+        "ipClass": "IP54",
+        "operatingTemperatureMinC": -40,
+        "operatingTemperatureMaxC": 40,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 15710
+    },
+    {
+      "id": "SP|ILT/4-225 EX",
+      "model": "ILT/4-225 EX",
+      "seriesId": "ILT ATEX",
+      "productCode": "ILT4225EX",
+      "source": "ilt-atex-4-6a3a1c726c9da.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "ILT/4-225 EX\n500x250\n1200\n565\n1,7\n1\n1.720\n62\n66\n20",
+      "motor": {
+        "power": 0.565,
+        "speed": 1200,
+        "current": 1,
+        "voltage": "230/400 V",
+        "frequency": "50 Hz",
+        "sound": 62
+      },
+      "technical": {
+        "current230A": 1.7,
+        "current400A": 1,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "inlet-sound-pressure-1_5m-free-field-operating-point-A",
+        "soundInletDbA1_5m": 62,
+        "soundOutletDbA1_5m": 66,
+        "soundMeasurementDistanceM": 1.5,
+        "soundOperatingPoint": "A",
+        "atex": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb"
+        },
+        "safetyWarning": "Voltajla hız ayarında ATEX sertifikasını korumak için S&P RMT kullanılmalıdır. ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın.",
+        "phase": "Three-phase",
+        "weight": 20,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 55,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 1720
+    },
+    {
+      "id": "SP|ILT/4-250 EX",
+      "model": "ILT/4-250 EX",
+      "seriesId": "ILT ATEX",
+      "productCode": "ILT4250EX",
+      "source": "ilt-atex-4-6a3a1c726c9da.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "ILT/4-250 EX\n500x300\n1240\n1150\n3,3\n1,9\n2.610\n67\n70\n25",
+      "motor": {
+        "power": 1.15,
+        "speed": 1240,
+        "current": 1.9,
+        "voltage": "230/400 V",
+        "frequency": "50 Hz",
+        "sound": 67
+      },
+      "technical": {
+        "current230A": 3.3,
+        "current400A": 1.9,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "inlet-sound-pressure-1_5m-free-field-operating-point-A",
+        "soundInletDbA1_5m": 67,
+        "soundOutletDbA1_5m": 70,
+        "soundMeasurementDistanceM": 1.5,
+        "soundOperatingPoint": "A",
+        "atex": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb"
+        },
+        "safetyWarning": "Voltajla hız ayarında ATEX sertifikasını korumak için S&P RMT kullanılmalıdır. ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın.",
+        "phase": "Three-phase",
+        "weight": 25,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 55,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 2610
+    },
+    {
+      "id": "SP|ILT/4-285 EX",
+      "model": "ILT/4-285 EX",
+      "seriesId": "ILT ATEX",
+      "productCode": "ILT4285EX",
+      "source": "ilt-atex-4-6a3a1c726c9da.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "ILT/4-285 EX\n600x300\n1200\n1430\n4\n2,3\n3.260\n67\n72\n32",
+      "motor": {
+        "power": 1.43,
+        "speed": 1200,
+        "current": 2.3,
+        "voltage": "230/400 V",
+        "frequency": "50 Hz",
+        "sound": 67
+      },
+      "technical": {
+        "current230A": 4,
+        "current400A": 2.3,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "inlet-sound-pressure-1_5m-free-field-operating-point-A",
+        "soundInletDbA1_5m": 67,
+        "soundOutletDbA1_5m": 72,
+        "soundMeasurementDistanceM": 1.5,
+        "soundOperatingPoint": "A",
+        "atex": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb"
+        },
+        "safetyWarning": "Voltajla hız ayarında ATEX sertifikasını korumak için S&P RMT kullanılmalıdır. ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın.",
+        "phase": "Three-phase",
+        "weight": 32,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 55,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 3260
+    },
+    {
+      "id": "SP|ILT/4-315 EX",
+      "model": "ILT/4-315 EX",
+      "seriesId": "ILT ATEX",
+      "productCode": "ILT4315EX",
+      "source": "ilt-atex-4-6a3a1c726c9da.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowExcerpt": "ILT/4-315 EX\n600x350\n1370\n2300\n8,5\n4,9\n4.000\n72\n77\n42\n* Ses basıncı seviyesi, performans eğrisinin “A” çalışma noktasında, 1,5 m’de serbest alan koşulunda ölçülmüştür.\n** Yalnızca 230/400V motorla.",
+      "motor": {
+        "power": 2.3,
+        "speed": 1370,
+        "current": 4.9,
+        "voltage": "230/400 V",
+        "frequency": "50 Hz",
+        "sound": 72
+      },
+      "technical": {
+        "current230A": 8.5,
+        "current400A": 4.9,
+        "insulationClass": "F",
+        "poles": 4,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "inlet-sound-pressure-1_5m-free-field-operating-point-A",
+        "soundInletDbA1_5m": 72,
+        "soundOutletDbA1_5m": 77,
+        "soundMeasurementDistanceM": 1.5,
+        "soundOperatingPoint": "A",
+        "atex": {
+          "gas_marking": "II 2G Ex eb IIB T3 Gb",
+          "gas_group": "IIB",
+          "temperature_class": "T3",
+          "epl": "Gb"
+        },
+        "safetyWarning": "Voltajla hız ayarında ATEX sertifikasını korumak için S&P RMT kullanılmalıdır. ATEX işaretlemesini ürün etiketi ve proje şartlarıyla doğrulayın.",
+        "phase": "Three-phase",
+        "weight": 42,
+        "ipClass": "IP55",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 55,
+        "currentReferenceVoltageV": 400
+      },
+      "sourceMaxAirflow": 4000
+    }
+  ],
+  "policy": {
+    "exactModelAndSeriesRequired": true,
+    "fillMissingMotorAndTechnicalOnly": true,
+    "curvesAndSelectionAirflowChanged": false,
+    "pricesAndCatalogueOnlyChanged": false,
+    "optionalAtexMotorsAreNotStandard": true
+  },
+  "correctedExistingValues": [
+    {
+      "id": "SP|HXTR/4-500",
+      "field": "performance.maxAirflow",
+      "previous": 9550,
+      "sourceValue": 9490,
+      "source": "hxbr-hxtr-4.pdf",
+      "page": 2,
+      "action": "corrected-catalogue-maximum-only-selection-airflow-and-curves-preserved"
+    },
+    {
+      "id": "SP|HXTR/4-560",
+      "field": "performance.maxAirflow",
+      "previous": 12040,
+      "sourceValue": 11990,
+      "source": "hxbr-hxtr-4.pdf",
+      "page": 2,
+      "action": "corrected-catalogue-maximum-only-selection-airflow-and-curves-preserved"
+    },
+    {
+      "id": "SP|HXTR/4-630",
+      "field": "performance.maxAirflow",
+      "previous": 13720,
+      "sourceValue": 13540,
+      "source": "hxbr-hxtr-4.pdf",
+      "page": 2,
+      "action": "corrected-catalogue-maximum-only-selection-airflow-and-curves-preserved"
+    },
+    {
+      "id": "SP|HXTR/6-710",
+      "field": "performance.maxAirflow",
+      "previous": 16110,
+      "sourceValue": 15710,
+      "source": "hxbr-hxtr-4.pdf",
+      "page": 2,
+      "action": "corrected-catalogue-maximum-only-selection-airflow-and-curves-preserved"
+    }
+  ]
+}

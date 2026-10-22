@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
-        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs
+        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs
@@ -64,6 +64,14 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: node tests/confirmed-single-phase-browser.mjs
+      - name: Four S&P source catalogues, filled cards and ATEX print verification
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/sp-four-catalogue-details-browser.mjs
+      - name: Source-matched product features, bilingual copy and representative PDFs
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/catalogue-content-browser.mjs
       - name: Complete Soler & Palau drawing and print verification
         env:
           CHROME_PATH: /usr/bin/google-chrome
@@ -98,6 +106,16 @@ jobs:
           assert len(single_phase)==23, len(single_phase)
           assert all(len(PdfReader(p).pages)==1 for p in single_phase), 'Single-phase family PDF pagination changed'
           print('PASS: all 23 single-phase family PDFs have exactly one page.')
+          sp_details=list(Path('test-results/sp-four-catalogue-details').glob('*.pdf'))
+          assert len(sp_details)==16, len(sp_details)
+          assert all(len(PdfReader(p).pages)==1 for p in sp_details), 'S&P details PDF pagination changed'
+          print('PASS: all 16 S&P source-completed PDFs have exactly one page.')
+          import json
+          content=list(Path('test-results/catalogue-content').glob('*.pdf'))
+          expected=json.loads(Path('test-results/catalogue-content/coverage.json').read_text())['pdfs']
+          assert len(content)==expected, (len(content), expected)
+          assert all(len(PdfReader(p).pages)==1 for p in content), 'Product copy PDF pagination changed'
+          print(f'PASS: all {expected} bilingual product-copy PDFs have exactly one page.')
           PYCODE
       - uses: actions/upload-artifact@v4
         if: always()
@@ -112,4 +130,6 @@ jobs:
             test-results/vitlo-operating-conditions/
             test-results/vortice-catalogue-details/
             test-results/confirmed-single-phase/
+            test-results/sp-four-catalogue-details/
+            test-results/catalogue-content/
           if-no-files-found: ignore

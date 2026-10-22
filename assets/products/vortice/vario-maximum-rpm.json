@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-10-22",
+  "decision": {
+    "requestedBy": "Metin",
+    "instruction": "yüksek devirleri yaz sadece",
+    "basis": "maximum-of-catalogue-directional-rpm",
+    "curvesRescaled": false
+  },
+  "sourceEvidence": "assets/products/vortice/catalogue-details.json",
+  "models": [
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:14615:VORTICE 150/6 AR LL S",
+      "seriesId": "VORTICE VARIO",
+      "productCode": "14615",
+      "source": "vortice-vario.pdf",
+      "sourceSha256": "d2b408be8c5a1e998f2baee19c797e8b4f82b040264ec168bc31ce6a8011f9e1",
+      "modelTablePage": 1,
+      "printedTablePage": 42,
+      "directionalRpm": {
+        "intake": 2520,
+        "extract": 2110
+      },
+      "displayRpm": 2520
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:12455:VORTICE 230/9 AR LL S",
+      "seriesId": "VORTICE VARIO",
+      "productCode": "12455",
+      "source": "vortice-vario.pdf",
+      "sourceSha256": "d2b408be8c5a1e998f2baee19c797e8b4f82b040264ec168bc31ce6a8011f9e1",
+      "modelTablePage": 1,
+      "printedTablePage": 42,
+      "directionalRpm": {
+        "intake": 1200,
+        "extract": 1300
+      },
+      "displayRpm": 1300
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO:12415:VORTICE 300/12 AR LL S",
+      "seriesId": "VORTICE VARIO",
+      "productCode": "12415",
+      "source": "vortice-vario.pdf",
+      "sourceSha256": "d2b408be8c5a1e998f2baee19c797e8b4f82b040264ec168bc31ce6a8011f9e1",
+      "modelTablePage": 1,
+      "printedTablePage": 42,
+      "directionalRpm": {
+        "intake": 1215,
+        "extract": 1280
+      },
+      "displayRpm": 1280
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12616:VORTICE 150/6 ARI LL S",
+      "seriesId": "VORTICE VARIO I",
+      "productCode": "12616",
+      "source": "vortice-vario-i.pdf",
+      "sourceSha256": "35de5b64788986db801a715e9b5be3f5b1c634417a1c6136d773a74fb93ed61c",
+      "modelTablePage": 1,
+      "printedTablePage": 50,
+      "directionalRpm": {
+        "intake": 2080,
+        "extract": 2460
+      },
+      "displayRpm": 2460
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12456:VORTICE 230/9 ARI LL S",
+      "seriesId": "VORTICE VARIO I",
+      "productCode": "12456",
+      "source": "vortice-vario-i.pdf",
+      "sourceSha256": "35de5b64788986db801a715e9b5be3f5b1c634417a1c6136d773a74fb93ed61c",
+      "modelTablePage": 1,
+      "printedTablePage": 50,
+      "directionalRpm": {
+        "intake": 1160,
+        "extract": 1260
+      },
+      "displayRpm": 1260
+    },
+    {
+      "id": "VORTICE-RESIDENTIAL|VORTICE VARIO I:12416:VORTICE 300/12 ARI LL S",
+      "seriesId": "VORTICE VARIO I",
+      "productCode": "12416",
+      "source": "vortice-vario-i.pdf",
+      "sourceSha256": "35de5b64788986db801a715e9b5be3f5b1c634417a1c6136d773a74fb93ed61c",
+      "modelTablePage": 1,
+      "printedTablePage": 50,
+      "directionalRpm": {
+        "intake": 1230,
+        "extract": 1310
+      },
+      "displayRpm": 1310
+    }
+  ]
+}
