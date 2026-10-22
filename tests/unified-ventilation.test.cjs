@@ -92,6 +92,20 @@ test('verified VORTICE details reach all 46 cards and previews with frequency qu
   assert.doesNotMatch(w.VensisDirectPreview.html({product:C.product(slim.id),model:slim}),/<span>Phase<\/span>/);
 });
 
+test('all 133 user-confirmed single-phase models show phase in 12-field cards and previews',()=>{
+  const {window:w}=harness(),C=w.VensisCatalog;
+  const models=C.models.filter(m=>m.verification?.userConfirmedSupply);
+  assert.equal(models.length,133);
+  for(const m of models){
+    const card=renderCards(w,C.getSeries(m.seriesId),[m]);
+    assert.equal((card.match(/class="model-field(?: model-field-missing)?"/g)||[]).length,12,m.id);
+    assert.ok(card.includes('<span>Phase</span><b>Single-phase</b>'),m.id);
+    const preview=w.VensisDirectPreview.html({product:C.product(m.id),model:m});
+    assert.ok(preview.includes('<span>Phase</span><b>Single-phase</b>'),m.id);
+    assert.doesNotMatch(card,/<span>(?:Poles|Pole Count|Timer|Fire Rating)<\/span>/);
+  }
+});
+
 test('all 1022 card badges agree with real selection curves despite the 43 stale Vitlo flags',()=>{
   const {window:w}=harness(),C=w.VensisCatalog;
   const ready=new Set(w.VensisState.models.filter(m=>!m.catalogOnly&&w.VensisState.pointsFor(m).length>=2).map(m=>m.productKey));
