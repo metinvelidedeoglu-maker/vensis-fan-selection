@@ -114,6 +114,9 @@
     if(field==='sound'&&technical.soundBasis==='inlet-sound-pressure-3m-free-field-operating-point-A')return lang==='tr'?'Emiş, 3 m, A':'Inlet, 3 m, A';
     if(field==='sound'&&technical.soundBasis==='sound-pressure-3m-high-speed-exhaust')return lang==='tr'?'3 m, egzoz, yüksek hız':'3 m, exhaust, high speed';
     if(field==='sound'&&technical.soundBasis==='sound-pressure-3m-free-field')return '3 m';
+    if(field==='sound'&&technical.soundBasis==='outlet-sound-pressure-1_5m-free-field-operating-point-2')return lang==='tr'?'Atış, 1,5 m':'Outlet, 1.5 m';
+    if(field==='sound'&&technical.soundBasis==='radiated-sound-pressure-3m-free-field-with-ducts')return lang==='tr'?'Yayılan, 3 m':'Radiated, 3 m';
+    if(field==='sound'&&technical.soundBasis==='radiated-sound-pressure-free-field-two-thirds-max-flow')return lang==='tr'?'Yayılan, 2/3 Qmaks.':'Radiated, 2/3 Qmax';
     if(field==='sound'&&technical.soundBasis==='sound-pressure-3D-minimum-1_5m-free-field'){
       const distance=Number(technical.soundMeasurementDistanceM);
       return distance>0?String(distance).replace('.',lang==='tr'?',':'.')+' m':(lang==='tr'?'3D, en az 1,5 m':'3D, at least 1.5 m');

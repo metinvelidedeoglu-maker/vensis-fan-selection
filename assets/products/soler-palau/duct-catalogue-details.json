@@ -1,0 +1,6350 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-10-23",
+  "sources": {
+    "cab-0.pdf": {
+      "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+      "pages": 5,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    },
+    "jetline-3.pdf": {
+      "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+      "pages": 7,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    },
+    "silentub-0.pdf": {
+      "sha256": "a5c6334013cec74691969f6aabce0932e30d6c9d3c4f3b04b2100f805f4a256a",
+      "pages": 2,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    },
+    "tdm-0.pdf": {
+      "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40",
+      "pages": 2,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    },
+    "td-0.pdf": {
+      "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+      "pages": 12,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    }
+  },
+  "models": [
+    {
+      "id": "SP|CAB-125",
+      "model": "CAB-125",
+      "seriesId": "CAB",
+      "productCode": "CAB125",
+      "source": "cab-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "CAB-125",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.05,
+        "speed": 1350,
+        "sound": 29,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "current": 0.2
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 16,
+        "insulationClass": "B",
+        "terminalBoxIpClass": "IP55",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundBasis": "radiated-sound-pressure-free-field-two-thirds-max-flow",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Acoustic Insulation",
+          "Ball-Bearing Motor",
+          "Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Akustik İzolasyon",
+          "Rulmanlı Motor",
+          "Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+          "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+          "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+          "The cabinets are suitable for outdoor installation."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+        ],
+        "applications": [
+          "Acoustically treated duct ventilation with access for servicing."
+        ]
+      },
+      "sourceMaxAirflow": 240,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|CAB-200",
+      "model": "CAB-200",
+      "seriesId": "CAB",
+      "productCode": "CAB200",
+      "source": "cab-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "CAB-200",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.205,
+        "speed": 2000,
+        "sound": 37,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "current": 0.7
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 22,
+        "insulationClass": "B",
+        "terminalBoxIpClass": "IP55",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundBasis": "radiated-sound-pressure-free-field-two-thirds-max-flow",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Acoustic Insulation",
+          "Ball-Bearing Motor",
+          "Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Akustik İzolasyon",
+          "Rulmanlı Motor",
+          "Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+          "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+          "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+          "The cabinets are suitable for outdoor installation."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+        ],
+        "applications": [
+          "Acoustically treated duct ventilation with access for servicing."
+        ]
+      },
+      "sourceMaxAirflow": 690,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|CAB-250N",
+      "model": "CAB-250N",
+      "seriesId": "CAB",
+      "productCode": "CAB250N",
+      "source": "cab-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "CAB-250N",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.37,
+        "speed": 2000,
+        "sound": 38,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "current": 1.4
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 27,
+        "insulationClass": "B",
+        "terminalBoxIpClass": "IP55",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundBasis": "radiated-sound-pressure-free-field-two-thirds-max-flow",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Acoustic Insulation",
+          "Ball-Bearing Motor",
+          "Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Akustik İzolasyon",
+          "Rulmanlı Motor",
+          "Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+          "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+          "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+          "The cabinets are suitable for outdoor installation."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+        ],
+        "applications": [
+          "Acoustically treated duct ventilation with access for servicing."
+        ]
+      },
+      "sourceMaxAirflow": 1230,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|CAB-315",
+      "model": "CAB-315",
+      "seriesId": "CAB",
+      "productCode": "CAB315",
+      "source": "cab-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "CAB-315",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.43,
+        "speed": 1400,
+        "sound": 37,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "current": 1.8
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 33,
+        "insulationClass": "B",
+        "terminalBoxIpClass": "IP55",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundBasis": "radiated-sound-pressure-free-field-two-thirds-max-flow",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Acoustic Insulation",
+          "Ball-Bearing Motor",
+          "Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Akustik İzolasyon",
+          "Rulmanlı Motor",
+          "Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+          "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+          "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+          "The cabinets are suitable for outdoor installation."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+        ],
+        "applications": [
+          "Acoustically treated duct ventilation with access for servicing."
+        ]
+      },
+      "sourceMaxAirflow": 2210,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|CAB-355",
+      "model": "CAB-355",
+      "seriesId": "CAB",
+      "productCode": "CAB355",
+      "source": "cab-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "CAB-355",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 1.1,
+        "speed": 1400,
+        "sound": 44,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "current": 4.6
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP55",
+        "weight": 35,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP55",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundBasis": "radiated-sound-pressure-free-field-two-thirds-max-flow",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Acoustic Insulation",
+          "Ball-Bearing Motor",
+          "Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Akustik İzolasyon",
+          "Rulmanlı Motor",
+          "Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+          "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+          "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+          "The cabinets are suitable for outdoor installation."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50 Hz, IP55, insulation class F."
+        ],
+        "applications": [
+          "Acoustically treated duct ventilation with access for servicing."
+        ]
+      },
+      "sourceMaxAirflow": 3150,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|CAB-400",
+      "model": "CAB-400",
+      "seriesId": "CAB",
+      "productCode": "CAB400",
+      "source": "cab-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "CAB-400",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 1.1,
+        "speed": 1400,
+        "sound": 44,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "current": 4.6
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP55",
+        "weight": 35,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP55",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "soundBasis": "radiated-sound-pressure-free-field-two-thirds-max-flow",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Acoustic Insulation",
+          "Ball-Bearing Motor",
+          "Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Akustik İzolasyon",
+          "Rulmanlı Motor",
+          "Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+          "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+          "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+          "The cabinets are suitable for outdoor installation."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50 Hz, IP55, insulation class F."
+        ],
+        "applications": [
+          "Acoustically treated duct ventilation with access for servicing."
+        ]
+      },
+      "sourceMaxAirflow": 3400,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|JETLINE-100",
+      "model": "JETLINE-100",
+      "seriesId": "JETLINE",
+      "productCode": "JETLINE100",
+      "source": "jetline-3.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "JETLINE-100",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.016,
+        "speed": 2650,
+        "sound": 39,
+        "voltage": "220–240 V",
+        "frequency": "50/60 Hz",
+        "current": 0.1
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 3,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP65",
+        "thermalProtection": true,
+        "thermalProtectionReset": "manual",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundBasis": "outlet-sound-pressure-1_5m-free-field-operating-point-2",
+        "soundMeasurementDistanceM": 1.5,
+        "powerBasis": "maximum-electrical-input-P1",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Vibration-Isolating Mounts",
+          "Manual-Reset Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Titreşim Sönümleyici Takozlar",
+          "Manuel Resetli Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Compact circular duct fans have a low-profile galvanised-steel casing.",
+          "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+          "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+          "The mounting bracket supports two installation positions without adding to the low-profile body height."
+        ],
+        "motor": [
+          "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+        ],
+        "applications": [
+          "Circular duct installations where available mounting height is limited."
+        ]
+      },
+      "sourceMaxAirflow": 267,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|JETLINE-125",
+      "model": "JETLINE-125",
+      "seriesId": "JETLINE",
+      "productCode": "JETLINE125",
+      "source": "jetline-3.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "JETLINE-125",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.038,
+        "speed": 2680,
+        "sound": 47,
+        "voltage": "220–240 V",
+        "frequency": "50/60 Hz",
+        "current": 0.18
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 3.4,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP65",
+        "thermalProtection": true,
+        "thermalProtectionReset": "manual",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundBasis": "outlet-sound-pressure-1_5m-free-field-operating-point-2",
+        "soundMeasurementDistanceM": 1.5,
+        "powerBasis": "maximum-electrical-input-P1",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Vibration-Isolating Mounts",
+          "Manual-Reset Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Titreşim Sönümleyici Takozlar",
+          "Manuel Resetli Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Compact circular duct fans have a low-profile galvanised-steel casing.",
+          "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+          "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+          "The mounting bracket supports two installation positions without adding to the low-profile body height."
+        ],
+        "motor": [
+          "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+        ],
+        "applications": [
+          "Circular duct installations where available mounting height is limited."
+        ]
+      },
+      "sourceMaxAirflow": 411,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|JETLINE-150",
+      "model": "JETLINE-150",
+      "seriesId": "JETLINE",
+      "productCode": "JETLINE150",
+      "source": "jetline-3.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "JETLINE-150",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.075,
+        "speed": 2720,
+        "sound": 50,
+        "voltage": "220–240 V",
+        "frequency": "50/60 Hz",
+        "current": 0.4
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 4.5,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP65",
+        "thermalProtection": true,
+        "thermalProtectionReset": "manual",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundBasis": "outlet-sound-pressure-1_5m-free-field-operating-point-2",
+        "soundMeasurementDistanceM": 1.5,
+        "powerBasis": "maximum-electrical-input-P1",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Vibration-Isolating Mounts",
+          "Manual-Reset Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Titreşim Sönümleyici Takozlar",
+          "Manuel Resetli Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Compact circular duct fans have a low-profile galvanised-steel casing.",
+          "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+          "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+          "The mounting bracket supports two installation positions without adding to the low-profile body height."
+        ],
+        "motor": [
+          "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+        ],
+        "applications": [
+          "Circular duct installations where available mounting height is limited."
+        ]
+      },
+      "sourceMaxAirflow": 717,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|JETLINE-160",
+      "model": "JETLINE-160",
+      "seriesId": "JETLINE",
+      "productCode": "JETLINE160",
+      "source": "jetline-3.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "JETLINE-160",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.079,
+        "speed": 2720,
+        "sound": 51,
+        "voltage": "220–240 V",
+        "frequency": "50/60 Hz",
+        "current": 0.4
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 4.5,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP65",
+        "thermalProtection": true,
+        "thermalProtectionReset": "manual",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundBasis": "outlet-sound-pressure-1_5m-free-field-operating-point-2",
+        "soundMeasurementDistanceM": 1.5,
+        "powerBasis": "maximum-electrical-input-P1",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Vibration-Isolating Mounts",
+          "Manual-Reset Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Titreşim Sönümleyici Takozlar",
+          "Manuel Resetli Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Compact circular duct fans have a low-profile galvanised-steel casing.",
+          "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+          "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+          "The mounting bracket supports two installation positions without adding to the low-profile body height."
+        ],
+        "motor": [
+          "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+        ],
+        "applications": [
+          "Circular duct installations where available mounting height is limited."
+        ]
+      },
+      "sourceMaxAirflow": 750,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|JETLINE-200",
+      "model": "JETLINE-200",
+      "seriesId": "JETLINE",
+      "productCode": "JETLINE200",
+      "source": "jetline-3.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "JETLINE-200",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.117,
+        "speed": 2620,
+        "sound": 54,
+        "voltage": "220–240 V",
+        "frequency": "50/60 Hz",
+        "current": 0.55
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 5.6,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP65",
+        "thermalProtection": true,
+        "thermalProtectionReset": "manual",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundBasis": "outlet-sound-pressure-1_5m-free-field-operating-point-2",
+        "soundMeasurementDistanceM": 1.5,
+        "powerBasis": "maximum-electrical-input-P1",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Vibration-Isolating Mounts",
+          "Manual-Reset Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Titreşim Sönümleyici Takozlar",
+          "Manuel Resetli Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Compact circular duct fans have a low-profile galvanised-steel casing.",
+          "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+          "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+          "The mounting bracket supports two installation positions without adding to the low-profile body height."
+        ],
+        "motor": [
+          "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+        ],
+        "applications": [
+          "Circular duct installations where available mounting height is limited."
+        ]
+      },
+      "sourceMaxAirflow": 1040,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|JETLINE-250",
+      "model": "JETLINE-250",
+      "seriesId": "JETLINE",
+      "productCode": "JETLINE250",
+      "source": "jetline-3.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "JETLINE-250",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.16,
+        "speed": 2715,
+        "sound": 58,
+        "voltage": "220–240 V",
+        "frequency": "50/60 Hz",
+        "current": 0.67
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 6.5,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP65",
+        "thermalProtection": true,
+        "thermalProtectionReset": "manual",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundBasis": "outlet-sound-pressure-1_5m-free-field-operating-point-2",
+        "soundMeasurementDistanceM": 1.5,
+        "powerBasis": "maximum-electrical-input-P1",
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Vibration-Isolating Mounts",
+          "Manual-Reset Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Titreşim Sönümleyici Takozlar",
+          "Manuel Resetli Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Compact circular duct fans have a low-profile galvanised-steel casing.",
+          "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+          "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+          "The mounting bracket supports two installation positions without adding to the low-profile body height."
+        ],
+        "motor": [
+          "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+        ],
+        "applications": [
+          "Circular duct installations where available mounting height is limited."
+        ]
+      },
+      "sourceMaxAirflow": 1279,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|JETLINE-315",
+      "model": "JETLINE-315",
+      "seriesId": "JETLINE",
+      "productCode": "JETLINE315",
+      "source": "jetline-3.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "JETLINE-315",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.215,
+        "speed": 2595,
+        "sound": 60,
+        "voltage": "220–240 V",
+        "frequency": "50 Hz",
+        "current": 0.89
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 8.4,
+        "insulationClass": "F",
+        "terminalBoxIpClass": "IP65",
+        "thermalProtection": true,
+        "thermalProtectionReset": "manual",
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "soundBasis": "outlet-sound-pressure-1_5m-free-field-operating-point-2",
+        "soundMeasurementDistanceM": 1.5,
+        "powerBasis": "maximum-electrical-input-P1",
+        "weightSourceConflict": {
+          "technicalTableKg": 8.4,
+          "dimensionTableKg": 8.9,
+          "usedKg": 8.4
+        },
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Vibration-Isolating Mounts",
+          "Manual-Reset Thermal Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Titreşim Sönümleyici Takozlar",
+          "Manuel Resetli Termal Koruma",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Compact circular duct fans have a low-profile galvanised-steel casing.",
+          "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+          "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+          "The mounting bracket supports two installation positions without adding to the low-profile body height.",
+          "JETLINE-315 weight is 8.4 kg in the technical table and 8.9 kg in the dimension table; confirm against the product label."
+        ],
+        "motor": [
+          "Selected motor: single-phase 220–240 V, 50 Hz, IP44, insulation class F."
+        ],
+        "applications": [
+          "Circular duct installations where available mounting height is limited."
+        ]
+      },
+      "sourceMaxAirflow": 1610,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|SILENTUB-100",
+      "model": "SILENTUB-100",
+      "seriesId": "SILENTUB",
+      "productCode": "SILENTUB100",
+      "source": "silentub-0.pdf",
+      "tablePage": 2,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "SILENTUB-100",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.012,
+        "speed": 2450,
+        "sound": 37.5,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 0.5,
+        "electricalProtectionClass": "II",
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "inlet-sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5
+      },
+      "features": {
+        "en": [
+          "Backdraught Shutter",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor",
+          "Class II"
+        ],
+        "tr": [
+          "Geri Tepme Ventili",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor",
+          "Sınıf II"
+        ]
+      },
+      "description": {
+        "general": [
+          "An axial transfer fan for duct installation or recessed mounting within a wall.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss while the fan is stopped.",
+          "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz, IP44 and Class II electrical protection, with long-life ball bearings."
+        ],
+        "applications": [
+          "Air and heat transfer between adjacent rooms, or ventilation of small spaces."
+        ]
+      },
+      "sourceMaxAirflow": 100,
+      "unknownFields": [
+        "motor.current",
+        "technical.operatingTemperature"
+      ]
+    },
+    {
+      "id": "SP|TDM-100",
+      "model": "TDM-100",
+      "seriesId": "TDM",
+      "productCode": "TDM100",
+      "source": "tdm-0.pdf",
+      "tablePage": 1,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TDM-100",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.013,
+        "speed": 2500,
+        "sound": 40,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IPX4",
+        "weight": 0.4,
+        "electricalProtectionClass": "II",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "inlet-sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5
+      },
+      "features": {
+        "en": [
+          "Thermal Protection",
+          "Class II"
+        ],
+        "tr": [
+          "Termal Koruma",
+          "Sınıf II"
+        ]
+      },
+      "description": {
+        "general": [
+          "Axial duct fans designed for ventilation systems with low pressure losses.",
+          "TDM-100 and TDM-200 can be recessed into a wall for air transfer between adjacent rooms.",
+          "Long-life ball bearings belong to the separate Z versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz, IPX4 and Class II electrical protection, with overheating protection.",
+          "Maximum operating air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Short, low-resistance ventilation ducts and local exhaust applications."
+        ]
+      },
+      "sourceMaxAirflow": 110,
+      "unknownFields": [
+        "motor.current"
+      ]
+    },
+    {
+      "id": "SP|TDM-200",
+      "model": "TDM-200",
+      "seriesId": "TDM",
+      "productCode": "TDM200",
+      "source": "tdm-0.pdf",
+      "tablePage": 1,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TDM-200",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.025,
+        "speed": 2600,
+        "sound": 44.5,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IPX4",
+        "weight": 0.6,
+        "electricalProtectionClass": "II",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "inlet-sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5
+      },
+      "features": {
+        "en": [
+          "Thermal Protection",
+          "Class II"
+        ],
+        "tr": [
+          "Termal Koruma",
+          "Sınıf II"
+        ]
+      },
+      "description": {
+        "general": [
+          "Axial duct fans designed for ventilation systems with low pressure losses.",
+          "TDM-100 and TDM-200 can be recessed into a wall for air transfer between adjacent rooms.",
+          "Long-life ball bearings belong to the separate Z versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz, IPX4 and Class II electrical protection, with overheating protection.",
+          "Maximum operating air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Short, low-resistance ventilation ducts and local exhaust applications."
+        ]
+      },
+      "sourceMaxAirflow": 200,
+      "unknownFields": [
+        "motor.current"
+      ]
+    },
+    {
+      "id": "SP|TDM-300",
+      "model": "TDM-300",
+      "seriesId": "TDM",
+      "productCode": "TDM300",
+      "source": "tdm-0.pdf",
+      "tablePage": 1,
+      "featurePages": [
+        1
+      ],
+      "sourceRowLabel": "TDM-300",
+      "rowVerification": "text-and-render-checked",
+      "motor": {
+        "power": 0.035,
+        "speed": 2200,
+        "sound": 45,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IPX4",
+        "weight": 1.5,
+        "electricalProtectionClass": "II",
+        "thermalProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "inlet-sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5
+      },
+      "features": {
+        "en": [
+          "Thermal Protection",
+          "Class II"
+        ],
+        "tr": [
+          "Termal Koruma",
+          "Sınıf II"
+        ]
+      },
+      "description": {
+        "general": [
+          "Axial duct fans designed for ventilation systems with low pressure losses.",
+          "TDM-100 and TDM-200 can be recessed into a wall for air transfer between adjacent rooms.",
+          "Long-life ball bearings belong to the separate Z versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz, IPX4 and Class II electrical protection, with overheating protection.",
+          "Maximum operating air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Short, low-resistance ventilation ducts and local exhaust applications."
+        ]
+      },
+      "sourceMaxAirflow": 300,
+      "unknownFields": [
+        "motor.current"
+      ]
+    },
+    {
+      "id": "SP|TD-250/100",
+      "model": "TD-250/100",
+      "seriesId": "TD-MIXVENT",
+      "productCode": "TD250100",
+      "source": "td-0.pdf",
+      "tablePage": 3,
+      "featurePages": [
+        1,
+        3
+      ],
+      "sourceRowLabel": "TD-250/100",
+      "rowVerification": "visually-checked-standard-single-phase-model-table",
+      "motor": {
+        "power": 0.028,
+        "speed": 2140,
+        "sound": 34,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "current": 0.12
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 2,
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "radiated-sound-pressure-3m-free-field-with-ducts",
+        "soundMeasurementDistanceM": 3,
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Ball-Bearing Motor",
+          "Overload Protection",
+          "Class II",
+          "Voltage Speed Control",
+          "Two Speeds"
+        ],
+        "tr": [
+          "Rulmanlı Motor",
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Voltajla Hız Kontrolü",
+          "İki Hız"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow fans for circular ventilation ducts.",
+          "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+          "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+          "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+        ],
+        "applications": [
+          "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+        ]
+      },
+      "sourceMaxAirflow": 250,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|TD-350/125",
+      "model": "TD-350/125",
+      "seriesId": "TD-MIXVENT",
+      "productCode": "TD350125",
+      "source": "td-0.pdf",
+      "tablePage": 3,
+      "featurePages": [
+        1,
+        3
+      ],
+      "sourceRowLabel": "TD-350/125",
+      "rowVerification": "visually-checked-standard-single-phase-model-table",
+      "motor": {
+        "power": 0.025,
+        "speed": 2050,
+        "sound": 33,
+        "voltage": "230 V",
+        "frequency": "50 Hz",
+        "current": 0.11
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 2,
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "radiated-sound-pressure-3m-free-field-with-ducts",
+        "soundMeasurementDistanceM": 3,
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Ball-Bearing Motor",
+          "Overload Protection",
+          "Class II",
+          "Voltage Speed Control",
+          "Two Speeds"
+        ],
+        "tr": [
+          "Rulmanlı Motor",
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Voltajla Hız Kontrolü",
+          "İki Hız"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow fans for circular ventilation ducts.",
+          "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+          "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+          "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+        ],
+        "applications": [
+          "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+        ]
+      },
+      "sourceMaxAirflow": 330,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|TD-500/150",
+      "model": "TD-500/150",
+      "seriesId": "TD-MIXVENT",
+      "productCode": "TD500150",
+      "source": "td-0.pdf",
+      "tablePage": 3,
+      "featurePages": [
+        1,
+        3
+      ],
+      "sourceRowLabel": "TD-500/150 3V",
+      "rowVerification": "visually-checked-standard-single-phase-model-table",
+      "motor": {
+        "power": 0.053,
+        "speed": 2590,
+        "sound": 35,
+        "voltage": "230 V",
+        "frequency": "50/60 Hz",
+        "current": 0.21
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 2.7,
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "radiated-sound-pressure-3m-free-field-with-ducts",
+        "soundMeasurementDistanceM": 3,
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Ball-Bearing Motor",
+          "Overload Protection",
+          "Class II",
+          "Voltage Speed Control",
+          "Three Speeds"
+        ],
+        "tr": [
+          "Rulmanlı Motor",
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Voltajla Hız Kontrolü",
+          "Üç Hız"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow fans for circular ventilation ducts.",
+          "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+          "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+          "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50/60 Hz, IP44, insulation class B."
+        ],
+        "applications": [
+          "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+        ]
+      },
+      "sourceMaxAirflow": 560,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|TD-800/200",
+      "model": "TD-800/200",
+      "seriesId": "TD-MIXVENT",
+      "productCode": "TD800200",
+      "source": "td-0.pdf",
+      "tablePage": 3,
+      "featurePages": [
+        1,
+        3
+      ],
+      "sourceRowLabel": "TD-800/200 3V",
+      "rowVerification": "visually-checked-standard-single-phase-model-table",
+      "motor": {
+        "power": 0.132,
+        "speed": 2480,
+        "sound": 40,
+        "voltage": "230 V",
+        "frequency": "50/60 Hz",
+        "current": 0.55
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP44",
+        "weight": 4.9,
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": -20,
+        "operatingTemperatureMaxC": 60,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "radiated-sound-pressure-3m-free-field-with-ducts",
+        "soundMeasurementDistanceM": 3,
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Ball-Bearing Motor",
+          "Overload Protection",
+          "Class II",
+          "Voltage Speed Control",
+          "Three Speeds"
+        ],
+        "tr": [
+          "Rulmanlı Motor",
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Voltajla Hız Kontrolü",
+          "Üç Hız"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow fans for circular ventilation ducts.",
+          "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+          "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+          "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50/60 Hz, IP44, insulation class B."
+        ],
+        "applications": [
+          "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+        ]
+      },
+      "sourceMaxAirflow": 1040,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|TD-4000/355",
+      "model": "TD-4000/355",
+      "seriesId": "TD-MIXVENT",
+      "productCode": "TD4000355",
+      "source": "td-0.pdf",
+      "tablePage": 3,
+      "featurePages": [
+        1,
+        3
+      ],
+      "sourceRowLabel": "TD-4000/355",
+      "rowVerification": "visually-checked-standard-single-phase-model-table",
+      "motor": {
+        "power": 0.407,
+        "speed": 1360,
+        "sound": 41,
+        "voltage": "230 V",
+        "frequency": "50/60 Hz",
+        "current": 1.69
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP54",
+        "weight": 19,
+        "insulationClass": "F",
+        "electricalProtectionClass": "I",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": -40,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "radiated-sound-pressure-3m-free-field-with-ducts",
+        "soundMeasurementDistanceM": 3,
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Ball-Bearing Motor",
+          "Overload Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Rulmanlı Motor",
+          "Aşırı Yük Koruması",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow fans for circular ventilation ducts.",
+          "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+          "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+          "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50/60 Hz, IP54, insulation class F."
+        ],
+        "applications": [
+          "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+        ]
+      },
+      "sourceMaxAirflow": 3750,
+      "unknownFields": []
+    },
+    {
+      "id": "SP|TD-6000/400",
+      "model": "TD-6000/400",
+      "seriesId": "TD-MIXVENT",
+      "productCode": "TD6000400",
+      "source": "td-0.pdf",
+      "tablePage": 3,
+      "featurePages": [
+        1,
+        3
+      ],
+      "sourceRowLabel": "TD-6000/400",
+      "rowVerification": "visually-checked-standard-single-phase-model-table",
+      "motor": {
+        "power": 0.58,
+        "speed": 1400,
+        "sound": 43,
+        "voltage": "230 V",
+        "frequency": "50/60 Hz",
+        "current": 2.42
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "ipClass": "IP54",
+        "weight": 26,
+        "insulationClass": "F",
+        "electricalProtectionClass": "I",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": -40,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "radiated-sound-pressure-3m-free-field-with-ducts",
+        "soundMeasurementDistanceM": 3,
+        "currentReferenceVoltageV": 230
+      },
+      "features": {
+        "en": [
+          "Ball-Bearing Motor",
+          "Overload Protection",
+          "Voltage Speed Control"
+        ],
+        "tr": [
+          "Rulmanlı Motor",
+          "Aşırı Yük Koruması",
+          "Voltajla Hız Kontrolü"
+        ]
+      },
+      "description": {
+        "general": [
+          "Low-profile mixed-flow fans for circular ventilation ducts.",
+          "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+          "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+          "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+        ],
+        "motor": [
+          "Selected motor: single-phase 230 V, 50/60 Hz, IP54, insulation class F."
+        ],
+        "applications": [
+          "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+        ]
+      },
+      "sourceMaxAirflow": 5100,
+      "unknownFields": []
+    }
+  ],
+  "series": {
+    "CAB": {
+      "general": {
+        "en": [
+          "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+          "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+          "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+          "The cabinets are suitable for outdoor installation."
+        ],
+        "tr": [
+          "Galvaniz çelik akustik kabin içinde doğrudan akuple, ileri eğik kanatlı radyal fan bulunur.",
+          "50 mm M0 sınıfı cam yünü kaplama sesi azaltır; contalı emiş ve atış flanşları hava kaçaklarını sınırlar.",
+          "Hızlı açılır bakım erişimi ve dört montaj ayağıyla duvar, tavan veya zemine farklı konumlarda montaj yapılabilir.",
+          "Kabinler dış ortama montaja uygundur."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz, ball bearings and thermal protection; voltage speed control is supported.",
+          "CAB-125 to 315 motors are IP44/class B; CAB-315N to 400 motors are IP55/class F. The external terminal box is IP55.",
+          "Operating air temperature: -20 to +40 °C."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motorlar rulman yataklı ve termal korumalıdır; voltajla hız kontrolüne uygundur.",
+          "CAB-125–315 motorları IP44/B; CAB-315N–400 motorları IP55/F sınıfındadır. Harici terminal kutusu IP55’tir.",
+          "Çalışma havası sıcaklığı -20 ile +40 °C arasındadır."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Acoustically treated duct ventilation with access for servicing."
+        ],
+        "tr": [
+          "Ses yalıtımı ve bakım erişimi gereken kanallı havalandırma tesisatları için kullanılır."
+        ]
+      }
+    },
+    "JETLINE": {
+      "general": {
+        "en": [
+          "Compact circular duct fans have a low-profile galvanised-steel casing.",
+          "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+          "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+          "The mounting bracket supports two installation positions without adding to the low-profile body height."
+        ],
+        "tr": [
+          "Düşük profilli galvaniz çelik gövdeli, kompakt yuvarlak kanal fanlarıdır.",
+          "Plastik pervane, kılavuz kanatlar ve çıkış difüzörü hava akışını iyileştirmek ve sesi azaltmak için tasarlanmıştır.",
+          "Flanşlardaki kauçuk contalar hava kaçaklarını; elastik motor takozları titreşim iletimini azaltır.",
+          "Montaj ayağı, gövdenin düşük profilini koruyarak iki farklı montaj konumuna olanak verir."
+        ]
+      },
+      "motor": {
+        "en": [
+          "External-rotor single-phase AC motor, 220–240 V, class F, IP44; the separate terminal box is IP65.",
+          "Voltage speed control and manual-reset thermal protection; -20 to +60 °C operation.",
+          "JETLINE-100 to 250 support 50/60 Hz; JETLINE-315 is rated for 50 Hz only."
+        ],
+        "tr": [
+          "Harici rotorlu monofaze AC motor 220–240 V, F sınıfı ve IP44’tür; ayrı terminal kutusu IP65’tir.",
+          "Voltajla hız kontrolüne ve -20 ile +60 °C çalışmaya uygundur; manuel resetli termal koruma bulunur.",
+          "JETLINE-100–250 modelleri 50/60 Hz; JETLINE-315 yalnız 50 Hz beslemeye uygundur."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Circular duct installations where available mounting height is limited."
+        ],
+        "tr": [
+          "Montaj yüksekliğinin sınırlı olduğu yuvarlak kanal tesisatlarında kullanılır."
+        ]
+      }
+    },
+    "SILENTUB": {
+      "general": {
+        "en": [
+          "An axial transfer fan for duct installation or recessed mounting within a wall.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss while the fan is stopped.",
+          "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure."
+        ],
+        "tr": [
+          "Kanal içine veya duvar içine gömülü montaj için tasarlanmış aksiyel transfer fanıdır.",
+          "Otomatik geri akış klapesi, fan dururken ters hava akışını ve ısı kaybını sınırlar.",
+          "Motor, titreşimin ve sesin çevre yapıya iletimini azaltan elastik sessiz takozlar üzerine yerleştirilmiştir."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz, IP44 and Class II electrical protection, with long-life ball bearings."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motor IP44 ve Sınıf II elektriksel korumaya, uzun ömürlü bilyalı rulmanlara sahiptir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Air and heat transfer between adjacent rooms, or ventilation of small spaces."
+        ],
+        "tr": [
+          "Komşu odalar arasında hava ve ısı transferi veya küçük hacimlerin havalandırılması için kullanılır."
+        ]
+      }
+    },
+    "TDM": {
+      "general": {
+        "en": [
+          "Axial duct fans designed for ventilation systems with low pressure losses.",
+          "TDM-100 and TDM-200 can be recessed into a wall for air transfer between adjacent rooms.",
+          "Long-life ball bearings belong to the separate Z versions."
+        ],
+        "tr": [
+          "Basınç kaybı düşük kanal sistemleri için tasarlanmış aksiyel fanlardır.",
+          "TDM-100 ve TDM-200, komşu odalar arasında hava transferi için duvar içine gömülebilir.",
+          "Uzun ömürlü bilyalı rulman özelliği ayrı Z versiyonlarına aittir."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz, IPX4 and Class II electrical protection, with overheating protection.",
+          "Maximum operating air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motor IPX4 ve Sınıf II elektriksel korumaya, aşırı ısınma korumasına sahiptir.",
+          "Maksimum çalışma havası sıcaklığı 40 °C’dir; alt sıcaklık sınırı belirtilmemiştir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Short, low-resistance ventilation ducts and local exhaust applications."
+        ],
+        "tr": [
+          "Kısa ve düşük dirençli havalandırma kanalları ile yerel egzoz uygulamalarında kullanılır."
+        ]
+      }
+    },
+    "TD-MIXVENT": {
+      "general": {
+        "en": [
+          "Low-profile mixed-flow fans for circular ventilation ducts.",
+          "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+          "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+          "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+        ],
+        "tr": [
+          "Yuvarlak havalandırma kanalları için düşük profilli karma akışlı fanlardır.",
+          "Motor ve pervane grubu, kanal bağlantıları sökülmeden bakım için çıkarılabilir.",
+          "TD-250/350 iki; TD-500/150 ve TD-800/200 3V üç hızlıdır. TD-4000/6000 voltajla hız kontrolüne uygundur.",
+          "Zamanlayıcı ayrı T versiyonlarına aittir; trifaze versiyonların motor verileri farklıdır."
+        ]
+      },
+      "motor": {
+        "en": [
+          "TD-160–2000 motors are class B/IP44; TD-4000/6000 are class F/IP54. All have ball bearings and overload protection.",
+          "Single-phase supply is 230 V; TD-160–350 use 50 Hz and larger single-phase versions use 50/60 Hz."
+        ],
+        "tr": [
+          "TD-160–2000 motorları B/IP44; TD-4000/6000 motorları F/IP54 sınıfındadır. Rulman ve aşırı yük koruması bulunur.",
+          "Monofaze besleme 230 V’tur; TD-160–350 modelleri 50 Hz, daha büyük monofaze versiyonlar 50/60 Hz kullanır."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+        ],
+        "tr": [
+          "Montaj yüksekliğinin sınırlı olduğu ve motor grubuna bakım erişimi gereken kanallı havalandırmada kullanılır."
+        ]
+      }
+    }
+  },
+  "extraTranslations": {
+    "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B.": "Seçilen motor: monofaze 230 V, 50 Hz, IP44, B yalıtım sınıfı.",
+    "Selected motor: single-phase 230 V, 50 Hz, IP55, insulation class F.": "Seçilen motor: monofaze 230 V, 50 Hz, IP55, F yalıtım sınıfı.",
+    "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F.": "Seçilen motor: monofaze 220–240 V, 50/60 Hz, IP44, F yalıtım sınıfı.",
+    "JETLINE-315 weight is 8.4 kg in the technical table and 8.9 kg in the dimension table; confirm against the product label.": "JETLINE-315 ağırlığı teknik tabloda 8,4 kg, ölçü tablosunda 8,9 kg’dır; ürün etiketiyle doğrulanmalıdır.",
+    "Selected motor: single-phase 220–240 V, 50 Hz, IP44, insulation class F.": "Seçilen motor: monofaze 220–240 V, 50 Hz, IP44, F yalıtım sınıfı.",
+    "Selected motor: single-phase 230 V, 50/60 Hz, IP44, insulation class B.": "Seçilen motor: monofaze 230 V, 50/60 Hz, IP44, B yalıtım sınıfı.",
+    "Selected motor: single-phase 230 V, 50/60 Hz, IP54, insulation class F.": "Seçilen motor: monofaze 230 V, 50/60 Hz, IP54, F yalıtım sınıfı."
+  },
+  "sourceConflicts": [
+    {
+      "model": "JETLINE-315",
+      "field": "weight",
+      "technicalTableKg": 8.4,
+      "dimensionTableKg": 8.9,
+      "usedKg": 8.4,
+      "page": 2
+    }
+  ],
+  "policy": {
+    "standardModelsOnly": true,
+    "noCurrentOrTemperatureInference": true,
+    "noTimerOrZVariantCopy": true,
+    "preserveCurvesSelectionFlowsPricesDimensions": true
+  },
+  "preservation": {
+    "baseCommit": "e4d608b395a6cdac3ae60d1d332fa9b959209a54",
+    "modelChanges": [
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 16
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-free-field-two-thirds-max-flow"
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Acoustic Insulation",
+            "Ball-Bearing Motor",
+            "Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Akustik İzolasyon",
+            "Rulmanlı Motor",
+            "Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+            "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+            "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+            "The cabinets are suitable for outdoor installation."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+          ],
+          "applications": [
+            "Acoustically treated duct ventilation with access for servicing."
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "performance",
+          "maxAirflow"
+        ],
+        "previousPresent": true,
+        "previous": 220,
+        "value": 240
+      },
+      {
+        "id": "SP|CAB-125",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "cab-0.pdf",
+          "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 22
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-free-field-two-thirds-max-flow"
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Acoustic Insulation",
+            "Ball-Bearing Motor",
+            "Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Akustik İzolasyon",
+            "Rulmanlı Motor",
+            "Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+            "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+            "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+            "The cabinets are suitable for outdoor installation."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+          ],
+          "applications": [
+            "Acoustically treated duct ventilation with access for servicing."
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "performance",
+          "maxAirflow"
+        ],
+        "previousPresent": true,
+        "previous": 920,
+        "value": 690
+      },
+      {
+        "id": "SP|CAB-200",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "cab-0.pdf",
+          "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 27
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-free-field-two-thirds-max-flow"
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Acoustic Insulation",
+            "Ball-Bearing Motor",
+            "Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Akustik İzolasyon",
+            "Rulmanlı Motor",
+            "Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+            "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+            "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+            "The cabinets are suitable for outdoor installation."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+          ],
+          "applications": [
+            "Acoustically treated duct ventilation with access for servicing."
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "performance",
+          "maxAirflow"
+        ],
+        "previousPresent": true,
+        "previous": 1180,
+        "value": 1230
+      },
+      {
+        "id": "SP|CAB-250N",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "cab-0.pdf",
+          "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 33
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-free-field-two-thirds-max-flow"
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Acoustic Insulation",
+            "Ball-Bearing Motor",
+            "Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Akustik İzolasyon",
+            "Rulmanlı Motor",
+            "Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+            "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+            "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+            "The cabinets are suitable for outdoor installation."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+          ],
+          "applications": [
+            "Acoustically treated duct ventilation with access for servicing."
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-315",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "cab-0.pdf",
+          "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP55"
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 35
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-free-field-two-thirds-max-flow"
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Acoustic Insulation",
+            "Ball-Bearing Motor",
+            "Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Akustik İzolasyon",
+            "Rulmanlı Motor",
+            "Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+            "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+            "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+            "The cabinets are suitable for outdoor installation."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50 Hz, IP55, insulation class F."
+          ],
+          "applications": [
+            "Acoustically treated duct ventilation with access for servicing."
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "performance",
+          "maxAirflow"
+        ],
+        "previousPresent": true,
+        "previous": 3200,
+        "value": 3150
+      },
+      {
+        "id": "SP|CAB-355",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "cab-0.pdf",
+          "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP55"
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 35
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP55"
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-free-field-two-thirds-max-flow"
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Acoustic Insulation",
+            "Ball-Bearing Motor",
+            "Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Akustik İzolasyon",
+            "Rulmanlı Motor",
+            "Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+            "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+            "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+            "The cabinets are suitable for outdoor installation."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50 Hz, IP55, insulation class F."
+          ],
+          "applications": [
+            "Acoustically treated duct ventilation with access for servicing."
+          ]
+        }
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "performance",
+          "maxAirflow"
+        ],
+        "previousPresent": true,
+        "previous": 3080,
+        "value": 3400
+      },
+      {
+        "id": "SP|CAB-400",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "cab-0.pdf",
+          "sha256": "65254a4fda2be46353601be4e51ac7b15616da23f4b6d42fc42edfe0dc5dd856",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "220–240 V"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 3
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP65"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "thermalProtectionReset"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "manual"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "outlet-sound-pressure-1_5m-free-field-operating-point-2"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Vibration-Isolating Mounts",
+            "Manual-Reset Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Titreşim Sönümleyici Takozlar",
+            "Manuel Resetli Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Compact circular duct fans have a low-profile galvanised-steel casing.",
+            "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+            "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+            "The mounting bracket supports two installation positions without adding to the low-profile body height."
+          ],
+          "motor": [
+            "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+          ],
+          "applications": [
+            "Circular duct installations where available mounting height is limited."
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-100",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "jetline-3.pdf",
+          "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "220–240 V"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 3.4
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP65"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "thermalProtectionReset"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "manual"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "outlet-sound-pressure-1_5m-free-field-operating-point-2"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Vibration-Isolating Mounts",
+            "Manual-Reset Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Titreşim Sönümleyici Takozlar",
+            "Manuel Resetli Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Compact circular duct fans have a low-profile galvanised-steel casing.",
+            "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+            "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+            "The mounting bracket supports two installation positions without adding to the low-profile body height."
+          ],
+          "motor": [
+            "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+          ],
+          "applications": [
+            "Circular duct installations where available mounting height is limited."
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-125",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "jetline-3.pdf",
+          "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "220–240 V"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 4.5
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP65"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "thermalProtectionReset"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "manual"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "outlet-sound-pressure-1_5m-free-field-operating-point-2"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Vibration-Isolating Mounts",
+            "Manual-Reset Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Titreşim Sönümleyici Takozlar",
+            "Manuel Resetli Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Compact circular duct fans have a low-profile galvanised-steel casing.",
+            "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+            "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+            "The mounting bracket supports two installation positions without adding to the low-profile body height."
+          ],
+          "motor": [
+            "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+          ],
+          "applications": [
+            "Circular duct installations where available mounting height is limited."
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-150",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "jetline-3.pdf",
+          "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "220–240 V"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 4.5
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP65"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "thermalProtectionReset"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "manual"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "outlet-sound-pressure-1_5m-free-field-operating-point-2"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Vibration-Isolating Mounts",
+            "Manual-Reset Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Titreşim Sönümleyici Takozlar",
+            "Manuel Resetli Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Compact circular duct fans have a low-profile galvanised-steel casing.",
+            "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+            "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+            "The mounting bracket supports two installation positions without adding to the low-profile body height."
+          ],
+          "motor": [
+            "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+          ],
+          "applications": [
+            "Circular duct installations where available mounting height is limited."
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-160",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "jetline-3.pdf",
+          "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "220–240 V"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 5.6
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP65"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "thermalProtectionReset"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "manual"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "outlet-sound-pressure-1_5m-free-field-operating-point-2"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Vibration-Isolating Mounts",
+            "Manual-Reset Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Titreşim Sönümleyici Takozlar",
+            "Manuel Resetli Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Compact circular duct fans have a low-profile galvanised-steel casing.",
+            "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+            "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+            "The mounting bracket supports two installation positions without adding to the low-profile body height."
+          ],
+          "motor": [
+            "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+          ],
+          "applications": [
+            "Circular duct installations where available mounting height is limited."
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-200",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "jetline-3.pdf",
+          "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "220–240 V"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 6.5
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP65"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "thermalProtectionReset"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "manual"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "outlet-sound-pressure-1_5m-free-field-operating-point-2"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Vibration-Isolating Mounts",
+            "Manual-Reset Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Titreşim Sönümleyici Takozlar",
+            "Manuel Resetli Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Compact circular duct fans have a low-profile galvanised-steel casing.",
+            "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+            "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+            "The mounting bracket supports two installation positions without adding to the low-profile body height."
+          ],
+          "motor": [
+            "Selected motor: single-phase 220–240 V, 50/60 Hz, IP44, insulation class F."
+          ],
+          "applications": [
+            "Circular duct installations where available mounting height is limited."
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-250",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "jetline-3.pdf",
+          "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "220–240 V"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 8.4
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "terminalBoxIpClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP65"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "thermalProtectionReset"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "manual"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "outlet-sound-pressure-1_5m-free-field-operating-point-2"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "weightSourceConflict"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "technicalTableKg": 8.4,
+          "dimensionTableKg": 8.9,
+          "usedKg": 8.4
+        }
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Vibration-Isolating Mounts",
+            "Manual-Reset Thermal Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Titreşim Sönümleyici Takozlar",
+            "Manuel Resetli Termal Koruma",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Compact circular duct fans have a low-profile galvanised-steel casing.",
+            "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+            "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+            "The mounting bracket supports two installation positions without adding to the low-profile body height.",
+            "JETLINE-315 weight is 8.4 kg in the technical table and 8.9 kg in the dimension table; confirm against the product label."
+          ],
+          "motor": [
+            "Selected motor: single-phase 220–240 V, 50 Hz, IP44, insulation class F."
+          ],
+          "applications": [
+            "Circular duct installations where available mounting height is limited."
+          ]
+        }
+      },
+      {
+        "id": "SP|JETLINE-315",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "jetline-3.pdf",
+          "sha256": "ac6b5547fde34ae02cebb01d54834c561bdecc67e6961c09b5b06ee0d53cb3e2",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.5
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "inlet-sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Backdraught Shutter",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor",
+            "Class II"
+          ],
+          "tr": [
+            "Geri Tepme Ventili",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor",
+            "Sınıf II"
+          ]
+        }
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "An axial transfer fan for duct installation or recessed mounting within a wall.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss while the fan is stopped.",
+            "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IP44 and Class II electrical protection, with long-life ball bearings."
+          ],
+          "applications": [
+            "Air and heat transfer between adjacent rooms, or ventilation of small spaces."
+          ]
+        }
+      },
+      {
+        "id": "SP|SILENTUB-100",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "silentub-0.pdf",
+          "sha256": "a5c6334013cec74691969f6aabce0932e30d6c9d3c4f3b04b2100f805f4a256a",
+          "tablePage": 2,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.4
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "inlet-sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Thermal Protection",
+            "Class II"
+          ],
+          "tr": [
+            "Termal Koruma",
+            "Sınıf II"
+          ]
+        }
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Axial duct fans designed for ventilation systems with low pressure losses.",
+            "TDM-100 and TDM-200 can be recessed into a wall for air transfer between adjacent rooms.",
+            "Long-life ball bearings belong to the separate Z versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IPX4 and Class II electrical protection, with overheating protection.",
+            "Maximum operating air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Short, low-resistance ventilation ducts and local exhaust applications."
+          ]
+        }
+      },
+      {
+        "id": "SP|TDM-100",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "tdm-0.pdf",
+          "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40",
+          "tablePage": 1,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.6
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "inlet-sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Thermal Protection",
+            "Class II"
+          ],
+          "tr": [
+            "Termal Koruma",
+            "Sınıf II"
+          ]
+        }
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Axial duct fans designed for ventilation systems with low pressure losses.",
+            "TDM-100 and TDM-200 can be recessed into a wall for air transfer between adjacent rooms.",
+            "Long-life ball bearings belong to the separate Z versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IPX4 and Class II electrical protection, with overheating protection.",
+            "Maximum operating air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Short, low-resistance ventilation ducts and local exhaust applications."
+          ]
+        }
+      },
+      {
+        "id": "SP|TDM-200",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "tdm-0.pdf",
+          "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40",
+          "tablePage": 1,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1.5
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "thermalProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "inlet-sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Thermal Protection",
+            "Class II"
+          ],
+          "tr": [
+            "Termal Koruma",
+            "Sınıf II"
+          ]
+        }
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Axial duct fans designed for ventilation systems with low pressure losses.",
+            "TDM-100 and TDM-200 can be recessed into a wall for air transfer between adjacent rooms.",
+            "Long-life ball bearings belong to the separate Z versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IPX4 and Class II electrical protection, with overheating protection.",
+            "Maximum operating air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Short, low-resistance ventilation ducts and local exhaust applications."
+          ]
+        }
+      },
+      {
+        "id": "SP|TDM-300",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "tdm-0.pdf",
+          "sha256": "9d0ea00199f22b39f2b81e221b30c8bec63526e1d37935e09bb5d0f32ffbbb40",
+          "tablePage": 1,
+          "featurePages": [
+            1
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-with-ducts"
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Ball-Bearing Motor",
+            "Overload Protection",
+            "Class II",
+            "Voltage Speed Control",
+            "Two Speeds"
+          ],
+          "tr": [
+            "Rulmanlı Motor",
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Voltajla Hız Kontrolü",
+            "İki Hız"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow fans for circular ventilation ducts.",
+            "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+            "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+            "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+          ],
+          "applications": [
+            "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-250/100",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "td-0.pdf",
+          "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+          "tablePage": 3,
+          "featurePages": [
+            1,
+            3
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-with-ducts"
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Ball-Bearing Motor",
+            "Overload Protection",
+            "Class II",
+            "Voltage Speed Control",
+            "Two Speeds"
+          ],
+          "tr": [
+            "Rulmanlı Motor",
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Voltajla Hız Kontrolü",
+            "İki Hız"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow fans for circular ventilation ducts.",
+            "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+            "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+            "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50 Hz, IP44, insulation class B."
+          ],
+          "applications": [
+            "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-350/125",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "td-0.pdf",
+          "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+          "tablePage": 3,
+          "featurePages": [
+            1,
+            3
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 2.7
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-with-ducts"
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Ball-Bearing Motor",
+            "Overload Protection",
+            "Class II",
+            "Voltage Speed Control",
+            "Three Speeds"
+          ],
+          "tr": [
+            "Rulmanlı Motor",
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Voltajla Hız Kontrolü",
+            "Üç Hız"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow fans for circular ventilation ducts.",
+            "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+            "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+            "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50/60 Hz, IP44, insulation class B."
+          ],
+          "applications": [
+            "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-500/150",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "td-0.pdf",
+          "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+          "tablePage": 3,
+          "featurePages": [
+            1,
+            3
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 4.9
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -20
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 60
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-with-ducts"
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Ball-Bearing Motor",
+            "Overload Protection",
+            "Class II",
+            "Voltage Speed Control",
+            "Three Speeds"
+          ],
+          "tr": [
+            "Rulmanlı Motor",
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Voltajla Hız Kontrolü",
+            "Üç Hız"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow fans for circular ventilation ducts.",
+            "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+            "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+            "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50/60 Hz, IP44, insulation class B."
+          ],
+          "applications": [
+            "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-800/200",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "td-0.pdf",
+          "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+          "tablePage": 3,
+          "featurePages": [
+            1,
+            3
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP54"
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 19
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "I"
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -40
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-with-ducts"
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Ball-Bearing Motor",
+            "Overload Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Rulmanlı Motor",
+            "Aşırı Yük Koruması",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow fans for circular ventilation ducts.",
+            "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+            "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+            "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50/60 Hz, IP54, insulation class F."
+          ],
+          "applications": [
+            "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-4000/355",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "td-0.pdf",
+          "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+          "tablePage": 3,
+          "featurePages": [
+            1,
+            3
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "motor",
+          "voltage"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "230 V"
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50/60 Hz"
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "phase"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "Single-phase"
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP54"
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 26
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "F"
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "I"
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": -40
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "radiated-sound-pressure-3m-free-field-with-ducts"
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "technical",
+          "currentReferenceVoltageV"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 230
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Ball-Bearing Motor",
+            "Overload Protection",
+            "Voltage Speed Control"
+          ],
+          "tr": [
+            "Rulmanlı Motor",
+            "Aşırı Yük Koruması",
+            "Voltajla Hız Kontrolü"
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Low-profile mixed-flow fans for circular ventilation ducts.",
+            "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+            "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+            "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+          ],
+          "motor": [
+            "Selected motor: single-phase 230 V, 50/60 Hz, IP54, insulation class F."
+          ],
+          "applications": [
+            "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+          ]
+        }
+      },
+      {
+        "id": "SP|TD-6000/400",
+        "path": [
+          "verification",
+          "ductCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/duct-catalogue-details.json",
+          "source": "td-0.pdf",
+          "sha256": "25e584f68572b8925d9c612950d5314fa4cdd8f1fd59e3acb0cc462e106fba68",
+          "tablePage": 3,
+          "featurePages": [
+            1,
+            3
+          ],
+          "verifiedOn": "2026-10-23"
+        }
+      }
+    ],
+    "seriesChanges": [
+      {
+        "id": "CAB",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Akustik Kabinli Fanlar",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Galvanised-steel acoustic cabinets contain directly coupled, forward-curved centrifugal fans.",
+            "A 50 mm M0 glass-wool lining reduces noise; gasketed inlet and outlet flanges limit air leakage.",
+            "Quick-fix access simplifies maintenance; four feet support wall, ceiling or floor mounting in any orientation.",
+            "The cabinets are suitable for outdoor installation."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, ball bearings and thermal protection; voltage speed control is supported.",
+            "CAB-125 to 315 motors are IP44/class B; CAB-315N to 400 motors are IP55/class F. The external terminal box is IP55.",
+            "Operating air temperature: -20 to +40 °C."
+          ],
+          "applications": [
+            "Acoustically treated duct ventilation with access for servicing."
+          ]
+        }
+      },
+      {
+        "id": "JETLINE",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Radyal Kanal Tipi Fanlar",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Compact circular duct fans have a low-profile galvanised-steel casing.",
+            "A moulded-plastic impeller, guide vanes and outlet diffuser improve airflow and reduce noise.",
+            "Rubber flange seals limit leakage; elastic motor mounts reduce vibration transmission.",
+            "The mounting bracket supports two installation positions without adding to the low-profile body height."
+          ],
+          "motor": [
+            "External-rotor single-phase AC motor, 220–240 V, class F, IP44; the separate terminal box is IP65.",
+            "Voltage speed control and manual-reset thermal protection; -20 to +60 °C operation.",
+            "JETLINE-100 to 250 support 50/60 Hz; JETLINE-315 is rated for 50 Hz only."
+          ],
+          "applications": [
+            "Circular duct installations where available mounting height is limited."
+          ]
+        }
+      },
+      {
+        "id": "SILENTUB",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Sessiz Kanal Tipi Transfer Fanları",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "An axial transfer fan for duct installation or recessed mounting within a wall.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss while the fan is stopped.",
+            "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IP44 and Class II electrical protection, with long-life ball bearings."
+          ],
+          "applications": [
+            "Air and heat transfer between adjacent rooms, or ventilation of small spaces."
+          ]
+        }
+      },
+      {
+        "id": "TDM",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Kanal Tipi Aksiyel Fanlar",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Axial duct fans designed for ventilation systems with low pressure losses.",
+            "TDM-100 and TDM-200 can be recessed into a wall for air transfer between adjacent rooms.",
+            "Long-life ball bearings belong to the separate Z versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz, IPX4 and Class II electrical protection, with overheating protection.",
+            "Maximum operating air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Short, low-resistance ventilation ducts and local exhaust applications."
+          ]
+        }
+      },
+      {
+        "id": "TD-MIXVENT",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Kanal Tipi Karma Akışlı Fanlar",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Low-profile mixed-flow fans for circular ventilation ducts.",
+            "For servicing, the motor and impeller assembly lifts out without disconnecting the ducts.",
+            "TD-250/350 have two speeds; TD-500/150 and TD-800/200 3V have three speeds. TD-4000/6000 use voltage speed control.",
+            "Timer functions belong to the separate T versions; three-phase versions use separate motor data."
+          ],
+          "motor": [
+            "TD-160–2000 motors are class B/IP44; TD-4000/6000 are class F/IP54. All have ball bearings and overload protection.",
+            "Single-phase supply is 230 V; TD-160–350 use 50 Hz and larger single-phase versions use 50/60 Hz."
+          ],
+          "applications": [
+            "Duct ventilation in restricted-height spaces, with service access to the motor assembly."
+          ]
+        }
+      }
+    ],
+    "protectedModelsSha256": "b1df71006b0836f379c77fab5a62c2bb46032ae54920e59e1e6c445b5399e3da"
+  }
+}
