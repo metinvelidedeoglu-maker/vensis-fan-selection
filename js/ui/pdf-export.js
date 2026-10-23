@@ -315,7 +315,7 @@
     if(positive(d.motor.power))add(tx('motorPower'),measurement(fmt(d.motor.power,3),'kW','power'),d.technical.powerBasis==='free-air-electrical-input-P1'?'measurement':'');
     if(positive(d.motor.speed))add(tx('speed'),`${fmt(d.motor.speed)} rpm`);
     if(d.motor.voltage)add(tx('voltage'),d.motor.voltage);
-    if(positive(d.motor.sound))add(tx('soundLevel'),measurement(fmt(d.motor.sound,1),'dB(A)','sound'),['sound-pressure-3m-high-speed','inlet-sound-pressure-1_5m-free-field-operating-point-A','radiated-sound-pressure-3m-free-field-operating-point-B','inlet-sound-pressure-3m-free-field-operating-point-A','sound-pressure-3m-high-speed-exhaust'].includes(d.technical.soundBasis)?'measurement':'');
+    if(positive(d.motor.sound))add(tx('soundLevel'),measurement(fmt(d.motor.sound,1),'dB(A)','sound'),['sound-pressure-3m-high-speed','inlet-sound-pressure-1_5m-free-field-operating-point-A','radiated-sound-pressure-3m-free-field-operating-point-B','inlet-sound-pressure-3m-free-field-operating-point-A','sound-pressure-3m-high-speed-exhaust','outlet-sound-pressure-1_5m-free-field-operating-point-2','radiated-sound-pressure-3m-free-field-with-ducts','radiated-sound-pressure-free-field-two-thirds-max-flow'].includes(d.technical.soundBasis)?'measurement':'');
     if(d.mode==='catalog'){
       if(d.technical.phase)add(tx('phase'),String(d.technical.phase));
       if(d.motor.frequency){const v=String(d.motor.frequency).trim();add(tx('frequency'),/hz$/i.test(v)?v:v+' Hz')}
