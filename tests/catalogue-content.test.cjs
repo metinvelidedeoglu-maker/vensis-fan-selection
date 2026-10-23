@@ -15,7 +15,7 @@ const hash=v=>crypto.createHash('sha256').update(JSON.stringify(stable(v))).dige
 // separately audited source completions before checking that historical snapshot.
 function beforeLaterCompletions(){
   const result=JSON.parse(JSON.stringify(data));
-  for(const file of ['bath-catalogue-details.json','duct-catalogue-details.json','design-catalogue-details.json','td-th-catalogue-details.json']){
+  for(const file of ['bath-verified-curves.json','bath-catalogue-details.json','duct-catalogue-details.json','design-catalogue-details.json','td-th-catalogue-details.json']){
    const later=JSON.parse(read('assets/products/soler-palau/'+file));
    for(const change of [...later.preservation.modelChanges].reverse()){
     let obj=result.models.find(m=>m.id===change.id);

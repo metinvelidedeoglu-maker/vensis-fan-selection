@@ -45,8 +45,7 @@ try{
    assert.deepEqual(await preview.locator('.feature-tag').allTextContents(),expected,row.model+' preview tags');
    const featureText=await preview.locator('.feature-card').innerText();assert.ok(featureText.includes(evidence.series[row.seriesId].applications[lang][0]));
    if(row.seriesId==='DECOR')assert.ok(featureText.includes('IPX4')&&featureText.includes('IP44'),row.model+' visible source discrepancy');
-   if(row.seriesId==='SILENT')assert.equal(await preview.locator('svg').count(),0,'existing missing curve remains unavailable');
-   else assert.ok(await preview.locator('svg').count());
+   assert.ok(await preview.locator('.curve svg path').getAttribute('d'),'verified source curve visible');
    assert.ok(await preview.locator('.catalog-drawing-image').count());
    await preview.pdf({path:out+'/'+row.model+'-'+lang+'.pdf',format:'A4',printBackground:true});await preview.close();
   }

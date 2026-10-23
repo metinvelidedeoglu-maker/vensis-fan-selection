@@ -38,7 +38,8 @@ test('timer and silver labels follow the SILENT variant; unqualified EDM records
       assert.equal(labels.includes('Timer'),m.model.includes('CRZ'));
       assert.equal(labels.includes('Silver Front Cover'),m.model.includes('SILVER'));
       for(const label of ['Backdraught Shutter','Pilot Light','Vibration-Isolating Mounts','Ball-Bearing Motor'])assert.ok(labels.includes(label),row.model);
-      assert.equal(m.catalogOnly,true);assert.equal(m.performance.curves.length,0,'no invented curve');
+      assert.equal(m.catalogOnly,false);assert.equal(m.performance.curves.length,1,'verified source curve');
+      assert.equal(m.verification.bathCurves.status,'verified-against-original-vector-curve');
     }else{
       assert.ok(!labels.includes('Timer')&&!labels.includes('Ball-Bearing Motor'));
       if(m.seriesId==='DECOR')assert.ok(labels.includes('Backdraught Shutter')&&labels.includes('Neon Indicator'));
@@ -65,8 +66,8 @@ test('bilingual previews hide all missing currents and show IP conflicts and cor
       if(m.seriesId==='DECOR')assert.ok(html.includes('IPX4')&&html.includes('IP44'));
       else assert.ok(html.includes(lang==='tr'?'P1, serbest atış':'P1, free air'));
       if(['EDM-100','EDM-200'].includes(m.model)){
-        assert.equal(m.technical.curveSourceReview.status,'requires-engineering-review');
-        assert.ok(html.includes(lang==='tr'?'fan seçiminde kullanılmadan önce doğrulanmalıdır':'verify it before using the fan for selection'));
+        assert.equal(m.technical.curveSourceReview.status,'verified-against-source');
+        assert.ok(!html.includes(lang==='tr'?'fan seçiminde kullanılmadan önce doğrulanmalıdır':'verify it before using the fan for selection'));
       }
     }
   }
@@ -80,7 +81,15 @@ sys.dont_write_bytecode=True
 spec=importlib.util.spec_from_file_location('bath',Path('scripts/import-sp-bath-details.py'));mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 d=json.loads(Path('data/ventilation-catalog.js').read_text().split('window.VensisVentilationData=',1)[1].strip().removesuffix(';'));a=json.loads(Path(mod.EVIDENCE).read_text())
 assert len(d['models'])==1022 and len(d['series'])==89
-assert mod.digest(mod.protected_models(d))==a['preservation']['protectedModelsSha256']
+# Check the immutable historical hash before the separately audited curve repair.
+prior=copy.deepcopy(d)
+for c in reversed(json.loads(Path('assets/products/soler-palau/bath-verified-curves.json').read_text())['preservation']['modelChanges']):
+ obj=next(m for m in prior['models'] if m['id']==c['id'])
+ for k in c['path'][:-1]:obj=obj[k]
+ assert obj.get(c['path'][-1])==c['value']
+ if c['previousPresent']:obj[c['path'][-1]]=c['previous']
+ else:del obj[c['path'][-1]]
+assert mod.digest(mod.protected_models(prior))==a['preservation']['protectedModelsSha256']
 before=copy.deepcopy(d);assert mod.apply(a,d)==([],[]) and d==before
 for c in reversed(a['preservation']['modelChanges']):
  obj=next(m for m in d['models'] if m['id']==c['id'])
