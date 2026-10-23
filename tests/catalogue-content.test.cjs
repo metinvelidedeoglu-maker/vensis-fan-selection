@@ -12,16 +12,18 @@ const tags=name=>Array.from(w.VensisCatalogFeatureTags(model(name),'en'));
 const stable=v=>Array.isArray(v)?v.map(stable):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v;
 const hash=v=>crypto.createHash('sha256').update(JSON.stringify(stable(v))).digest('hex');
 // The earlier copy-only audit keeps its original hashes. Reverse only the
-// separately audited TD/TH completion before checking that historical snapshot.
-function beforeTdThCompletion(){
+// separately audited source completions before checking that historical snapshot.
+function beforeLaterCompletions(){
   const result=JSON.parse(JSON.stringify(data));
-  const later=JSON.parse(read('assets/products/soler-palau/td-th-catalogue-details.json'));
-  for(const change of [...later.preservation.modelChanges].reverse()){
+  for(const file of ['design-catalogue-details.json','td-th-catalogue-details.json']){
+   const later=JSON.parse(read('assets/products/soler-palau/'+file));
+   for(const change of [...later.preservation.modelChanges].reverse()){
     let obj=result.models.find(m=>m.id===change.id);
     for(const key of change.path.slice(0,-1))obj=obj[key];
     const key=change.path.at(-1);
     assert.deepEqual(obj[key],change.value,change.id+' audited completion '+change.path.join('.'));
     if(change.previousPresent)obj[key]=change.previous;else delete obj[key];
+   }
   }
   return result;
 }
@@ -32,7 +34,7 @@ test('all twelve source PDFs use exact existing matches and preserve every numer
   assert.equal(audit.models.length,685);
   assert.equal(new Set(audit.models.map(x=>x.id)).size,685);
   assert.equal(data.models.length,1022);assert.equal(data.series.length,89);
-  const prior=beforeTdThCompletion();
+  const prior=beforeLaterCompletions();
   assert.equal(hash(prior.models.map(({features,description,verification,...v})=>v)),audit.preservation.protectedModelFieldsSha256);
   assert.equal(hash(data.series.map(({description,...v})=>v)),audit.preservation.protectedSeriesFieldsSha256);
   const ids=new Set(audit.models.map(x=>x.id));
