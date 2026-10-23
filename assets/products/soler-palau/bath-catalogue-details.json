@@ -1,0 +1,3798 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-10-23",
+  "sources": {
+    "edm-0.pdf": {
+      "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+      "pages": 7,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    },
+    "silent-4-69aeb6f4ad3c8.pdf": {
+      "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+      "pages": 9,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    },
+    "decor-0.pdf": {
+      "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+      "pages": 7,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    }
+  },
+  "models": [
+    {
+      "id": "SP|EDM-80 N",
+      "model": "EDM-80 N",
+      "seriesId": "EDM",
+      "productCode": "EDM80N",
+      "source": "edm-0.pdf",
+      "sourceRowLabel": "EDM-80 N",
+      "tablePage": 2,
+      "narrativePage": 1,
+      "motor": {
+        "power": 0.009,
+        "speed": 2350,
+        "sound": 33,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.4,
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Exhaust Guide Vanes"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Egzoz Yönlendirme Kanatları"
+        ]
+      },
+      "description": {
+        "general": [
+          "EDM-80 N is a compact plastic axial extract fan for a 100 mm circular duct.",
+          "Its exhaust-direction guide vanes are standard; timers belong to NT/NTZ/LR variants and ball bearings to Z variants."
+        ],
+        "motor": [
+          "Standard 230 V, 50 Hz single-phase motors have class B insulation, overload protection, IP44 and Class II electrical protection.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation in bathrooms, toilets and other small spaces."
+        ]
+      },
+      "sourceMaxAirflow": 80,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP|EDM-100",
+      "model": "EDM-100",
+      "seriesId": "EDM",
+      "productCode": "EDM100",
+      "source": "edm-0.pdf",
+      "sourceRowLabel": "EDM-100",
+      "tablePage": 4,
+      "narrativePage": 3,
+      "motor": {
+        "power": 0.013,
+        "speed": 2450,
+        "sound": 40,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.48,
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "curveSourceReview": {
+          "status": "requires-engineering-review",
+          "source": "edm-0.pdf",
+          "page": 4,
+          "issue": "grid-lines-instead-of-fan-curve",
+          "action": "existing-geometry-preserved-with-visible-bilingual-review-note"
+        }
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II"
+        ]
+      },
+      "description": {
+        "general": [
+          "EDM-100 is a plastic axial extract fan for 100 mm circular ducts.",
+          "Shutters, timers, neon indicators, sensors and window kits depend on the selected suffix; this unqualified record does not specify these options.",
+          "H versions use IP40; 12 V versions use IP57/Class III, and Z versions have long-life bearings.",
+          "The existing performance curve does not match this catalogue; verify it before using the fan for selection."
+        ],
+        "motor": [
+          "Standard 230 V, 50 Hz single-phase motors have class B insulation, overload protection, IP44 and Class II electrical protection.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation in bathrooms, toilets and other small spaces."
+        ]
+      },
+      "sourceMaxAirflow": 95,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP|EDM-200",
+      "model": "EDM-200",
+      "seriesId": "EDM",
+      "productCode": "EDM200",
+      "source": "edm-0.pdf",
+      "sourceRowLabel": "EDM-200",
+      "tablePage": 7,
+      "narrativePage": 6,
+      "motor": {
+        "power": 0.025,
+        "speed": 2500,
+        "sound": 42,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.9,
+        "ipClass": "IP44",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "curveSourceReview": {
+          "status": "requires-engineering-review",
+          "source": "edm-0.pdf",
+          "page": 7,
+          "issue": "airflow-axis-scale-mismatch",
+          "action": "existing-geometry-preserved-with-visible-bilingual-review-note"
+        }
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Neon Indicator"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Neon Gösterge"
+        ]
+      },
+      "description": {
+        "general": [
+          "EDM-200 is a plastic axial extract fan for 120 mm circular ducts, with a neon operating indicator.",
+          "Automatic shutters belong to C variants; timer, humidity and bearing options depend on the suffix.",
+          "Humidity-control H versions are IP40 rather than the standard IP44.",
+          "The existing performance curve does not match this catalogue; verify it before using the fan for selection."
+        ],
+        "motor": [
+          "Standard 230 V, 50 Hz single-phase motors have class B insulation, overload protection, IP44 and Class II electrical protection.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation in bathrooms, toilets and other small spaces."
+        ]
+      },
+      "sourceMaxAirflow": 180,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP|DECOR-100",
+      "model": "DECOR-100",
+      "seriesId": "DECOR",
+      "productCode": "DECOR100",
+      "source": "decor-0.pdf",
+      "sourceRowLabel": "DECOR-100",
+      "tablePage": 2,
+      "narrativePage": 1,
+      "motor": {
+        "power": 0.013,
+        "speed": 2500,
+        "sound": 40,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.44,
+        "ipClass": "IPX4",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "ipSourceConflict": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Neon Indicator"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Neon Gösterge"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial bathroom extract fans have a slim front cover and neon operating indicator.",
+          "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+          "Timer, humidity and PIR functions belong to their specified variants; ball bearings belong to Z versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+          "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Bathroom and toilet extract ventilation using the selected model's duct size."
+        ]
+      },
+      "sourceMaxAirflow": 95,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP|DECOR-200",
+      "model": "DECOR-200",
+      "seriesId": "DECOR",
+      "productCode": "DECOR200",
+      "source": "decor-0.pdf",
+      "sourceRowLabel": "DECOR-200",
+      "tablePage": 5,
+      "narrativePage": 4,
+      "motor": {
+        "power": 0.02,
+        "speed": 2500,
+        "sound": 45,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.8,
+        "ipClass": "IPX4",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "ipSourceConflict": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Neon Indicator"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Neon Gösterge"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial bathroom extract fans have a slim front cover and neon operating indicator.",
+          "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+          "Timer, humidity and PIR functions belong to their specified variants; ball bearings belong to Z versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+          "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Bathroom and toilet extract ventilation using the selected model's duct size."
+        ]
+      },
+      "sourceMaxAirflow": 185,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP|DECOR-300",
+      "model": "DECOR-300",
+      "seriesId": "DECOR",
+      "productCode": "DECOR300",
+      "source": "decor-0.pdf",
+      "sourceRowLabel": "DECOR-300",
+      "tablePage": 7,
+      "narrativePage": 6,
+      "motor": {
+        "power": 0.035,
+        "speed": 2200,
+        "sound": 47,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 1.44,
+        "ipClass": "IPX4",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-1_5m-free-field",
+        "soundMeasurementDistanceM": 1.5,
+        "ipSourceConflict": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Neon Indicator"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Neon Gösterge"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial bathroom extract fans have a slim front cover and neon operating indicator.",
+          "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+          "Timer, humidity and PIR functions belong to their specified variants; ball bearings belong to Z versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+          "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Bathroom and toilet extract ventilation using the selected model's duct size."
+        ]
+      },
+      "sourceMaxAirflow": 280,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP-WORKBOOK-2026-2|SILENT|156",
+      "model": "SILENT-100 CZ",
+      "seriesId": "SILENT",
+      "productCode": "",
+      "source": "silent-4-69aeb6f4ad3c8.pdf",
+      "sourceRowLabel": "SILENT-100",
+      "tablePage": 2,
+      "narrativePage": 1,
+      "motor": {
+        "power": 0.008,
+        "speed": 2400,
+        "sound": 26.5,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.57,
+        "ipClass": "IP45",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "timerVariant": false
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "The selected CZ version includes a pilot light and ball bearings, without a timer."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ]
+      },
+      "sourceMaxAirflow": 95,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP-WORKBOOK-2026-2|SILENT|157",
+      "model": "SILENT-100 CRZ",
+      "seriesId": "SILENT",
+      "productCode": "",
+      "source": "silent-4-69aeb6f4ad3c8.pdf",
+      "sourceRowLabel": "SILENT-100",
+      "tablePage": 2,
+      "narrativePage": 1,
+      "motor": {
+        "power": 0.008,
+        "speed": 2400,
+        "sound": 26.5,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.57,
+        "ipClass": "IP45",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "timerVariant": true
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ]
+      },
+      "sourceMaxAirflow": 95,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP-WORKBOOK-2026-2|SILENT|158",
+      "model": "SILENT-100 CZ SILVER",
+      "seriesId": "SILENT",
+      "productCode": "",
+      "source": "silent-4-69aeb6f4ad3c8.pdf",
+      "sourceRowLabel": "SILENT-100",
+      "tablePage": 2,
+      "narrativePage": 1,
+      "motor": {
+        "power": 0.008,
+        "speed": 2400,
+        "sound": 26.5,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.57,
+        "ipClass": "IP45",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "timerVariant": false
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor",
+          "Silver Front Cover"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor",
+          "Gümüş Ön Kapak"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "The selected CZ version includes a pilot light and ball bearings, without a timer.",
+          "This SILVER model has a silver front cover."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ]
+      },
+      "sourceMaxAirflow": 95,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP-WORKBOOK-2026-2|SILENT|159",
+      "model": "SILENT-100 CRZ SILVER",
+      "seriesId": "SILENT",
+      "productCode": "",
+      "source": "silent-4-69aeb6f4ad3c8.pdf",
+      "sourceRowLabel": "SILENT-100",
+      "tablePage": 2,
+      "narrativePage": 1,
+      "motor": {
+        "power": 0.008,
+        "speed": 2400,
+        "sound": 26.5,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.57,
+        "ipClass": "IP45",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "timerVariant": true
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor",
+          "Silver Front Cover"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor",
+          "Gümüş Ön Kapak"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer.",
+          "This SILVER model has a silver front cover."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ]
+      },
+      "sourceMaxAirflow": 95,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP-WORKBOOK-2026-2|SILENT|160",
+      "model": "SILENT-200 CZ",
+      "seriesId": "SILENT",
+      "productCode": "",
+      "source": "silent-4-69aeb6f4ad3c8.pdf",
+      "sourceRowLabel": "SILENT-200",
+      "tablePage": 7,
+      "narrativePage": 6,
+      "motor": {
+        "power": 0.016,
+        "speed": 2350,
+        "sound": 33,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.77,
+        "ipClass": "IP45",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "timerVariant": false
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "The selected CZ version includes a pilot light and ball bearings, without a timer."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ]
+      },
+      "sourceMaxAirflow": 180,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP-WORKBOOK-2026-2|SILENT|161",
+      "model": "SILENT-200 CRZ",
+      "seriesId": "SILENT",
+      "productCode": "",
+      "source": "silent-4-69aeb6f4ad3c8.pdf",
+      "sourceRowLabel": "SILENT-200",
+      "tablePage": 7,
+      "narrativePage": 6,
+      "motor": {
+        "power": 0.016,
+        "speed": 2350,
+        "sound": 33,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 0.77,
+        "ipClass": "IP45",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "timerVariant": true
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ]
+      },
+      "sourceMaxAirflow": 180,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP-WORKBOOK-2026-2|SILENT|162",
+      "model": "SILENT-300 CZ",
+      "seriesId": "SILENT",
+      "productCode": "",
+      "source": "silent-4-69aeb6f4ad3c8.pdf",
+      "sourceRowLabel": "SILENT-300",
+      "tablePage": 9,
+      "narrativePage": 8,
+      "motor": {
+        "power": 0.029,
+        "speed": 2200,
+        "sound": 32,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 1.25,
+        "ipClass": "IP45",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "timerVariant": false
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "The selected CZ version includes a pilot light and ball bearings, without a timer."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ]
+      },
+      "sourceMaxAirflow": 260,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    },
+    {
+      "id": "SP-WORKBOOK-2026-2|SILENT|163",
+      "model": "SILENT-300 CRZ",
+      "seriesId": "SILENT",
+      "productCode": "",
+      "source": "silent-4-69aeb6f4ad3c8.pdf",
+      "sourceRowLabel": "SILENT-300",
+      "tablePage": 9,
+      "narrativePage": 8,
+      "motor": {
+        "power": 0.029,
+        "speed": 2200,
+        "sound": 32,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "phase": "Single-phase",
+        "weight": 1.25,
+        "ipClass": "IP45",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "timerVariant": true
+      },
+      "features": {
+        "en": [
+          "Overload Protection",
+          "Class II",
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "applications": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ]
+      },
+      "sourceMaxAirflow": 260,
+      "unknownFields": [
+        "motor.current"
+      ],
+      "standard230VOnly": true
+    }
+  ],
+  "series": {
+    "SILENT": {
+      "general": {
+        "en": [
+          "Plastic axial extract fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+          "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+          "CZ and CRZ versions have a pilot light and ball bearings; CRZ also has a 1–30 minute timer.",
+          "SILVER identifies a silver front cover. ECOWATT, 12 V and SILENT-300 PLUS use separate technical data."
+        ],
+        "tr": [
+          "Banyo ve WC havalandırması için plastik gövdeli aksiyel egzoz fanlarıdır.",
+          "Elastik motor takozları titreşimin çevre yapıya iletimini azaltır.",
+          "Otomatik geri akış klapesi fan dururken ters hava akışını ve ısı kaybını sınırlar.",
+          "CZ ve CRZ versiyonlarında pilot ışığı ve bilyalı rulman bulunur; CRZ ayrıca 1–30 dakika zamanlayıcı içerir.",
+          "SILVER, gümüş ön kapağı belirtir. ECOWATT, 12 V ve SILENT-300 PLUS versiyonlarının teknik verileri ayrıdır."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motorlarda B motor yalıtımı, aşırı yük koruması, Sınıf II elektriksel koruma ve IP45 bulunur.",
+          "Belgelenen maksimum hava sıcaklığı 40 °C’dir; alt sınır belirtilmemiştir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Local exhaust ventilation through the selected model's circular duct connection."
+        ],
+        "tr": [
+          "Seçilen modelin yuvarlak kanal bağlantısıyla yerel egzoz havalandırmasında kullanılır."
+        ]
+      }
+    },
+    "DECOR": {
+      "general": {
+        "en": [
+          "Plastic axial bathroom extract fans have a slim front cover and neon operating indicator.",
+          "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+          "Timer, humidity and PIR functions belong to their specified variants; ball bearings belong to Z versions."
+        ],
+        "tr": [
+          "İnce ön kapaklı plastik aksiyel banyo fanlarında neon çalışma göstergesi bulunur.",
+          "Hava basıncıyla açılan geri akış klapesi fan durduğunda kapanarak ters hava akışını ve ısı kaybını azaltır.",
+          "Zamanlayıcı, nem ve PIR işlevleri ilgili versiyonlara; bilyalı rulmanlar Z versiyonlarına aittir."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+          "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motorlar B motor yalıtım sınıfına ve aşırı yük korumasına sahiptir.",
+          "Model tablolarında Sınıf II elektriksel koruma ve IPX4 belirtilir. Açıklama sayfalarında IP44 yazdığından kesin koruma sınıfı ürün etiketiyle doğrulanmalıdır.",
+          "Belgelenen maksimum hava sıcaklığı 40 °C’dir; alt sınır belirtilmemiştir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Bathroom and toilet extract ventilation using the selected model's duct size."
+        ],
+        "tr": [
+          "Seçilen modelin kanal çapıyla banyo ve WC egzoz havalandırmasında kullanılır."
+        ]
+      }
+    },
+    "EDM": {
+      "general": {
+        "en": [
+          "Compact plastic axial extract fans for small-space ventilation.",
+          "EDM-80 N has exhaust-direction guide vanes; EDM-100 uses a 100 mm duct and EDM-200 a 120 mm duct.",
+          "Timers, shutters, humidity controls and window kits depend on the model suffix; long-life bearings belong to Z versions.",
+          "EDM-100 S has no neon indicator. H versions are IP40; the separate 12 V EDM-100 versions are IP57/Class III."
+        ],
+        "tr": [
+          "Küçük hacimlerin havalandırılması için kompakt plastik aksiyel egzoz fanlarıdır.",
+          "EDM-80 N egzoz yönlendirme kanatlarına sahiptir; EDM-100 100 mm, EDM-200 120 mm kanal bağlantısı kullanır.",
+          "Zamanlayıcı, panjur, nem kontrolü ve pencere kiti model son ekine bağlıdır; uzun ömürlü rulmanlar Z versiyonlarına aittir.",
+          "EDM-100 S neon gösterge içermez. H versiyonları IP40; ayrı 12 V EDM-100 versiyonları IP57/Sınıf III’tür."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Standard 230 V, 50 Hz single-phase motors have class B insulation, overload protection, IP44 and Class II electrical protection.",
+          "The documented maximum air temperature is 40 °C; no lower limit is stated."
+        ],
+        "tr": [
+          "Standart monofaze 230 V, 50 Hz motorlar B yalıtım sınıfı, aşırı yük koruması, IP44 ve Sınıf II elektriksel korumaya sahiptir.",
+          "Belgelenen maksimum hava sıcaklığı 40 °C’dir; alt sınır belirtilmemiştir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Local exhaust ventilation in bathrooms, toilets and other small spaces."
+        ],
+        "tr": [
+          "Banyo, WC ve diğer küçük hacimlerin yerel egzoz havalandırmasında kullanılır."
+        ]
+      }
+    }
+  },
+  "extraTranslations": {
+    "EDM-80 N is a compact plastic axial extract fan for a 100 mm circular duct.": "EDM-80 N, 100 mm yuvarlak kanal için kompakt plastik aksiyel egzoz fanıdır.",
+    "Its exhaust-direction guide vanes are standard; timers belong to NT/NTZ/LR variants and ball bearings to Z variants.": "Egzoz yönlendirme kanatları standarttır; zamanlayıcı NT/NTZ/LR, bilyalı rulman ise Z versiyonlarına aittir.",
+    "EDM-100 is a plastic axial extract fan for 100 mm circular ducts.": "EDM-100, 100 mm yuvarlak kanallar için plastik aksiyel egzoz fanıdır.",
+    "Shutters, timers, neon indicators, sensors and window kits depend on the selected suffix; this unqualified record does not specify these options.": "Panjur, zamanlayıcı, neon gösterge, sensör ve pencere kiti seçilen son eke bağlıdır; son eksiz bu kayıt bu seçenekleri kesinleştirmez.",
+    "H versions use IP40; 12 V versions use IP57/Class III, and Z versions have long-life bearings.": "H versiyonları IP40; 12 V versiyonları IP57/Sınıf III’tür; uzun ömürlü rulmanlar Z versiyonlarına aittir.",
+    "The existing performance curve does not match this catalogue; verify it before using the fan for selection.": "Mevcut performans eğrisi bu katalogla uyuşmuyor; fan seçiminde kullanılmadan önce doğrulanmalıdır.",
+    "EDM-200 is a plastic axial extract fan for 120 mm circular ducts, with a neon operating indicator.": "EDM-200, 120 mm yuvarlak kanallar için neon çalışma göstergeli plastik aksiyel egzoz fanıdır.",
+    "Automatic shutters belong to C variants; timer, humidity and bearing options depend on the suffix.": "Otomatik panjur C versiyonlarına aittir; zamanlayıcı, nem ve rulman seçenekleri model son ekine bağlıdır.",
+    "Humidity-control H versions are IP40 rather than the standard IP44.": "Nem kontrollü H versiyonları, standart IP44 yerine IP40 koruma sınıfındadır.",
+    "The selected CZ version includes a pilot light and ball bearings, without a timer.": "Seçilen CZ versiyonu pilot ışığı ve bilyalı rulman içerir; zamanlayıcı içermez.",
+    "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer.": "Seçilen CRZ versiyonu pilot ışığı, bilyalı rulman ve 1–30 dakika zamanlayıcı içerir.",
+    "This SILVER model has a silver front cover.": "Bu SILVER modelinde gümüş ön kapak bulunur."
+  },
+  "sourceConflicts": [
+    {
+      "seriesId": "DECOR",
+      "narrative": "IP44",
+      "modelTables": "IPX4",
+      "used": "IPX4"
+    },
+    {
+      "model": "EDM-100",
+      "field": "performanceCurve",
+      "issue": "existing-plot-contains-grid-lines",
+      "sourcePage": 4,
+      "action": "preserved-with-review-note"
+    },
+    {
+      "model": "EDM-200",
+      "field": "performanceCurve",
+      "issue": "existing-airflow-axis-scale-mismatch",
+      "sourcePage": 7,
+      "action": "preserved-with-review-note"
+    }
+  ],
+  "policy": {
+    "noCurrentInference": true,
+    "noLowerTemperatureInference": true,
+    "noOptionalEDMFeaturesAssigned": true,
+    "noNewCurvesOrSelectionEligibilityChanges": true
+  },
+  "preservation": {
+    "baseCommit": "6d5a7ae76e33dae2653b54eff38373d363601c5b",
+    "protectedModelsSha256": "b1df71006b0836f379c77fab5a62c2bb46032ae54920e59e1e6c445b5399e3da",
+    "modelChanges": [
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.4
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Exhaust Guide Vanes"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Egzoz Yönlendirme Kanatları"
+          ]
+        }
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "EDM-80 N is a compact plastic axial extract fan for a 100 mm circular duct.",
+            "Its exhaust-direction guide vanes are standard; timers belong to NT/NTZ/LR variants and ball bearings to Z variants."
+          ],
+          "motor": [
+            "Standard 230 V, 50 Hz single-phase motors have class B insulation, overload protection, IP44 and Class II electrical protection.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation in bathrooms, toilets and other small spaces."
+          ]
+        }
+      },
+      {
+        "id": "SP|EDM-80 N",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "edm-0.pdf",
+          "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+          "tablePage": 2,
+          "narrativePage": 1,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.48
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "technical",
+          "curveSourceReview"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "status": "requires-engineering-review",
+          "source": "edm-0.pdf",
+          "page": 4,
+          "issue": "grid-lines-instead-of-fan-curve",
+          "action": "existing-geometry-preserved-with-visible-bilingual-review-note"
+        }
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II"
+          ]
+        }
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "EDM-100 is a plastic axial extract fan for 100 mm circular ducts.",
+            "Shutters, timers, neon indicators, sensors and window kits depend on the selected suffix; this unqualified record does not specify these options.",
+            "H versions use IP40; 12 V versions use IP57/Class III, and Z versions have long-life bearings.",
+            "The existing performance curve does not match this catalogue; verify it before using the fan for selection."
+          ],
+          "motor": [
+            "Standard 230 V, 50 Hz single-phase motors have class B insulation, overload protection, IP44 and Class II electrical protection.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation in bathrooms, toilets and other small spaces."
+          ]
+        }
+      },
+      {
+        "id": "SP|EDM-100",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "edm-0.pdf",
+          "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+          "tablePage": 4,
+          "narrativePage": 3,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.9
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP44"
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "technical",
+          "curveSourceReview"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "status": "requires-engineering-review",
+          "source": "edm-0.pdf",
+          "page": 7,
+          "issue": "airflow-axis-scale-mismatch",
+          "action": "existing-geometry-preserved-with-visible-bilingual-review-note"
+        }
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Neon Indicator"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Neon Gösterge"
+          ]
+        }
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "EDM-200 is a plastic axial extract fan for 120 mm circular ducts, with a neon operating indicator.",
+            "Automatic shutters belong to C variants; timer, humidity and bearing options depend on the suffix.",
+            "Humidity-control H versions are IP40 rather than the standard IP44.",
+            "The existing performance curve does not match this catalogue; verify it before using the fan for selection."
+          ],
+          "motor": [
+            "Standard 230 V, 50 Hz single-phase motors have class B insulation, overload protection, IP44 and Class II electrical protection.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation in bathrooms, toilets and other small spaces."
+          ]
+        }
+      },
+      {
+        "id": "SP|EDM-200",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "edm-0.pdf",
+          "sha256": "32612e469eaa3ef607117bae2a0def0d5e9aa19168e83f28fc96210a7a6c27a8",
+          "tablePage": 7,
+          "narrativePage": 6,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.44
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "technical",
+          "ipSourceConflict"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Neon Indicator"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Neon Gösterge"
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial bathroom extract fans have a slim front cover and neon operating indicator.",
+            "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+            "Timer, humidity and PIR functions belong to their specified variants; ball bearings belong to Z versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+            "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Bathroom and toilet extract ventilation using the selected model's duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-100",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "decor-0.pdf",
+          "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+          "tablePage": 2,
+          "narrativePage": 1,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.8
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "technical",
+          "ipSourceConflict"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Neon Indicator"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Neon Gösterge"
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial bathroom extract fans have a slim front cover and neon operating indicator.",
+            "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+            "Timer, humidity and PIR functions belong to their specified variants; ball bearings belong to Z versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+            "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Bathroom and toilet extract ventilation using the selected model's duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-200",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "decor-0.pdf",
+          "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+          "tablePage": 5,
+          "narrativePage": 4,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1.44
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-1_5m-free-field"
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.5
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "technical",
+          "ipSourceConflict"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Neon Indicator"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Neon Gösterge"
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial bathroom extract fans have a slim front cover and neon operating indicator.",
+            "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+            "Timer, humidity and PIR functions belong to their specified variants; ball bearings belong to Z versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+            "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Bathroom and toilet extract ventilation using the selected model's duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "performance",
+          "maxAirflow"
+        ],
+        "previousPresent": true,
+        "previous": 250,
+        "value": 280
+      },
+      {
+        "id": "SP|DECOR-300",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "decor-0.pdf",
+          "sha256": "9028394ddf16b03ea7e32badbf9a4d71c8e855e16d7f68d6d0befa1ef7cc68ee",
+          "tablePage": 7,
+          "narrativePage": 6,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 0.57
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP45"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": null
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 40
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "features"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "en": "Pilot lamp, backdraft damper",
+          "tr": "Pilot lamba, geri tepme ventili"
+        },
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "description"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "The selected CZ version includes a pilot light and ball bearings, without a timer."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|156",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "silent-4-69aeb6f4ad3c8.pdf",
+          "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+          "tablePage": 2,
+          "narrativePage": 1,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 0.57
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP45"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": null
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 40
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "features"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "en": "Pilot lamp, backdraft damper, timer",
+          "tr": "Pilot lamba, geri tepme ventili, timer"
+        },
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "description"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|157",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "silent-4-69aeb6f4ad3c8.pdf",
+          "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+          "tablePage": 2,
+          "narrativePage": 1,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 0.57
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP45"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": null
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 40
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "features"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "en": "Chrome finish, backdraft damper",
+          "tr": "Krom renk, geri tepme ventili"
+        },
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor",
+            "Silver Front Cover"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor",
+            "Gümüş Ön Kapak"
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "description"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "The selected CZ version includes a pilot light and ball bearings, without a timer.",
+            "This SILVER model has a silver front cover."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|158",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "silent-4-69aeb6f4ad3c8.pdf",
+          "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+          "tablePage": 2,
+          "narrativePage": 1,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 0.57
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP45"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": null
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 40
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "features"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "en": "Chrome finish, backdraft damper, timer",
+          "tr": "Krom renk, geri tepme ventili, timer"
+        },
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor",
+            "Silver Front Cover"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor",
+            "Gümüş Ön Kapak"
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "description"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer.",
+            "This SILVER model has a silver front cover."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|159",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "silent-4-69aeb6f4ad3c8.pdf",
+          "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+          "tablePage": 2,
+          "narrativePage": 1,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 0.77
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP45"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": null
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 40
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "features"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "en": "Pilot lamp, backdraft damper",
+          "tr": "Pilot lamba, geri tepme ventili"
+        },
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "description"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "The selected CZ version includes a pilot light and ball bearings, without a timer."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|160",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "silent-4-69aeb6f4ad3c8.pdf",
+          "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+          "tablePage": 7,
+          "narrativePage": 6,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 0.77
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP45"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": null
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 40
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "features"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "en": "Pilot lamp, backdraft damper, timer",
+          "tr": "Pilot lamba, geri tepme ventili, timer"
+        },
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "description"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|161",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "silent-4-69aeb6f4ad3c8.pdf",
+          "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+          "tablePage": 7,
+          "narrativePage": 6,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 1700,
+        "value": 2200
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.25
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP45"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": null
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 40
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "features"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "en": "Pilot lamp, backdraft damper",
+          "tr": "Pilot lamba, geri tepme ventili"
+        },
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "description"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "The selected CZ version includes a pilot light and ball bearings, without a timer."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|162",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "silent-4-69aeb6f4ad3c8.pdf",
+          "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+          "tablePage": 9,
+          "narrativePage": 8,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "motor",
+          "speed"
+        ],
+        "previousPresent": true,
+        "previous": 1700,
+        "value": 2200
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 1.25
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "IP45"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "B"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": null
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 40
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "features"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "en": "Pilot lamp, backdraft damper, timer",
+          "tr": "Pilot lamba, geri tepme ventili, timer"
+        },
+        "value": {
+          "en": [
+            "Overload Protection",
+            "Class II",
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "description"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "The selected CRZ version includes a pilot light, ball bearings and a 1–30 minute timer."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "SP-WORKBOOK-2026-2|SILENT|163",
+        "path": [
+          "verification",
+          "bathCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/bath-catalogue-details.json",
+          "source": "silent-4-69aeb6f4ad3c8.pdf",
+          "sha256": "6fbd2da01dca8478181b41613d407b03f1c1d15f87c15335017cf2efa6017d4e",
+          "tablePage": 9,
+          "narrativePage": 8,
+          "verifiedOn": "2026-10-23"
+        }
+      }
+    ],
+    "seriesChanges": [
+      {
+        "id": "SILENT",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Sessiz Banyo ve WC Fanları",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Plastic axial extract fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration transmission to the surrounding structure.",
+            "An automatic backdraught shutter limits reverse airflow and heat loss when stopped.",
+            "CZ and CRZ versions have a pilot light and ball bearings; CRZ also has a 1–30 minute timer.",
+            "SILVER identifies a silver front cover. ECOWATT, 12 V and SILENT-300 PLUS use separate technical data."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation through the selected model's circular duct connection."
+          ]
+        }
+      },
+      {
+        "id": "DECOR",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Banyo ve WC Fanları",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Plastic axial bathroom extract fans have a slim front cover and neon operating indicator.",
+            "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+            "Timer, humidity and PIR functions belong to their specified variants; ball bearings belong to Z versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+            "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Bathroom and toilet extract ventilation using the selected model's duct size."
+          ]
+        }
+      },
+      {
+        "id": "EDM",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Mini Aksiyel Fanlar",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Compact plastic axial extract fans for small-space ventilation.",
+            "EDM-80 N has exhaust-direction guide vanes; EDM-100 uses a 100 mm duct and EDM-200 a 120 mm duct.",
+            "Timers, shutters, humidity controls and window kits depend on the model suffix; long-life bearings belong to Z versions.",
+            "EDM-100 S has no neon indicator. H versions are IP40; the separate 12 V EDM-100 versions are IP57/Class III."
+          ],
+          "motor": [
+            "Standard 230 V, 50 Hz single-phase motors have class B insulation, overload protection, IP44 and Class II electrical protection.",
+            "The documented maximum air temperature is 40 °C; no lower limit is stated."
+          ],
+          "applications": [
+            "Local exhaust ventilation in bathrooms, toilets and other small spaces."
+          ]
+        }
+      }
+    ]
+  }
+}
