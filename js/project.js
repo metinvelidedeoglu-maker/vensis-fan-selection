@@ -7,7 +7,7 @@
   const byId=id=>document.getElementById(id);
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
   const number=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
-  const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(number(value));
+  const fmt=(value,digits=0)=>new Intl.NumberFormat((window.VensisProductLanguage?.language?.()||window.VensisI18n?.getLanguage?.()||'en')==='tr'?'tr-TR':'en-GB',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(number(value));
   const money=(value,showZero=false)=>{const n=number(value);return n>0||showZero?`€${fmt(n,2)}`:'-'};
   const point=value=>`${fmt(value?.q)} m³/h @ ${fmt(value?.p)} Pa`;
   const clampDiscount=value=>Math.min(100,Math.max(0,number(value)));
@@ -134,7 +134,7 @@
     const netUnit=netUnitPrice(item);
     const lineTotal=netUnit*qty;
     const image=`<i class="product-image-slot"${item.image?'':` aria-hidden="true"`}>${item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(presentation.altModel||'Fan')}" onerror="this.remove()">`:''}</i>`;
-    const safety=String(item.safetyWarning||'').trim();
+    const safety=window.VensisProductLanguage?.text(item.safetyWarning||'',window.VensisI18n?.getLanguage?.()||'en')||String(item.safetyWarning||'').trim();
     const electrical=formats.itemType(item)==='electrical';
     const power=electrical?escapeHtml(item.power||'-'):(number(item.motorPower)>0?`${fmt(item.motorPower,2)} kW`:'-');
     const speedOrIp=electrical?escapeHtml(item.ip||'-'):(number(item.speed)>0?`${fmt(item.speed)} rpm`:'-');
@@ -255,5 +255,6 @@
   });
   window.VensisQuotation={convert:convertToQuotation,key:QUOTATION_KEY};
   window.VensisProject={projectId:PROJECT_ID,render,readItems,writeItems,readMeta,writeMeta,openProductEditor,moveItem,flushAllNotes};
+  window.addEventListener('vensis-language-changed',()=>{flushAllNotes();render()});
   loadMeta();render();
 })();

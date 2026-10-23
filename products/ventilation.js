@@ -55,7 +55,7 @@
     const code=text(value.seriesCode||p?.series?.code||seriesCode(value.series||value.model));
     let label=text(value.productDescription||value.series||p?.series?.title);
     if(code&&label.toLowerCase().startsWith(code.toLowerCase())&&/^[\s\-–—:|\/]/.test(label.slice(code.length)))label=label.slice(code.length).replace(/^\s*[-–—:|\/]?\s*/,'').trim()||label;
-    return {altModel:text(value.altModel||value.model||p?.model),description:label,brand:text(value.brand||value.manufacturer||p?.series?.manufacturer)};
+    return {altModel:window.VensisProductLanguage?.modelName(value.altModel||value.model||p?.model)||text(value.altModel||value.model||p?.model),description:window.VensisProductLanguage?.text(label)||label,brand:text(value.brand||value.manufacturer||p?.series?.manufacturer)};
   }
   function dimensions(product={},model={}){
     const stored=model.dimensions||product.dimensions;

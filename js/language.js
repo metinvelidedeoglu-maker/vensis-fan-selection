@@ -95,7 +95,6 @@
     'Enter project name':'Proje adını girin',
     'Customer / Reference':'Müşteri / Referans',
     'Enter customer or reference':'Müşteri veya referans girin',
-    'Contact Person / İlgili':'İlgili Kişi',
     'Contact Person':'İlgili Kişi',
     'Enter contact person':'İlgili kişiyi girin',
     'Select an existing customer or enter a new company.':'Mevcut müşteriyi seçin veya yeni firma girin.',
@@ -602,6 +601,75 @@
     'View customers →':'Müşterileri gör →'
   });
 
+  Object.assign(translations,{
+    "Search ventilation catalogue": "Havalandırma kataloğunda ara",
+    "Brand, series or model code (e.g. CRS 50-2T-15)": "Marka, seri veya model kodu (ör. CRS 50-2T-15)",
+    "Search ventilation catalogue by brand, series or model": "Havalandırma kataloğunda marka, seri veya model ara",
+    "Project Editor": "Proje Editörü",
+    "Edit project information and commercial settings here.": "Proje bilgilerini ve ticari ayarları buradan düzenleyin.",
+    "Changes are saved automatically.": "Değişiklikler otomatik kaydedilir.",
+    "Save Project": "Projeyi Kaydet",
+    "+ Add Accessory": "+ Aksesuar Ekle",
+    "Accessory": "Aksesuar",
+    "Accessories": "Aksesuarlar",
+    "Quotation Editor": "Teklif Editörü",
+    "Edit quotation information, product prices and commercial terms.": "Teklif bilgilerini, ürün fiyatlarını ve ticari şartları düzenleyin.",
+    "Quotation and Project Information": "Teklif ve Proje Bilgileri",
+    "Quotation No": "Teklif No",
+    "Quotation Date": "Teklif Tarihi",
+    "Quotation Format": "Teklif Formatı",
+    "Automatic": "Otomatik",
+    "Mixed": "Karma",
+    "Quotation Items": "Teklif Kalemleri",
+    "Discount %": "İskonto %",
+    "Product Note": "Ürün Notu",
+    "Scope": "Kapsam",
+    "Terms": "Şartlar",
+    "Product and project information is also transferred to the project when saved.": "Ürün ve proje bilgileri kaydedildiğinde projeye de aktarılır.",
+    "Save Quotation": "Teklifi Kaydet",
+    "Convert to Order": "Siparişe Dönüştür",
+    "Quotation Note": "Teklif Notu",
+    "Quotation Scope": "Teklif Kapsamı",
+    "Excluded Works": "Teklif Harici İşler",
+    "Delivery and Control": "Teslimat ve Kontrol",
+    "Project Suitability Note": "Proje Uygunluğu Notu",
+    "Price and Currency": "Fiyat ve Kur",
+    "Payment Terms": "Ödeme Şartları",
+    "Delivery Terms": "Teslim Şartları",
+    "Standard Conditions": "Standart Koşullar",
+    "Acceptance Note": "Kabul Notu",
+    "Prepared By Title": "Hazırlayan Başlığı",
+    "Prepared By Signature Line": "Hazırlayan İmza Satırı",
+    "Customer Approval Title": "Müşteri Onay Başlığı",
+    "Customer Signature Line": "Müşteri İmza Satırı",
+    "One item per line": "Her satıra bir madde",
+    "QUOTATION SCOPE": "TEKLİF KAPSAMI",
+    "Scope & Exclusions": "Kapsam ve hariç işler",
+    "COMMERCIAL TERMS": "TİCARİ ŞARTLAR",
+    "General Sales and Approval Conditions": "Genel satış ve onay koşulları",
+    "Quotation No.:": "Teklif No:",
+    "Project suitability:": "Proje uygunluğu:",
+    "Quotation and project saved.": "Teklif ve proje kaydedildi.",
+    "Quotation saved.": "Teklif kaydedildi.",
+    "There are unsaved changes.": "Kaydedilmemiş değişiklikler var.",
+    "Quotation format updated.": "Teklif formatı ve ilgili metinler güncellendi.",
+    "Discount saved.": "İskonto kaydedildi.",
+    "Project status saved.": "Proje durumu kaydedildi.",
+    "Voltage": "Voltaj / Voltage",
+    "Fan Products": "Fan Ürünleri",
+    "Electrical Products": "Elektrik Ürünleri",
+    "Validity": "Opsiyon",
+    "Payment": "Ödeme",
+    "Exchange Rate": "Kur",
+    "Delivery Time": "Teslim Süresi",
+    "Delivery Place": "Teslim Yeri",
+    "VAT": "KDV",
+    "Commissioning": "Devreye Alma",
+    "Commercial Summary": "Ticari Özet",
+    "Payment Method": "Ödeme Şekli",
+    "Project saved.": "Proje kaydedildi."
+});
+
   const reverse=Object.create(null);
   Object.keys(translations).forEach(key=>{if(!reverse[translations[key]])reverse[translations[key]]=key});
 
@@ -627,7 +695,7 @@
   }
 
   function translateExact(value,lang=currentLanguage){
-    const source=canonical(value);
+    const source=canonical(value==='Contact Person / İlgili'?'Contact Person':value);
     if(lang==='tr'&&Object.prototype.hasOwnProperty.call(translations,source))return translations[source];
     return source;
   }
@@ -727,6 +795,7 @@
 
   function translateTextNode(node){
     if(!node||node.nodeType!==Node.TEXT_NODE||ignoredParents.has(node.parentElement?.tagName))return;
+    if(node.parentElement?.closest('[translate="no"]'))return;
     const clean=String(node.nodeValue||'').trim();
     if(!clean)return;
     const next=translatePattern(clean,currentLanguage);

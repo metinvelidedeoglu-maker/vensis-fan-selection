@@ -9,6 +9,13 @@ on:
       - 'js/ventilation-routes.js'
       - 'js/catalog.js'
       - 'js/ui/pdf-export.js'
+      - 'js/language.js'
+      - 'js/catalog-language-cleanup.js'
+      - 'js/quotation*.js'
+      - 'js/project*.js'
+      - 'project*.html'
+      - 'quotation.html'
+      - 'tests/english*'
       - 'tests/ventilation*'
       - 'tests/unified-ventilation.test.cjs'
       - '.github/workflows/unified-ventilation.yml'
@@ -17,14 +24,14 @@ permissions:
 jobs:
   unified-catalog:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
-        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs tests/sp-td-th-details.test.cjs tests/sp-design-details.test.cjs tests/sp-duct-details.test.cjs tests/sp-bath-details.test.cjs tests/sp-bath-curves.test.cjs
+        run: node --test tests/english-output.test.cjs tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs tests/sp-td-th-details.test.cjs tests/sp-design-details.test.cjs tests/sp-duct-details.test.cjs tests/sp-bath-details.test.cjs tests/sp-bath-curves.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs
@@ -92,6 +99,10 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: node tests/sp-bath-curves-browser.mjs
+      - name: English catalogue, project and quotation outputs; preserve custom terms
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/english-output-browser.mjs
       - name: Complete Soler & Palau drawing and print verification
         env:
           CHROME_PATH: /usr/bin/google-chrome
@@ -106,6 +117,12 @@ jobs:
           bad=[(p.name,len(PdfReader(p).pages)) for p in files if len(PdfReader(p).pages)!=1]
           assert not bad, bad
           print('PASS: all 163 Soler & Palau model PDFs have exactly one page.')
+          english=list(Path('test-results/english-output').glob('*.pdf'))
+          assert len(english)==7, len(english)
+          for file in english:
+              expected=5 if file.name=='project-output-en.pdf' else 3 if file.name.startswith('quotation-') else 1
+              assert len(PdfReader(file).pages)==expected, (file.name,len(PdfReader(file).pages),expected)
+          print('PASS: all 7 English preview, project and quotation PDFs have the expected pagination.')
           crvb=list(Path('test-results/sp-roof-curves').glob('*.pdf'))
           assert len(crvb)==18, len(crvb)
           assert all(len(PdfReader(p).pages)==1 for p in crvb), 'CRVB/CRVT PDF pagination changed'
@@ -162,6 +179,7 @@ jobs:
         with:
           name: ventilation-previews
           path: |
+            test-results/english-output/
             test-results/ventilation/
             test-results/catalog-curve-status/
             test-results/sp-dimensions/

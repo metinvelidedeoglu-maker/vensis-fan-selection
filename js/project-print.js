@@ -7,7 +7,7 @@
   const root=document.getElementById('projectPrintRoot');
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
   const num=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
-  const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
+  const fmt=(value,digits=0)=>new Intl.NumberFormat((OUTPUT_LANGUAGE)==='tr'?'tr-TR':'en-GB',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(num(value));
   const point=value=>value&&num(value.q)>=0&&num(value.p)>=0?`${fmt(value.q)} m³/h @ ${fmt(value.p)} Pa`:'-';
 
   function readJson(key,fallback){
@@ -32,7 +32,7 @@
     try{return localStorage.getItem('vensis_language_v1')==='tr'?'tr':'en'}catch{return 'en'}
   }
 
-  const OUTPUT_LANGUAGE=outputLanguage();
+  let OUTPUT_LANGUAGE=outputLanguage();
 
   function modelFor(item){
     if(item.mode==='custom')return null;
@@ -117,7 +117,7 @@
   }
   function localizedSeriesTitle(item,model){
     const raw=String(item?.seriesTitle||item?.series||model?.seriesTitle||'').trim();
-    return window.VensisI18n?.t?.(raw,OUTPUT_LANGUAGE)||raw;
+    return window.VensisProductLanguage?.text(raw,OUTPUT_LANGUAGE)||window.VensisI18n?.t?.(raw,OUTPUT_LANGUAGE)||raw;
   }
 
   function overviewRow(item){
@@ -125,9 +125,9 @@
     const motor=resolvedMotor(item,model);
     const image=item.image||catalog.product?.(model?.id)?.media?.image||'';
     const description=String(item.description||'').trim();
-    const safety=String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
+    const safety=window.VensisProductLanguage?.text(item.safetyWarning||model?.technical?.safetyWarning||'',OUTPUT_LANGUAGE)||String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
     return `<tr>
-      <td><div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(localizedModelName(item)||'Fan')}" onerror="this.remove()">`:''}</i><div><strong>${esc(localizedModelName(item)||'-')}</strong><span>${esc(localizedSeriesTitle(item,model))}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div></td>
+      <td><div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(localizedModelName(item)||'Fan')}" onerror="this.remove()">`:''}</i><div><strong>${esc(localizedModelName(item)||'-')}</strong><span>${esc(localizedSeriesTitle(item,model))}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description" translate="no">${esc(description)}</em>`:''}</div></div></td>
       <td class="technical-point">${esc(sourceText(item))}</td>
       <td class="technical-point">${esc(selectedText(item))}</td>
       <td>${supplyText(item,model)}</td>
@@ -249,7 +249,7 @@
     if(!description)return;
     const note=doc.createElement('div');
     note.style.cssText='margin-top:3mm;padding:3mm 4mm;border-left:3px solid #087f4f;background:#f5faf7;border-radius:0 6px 6px 0;color:#29484d;font-size:9.5px;line-height:1.4';
-    note.innerHTML=`<b style="display:block;color:#087f4f;margin-bottom:2px;text-transform:uppercase;font-size:8.5px">Project Description</b>${esc(description).replace(/\n/g,'<br>')}`;
+    note.innerHTML=`<b style="display:block;color:#087f4f;margin-bottom:2px;text-transform:uppercase;font-size:8.5px">Project Description</b><span translate="no">${esc(description).replace(/\n/g,'<br>')}</span>`;
     const hero=sheet.querySelector('.top-grid,.hero');
     if(hero)hero.insertAdjacentElement('afterend',note);
   }
@@ -328,7 +328,7 @@
     })));
   }
 
-  function render(){
+  function render(options={}){
     const data=snapshot();
     if(!Array.isArray(data.items)||!data.items.length){
       root.innerHTML='<section class="empty"><h2>No project products found</h2><p>Return to the project and add products before printing.</p></section>';
@@ -336,11 +336,21 @@
     }
     root.innerHTML=overview(data)+data.items.map((item,index)=>item.mode==='custom'?customDatasheet(item,index,data.items.length):cleanDatasheet(item,index,data.items.length)).join('');
     document.title=`${data.project?.name||'Vensis Project'} - Technical Project.pdf`;
-    if(new URLSearchParams(location.search).get('print')==='1'){
+    if(options.automaticPrint!==false&&new URLSearchParams(location.search).get('print')==='1'){
       waitForImages().then(()=>setTimeout(()=>window.print(),250));
     }
   }
 
   document.getElementById('printProjectDocument')?.addEventListener('click',()=>window.print());
+  window.addEventListener('vensis-language-changed',event=>{
+    OUTPUT_LANGUAGE=event.detail.language;
+    const data=snapshot();data.outputLanguage=OUTPUT_LANGUAGE;
+    localStorage.setItem(PRINT_KEY,JSON.stringify(data));
+    const url=new URL(location.href);url.searchParams.set('lang',OUTPUT_LANGUAGE);
+    history.replaceState(history.state,'',url);
+    render({automaticPrint:false});
+    window.dispatchEvent(new CustomEvent('vensis-project-print-rendered'));
+    window.VensisI18n?.apply?.(root);
+  });
   render();
 })();

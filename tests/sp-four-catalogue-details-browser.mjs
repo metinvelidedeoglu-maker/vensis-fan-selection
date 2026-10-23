@@ -32,7 +32,7 @@ try{
     assert.equal(await card.locator('.model-field-missing').count(),0,row.model);
     assert.equal(await card.locator('.model-field').filter({hasText:/^Max\. Airflow/}).locator('b').innerText(),row.sourceMaxAirflow.toLocaleString('en-US')+' m³/h',row.model+' source maximum');
     assert.equal(await card.locator('.model-field').filter({hasText:/^Devir/}).locator('b').innerText(),row.motor.speed.toLocaleString('en-US')+' rpm',row.model);
-    assert.equal(await card.locator('.model-field').filter({hasText:/^Faz/}).locator('b').innerText(),row.technical.phase,row.model);
+    assert.equal(await card.locator('.model-field').filter({hasText:/^Faz/}).locator('b').innerText(),({'Single-phase':'Monofaze','Three-phase':'Trifaze'}[row.technical.phase]||row.technical.phase),row.model);
     assert.equal(await card.locator('.model-feature-tag').filter({hasText:/^ATEX$/}).count(),row.technical.atex?1:0,row.model);
     assert.equal(await card.locator('[data-selection-status]').getAttribute('data-selection-status'),row.seriesId==='HV-STYLVENT'?'missing-curve':'ready',row.model);
     for(const width of [390,430]){

@@ -60,6 +60,81 @@
     }
   };
 
+  const EN_BASE={
+    summary:{
+      payment:'Cash in advance with order',
+      exchangeRate:'The Türkiye Vakıflar Bankası Euro selling rate on the invoice date shall apply.',
+      validity:'7 days',
+      deliveryTime:'',
+      deliveryPlace:'',
+      vat:'VAT is not included in our prices.',
+      commissioning:'Commissioning service is not included in the quotation price.',
+      quotationNote:'Our quotation has been prepared based on the survey and technical information provided to us. The customer is responsible for verifying that the offered products are suitable for the project and application conditions.'
+    },
+    scope:{
+      included:'Our quotation covers the sale of the equipment and devices whose models and quantities are clearly stated in the product table on the first page.\n\nProducts, accessories, services and site works not expressly stated in the quotation are not included in the scope.',
+      exclusions:[
+        'On-site installation labour for devices and equipment.',
+        'Main electrical supply, power and MCC panels, and all cabling works.',
+        'Supply of nuts, bolts, anchors, brackets and fixing materials required for fan installation.',
+        'Freight, crane, unloading and on-site handling services unless expressly stated in the quotation.',
+        'Accessories, automation components and devices not expressly listed in the quotation table.',
+        'Commissioning, site testing, balancing checks and automation connections.'
+      ],
+      deliveryControl:[
+        'Delivery periods are evaluated in working days; Saturdays, Sundays and public holidays are excluded.',
+        'Products must be checked for packaging condition, damage and missing quantities upon receipt.',
+        'Damage arising from storage, handling or installation after delivery is the customer’s responsibility.'
+      ],
+      suitability:'Product selection has been prepared according to the information and operating points provided to us. Final system suitability, layout, duct resistance, electrical infrastructure and installation conditions must be verified by the customer or project designer.'
+    },
+    terms:{
+      priceCurrency:[
+        'Prices are in Euro and exclude VAT.',
+        'Invoicing shall be made using the Euro selling rate specified in the quotation on the invoice date.',
+        'The quotation is valid for the joint order of the stated products and quantities.',
+        'Changes in product quantities, technical specifications or delivery conditions may require a price revision.'
+      ],
+      payment:[
+        'The order becomes valid upon receipt of the advance payment and written order confirmation.',
+        'Production or procurement will not commence before the advance payment is received.',
+        'In the event of delayed payments, exchange-rate differences and any resulting financing costs will be evaluated separately.'
+      ],
+      delivery:[
+        'The delivery period starts after the order and payment conditions have been completed.',
+        'Prices and delivery periods will be reconfirmed after the quotation validity period expires.',
+        'Delays arising from force majeure, supply-chain disruptions or decisions of public authorities will be evaluated separately.'
+      ],
+      standard:[
+        'This quotation is subject to Vensis standard sales, delivery and technical use conditions.',
+        'Products must be used within the operating, installation and maintenance limits stated in the catalogues.',
+        "Products are covered under the manufacturer's applicable warranty terms for the relevant product. Warranty scope and duration are governed by the manufacturer's terms.",
+        'The manufacturer reserves the right to make product improvements required for technical reasons while maintaining equivalent performance.'
+      ],
+      acceptance:'Signing this quotation or converting it into a written order constitutes acceptance of the product table, commercial summary, scope, exclusions and the conditions on this page as a whole.',
+      preparedTitle:'Prepared By',
+      preparedLine:'Name / Surname   Signature   Date',
+      customerTitle:'Customer Approval',
+      customerLine:'Company / Authorized Person   Stamp / Signature   Date'
+    }
+  };
+
+  function englishSettings(format){
+    const value=clone(EN_BASE);
+    if(format==='electrical'){
+      value.summary.quotationNote='Our quotation has been prepared based on the specified electrical products and the technical information provided to us. Zone classification, certification and site suitability must be verified by the customer.';
+      value.scope.included='Our quotation covers the sale of the equipment whose models, product codes and quantities are stated in the electrical products table on the first page.\n\nAccessories, installation and site services not expressly stated in the quotation are excluded.';
+      value.scope.exclusions=['On-site electrical installation, cabling and connection labour.','Cables, glands, blanking plugs and installation accessories unless separately stated in the quotation table.','Panel work, automation, programming and commissioning services.','Freight and on-site handling unless separately stated in the quotation.'];
+      value.scope.suitability='Final product suitability must be verified by the customer or project designer with respect to Zone classification, gas/dust group, temperature class, IP protection, cable entries, voltage and certification requirements.';
+    }else if(format==='mixed'){
+      value.summary.quotationNote='Our quotation has been prepared based on the survey and technical information provided for the fan and electrical products. Project and site suitability of each product group must be verified by the customer.';
+      value.scope.included='Our quotation covers the sale of the equipment whose models and quantities are stated in the Fan Products and Electrical Products tables on the first page.\n\nProducts, accessories and services not expressly stated in the quotation are excluded.';
+      value.scope.exclusions=['On-site installation labour for devices and equipment.','Fan installation hardware, duct connections and vibration isolators unless separately stated.','Electrical cabling, glands, connection components, panels and automation works unless separately stated.','Freight, crane, unloading and on-site handling unless separately stated.','Commissioning, site testing and automation connections.'];
+      value.scope.suitability='Fan operating points and the Zone, voltage, IP and certification suitability of electrical products must be jointly verified by the customer or project designer.';
+    }
+    return value;
+  }
+
   const clone=value=>JSON.parse(JSON.stringify(value));
   function merge(base,custom){
     if(Array.isArray(base))return Array.isArray(custom)?custom.slice():base.slice();
@@ -70,11 +145,8 @@
     }
     return custom===undefined||custom===null?base:custom;
   }
-  function read(){
-    try{return merge(DEFAULTS,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch{return clone(DEFAULTS)}
-  }
-  function forFormat(format){
-    const value=read();
+  function turkishSettings(format){
+    const value=clone(DEFAULTS);
     if(format==='electrical'){
       value.summary.quotationNote='Teklifimiz, belirtilen elektrik ürünleri ve tarafımıza iletilen teknik bilgilere göre hazırlanmıştır. Zone sınıfı, sertifika ve saha uygunluğu müşteri tarafından doğrulanmalıdır.';
       value.scope.included='Teklifimiz, birinci sayfadaki elektrik ürünleri tablosunda model, ürün kodu ve adetleri belirtilen ekipmanların satışını kapsamaktadır.\n\nTeklifte açıkça belirtilmeyen aksesuar, montaj ve saha hizmetleri kapsam dışındadır.';
@@ -88,9 +160,53 @@
     }
     return value;
   }
+  function language(){
+    const active=window.VensisI18n?.getLanguage?.()||window.VensisOutputLanguage;if(active==='tr'||active==='en')return active;
+    try{const saved=localStorage.getItem('vensis_language_v1');if(saved==='tr'||saved==='en')return saved}catch{}
+    return document.documentElement.lang||'en';
+  }
+  // Translate only exact built-in defaults. Custom values, including blanks,
+  // lists and free-form commercial terms, are never replaced by defaults.
+  const toEnglish=new Map(),toTurkish=new Map();
+  function pair(tr,en){
+    if(Array.isArray(tr)){tr.forEach((value,index)=>pair(value,en[index]));return}
+    if(tr&&typeof tr==='object'){Object.keys(tr).forEach(key=>pair(tr[key],en[key]));return}
+    if(typeof tr==='string'&&typeof en==='string'&&tr){toEnglish.set(tr,en);toTurkish.set(en,tr)}
+  }
+  ['fan','electrical','mixed'].forEach(format=>pair(turkishSettings(format),englishSettings(format)));
+  function localize(value,lang=language()){
+    if(Array.isArray(value))return value.map(item=>localize(item,lang));
+    if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([key,item])=>[key,localize(item,lang)]));
+    return typeof value==='string'?((lang==='tr'?toTurkish:toEnglish).get(value)??value):value;
+  }
+  function stored(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}}
+  function read(lang=language()){return localize(merge(DEFAULTS,stored()),lang)}
+  function defaultsFor(format,lang=language()){return lang==='tr'?turkishSettings(format):englishSettings(format)}
+  function applyFormat(value,from,to,lang=language()){
+    function replace(current,before,after){
+      if(after!==undefined&&JSON.stringify(current)===JSON.stringify(before))return clone(after);
+      if(current&&typeof current==='object'&&!Array.isArray(current)){
+        return Object.fromEntries(Object.entries(current).map(([key,item])=>[key,replace(item,before?.[key],after?.[key])]));
+      }
+      return current;
+    }
+    return replace(localize(value,lang),defaultsFor(from,lang),defaultsFor(to,lang));
+  }
+  function forFormat(format,lang=language()){
+    const overrides=stored();
+    // Start with format defaults, then restore custom reusable values.
+    function custom(base,value){
+      if(value===undefined||value===null)return undefined;
+      if(Array.isArray(base))return JSON.stringify(value)===JSON.stringify(localize(base,'tr'))||JSON.stringify(value)===JSON.stringify(localize(base,'en'))?undefined:value;
+      if(base&&typeof base==='object')return Object.fromEntries(Object.keys(base).map(key=>[key,custom(base[key],value[key])]));
+      return value===base||value===localize(base,'en')?undefined:value;
+    }
+    return localize(merge(turkishSettings(format),custom(DEFAULTS,overrides)),lang);
+  }
   function write(value){
-    const normalized=merge(DEFAULTS,value||{});
+    const normalized=localize(merge(DEFAULTS,value||{}));
     localStorage.setItem(KEY,JSON.stringify(normalized));
+    fillForm(normalized);
     window.dispatchEvent(new CustomEvent('vensis-quotation-settings-updated',{detail:normalized}));
     return normalized;
   }
@@ -211,7 +327,7 @@
     document.getElementById('saveQuotationSettings')?.addEventListener('click',()=>saveFromForm());
     document.getElementById('resetQuotationSettings')?.addEventListener('click',()=>{
       if(!confirm('Restore all quotation texts to the default values?'))return;
-      write(DEFAULTS);fillForm(read());setStatus('Default quotation settings restored.','saved');showTab('summary');
+      write(defaultsFor('fan'));fillForm(read());setStatus('Default quotation settings restored.','saved');showTab('summary');
     });
     panel.addEventListener('input',()=>setStatus('Unsaved changes.','dirty'));
   }
@@ -230,6 +346,10 @@
     }catch{}
   });
   window.addEventListener('storage',event=>{if(event.key===KEY)fillForm(read())});
-  window.VensisQuotationSettings={key:KEY,defaults:clone(DEFAULTS),read,forFormat,write,fillForm,collectForm,saveFromForm};
+  window.VensisQuotationSettings={key:KEY,defaults:clone(DEFAULTS),defaultsFor,applyFormat,localize,read,forFormat,write,fillForm,collectForm,saveFromForm};
   mount();
+  window.addEventListener('vensis-language-changed',()=>{
+    if(!document.getElementById('quotationSettingsPanel'))return;
+    const value=localize(collectForm());write(value);fillForm(value);
+  });
 })();
