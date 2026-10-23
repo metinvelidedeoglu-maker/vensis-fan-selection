@@ -78,7 +78,15 @@ sys.dont_write_bytecode=True
 spec=importlib.util.spec_from_file_location('duct',Path('scripts/import-sp-duct-details.py'));mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 d=json.loads(Path('data/ventilation-catalog.js').read_text().split('window.VensisVentilationData=',1)[1].strip().removesuffix(';'));a=json.loads(Path(mod.EVIDENCE).read_text())
 assert len(d['models'])==1022 and len(d['series'])==89
-assert mod.digest(mod.protected_models(d))==a['preservation']['protectedModelsSha256']
+# Check the immutable historical hash before the separately audited curve repair.
+prior=copy.deepcopy(d)
+for c in reversed(json.loads(Path('assets/products/soler-palau/bath-verified-curves.json').read_text())['preservation']['modelChanges']):
+ obj=next(m for m in prior['models'] if m['id']==c['id'])
+ for k in c['path'][:-1]:obj=obj[k]
+ assert obj.get(c['path'][-1])==c['value']
+ if c['previousPresent']:obj[c['path'][-1]]=c['previous']
+ else:del obj[c['path'][-1]]
+assert mod.digest(mod.protected_models(prior))==a['preservation']['protectedModelsSha256']
 before=copy.deepcopy(d);assert mod.apply(a,d)==([],[]) and d==before
 for c in reversed(a['preservation']['modelChanges']):
  obj=next(m for m in d['models'] if m['id']==c['id'])

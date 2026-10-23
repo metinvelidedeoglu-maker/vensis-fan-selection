@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
-        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs tests/sp-td-th-details.test.cjs tests/sp-design-details.test.cjs tests/sp-duct-details.test.cjs tests/sp-bath-details.test.cjs
+        run: node --test tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs tests/sp-td-th-details.test.cjs tests/sp-design-details.test.cjs tests/sp-duct-details.test.cjs tests/sp-bath-details.test.cjs tests/sp-bath-curves.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs
@@ -88,6 +88,10 @@ jobs:
         env:
           CHROME_PATH: /usr/bin/google-chrome
         run: node tests/sp-bath-details-browser.mjs
+      - name: Source-verified bath-fan curves, selection domains and bilingual print
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/sp-bath-curves-browser.mjs
       - name: Complete Soler & Palau drawing and print verification
         env:
           CHROME_PATH: /usr/bin/google-chrome
@@ -148,6 +152,10 @@ jobs:
           assert len(bath)==28, len(bath)
           assert all(len(PdfReader(p).pages)==1 for p in bath), 'Bath-fan PDF pagination changed'
           print('PASS: all 28 standard bath-fan bilingual model PDFs have exactly one page.')
+          bath_curves=list(Path('test-results/sp-bath-curves').glob('*.pdf'))
+          assert len(bath_curves)==20, len(bath_curves)
+          assert all(len(PdfReader(p).pages)==1 for p in bath_curves), 'Verified bath-curve PDF pagination changed'
+          print('PASS: all 20 verified bath-curve bilingual model PDFs have exactly one page.')
           PYCODE
       - uses: actions/upload-artifact@v4
         if: always()
@@ -168,4 +176,5 @@ jobs:
             test-results/sp-design-details/
             test-results/sp-duct-details/
             test-results/sp-bath-details/
+            test-results/sp-bath-curves/
           if-no-files-found: ignore

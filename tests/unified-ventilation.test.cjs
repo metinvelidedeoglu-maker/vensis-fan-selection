@@ -181,7 +181,7 @@ test('all 1022 card badges agree with real selection curves despite the 43 stale
       }
     });
   }
-  assert.equal(available,965);assert.equal(missing,57);assert.equal(staleVitlo,43);
+  assert.equal(available,973);assert.equal(missing,49);assert.equal(staleVitlo,43);
 });
 
 test('readiness needs a valid curve and still respects explicit catalogue-only exclusions',()=>{

@@ -30,7 +30,7 @@ try{
       const p=m.performance||{};return !p.points?.length&&!p.sourcePoints?.length&&!p.curves?.some(c=>c.sourcePoints?.length);
     })).map(s=>({id:s.id,count:C.modelsForSeries(s.id).length}));
   });
-  assert.equal(affected.length,9);
+  assert.equal(affected.length,8);
   let total=0;
   for(const series of affected){
     await page.goto(base+'/catalog.html?series='+encodeURIComponent(series.id));
@@ -54,7 +54,7 @@ try{
     total+=series.count;
     await page.setViewportSize({width:1440,height:1000});
   }
-  assert.equal(total,57);
+  assert.equal(total,49);
   for(const series of ['AXF','HCTB / HCTT','ILB / ILT']){
     await page.goto(base+'/catalog.html?series='+encodeURIComponent(series));
     await page.waitForSelector('.model-card .vensis-preview-classic');
@@ -63,5 +63,5 @@ try{
     assert.ok(await page.locator('[data-selection-status="ready"]').count()>0,series);
   }
   assert.deepEqual(errors,[]);
-  console.log('PASS: all 57 missing-curve badges across 9 series, TR/EN switching, 12 fields, mobile and ready-series regression.');
+  console.log('PASS: all 49 missing-curve badges across 8 series, TR/EN switching, 12 fields, mobile and ready-series regression.');
 }finally{await browser.close();}
