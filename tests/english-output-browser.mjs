@@ -32,6 +32,7 @@ try{
    const html=window.VensisDirectPreview.html({mode:'catalog',outputLanguage:'en',product:C.product(model.id),model});
    const doc=new DOMParser().parseFromString(html,'text/html');
    const bad=[...doc.querySelectorAll('.brand,h2,.feature-card li,.feature-tag,.technical-cell span,.technical-cell b,.feature-warning')].map(n=>n.textContent).filter(t=>/[çğıöşüÇĞİÖŞÜ]|\b(?:Monofaze|Trifaze)\b/.test(t));
+   bad.push(...[...doc.querySelectorAll('[aria-label]')].map(n=>n.getAttribute('aria-label')).filter(t=>/[çğıöşüÇĞİÖŞÜ]/.test(t)));
    if(bad.length)failures.push({id:model.id,bad});
   }
   return {total:C.models.length,failures};
@@ -53,7 +54,7 @@ try{
   await page.locator('.model-card:not([hidden]) .vensis-preview-classic').waitFor();await page.waitForFunction(()=>Boolean(window.VensisDatasheet?.__noCurrentPolicy));
   await language(page,'tr');await page.locator('.model-card:not([hidden]) [data-add-catalog-project]').click();
   await page.locator('#catalogProjectModal:not([hidden])').waitFor();await page.locator('input[name="catalogProjectChoice"][value="'+project+'"]').check();await page.locator('#catalogProjectConfirm').click();
-  await language(page,'en');await capture('catalog-en-'+i,page,'.detail-page');
+  await language(page,'en');assert.equal((await page.locator('.models-section .catalog-count').innerText()).trim(),'1 model');await capture('catalog-en-'+i,page,'.detail-page');
   const preview=await popup(()=>page.locator('.model-card:not([hidden]) .vensis-preview-classic').click());await capture('preview-en-'+i,preview,'body',true);await preview.close();
  }
  await page.goto('http://vensis.test/project.html?project='+encodeURIComponent(project));await page.waitForSelector('#projectContent tbody tr');

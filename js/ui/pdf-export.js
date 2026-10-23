@@ -28,6 +28,8 @@
   const unique=items=>[...new Set((items||[]).filter(Boolean).map(value=>String(value).trim()).filter(Boolean))];
   const TEXT={
     tr:{
+      productMissing:'Ürün bilgisi bulunamadı.',selectionMissing:'Fan seçim bilgisi bulunamadı.',previewBlocked:'Önizleme tarayıcı tarafından engellendi. select.vensis.com.tr için açılır pencereye izin verin.',previewFailed:'Teknik föy açılamadı',refreshPage:'Lütfen sayfayı yenileyip tekrar deneyin.',
+      curveAria:'Fan performans eğrisi',dimensionAria:'Ölçü referans şeması',previewLabel:'Teknik föy önizleme',
       emptyCurve:'Bu model için performans eğrisi verisi bulunmuyor.',
       requiredShort:'İstenen',programShort:'Program Seçimi',curveLegend:'Fan Performans Eğrisi',
       requiredPoint:'İstenen Nokta',programPoint:'Programın Seçtiği Nokta',
@@ -46,6 +48,8 @@
       dimensionReference:'Ölçü referansı',source:'Kaynak',catalogue:'Üretici Kataloğu'
     },
     en:{
+      productMissing:'Product information is not available.',selectionMissing:'Fan selection information is not available.',previewBlocked:'The browser blocked the preview. Allow pop-ups for select.vensis.com.tr.',previewFailed:'The datasheet could not be opened',refreshPage:'Refresh the page and try again.',
+      curveAria:'Fan performance curve',dimensionAria:'Dimension reference diagram',previewLabel:'Technical datasheet preview',
       emptyCurve:'Performance curve data is not available for this model.',
       requiredShort:'Required',programShort:'Program Selection',curveLegend:'Fan Performance Curve',
       requiredPoint:'Required Point',programPoint:'Program Selected Point',
@@ -287,7 +291,7 @@
     }
 
     const legend=`<g transform="translate(${L},${H-20})"><line x1="0" y1="0" x2="34" y2="0" stroke="#2368ad" stroke-width="4"/><circle cx="17" cy="0" r="4" fill="#2368ad"/><text x="43" y="4" font-size="11.5" fill="#334155">${esc(tx('curveLegend'))}</text>${required?`<circle cx="245" cy="0" r="5" fill="#d63b32"/><text x="257" y="4" font-size="11.5" fill="#334155">${esc(tx('requiredPoint'))}</text>`:''}${selected?`<circle cx="385" cy="0" r="5" fill="#168451"/><text x="397" y="4" font-size="11.5" fill="#334155">${esc(tx('programPoint'))}</text>`:''}</g>`;
-    return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Fan performans eğrisi"><rect width="${W}" height="${H}" fill="#fff"/>${grid.join('')}<line x1="${L}" y1="${T+plotH}" x2="${L+plotW}" y2="${T+plotH}" stroke="#354b52" stroke-width="1.7"/><line x1="${L}" y1="${T}" x2="${L}" y2="${T+plotH}" stroke="#354b52" stroke-width="1.7"/><path d="${path}" fill="none" stroke="#2368ad" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>${markers}${pointMarkup(required,'required')}${pointMarkup(selected,'selected')}<text x="${L+plotW/2}" y="${H-42}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033">${esc(tx('flowAxis'))}</text><text x="24" y="${T+plotH/2}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033" transform="rotate(-90 24 ${T+plotH/2})">${esc(tx('pressureAxis'))}</text>${legend}</svg>`;
+    return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(tx('curveAria'))}"><rect width="${W}" height="${H}" fill="#fff"/>${grid.join('')}<line x1="${L}" y1="${T+plotH}" x2="${L+plotW}" y2="${T+plotH}" stroke="#354b52" stroke-width="1.7"/><line x1="${L}" y1="${T}" x2="${L}" y2="${T+plotH}" stroke="#354b52" stroke-width="1.7"/><path d="${path}" fill="none" stroke="#2368ad" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>${markers}${pointMarkup(required,'required')}${pointMarkup(selected,'selected')}<text x="${L+plotW/2}" y="${H-42}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033">${esc(tx('flowAxis'))}</text><text x="24" y="${T+plotH/2}" text-anchor="middle" font-size="16" font-weight="700" fill="#173033" transform="rotate(-90 24 ${T+plotH/2})">${esc(tx('pressureAxis'))}</text>${legend}</svg>`;
   }
 
   function row(label,value,kind=''){
@@ -398,7 +402,7 @@
     }else{
       body=`<rect x="92" y="62" width="374" height="130" fill="none" stroke="#173033" stroke-width="2"/><circle cx="278" cy="127" r="46" fill="none" stroke="#678087"/>${line(92,218,466,218)}<text x="279" y="236" text-anchor="middle" font-size="12" font-weight="700">A / B / C</text>${line(494,62,494,192)}<text x="512" y="127" text-anchor="middle" font-size="12" font-weight="700" transform="rotate(-90 512 127)">D / H</text>`;
     }
-    return `<svg viewBox="0 0 600 350" role="img" aria-label="Ölçü referans şeması">${defs}<rect width="600" height="350" fill="#fff"/>${body}${labels}</svg>`;
+    return `<svg viewBox="0 0 600 350" role="img" aria-label="${esc(tx('dimensionAria'))}">${defs}<rect width="600" height="350" fill="#fff"/>${body}${labels}</svg>`;
   }
 
   function originalDrawingHtml(dim){
@@ -479,7 +483,7 @@ ${dimensionPanel}
 
   function openClassic(payload){
     const preview=window.open('about:blank','_blank');
-    if(!preview){alert('Önizleme tarayıcı tarafından engellendi. select.vensis.com.tr için açılır pencereye izin verin.');return null}
+    if(!preview){alert(tx('previewBlocked'));return null}
     try{
       preview.document.open();
       preview.document.write(classicHtml(payload));
@@ -488,7 +492,7 @@ ${dimensionPanel}
       return preview;
     }catch(error){
       console.error('Vensis classic preview error',error);
-      try{preview.document.open();preview.document.write('<!doctype html><meta charset="utf-8"><body style="font:16px Arial;padding:30px"><h2>Teknik föy açılamadı</h2><p>Lütfen sayfayı yenileyip tekrar deneyin.</p></body>');preview.document.close()}catch{}
+      try{preview.document.open();preview.document.write('<!doctype html><meta charset="utf-8"><body style="font:16px Arial;padding:30px"><h2>'+esc(tx('previewFailed'))+'</h2><p>'+esc(tx('refreshPage'))+'</p></body>');preview.document.close()}catch{}
       return null;
     }
   }
@@ -497,15 +501,15 @@ ${dimensionPanel}
     const id=oldButton.dataset.modelDatasheet;
     const button=document.createElement('button');
     button.dataset.modelId=id;button.type='button';button.className='model-datasheet-btn vensis-preview-classic';button.textContent='Önizleme';button.style.marginTop='0';
-    button.addEventListener('click',()=>{const payload=productForCatalog(id);if(!payload){alert('Ürün bilgisi bulunamadı.');return}openClassic(payload)});
+    button.addEventListener('click',()=>{const payload=productForCatalog(id);if(!payload){alert(tx('productMissing'));return}openClassic(payload)});
     oldButton.replaceWith(button);
   }
 
   function makeSelectionButton(oldButton){
     const index=oldButton.dataset.viewDatasheet;
     const button=document.createElement('button');
-    button.type='button';button.className='detail-icon-btn vensis-preview-classic';button.textContent='Önizleme';button.title='Teknik föy önizleme';button.setAttribute('aria-label','Teknik föy önizleme');button.style.cssText='min-width:82px;height:36px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;white-space:nowrap';
-    button.addEventListener('click',()=>{const payload=selectionPayload(index);if(!payload){alert('Fan seçim bilgisi bulunamadı.');return}openClassic(payload)});
+    button.type='button';button.className='detail-icon-btn vensis-preview-classic';button.textContent='Önizleme';button.title=tx('previewLabel');button.setAttribute('aria-label',tx('previewLabel'));button.style.cssText='min-width:82px;height:36px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;white-space:nowrap';
+    button.addEventListener('click',()=>{const payload=selectionPayload(index);if(!payload){alert(tx('selectionMissing'));return}openClassic(payload)});
     oldButton.replaceWith(button);
   }
 
@@ -519,5 +523,8 @@ ${dimensionPanel}
   const start=()=>replaceButtons(document);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
   new MutationObserver(mutations=>{for(const mutation of mutations){for(const node of mutation.addedNodes||[]){if(node?.nodeType!==1)continue;if(node.matches?.('[data-model-datasheet]'))makeCatalogButton(node);else if(node.matches?.('[data-view-datasheet]'))makeSelectionButton(node);else replaceButtons(node)}}}).observe(document.documentElement,{childList:true,subtree:true});
+  window.addEventListener('vensis-language-changed',()=>{
+    document.querySelectorAll('.detail-icon-btn.vensis-preview-classic').forEach(button=>{button.title=tx('previewLabel');button.setAttribute('aria-label',tx('previewLabel'))});
+  });
   window.VensisDirectPreview={open:openClassic,refresh:replaceButtons,html:classicHtml};
 })();

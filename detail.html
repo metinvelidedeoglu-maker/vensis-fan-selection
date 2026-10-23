@@ -17,7 +17,7 @@
     localStorage.removeItem(key);
 
     const accessHead='<link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1"><script src="js/access-gate.js?v=20260908-nav-flicker-r1"><\/script>';
-    const languageScript='<script src="js/language.js?v=20261023-english-output-r1"><\/script>';
+    const languageScript='<script src="js/language.js?v=20261023-english-output-r2"><\/script>';
     const withAccess=payload.includes('</head>')?payload.replace('</head>',accessHead+'</head>'):accessHead+payload;
     const localizedPayload=withAccess.includes('</body>')?withAccess.replace('</body>',languageScript+'</body>'):withAccess+languageScript;
     document.body.innerHTML='';
@@ -27,7 +27,7 @@
   }catch(error){
     document.body.innerHTML='<div style="padding:30px;font-family:Arial"><h2>Product details could not be opened.</h2><p>'+String(error.message||error)+'</p><p><button onclick="window.close()" style="padding:10px 14px">Close</button></p></div>';
     const language=document.createElement('script');
-    language.src='js/language.js?v=20261023-english-output-r1';
+    language.src='js/language.js?v=20261023-english-output-r2';
     document.head.appendChild(language);
     const accessCss=document.createElement('link');accessCss.rel='stylesheet';accessCss.href='css/access-gate.css?v=20260826-access-gate-r1';document.head.appendChild(accessCss);
     const accessScript=document.createElement('script');accessScript.src='js/access-gate.js?v=20260908-nav-flicker-r1';document.head.appendChild(accessScript);
