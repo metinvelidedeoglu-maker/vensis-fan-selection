@@ -302,7 +302,7 @@ test('previews omit unspecified temperatures, preserve verified limits and use t
     assert.doesNotMatch(html,/<span>Operating Temperature<\/span>/,m.id);
     unspecified++;
   }
-  assert.equal(unspecified,213); // 22 duct-fan ranges are now sourced; SILENTUB and other unknown ranges stay hidden.
+  assert.equal(unspecified,207); // Six EDM/DECOR 0/0 ranges are now sourced; SILENT's formerly absent limits are verified separately.
   const heat=C.getModel('VORTICE-ROOF|15301');
   const original=JSON.stringify(C.getSeries(heat.seriesId).description);
   const html=w.VensisDirectPreview.html({product:C.product(heat.id),model:heat});
