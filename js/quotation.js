@@ -13,7 +13,7 @@
   const byId=id=>document.getElementById(id);
   const number=value=>{const n=Number(value);return Number.isFinite(n)?n:0};
   const clampDiscount=value=>Math.min(100,Math.max(0,number(value)));
-  const fmt=(value,digits=0)=>new Intl.NumberFormat('tr-TR',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(number(value));
+  const fmt=(value,digits=0)=>new Intl.NumberFormat(quotationLanguage(activeQuotation)==='tr'?'tr-TR':'en-GB',{minimumFractionDigits:digits,maximumFractionDigits:digits}).format(number(value));
   const currencySymbol=value=>({EUR:'€',USD:'$',TRY:'₺'}[String(value||'EUR').toUpperCase()]||String(value||'EUR'));
   const money=(value,currency='EUR')=>`${currencySymbol(currency)}${fmt(value,2)}`;
   const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
@@ -66,13 +66,13 @@
   function localizedSeriesTitle(item){
     const raw=String(item?.seriesTitle||item?.series||'').trim();
     const language=quotationLanguage(activeQuotation,activeQuotation?.settings);
-    return window.VensisI18n?.t?.(raw,language)||raw;
+    return window.VensisProductLanguage?.text(raw,language)||window.VensisI18n?.t?.(raw,language)||raw;
   }
   function productMarkup(item){
     const image=`<i class="product-image-slot"${item.image?'':` aria-hidden="true"`}>${item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(localizedModelName(item)||'Product')}" onerror="this.remove()">`:''}</i>`;
     const description=String(item.description||'').trim();
-    const safety=String(item.safetyWarning||'').trim();
-    return `<div class="product">${image}<div><strong>${escapeHtml(localizedModelName(item)||'-')}</strong><span>${escapeHtml(localizedSeriesTitle(item))}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:9.5px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${description?`<em class="product-description">${escapeHtml(description)}</em>`:''}</div></div>`;
+    const safety=window.VensisProductLanguage?.text(item.safetyWarning||'',quotationLanguage(activeQuotation))||String(item.safetyWarning||'').trim();
+    return `<div class="product">${image}<div><strong>${escapeHtml(localizedModelName(item)||'-')}</strong><span>${escapeHtml(localizedSeriesTitle(item))}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:9.5px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${description?`<em class="product-description" translate="no">${escapeHtml(description)}</em>`:''}</div></div>`;
   }
   function fanRow(item,currency){
     const model=modelFor(item);
@@ -128,11 +128,11 @@
   }
   function listMarkup(items,ordered=false){
     const tag=ordered?'ol':'ul';
-    const rows=(Array.isArray(items)?items:[]).filter(Boolean).map(item=>`<li>${escapeHtml(item)}</li>`).join('');
+    const rows=(Array.isArray(items)?items:[]).filter(Boolean).map(item=>`<li translate="no">${escapeHtml(item)}</li>`).join('');
     return `<${tag}>${rows}</${tag}>`;
   }
   function paragraphMarkup(value){
-    return String(value||'').split(/\n\s*\n/).map(text=>text.trim()).filter(Boolean).map(text=>`<p>${escapeHtml(text).replace(/\n/g,'<br>')}</p>`).join('');
+    return String(value||'').split(/\n\s*\n/).map(text=>text.trim()).filter(Boolean).map(text=>`<p translate="no">${escapeHtml(text).replace(/\n/g,'<br>')}</p>`).join('');
   }
 
   const WARRANTY_TR='Ürünler, üreticinin ilgili ürün için geçerli garanti koşulları kapsamında garanti altındadır. Garanti kapsamı ve süresi üretici şartlarına göre belirlenir.';
@@ -158,10 +158,9 @@
   }
   function settingsFor(quotation){
     const format=formats.detect(quotation?.items||[],quotation?.format||'auto');
-    const value=clone(quotation?.settings||window.VensisQuotationSettings?.forFormat?.(format)||window.VensisQuotationSettings?.read?.()||window.VensisQuotationSettings?.defaults||{});
+    const source=quotation?.settings||window.VensisQuotationSettings?.forFormat?.(format)||window.VensisQuotationSettings?.read?.()||{};
+    const value=window.VensisQuotationSettings?.localize?.(source,quotationLanguage(quotation))||clone(source);
     value.summary=value.summary||{};
-    if(['8 hafta','8 weeks'].includes(String(value.summary.deliveryTime||'').trim()))value.summary.deliveryTime='';
-    if(['Vensis depo teslim','Ex Vensis warehouse'].includes(String(value.summary.deliveryPlace||'').trim()))value.summary.deliveryPlace='';
     return ensureWarranty(quotation,value);
   }
   function renderSettings(settings){
@@ -173,20 +172,21 @@
     const deliveryTime=summary.deliveryTime===undefined?window.VensisQuotationSettings?.defaults?.summary?.deliveryTime:summary.deliveryTime;
     [summary.payment,summary.exchangeRate,summary.validity,deliveryTime,summary.deliveryPlace,summary.vat,summary.commissioning].forEach((value,index)=>{
       if(!cards[index])return;
+      cards[index].setAttribute('translate','no');
       cards[index].textContent=(index===3||index===4)?String(value??''):(value||'-');
     });
     const firstNote=pages[0]?.querySelector('.quote-note');
-    if(firstNote)firstNote.innerHTML=`<b>Teklif Notu</b>${escapeHtml(summary.quotationNote||'').replace(/\n/g,'<br>')}`;
+    if(firstNote)firstNote.innerHTML=`<b>Teklif Notu</b><span translate="no">${escapeHtml(summary.quotationNote||'').replace(/\n/g,'<br>')}</span>`;
     const scopeBodies=pages[1]?.querySelectorAll('.content-block .body')||[];
     if(scopeBodies[0])scopeBodies[0].innerHTML=paragraphMarkup(scope.included);
     if(scopeBodies[1])scopeBodies[1].innerHTML=listMarkup(scope.exclusions);
     if(scopeBodies[2])scopeBodies[2].innerHTML=listMarkup(scope.deliveryControl);
     const suitability=pages[1]?.querySelector('.notice');
-    if(suitability)suitability.innerHTML=`<b>Proje uygunluğu:</b> ${escapeHtml(scope.suitability||'').replace(/\n/g,'<br>')}`;
+    if(suitability)suitability.innerHTML=`<b>Proje uygunluğu:</b> <span translate="no">${escapeHtml(scope.suitability||'').replace(/\n/g,'<br>')}</span>`;
     const termBodies=pages[2]?.querySelectorAll('.content-block .body')||[];
     [terms.priceCurrency,terms.payment,terms.delivery,terms.standard].forEach((items,index)=>{if(termBodies[index])termBodies[index].innerHTML=listMarkup(items,true)});
     const acceptance=pages[2]?.querySelector('.notice');
-    if(acceptance)acceptance.textContent=terms.acceptance||'';
+    if(acceptance){acceptance.setAttribute('translate','no');acceptance.textContent=terms.acceptance||''}
     const signatures=pages[2]?.querySelectorAll('.signature-box')||[];
     if(signatures[0]){const title=signatures[0].querySelector('b'),line=signatures[0].querySelector('span');if(title)title.textContent=terms.preparedTitle||'';if(line)line.textContent=terms.preparedLine||''}
     if(signatures[1]){const title=signatures[1].querySelector('b'),line=signatures[1].querySelector('span');if(title)title.textContent=terms.customerTitle||'';if(line)line.textContent=terms.customerLine||''}
@@ -210,6 +210,7 @@
     document.body.dataset.quotationFormat=format;
     byId('quoteDocumentTitle').textContent=format==='fan'?'FAN QUOTATION':format==='electrical'?'ELECTRICAL QUOTATION':'COMMERCIAL QUOTATION';
     byId('quoteDocumentSubtitle').textContent=format==='fan'?'Fan Commercial Offer':format==='electrical'?'Electrical Commercial Offer':'Fan & Electrical Commercial Offer';
+    ['quoteProject','quoteReference','quoteContact'].forEach(id=>byId(id).setAttribute('translate','no'));
     byId('quoteProject').textContent=quotation.project?.name||'-';
     byId('quoteReference').textContent=quotation.project?.reference||'-';
     byId('quoteContact').textContent=quotation.project?.contact||'-';
@@ -229,7 +230,7 @@
   }
   function itemEditor(item,index){
     const qty=Math.max(1,Math.round(number(item.quantity)||1));
-    return `<article class="quote-item-editor"><div class="quote-item-editor-head"><div><strong>${escapeHtml(item.model||'-')}</strong><span>${escapeHtml(item.series||'')}</span></div><b>${index+1}</b></div><div class="quote-item-editor-grid"><label>Adet<input type="number" min="1" step="1" value="${qty}" data-quote-item-quantity="${index}"></label><label>Liste Fiyatı<input type="number" min="0" step="0.01" value="${number(item.price)}" data-quote-item-price="${index}"></label><label>İskonto %<input type="number" min="0" max="100" step="0.1" value="${clampDiscount(item.discountPercent)}" data-quote-item-discount="${index}"></label></div><label class="wide">Ürün Notu<textarea rows="2" data-quote-item-description="${index}">${escapeHtml(item.description||'')}</textarea></label></article>`;
+    return `<article class="quote-item-editor"><div class="quote-item-editor-head"><div><strong>${escapeHtml(localizedModelName(item)||'-')}</strong><span>${escapeHtml(localizedSeriesTitle(item))}</span></div><b>${index+1}</b></div><div class="quote-item-editor-grid"><label>Adet<input type="number" min="1" step="1" value="${qty}" data-quote-item-quantity="${index}"></label><label>Liste Fiyatı<input type="number" min="0" step="0.01" value="${number(item.price)}" data-quote-item-price="${index}"></label><label>İskonto %<input type="number" min="0" max="100" step="0.1" value="${clampDiscount(item.discountPercent)}" data-quote-item-discount="${index}"></label></div><label class="wide">Ürün Notu<textarea rows="2" data-quote-item-description="${index}">${escapeHtml(item.description||'')}</textarea></label></article>`;
   }
   function fillEditor(quotation){
     byId('editQuotationNumber').value=quotation.quotationNumber||'';
@@ -336,17 +337,19 @@
     }
     empty.hidden=true;
     workspace.hidden=false;
+    activeQuotation.settings=settingsFor(activeQuotation);
+    writeQuotation(activeQuotation);
     fillEditor(activeQuotation);
     renderPreview(activeQuotation);
   }
 
   byId('quotationEditorForm')?.addEventListener('submit',event=>{event.preventDefault();saveQuotation()});
-  byId('quotationEditorForm')?.addEventListener('input',updateDraft);
+  byId('quotationEditorForm')?.addEventListener('input',event=>{if(event.target.id!=='editQuotationFormat')updateDraft()});
   byId('quotationEditorForm')?.addEventListener('change',event=>{
     if(event.target.id==='editQuotationFormat'&&activeQuotation){
-      activeQuotation.format=formats.preference(event.target.value);
-      activeQuotation.resolvedFormat=formats.detect(activeQuotation.items||[],activeQuotation.format);
-      activeQuotation.settings=window.VensisQuotationSettings?.forFormat?.(activeQuotation.resolvedFormat)||activeQuotation.settings;
+      const previousFormat=formats.detect(activeQuotation.items||[],activeQuotation.format);
+      activeQuotation=collectEditor();
+      activeQuotation.settings=window.VensisQuotationSettings.applyFormat(activeQuotation.settings,previousFormat,activeQuotation.resolvedFormat,quotationLanguage(activeQuotation));
       fillEditor(activeQuotation);renderPreview(activeQuotation);setEditorStatus('Teklif formatı ve ilgili metinler güncellendi.','dirty');return;
     }
     if(event.target.matches('select,input[type="date"]'))updateDraft();
@@ -356,6 +359,17 @@
   byId('createOrderFromQuotation')?.addEventListener('click',()=>saveQuotation({silent:true}),true);
   window.addEventListener('beforeprint',()=>saveQuotation({silent:true}));
   window.addEventListener('storage',event=>{if(event.key===KEY)render()});
+  window.addEventListener('vensis-language-changed',event=>{
+    if(!activeQuotation)return;
+    activeQuotation=collectEditor();
+    activeQuotation.outputLanguage=event.detail.language;
+    window.VensisOutputLanguage=event.detail.language;
+    const url=new URL(location.href);url.searchParams.set('lang',event.detail.language);
+    history.replaceState(history.state,'',url);
+    activeQuotation.settings=window.VensisQuotationSettings.localize(activeQuotation.settings,event.detail.language);
+    writeQuotation(activeQuotation);fillEditor(activeQuotation);renderPreview(activeQuotation);
+    window.VensisI18n?.apply?.(document);
+  });
   window.VensisQuotationEditor={key:KEY,save:saveQuotation,draft:()=>activeQuotation};
   render();
 })();

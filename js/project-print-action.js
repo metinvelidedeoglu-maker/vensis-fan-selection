@@ -44,7 +44,7 @@
   function productMarkup(item){
     const presentation=products.presentation?.(item)||{altModel:item.model||'',description:item.series||'',brand:item.manufacturer||'Vitlo'};
     const image=`<i class="project-cell-image-slot"${item.image?'':` aria-hidden="true"`}>${item.image?`<img src="${esc(item.image)}" alt="${esc(presentation.altModel||'Product')}" onerror="this.remove()">`:''}</i>`;
-    const safety=String(item.safetyWarning||'').trim();
+    const safety=window.VensisProductLanguage?.text(item.safetyWarning||'',language())||String(item.safetyWarning||'').trim();
     return `<div class="project-cell-product">${image}<div><strong>${esc(presentation.altModel||'-')}</strong><span>${esc(presentation.description)}</span><small>${esc(presentation.brand)}</small>${safety?`<em>${esc(safety)}</em>`:''}</div></div>`;
   }
   function noteEditor(item,index){

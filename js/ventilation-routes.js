@@ -40,7 +40,7 @@
     const title=label+' | Vensis';
     document.title=title;
     const description=series
-      ?`${series.manufacturer} ${model?.model||series.code}. ${(series.description.general||[]).join(' ').slice(0,240)}`
+      ?`${series.manufacturer} ${model?.model||series.code}. ${(series.description.general||[]).map(line=>window.VensisProductLanguage?.text(line,language())||line).join(' ').slice(0,240)}`
       :tr?'Havalandırma ürünlerini marka, kategori ve teknik özelliklerine göre inceleyin.':'Browse ventilation products by manufacturer, category and technical specifications.';
     const canonical=url(series,model);
     meta('description',description);meta('og:title',title,true);meta('og:description',description,true);meta('og:url',canonical,true);

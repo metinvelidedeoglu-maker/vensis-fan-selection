@@ -38,7 +38,7 @@
     const matches=matchingModels(series,term);
     if(!matches.length)return '';
     const result=matches.slice(0,6).map(model=>'<a class="catalog-search-result" href="'+esc(modelSearchUrl(series,model))+'">↳ '+esc(model.model)+'</a>').join('');
-    return '<div class="catalog-search-results">'+result+(matches.length>6?'<span class="catalog-search-result-note">+'+(matches.length-6)+' model daha</span>':'')+'</div>';
+    return '<div class="catalog-search-results">'+result+(matches.length>6?'<span class="catalog-search-result-note">+'+(matches.length-6)+(window.VensisI18n?.getLanguage?.()==='en'?' more models</span>':' model daha</span>'):'')+'</div>';
   }
   const manufacturers=unique(allSeries.map(series=>series.manufacturer));
   const categories=unique(allSeries.flatMap(series=>series.categories||[]));
@@ -198,7 +198,7 @@
       </div>
       <div class="model-grid">${modelFields(model)}</div>
       ${modelFeatures(model)}
-      ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> ${esc(model.technical.safetyWarning)}</div>`:''}
+      ${model.technical?.safetyWarning?`<div class="model-safety-warning" style="margin-top:12px;padding:10px 12px;border:1px solid #e5b05c;border-radius:8px;background:#fff8e8;color:#7a4b00;font-size:12px;font-weight:750;line-height:1.4"><b>Safety:</b> ${esc(window.VensisProductLanguage?.text(model.technical.safetyWarning)||model.technical.safetyWarning)}</div>`:''}
       ${dimensionImage?`<details class="model-dimension"><summary>Dimension Drawing</summary><img src="${esc(dimensionImage)}" alt="${esc(model.model)} dimension drawing" loading="lazy" onerror="this.closest('details').hidden=true"></details>`:''}
 
       <div class="model-card-actions" style="display:grid;grid-template-columns:1fr 48px;gap:8px;margin-top:13px">

@@ -728,12 +728,15 @@
   function renderNode(node,mode){
     if(!node)return;
     const en=sourceText(node,mode);
-    let next=en;
+    let next=window.VensisProductLanguage?.text(en,language())||en;
     if(language()==='tr'){
-      if(mode==='ui')next=exact(en,uiPairs,uiReverse,'tr');
-      else if(mode==='title')next=titlePairs.get(en)||en;
+      if(mode==='ui')next=window.VensisProductLanguage?.text(exact(en,uiPairs,uiReverse,'tr'),'tr')||exact(en,uiPairs,uiReverse,'tr');
+      else if(mode==='title')next=window.VensisProductLanguage?.text(titlePairs.get(en)||en,'tr')||titlePairs.get(en)||en;
       else if(mode==='category')next=categoryPairs.get(en)||en;
-      else next=productTextToTr(en);
+      else {
+        const reviewed=window.VensisProductLanguage?.text(en,'tr');
+        next=reviewed&&reviewed!==en?reviewed:productTextToTr(en);
+      }
     }
     if(String(node.textContent||'').trim()!==next)node.textContent=next;
   }

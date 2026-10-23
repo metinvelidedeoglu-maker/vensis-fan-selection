@@ -37,20 +37,21 @@ try{
     const card=page.locator('.model-card:not([hidden])');await card.locator('.vensis-preview-classic').waitFor();
     await page.waitForFunction(()=>Boolean(window.VensisDatasheet?.__noCurrentPolicy));
     assert.equal(await card.locator('.model-field').count(),12,series);
-    assert.equal(await card.locator('.model-field').filter({hasText:/^Faz/}).locator('b').innerText(),'Single-phase',series);
+    assert.equal(await card.locator('.model-field').filter({hasText:/^Faz/}).locator('b').innerText(),'Monofaze',series);
     for(const width of [390,430]){
       await page.setViewportSize({width,height:844});
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),series+' mobile overflow');
     }
     if(['PUNTO','SILENT','HCM-N'].includes(series))await card.screenshot({path:out+'/'+series+'-card.png'});
     await page.getByRole('button',{name:'English',exact:true}).click();
+    await page.waitForFunction(()=>[...document.querySelectorAll('.model-card:not([hidden]) .model-field')].some(n=>n.querySelector('span')?.textContent==='Phase'&&n.querySelector('b')?.textContent==='Single-phase'));
     assert.equal(await card.locator('.model-field').filter({hasText:/^Phase/}).locator('b').innerText(),'Single-phase',series+' EN');
     await page.getByRole('button',{name:'Türkçe',exact:true}).click();
     await page.setViewportSize({width:1440,height:1000});
     const html=await page.evaluate(id=>window.VensisDirectPreview.html({mode:'catalog',product:window.VensisCatalog.product(id),model:window.VensisCatalog.getModel(id)}),m.id);
     const preview=await context.newPage();await preview.setContent(html,{waitUntil:'networkidle'});
     await preview.waitForFunction(()=>[...document.images].every(img=>img.complete));
-    assert.equal(await preview.locator('.technical-cell').filter({hasText:/^Faz/}).locator('b').innerText(),'Single-phase',series+' preview');
+    assert.equal(await preview.locator('.technical-cell').filter({hasText:/^Faz/}).locator('b').innerText(),'Monofaze',series+' preview');
     assert.deepEqual(await preview.locator('img').evaluateAll(images=>images.filter(img=>!img.naturalWidth).map(img=>img.src)),[],series+' broken image');
     assert.deepEqual(await preview.locator('.technical-cell b').evaluateAll(nodes=>nodes.filter(n=>n.scrollWidth>n.clientWidth+1).map(n=>n.textContent)),[],series+' clipped values');
     await preview.pdf({path:out+'/'+series.replaceAll('/','-')+'.pdf',format:'A4',printBackground:true});

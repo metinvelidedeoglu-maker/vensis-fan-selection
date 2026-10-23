@@ -18,8 +18,12 @@
   const positive=value=>{const n=Number(value);return Number.isFinite(n)&&n>0?n:null};
   const obj=value=>value&&typeof value==='object'&&!Array.isArray(value)?value:{};
   const arr=value=>Array.isArray(value)?value.filter(Boolean):(value==null||value===''?[]:[value]);
-  const trText=value=>language()==='tr'?(window.VensisCatalogLanguage?.productTextToTr?.(value)||String(value??'')):String(value??'');
-  const trTitle=value=>language()==='tr'?(window.VensisCatalogLanguage?.titleToTr?.(value)||trText(value)):String(value??'');
+  const trText=value=>{
+    const original=String(value??''),reviewed=window.VensisProductLanguage?.text(original,language());
+    if(reviewed&&reviewed!==original)return reviewed;
+    return language()==='tr'?(window.VensisCatalogLanguage?.productTextToTr?.(original)||original):original;
+  };
+  const trTitle=value=>language()==='tr'?(window.VensisCatalogLanguage?.titleToTr?.(value)||trText(value)):trText(value);
   const trCategory=value=>language()==='tr'?(window.VensisCatalogLanguage?.categoryToTr?.(value)||trText(value)):String(value??'');
   const unique=items=>[...new Set((items||[]).filter(Boolean).map(value=>String(value).trim()).filter(Boolean))];
   const TEXT={
@@ -158,9 +162,9 @@
     const rawMotorInfo=arr(rawDescription.motor?.length?rawDescription.motor:fallbackDescription.motor)
       .map(line=>window.VensisVentilationDisplay?.motorDescription(line,{motor,technical})??line).filter(Boolean);
     const rawApplications=arr(rawDescription.applications?.length?rawDescription.applications:fallbackDescription.applications);
-    const general=isTr?rawGeneral.map(trText):rawGeneral;
-    const motorInfo=isTr?rawMotorInfo.map(trText):rawMotorInfo;
-    let applications=isTr?rawApplications.map(trText):rawApplications;
+    const general=rawGeneral.map(trText);
+    const motorInfo=rawMotorInfo.map(trText);
+    let applications=rawApplications.map(trText);
     if(isTr&&rawApplications.length){
       const sentence=window.VensisCatalogLanguage?.applicationSentenceToTr?.(rawApplications);
       if(sentence)applications=[sentence];
@@ -173,7 +177,7 @@
     return {
       mode:payload.mode||'catalog',
       language:language(),
-      model:model.model||product.model||model.display||'Ürün',
+      model:window.VensisProductLanguage?.modelName(model.model||product.model||model.display,language())||model.model||product.model||model.display||'Product',
       title:trTitle(series.title||product.seriesTitle||model.catalogNameEn||model.seriesTitle||model.series||''),
       brand,
       image:previewImage(product,model,series),
@@ -190,7 +194,7 @@
         mountType:trCategory(technical.mountType||model.mountTypeEn||model.mountType||''),
         ipClass:technical.ipClass||model.ipClass||'',
         fireRating:technical.fireRating||model.fireRating||model.fire||'',
-        phase:technical.phase??motor.phase??model.phase??'',
+        phase:window.VensisProductLanguage?.text(technical.phase??motor.phase??model.phase??'',language())||(technical.phase??motor.phase??model.phase??''),
         weight:technical.weight??model.weight,
         operatingTemperatureMinC:technical.operatingTemperatureMinC??model.operatingTemperatureMinC,
         operatingTemperatureMaxC:technical.operatingTemperatureMaxC??model.operatingTemperatureMaxC,
@@ -199,7 +203,7 @@
         soundBasis:technical.soundBasis,
         soundMeasurementDistanceM:technical.soundMeasurementDistanceM,
         currentReferenceVoltageV:technical.currentReferenceVoltageV,
-        safetyWarning:technical.safetyWarning||model.safetyWarning||''
+        safetyWarning:trText(technical.safetyWarning||model.safetyWarning||'')
       },
       performance:{
         nominalAirflow:performance.nominalAirflow??model.nominal,

@@ -36,7 +36,7 @@
     try{return localStorage.getItem('vensis_language_v1')==='tr'?'tr':'en'}catch{return 'en'}
   }
 
-  const OUTPUT_LANGUAGE=resolveLanguage();
+  let OUTPUT_LANGUAGE=resolveLanguage();
   const language=()=>OUTPUT_LANGUAGE;
   document.documentElement.lang=OUTPUT_LANGUAGE;
 
@@ -78,8 +78,8 @@
   function productMarkup(item,model){
     const image=item.image||catalog.product?.(model?.id)?.media?.image||'';
     const description=String(item.description||'').trim();
-    const safety=String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
-    return `<div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(item.model||'Product')}" onerror="this.remove()">`:''}</i><div><strong>${esc(item.model||'-')}</strong><span>${esc(item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description">${esc(description)}</em>`:''}</div></div>`;
+    const safety=window.VensisProductLanguage?.text(item.safetyWarning||model?.technical?.safetyWarning||'',language())||String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
+    return `<div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(item.model||'Product')}" onerror="this.remove()">`:''}</i><div><strong>${esc(window.VensisProductLanguage?.modelName(item.model,language())||item.model||'-')}</strong><span>${esc(window.VensisProductLanguage?.text(item.series||model?.seriesTitle||'',language())||item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description" translate="no">${esc(description)}</em>`:''}</div></div>`;
   }
 
   function voltageText(item){
@@ -135,7 +135,7 @@
     style.textContent=`
       .project-product-group{margin-top:7mm}.project-product-group+.project-product-group{margin-top:5mm}.project-product-group .project-table-wrap{margin-top:0}.project-product-group-title{margin:0 0 2mm;padding:0 2px;color:#087f4f;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.project-table.project-fan-table th:nth-child(2),.project-table.project-fan-table th:nth-child(3){white-space:normal;line-height:1.2}
       @media print{
-        .project-table.project-fan-table th:nth-child(1),.project-table.project-fan-table td:nth-child(1){width:34%}.project-table.project-fan-table th:nth-child(2),.project-table.project-fan-table td:nth-child(2){width:15%}.project-table.project-fan-table th:nth-child(3),.project-table.project-fan-table td:nth-child(3){width:16%}.project-table.project-fan-table th:nth-child(4),.project-table.project-fan-table td:nth-child(4){width:13%}.project-table.project-fan-table th:nth-child(5),.project-table.project-fan-table td:nth-child(5){width:8%}.project-table.project-fan-table th:nth-child(6),.project-table.project-fan-table td:nth-child(6){width:8%}.project-table.project-fan-table th:nth-child(7),.project-table.project-fan-table td:nth-child(7){width:6%}
+        .project-table.project-fan-table th:nth-child(1),.project-table.project-fan-table td:nth-child(1){width:34%}.project-table.project-fan-table th:nth-child(2),.project-table.project-fan-table td:nth-child(2){width:15%}.project-table.project-fan-table th:nth-child(3),.project-table.project-fan-table td:nth-child(3){width:16%}.project-table.project-fan-table th:nth-child(4),.project-table.project-fan-table td:nth-child(4){width:11%}.project-table.project-fan-table th:nth-child(5),.project-table.project-fan-table td:nth-child(5){width:8%}.project-table.project-fan-table th:nth-child(6),.project-table.project-fan-table td:nth-child(6){width:8%}.project-table.project-fan-table th:nth-child(7),.project-table.project-fan-table td:nth-child(7){width:8%}
         .project-table.project-electrical-table th:nth-child(1),.project-table.project-electrical-table td:nth-child(1){width:42%}.project-table.project-electrical-table th:nth-child(2),.project-table.project-electrical-table td:nth-child(2){width:13%}.project-table.project-electrical-table th:nth-child(3),.project-table.project-electrical-table td:nth-child(3){width:13%}.project-table.project-electrical-table th:nth-child(4),.project-table.project-electrical-table td:nth-child(4){width:14%}.project-table.project-electrical-table th:nth-child(5),.project-table.project-electrical-table td:nth-child(5){width:10%}.project-table.project-electrical-table th:nth-child(6),.project-table.project-electrical-table td:nth-child(6){width:8%}
       }`;
     document.head.appendChild(style);
@@ -185,5 +185,6 @@
     oldTable.replaceWith(holder);
   }
 
+  window.addEventListener('vensis-project-print-rendered',()=>{OUTPUT_LANGUAGE=resolveLanguage();apply()});
   apply();
 })();
