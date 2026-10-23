@@ -722,7 +722,7 @@
     {
       en:/^(\d+) models?$/i,
       tr:/^(\d+) model$/i,
-      enOut:m=>`${m[1]} models`,
+      enOut:m=>`${m[1]} ${Number(m[1])===1?'model':'models'}`,
       trOut:m=>`${m[1]} model`
     },
     {
@@ -760,7 +760,7 @@
   dynamicPairs.push(
     {en:/^(\d+) selected$/i,tr:/^(\d+) seçili$/i,enOut:m=>`${m[1]} selected`,trOut:m=>`${m[1]} seçili`},
     {en:/^(\d+) series$/i,tr:/^(\d+) seri$/i,enOut:m=>`${m[1]} series`,trOut:m=>`${m[1]} seri`},
-    {en:/^(\d+) submodels?$/i,tr:/^(\d+) alt model$/i,enOut:m=>`${m[1]} submodels`,trOut:m=>`${m[1]} alt model`},
+    {en:/^(\d+) submodels?$/i,tr:/^(\d+) alt model$/i,enOut:m=>`${m[1]} ${Number(m[1])===1?'submodel':'submodels'}`,trOut:m=>`${m[1]} alt model`},
     {en:/^Showing all (\d+) projects$/i,tr:/^Toplam (\d+) proje gösteriliyor$/i,enOut:m=>`Showing all ${m[1]} projects`,trOut:m=>`Toplam ${m[1]} proje gösteriliyor`},
     {en:/^Contact: (.+)$/i,tr:/^İlgili: (.+)$/i,enOut:m=>`Contact: ${m[1]}`,trOut:m=>`İlgili: ${m[1]}`},
     {en:/^New Project (\d+)$/i,tr:/^Yeni Proje (\d+)$/i,enOut:m=>`New Project ${m[1]}`,trOut:m=>`Yeni Proje ${m[1]}`},
