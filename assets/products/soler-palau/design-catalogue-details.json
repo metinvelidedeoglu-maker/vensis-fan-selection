@@ -1,0 +1,1785 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-10-23",
+  "sources": {
+    "decor-design-0.pdf": {
+      "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+      "pages": 6,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    },
+    "silent-design-0.pdf": {
+      "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+      "pages": 9,
+      "origin": "user-supplied-manufacturer-catalogue",
+      "verifiedOn": "2026-10-23"
+    }
+  },
+  "models": [
+    {
+      "id": "SP|DECOR-100 DESIGN",
+      "model": "DECOR-100 DESIGN",
+      "seriesId": "DECOR DESIGN",
+      "productCode": "DECOR100DESIGN",
+      "source": "decor-design-0.pdf",
+      "tablePage": 2,
+      "narrativePage": 1,
+      "sourceRowLabel": "DECOR-100 DESIGN",
+      "motor": {
+        "power": 0.0107,
+        "sound": 33,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 0.55,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "phase": "Single-phase",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "ipSourceConflict": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      "features": {
+        "en": [
+          "Backdraught Shutter",
+          "Neon Indicator",
+          "Overload Protection",
+          "Class II"
+        ],
+        "tr": [
+          "Geri Tepme Ventili",
+          "Neon Gösterge",
+          "Aşırı Yük Koruması",
+          "Sınıf II"
+        ]
+      },
+      "description": {
+        "general": [
+          "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+          "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+          "A neon operating indicator is provided on C, CR and CH versions.",
+          "CR versions include a 1–30 minute timer; CH versions also have adjustable humidity control.",
+          "A silver front cover is available as an option."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+          "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+          "Maximum air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Bathroom and toilet exhaust ventilation with the selected duct size."
+        ]
+      },
+      "sourceMaxAirflow": 80,
+      "unknownFields": [
+        "motor.speed",
+        "motor.current"
+      ],
+      "sourceTableText": "TEKNİK ÖZELLİKLER\nPERFORMANS EĞRİSİ\n"
+    },
+    {
+      "id": "SP|DECOR-200 DESIGN",
+      "model": "DECOR-200 DESIGN",
+      "seriesId": "DECOR DESIGN",
+      "productCode": "DECOR200DESIGN",
+      "source": "decor-design-0.pdf",
+      "tablePage": 4,
+      "narrativePage": 3,
+      "sourceRowLabel": "DECOR-200 DESIGN",
+      "motor": {
+        "power": 0.0197,
+        "sound": 39,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 0.9,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "phase": "Single-phase",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "ipSourceConflict": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      "features": {
+        "en": [
+          "Backdraught Shutter",
+          "Neon Indicator",
+          "Overload Protection",
+          "Class II"
+        ],
+        "tr": [
+          "Geri Tepme Ventili",
+          "Neon Gösterge",
+          "Aşırı Yük Koruması",
+          "Sınıf II"
+        ]
+      },
+      "description": {
+        "general": [
+          "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+          "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+          "A neon operating indicator is provided on C, CR and CH versions.",
+          "CR versions include a 1–30 minute timer; CH versions also have adjustable humidity control.",
+          "A silver front cover is available as an option."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+          "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+          "Maximum air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Bathroom and toilet exhaust ventilation with the selected duct size."
+        ]
+      },
+      "sourceMaxAirflow": 163,
+      "unknownFields": [
+        "motor.speed",
+        "motor.current"
+      ],
+      "sourceTableText": "TEKNİK ÖZELLİKLER\nModel\nMaksimum\nçekilen\ngüç\n(W)\nVoltaj\n(V-Hz)\nSes\nbasınç\nseviyesi*\n(dB(A))\nMaksimum\nhava debisi\nIP\nAğırlık\n(kg)\nPERFORMANS EĞRİSİ\n* Ses basınç seviyeleri dB(A) serbest alan koşullarında, 3m uzaklıkda ölçülmüştür.\nCR, CH modelleri\nCH model\nMODEL ÖZELLİKLERİ\nGERİ AKIŞ PANJURU\nAYARLANABİLİR ZAMAN SAATİ (1-30 DK)\nAYARLANABİLİR NEMÖLÇER\n“GÜMÜŞ” ÖN KAPAK\nNEON IŞIK GÖSTERGESİ\n"
+    },
+    {
+      "id": "SP|DECOR-300 DESIGN",
+      "model": "DECOR-300 DESIGN",
+      "seriesId": "DECOR DESIGN",
+      "productCode": "DECOR300DESIGN",
+      "source": "decor-design-0.pdf",
+      "tablePage": 6,
+      "narrativePage": 5,
+      "sourceRowLabel": "DECOR-300 DESIGN",
+      "motor": {
+        "power": 0.023,
+        "sound": 40,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "ipClass": "IPX4",
+        "weight": 1.6,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "phase": "Single-phase",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3,
+        "ipSourceConflict": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      "features": {
+        "en": [
+          "Backdraught Shutter",
+          "Neon Indicator",
+          "Overload Protection",
+          "Class II"
+        ],
+        "tr": [
+          "Geri Tepme Ventili",
+          "Neon Gösterge",
+          "Aşırı Yük Koruması",
+          "Sınıf II"
+        ]
+      },
+      "description": {
+        "general": [
+          "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+          "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+          "A neon operating indicator is provided on C, CR and CH versions.",
+          "CR versions include a 1–30 minute timer; CH versions also have adjustable humidity control.",
+          "A silver front cover is available as an option."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+          "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+          "Maximum air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Bathroom and toilet exhaust ventilation with the selected duct size."
+        ]
+      },
+      "sourceMaxAirflow": 230,
+      "unknownFields": [
+        "motor.speed",
+        "motor.current"
+      ],
+      "sourceTableText": "TEKNİK ÖZELLİKLER\nPERFORMANS EĞRİSİ\n"
+    },
+    {
+      "id": "SP|SILENT-100 DESIGN",
+      "model": "SILENT-100 DESIGN",
+      "seriesId": "SILENT DESIGN",
+      "productCode": "SILENT100DESIGN",
+      "source": "silent-design-0.pdf",
+      "tablePage": 3,
+      "narrativePage": 1,
+      "sourceRowLabel": "SILENT-100 DESIGN 3C",
+      "motor": {
+        "power": 0.008,
+        "sound": 26.5,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "ipClass": "IP45",
+        "weight": 0.65,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "phase": "Single-phase",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3
+      },
+      "features": {
+        "en": [
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Overload Protection",
+          "Class II",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure.",
+          "A backdraught shutter, pilot light and ball bearings are standard on the 3C versions.",
+          "CRZ versions have a 1–30 minute timer; CHZ versions also include adjustable humidity control.",
+          "ECOWATT, 12 V kits and SILENT-300 PLUS are separate versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "Maximum air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Bathroom and toilet exhaust ventilation with the selected duct size."
+        ]
+      },
+      "sourceMaxAirflow": 85,
+      "unknownFields": [
+        "motor.speed",
+        "motor.current"
+      ],
+      "sourceTableText": "TEKNİK ÖZELLİKLER\nModel\nSerbest atıştaki \nemilen güç\n(W)\nVoltaj\n(V)\n50 Hz\nSes \nbasınç \nseviyesi*\n(dB(A))\nSerbest \natıştaki \nhava debisi\n(m3/h)\nYalıtım/\nIP\nØ\nKanal\n(mm)\nAğırlık\n(kg)\nSILENT-100 DESIGN 3C\n8\n230\n26,5\n85\nClass II / IP45\n100\n0,65\nKIT SILENT-100 DESIGN 12V** \n3C\n12\n12\n26,5\n80\nClass III / IP57\n100\n0,65\n* Ses basınç seviyesi serbest sahada 3m mesafeden ölçülmüştür. \n** CT-12/14 transformatör ile teslim edilir.\nMODEL ÖZELLİKLERİ\nCZ  \nDESIGN 3C\nCRZ  \nDESIGN 3C\nCHZ  \nDESIGN 3C\nPİLOT IŞIĞI\n•\n•\n•\nGERİ AKIŞ PANJURU\n•\n•\n•\nAYARLANABİLİR ZAMAN \nSAATİ (1-30 DK)\n•\n•\nAYARLANABİLİR NEM \nÖLÇER\n•\nBİLYALI RULMAN\n•\n•\n•\n4 RENK ŞERİT SETİ\n•\n•\n•\nBAĞLANTI ŞEMASI*\n2, 3\n4, 5\n1, 4\n* Bağlantı Şeması bölümüne bakınız.\n188\n188\n129,5\nØ98,9\n84,6\n79\n"
+    },
+    {
+      "id": "SP|SILENT-200 DESIGN",
+      "model": "SILENT-200 DESIGN",
+      "seriesId": "SILENT DESIGN",
+      "productCode": "SILENT200DESIGN",
+      "source": "silent-design-0.pdf",
+      "tablePage": 7,
+      "narrativePage": 6,
+      "sourceRowLabel": "SILENT-200 DESIGN-3C",
+      "motor": {
+        "power": 0.016,
+        "sound": 35,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "ipClass": "IP45",
+        "weight": 0.88,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "phase": "Single-phase",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "powerBasis": "free-air-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3
+      },
+      "features": {
+        "en": [
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Overload Protection",
+          "Class II",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure.",
+          "A backdraught shutter, pilot light and ball bearings are standard on the 3C versions.",
+          "CRZ versions have a 1–30 minute timer; CHZ versions also include adjustable humidity control.",
+          "ECOWATT, 12 V kits and SILENT-300 PLUS are separate versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "Maximum air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Bathroom and toilet exhaust ventilation with the selected duct size."
+        ]
+      },
+      "sourceMaxAirflow": 175,
+      "unknownFields": [
+        "motor.speed",
+        "motor.current"
+      ],
+      "sourceTableText": "TEKNİK ÖZELLİKLER\nModel\nSerbest \natıştaki \nemilen güç\n(W)\nVoltaj\n(V)\n50 Hz\nSes\nbasınç\nseviyesi*\n(dB(A))\nSerbest \natıştaki \nhava \ndebisi\n(m3/h)\nYalıtım/ \nIP\nØ\nKanal\n(mm)\nAğırlık\n(kg)\nSILENT-200 DESIGN-3C\n16\n230\n35\n175\nClass II / \nIP45\n120\n0,88\n* Ses basınç seviyesi serbest sahada 3m mesafeden ölçülmüştür.\nAKSESUARLAR\nCX-80/125\nKelepçeler.\nGSA-100\nAlüminyum esnek \nkanal.\nGRA-70\nAlüminyum dış \nızgara.\nPER-100W\nGeri akış panjuru.\nPENCERE SETİ \n200\nSILENT-200 fanın \npencereye montaj \nseti.\n"
+    },
+    {
+      "id": "SP|SILENT-300 DESIGN",
+      "model": "SILENT-300 DESIGN",
+      "seriesId": "SILENT DESIGN",
+      "productCode": "SILENT300DESIGN",
+      "source": "silent-design-0.pdf",
+      "tablePage": 9,
+      "narrativePage": 8,
+      "sourceRowLabel": "SILENT-300 DESIGN",
+      "motor": {
+        "power": 0.026,
+        "sound": 38,
+        "voltage": "230 V",
+        "frequency": "50 Hz"
+      },
+      "technical": {
+        "ipClass": "IP45",
+        "weight": 1.5,
+        "operatingTemperatureMinC": null,
+        "operatingTemperatureMaxC": 40,
+        "phase": "Single-phase",
+        "insulationClass": "B",
+        "electricalProtectionClass": "II",
+        "overloadProtection": true,
+        "powerBasis": "maximum-electrical-input-P1",
+        "soundBasis": "sound-pressure-3m-free-field",
+        "soundMeasurementDistanceM": 3
+      },
+      "features": {
+        "en": [
+          "Backdraught Shutter",
+          "Pilot Light",
+          "Overload Protection",
+          "Class II",
+          "Vibration-Isolating Mounts",
+          "Ball-Bearing Motor"
+        ],
+        "tr": [
+          "Geri Tepme Ventili",
+          "Pilot Işığı",
+          "Aşırı Yük Koruması",
+          "Sınıf II",
+          "Titreşim Sönümleyici Takozlar",
+          "Rulmanlı Motor"
+        ]
+      },
+      "description": {
+        "general": [
+          "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure.",
+          "A backdraught shutter, pilot light and ball bearings are standard on the 3C versions.",
+          "CRZ versions have a 1–30 minute timer; CHZ versions also include adjustable humidity control.",
+          "ECOWATT, 12 V kits and SILENT-300 PLUS are separate versions."
+        ],
+        "motor": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "Maximum air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "applications": [
+          "Bathroom and toilet exhaust ventilation with the selected duct size."
+        ]
+      },
+      "sourceMaxAirflow": 250,
+      "unknownFields": [
+        "motor.speed",
+        "motor.current"
+      ],
+      "sourceTableText": "TEKNİK ÖZELLİKLER\nModel\nMaksimum \nemilen\ngüç\n(W)\nVoltaj\n(V)\n50 Hz\nSes\nbasınç\nseviyesi*\n(dB(A))\nSerbest \natıştaki \nhava \ndebisi\n(m3/h)\nYalıtım/ \nIP\nØ\nKanal\n(mm)\nAğırlık\n(kg)\nSILENT-300 DESIGN\n26\n230\n38\n250\nClass II/IP45\n150-160\n1,5\nSILENT 300 PLUS \nDESIGN\n22\n230\n42\n300\nClass II/IP45\n150-160\n1,9\n* Ses basınç seviyesi serbest sahada 3m mesafeden ölçülmüştür.\nAKSESUARLAR\n"
+    }
+  ],
+  "series": {
+    "DECOR DESIGN": {
+      "general": {
+        "en": [
+          "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+          "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+          "A neon operating indicator is provided on C, CR and CH versions.",
+          "CR versions include a 1–30 minute timer; CH versions also have adjustable humidity control.",
+          "A silver front cover is available as an option."
+        ],
+        "tr": [
+          "Banyo ve WC havalandırması için plastik enjeksiyon gövdeli dekoratif aksiyel egzoz fanlarıdır.",
+          "Hava basıncıyla açılan geri akış klapesi fan durduğunda kapanarak ters hava akışını ve ısı kaybını azaltır.",
+          "Katalogdaki C, CR ve CH versiyonlarında neon çalışma göstergesi bulunur.",
+          "CR versiyonunda 1–30 dakika zamanlayıcı; CH versiyonunda ayrıca ayarlanabilir nem kontrolü bulunur.",
+          "Gümüş ön kapak isteğe bağlı bir yüzey seçeneğidir."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+          "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+          "Maximum air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motorlar B motor yalıtım sınıfına ve aşırı yük korumasına sahiptir.",
+          "Model tablolarında Sınıf II elektriksel koruma ve IPX4 belirtilir. Açıklama sayfalarında IP44 yazdığından kesin koruma sınıfı ürün etiketiyle doğrulanmalıdır.",
+          "Belgelenen maksimum hava sıcaklığı 40 °C’dir; alt sıcaklık sınırı belirtilmemiştir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Bathroom and toilet exhaust ventilation with the selected duct size."
+        ],
+        "tr": [
+          "Seçilen model için belirtilen kanal çapıyla banyo ve WC egzoz havalandırmasında kullanılır."
+        ]
+      }
+    },
+    "SILENT DESIGN": {
+      "general": {
+        "en": [
+          "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+          "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure.",
+          "A backdraught shutter, pilot light and ball bearings are standard on the 3C versions.",
+          "CRZ versions have a 1–30 minute timer; CHZ versions also include adjustable humidity control.",
+          "ECOWATT, 12 V kits and SILENT-300 PLUS are separate versions."
+        ],
+        "tr": [
+          "Banyo ve WC havalandırması için plastik enjeksiyon gövdeli dekoratif aksiyel egzoz fanlarıdır.",
+          "Motor, titreşimin ve sesin çevre yapıya iletimini azaltan elastik sessiz takozlar üzerine yerleştirilmiştir.",
+          "Standart 3C versiyonlarında geri akış klapesi, pilot ışığı ve bilyalı rulman bulunur.",
+          "CRZ versiyonunda 1–30 dakika zamanlayıcı; CHZ versiyonunda ayrıca ayarlanabilir nem kontrolü bulunur.",
+          "ECOWATT, 12 V kitleri ve SILENT-300 PLUS ayrı versiyonlardır."
+        ]
+      },
+      "motor": {
+        "en": [
+          "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+          "Maximum air temperature is 40 °C; the lower limit is not specified."
+        ],
+        "tr": [
+          "Monofaze 230 V, 50 Hz motorlarda B motor yalıtımı, aşırı yük koruması, Sınıf II elektriksel koruma ve IP45 bulunur.",
+          "Belgelenen maksimum hava sıcaklığı 40 °C’dir; alt sıcaklık sınırı belirtilmemiştir."
+        ]
+      },
+      "applications": {
+        "en": [
+          "Bathroom and toilet exhaust ventilation with the selected duct size."
+        ],
+        "tr": [
+          "Seçilen model için belirtilen kanal çapıyla banyo ve WC egzoz havalandırmasında kullanılır."
+        ]
+      }
+    }
+  },
+  "policy": {
+    "existing230VRowsOnly": true,
+    "rpmAndCurrentNotInferred": true,
+    "lowerTemperatureNotInferred": true,
+    "optionalTimerHumidityAndFinishNotAssigned": true,
+    "preserveCurvesPricesDimensionsAndAirflow": true
+  },
+  "sourceConflicts": [
+    {
+      "seriesId": "DECOR DESIGN",
+      "narrative": "IP44",
+      "modelTables": "IPX4",
+      "used": "IPX4",
+      "action": "model-table-used-with-visible-source-conflict-warning"
+    }
+  ],
+  "preservation": {
+    "baseCommit": "9e8a2a0ddcabb1551e7d36183b3d1b03663a3e60",
+    "modelChanges": [
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.55
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "technical",
+          "ipSourceConflict"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Backdraught Shutter",
+            "Neon Indicator",
+            "Overload Protection",
+            "Class II"
+          ],
+          "tr": [
+            "Geri Tepme Ventili",
+            "Neon Gösterge",
+            "Aşırı Yük Koruması",
+            "Sınıf II"
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+            "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+            "A neon operating indicator is provided on C, CR and CH versions.",
+            "CR versions include a 1–30 minute timer; CH versions also have adjustable humidity control.",
+            "A silver front cover is available as an option."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+            "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+            "Maximum air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Bathroom and toilet exhaust ventilation with the selected duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-100 DESIGN",
+        "path": [
+          "verification",
+          "designCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/design-catalogue-details.json",
+          "source": "decor-design-0.pdf",
+          "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+          "tablePage": 2,
+          "narrativePage": 1,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.9
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "technical",
+          "ipSourceConflict"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Backdraught Shutter",
+            "Neon Indicator",
+            "Overload Protection",
+            "Class II"
+          ],
+          "tr": [
+            "Geri Tepme Ventili",
+            "Neon Gösterge",
+            "Aşırı Yük Koruması",
+            "Sınıf II"
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+            "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+            "A neon operating indicator is provided on C, CR and CH versions.",
+            "CR versions include a 1–30 minute timer; CH versions also have adjustable humidity control.",
+            "A silver front cover is available as an option."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+            "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+            "Maximum air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Bathroom and toilet exhaust ventilation with the selected duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-200 DESIGN",
+        "path": [
+          "verification",
+          "designCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/design-catalogue-details.json",
+          "source": "decor-design-0.pdf",
+          "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+          "tablePage": 4,
+          "narrativePage": 3,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IPX4"
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1.6
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "technical",
+          "ipSourceConflict"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "modelTable": "IPX4",
+          "narrative": "IP44",
+          "used": "IPX4"
+        }
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Backdraught Shutter",
+            "Neon Indicator",
+            "Overload Protection",
+            "Class II"
+          ],
+          "tr": [
+            "Geri Tepme Ventili",
+            "Neon Gösterge",
+            "Aşırı Yük Koruması",
+            "Sınıf II"
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+            "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+            "A neon operating indicator is provided on C, CR and CH versions.",
+            "CR versions include a 1–30 minute timer; CH versions also have adjustable humidity control.",
+            "A silver front cover is available as an option."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+            "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+            "Maximum air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Bathroom and toilet exhaust ventilation with the selected duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|DECOR-300 DESIGN",
+        "path": [
+          "verification",
+          "designCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/design-catalogue-details.json",
+          "source": "decor-design-0.pdf",
+          "sha256": "b2d3c15cf329fd1beaf9b8110fa88c43cfbbb8c639b27b4c616678547975555d",
+          "tablePage": 6,
+          "narrativePage": 5,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.008
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 26.5
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP45"
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.65
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Overload Protection",
+            "Class II",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure.",
+            "A backdraught shutter, pilot light and ball bearings are standard on the 3C versions.",
+            "CRZ versions have a 1–30 minute timer; CHZ versions also include adjustable humidity control.",
+            "ECOWATT, 12 V kits and SILENT-300 PLUS are separate versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "Maximum air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Bathroom and toilet exhaust ventilation with the selected duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.008
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 26.5
+      },
+      {
+        "id": "SP|SILENT-100 DESIGN",
+        "path": [
+          "verification",
+          "designCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/design-catalogue-details.json",
+          "source": "silent-design-0.pdf",
+          "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+          "tablePage": 3,
+          "narrativePage": 1,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "motor",
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.016
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "motor",
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 35
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP45"
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.88
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "free-air-electrical-input-P1"
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Overload Protection",
+            "Class II",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure.",
+            "A backdraught shutter, pilot light and ball bearings are standard on the 3C versions.",
+            "CRZ versions have a 1–30 minute timer; CHZ versions also include adjustable humidity control.",
+            "ECOWATT, 12 V kits and SILENT-300 PLUS are separate versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "Maximum air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Bathroom and toilet exhaust ventilation with the selected duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "power"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 0.016
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "performance",
+          "operatingPoints",
+          0,
+          "sound"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 35
+      },
+      {
+        "id": "SP|SILENT-200 DESIGN",
+        "path": [
+          "verification",
+          "designCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/design-catalogue-details.json",
+          "source": "silent-design-0.pdf",
+          "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+          "tablePage": 7,
+          "narrativePage": 6,
+          "verifiedOn": "2026-10-23"
+        }
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "motor",
+          "frequency"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "50 Hz"
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "ipClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "IP45"
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "weight"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 1.5
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMinC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": null
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "operatingTemperatureMaxC"
+        ],
+        "previousPresent": true,
+        "previous": 0,
+        "value": 40
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "insulationClass"
+        ],
+        "previousPresent": true,
+        "previous": "",
+        "value": "B"
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "electricalProtectionClass"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "II"
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "overloadProtection"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": true
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "powerBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "maximum-electrical-input-P1"
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "soundBasis"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": "sound-pressure-3m-free-field"
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "technical",
+          "soundMeasurementDistanceM"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": 3
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "features"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "en": [
+            "Backdraught Shutter",
+            "Pilot Light",
+            "Overload Protection",
+            "Class II",
+            "Vibration-Isolating Mounts",
+            "Ball-Bearing Motor"
+          ],
+          "tr": [
+            "Geri Tepme Ventili",
+            "Pilot Işığı",
+            "Aşırı Yük Koruması",
+            "Sınıf II",
+            "Titreşim Sönümleyici Takozlar",
+            "Rulmanlı Motor"
+          ]
+        }
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": null,
+        "value": {
+          "general": [
+            "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure.",
+            "A backdraught shutter, pilot light and ball bearings are standard on the 3C versions.",
+            "CRZ versions have a 1–30 minute timer; CHZ versions also include adjustable humidity control.",
+            "ECOWATT, 12 V kits and SILENT-300 PLUS are separate versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "Maximum air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Bathroom and toilet exhaust ventilation with the selected duct size."
+          ]
+        }
+      },
+      {
+        "id": "SP|SILENT-300 DESIGN",
+        "path": [
+          "verification",
+          "designCatalogue"
+        ],
+        "previousPresent": false,
+        "previous": null,
+        "value": {
+          "evidence": "assets/products/soler-palau/design-catalogue-details.json",
+          "source": "silent-design-0.pdf",
+          "sha256": "2f57c1b79d33495f5423e9eaf99acc6ea1a60d98483b1ea3e3d4ec58c6a3e193",
+          "tablePage": 9,
+          "narrativePage": 8,
+          "verifiedOn": "2026-10-23"
+        }
+      }
+    ],
+    "seriesChanges": [
+      {
+        "id": "DECOR DESIGN",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Dekoratif Banyo ve WC Fanları",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+            "An air-pressure-operated backdraught shutter closes when the fan stops, limiting reverse airflow and heat loss.",
+            "A neon operating indicator is provided on C, CR and CH versions.",
+            "CR versions include a 1–30 minute timer; CH versions also have adjustable humidity control.",
+            "A silver front cover is available as an option."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation and overload protection.",
+            "Class II electrical protection; model tables state IPX4, whereas the prose states IP44. Verify the rating on the product label.",
+            "Maximum air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Bathroom and toilet exhaust ventilation with the selected duct size."
+          ]
+        }
+      },
+      {
+        "id": "SILENT DESIGN",
+        "path": [
+          "description"
+        ],
+        "previousPresent": true,
+        "previous": {
+          "general": [
+            "Dekoratif Sessiz Banyo ve WC Fanları",
+            "Bilgiler üreticinin sağlanan teknik kataloğundan aktarılmıştır."
+          ],
+          "motor": [],
+          "applications": []
+        },
+        "value": {
+          "general": [
+            "Decorative plastic axial exhaust fans for bathroom and toilet ventilation.",
+            "Elastic motor mounts reduce vibration and sound transmission to the surrounding structure.",
+            "A backdraught shutter, pilot light and ball bearings are standard on the 3C versions.",
+            "CRZ versions have a 1–30 minute timer; CHZ versions also include adjustable humidity control.",
+            "ECOWATT, 12 V kits and SILENT-300 PLUS are separate versions."
+          ],
+          "motor": [
+            "Single-phase 230 V, 50 Hz; class B motor insulation, overload protection, Class II electrical protection and IP45.",
+            "Maximum air temperature is 40 °C; the lower limit is not specified."
+          ],
+          "applications": [
+            "Bathroom and toilet exhaust ventilation with the selected duct size."
+          ]
+        }
+      }
+    ]
+  }
+}

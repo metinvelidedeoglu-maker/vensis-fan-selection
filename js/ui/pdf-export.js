@@ -312,7 +312,7 @@
       const note=window.VensisVentilationDisplay?.measurementNote(d.technical,field,d.language);
       return `${value} ${unit}${note?' ('+note+')':''}`;
     };
-    if(positive(d.motor.power))add(tx('motorPower'),measurement(fmt(d.motor.power,3),'kW','power'));
+    if(positive(d.motor.power))add(tx('motorPower'),measurement(fmt(d.motor.power,3),'kW','power'),d.technical.powerBasis==='free-air-electrical-input-P1'?'measurement':'');
     if(positive(d.motor.speed))add(tx('speed'),`${fmt(d.motor.speed)} rpm`);
     if(d.motor.voltage)add(tx('voltage'),d.motor.voltage);
     if(positive(d.motor.sound))add(tx('soundLevel'),measurement(fmt(d.motor.sound,1),'dB(A)','sound'),['sound-pressure-3m-high-speed','inlet-sound-pressure-1_5m-free-field-operating-point-A','radiated-sound-pressure-3m-free-field-operating-point-B','inlet-sound-pressure-3m-free-field-operating-point-A','sound-pressure-3m-high-speed-exhaust'].includes(d.technical.soundBasis)?'measurement':'');
