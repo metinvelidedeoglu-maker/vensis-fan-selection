@@ -34,6 +34,7 @@
       model:text(source.model||source.name||'Aksesuar'),
       series:text(source.category||'Aksesuar'),
       manufacturer:text(source.manufacturer||'AVenS'),
+      ...(text(source.image)?{image:text(source.image)}:{}),
       price:number(source.price),
       discountPercent:number(options.discountPercent),
       quantity:Math.max(1,Math.round(number(options.quantity)||1)),

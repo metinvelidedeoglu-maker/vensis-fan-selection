@@ -14,6 +14,11 @@
   const canQuote=item=>item?.quoteEnabled!==false&&typeof item?.price==='number'&&Number.isFinite(item.price)&&item.price>0;
   let activeCategory='Tümü';
 
+  function imageSlot(item){
+    const image=String(item?.image||'').trim();
+    return `<div class="accessory-image-slot"${image?'':' aria-hidden="true"'}>${image?`<img src="${esc(image)}" alt="${esc(item.model||'Aksesuar')}" loading="lazy" onerror="this.remove()">`:''}</div>`;
+  }
+
   function projectItems(){return store?.readItems?.(projectId)||[]}
   function parentItem(){return projectItems().find(item=>String(item?.itemKey||'')===String(parentItemKey)&&!core?.isAccessory?.(item))||null}
   function validTarget(){return Boolean(projectId&&store?.get?.(projectId)&&parentItem())}
@@ -69,7 +74,7 @@
     const rows=filteredItems();
     const enabled=validTarget();
     if(!rows.length){grid.innerHTML='<div class="empty">Aramanıza uygun aksesuar bulunamadı.</div>';return}
-    grid.innerHTML=rows.map(item=>`<article class="card" data-accessory-id="${esc(item.id)}"><div class="accessory-image-slot" aria-hidden="true"></div><div class="card-head"><b class="price">${canQuote(item)?money(item.price):'Fiyat / teknik teyit bekleniyor'}</b></div><h2>${esc(item.model)}</h2><div class="category">${esc(item.category)}</div><p class="specs">${esc(item.specs||'')}</p><div class="meta">${esc(item.manufacturer||'')}${item.sourceNote?` • ${esc(item.sourceNote)}`:` • Katalog s. ${esc(item.sourcePage||'-')}`}</div>${browseMode?'':`<button class="add" type="button" data-add-accessory="${esc(item.id)}" ${enabled&&canQuote(item)?'':'disabled'}>${canQuote(item)?'+ Projeye Ekle':'Teklif için teyit gerekli'}</button>`}</article>`).join('');
+    grid.innerHTML=rows.map(item=>`<article class="card" data-accessory-id="${esc(item.id)}">${imageSlot(item)}<div class="card-head"><b class="price">${canQuote(item)?money(item.price):'Fiyat / teknik teyit bekleniyor'}</b></div><h2>${esc(item.model)}</h2><div class="category">${esc(item.category)}</div><p class="specs">${esc(item.specs||'')}</p><div class="meta">${esc(item.manufacturer||'')}${item.sourceNote?` • ${esc(item.sourceNote)}`:` • Katalog s. ${esc(item.sourcePage||'-')}`}</div>${browseMode?'':`<button class="add" type="button" data-add-accessory="${esc(item.id)}" ${enabled&&canQuote(item)?'':'disabled'}>${canQuote(item)?'+ Projeye Ekle':'Teklif için teyit gerekli'}</button>`}</article>`).join('');
   }
 
   function addAccessory(id){
