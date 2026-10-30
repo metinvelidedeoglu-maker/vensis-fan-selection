@@ -13,7 +13,7 @@
       {id:'avens5',model:'AVenS 5 A Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'AVenS',price:100,specs:'5 A',sourcePage:27},
       {id:'pot-it',image:'assets/accessories/vortice-pot-it.png',model:'POT-IT Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:110,specs:'EC motor hız kontrolü',sourcePage:22},
       {id:'pot-regc',model:'POT (REGC) EC Motor Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:120,specs:'0-10V veya PWM hız kontrolü',sourcePage:33},
-      {id:'pmr',model:'PMR EC Motor Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:265,specs:'EC motor hız kontrolü',sourcePage:33},
+      {id:'pmr',image:'assets/accessories/casals-pmr-ec.jpg',model:'PMR EC Motor Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:265,specs:'EC motor hız kontrolü',sourcePage:33},
       {id:'irm30',image:'assets/accessories/vortice-irm-irt.png',model:'IRM30 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:265,specs:'220-240 V • 1.2 A',sourcePage:31},
       {id:'irm40',image:'assets/accessories/vortice-irm-irt.png',model:'IRM40 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:276,specs:'220-240 V • 3.5 A',sourcePage:31},
       {id:'irt15',image:'assets/accessories/vortice-irm-irt.png',model:'IRT15 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:285,specs:'380-400 V • 0.75 A',sourcePage:31},
