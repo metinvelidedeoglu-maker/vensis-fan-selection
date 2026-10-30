@@ -47,7 +47,8 @@
     '/catalog-vortice-stable.html','/catalog-vortice.html','/electrical/index.html'
   ];
   const isUnifiedCatalog=Boolean(cleanFanRoute)||path.endsWith('/catalog.html');
-  const isPublicCatalog=isUnifiedCatalog||publicCatalogPaths.some(item=>path.endsWith(item));
+  const isAccessoryBrowse=path.endsWith('/accessories.html')&&!new URLSearchParams(location.search).get('parent');
+  const isPublicCatalog=isUnifiedCatalog||isAccessoryBrowse||publicCatalogPaths.some(item=>path.endsWith(item));
   if(isPublicCatalog){
     const languageParams=new URLSearchParams(location.search);
     const requestedLanguage=languageParams.get('lang');
