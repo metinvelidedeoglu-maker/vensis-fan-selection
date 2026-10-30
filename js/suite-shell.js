@@ -31,6 +31,10 @@
     'Close':'Kapat',
 
     'Catalog groups':'Katalog grupları',
+    'Ventilation Accessories':'Havalandırma Aksesuarları',
+    'Accessories':'Aksesuarlar',
+    'Browse controls, sensors and mechanical accessories for ventilation systems, with available technical details and prices.':'Havalandırma sistemlerine yönelik kontrol cihazlarını, sensörleri ve mekanik aksesuarları mevcut teknik bilgileri ve fiyatlarıyla inceleyin.',
+    'Browse ventilation accessories':'Havalandırma aksesuarlarını incele',
     'Choose the product group you want to explore. Technical data, models and project-ready selections are organized in one workspace.':'İncelemek istediğiniz ürün grubunu seçin. Teknik veriler, modeller ve projeye hazır seçimler tek bir çalışma alanında düzenlenmiştir.',
     'Air & Ventilation':'Hava & Havalandırma',
     'Ventilation':'Havalandırma',

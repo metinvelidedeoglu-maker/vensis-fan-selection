@@ -13,5 +13,5 @@ test('successful accessory add returns to the originating project',()=>{
 });
 
 test('accessories page cache-busts the redirect behavior',()=>{
-  assert.match(html,/js\/accessories-page\.js\?v=20261016-jaluzi-pending-r1/);
+  assert.match(html,/js\/accessories-page\.js\?v=20261030-accessories-browse-r1/);
 });
