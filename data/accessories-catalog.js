@@ -21,12 +21,12 @@
       {id:'irt40',image:'assets/accessories/vortice-irm-irt.png',model:'IRT40 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:565,specs:'380-400 V • 4.5 A',sourcePage:31},
 
       {id:'c-temp',image:'assets/accessories/vortice-c-temp.png',model:'C TEMP - Sıcaklık Sensörü',category:'Sensör / Otomasyon',manufacturer:'Vortice',price:60,specs:'Sıcaklık sensörü',sourcePage:26},
-      {id:'c-smoke',model:'C SMOKE - Duman Sensörü',category:'Sensör / Otomasyon',manufacturer:'Vortice',price:123,specs:'Duman sensörü',sourcePage:26},
+      {id:'c-smoke',image:'assets/accessories/vortice-c-smoke.png',model:'C SMOKE - Duman Sensörü',category:'Sensör / Otomasyon',manufacturer:'Vortice',price:123,specs:'Duman sensörü',sourcePage:26},
       {id:'c-hcs',image:'assets/accessories/vortice-c-hcs.png',model:'C HCS - Nem Sensörü',category:'Sensör / Otomasyon',manufacturer:'Vortice',price:92,specs:'Nem sensörü',sourcePage:26},
       {id:'c-pir',image:'assets/accessories/vortice-c-pir.png',model:'C PIR - Hareket Sensörü',category:'Sensör / Otomasyon',manufacturer:'Vortice',price:92,specs:'Hareket sensörü',sourcePage:26},
       {id:'c-timer',image:'assets/accessories/vortice-c-timer.png',model:'C TIMER - Zaman Sensörü',category:'Sensör / Otomasyon',manufacturer:'Vortice',price:60,specs:'Zaman sensörü',sourcePage:26},
 
-      {id:'cam100',model:'100/4" Cam Kiti',category:'Mekanik Kit',manufacturer:'Vortice',price:21,specs:'Punto için cama montaj kiti',sourcePage:13},
+      {id:'cam100',image:'assets/accessories/vortice-cam100.png',model:'100/4" Cam Kiti',category:'Mekanik Kit',manufacturer:'Vortice',price:21,specs:'Punto için cama montaj kiti',sourcePage:13},
       {id:'cam120',model:'120/5" Cam Kiti',category:'Mekanik Kit',manufacturer:'Vortice',price:25,specs:'Punto için cama montaj kiti',sourcePage:13},
       {id:'cam150',model:'150/6" Cam Kiti',category:'Mekanik Kit',manufacturer:'Vortice',price:34,specs:'Punto için cama montaj kiti',sourcePage:13},
       {id:'kv315',image:'assets/accessories/kv-heatmaster-kit.jpg',model:'KV HEATMASTER 315 Dikey Atış Kiti',category:'Mekanik Kit',manufacturer:'AVenS',price:380,specs:'Çatı fanını dikey tahliyeye dönüştürme kiti',sourcePage:35},
