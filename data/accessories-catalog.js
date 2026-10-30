@@ -36,8 +36,6 @@
       {id:'kv500',image:'assets/accessories/kv-heatmaster-kit.jpg',model:'KV HEATMASTER 500 Dikey Atış Kiti',category:'Mekanik Kit',manufacturer:'AVenS',price:647,specs:'Çatı fanını dikey tahliyeye dönüştürme kiti',sourcePage:35},
       {id:'kv560',image:'assets/accessories/kv-heatmaster-kit.jpg',model:'KV HEATMASTER 560 Dikey Atış Kiti',category:'Mekanik Kit',manufacturer:'AVenS',price:694,specs:'Çatı fanını dikey tahliyeye dönüştürme kiti',sourcePage:35},
       {id:'kv630',image:'assets/accessories/kv-heatmaster-kit.jpg',model:'KV HEATMASTER 630 Dikey Atış Kiti',category:'Mekanik Kit',manufacturer:'AVenS',price:890,specs:'Çatı fanını dikey tahliyeye dönüştürme kiti',sourcePage:35},
-      {id:'bvu-ls1000',model:'BVU-LS 1000 Kurşun Seperatör',category:'Opsiyonel Tamamlayıcı',manufacturer:'AVenS',price:250,specs:'BVU 1000 için opsiyonel kurşun seperatör',sourcePage:56},
-      {id:'bvu-ls2000',model:'BVU-LS 2000/3000 Kurşun Seperatör',category:'Opsiyonel Tamamlayıcı',manufacturer:'AVenS',price:280,specs:'BVU 2000/3000 için opsiyonel kurşun seperatör',sourcePage:56},
 
       {id:'fc51-220-037',image:'assets/accessories/danfoss-vlt-drive.jpg',model:'FC-51 - 220V - 0,37kW Frekans İnverteri',category:'Frekans İnverteri',manufacturer:'VLT',price:455,specs:'220 V • 0,37 kW',sourcePage:34},
       {id:'fc51-220-055',image:'assets/accessories/danfoss-vlt-drive.jpg',model:'FC-51 - 220V - 0,55kW Frekans İnverteri',category:'Frekans İnverteri',manufacturer:'VLT',price:475,specs:'220 V • 0,55 kW',sourcePage:34},
