@@ -93,7 +93,7 @@
 
   function recordFromForm(image){
     const type=currentType();const now=new Date().toISOString();const old=products.find(item=>item.id===editingId);
-    const base={id:editingId||makeId(),productType:type,model:value('model'),series:value('series'),manufacturer:value('manufacturer'),description:value('description'),nominalAirflow:0,voltage:value('voltage'),frequency:'',motorPower:0,speed:0,current:0,noise:0,power:'',lumen:'',ip:'',price:Math.max(0,num(value('price'))),discountPercent:clamp(value('discountPercent'),0,100),quantity:Math.max(1,Math.round(num(value('quantity'))||1)),image,createdAt:old?.createdAt||now,updatedAt:now};
+    const base={scope:old?.scope||'shared',projectId:old?.projectId||'',projectName:old?.projectName||'',id:editingId||makeId(),productType:type,model:value('model'),series:value('series'),manufacturer:value('manufacturer'),description:value('description'),nominalAirflow:0,voltage:value('voltage'),frequency:'',motorPower:0,speed:0,current:0,noise:0,power:'',lumen:'',ip:'',price:Math.max(0,num(value('price'))),discountPercent:clamp(value('discountPercent'),0,100),quantity:Math.max(1,Math.round(num(value('quantity'))||1)),image,createdAt:old?.createdAt||now,updatedAt:now};
     if(type==='fan')return {...base,nominalAirflow:Math.max(0,num(value('nominalAirflow'))),frequency:value('frequency'),motorPower:Math.max(0,num(value('motorPower'))),speed:Math.max(0,num(value('speed'))),current:Math.max(0,num(value('current'))),noise:Math.max(0,num(value('noise')))};
     return {...base,power:value('power'),lumen:value('lumen'),ip:value('ip')};
   }

@@ -29,3 +29,9 @@ test('expired session and server errors show distinct states without stale produ
   const expired=setup('secure',{status:401,ok:false});await settle();assert.match(expired.element('customCatalogStatus').textContent,/oturum/);assert.equal(expired.element('customCatalogProducts').innerHTML,'');
   const failed=setup('secure',{status:500,ok:false});await settle();assert.match(failed.element('customCatalogStatus').textContent,/yüklenemedi/);
 });
+
+test('project-specific catalog records show their origin and cannot be selected for another project',async()=>{
+ const app=setup('secure',{ok:true,status:200,json:async()=>({ok:true,products:[{id:'cpp_test',scope:'project',projectId:'prj_one',projectName:'Project <one>',productType:'fan',model:'Special',description:'Details',price:10}]})});
+ await settle();const html=app.element('customCatalogProducts').innerHTML;
+ assert.match(html,/Project &lt;one&gt;/);assert.match(html,/project\.html\?project=prj_one/);assert.match(html,/data-custom-delete="cpp_test"/);assert.doesNotMatch(html,/data-custom-add=/);
+});

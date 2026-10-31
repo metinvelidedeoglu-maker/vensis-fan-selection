@@ -251,6 +251,10 @@
     .custom-catalog-card details{font-size:13px;line-height:1.6;margin:14px 0}
     .custom-catalog-card summary{cursor:pointer;color:var(--green-dark);font-weight:700}
     .custom-description{white-space:pre-wrap;margin-top:8px}
+    .custom-card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+    .custom-card-actions button,.custom-card-actions a{padding:9px 12px;border:1px solid var(--line);border-radius:8px;font:700 12px Arial;cursor:pointer;text-decoration:none;color:var(--green-dark);background:var(--green-soft)}
+    .custom-card-actions .custom-delete{color:#a52c24;background:#fff4f2}
+    .custom-project-tag{margin:10px 0;padding:8px;background:#eef3f9;color:#355477;border-radius:7px;font-size:12px}
     .custom-price{display:block;margin-top:16px;font-size:18px}
     @media(max-width:900px){.custom-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:600px){.custom-catalog-head{align-items:flex-start;flex-direction:column;gap:0}.custom-catalog-grid{grid-template-columns:1fr}}
@@ -348,7 +352,11 @@
       });
     })();
   </script>
-  <script src="js/custom-catalog-hub.js?v=20261031-custom-catalog-r1"></script>
+  <script src="js/pending-project.js?v=20260826-project-transfer-r1"></script>
+  <script src="js/projects-store.js?v=20261031-accessory-descriptions-r1"></script>
+  <script src="js/catalog-project-picker.js?v=20260826-project-transfer-r1"></script>
+  <script src="js/project-custom-core.js?v=20261031-project-custom-r1"></script>
+  <script src="js/custom-catalog-hub.js?v=20261031-project-custom-r1"></script>
   <script src="js/language.js?v=20261023-english-output-r2"></script>
   <script src="js/suite-shell.js?v=20261030-accessories-browse-r1"></script>
 </body>

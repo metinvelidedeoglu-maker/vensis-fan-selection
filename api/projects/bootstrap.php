@@ -201,7 +201,7 @@ function project_item(array $source): array
         'itemKey' => [360, false], 'id' => [180, false], 'key' => [240, false],
         'productKey' => [240, false], 'model' => [240, false], 'series' => [240, false],
         'seriesCode' => [240, false], 'seriesTitle' => [240, false],
-        'manufacturer' => [180, false], 'image' => [4096, false], 'voltage' => [120, false],
+        'manufacturer' => [180, false], 'image' => [10000, false], 'voltage' => [120, false],
         'frequency' => [120, false], 'description' => [5000, true],
         'safetyWarning' => [5000, true],
         'productType' => [24, false], 'category' => [240, false], 'orderCode' => [240, false],

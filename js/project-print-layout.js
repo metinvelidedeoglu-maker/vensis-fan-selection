@@ -79,7 +79,7 @@
     const image=item.image||catalog.product?.(model?.id)?.media?.image||'';
     const description=String(item.description||'').trim();
     const safety=window.VensisProductLanguage?.text(item.safetyWarning||model?.technical?.safetyWarning||'',language())||String(item.safetyWarning||model?.technical?.safetyWarning||'').trim();
-    return `<div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(item.model||'Product')}" onerror="this.remove()">`:''}</i><div><strong>${esc(window.VensisProductLanguage?.modelName(item.model,language())||item.model||'-')}</strong><span>${esc(window.VensisProductLanguage?.text(item.series||model?.seriesTitle||'',language())||item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description" translate="no">${esc(description)}</em>`:''}</div></div>`;
+    return `<div class="project-product"><i class="project-product-image-slot"${image?'':` aria-hidden="true"`}>${image?`<img src="${esc(image)}" alt="${esc(item.model||'Product')}" onerror="this.remove()">`:''}</i><div><strong>${esc(window.VensisProductLanguage?.modelName(item.model,language())||item.model||'-')}</strong><span>${esc(window.VensisProductLanguage?.text(item.series||model?.seriesTitle||'',language())||item.series||model?.seriesTitle||'')}</span><small>${esc(item.manufacturer||(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||''))?'':'Vitlo'))}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:8.5px;font-weight:750;line-height:1.3">${esc(safety)}</em>`:''}${description?`<em class="project-description" translate="no">${esc(description)}</em>`:''}</div></div>`;
   }
 
   function voltageText(item){
@@ -97,7 +97,12 @@
     return num(item.nominalAirflow)>0?`${fmt(item.nominalAirflow)} m³/h`:'-';
   }
 
+  function projectCustomRow(item,columns){
+    const qty=Math.max(1,Math.round(num(item.quantity)||1));
+    return `<tr class="project-custom-print-row"><td colspan="${columns-1}">${productMarkup(item,null)}</td><td><b>${fmt(qty)}</b></td></tr>`;
+  }
   function fanRow(item){
+    if(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||'')))return projectCustomRow(item,7);
     const model=modelFor(item);
     const power=num(item.motorPower);
     const speed=num(item.speed);
@@ -106,6 +111,7 @@
   }
 
   function electricalRow(item){
+    if(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||'')))return projectCustomRow(item,6);
     const qty=Math.max(1,Math.round(num(item.quantity)||1));
     const power=String(item.power||'').trim();
     const lumen=String(item.lumen||'').trim();

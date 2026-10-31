@@ -204,7 +204,15 @@ function custom_product_record(mixed $value): array
     if ($model === '') {
         throw new EditApiException('Custom product model is required.', 422);
     }
+    $scope = ($value['scope'] ?? 'shared') === 'project' ? 'project' : 'shared';
+    $projectId = custom_product_text($value['projectId'] ?? '', 'projectId', 120);
+    if ($scope === 'project' && !preg_match('/^[A-Za-z0-9_-]{1,120}$/', $projectId)) {
+        throw new EditApiException('Custom product project is required.', 422);
+    }
     return [
+        'scope' => $scope,
+        'projectId' => $scope === 'project' ? $projectId : '',
+        'projectName' => $scope === 'project' ? custom_product_text($value['projectName'] ?? '', 'projectName', 240) : '',
         'id' => custom_product_id($value['id'] ?? ''),
         'productType' => $type,
         'model' => $model,

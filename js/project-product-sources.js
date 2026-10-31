@@ -8,17 +8,20 @@
   }
   function mount(){
     const project=window.VensisProject;
-    const footer=document.querySelector('.custom-product-footer');
+    const footer=document.querySelector('.custom-product-footer,.project-product-sources');
     if(!project?.projectId||!footer)return;
     addStyles();
     const projectId=encodeURIComponent(project.projectId);
     footer.className='project-product-sources';
-    footer.innerHTML=`<div class="project-product-sources-head"><span>Add Products</span><b>Choose a product source</b><small>Products selected from either screen will return to this project as the default destination.</small></div><div class="project-product-source-grid"><a class="project-product-source" href="fan-selection.html?project=${projectId}"><span class="source-icon">⌕</span><span><b>Select from Fan Selection</b><small>Choose a fan from airflow and pressure requirements.</small></span></a><div class="project-product-source catalog-source"><span class="source-icon">▦</span><span class="catalog-source-content"><b>Add from Product Catalog</b><small>Choose the catalog you want to browse.</small><span class="catalog-source-links"><a class="catalog-source-link" href="catalog-ventilation.html?project=${projectId}">Havalandırma</a><a class="catalog-source-link electrical" href="electrical/index.html?project=${projectId}">Elektrik</a></span></span></div><button id="addCustomProduct" class="project-product-source custom-source" type="button"><span class="source-icon">+</span><span><b>Add Custom Product</b><small>Enter a product that is not available in the database.</small></span></button></div>`;
+    const tr=(window.VensisI18n?.getLanguage?.()||document.documentElement.lang)==='tr';
+    const catalogUrl=`/${tr?'tr':'en'}/catalog-hub.html?project=${projectId}`;
+    footer.innerHTML=`<div class="project-product-sources-head"><span>${tr?'Ürün Ekle':'Add Products'}</span><b>${tr?'Ürün kaynağını seçin':'Choose a product source'}</b><small>${tr?'Seçtiğiniz ürünler bu projeye eklenecek.':'Selected products will be added to this project.'}</small></div><div class="project-product-source-grid"><a class="project-product-source" href="fan-selection.html?project=${projectId}"><span class="source-icon">⌕</span><span><b>${tr?'Fan Seçimi':'Fan Selection'}</b><small>${tr?'Debi ve basınca göre fan seçin.':'Select a fan using airflow and pressure.'}</small></span></a><a class="project-product-source" href="${catalogUrl}"><span class="source-icon">▦</span><span><b>${tr?'Katalogdan Ekle':'Add from Catalog'}</b><small>${tr?'Ana katalogdaki tüm ürün gruplarını inceleyin.':'Browse all product groups in the main catalog.'}</small></span></a><button id="addCustomProduct" class="project-product-source custom-source" type="button"><span class="source-icon">+</span><span><b>${tr?'Projeye Özel Ürün':'Project-specific Product'}</b><small>${tr?'Bu proje için ürün bilgilerini elle girin.':'Enter product details for this project.'}</small></span></button></div>`;
     footer.querySelector('#addCustomProduct')?.addEventListener('click',()=>project.openProductEditor?.());
     const emptyLink=document.querySelector('#projectEmpty a');
     if(emptyLink)emptyLink.href=`fan-selection.html?project=${projectId}`;
     const catalogNav=document.querySelector('.nav a[href^="catalog.html"]');
     if(catalogNav)catalogNav.href=`catalog-hub.html?project=${projectId}`;
   }
+  window.addEventListener('vensis-language-changed',mount);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();

@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20261031-accessory-project-descriptions-r2';
+  const BUILD='20261031-project-custom-r1';
   const page=(location.pathname.split('/').pop()||'').toLowerCase();
   const core=window.VensisAccessoryCore;
   if(!core)return;
@@ -91,7 +91,7 @@
     document.querySelectorAll('.project-edit-fan tbody tr[data-project-edit-row]').forEach(row=>{
       const index=Number(row.dataset.projectEditRow);const item=items[index];if(!item)return;
       if(isAccessory(item)){simplifyAccessoryProjectRow(row,item);return}
-      if(itemType(item)==='electrical')return;
+      if(itemType(item)==='electrical'||(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||''))))return;
       const host=row.querySelector('.project-cell-product>div')||row.querySelector('.project-cell-product');
       if(host&&!host.querySelector('[data-vensis-add-accessory]')){
         const button=document.createElement('button');button.type='button';button.className='vensis-add-accessory';button.dataset.vensisAddAccessory=String(index);button.textContent='+ Aksesuar Ekle';host.appendChild(button);

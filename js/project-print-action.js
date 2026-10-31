@@ -42,7 +42,7 @@
     return `<div class="project-point-editor">${input(index,`${field}.q`,q,{type:'number',min:0,step:1,unit:'m³/h',label:`${field} airflow`})}${input(index,`${field}.p`,p,{type:'number',min:0,step:1,unit:'Pa',label:`${field} pressure`})}</div>`;
   }
   function productMarkup(item){
-    const presentation=products.presentation?.(item)||{altModel:item.model||'',description:item.series||'',brand:item.manufacturer||'Vitlo'};
+    const presentation=(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||''))?{altModel:item.model,description:item.series,brand:item.manufacturer}:products.presentation?.(item))||{altModel:item.model||'',description:item.series||'',brand:item.manufacturer||'Vitlo'};
     const image=`<i class="project-cell-image-slot"${item.image?'':` aria-hidden="true"`}>${item.image?`<img src="${esc(item.image)}" alt="${esc(presentation.altModel||'Product')}" onerror="this.remove()">`:''}</i>`;
     const safety=window.VensisProductLanguage?.text(item.safetyWarning||'',language())||String(item.safetyWarning||'').trim();
     return `<div class="project-cell-product">${image}<div><strong>${esc(presentation.altModel||'-')}</strong><span>${esc(presentation.description)}</span><small>${esc(presentation.brand)}</small>${safety?`<em>${esc(safety)}</em>`:''}</div></div>`;
@@ -59,11 +59,17 @@
   }
   function quantityEditor(index,item){return input(index,'quantity',Math.max(1,Math.round(num(item.quantity)||1)),{type:'number',min:1,step:1,label:'Quantity',compact:true})}
   function actions(index){return `<button type="button" class="project-inline-remove" data-remove="${index}" title="Remove" aria-label="Remove">×</button>`}
+  function projectCustomRow(item,index){
+    const net=netUnit(item),qty=Math.max(1,Math.round(num(item.quantity)||1)),hasPrice=num(item.price)>0;
+    return `<tr data-project-edit-row="${index}" data-project-kind="custom"><td colspan="7">${productMarkup(item)}<div style="margin-top:8px">${noteEditor(item,index)}</div></td><td>${priceDisplay(item)}</td><td>${discountEditor(index,item)}</td><td>${netPriceEditor(index,item)}</td><td>${quantityEditor(index,item)}</td><td class="project-derived"><b>${hasPrice?money(net*qty):'-'}</b></td><td class="project-inline-actions"><button type="button" data-edit-product="${index}" title="${language()==='tr'?'Ürünü Düzenle':'Edit Product'}">✎</button>${actions(index)}</td></tr>`;
+  }
   function fanRow(item,index){
+    if(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||'')))return projectCustomRow(item,index);
     const net=netUnit(item);const qty=Math.max(1,Math.round(num(item.quantity)||1));const hasPrice=num(item.price)>0;
     return `<tr data-project-edit-row="${index}" data-project-kind="fan"><td>${productMarkup(item)}</td><td>${noteEditor(item,index)}</td><td>${pointEditor(index,'required',item.required)}</td><td>${pointEditor(index,'selected',item.selected)}</td><td>${input(index,'voltage',item.voltage||'',{label:'Voltage'})}</td><td>${input(index,'motorPower',num(item.motorPower)||'',{type:'number',min:0,step:'0.01',unit:'kW',label:'Power'})}</td><td>${input(index,'speed',num(item.speed)||'',{type:'number',min:0,step:1,unit:'rpm',label:'Speed'})}</td><td>${priceDisplay(item)}</td><td>${discountEditor(index,item)}</td><td>${netPriceEditor(index,item)}</td><td>${quantityEditor(index,item)}</td><td class="project-derived"><b>${hasPrice?money(net*qty):'-'}</b></td><td class="project-inline-actions">${actions(index)}</td></tr>`;
   }
   function electricalRow(item,index){
+    if(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||'')))return projectCustomRow(item,index).replace('colspan="7"','colspan="6"');
     const net=netUnit(item);const qty=Math.max(1,Math.round(num(item.quantity)||1));const hasPrice=num(item.price)>0;
     return `<tr data-project-edit-row="${index}" data-project-kind="electrical"><td>${productMarkup(item)}</td><td>${noteEditor(item,index)}</td><td>${input(index,'power',item.power||'',{label:'Power'})}</td><td>${input(index,'lumen',item.lumen||'',{label:'Lumen'})}</td><td>${input(index,'voltage',item.voltage||'',{label:'Voltage'})}</td><td>${input(index,'ip',item.ip||'',{label:'IP rating'})}</td><td>${priceDisplay(item)}</td><td>${discountEditor(index,item)}</td><td>${netPriceEditor(index,item)}</td><td>${quantityEditor(index,item)}</td><td class="project-derived"><b>${hasPrice?money(net*qty):'-'}</b></td><td class="project-inline-actions">${actions(index)}</td></tr>`;
   }

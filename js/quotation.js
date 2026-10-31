@@ -76,9 +76,14 @@
     const image=`<i class="product-image-slot"${item.image?'':` aria-hidden="true"`}>${item.image?`<img src="${escapeHtml(item.image)}" alt="${escapeHtml(localizedModelName(item)||'Product')}" onerror="this.remove()">`:''}</i>`;
     const description=String(item.description||'').trim();
     const safety=window.VensisProductLanguage?.text(item.safetyWarning||'',quotationLanguage(activeQuotation))||String(item.safetyWarning||'').trim();
-    return `<div class="product">${image}<div><strong>${escapeHtml(localizedModelName(item)||'-')}</strong><span>${escapeHtml(localizedSeriesTitle(item))}</span><small>${escapeHtml(item.manufacturer||'Vitlo')}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:9.5px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${description?`<em class="product-description" translate="no">${escapeHtml(description)}</em>`:''}</div></div>`;
+    return `<div class="product">${image}<div><strong>${escapeHtml(localizedModelName(item)||'-')}</strong><span>${escapeHtml(localizedSeriesTitle(item))}</span><small>${escapeHtml(item.manufacturer||(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||''))?'':'Vitlo'))}</small>${safety?`<em style="display:block;margin-top:4px;color:#9a3412;font-size:9.5px;font-weight:750;line-height:1.35">${escapeHtml(safety)}</em>`:''}${description?`<em class="product-description" translate="no">${escapeHtml(description)}</em>`:''}</div></div>`;
+  }
+  function projectCustomRow(item,currency){
+    const qty=Math.max(1,Math.round(number(item.quantity)||1)),net=netUnit(item),hasPrice=number(item.price)>0;
+    return `<tr class="vensis-accessory-quote-row vensis-project-custom-quote-row"><td colspan="5">${productMarkup(item)}</td><td class="num unit-price">${hasPrice?money(net,currency):'-'}</td><td class="num">${fmt(qty)}</td><td class="num"><b>${hasPrice?money(net*qty,currency):'-'}</b></td></tr>`;
   }
   function fanRow(item,currency){
+    if(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||'')))return projectCustomRow(item,currency);
     const model=modelFor(item);
     const qty=Math.max(1,Math.round(number(item.quantity)||1));
     const net=netUnit(item);
@@ -89,6 +94,7 @@
     return `<tr><td>${productMarkup(item)}</td><td>${dutyMarkup(item)}</td><td>${supplyMarkup(item,model)}</td><td class="num technical">${power>0?`${fmt(power,2)} kW`:'-'}</td><td class="num technical">${speed>0?`${fmt(speed)} rpm`:'-'}</td><td class="num unit-price">${hasPrice?money(net,currency):'-'}</td><td class="num">${fmt(qty)}</td><td class="num"><b>${hasPrice?money(total,currency):'-'}</b></td></tr>`;
   }
   function electricalRow(item,currency){
+    if(item.mode==='custom'&&/^cpp_/.test(String(item.productKey||'')))return projectCustomRow(item,currency);
     const qty=Math.max(1,Math.round(number(item.quantity)||1));
     const net=netUnit(item);
     const total=net*qty;

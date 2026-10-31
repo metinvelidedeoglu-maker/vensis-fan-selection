@@ -112,3 +112,18 @@ test('quotation technical-column refresh preserves prices in merged accessory ro
   vm.runInNewContext(read('js/order-flow.js'),{window,document,localStorage,Intl,MutationObserver:class{observe(){}}});
   assert.deepEqual(row.children.map(cell=>cell.textContent),['Accessory with technical description','€92,00','1','€92,00']);
 });
+
+test('project-specific products keep their basic fields and commercial totals through quotation saves',()=>{
+  const {context:c,storage,node,fields}=runtime();
+  const project=c.VensisProjects.create({name:'Custom product quotation regression'});
+  const core=require('../js/project-custom-core.js');
+  const source=core.record({model:'Special <model>',series:'Special type',manufacturer:'Custom brand',description:'Material A • 230 V',image:'https://example.com/custom.png',price:150,discountPercent:10,quantity:2},{id:project.id,name:project.name});
+  const item=core.toItem(source);c.VensisProjects.writeItems([item],project.id);
+  const key=c.VensisAccess.storageKey('vensis_active_quotation_v1');
+  storage.set(key,JSON.stringify({quotationNumber:'QA-CUSTOM',project:{id:project.id,name:project.name},customer:{name:'QA'},currency:'EUR',items:[item]}));
+  vm.runInContext(read('js/quotation.js'),c,{filename:'js/quotation.js'});
+  const html=node('quotationProductTables').innerHTML;
+  assert.match(html,/colspan="5"/);assert.match(html,/Special &lt;model&gt;/);assert.match(html,/Custom brand/);assert.match(html,/Material A/);assert.match(html,/135,00/);assert.match(html,/270,00/);
+  fields.get('[data-quote-item-description="0"]').value='Project revision';c.VensisQuotationEditor.save({silent:true});
+  const saved=c.VensisProjects.readItems(project.id)[0];assert.equal(saved.description,'Project revision');assert.equal(saved.image,item.image);assert.equal(saved.price,150);assert.equal(saved.quantity,2);assert.equal(saved.productKey,source.id);
+});
