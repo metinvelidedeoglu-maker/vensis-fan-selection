@@ -5,7 +5,7 @@ require('../data/accessories-catalog.js');
 const fanA={itemKey:'fan-a',productType:'fan',model:'Fan A'};
 const fanB={itemKey:'fan-b',productType:'fan',model:'Fan B'};
 const electrical={itemKey:'electrical|1',productType:'electrical',model:'Lamp'};
-const accessory={id:'accessory-1',model:'Accessory 1',category:'Hız Kontrolü',manufacturer:'AVenS',price:85};
+const accessory={id:'accessory-1',model:'Accessory 1',category:'Hız Kontrolü',manufacturer:'AVenS',price:85,specs:'220–240 V • 50 Hz • IP56'};
 
 let items=[fanA,fanB,electrical];
 let first=core.insertAccessory(items,'fan-a',accessory,{itemKey:'acc-line-1',now:'2026-09-07T12:00:00.000Z'});
@@ -16,7 +16,7 @@ assert.equal(first.items[1].parentItemKey,'fan-a');
 assert.equal(first.items[1].quantity,1);
 assert.equal(Object.hasOwn(first.items[1],'orderCode'),false);
 assert.equal(Object.hasOwn(first.items[1],'accessoryId'),false);
-assert.equal(Object.hasOwn(first.items[1],'description'),false);
+assert.equal(first.items[1].description,accessory.specs,'catalogue technical summary becomes the editable line description');
 
 let second=core.insertAccessory(first.items,'fan-a',accessory,{itemKey:'acc-line-2',now:'2026-09-07T12:01:00.000Z'});
 assert.equal(second.items.length,5,'adding the same accessory again must append another line');
@@ -26,8 +26,8 @@ assert.equal(second.items[1].quantity,1);
 assert.equal(second.items[2].quantity,1);
 
 const legacy=[{itemKey:'legacy-accessory',productType:'accessory',description:'Eski ürün notu'}];
-assert.equal(core.purgeAccessoryNotes(legacy),true);
-assert.equal(Object.hasOwn(legacy[0],'description'),false);
+assert.equal(core.purgeAccessoryNotes(legacy),false);
+assert.equal(legacy[0].description,'Eski ürün notu');
 
 const typeOf=item=>item.productType==='electrical'?'electrical':'fan';
 const moved=core.reorderFanBlock(second.items,'fan-a',1,typeOf);

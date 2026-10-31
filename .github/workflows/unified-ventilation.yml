@@ -32,6 +32,8 @@ jobs:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
         run: node --test tests/english-output.test.cjs tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs tests/sp-td-th-details.test.cjs tests/sp-design-details.test.cjs tests/sp-duct-details.test.cjs tests/sp-bath-details.test.cjs tests/sp-bath-curves.test.cjs
+      - name: Accessory descriptions and project persistence
+        run: node --test tests/accessories.test.cjs tests/accessories-return.test.cjs tests/accessory-code-removal.test.cjs tests/accessory-descriptions.test.cjs tests/linked-accessory-order.test.cjs
       - name: Agent snapshot is generated from the same product source
         run: |
           node scripts/build-agent-catalog.mjs

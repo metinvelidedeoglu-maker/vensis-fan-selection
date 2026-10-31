@@ -35,7 +35,7 @@
     for(const item of items||[]){
       const accessory=cleanText(item?.productType).toLowerCase()==='accessory'||cleanText(item?.mode).toLowerCase()==='accessory';
       if(!accessory)continue;
-      for(const field of ['code','orderCode','productCode','accessoryId','description']){
+      for(const field of ['code','orderCode','productCode','accessoryId']){
         if(Object.prototype.hasOwnProperty.call(item,field)){delete item[field];changed=true}
       }
     }

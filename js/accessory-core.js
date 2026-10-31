@@ -34,6 +34,7 @@
       model:text(source.model||source.name||'Aksesuar'),
       series:text(source.category||'Aksesuar'),
       manufacturer:text(source.manufacturer||'AVenS'),
+      description:Object.prototype.hasOwnProperty.call(source,'description')?text(source.description):text(source.specs),
       ...(text(source.image)?{image:text(source.image)}:{}),
       price:number(source.price),
       discountPercent:number(options.discountPercent),
@@ -43,16 +44,24 @@
     };
   }
 
-  function purgeAccessoryNotes(items){
+  function fillAccessoryDescriptions(items,catalog){
     let changed=false;
+    const records=Array.isArray(catalog?.items)?catalog.items:[];
     (Array.isArray(items)?items:[]).forEach(item=>{
-      if(isAccessory(item)&&Object.prototype.hasOwnProperty.call(item,'description')){
-        delete item.description;
-        changed=true;
-      }
+      if(!isAccessory(item)||Object.prototype.hasOwnProperty.call(item,'description'))return;
+      const model=text(item.model);
+      if(!model)return;
+      const matches=records.filter(record=>text(record.model)===model);
+      if(matches.length!==1||!text(matches[0].specs))return;
+      item.description=text(matches[0].specs);
+      changed=true;
     });
     return changed;
   }
+
+  // Older cached screens may still call this hook. Accessory descriptions
+  // now contain technical summaries or user notes and must be preserved.
+  function purgeAccessoryNotes(){return false}
 
   function insertAccessory(items,parentItemKey,accessory,options={}){
     const next=clone(Array.isArray(items)?items:[]);
@@ -109,5 +118,5 @@
 
   function technicalItems(items){return (Array.isArray(items)?items:[]).filter(item=>!isAccessory(item))}
 
-  return {isAccessory,accessoryChildren,buildAccessoryItem,purgeAccessoryNotes,insertAccessory,fanBlocks,reorderFanBlock,technicalItems};
+  return {isAccessory,accessoryChildren,buildAccessoryItem,fillAccessoryDescriptions,purgeAccessoryNotes,insertAccessory,fanBlocks,reorderFanBlock,technicalItems};
 });

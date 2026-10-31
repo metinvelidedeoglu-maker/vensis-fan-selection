@@ -24,7 +24,11 @@
   let activeQuotation=null;
 
   function readQuotation(){
-    try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}
+    try{
+      const quotation=JSON.parse(localStorage.getItem(KEY)||'null');
+      window.VensisAccessoryCore?.fillAccessoryDescriptions?.(quotation?.items,window.VensisAccessoriesCatalog);
+      return quotation;
+    }catch{return null}
   }
   function writeQuotation(value){
     localStorage.setItem(KEY,JSON.stringify(value));
