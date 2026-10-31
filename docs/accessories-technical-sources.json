@@ -1,0 +1,139 @@
+{
+  "verifiedOn": "2026-10-31",
+  "scope": "Technical summaries only; existing prices, images, models, categories, brands and source catalogue page references retained.",
+  "records": [
+    {
+      "id": "cr5n",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12941",
+      "confirmedAdditions": "Besleme, frekans, doğal havalandırma konumu ve üretici A/B/C ölçüleri."
+    },
+    {
+      "id": "c15",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12966",
+      "confirmedAdditions": "Besleme, frekans, kontrol tipi ve üretici A/B ölçüleri."
+    },
+    {
+      "id": "c25",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12967",
+      "confirmedAdditions": "Besleme, frekans, kontrol tipi ve üretici A/B ölçüleri."
+    },
+    {
+      "id": "pot-it",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12826",
+      "confirmedAdditions": "Açma/kapama, üretici besleme/frekans bilgisi, 503 montaj ve ölçüler."
+    },
+    {
+      "id": "pot-regc",
+      "sourceUrl": "https://www.casals.com/en/products/electrical-accessories/electrical-accessories/regc/",
+      "confirmedAdditions": "Ayar aralığı, kumanda mesafesi, montaj ve çalışma sıcaklığı; mevcut sinyal bilgisi korundu."
+    },
+    {
+      "id": "pmr",
+      "sourceUrl": "https://www.casals.com/en/products/electrical-accessories/electrical-accessories/pmr/",
+      "confirmedAdditions": "Ayar aralığı, kumanda mesafesi, şalter, yardımcı kontak, IP ve sıcaklık; PMR 25A varyantının akımı aktarılmadı."
+    },
+    {
+      "id": "irm30",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12921",
+      "confirmedAdditions": "Frekans, monofaze kullanım, IP ve üretici A/B/C ölçüleri."
+    },
+    {
+      "id": "irm40",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12922",
+      "confirmedAdditions": "Frekans, monofaze kullanım, IP ve üretici A/B/C ölçüleri."
+    },
+    {
+      "id": "irt15",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12923",
+      "confirmedAdditions": "Frekans, trifaze kullanım, IP ve üretici A/B/C ölçüleri; mevcut katalog gerilimi korundu."
+    },
+    {
+      "id": "irt35",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12924",
+      "confirmedAdditions": "Frekans, trifaze kullanım, IP ve üretici A/B/C ölçüleri; mevcut katalog gerilimi korundu."
+    },
+    {
+      "id": "irt40",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12927",
+      "confirmedAdditions": "Frekans, trifaze kullanım, IP ve üretici A/B/C ölçüleri; mevcut katalog gerilimi korundu."
+    },
+    {
+      "id": "c-temp",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12992",
+      "confirmedAdditions": "Besleme, frekans, IP, azami ortam sıcaklığı, ölçüler ve ortak sensör kataloğundan gecikme."
+    },
+    {
+      "id": "c-smoke",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12993",
+      "confirmedAdditions": "Algılama amacı, besleme, frekans, IP, ortam sıcaklığı, ölçüler ve gecikme."
+    },
+    {
+      "id": "c-hcs",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12994",
+      "confirmedAdditions": "Nem eşiği, besleme, frekans, IP, ortam sıcaklığı, ölçüler ve gecikme."
+    },
+    {
+      "id": "c-pir",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12998",
+      "confirmedAdditions": "Algılama yöntemi, besleme, frekans, IP, ortam sıcaklığı, ölçüler ve zaman ayarı."
+    },
+    {
+      "id": "c-timer",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/regolation-and-control/12999",
+      "confirmedAdditions": "Kontrol işlevi, besleme, ürün sayfasındaki 50 Hz, IP, ortam sıcaklığı, ölçüler ve gecikme."
+    },
+    {
+      "id": "cam100",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/accessories/22131",
+      "confirmedAdditions": "Nominal fan boyutu ve fan+kit ölçü şeması A/B/C değerleri; fan+kit performansı kitin özelliği gibi aktarılmadı."
+    },
+    {
+      "id": "cam120",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/accessories/22132",
+      "confirmedAdditions": "Nominal fan boyutu ve fan+kit ölçü şeması A/B/C değerleri; cam delik çapı çıkarımı yapılmadı."
+    },
+    {
+      "id": "cam150",
+      "sourceUrl": "https://www.vortice.com/en/accessories-and-components/accessories/22133",
+      "confirmedAdditions": "Nominal fan boyutu ve fan+kit ölçü şeması A/B/C değerleri; cam delik çapı çıkarımı yapılmadı."
+    },
+    {
+      "id": "fc51-220-037",
+      "sourceUrl": "https://files.danfoss.com/download/Drives/MG02K402.pdf",
+      "confirmedAdditions": "Danfoss FC51 tasarım kılavuzu tablo 9.1/9.2, sayfa 84–85: her iki giriş fazı varyantında 2,2 A sürekli çıkış; giriş akımı olarak kullanılmaz."
+    },
+    {
+      "id": "fc51-380-037",
+      "sourceUrl": "https://files.danfoss.com/download/Drives/MG02K402.pdf",
+      "confirmedAdditions": "Danfoss FC51 tasarım kılavuzu tablo 9.3, sayfa 86: 380–440 V için sürekli çıkış 1,2 A; 440–480 V satırıyla karıştırılmadı."
+    }
+  ],
+  "additionalSources": [
+    {
+      "ids": [
+        "c-temp",
+        "c-smoke",
+        "c-hcs",
+        "c-pir",
+        "c-timer"
+      ],
+      "url": "https://www.vortice.com/media2/Export%5CInglese%5CDoc_Pubblicita_Residential_ventilation_120131.pdf",
+      "page": 147,
+      "scope": "3–20 minute timing, humidity threshold and sensor functions. C TIMER frequency follows individual product page (50 Hz)."
+    }
+  ],
+  "openItems": [
+    {
+      "id": "fc102-p1k1",
+      "field": "voltage",
+      "reason": "Supplier price-list row says 308 V. Manufacturer has multiple voltage variants. No exact order/type suffix available; voltage was not inferred from adjacent rows.",
+      "manufacturerSource": "https://assets.danfoss.com/documents/latest/239074/AD443749613670en-010101.pdf"
+    },
+    {
+      "id": "fc51-220-055",
+      "field": "current / exact variant",
+      "reason": "Existing supplier row calls this FC-51 0.55 kW. The reviewed FC51 manufacturer tables list 0.37 and 0.75 kW around this size but no 0.55 kW variant. Retain current catalogue entry pending exact type code; do not borrow another model current.",
+      "manufacturerSource": "https://files.danfoss.com/download/Drives/MG02K402.pdf"
+    }
+  ]
+}
