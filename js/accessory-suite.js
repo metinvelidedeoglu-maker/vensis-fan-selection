@@ -1,7 +1,7 @@
 (function(){
   'use strict';
 
-  const BUILD='20261031-accessory-project-descriptions-r1';
+  const BUILD='20261031-accessory-project-descriptions-r2';
   const page=(location.pathname.split('/').pop()||'').toLowerCase();
   const core=window.VensisAccessoryCore;
   if(!core)return;
@@ -184,9 +184,11 @@
   function decorateProjectPrint(){
     const full=fullPrintSnapshot||window.__VENSIS_ACCESSORY_PRINT_FULL__;const root=document.getElementById('projectPrintRoot');if(!full||!Array.isArray(full.items)||!root?.querySelector('.project-overview'))return false;
     ensureStyles();const technical=core.technicalItems(full.items);const tbody=root.querySelector('.project-overview .project-table tbody');if(!tbody)return false;
+    const header=root.querySelector('.project-overview .project-table thead tr');
+    const descriptionColumns=Math.max(1,[...(header?.children||[])].reduce((sum,cell)=>sum+(Number(cell.colSpan)||1),0)-1);
     const fanRows=[...tbody.querySelectorAll(':scope > tr')];const rowByKey=new Map();technical.forEach((item,index)=>{const row=fanRows[index];if(row)rowByKey.set(String(item.itemKey||`technical-${index}`),row)});
-    technical.forEach((parent,index)=>{const row=rowByKey.get(String(parent.itemKey||`technical-${index}`));if(!row)return;tbody.appendChild(row);full.items.filter(item=>isAccessory(item)&&String(item.parentItemKey||'')===String(parent.itemKey||'')).forEach(item=>{const child=document.createElement('tr');child.className='vensis-accessory-print-row';child.innerHTML=`<td colspan="8">${printAccessoryMarkup(item)}</td><td><b>${Math.max(1,Math.round(num(item.quantity)||1))}</b></td>`;tbody.appendChild(child)})});
-    full.items.filter(item=>isAccessory(item)&&!technical.some(parent=>String(parent.itemKey||'')===String(item.parentItemKey||''))).forEach(item=>{const child=document.createElement('tr');child.className='vensis-accessory-print-row';child.innerHTML=`<td colspan="8">${printAccessoryMarkup(item)}</td><td><b>${Math.max(1,Math.round(num(item.quantity)||1))}</b></td>`;tbody.appendChild(child)});
+    technical.forEach((parent,index)=>{const row=rowByKey.get(String(parent.itemKey||`technical-${index}`));if(!row)return;tbody.appendChild(row);full.items.filter(item=>isAccessory(item)&&String(item.parentItemKey||'')===String(parent.itemKey||'')).forEach(item=>{const child=document.createElement('tr');child.className='vensis-accessory-print-row';child.innerHTML=`<td colspan="${descriptionColumns}">${printAccessoryMarkup(item)}</td><td><b>${Math.max(1,Math.round(num(item.quantity)||1))}</b></td>`;tbody.appendChild(child)})});
+    full.items.filter(item=>isAccessory(item)&&!technical.some(parent=>String(parent.itemKey||'')===String(item.parentItemKey||''))).forEach(item=>{const child=document.createElement('tr');child.className='vensis-accessory-print-row';child.innerHTML=`<td colspan="${descriptionColumns}">${printAccessoryMarkup(item)}</td><td><b>${Math.max(1,Math.round(num(item.quantity)||1))}</b></td>`;tbody.appendChild(child)});
     const note=root.querySelector('.project-overview .project-note');if(note)note.innerHTML='<b>Technical Project Output</b>Fan technical datasheets are included on the following pages. Accessories are listed under their related fan on this overview page and do not create a separate technical datasheet.';
     const sheets=[...root.querySelectorAll('.datasheet-page')];sheets.forEach((sheet,index)=>{const meta=sheet.querySelector('.pdf-footer-meta');if(meta)meta.textContent=`Project Datasheet Appendix • Page ${index+2} / ${sheets.length+1}`});
     writeJson(printSnapshotKey,full);fullPrintSnapshot=null;window.__VENSIS_ACCESSORY_PRINT_FULL__=null;return true;
