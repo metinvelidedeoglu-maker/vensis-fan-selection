@@ -19,6 +19,7 @@
     form.querySelectorAll('.custom-grid>label').forEach(label=>{
       const field=label.querySelector('input,select,textarea');
       label.hidden=Boolean(field&&!fields.some(id=>field.id==='custom-'+id)&&field.id!=='custom-projectImageFile');
+      label.style.display=label.hidden?'none':'';
     });
     form.querySelector('[data-custom-upload-label]').textContent=tr()?'Görsel Yükle (opsiyonel)':'Upload Image (optional)';
     const labels={model:tr()?'Model / Ürün Adı':'Model / Product Name',series:tr()?'Tip':'Type',manufacturer:tr()?'Marka':'Brand',description:tr()?'Kısa Teknik Açıklama':'Short Technical Description'};

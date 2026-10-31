@@ -172,7 +172,7 @@
 
 if(document.getElementById('customProductForm')&&!document.querySelector('script[data-custom-product-editor]')){
   const script=document.createElement('script');
-  script.src='js/custom-product-editor.js?v=20261031-project-custom-r1';
+  script.src='js/custom-product-editor.js?v=20261031-project-custom-r2';
   script.dataset.customProductEditor='1';
   document.head.appendChild(script);
 }
