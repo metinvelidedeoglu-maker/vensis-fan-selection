@@ -223,6 +223,7 @@
   function setFormValue(name,value){const field=formField(name);if(field)field.value=value??''}
   function setCustomFieldsDisabled(disabled){document.querySelectorAll('[data-custom-core]').forEach(field=>{field.disabled=disabled});const note=byId('customProductModeNote');if(note)note.textContent=disabled?'This project product is linked to the fan database. Only the free description can be changed here.':'Enter a product that is not available in the selection program.'}
   function openProductEditor(index=null){
+    if(index==null)return;
     flushAllNotes();const items=readItems();const item=index==null?null:items[index];editingIndex=index;const isExisting=Boolean(item);const isCustom=!item||item.mode==='custom';
     if(byId('customProductTitle'))byId('customProductTitle').textContent=isExisting?(isCustom?'Edit Custom Product':'Edit Product Description'):'Add Custom Product';
     if(byId('saveCustomProduct'))byId('saveCustomProduct').textContent=isExisting?'Save Changes':'Add to Project';setCustomFieldsDisabled(!isCustom);
@@ -231,7 +232,7 @@
   }
   function closeProductEditor(){const modal=byId('customProductModal');if(modal)modal.hidden=true;document.body.classList.remove('modal-open');editingIndex=null}
   function saveProductEditor(event){
-    event.preventDefault();const items=readItems();const existing=editingIndex==null?null:items[editingIndex];
+    event.preventDefault();const items=readItems();const existing=editingIndex==null?null:items[editingIndex];if(!existing)return;
     if(existing&&existing.mode!=='custom'){existing.description=String(formField('description')?.value||'').trim();existing.updatedAt=new Date().toISOString();writeItems(items);closeProductEditor();render();return}
     const model=String(formField('model')?.value||'').trim();if(!model){formField('model')?.focus();return}
     const stamp=new Date().toISOString();const item=existing||{itemKey:`custom|${Date.now()}|${Math.random().toString(36).slice(2,8)}`,mode:'custom',productKey:'',required:null,selected:null,addedAt:stamp};

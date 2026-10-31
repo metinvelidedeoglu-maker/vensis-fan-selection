@@ -35,7 +35,7 @@
         if(Number(item.noise)>0)specs.push(`${Number(item.noise)} dB(A)`);
       }else specs.push(item.power,item.lumen,item.ip);
       const price=Number(item.price)>0?new Intl.NumberFormat(locale,{style:'currency',currency:'EUR'}).format(Number(item.price)):t('unpriced');
-      return `<article class="custom-catalog-card">${src?`<img loading="lazy" src="${esc(src)}" alt="${esc(item.model)}">`:`<div class="custom-no-image">${esc(t('noImage'))}</div>`}<h3 translate="no">${esc(item.model)}</h3><div class="custom-meta" translate="no">${esc([item.manufacturer,item.series].filter(Boolean).join(' · '))}</div>${item.scope==='project'?`<div class="custom-project-tag">${esc(t('project'))}: <span translate="no">${esc(item.projectName||item.projectId)}</span></div>`:''}<div class="custom-meta">${esc(t(item.scope==='project'?'projectProduct':item.productType==='fan'?'fan':'electrical'))}</div><div class="custom-specs" translate="no">${specs.filter(Boolean).map(spec=>`<span>${esc(spec)}</span>`).join('')}</div>${item.description?`<details><summary>${esc(t('details'))}</summary><div class="custom-description" translate="no">${esc(item.description)}</div></details>`:''}<strong class="custom-price">${esc(t('price'))}: ${esc(price)}</strong><div class="custom-card-actions">${item.scope==='project'?`<a href="project.html?project=${encodeURIComponent(item.projectId)}">${esc(t('openProject'))}</a>`:`<button type="button" data-custom-add="${esc(item.id)}">${esc(t('add'))}</button>`}<button type="button" class="custom-delete" data-custom-delete="${esc(item.id)}">${esc(t('remove'))}</button></div></article>`;
+      return `<article class="custom-catalog-card">${src?`<img loading="lazy" src="${esc(src)}" alt="${esc(item.model)}">`:`<div class="custom-no-image">${esc(t('noImage'))}</div>`}<h3 translate="no">${esc(item.model)}</h3><div class="custom-meta" translate="no">${esc([item.manufacturer,item.series].filter(Boolean).join(' · '))}</div><div class="custom-meta">${esc(t(/^cpp_/.test(String(item.id||''))?'title':item.productType==='fan'?'fan':'electrical'))}</div><div class="custom-specs" translate="no">${specs.filter(Boolean).map(spec=>`<span>${esc(spec)}</span>`).join('')}</div>${item.description?`<details><summary>${esc(t('details'))}</summary><div class="custom-description" translate="no">${esc(item.description)}</div></details>`:''}<strong class="custom-price">${esc(t('price'))}: ${esc(price)}</strong><div class="custom-card-actions"><button type="button" data-custom-add="${esc(item.id)}">${esc(t('add'))}</button><button type="button" class="custom-delete" data-custom-delete="${esc(item.id)}">${esc(t('remove'))}</button></div></article>`;
     }).join('');
   }
   async function refresh(){
@@ -69,7 +69,7 @@
   }
   function addProduct(id,button){
     if(!secure())return;
-    const source=products.find(item=>item.id===id);if(!source||source.scope==='project')return;
+    const source=products.find(item=>item.id===id);if(!source)return;
     const item=window.VensisProjectCustom?.toItem(source);if(!item)return;
     window.VensisCatalogProjectPicker?.openItem(item,button);
   }
