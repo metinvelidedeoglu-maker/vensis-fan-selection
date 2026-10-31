@@ -4,13 +4,9 @@
     source:'AVenS Ürün Fiyat Kataloğu 2026 • 2',
     currency:'EUR',
     items:[
-      // Metin'in 16.10.2026 beyan ettiği liste fiyatı; ATEX/hidrojen uyumu henüz doğrulanmadı.
-      {id:'jaluzi-geri-tepme-duvar',model:'Geri Tepme Klapeli Jaluzi Panjur 500×500 mm',category:'Jaluzi / Panjur',manufacturer:'Vensis',price:300,priceCurrency:'EUR',priceSource:'Metin tarafından bildirilen liste fiyatı — 16.10.2026',quoteEnabled:true,technicalApprovalRequired:true,specs:'500×500 mm • Geri tepme önleyici hareketli kanatlı panjur. AXW/ATEX fanıyla montaj uyumu, basınç kaybı, hidrojen/Zone için malzeme ve teknik uygunluk üretici tarafından teyit edilmelidir.',sourceNote:'Liste fiyatı: Metin beyanı (16.10.2026) • ATEX/uyumluluk teknik teyidi bekleniyor'},
       {id:'cr5n',image:'assets/accessories/vortice-cr5n.png',model:'CR5N Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:66,specs:'100 W • 1.2 A • 5 kademeli • çift yön kontrolü',sourcePage:16},
       {id:'c15',image:'assets/accessories/vortice-c15.png',model:'C 1,5 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:63,specs:'200 W • 1.5 A',sourcePage:18},
       {id:'c25',image:'assets/accessories/vortice-c15.png',model:'C 2,5 Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:66,specs:'450 W • 2.5 A',sourcePage:24},
-      {id:'avens25',model:'AVenS 2,5 A Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'AVenS',price:85,specs:'450 W • 2.5 A',sourcePage:24},
-      {id:'avens5',model:'AVenS 5 A Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'AVenS',price:100,specs:'5 A',sourcePage:27},
       {id:'pot-it',image:'assets/accessories/vortice-pot-it.png',model:'POT-IT Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:110,specs:'EC motor hız kontrolü',sourcePage:22},
       {id:'pot-regc',image:'assets/accessories/casals-pot-regc.jpg',model:'POT (REGC) EC Motor Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:120,specs:'0-10V veya PWM hız kontrolü',sourcePage:33},
       {id:'pmr',image:'assets/accessories/casals-pmr-ec.jpg',model:'PMR EC Motor Hız Anahtarı',category:'Hız Kontrolü',manufacturer:'Vortice',price:265,specs:'EC motor hız kontrolü',sourcePage:33},

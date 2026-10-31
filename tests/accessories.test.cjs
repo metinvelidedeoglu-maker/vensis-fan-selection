@@ -49,14 +49,6 @@ assert.ok(catalog.items.every(item=>!/^\d+-/.test(String(item.id||''))),'interna
 assert.equal(new Set(catalog.items.map(item=>item.id)).size,catalog.items.length,'accessory ids must stay unique');
 assert.equal(catalog.items.some(item=>/quadro\s*evo/i.test(`${item.model} ${item.specs||''}`)),false,'QUADRO EVO accessories must stay out of this catalog');
 
-const backdraftLouver=catalog.items.find(item=>item.id==='jaluzi-geri-tepme-duvar');
-assert.ok(backdraftLouver,'backdraft louver must be visible in accessory catalog');
-assert.equal(backdraftLouver.model,'Geri Tepme Klapeli Jaluzi Panjur 500×500 mm');
-assert.equal(backdraftLouver.price,300,'500x500 mm backdraft louver list price should be 300 EUR');
-assert.equal(backdraftLouver.priceCurrency,'EUR');
-assert.match(backdraftLouver.priceSource,/Metin/);
-assert.equal(backdraftLouver.quoteEnabled,true,'Metin-priced accessory can be added to draft projects');
-assert.equal(backdraftLouver.technicalApprovalRequired,true,'hydrogen/Zone application still requires engineering review');
 const fs=require('node:fs');
 const path=require('node:path');
 const accessoryPage=fs.readFileSync(path.resolve(__dirname,'../js/accessories-page.js'),'utf8');
