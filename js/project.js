@@ -41,6 +41,7 @@
   }
   function enrichItems(items){
     let changed=Boolean(window.VensisPricing?.enrichItems?.(items));
+    if(window.VensisAccessoryCore?.fillAccessoryDescriptions?.(items,window.VensisAccessoriesCatalog))changed=true;
     items.forEach(item=>{
       if(item.mode==='custom'||formats.itemType(item)==='electrical')return;
       const model=modelForItem(item);
