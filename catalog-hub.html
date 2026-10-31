@@ -100,7 +100,7 @@
     }
     .grid{
       display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:12px;
     }
     .choice{
@@ -231,6 +231,29 @@
     @media(prefers-reduced-motion:reduce){
       .choice,.choice:after,.arrow{transition:none}
     }
+    .custom-catalog{margin-top:38px;scroll-margin-top:100px}
+    .custom-catalog-head{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .custom-catalog h2{margin:0;font-size:28px;letter-spacing:-.03em}
+    .custom-catalog-head p{color:var(--muted);line-height:1.6}
+    .custom-manage{color:var(--green-dark);font-size:13px;font-weight:700;white-space:nowrap}
+    .custom-tools{display:flex;gap:10px;margin:18px 0}
+    .custom-tools input{flex:1;min-width:0;padding:13px;border:1px solid var(--line);border-radius:10px;font:inherit}
+    .custom-tools button{padding:10px 18px;background:var(--green);color:white;border:0;border-radius:10px;font:inherit;cursor:pointer}
+    #customCatalogStatus{font-size:13px;color:var(--muted)}
+    .custom-catalog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .custom-catalog-card{min-width:0;padding:20px;background:white;border:1px solid var(--line);border-radius:16px;overflow-wrap:anywhere}
+    .custom-catalog-card img,.custom-no-image{display:block;width:100%;height:160px;object-fit:contain;margin-bottom:18px}
+    .custom-no-image{display:grid;place-items:center;background:#f3f7f7;color:var(--muted);font-size:12px}
+    .custom-catalog-card h3{margin:0 0 8px;font-size:19px}
+    .custom-meta{color:var(--muted);font-size:12px;line-height:1.5}
+    .custom-specs{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+    .custom-specs span{background:var(--green-soft);color:var(--green-dark);padding:5px 8px;border-radius:6px;font-size:12px}
+    .custom-catalog-card details{font-size:13px;line-height:1.6;margin:14px 0}
+    .custom-catalog-card summary{cursor:pointer;color:var(--green-dark);font-weight:700}
+    .custom-description{white-space:pre-wrap;margin-top:8px}
+    .custom-price{display:block;margin-top:16px;font-size:18px}
+    @media(max-width:900px){.custom-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.custom-catalog-head{align-items:flex-start;flex-direction:column;gap:0}.custom-catalog-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -253,7 +276,7 @@
                 <path d="M9.9 13.1c-3.3 1.7-5.6 1.8-6.7 0-1.2-2 1-3.9 3.4-3.5 1.6.3 3.1 1.4 4.6 3.2"></path>
               </svg>
             </div>
-            <span class="number">01 / 03</span>
+            <span class="number">01 / 04</span>
           </div>
           <div class="choice-copy">
             <small>Air & Ventilation</small>
@@ -270,7 +293,7 @@
                 <path d="M13 2 5.8 13h5.8L11 22l7.2-12h-5.7L13 2Z"></path>
               </svg>
             </div>
-            <span class="number">02 / 03</span>
+            <span class="number">02 / 04</span>
           </div>
           <div class="choice-copy">
             <small>Industrial Electrical</small>
@@ -287,7 +310,7 @@
                 <path d="m5 15 4 4M16 4l2-2 4 4-2 2"></path>
               </svg>
             </div>
-            <span class="number">03 / 03</span>
+            <span class="number">03 / 04</span>
           </div>
           <div class="choice-copy">
             <small>Ventilation Accessories</small>
@@ -296,7 +319,18 @@
             <div class="action"><span>Browse ventilation accessories</span><span class="arrow">→</span></div>
           </div>
         </a>
+        <a class="choice vent" href="#custom-products" data-custom-hub-link>
+          <div class="choice-top"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M12 7v10M7 12h10"></path></svg></div><span class="number">04 / 04</span></div>
+          <div class="choice-copy"><small data-custom-copy="library">Shared Product Library</small><h2 data-custom-copy="title">Custom Products</h2><p data-custom-copy="intro">Explore saved custom products with their images, technical descriptions and list prices.</p><div class="action"><span data-custom-copy="browse">Browse custom products</span><span class="arrow">→</span></div></div>
+        </a>
       </div>
+    </section>
+
+    <section id="custom-products" class="custom-catalog" aria-labelledby="customCatalogTitle">
+      <div class="custom-catalog-head"><div><h2 id="customCatalogTitle" data-custom-copy="title">Custom Products</h2><p data-custom-copy="intro">Explore saved custom products with their images, technical descriptions and list prices.</p></div><a href="custom-products.html" class="custom-manage catalog-link" data-custom-copy="manage">Manage library</a></div>
+      <div class="custom-tools"><input id="customCatalogSearch" type="search" aria-label="Search custom products" placeholder="Search brand, model or description"><button id="customCatalogRefresh" type="button" data-custom-copy="refresh">Refresh</button></div>
+      <p id="customCatalogStatus" role="status" aria-live="polite"></p>
+      <div id="customCatalogProducts" class="custom-catalog-grid"></div>
     </section>
 
     <div class="footnote">
@@ -314,6 +348,7 @@
       });
     })();
   </script>
+  <script src="js/custom-catalog-hub.js?v=20261031-custom-catalog-r1"></script>
   <script src="js/language.js?v=20261023-english-output-r2"></script>
   <script src="js/suite-shell.js?v=20261030-accessories-browse-r1"></script>
 </body>
