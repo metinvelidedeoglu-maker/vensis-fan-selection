@@ -18,6 +18,8 @@
     const tr=(requested||routeLanguage||window.VensisI18n?.getLanguage?.()||document.documentElement.lang)==='tr';
     const catalogUrl=`/${tr?'tr':'en'}/catalog-hub.html?project=${projectId}`;
     footer.innerHTML=`<div class="project-product-sources-head"><span>${tr?'Ürün Ekle':'Add Products'}</span><b>${tr?'Ürün kaynağını seçin':'Choose a product source'}</b><small>${tr?'Seçtiğiniz ürünler bu projeye eklenecek.':'Selected products will be added to this project.'}</small></div><div class="project-product-source-grid"><a class="project-product-source" href="fan-selection.html?project=${projectId}"><span class="source-icon">⌕</span><span><b>${tr?'Fan Seçimi':'Fan Selection'}</b><small>${tr?'Debi ve basınca göre fan seçin.':'Select a fan using airflow and pressure.'}</small></span></a><a class="project-product-source" href="${catalogUrl}"><span class="source-icon">▦</span><span><b>${tr?'Katalogdan Ekle':'Add from Catalog'}</b><small>${tr?'Ana katalogdaki tüm ürün gruplarını inceleyin.':'Browse all product groups in the main catalog.'}</small></span></a></div>`;
+    const emptyText=document.querySelector('#projectEmpty p');
+    if(emptyText)emptyText.textContent=tr?'Fan Seçimi veya Katalogdan Ekle seçeneklerini kullanarak projeye ürün ekleyin.':'Add products from Fan Selection or the Product Catalog.';
     const emptyLink=document.querySelector('#projectEmpty a');
     if(emptyLink)emptyLink.href=`fan-selection.html?project=${projectId}`;
     const catalogNav=document.querySelector('.nav a[href^="catalog.html"]');
