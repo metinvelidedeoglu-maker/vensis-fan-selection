@@ -35,3 +35,11 @@ test('project-specific catalog records show their origin and cannot be selected 
  await settle();const html=app.element('customCatalogProducts').innerHTML;
  assert.match(html,/Project &lt;one&gt;/);assert.match(html,/project\.html\?project=prj_one/);assert.match(html,/data-custom-delete="cpp_test"/);assert.doesNotMatch(html,/data-custom-add=/);
 });
+
+test('catalog hub is a folder entry and does not load private product records',()=>{
+ const hub=fs.readFileSync('catalog-hub.html','utf8'),folder=fs.readFileSync('catalog-custom.html','utf8');
+ assert.match(hub,/href="catalog-custom\.html" data-custom-hub-link/);assert.doesNotMatch(hub,/id="customCatalogProducts"/);assert.match(folder,/id="customCatalogProducts"/);
+ let fetches=0;
+ const context={document:{readyState:'complete',documentElement:{lang:'tr'},getElementById:()=>null,querySelectorAll:()=>[]},window:{VensisAccess:{mode:()=> 'secure'},addEventListener(){}},location:{pathname:'/tr/catalog-hub.html'},URL,fetch:()=>{fetches++}};
+ vm.runInNewContext(source,context);assert.equal(fetches,0);
+});

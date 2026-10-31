@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Custom Products | Vensis</title>
+<link rel="stylesheet" href="css/access-gate.css?v=20260826-access-gate-r1">
+<script src="js/access-gate.js?v=20261031-project-custom-r1"></script>
+<link rel="stylesheet" href="css/custom-catalog.css?v=20261031-custom-folder-r1">
+</head>
+<body>
+<main class="wrap">
+<a class="back catalog-link" href="catalog-hub.html" data-custom-copy="back">← Product Catalog</a>
+<h1 data-custom-copy="title">Custom Products</h1>
+<p data-custom-copy="intro">Explore saved custom products with their images, technical descriptions and list prices.</p>
+    <section id="custom-products" class="custom-catalog" aria-labelledby="customCatalogTitle">
+      <div class="custom-catalog-head"><div><h2 id="customCatalogTitle" data-custom-copy="saved">Saved Products</h2></div><a href="custom-products.html" class="custom-manage catalog-link" data-custom-copy="manage">Manage library</a></div>
+      <div class="custom-tools"><input id="customCatalogSearch" type="search" aria-label="Search custom products" placeholder="Search brand, model or description"><button id="customCatalogRefresh" type="button" data-custom-copy="refresh">Refresh</button></div>
+      <p id="customCatalogStatus" role="status" aria-live="polite"></p>
+      <div id="customCatalogProducts" class="custom-catalog-grid"></div>
+    </section>
+
+
+</main>
+<script>
+(function(){var query=location.search;if(query)document.querySelectorAll('.catalog-link').forEach(function(link){link.href+=query})})();
+</script>
+<script src="js/pending-project.js?v=20260826-project-transfer-r1"></script>
+<script src="js/projects-store.js?v=20261031-accessory-descriptions-r1"></script>
+<script src="js/catalog-project-picker.js?v=20260826-project-transfer-r1"></script>
+<script src="js/project-custom-core.js?v=20261031-project-custom-r1"></script>
+<script src="js/custom-catalog-hub.js?v=20261031-custom-folder-r1"></script>
+<script src="js/language.js?v=20261023-english-output-r2"></script>
+<script src="js/suite-shell.js?v=20261030-accessories-browse-r1"></script>
+</body>
+</html>

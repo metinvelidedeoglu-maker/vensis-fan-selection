@@ -10,7 +10,7 @@ test('private application pages receive a server-level X-Robots noindex header',
   const htaccess=read('.htaccess');
   assert.match(htaccess,/SetEnvIf Request_URI/);
   assert.match(htaccess,/X-Robots-Tag "noindex, nofollow"/);
-  for(const name of ['index','fan-selection','projects','project','customers','custom-products','quotation','order','project-print','detail']){
+  for(const name of ['index','fan-selection','projects','project','customers','custom-products','catalog-custom','quotation','order','project-print','detail']){
     assert.match(htaccess,new RegExp(`\\b${name.replace('-','\\-')}\\b`),name);
   }
 });

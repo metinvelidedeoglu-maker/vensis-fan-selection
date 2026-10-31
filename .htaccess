@@ -28,7 +28,7 @@
 </IfModule>
 
 <IfModule mod_setenvif.c>
-  SetEnvIf Request_URI "^/(tr/|en/)?(index|fan-selection|projects|project|customers|custom-products|quotation|order|project-print|detail|accessories)\.html$" vensis_noindex=1
+  SetEnvIf Request_URI "^/(tr/|en/)?(index|fan-selection|projects|project|customers|custom-products|catalog-custom|quotation|order|project-print|detail|accessories)\.html$" vensis_noindex=1
 </IfModule>
 
 <IfModule mod_headers.c>

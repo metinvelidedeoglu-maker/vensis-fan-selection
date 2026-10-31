@@ -2,8 +2,8 @@
   'use strict';
   const byId=id=>document.getElementById(id);
   const copy={
-    tr:{title:'Özel Ürünler',library:'Ortak Ürün Kütüphanesi',intro:'Kayıtlı özel ürünleri görselleri, teknik açıklamaları ve liste fiyatlarıyla inceleyin.',browse:'Özel ürünleri incele',manage:'Kütüphaneyi yönet',refresh:'Yenile',search:'Marka, model veya açıklama ara',loading:'Ürünler yükleniyor…',login:'Ortak özel ürünleri görmek için şifreli oturum açın.',error:'Özel ürünler yüklenemedi. Yenile ile tekrar deneyin.',empty:'Kayıtlı özel ürün bulunamadı.',noImage:'Görsel yok',details:'Teknik açıklama',fan:'Fan',electrical:'Elektrik',price:'Liste fiyatı',unpriced:'Fiyat belirtilmedi',projectProduct:'Projeye Özel Ürün',project:'Proje',add:'Projeye Ekle',openProject:'Projeyi Aç',remove:'Sil',deleting:'Siliniyor…',confirmDelete:'Bu ürün katalogdan silinsin mi? Kaydedilmiş proje ve teklif satırları korunur.',deleteError:'Ürün silinemedi.',count:(n,total)=>`${n} / ${total} özel ürün`},
-    en:{title:'Custom Products',library:'Shared Product Library',intro:'Explore saved custom products with their images, technical descriptions and list prices.',browse:'Browse custom products',manage:'Manage library',refresh:'Refresh',search:'Search brand, model or description',loading:'Loading products…',login:'Sign in to view shared custom products.',error:'Custom products could not be loaded. Use Refresh to try again.',empty:'No saved custom products found.',noImage:'No image',details:'Technical description',fan:'Fan',electrical:'Electrical',price:'List price',unpriced:'Price not specified',projectProduct:'Project-specific Product',project:'Project',add:'Add to Project',openProject:'Open Project',remove:'Delete',deleting:'Deleting…',confirmDelete:'Delete this catalog record? Saved project and quotation lines will be preserved.',deleteError:'Product could not be deleted.',count:(n,total)=>`${n} / ${total} custom products`}
+    tr:{back:'← Ürün Kataloğu',saved:'Kayıtlı Ürünler',title:'Özel Ürünler',library:'Ortak Ürün Kütüphanesi',intro:'Kayıtlı özel ürünleri görselleri, teknik açıklamaları ve liste fiyatlarıyla inceleyin.',browse:'Özel ürünleri incele',manage:'Kütüphaneyi yönet',refresh:'Yenile',search:'Marka, model veya açıklama ara',loading:'Ürünler yükleniyor…',login:'Ortak özel ürünleri görmek için şifreli oturum açın.',error:'Özel ürünler yüklenemedi. Yenile ile tekrar deneyin.',empty:'Kayıtlı özel ürün bulunamadı.',noImage:'Görsel yok',details:'Teknik açıklama',fan:'Fan',electrical:'Elektrik',price:'Liste fiyatı',unpriced:'Fiyat belirtilmedi',projectProduct:'Projeye Özel Ürün',project:'Proje',add:'Projeye Ekle',openProject:'Projeyi Aç',remove:'Sil',deleting:'Siliniyor…',confirmDelete:'Bu ürün katalogdan silinsin mi? Kaydedilmiş proje ve teklif satırları korunur.',deleteError:'Ürün silinemedi.',count:(n,total)=>`${n} / ${total} özel ürün`},
+    en:{back:'← Product Catalog',saved:'Saved Products',title:'Custom Products',library:'Shared Product Library',intro:'Explore saved custom products with their images, technical descriptions and list prices.',browse:'Browse custom products',manage:'Manage library',refresh:'Refresh',search:'Search brand, model or description',loading:'Loading products…',login:'Sign in to view shared custom products.',error:'Custom products could not be loaded. Use Refresh to try again.',empty:'No saved custom products found.',noImage:'No image',details:'Technical description',fan:'Fan',electrical:'Electrical',price:'List price',unpriced:'Price not specified',projectProduct:'Project-specific Product',project:'Project',add:'Add to Project',openProject:'Open Project',remove:'Delete',deleting:'Deleting…',confirmDelete:'Delete this catalog record? Saved project and quotation lines will be preserved.',deleteError:'Product could not be deleted.',count:(n,total)=>`${n} / ${total} custom products`}
   };
   let products=[],state='loading',requestId=0;
   const lang=()=>window.VensisI18n?.getLanguage?.()||(/^\/tr\//.test(location.pathname)?'tr':document.documentElement.lang==='tr'?'tr':'en');
@@ -17,7 +17,7 @@
   }
   function render(){
     document.querySelectorAll('[data-custom-copy]').forEach(el=>{el.textContent=t(el.dataset.customCopy)});
-    const search=byId('customCatalogSearch');search.placeholder=t('search');search.setAttribute('aria-label',t('search'));
+    const search=byId('customCatalogSearch');if(!search)return;search.placeholder=t('search');search.setAttribute('aria-label',t('search'));
     const box=byId('customCatalogProducts'),status=byId('customCatalogStatus');
     box.innerHTML='';
     if(state!=='ready'){status.textContent=t(state);return}
@@ -74,6 +74,7 @@
     window.VensisCatalogProjectPicker?.openItem(item,button);
   }
   function init(){
+    if(!byId('customCatalogProducts')){render();window.addEventListener('vensis-language-changed',render);return}
     byId('customCatalogProducts').addEventListener('click',event=>{
       const remove=event.target.closest('[data-custom-delete]');if(remove){removeProduct(remove.dataset.customDelete,remove);return}
       const add=event.target.closest('[data-custom-add]');if(add)addProduct(add.dataset.customAdd,add);
