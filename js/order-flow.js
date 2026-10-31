@@ -108,6 +108,9 @@
     const items=tableItems(quotation,electrical,format);
     table.querySelectorAll('tbody tr').forEach((row,rowIndex)=>{
       const item=items[rowIndex];if(!item)return;
+      // Accessory rows merge the five product/technical columns. Their next
+      // cells are price, quantity and total, not fan technical fields.
+      if(row.classList.contains('vensis-accessory-quote-row'))return;
       if(electrical){
         const power=String(item.power||'').trim()||'-';
         const lumen=String(item.lumen||'').trim()||'-';

@@ -95,3 +95,20 @@ test('accessory summaries survive quotation editing, saving, reopening and befor
   assert.equal(store.readItems(project.id)[0].description,'Fan-specific note');
   assert.equal(JSON.parse(storage.get(key)).items.length,5);
 });
+
+test('quotation technical-column refresh preserves prices in merged accessory rows',()=>{
+  const row={classList:{contains:name=>name==='vensis-accessory-quote-row'},children:[
+    {textContent:'Accessory with technical description'},
+    {textContent:'€92,00'},
+    {textContent:'1'},
+    {textContent:'€92,00'}
+  ]};
+  const table={closest:()=>null,querySelectorAll:selector=>selector==='tbody tr'?[row]:[]};
+  const root={querySelectorAll:()=>[table]};
+  const document={documentElement:{lang:'tr'},body:{dataset:{quotationFormat:'fan'}},
+    getElementById:id=>id==='quotationProductTables'?root:null,addEventListener(){}};
+  const window={VensisProjects:{activeId:()=>''},VensisOrders:{},VensisOrderUtils:{},addEventListener(){}};
+  const localStorage={getItem:()=>JSON.stringify({items:[{productType:'accessory',model:'Sensor',price:92,quantity:1}]})};
+  vm.runInNewContext(read('js/order-flow.js'),{window,document,localStorage,Intl,MutationObserver:class{observe(){}}});
+  assert.deepEqual(row.children.map(cell=>cell.textContent),['Accessory with technical description','€92,00','1','€92,00']);
+});
