@@ -22,6 +22,8 @@ function agent_catalog(): array
     if (!is_array($catalog) || (int) ($catalog['schemaVersion'] ?? 0) !== 1 || !is_array($catalog['models'] ?? null)) {
         throw new AgentApiException('The selection catalog is invalid.', 500);
     }
+    require_once __DIR__ . '/catalog-axw-35-2t-addition.php';
+    $catalog = agent_catalog_add_axw_35_2t($catalog);
     return $catalog;
 }
 function agent_number(mixed $value, string $field, float $minimum, float $maximum): float
