@@ -15,12 +15,12 @@
   }
   const copy=value=>JSON.parse(JSON.stringify(value));
   const name='AXW 35-2T-0.37';
-  const caution="Provisional AXW catalog record: curve, motor and price derived from AXD 35-2T-0.37; mounting and dimensions from standard AXW family. Manufacturer confirmation required before final specification. Not ATEX.";
+  const caution='';
   const model=copy(duct);
   Object.assign(model,{id,seriesId:'AXW',model:name,display:name,altModel:name,
     media:copy(wall.media),dimensions:copy(wall.dimensions),features:copy(wall.features),
     technical:copy(wall.technical),source:{page:33,catalogue:''},
-    verification:{status:'catalog-derived',caution,derivation:{date:'2026-11-02',performanceAndMotor:duct.id,price:duct.id,wallGeometry:wall.id,comparedWallGeometry:atex.id,manufacturerConfirmation:'pending'}}
+    verification:{status:'catalog-derived',caution,derivation:{date:'2026-11-02',performanceAndMotor:duct.id,price:duct.id,wallGeometry:wall.id,comparedWallGeometry:atex.id,manufacturerConfirmation:'pending',notAtex:true}}
   });
   model.technical.safetyWarning=caution;
   const i=data.models.findIndex(item=>item.id===wall.id);

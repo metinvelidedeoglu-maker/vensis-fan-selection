@@ -40,14 +40,16 @@ assert.equal(newModel.technical.productGroup,'Axial Fan');
 assert.equal(newModel.technical.fireRating,'');
 assert.equal(newModel.technical.hazardousArea,null);
 assert.equal(newModel.verification.status,'catalog-derived');
-assert.match(newModel.verification.caution,/manufacturer confirmation/i);
-assert.match(newModel.verification.caution,/Not ATEX/i);
+assert.equal(newModel.verification.caution,'');
+assert.equal(newModel.technical.safetyWarning,'');
+assert.equal(newModel.verification.derivation.manufacturerConfirmation,'pending');
+assert.equal(newModel.verification.derivation.notAtex,true);
 
 // Confirm that the PHP fan-selection endpoint builds the same derived model
 // from the original, unmodified committed snapshot.
 execFileSync('php',['-l','api/agent/catalog-axw-35-2t-addition.php'],{encoding:'utf8'});
 execFileSync('php',['-l','api/agent/domain.php'],{encoding:'utf8'});
-const phpCode="require 'api/agent/catalog-axw-35-2t-addition.php'; $catalog=json_decode(stream_get_contents(STDIN),true,256,JSON_THROW_ON_ERROR); $full=agent_catalog_add_axw_35_2t($catalog); $model=$full['models'][count($full['models'])-1]; echo json_encode(['count'=>count($full['models']),'id'=>$model['id'],'price'=>$model['pricing']['listPrice'],'mount'=>$model['technical']['mountType'],'status'=>$model['verification']['status']],JSON_THROW_ON_ERROR);";
+const phpCode="require 'api/agent/catalog-axw-35-2t-addition.php'; $catalog=json_decode(stream_get_contents(STDIN),true,256,JSON_THROW_ON_ERROR); $full=agent_catalog_add_axw_35_2t($catalog); $model=$full['models'][count($full['models'])-1]; echo json_encode(['count'=>count($full['models']),'id'=>$model['id'],'price'=>$model['pricing']['listPrice'],'mount'=>$model['technical']['mountType'],'status'=>$model['verification']['status'],'caution'=>$model['verification']['caution'],'warning'=>$model['technical']['safetyWarning'],'pending'=>$model['verification']['derivation']['manufacturerConfirmation'],'notAtex'=>$model['verification']['derivation']['notAtex']],JSON_THROW_ON_ERROR);";
 const phpData=JSON.parse(execFileSync('php',['-r',phpCode],{encoding:'utf8',input:committedRaw,maxBuffer:6*1024*1024}));
-assert.deepEqual(phpData,{count:compiled.models.length,id:modelId,price:550.4,mount:'Wall-Mounted',status:'catalog-derived'});
+assert.deepEqual(phpData,{count:compiled.models.length,id:modelId,price:550.4,mount:'Wall-Mounted',status:'catalog-derived',caution:'',warning:'',pending:'pending',notAtex:true});
 console.log('PASS: the only compiled change is AXW 35-2T-0.37; existing models/accessories and PHP agent parity verified.');

@@ -18,7 +18,7 @@ function agent_catalog_add_axw_35_2t(array $catalog): array
     if ($source === null || $wall === null || $atex === null || $source['selectionPoints'] !== $atex['selectionPoints']) {
         throw new AgentApiException('AXW derived model sources are unavailable or inconsistent.', 503);
     }
-    $warning = 'Provisional AXW catalog record: curve, motor and price derived from AXD 35-2T-0.37; mounting and dimensions from standard AXW family. Manufacturer confirmation required before final specification. Not ATEX.';
+    $warning = '';
     $new = $source;
     $new['id'] = $id;
     $new['productKey'] = $id;
@@ -33,7 +33,7 @@ function agent_catalog_add_axw_35_2t(array $catalog): array
     $new['technical']['soundDbA'] = $source['technical']['soundDbA'];
     $new['technical']['safetyWarning'] = $warning;
     $new['sourcePage'] = 33;
-    $new['verification'] = ['status' => 'catalog-derived', 'sourceCatalogue' => '', 'sourcePage' => 33, 'caution' => $warning];
+    $new['verification'] = ['status' => 'catalog-derived', 'sourceCatalogue' => '', 'sourcePage' => 33, 'caution' => $warning, 'derivation' => ['date' => '2026-11-02', 'performanceAndMotor' => $sourceId, 'price' => $sourceId, 'wallGeometry' => $wallId, 'comparedWallGeometry' => $atexId, 'manufacturerConfirmation' => 'pending', 'notAtex' => true]];
     $new['quoteEligible'] = true;
     $catalog['models'][] = $new;
     $catalog['sourceHash'] = hash('sha256', (string) ($catalog['sourceHash'] ?? '') . "\\0" . $id . "\\0" . json_encode($new, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
