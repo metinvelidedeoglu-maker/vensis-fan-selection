@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'data/ventilation-catalog.js'
+      - 'data/ventilation-axw-35-2t-addition.js'
+      - 'api/agent/catalog-axw-35-2t-addition.php'
+      - 'tests/axw-derived-agent-snapshot.mjs'
       - 'products/ventilation*.js'
       - 'js/ventilation-routes.js'
       - 'js/catalog.js'
