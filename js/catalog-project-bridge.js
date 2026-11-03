@@ -2,6 +2,7 @@
   if(window.__vensisCatalogProjectBridge)return;
   window.__vensisCatalogProjectBridge=true;
   const catalog=window.VensisCatalog||{};
+  const bridgeScriptUrl=document.currentScript?.src||'';
   const uniqueLineKey=base=>`${String(base||'item')}|line|${Date.now().toString(36)}${Math.random().toString(36).slice(2,8)}`;
   function toast(text){
     let node=document.getElementById('catalogProjectToast');
@@ -9,6 +10,10 @@
     node.textContent=text;node.style.opacity='1';node.style.transform='translateY(0)';clearTimeout(node._timer);node._timer=setTimeout(()=>{node.style.opacity='0';node.style.transform='translateY(8px)'},1800);
   }
   function add(id,button){
+    if(window.VensisCatalogProjectPicker?.open){
+      window.VensisCatalogProjectPicker.open(id,button);
+      return;
+    }
     const store=window.VensisProjects;
     const model=catalog.getModel?.(id)||(catalog.models||[]).find(item=>String(item.id)===String(id));
     if(!store?.ensureActive||!model)return;
@@ -28,6 +33,8 @@
     if(button){const old=button.innerHTML;button.innerHTML='✓';setTimeout(()=>{button.innerHTML=old},1100)}
     const name=store.readMeta(projectId).name||store.get(projectId)?.name||'active project';
     toast(`Catalog model added to ${name}.`);
+    const target=store.projectUrl(projectId);
+    location.assign(bridgeScriptUrl?new URL(target,new URL('../',bridgeScriptUrl)).href:target);
   }
   document.addEventListener('click',event=>{
     const button=event.target.closest('[data-add-catalog-project]');

@@ -5,6 +5,11 @@
   const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
   const store=()=>window.VensisProjects;
   const catalog=()=>window.VensisCatalog||{models:[],series:[]};
+  const projectScriptUrl=document.currentScript?.src||'';
+  function returnToProject(projectId){
+    const path=store()?.projectUrl?.(projectId)||`project.html?project=${encodeURIComponent(projectId)}`;
+    location.assign(projectScriptUrl?new URL(path,new URL('../',projectScriptUrl)).href:path);
+  }
 
   function requestedProject(){
     const id=new URLSearchParams(location.search).get('project');
@@ -123,6 +128,7 @@
     if(button){const old=button.innerHTML;button.innerHTML='✓';setTimeout(()=>{button.innerHTML=old},1100)}
     const name=store().readMeta(projectId).name||store().get(projectId)?.name||'selected project';
     toast(`Catalog model added to ${name}.`);
+    returnToProject(projectId);
   }
   function addItemToProject(item,button,projectId){
     if(!item||!store()?.get?.(projectId))return;
@@ -135,6 +141,7 @@
     if(button){const old=button.innerHTML;button.innerHTML='✓ Added';setTimeout(()=>{button.innerHTML=old},1100)}
     const name=store().readMeta(projectId).name||store().get(projectId)?.name||'selected project';
     toast(`${item.model} added to ${name}.`);
+    returnToProject(projectId);
   }
   function confirmSelection(){
     if(!pending)return;

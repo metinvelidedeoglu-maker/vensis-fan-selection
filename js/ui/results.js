@@ -1,6 +1,11 @@
 (function(){
   const S=window.VensisState,U=window.VensisUtils,C=window.VensisCatalog;
   const NEW_PROJECT_VALUE='__new_project__';
+  const resultsScriptUrl=document.currentScript?.src||'';
+  function returnToProject(projectId){
+    const path=window.VensisProjects.projectUrl(projectId);
+    location.assign(resultsScriptUrl?new URL(path,new URL('../../',resultsScriptUrl)).href:path);
+  }
   const uniqueLineKey=base=>`${String(base||'item')}|line|${Date.now().toString(36)}${Math.random().toString(36).slice(2,8)}`;
   function validPositive(value){const n=Number(value);return Number.isFinite(n)&&n>0?n:null}
   function sortValue(row,key){if(key==='flow')return Number(row.qq)||0;if(key==='pressure')return Number(row.pp)||0;if(key==='price')return validPositive(row.price)??Infinity;if(key==='noise')return validPositive(row.spl)??Infinity;return Number(row.score)||0}
@@ -142,6 +147,7 @@
     if(button){const old=button.innerHTML;button.innerHTML='✓';button.title='Added to selected project';setTimeout(()=>{button.innerHTML=old;button.title='Add to selected project'},1200)}
     const projectName=context.store?.readMeta(context.projectId)?.name||context.store?.get(context.projectId)?.name||'selected project';
     showProjectToast(`Fan added to ${projectName}.`);
+    if(context.store&&context.projectId)returnToProject(context.projectId);
   }
   document.addEventListener('click',e=>{
     const sort=e.target.closest('[data-sort]');if(sort)setSort(sort.dataset.sort);

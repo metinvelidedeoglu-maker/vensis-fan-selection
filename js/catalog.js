@@ -234,6 +234,10 @@
     node.textContent=text;node.style.opacity='1';node.style.transform='translateY(0)';clearTimeout(node._timer);node._timer=setTimeout(()=>{node.style.opacity='0';node.style.transform='translateY(8px)'},1800);
   }
   function addCatalogToProject(id,button){
+    if(window.VensisCatalogProjectPicker?.open){
+      window.VensisCatalogProjectPicker.open(id,button);
+      return;
+    }
     const model=modelById(id);if(!model)return;
     const product=productById(id)||{};
     const series=catalog.getSeries?catalog.getSeries(model.seriesId):allSeries.find(item=>item.id===model.seriesId)||{};

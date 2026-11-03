@@ -1,5 +1,6 @@
 (function(){
   const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+  const navCoreScriptUrl=document.currentScript?.src||'';
   const LANGUAGE_SCRIPT_ID='vensisLanguageScript';
   function loadLanguageSupport(){
     if(window.VensisI18n||document.getElementById(LANGUAGE_SCRIPT_ID))return;
@@ -110,6 +111,10 @@
     node.textContent=text;node.style.opacity='1';node.style.transform='translateY(0)';clearTimeout(node._timer);node._timer=setTimeout(()=>{node.style.opacity='0';node.style.transform='translateY(8px)'},1800);
   }
   function addCatalogProduct(id,button){
+    if(window.VensisCatalogProjectPicker?.open){
+      window.VensisCatalogProjectPicker.open(id,button);
+      return;
+    }
     const store=window.VensisProjects,catalog=window.VensisCatalog;
     const model=catalog?.getModel?.(id)||(catalog?.models||[]).find(item=>String(item.id)===String(id));
     if(!store?.ensureActive||!model)return;
@@ -136,6 +141,8 @@
     if(button){const old=button.innerHTML;button.innerHTML='✓';setTimeout(()=>{button.innerHTML=old},1100)}
     const name=store.readMeta(targetId).name||store.get(targetId)?.name||'active project';
     toast(existing?`${name} quantity increased.`:`Catalog model added to ${name}.`);
+    const target=store.projectUrl(targetId);
+    location.assign(navCoreScriptUrl?new URL(target,new URL('../',navCoreScriptUrl)).href:target);
   }
   if(path==='catalog.html'){
     document.addEventListener('click',event=>{
