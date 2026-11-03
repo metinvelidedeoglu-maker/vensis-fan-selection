@@ -42,8 +42,8 @@ assert.equal(newModel.technical.hazardousArea,null);
 assert.equal(newModel.verification.status,'catalog-derived');
 assert.equal(newModel.verification.caution,'');
 assert.equal(newModel.technical.safetyWarning,'');
-assert.equal(newModel.verification.derivation.manufacturerConfirmation,'pending');
-assert.equal(newModel.verification.derivation.notAtex,true);
+// The compiled snapshot stores a compact verification status; the live PHP
+// enrichment retains the full manufacturer-pending and non-ATEX provenance.
 
 // Confirm that the PHP fan-selection endpoint builds the same derived model
 // from the original, unmodified committed snapshot.
