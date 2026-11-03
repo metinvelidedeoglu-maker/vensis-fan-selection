@@ -46,7 +46,7 @@ jobs:
         run: node --test tests/accessories.test.cjs tests/accessories-return.test.cjs tests/accessory-code-removal.test.cjs tests/accessory-descriptions.test.cjs tests/linked-accessory-order.test.cjs
       - name: Project-specific custom product persistence
         run: |
-          node --test tests/project-custom-products.test.cjs tests/custom-catalog-hub.test.cjs
+          node --test tests/project-custom-products.test.cjs tests/custom-catalog-hub.test.cjs tests/project-add-return.test.cjs
           php -l api/custom-products/bootstrap.php
           php -l api/projects/bootstrap.php
           php tests/project-custom-runtime.php
