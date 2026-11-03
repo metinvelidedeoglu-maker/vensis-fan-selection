@@ -34,7 +34,9 @@ test('verified Vitlo AXF and BOX-AXF product codes contain F300 in shared catalo
     assert.equal(model.legacyModelCode,before.model);
     assert.equal(window.VensisCatalog.getModel(model.id).model,model.model);
     assert.equal(window.VensisCatalog.product(model.id).model,model.model);
-    assert.equal(window.VensisCatalog.modelSlug(model),window.VensisCatalog.slug(before.model));
+    const duplicateCount=data.models.filter(other=>other.seriesId===model.seriesId&&original.get(other.id).model===before.model).length;
+    const originalSlug=window.VensisCatalog.slug(duplicateCount>1?model.id:before.model);
+    assert.equal(window.VensisCatalog.modelSlug(model),originalSlug,'old product link must stay stable');
     assert.equal(model.model.match(/\bF300\b/g).length,1);
   }
   const example=eligible.find(m=>m.id==='AXF|AXF 35-2T-1|4000|4');
