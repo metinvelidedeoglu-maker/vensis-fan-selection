@@ -24,6 +24,8 @@ function agent_catalog(): array
     }
     require_once __DIR__ . '/catalog-axw-35-2t-addition.php';
     $catalog = agent_catalog_add_axw_35_2t($catalog);
+    require_once __DIR__ . '/catalog-vitlo-axf-f300-codes.php';
+    $catalog = agent_catalog_vitlo_axf_f300_codes($catalog);
     return $catalog;
 }
 function agent_number(mixed $value, string $field, float $minimum, float $maximum): float

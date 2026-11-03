@@ -4,9 +4,9 @@ import fs from 'node:fs';
 
 // The AXW model is deliberately a small, audited runtime addition because the
 // unified catalog and the agent snapshot are multi-megabyte historical files.
-// Every other product and accessory must remain exactly equal to the committed
-// snapshot; the only permitted difference is this one derived AXW model and
-// the source fingerprint changed by the shared loader.
+// Only one derived AXW model and the verified Vitlo AXF/BOX-AXF F300 model-code
+// normalization may differ from the historical committed snapshot. Other product
+// technical/commercial fields and accessories must remain unchanged.
 const modelId = 'AXW|AXW 35-2T-0.37|4000|30';
 const committedRaw=execFileSync('git',['show','HEAD:api/agent/catalog-v1.json'],{encoding:'utf8',maxBuffer:12*1024*1024});
 const committed=JSON.parse(committedRaw);
@@ -16,7 +16,10 @@ assert.deepEqual(compiled.accessories,committed.accessories);
 assert.equal(compiled.models.length,committed.models.length+1,'Only one runtime model may be added');
 const additions=compiled.models.filter(m=>m.productKey===modelId);
 assert.equal(additions.length,1,'AXW 35-2T-0.37 must be added exactly once');
-assert.deepEqual(compiled.models.filter(m=>m.productKey!==modelId),committed.models,'All existing fan selection variants must be unchanged');
+const f300Model=(m)=>m.manufacturer==='Vitlo'&&['AXF','BOX-AXF'].includes(m.series)&&m.technical?.fireRating==='F300';
+const expectedExisting=committed.models.map(m=>f300Model(m)?{...m,model:m.model+' F300',display:m.display+' F300'}:m);
+assert.equal(committed.models.filter(f300Model).length,96,'Exactly 96 historical Vitlo models must qualify');
+assert.deepEqual(compiled.models.filter(m=>m.productKey!==modelId),expectedExisting,'Only the 96 verified Vitlo F300 model names may change');
 assert.match(compiled.sourceHash,/^[0-9a-f]{64}$/);
 assert.notEqual(compiled.sourceHash,committed.sourceHash,'Shared loader source hash must reflect the new model');
 

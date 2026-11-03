@@ -17,6 +17,7 @@ function harness(extra=false){
     window.VensisVentilationData.series.push({id:'TEST-FOURTH|AXF',code:'AXF',manufacturer:'Fourth Manufacturer',title:'Test fan',categories:['Duct Fan'],description:{general:['Test feature'],motor:['Test motor'],applications:['Test use']},media:{image:'assets/vensis-logo.png'}});
     window.VensisVentilationData.models.push({id:'TEST-FOURTH|1',seriesId:'TEST-FOURTH|AXF',model:'AXF TEST 1',motor:{power:0.1,speed:1000,voltage:'230 V'},media:{image:'assets/vensis-logo.png',dimensionImage:'assets/products/AXF-technical-drawing.webp'},dimensions:{headers:['A','B'],values:{A:123,B:456},unit:'mm'},pricing:{listPrice:123,currency:'EUR'},performance:{nominalAirflow:200,sourcePoints:[[100,0],[50,100],[0,200]],interpolation:'linear',precomputed:true}});
   }
+  run('data/ventilation-vitlo-axf-f300-codes.js');
   for(const f of ['products/ventilation.js','js/catalog-feature-tags.js','js/core/utils.js','js/core/state.js','js/core/selection-engine.js','js/ui/datasheet.js','js/ui/pdf-export.js'])run(f);
   return {window,context,values,run};
 }
@@ -37,7 +38,7 @@ test('Vitlo model-code phase reaches 12-field cards and previews without adding 
   const {window:w}=harness(),C=w.VensisCatalog;
   for(const [name,phase] of [
     ['AXB 63-4T-1.5','Three-phase'],['AXD/MOB 35-2M-0.75','Single-phase'],
-    ['CR 31-4M','Single-phase'],['AXF 35-2T-1','Three-phase'],['AXJ 31-2/4T','Three-phase']
+    ['CR 31-4M','Single-phase'],['AXF 35-2T-1 F300','Three-phase'],['AXJ 31-2/4T','Three-phase']
   ]){
     const m=C.models.find(m=>m.model===name);assert.ok(m,name);
     const card=renderCards(w,C.getSeries(m.seriesId),[m]);

@@ -63,19 +63,9 @@
   function localizedModelName(item){
     const raw=String(item?.model||'').trim();
     const english=quotationLanguage(activeQuotation,activeQuotation?.settings)==='en';
-    let name=raw;
-    if(english&&/\bPASLANMAZ\s*316\b/i.test(name))name=name.replace(/\bPASLANMAZ\s*316\b/ig,'STAINLESS STEEL 316');
-    if(!english&&/\bSTAINLESS\s+STEEL\s*316\b/i.test(name))name=name.replace(/\bSTAINLESS\s+STEEL\s*316\b/ig,'PASLANMAZ 316');
-
-    // Only append the catalog-verified F300 rating to Vitlo AXF smoke exhaust quotations.
-    // This is presentation-only: never change the model code, product key or saved project.
-    const model=modelFor(item);
-    const series=model?catalog.product?.(model.id)?.series:null;
-    if(String(series?.manufacturer||'').trim().toLowerCase()==='vitlo'&&
-       /^(?:AXF|BOX-AXF)$/i.test(String(series?.code||'').trim())&&
-       /\bF300\b/i.test(String(model?.technical?.fireRating||''))&&
-       !/\bF300\b/i.test(name))name+=' F300';
-    return name;
+    if(english&&/\bPASLANMAZ\s*316\b/i.test(raw))return raw.replace(/\bPASLANMAZ\s*316\b/ig,'STAINLESS STEEL 316');
+    if(!english&&/\bSTAINLESS\s+STEEL\s*316\b/i.test(raw))return raw.replace(/\bSTAINLESS\s+STEEL\s*316\b/ig,'PASLANMAZ 316');
+    return raw;
   }
   function localizedSeriesTitle(item){
     const raw=String(item?.seriesTitle||item?.series||'').trim();

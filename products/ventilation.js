@@ -24,7 +24,7 @@
     modelMap.set(model.id,model);series.modelIds.push(model.id);series.submodels.push(model.model);
   }
   const routeCounts=new Map();
-  const baseModelSlug=model=>slug(model.technical?.productCode||model.model||model.id);
+  const baseModelSlug=model=>slug(model.legacyModelCode||model.technical?.productCode||model.model||model.id);
   for(const model of modelMap.values()){
     const key=model.seriesId+'|'+baseModelSlug(model);routeCounts.set(key,(routeCounts.get(key)||0)+1);
   }
