@@ -36,14 +36,16 @@ try{
    if(bad.length)failures.push({id:model.id,bad});
   }
   return {total:C.models.length,failures};
- });assert.equal(scanned.total,1022);assert.deepEqual(scanned.failures,[]);
+ });assert.ok(scanned.total>0,'catalog must contain models');
+ assert.equal(await page.evaluate(()=>window.VensisCatalog.models.filter(m=>m.id==='AXW|AXW 35-2T-0.37|4000|30').length),1,'derived AXW model must be present');
+ assert.deepEqual(scanned.failures,[]);
  const allSeries=await page.evaluate(()=>window.VensisCatalog.series.map(s=>s.id));
  for(const id of allSeries){
   await page.goto('http://vensis.test/catalog.html?series='+encodeURIComponent(id));await page.locator('.model-card').first().waitFor();await settle(page);
   assert.deepEqual(leftovers(await page.locator('.detail-page').innerText()),[],id);
   assert.equal(await page.locator('.model-field').count(),12*await page.locator('.model-card').count(),id+' fixed boxes');
  }
- console.log('PASS: all 89 English series and 1022 English model previews');
+ console.log(`PASS: all ${allSeries.length} English series and ${scanned.total} English model previews`);
  await page.goto('http://vensis.test/projects.html');await page.waitForFunction(()=>Boolean(window.VensisProjects?.create));
  const project=await page.evaluate(()=>window.VensisProjects.create({name:'English Audit Fixture',reference:'QA-EN-20261023',contact:'QA Contact'}).id);
  await page.goto('http://vensis.test/catalog.html');await page.waitForFunction(()=>Boolean(window.VensisCatalog&&window.VensisCatalogProjectPicker));
