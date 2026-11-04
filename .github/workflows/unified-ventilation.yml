@@ -27,6 +27,7 @@ on:
       - 'quotation.html'
       - 'tests/english*'
       - 'tests/ventilation*'
+      - 'tests/sp-dimensions-browser.mjs'
       - 'tests/unified-ventilation.test.cjs'
       - '.github/workflows/unified-ventilation.yml'
 permissions:
