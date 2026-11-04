@@ -56,6 +56,11 @@ try{
   await page.locator('.model-card:not([hidden]) .vensis-preview-classic').waitFor();await page.waitForFunction(()=>Boolean(window.VensisDatasheet?.__noCurrentPolicy));
   await language(page,'tr');await page.locator('.model-card:not([hidden]) [data-add-catalog-project]').click();
   await page.locator('#catalogProjectModal:not([hidden])').waitFor();await page.locator('input[name="catalogProjectChoice"][value="'+project+'"]').check();await page.locator('#catalogProjectConfirm').click();
+  // Successful additions now navigate to the chosen project's details.
+  await page.waitForURL(url=>url.pathname.endsWith('/project.html')&&url.searchParams.get('project')===project);
+  await page.locator('#projectContent tbody tr').first().waitFor();
+  await page.goto('http://vensis.test/catalog.html?series='+encodeURIComponent(m.series)+'&model='+encodeURIComponent(m.id)+'&project='+encodeURIComponent(project));
+  await page.locator('.model-card:not([hidden]) .vensis-preview-classic').waitFor();
   await language(page,'en');assert.equal((await page.locator('.models-section .catalog-count').innerText()).trim(),'1 model');await capture('catalog-en-'+i,page,'.detail-page');
   const preview=await popup(()=>page.locator('.model-card:not([hidden]) .vensis-preview-classic').click());await capture('preview-en-'+i,preview,'body',true);await preview.close();
  }
