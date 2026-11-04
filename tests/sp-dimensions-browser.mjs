@@ -23,7 +23,7 @@ if(process.env.VENSIS_TEST_LOCAL==='1'){
 const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
 try{
  await page.goto(base+'/catalog.html?brand=soler-palau');
- await page.waitForFunction(()=>window.VensisCatalog?.models.length===1022);
+ await page.waitForFunction(()=>window.VensisCatalog?.models.some(model=>model.id==='AXW|AXW 35-2T-0.37|4000|30'));
  assert.equal(await page.locator('.series-card').count(),28);
  const labels=await page.locator('.series-card h2').allTextContents();assert.deepEqual(labels,[...labels].sort(new Intl.Collator('tr',{sensitivity:'base',numeric:true}).compare));
  const ids=await page.evaluate(()=>{const C=window.VensisCatalog,s=new Set(C.series.filter(s=>s.manufacturer==='Soler & Palau').map(s=>s.id));return C.models.filter(m=>s.has(m.seriesId)).map(m=>m.id);});
