@@ -36,3 +36,18 @@ test('sitemap emits localized URLs and reciprocal language links',()=>{
   const source=read('sitemap-fans.php');for(const lang of ['en','tr','x-default'])assert.ok(source.includes('hreflang="'+lang+'"'));
   assert.match(read('sitemap.xml'),/sitemap-fans\.php/);
 });
+
+test('runtime-derived AXW model is included in the localized sitemap routes',()=>{
+  const {execFileSync}=require('node:child_process');
+  const runtime={window:{}};
+  vm.runInNewContext(read('data/ventilation-catalog.js'),runtime);
+  const previous=runtime.window.VensisVentilationData.models.length;
+  vm.runInNewContext(read('data/ventilation-axw-35-2t-addition.js'),runtime);
+  vm.runInNewContext(read('products/ventilation.js'),runtime);
+  const catalog=runtime.window.VensisCatalog;
+  assert.equal(catalog.models.length,previous+1,'exactly one runtime AXW model is added');
+  const model=catalog.models.find(m=>m.id==='AXW|AXW 35-2T-0.37|4000|30');
+  assert.ok(model,'derived AXW model must be present');
+  const slug=catalog.modelSlug(model),xml=execFileSync('php',['sitemap-fans.php'],{cwd:path.join(__dirname,'..'),encoding:'utf8'});
+  for(const lang of ['tr','en'])assert.ok(xml.includes('<loc>https://select.vensis.com.tr/'+lang+'/fan/vitlo/axw/'+slug+'/</loc>'),lang+' derived AXW route missing');
+});
