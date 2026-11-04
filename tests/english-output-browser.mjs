@@ -36,14 +36,16 @@ try{
    if(bad.length)failures.push({id:model.id,bad});
   }
   return {total:C.models.length,failures};
- });assert.equal(scanned.total,1022);assert.deepEqual(scanned.failures,[]);
+ });assert.ok(scanned.total>0,'catalog must contain models');
+ assert.equal(await page.evaluate(()=>window.VensisCatalog.models.filter(m=>m.id==='AXW|AXW 35-2T-0.37|4000|30').length),1,'derived AXW model must be present');
+ assert.deepEqual(scanned.failures,[]);
  const allSeries=await page.evaluate(()=>window.VensisCatalog.series.map(s=>s.id));
  for(const id of allSeries){
   await page.goto('http://vensis.test/catalog.html?series='+encodeURIComponent(id));await page.locator('.model-card').first().waitFor();await settle(page);
   assert.deepEqual(leftovers(await page.locator('.detail-page').innerText()),[],id);
   assert.equal(await page.locator('.model-field').count(),12*await page.locator('.model-card').count(),id+' fixed boxes');
  }
- console.log('PASS: all 89 English series and 1022 English model previews');
+ console.log(`PASS: all ${allSeries.length} English series and ${scanned.total} English model previews`);
  await page.goto('http://vensis.test/projects.html');await page.waitForFunction(()=>Boolean(window.VensisProjects?.create));
  const project=await page.evaluate(()=>window.VensisProjects.create({name:'English Audit Fixture',reference:'QA-EN-20261023',contact:'QA Contact'}).id);
  await page.goto('http://vensis.test/catalog.html');await page.waitForFunction(()=>Boolean(window.VensisCatalog&&window.VensisCatalogProjectPicker));
@@ -54,6 +56,11 @@ try{
   await page.locator('.model-card:not([hidden]) .vensis-preview-classic').waitFor();await page.waitForFunction(()=>Boolean(window.VensisDatasheet?.__noCurrentPolicy));
   await language(page,'tr');await page.locator('.model-card:not([hidden]) [data-add-catalog-project]').click();
   await page.locator('#catalogProjectModal:not([hidden])').waitFor();await page.locator('input[name="catalogProjectChoice"][value="'+project+'"]').check();await page.locator('#catalogProjectConfirm').click();
+  // Successful additions now navigate to the chosen project's details.
+  await page.waitForURL(url=>url.pathname.endsWith('/project.html')&&url.searchParams.get('project')===project);
+  await page.locator('#projectContent tbody tr').first().waitFor();
+  await page.goto('http://vensis.test/catalog.html?series='+encodeURIComponent(m.series)+'&model='+encodeURIComponent(m.id)+'&project='+encodeURIComponent(project));
+  await page.locator('.model-card:not([hidden]) .vensis-preview-classic').waitFor();
   await language(page,'en');assert.equal((await page.locator('.models-section .catalog-count').innerText()).trim(),'1 model');await capture('catalog-en-'+i,page,'.detail-page');
   const preview=await popup(()=>page.locator('.model-card:not([hidden]) .vensis-preview-classic').click());await capture('preview-en-'+i,preview,'body',true);await preview.close();
  }

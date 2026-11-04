@@ -64,6 +64,27 @@ $catalog = json_decode($json, true);
 if (!is_array($catalog) || ($catalog['schemaVersion'] ?? null) !== 3) { http_response_code(503); exit; }
 $catalogBrands = $catalog['brands'] ?? [];
 $timestamp = filemtime($file) ?: time();
+// The browser catalog applies this audited AXW extension before loading models.
+// Include the same derived route in the sitemap, without changing the canonical file.
+$axwExtension = __DIR__ . '/data/ventilation-axw-35-2t-addition.js';
+if (is_file($axwExtension)) {
+    $byId = [];
+    foreach ($catalog['models'] as $entry) $byId[$entry['id']] = $entry;
+    $newId = 'AXW|AXW 35-2T-0.37|4000|30';
+    $duct = $byId['AXD|AXD 35-2T-0.37|4000|24'] ?? null;
+    $wall = $byId['AXW|AXW 35-4T-0.27|2860|30'] ?? null;
+    $atex = $byId['AXW/ATEX|AXW/ATEX 35-2T-0.37|4000|12'] ?? null;
+    if (!isset($byId[$newId]) && $duct && $wall && $atex &&
+        ($duct['performance']['sourcePoints'] ?? null) === ($atex['performance']['sourcePoints'] ?? null)) {
+        $derived = $duct;
+        $derived['id'] = $newId;
+        $derived['seriesId'] = 'AXW';
+        $derived['model'] = 'AXW 35-2T-0.37';
+        $derived['technical'] = $wall['technical'];
+        $catalog['models'][] = $derived;
+        $timestamp = max($timestamp, filemtime($axwExtension) ?: 0);
+    }
+}
 $seriesById = [];
 foreach ($catalog['series'] as $series) {
     $seriesById[$series['id']] = $series;

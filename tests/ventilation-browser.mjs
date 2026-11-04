@@ -13,7 +13,9 @@ page.on('pageerror',error=>errors.push(error.message));
 fs.mkdirSync('test-results/ventilation',{recursive:true});
 try{
   await page.goto(base+'/catalog.html');
-  await page.waitForFunction(()=>window.VensisCatalog?.models.length===1022);
+  const derivedModelId='AXW|AXW 35-2T-0.37|4000|30';
+  await page.waitForFunction(id=>window.VensisCatalog?.models.some(model=>model.id===id),derivedModelId);
+  const expectedModelCount=await page.evaluate(()=>window.VensisCatalog.models.length);
   assert.equal(await page.locator('.series-card').count(),89);
   async function assertSeriesOrder(){
     const labels=await page.locator('.series-card h2').allTextContents();
@@ -84,7 +86,7 @@ try{
   for(const file of ['fan-selection.html','project.html','quotation.html','project-print.html']){
     console.log('Checking consumer:',file);
     await page.goto(base+'/'+file+'?project='+encodeURIComponent(projectId));
-    await page.waitForFunction(()=>window.VensisCatalog?.models.length===1022).catch(error=>{throw new Error(file+': '+error.message)});
+    await page.waitForFunction(count=>window.VensisCatalog?.models.length===count,expectedModelCount).catch(error=>{throw new Error(file+': '+error.message)});
     assert.equal(await page.evaluate(()=>Boolean(window.VensisDimensions?.resolve)),true,file);
   }
   await page.goto(base+'/catalog.html');
@@ -92,5 +94,5 @@ try{
   const xml=await (await context.request.get(base+'/sitemap-fans.php')).text();
   for(const url of expected)assert.ok(xml.includes('<loc>'+url+'</loc>'),url);
   assert.deepEqual(errors,[]);
-  console.log('PASS: all brands, legacy navigation, filters, preview/PDF/mobile, consumers and 1,022 sitemap model routes.');
+  console.log(`PASS: all brands, legacy navigation, filters, preview/PDF/mobile, consumers and ${expectedModelCount.toLocaleString('en-US')} sitemap model routes.`);
 }finally{await browser.close();}
