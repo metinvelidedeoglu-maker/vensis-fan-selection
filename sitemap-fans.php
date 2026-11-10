@@ -85,6 +85,24 @@ if (is_file($axwExtension)) {
         $timestamp = max($timestamp, filemtime($axwExtension) ?: 0);
     }
 }
+$axdExtension = __DIR__ . '/data/ventilation-axd-35-4m-addition.js';
+if (is_file($axdExtension)) {
+    $byId = [];
+    foreach ($catalog['models'] as $entry) $byId[$entry['id']] = $entry;
+    $newId = 'AXD|AXD 35-4M-0.18|2860|27';
+    $duct = $byId['AXD|AXD 35-4T-0.27|2860|24'] ?? null;
+    $wall = $byId['AXW|AXW 35-4T-0.27|2860|30'] ?? null;
+    $single = $byId['AXW/ATEX|AXW/ATEX 35-4M-0.18|2860|15'] ?? null;
+    if (!isset($byId[$newId]) && $duct && $wall && $single &&
+        $duct['performance']['sourcePoints'] === $wall['performance']['sourcePoints'] &&
+        $duct['performance']['sourcePoints'] === $single['performance']['sourcePoints']) {
+        $derived = $duct;
+        $derived['id'] = $newId;
+        $derived['model'] = 'AXD 35-4M-0.18';
+        $catalog['models'][] = $derived;
+        $timestamp = max($timestamp, filemtime($axdExtension) ?: 0);
+    }
+}
 $seriesById = [];
 foreach ($catalog['series'] as $series) {
     $seriesById[$series['id']] = $series;
