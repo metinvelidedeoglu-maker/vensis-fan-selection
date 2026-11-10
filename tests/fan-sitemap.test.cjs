@@ -51,3 +51,9 @@ test('runtime-derived AXW model is included in the localized sitemap routes',()=
   const slug=catalog.modelSlug(model),xml=execFileSync('php',['sitemap-fans.php'],{cwd:path.join(__dirname,'..'),encoding:'utf8'});
   for(const lang of ['tr','en'])assert.ok(xml.includes('<loc>https://select.vensis.com.tr/'+lang+'/fan/vitlo/axw/'+slug+'/</loc>'),lang+' derived AXW route missing');
 });
+
+test('AXD 35-4M route is present in both localized sitemaps',()=>{
+  const {execFileSync}=require('node:child_process');
+  const xml=execFileSync('php',['sitemap-fans.php'],{cwd:path.join(__dirname,'..'),encoding:'utf8'});
+  for(const lang of ['tr','en'])assert.ok(xml.includes('<loc>https://select.vensis.com.tr/'+lang+'/fan/vitlo/axd/axd-35-4m-0-18/</loc>'));
+});

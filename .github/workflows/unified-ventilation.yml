@@ -6,6 +6,9 @@ on:
     paths:
       - 'data/ventilation-catalog.js'
       - 'data/ventilation-axw-35-2t-addition.js'
+      - 'data/ventilation-axd-35-4m-addition.js'
+      - 'api/agent/catalog-axd-35-4m-addition.php'
+      - 'tests/axd-35-4m.test.cjs'
       - 'data/ventilation-vitlo-axf-f300-codes.js'
       - 'api/agent/catalog-vitlo-axf-f300-codes.php'
       - 'tests/vitlo-axf-product-code.test.cjs'
@@ -43,6 +46,8 @@ jobs:
           node-version: '22'
       - name: Shared registry, routes, data and compatibility checks
         run: node --test tests/english-output.test.cjs tests/sp-dimensions.test.cjs tests/unified-ventilation.test.cjs tests/ventilation-routes.test.cjs tests/clean-fan-slugs.test.cjs tests/fan-sitemap.test.cjs tests/quotation-silent-print.test.cjs tests/vitlo-axf-product-code.test.cjs tests/vortice-brand-casing.test.cjs tests/private-seo-boundary.test.cjs tests/internal-pages-noindex.test.cjs tests/axw-atex-4m.test.cjs tests/sp-silent-series.test.cjs tests/crvb-crvt-catalogue.test.cjs tests/ctvb-ctvt-catalogue.test.cjs tests/hct-il-catalogue.test.cjs tests/vitlo-model-code.test.cjs tests/vitlo-operating-conditions.test.cjs tests/vortice-catalogue-details.test.cjs tests/confirmed-single-phase.test.cjs tests/sp-four-catalogue-details.test.cjs tests/catalogue-content.test.cjs tests/sp-td-th-details.test.cjs tests/sp-design-details.test.cjs tests/sp-duct-details.test.cjs tests/sp-bath-details.test.cjs tests/sp-bath-curves.test.cjs
+      - name: AXD single-phase addition and product identity
+        run: node --test tests/axd-35-4m.test.cjs
       - name: Accessory descriptions and project persistence
         run: node --test tests/accessories.test.cjs tests/accessories-return.test.cjs tests/accessory-code-removal.test.cjs tests/accessory-descriptions.test.cjs tests/linked-accessory-order.test.cjs
       - name: Project-specific custom product persistence
@@ -66,6 +71,10 @@ jobs:
           php -S 127.0.0.1:8123 tests/ventilation-router.php > /tmp/ventilation-server.log 2>&1 &
       - name: Browser dependencies
         run: npm install --no-save --package-lock=false playwright@1.62.1
+      - name: AXD catalogue to project and quotation flow
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node tests/axd-35-4m-browser.mjs
       - name: Chromium integration and print verification
         env:
           CHROME_PATH: /usr/bin/google-chrome
