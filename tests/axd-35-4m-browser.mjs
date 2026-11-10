@@ -43,7 +43,7 @@ try{
   await page.locator('#projectContent tbody tr').first().waitFor();
   const items=await page.evaluate(id=>window.VensisProjects.readItems(id),project);
   assert.equal(items.length,1);assert.equal(items[0].productKey,id);assert.equal(items[0].price,600);
-  assert.equal(items[0].voltage,'230V');assert.equal(items[0].hazardousArea,null);
+  assert.equal(items[0].voltage,'230V');assert.equal(items[0].hazardousArea??null,null);
   const pending=context.waitForEvent('page');await page.locator('#convertQuotation').click();
   const quote=await pending;await quote.locator('#quotationContent .quote-page').first().waitFor();
   const body=await quote.locator('#quotationContent').innerText();
