@@ -79,7 +79,8 @@ spec=importlib.util.spec_from_file_location('duct',Path('scripts/import-sp-duct-
 d=json.loads(Path('data/ventilation-catalog.js').read_text().split('window.VensisVentilationData=',1)[1].strip().removesuffix(';'));a=json.loads(Path(mod.EVIDENCE).read_text())
 assert len(d['models'])==1022 and len(d['series'])==89
 # Check the immutable historical hash before the separately audited curve repair.
-prior=copy.deepcopy(d)
+import runpy
+prior=runpy.run_path('tests/helpers/before-cr-atex-pricing.py')['before_cr_atex_pricing'](d)
 for c in reversed(json.loads(Path('assets/products/soler-palau/bath-verified-curves.json').read_text())['preservation']['modelChanges']):
  obj=next(m for m in prior['models'] if m['id']==c['id'])
  for k in c['path'][:-1]:obj=obj[k]

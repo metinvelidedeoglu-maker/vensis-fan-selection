@@ -1,0 +1,837 @@
+{
+  "date": "2026-11-12",
+  "previousCommit": "8348deaf156c4fa1e721c8afa2866ccff47671d7",
+  "changes": [
+    {
+      "scope": "models",
+      "id": "CRD/ATEX|CRD/ATEX 31-4T|2400|21",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 1752,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 1752,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 31-4T|2400|22",
+          "basisPriceEur": 1752,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "CRD/ATEX|CRD/ATEX 35-4T|3600|21",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 1929.6,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 1929.6,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 35-4T|3600|22",
+          "basisPriceEur": 1929.6,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "CRD/ATEX|CRD/ATEX 40-4T|5000|21",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 2110.4,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 2110.4,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 40-4T|5000|22",
+          "basisPriceEur": 2110.4,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "CRD/ATEX|CRD/ATEX 45-4T|7800|21",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 2467.2,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 2467.2,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 45-4T|7800|22",
+          "basisPriceEur": 2467.2,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "CRD/ATEX|CRD/ATEX 50-4T|10600|21",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 3038.4,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 3038.4,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 50-4T|10600|22",
+          "basisPriceEur": 3038.4,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "CRD/ATEX|CRD/ATEX 56-4T|13000|21",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 3500.8,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 3500.8,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 56-4T|13000|22",
+          "basisPriceEur": 3500.8,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "CRD/ATEX|CRD/ATEX 63-4T|18000|21",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 5124.8,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 5124.8,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 63-4T|18000|22",
+          "basisPriceEur": 5124.8,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "CRD/ATEX|CRD/ATEX 71-4T|26000|21",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 6902.4,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 6902.4,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 71-4T|26000|22",
+          "basisPriceEur": 6902.4,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 31-4T",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 2502,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 31-4T|2400|22",
+          "basisPriceEur": 1752,
+          "cellSurchargeEur": 750,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 35-4T",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 2760,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 2704.6,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 35-4T|3600|22",
+          "basisPriceEur": 1929.6,
+          "cellSurchargeEur": 775,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 40-4T",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 2960,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 2910.4,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 40-4T|5000|22",
+          "basisPriceEur": 2110.4,
+          "cellSurchargeEur": 800,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 45-4T",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 3367.2,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 45-4T|7800|22",
+          "basisPriceEur": 2467.2,
+          "cellSurchargeEur": 900,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 50-4T",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 4038.4,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 50-4T|10600|22",
+          "basisPriceEur": 3038.4,
+          "cellSurchargeEur": 1000,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 56-4T",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 4650.8,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 56-4T|13000|22",
+          "basisPriceEur": 3500.8,
+          "cellSurchargeEur": 1150,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 63-4T",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 6474.8,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 63-4T|18000|22",
+          "basisPriceEur": 5124.8,
+          "cellSurchargeEur": 1350,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 71-4T",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 8000,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 8402.4,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "CRS/ATEX|CRS/ATEX 71-4T|26000|22",
+          "basisPriceEur": 6902.4,
+          "cellSurchargeEur": 1500,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 40-2T-5.5",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 5100,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 40-2T-5.5",
+          "basisPriceEur": 4300,
+          "cellSurchargeEur": 800,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 40-2T-5.5",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 4300,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 40-2T-5.5",
+          "basisPriceEur": 4300,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 45-2T-10",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 6620,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 45-2T-10",
+          "basisPriceEur": 5720,
+          "cellSurchargeEur": 900,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 45-2T-10",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 5720,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 45-2T-10",
+          "basisPriceEur": 5720,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 50-2T-15",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 7720,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 50-2T-15",
+          "basisPriceEur": 6720,
+          "cellSurchargeEur": 1000,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 50-2T-15",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 6720,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 50-2T-15",
+          "basisPriceEur": 6720,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 56-2T-20",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 9870,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 56-2T-20",
+          "basisPriceEur": 8720,
+          "cellSurchargeEur": 1150,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 56-2T-20",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 8720,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 56-2T-20",
+          "basisPriceEur": 8720,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 80-4T-25",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": 12700,
+        "currency": "EUR"
+      },
+      "value": {
+        "listPrice": 12700,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 80-4T-25",
+          "basisPriceEur": 10700,
+          "cellSurchargeEur": 2000,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 80-4T-25",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 10700,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 80-4T-25",
+          "basisPriceEur": 10700,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 31-2T-2",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 3050,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 31-2T-2",
+          "basisPriceEur": 2300,
+          "cellSurchargeEur": 750,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 31-2T-2",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 2300,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 31-2T-2",
+          "basisPriceEur": 2300,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRK/ATEX|CRK/ATEX 63-2T-40",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 18350,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 63-2T-40",
+          "basisPriceEur": 17000,
+          "cellSurchargeEur": 1350,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "models",
+      "id": "MATRIX-CRD/ATEX|CRD/ATEX 63-2T-40",
+      "path": [
+        "pricing"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "listPrice": null,
+        "currency": "EUR",
+        "catalogue": "",
+        "sourcePage": null
+      },
+      "value": {
+        "listPrice": 17000,
+        "currency": "EUR",
+        "catalogue": "Vensis approved CR ATEX pricing 2026-11-12",
+        "sourcePage": null,
+        "rule": {
+          "approvedAt": "2026-11-12",
+          "basisModelId": "VITLO-CRS-ATEX|CRS/ATEX 63-2T-40",
+          "basisPriceEur": 17000,
+          "cellSurchargeEur": 0,
+          "stainlessExcluded": true
+        }
+      }
+    },
+    {
+      "scope": "series",
+      "id": "CRK/ATEX",
+      "path": [
+        "description"
+      ],
+      "previousPresent": true,
+      "previous": {
+        "general": [
+          "CRK/ATEX is represented as the explosion-proof cell-type variant of the CR centrifugal family.",
+          "Motor and performance data are inherited only from equivalent CR-family motor profiles.",
+          "Exact ATEX marking, construction-specific dimensions and price must be confirmed separately."
+        ],
+        "motor": [],
+        "applications": [
+          "Explosive area ventilation",
+          "Industrial warehouse ventilation",
+          "Industrial kitchen hood exhaust systems",
+          "Petrochemical plants"
+        ]
+      },
+      "value": {
+        "general": [
+          "CRK/ATEX is represented as the explosion-proof cell-type variant of the CR centrifugal family.",
+          "Motor and performance data are inherited only from equivalent CR-family motor profiles.",
+          "Exact ATEX marking and construction-specific dimensions must be confirmed separately."
+        ],
+        "motor": [],
+        "applications": [
+          "Explosive area ventilation",
+          "Industrial warehouse ventilation",
+          "Industrial kitchen hood exhaust systems",
+          "Petrochemical plants"
+        ]
+      }
+    },
+    {
+      "scope": "contentTranslations",
+      "path": [
+        "Exact ATEX marking and construction-specific dimensions must be confirmed separately."
+      ],
+      "previousPresent": false,
+      "previous": null,
+      "value": "Kesin ATEX işaretlemesi ve gövde tipine özgü ölçüler ayrıca doğrulanmalıdır."
+    }
+  ]
+}

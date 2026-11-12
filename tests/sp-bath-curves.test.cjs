@@ -83,7 +83,9 @@ for family,g in a['graphs'].items():
    p=tuple(sum(((1-t)**3,3*(1-t)**2*t,3*(1-t)*t*t,t**3)[j]*pts[j][k] for j in range(4)) for k in (0,1)) if kind=='c' else pts[i]
    if p[1]>g['baseline']:continue
    assert min(segment_distance(p,x,y) for x,y in zip(poly,poly[1:]))<.012,(family,p)
-assert mod.digest(mod.protected(d))==a['preservation']['protectedDataSha256']
+import runpy
+prior=runpy.run_path('tests/helpers/before-cr-atex-pricing.py')['before_cr_atex_pricing'](d)
+assert mod.digest(mod.protected(prior))==a['preservation']['protectedDataSha256']
 original=copy.deepcopy(d)
 for c in reversed(a['preservation']['modelChanges']):
  obj=next(m for m in d['models'] if m['id']==c['id'])

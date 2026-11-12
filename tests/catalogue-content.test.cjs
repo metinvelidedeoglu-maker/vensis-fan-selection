@@ -15,6 +15,15 @@ const hash=v=>crypto.createHash('sha256').update(JSON.stringify(stable(v))).dige
 // separately audited source completions before checking that historical snapshot.
 function beforeLaterCompletions(){
   const result=JSON.parse(JSON.stringify(data));
+  const prices=JSON.parse(read('tests/fixtures/cr-atex-pricing-20261112.json'));
+  for(const change of [...prices.changes].reverse()){
+    let obj=result[change.scope];
+    if(change.id)obj=obj.find(item=>item.id===change.id);
+    for(const key of change.path.slice(0,-1))obj=obj[key];
+    const key=change.path.at(-1);
+    assert.deepEqual(obj[key],change.value,'approved CR ATEX change '+(change.id||key));
+    if(change.previousPresent)obj[key]=change.previous;else delete obj[key];
+  }
   for(const file of ['bath-verified-curves.json','bath-catalogue-details.json','duct-catalogue-details.json','design-catalogue-details.json','td-th-catalogue-details.json']){
    const later=JSON.parse(read('assets/products/soler-palau/'+file));
    for(const change of [...later.preservation.modelChanges].reverse()){
