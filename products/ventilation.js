@@ -5,6 +5,26 @@
   const text=value=>String(value??'').trim();
   const slug=value=>text(value).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
   const number=value=>value==null||value===''?null:(Number.isFinite(Number(value))?Number(value):null);
+  // CR casing dimensions depend on the series and body size, not 2T/4T motor poles.
+  // Keep ATEX and non-ATEX constructions separate; never infer across CR(S/D/K).
+  const crDimensionSeries=new Set(['CRS','CRD','CRK','CRS/ATEX','CRD/ATEX','CRK/ATEX']);
+  const hasDimensionValues=values=>values&&typeof values==='object'&&
+    Object.values(values).some(value=>(typeof value==='number'&&Number.isFinite(value))||
+      (typeof value==='string'&&value.trim()!==''));
+  const crCaseKey=row=>{
+    if(!crDimensionSeries.has(row?.seriesId))return '';
+    const match=text(row?.model).match(/(?:^|\\s)(\\d+)-([24])T(?=-|\\s|$)/i);
+    return match?`${row.seriesId}|${Number(match[1])}`:'';
+  };
+  const crDimensionSources=new Map();
+  for(const row of data.models||[]){
+    const key=crCaseKey(row);
+    const dimensions=row?.dimensions;
+    if(!key||!hasDimensionValues(dimensions?.values))continue;
+    // Prefer original 4T catalogue tables; preserved model-specific values remain untouched.
+    if(!crDimensionSources.has(key)||/(?:^|\\s)\\d+-4T(?=-|\\s|$)/i.test(text(row.model)))
+      crDimensionSources.set(key,dimensions);
+  }
   const seriesMap=new Map(),modelMap=new Map();
   const brands=(data.brands||[]).map(b=>({...b}));
   const description=value=>({general:[...(value?.general||[])],motor:[...(value?.motor||[])],applications:[...(value?.applications||[])]});
@@ -20,6 +40,13 @@
     const series=seriesMap.get(source.seriesId);
     if(!series)throw new Error('Unknown ventilation series: '+source.seriesId);
     const model={...source,motor:{...source.motor},technical:{...source.technical},performance:{...source.performance},media:{...source.media},pricing:{...source.pricing}};
+    const caseDimensions=crDimensionSources.get(crCaseKey(model));
+    if(!hasDimensionValues(model.dimensions?.values)&&hasDimensionValues(caseDimensions?.values)){
+      model.dimensions={...caseDimensions,headers:[...caseDimensions.headers],values:{...caseDimensions.values}};
+    }
+    if(!hasDimensionValues(model.technical.dimensions)&&hasDimensionValues(model.dimensions?.values)){
+      model.technical.dimensions={...model.dimensions.values};
+    }
     model.standard={altModel:model.model,motorPower:number(model.motor.power),speed:number(model.motor.speed),voltage:text(model.motor.voltage),maxAirflow:number(model.performance.maxAirflow??model.performance.nominalAirflow),sound:number(model.motor.sound),price:number(model.pricing.listPrice)};
     modelMap.set(model.id,model);series.modelIds.push(model.id);series.submodels.push(model.model);
   }
