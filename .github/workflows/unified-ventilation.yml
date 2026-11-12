@@ -10,6 +10,7 @@ on:
       - 'api/agent/catalog-axd-35-4m-addition.php'
       - 'tests/axd-35-4m.test.cjs'
       - 'tests/cr-atex-pricing.test.cjs'
+      - 'tests/cr-pole-dimensions.test.cjs'
       - 'tests/fixtures/cr-atex-pricing-20261112.json'
       - 'tests/helpers/before-cr-atex-pricing.py'
       - 'tests/catalogue-content.test.cjs'
@@ -57,6 +58,8 @@ jobs:
         run: node --test tests/axd-35-4m.test.cjs
       - name: CR ATEX approved prices and technical identity
         run: node --test tests/cr-atex-pricing.test.cjs
+      - name: CR 2T/4T casing dimensions, provenance and unknowns
+        run: node --test tests/cr-pole-dimensions.test.cjs
       - name: Accessory descriptions and project persistence
         run: node --test tests/accessories.test.cjs tests/accessories-return.test.cjs tests/accessory-code-removal.test.cjs tests/accessory-descriptions.test.cjs tests/linked-accessory-order.test.cjs
       - name: Project-specific custom product persistence
@@ -71,7 +74,7 @@ jobs:
           if git diff --quiet -- api/agent/catalog-v1.json; then
             echo 'Compiled agent snapshot matches the committed source.'
           else
-            node tests/axw-derived-agent-snapshot.mjs
+            node tests/cr-agent-snapshot-equivalence.mjs
           fi
       - name: PHP syntax and server
         run: |
