@@ -5,8 +5,8 @@
   const text=value=>String(value??'').trim();
   const slug=value=>text(value).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
   const number=value=>value==null||value===''?null:(Number.isFinite(Number(value))?Number(value):null);
-  // CR casing dimensions depend on the series and body size, not 2T/4T motor poles.
-  // Keep ATEX and non-ATEX constructions separate; never infer across CR(S/D/K).
+  // Metin confirmed on 2026-11-12: casing size is identical between 2T/4T
+  // and standard/ATEX within each CRS, CRD or CRK family. No cross-family copy.
   const crDimensionSeries=new Set(['CRS','CRD','CRK','CRS/ATEX','CRD/ATEX','CRK/ATEX']);
   const hasDimensionValues=values=>values&&typeof values==='object'&&
     Object.keys(values).length>=3&&Object.values(values).every(value=>
@@ -15,16 +15,26 @@
   const crCaseKey=row=>{
     if(!crDimensionSeries.has(row?.seriesId)||/\b(?:STAINLESS|PASLANMAZ)\b/i.test(text(row?.model)))return '';
     const match=text(row?.model).match(/(?:^|\s)(\d+)-([24])T(?=-|\s|$)/i);
-    return match?`${row.seriesId}|${Number(match[1])}`:'';
+    return match?`${row.seriesId.replace(/\/ATEX$/,'')}|${Number(match[1])}`:'';
   };
-  const crDimensionSources=new Map();
+  const crSourceGroups=new Map();
   for(const row of data.models||[]){
     const key=crCaseKey(row);
-    const dimensions=row?.dimensions;
-    if(!key||!hasDimensionValues(dimensions?.values))continue;
-    // Prefer original 4T catalogue tables; preserved model-specific values remain untouched.
-    if(!crDimensionSources.has(key)||/(?:^|\s)\d+-4T(?=-|\s|$)/i.test(text(row.model)))
-      crDimensionSources.set(key,dimensions);
+    if(!key||!hasDimensionValues(row?.dimensions?.values))continue;
+    if(!crSourceGroups.has(key))crSourceGroups.set(key,[]);
+    crSourceGroups.get(key).push(row);
+  }
+  const crDimensionSources=new Map();
+  const dimensionSignature=row=>JSON.stringify(
+    Object.entries(row.dimensions.values).sort(([a],[b])=>a.localeCompare(b)));
+  for(const [key,rows] of crSourceGroups){
+    // An inconsistency among published body values must not be guessed away.
+    if(new Set(rows.map(dimensionSignature)).size!==1)continue;
+    rows.sort((a,b)=>{
+      const rank=row=>(row.seriesId.endsWith('/ATEX')?0:2)+(/(?:^|\s)\d+-4T(?=-|\s|$)/i.test(row.model)?1:0);
+      return rank(b)-rank(a);
+    });
+    crDimensionSources.set(key,rows[0]);
   }
   const seriesMap=new Map(),modelMap=new Map();
   const brands=(data.brands||[]).map(b=>({...b}));
@@ -41,9 +51,21 @@
     const series=seriesMap.get(source.seriesId);
     if(!series)throw new Error('Unknown ventilation series: '+source.seriesId);
     const model={...source,motor:{...source.motor},technical:{...source.technical},performance:{...source.performance},media:{...source.media},pricing:{...source.pricing}};
-    const caseDimensions=crDimensionSources.get(crCaseKey(model));
+    const caseSource=crDimensionSources.get(crCaseKey(model));
+    const caseDimensions=caseSource?.dimensions;
     if(!hasDimensionValues(model.dimensions?.values)&&hasDimensionValues(caseDimensions?.values)){
-      model.dimensions={...caseDimensions,headers:[...(caseDimensions.headers||Object.keys(caseDimensions.values))],values:{...caseDimensions.values}};
+      model.dimensions={
+        ...caseDimensions,series:model.seriesId,
+        headers:[...(caseDimensions.headers||Object.keys(caseDimensions.values))],
+        values:{...caseDimensions.values},
+        inheritedFromModel:caseSource.model,
+        sourceNote:[caseDimensions.sourceNote,
+          'Same CRS/CRD/CRK family and casing size: 2T, 4T, standard and ATEX dimensions shared as confirmed by Metin (2026-11-12). Original dimensions source: '+caseSource.model]
+          .filter(Boolean).join(' | ')
+      };
+      // The same body drawing is valid for the shared casing.
+      if(!model.media.dimensionImage&&caseSource.media?.dimensionImage)
+        model.media.dimensionImage=caseSource.media.dimensionImage;
     }
     if(crCaseKey(model)&&!hasDimensionValues(model.technical.dimensions)&&hasDimensionValues(model.dimensions?.values)){
       model.technical.dimensions={...model.dimensions.values};
