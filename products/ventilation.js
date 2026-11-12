@@ -9,10 +9,11 @@
   // Keep ATEX and non-ATEX constructions separate; never infer across CR(S/D/K).
   const crDimensionSeries=new Set(['CRS','CRD','CRK','CRS/ATEX','CRD/ATEX','CRK/ATEX']);
   const hasDimensionValues=values=>values&&typeof values==='object'&&
-    Object.values(values).some(value=>(typeof value==='number'&&Number.isFinite(value))||
+    Object.keys(values).length>=3&&Object.values(values).every(value=>
+      (typeof value==='number'&&Number.isFinite(value))||
       (typeof value==='string'&&value.trim()!==''));
   const crCaseKey=row=>{
-    if(!crDimensionSeries.has(row?.seriesId))return '';
+    if(!crDimensionSeries.has(row?.seriesId)||/\b(?:STAINLESS|PASLANMAZ)\b/i.test(text(row?.model)))return '';
     const match=text(row?.model).match(/(?:^|\s)(\d+)-([24])T(?=-|\s|$)/i);
     return match?`${row.seriesId}|${Number(match[1])}`:'';
   };
@@ -42,9 +43,9 @@
     const model={...source,motor:{...source.motor},technical:{...source.technical},performance:{...source.performance},media:{...source.media},pricing:{...source.pricing}};
     const caseDimensions=crDimensionSources.get(crCaseKey(model));
     if(!hasDimensionValues(model.dimensions?.values)&&hasDimensionValues(caseDimensions?.values)){
-      model.dimensions={...caseDimensions,headers:[...caseDimensions.headers],values:{...caseDimensions.values}};
+      model.dimensions={...caseDimensions,headers:[...(caseDimensions.headers||Object.keys(caseDimensions.values))],values:{...caseDimensions.values}};
     }
-    if(!hasDimensionValues(model.technical.dimensions)&&hasDimensionValues(model.dimensions?.values)){
+    if(crCaseKey(model)&&!hasDimensionValues(model.technical.dimensions)&&hasDimensionValues(model.dimensions?.values)){
       model.technical.dimensions={...model.dimensions.values};
     }
     model.standard={altModel:model.model,motorPower:number(model.motor.power),speed:number(model.motor.speed),voltage:text(model.motor.voltage),maxAirflow:number(model.performance.maxAirflow??model.performance.nominalAirflow),sound:number(model.motor.sound),price:number(model.pricing.listPrice)};
