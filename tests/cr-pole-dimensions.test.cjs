@@ -25,6 +25,10 @@ test('verified CR casing measurements backfill 59 empty technical dimension fiel
   let filled=0,unsupported=0;
   for(const original of source.models.filter(model=>series.has(model.seriesId))){
     const current=catalog.getModel(original.id);
+    if(/\b(?:STAINLESS|PASLANMAZ)\b/i.test(original.model)){
+      assert.deepEqual(plain(current.technical.dimensions),plain(original.technical.dimensions),'stainless variants stay unchanged');
+      continue;
+    }
     const existing=original.technical.dimensions||{};
     const verified=original.dimensions?.values||{};
     if(!Object.keys(existing).length&&Object.keys(verified).length){
@@ -40,7 +44,7 @@ test('verified CR casing measurements backfill 59 empty technical dimension fiel
     assert.equal(current.id,original.id);
     assert.equal(current.pricing.listPrice,original.pricing.listPrice);
   }
-  assert.equal(filled,59);
+  assert.equal(filled,58);
   assert.equal(unsupported,18);
 });
 
@@ -107,4 +111,21 @@ test('previously supplied CRS 2T technical values are not silently overwritten',
   assert.equal(m40.dimensions.values.C,590);
   assert.equal(m56.technical.dimensions.C,870);
   assert.equal(m56.dimensions.values.C,795);
+});
+
+test('the 2T/4T rule never changes unrelated series or stainless constructions',()=>{
+  const {catalog}=load(source=>{
+    const stainless=source.models.find(m=>m.model==='CRS/ATEX 45-4T STAINLESS STEEL 316');
+    assert.ok(stainless);
+    stainless.dimensions=null;
+    stainless.technical.dimensions={};
+    const axial=source.models.find(m=>m.seriesId==='AXF');
+    assert.ok(axial);
+    axial.technical.dimensions={};
+  });
+  const stainless=catalog.models.find(m=>m.model==='CRS/ATEX 45-4T STAINLESS STEEL 316');
+  assert.equal(stainless.dimensions,null);
+  assert.deepEqual(plain(stainless.technical.dimensions),{});
+  const axial=catalog.models.find(m=>m.seriesId==='AXF');
+  assert.deepEqual(plain(axial.technical.dimensions),{});
 });
