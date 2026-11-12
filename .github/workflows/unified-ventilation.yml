@@ -74,7 +74,7 @@ jobs:
           if git diff --quiet -- api/agent/catalog-v1.json; then
             echo 'Compiled agent snapshot matches the committed source.'
           else
-            node tests/axw-derived-agent-snapshot.mjs
+            node tests/cr-agent-snapshot-equivalence.mjs
           fi
       - name: PHP syntax and server
         run: |
