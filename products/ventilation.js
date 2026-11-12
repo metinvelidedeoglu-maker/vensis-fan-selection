@@ -13,7 +13,7 @@
       (typeof value==='string'&&value.trim()!==''));
   const crCaseKey=row=>{
     if(!crDimensionSeries.has(row?.seriesId))return '';
-    const match=text(row?.model).match(/(?:^|\\s)(\\d+)-([24])T(?=-|\\s|$)/i);
+    const match=text(row?.model).match(/(?:^|\s)(\d+)-([24])T(?=-|\s|$)/i);
     return match?`${row.seriesId}|${Number(match[1])}`:'';
   };
   const crDimensionSources=new Map();
@@ -22,7 +22,7 @@
     const dimensions=row?.dimensions;
     if(!key||!hasDimensionValues(dimensions?.values))continue;
     // Prefer original 4T catalogue tables; preserved model-specific values remain untouched.
-    if(!crDimensionSources.has(key)||/(?:^|\\s)\\d+-4T(?=-|\\s|$)/i.test(text(row.model)))
+    if(!crDimensionSources.has(key)||/(?:^|\s)\d+-4T(?=-|\s|$)/i.test(text(row.model)))
       crDimensionSources.set(key,dimensions);
   }
   const seriesMap=new Map(),modelMap=new Map();
