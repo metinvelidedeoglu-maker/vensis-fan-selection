@@ -103,6 +103,26 @@ if (is_file($axdExtension)) {
         $timestamp = max($timestamp, filemtime($axdExtension) ?: 0);
     }
 }
+// Read the same RXJ payload used by the shared browser loader.
+$rxjExtension = __DIR__ . '/data/ventilation-rxj-addition.js';
+if (is_file($rxjExtension)) {
+    $rxjSource = file_get_contents($rxjExtension);
+    if (preg_match('/window\\.VensisRXJCatalogAddition=(.*?);\\s*\\(function\\(/s', $rxjSource, $match)) {
+        $addition = json_decode($match[1], true);
+        if (is_array($addition)) {
+            foreach (['series', 'models'] as $kind) {
+                $known = array_column($catalog[$kind], null, 'id');
+                foreach ($addition[$kind] ?? [] as $row) {
+                    if (!isset($known[$row['id']])) {
+                        $catalog[$kind][] = $row;
+                        $known[$row['id']] = $row;
+                    }
+                }
+            }
+            $timestamp = max($timestamp, filemtime($rxjExtension) ?: 0);
+        }
+    }
+}
 $seriesById = [];
 foreach ($catalog['series'] as $series) {
     $seriesById[$series['id']] = $series;
