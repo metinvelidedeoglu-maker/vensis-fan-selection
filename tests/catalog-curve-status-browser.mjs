@@ -30,7 +30,8 @@ try{
       const p=m.performance||{};return !p.points?.length&&!p.sourcePoints?.length&&!p.curves?.some(c=>c.sourcePoints?.length);
     })).map(s=>({id:s.id,count:C.modelsForSeries(s.id).length}));
   });
-  assert.equal(affected.length,8);
+  assert.equal(affected.filter(series=>series.id!=='RXJ').length,8);
+  assert.deepEqual(affected.find(series=>series.id==='RXJ'),{id:'RXJ',count:2});
   let total=0;
   for(const series of affected){
     await page.goto(base+'/catalog.html?series='+encodeURIComponent(series.id));
@@ -46,7 +47,7 @@ try{
       const clipped=await badges.evaluateAll(nodes=>nodes.some(n=>n.scrollWidth>n.clientWidth+1));
       assert.equal(clipped,false,series.id+' clipped status');
     }
-    if(series.id==='AXJ')await page.screenshot({path:out+'/axj-mobile-tr.png',fullPage:true});
+    if(['AXJ','RXJ'].includes(series.id))await page.screenshot({path:out+'/'+series.id.toLowerCase()+'-mobile-tr.png',fullPage:true});
     await page.getByRole('button',{name:'English',exact:true}).click();
     await page.waitForFunction(()=>[...document.querySelectorAll('[data-selection-status="missing-curve"]')].every(n=>n.textContent==='Curve data missing · unavailable for fan selection'));
     await page.getByRole('button',{name:'Türkçe',exact:true}).click();
@@ -54,7 +55,7 @@ try{
     total+=series.count;
     await page.setViewportSize({width:1440,height:1000});
   }
-  assert.equal(total,49);
+  assert.equal(total,51);
   for(const series of ['AXF','HCTB / HCTT','ILB / ILT']){
     await page.goto(base+'/catalog.html?series='+encodeURIComponent(series));
     await page.waitForSelector('.model-card .vensis-preview-classic');
@@ -63,5 +64,5 @@ try{
     assert.ok(await page.locator('[data-selection-status="ready"]').count()>0,series);
   }
   assert.deepEqual(errors,[]);
-  console.log('PASS: all 49 missing-curve badges across 8 series, TR/EN switching, 12 fields, mobile and ready-series regression.');
+  console.log('PASS: all 51 missing-curve badges across 9 series, including both RXJ variants, TR/EN switching, 12 fields, mobile and ready-series regression.');
 }finally{await browser.close();}

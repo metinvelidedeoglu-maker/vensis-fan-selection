@@ -16,7 +16,8 @@ try{
   const derivedModelId='AXW|AXW 35-2T-0.37|4000|30';
   await page.waitForFunction(id=>window.VensisCatalog?.models.some(model=>model.id===id),derivedModelId);
   const expectedModelCount=await page.evaluate(()=>window.VensisCatalog.models.length);
-  assert.equal(await page.locator('.series-card').count(),89);
+  assert.equal(await page.locator('.series-card').count(),await page.evaluate(()=>window.VensisCatalog.series.length));
+  assert.equal(await page.evaluate(()=>window.VensisCatalog.modelsForSeries('RXJ').length),2);
   async function assertSeriesOrder(){
     const labels=await page.locator('.series-card h2').allTextContents();
     assert.deepEqual(labels,[...labels].sort(new Intl.Collator('tr',{sensitivity:'base',numeric:true}).compare));
@@ -76,7 +77,7 @@ try{
   await page.locator('#catalogManufacturers input[value="Vitlo"]').check();
   await page.reload();
   assert.equal(await page.locator('#catalogManufacturers input:checked').count(),2);
-  assert.equal(await page.locator('.series-card').count(),59);
+  assert.equal(await page.locator('.series-card').count(),await page.evaluate(()=>window.VensisCatalog.series.filter(s=>['Vitlo','VORTICE'].includes(s.manufacturer)).length));
   await page.goto(base+'/catalog-vortice.html?series=CA%20MD%20EXTRA%20EU&project=regression-project');
   await page.waitForSelector('.model-card');
   assert.equal(new URL(page.url()).searchParams.get('project'),'regression-project');
